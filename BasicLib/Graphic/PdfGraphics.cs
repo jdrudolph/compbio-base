@@ -8,15 +8,15 @@ using iTextSharp.text.pdf;
 
 namespace BasicLib.Graphic{
 	public class PdfGraphics : IGraphics{
-		protected float Width;
-		protected float Height;
-		protected readonly float originalWidth;
-		protected readonly float originalHeight;
-		protected Document document;
-		protected PdfWriter writer;
-		protected PdfContentByte content;
-		protected PdfTemplate topTemplate;
-		protected PdfTemplate template;
+		private float Width;
+		private float Height;
+		private readonly float originalWidth;
+		private readonly float originalHeight;
+		private readonly Document document;
+		private readonly PdfWriter writer;
+		private readonly PdfContentByte content;
+		private PdfTemplate topTemplate;
+		private PdfTemplate template;
 
 		public PdfGraphics(string filename, int width, int height){
 			originalWidth = Width = width;
@@ -36,8 +36,12 @@ namespace BasicLib.Graphic{
 		}
 
 		public void Dispose(){
-			document.Close();
-			writer.Close();
+			if (document != null){
+				document.Dispose();
+			}
+			if (writer != null){
+				writer.Dispose();
+			}
 		}
 
 		/// <summary>
@@ -127,7 +131,18 @@ namespace BasicLib.Graphic{
 		}
 
 		public void DrawLines(Pen pen, Point[] points){
-			//TODO
+			SetPen(pen);
+			for (int index = 0; index < points.Length; index++) {
+				PointF point = points[index];
+				if (index == 0) {
+					template.MoveTo(point.X, Height - point.Y);
+				} else {
+					template.LineTo(point.X, Height - point.Y);
+					template.Stroke();
+					template.MoveTo(point.X, Height - point.Y);
+				}
+			}
+			template.Stroke();
 		}
 
 		public void DrawEllipse(Pen pen, int x, int y, int width, int height){
@@ -290,7 +305,8 @@ namespace BasicLib.Graphic{
 		}
 
 		public void Close(){
-			
+			document.Close();
+			writer.Close();
 		}
 
 		public SizeF MeasureString(string text, System.Drawing.Font font, int width, StringFormat format){

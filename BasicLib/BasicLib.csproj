@@ -197,7 +197,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Select\ListSelector.Designer.cs" />
-    <Compile Include="Forms\Base\MouseInput.cs" />
     <Compile Include="Forms\Select\MultiFileParameterPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -9,7 +9,7 @@ using BasicLib.Num;
 using BasicLib.Symbol;
 
 namespace BasicLib.Forms.Scatter{
-	public partial class ScatterPlot : UserControl, IPaintable{
+	public partial class ScatterPlot : UserControl{
 		private ScatterPlotData scatterPlotData;
 		private Action<int> labelTypeChange;
 
@@ -208,16 +208,16 @@ namespace BasicLib.Forms.Scatter{
 			Invalidate(true);
 		}
 
-		public void DoPaint2(IGraphics g, Control container, int addx, int addy){
-			foreach (Control c in PlaneViewer.GetTableLayoutPanel().Controls){
-				if (c is BasicControl){
-					System.Diagnostics.Debug.WriteLine("- BasicControl");
-					g.SetClippingMask(c.Width, c.Height, container.Location.X + Location.X + c.Location.X,
-						container.Location.Y + Location.Y + c.Location.Y);
-					((BasicControl) c).view.OnPaintBackground(g, c.Width, c.Height);
-					((BasicControl) c).view.OnPaint(g, c.Width, c.Height);
-				}
-			}
-		}
+		//public void DoPaint2(IGraphics g, Control container, int addx, int addy){
+		//	foreach (Control c in PlaneViewer.GetTableLayoutPanel().Controls){
+		//		if (c is BasicControl){
+		//			System.Diagnostics.Debug.WriteLine("- BasicControl");
+		//			g.SetClippingMask(c.Width, c.Height, container.Location.X + Location.X + c.Location.X,
+		//				container.Location.Y + Location.Y + c.Location.Y);
+		//			((BasicControl) c).view.OnPaintBackground(g, c.Width, c.Height);
+		//			((BasicControl) c).view.OnPaint(g, c.Width, c.Height);
+		//		}
+		//	}
+		//}
 	}
 }
