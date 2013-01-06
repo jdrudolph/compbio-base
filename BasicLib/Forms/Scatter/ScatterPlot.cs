@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using BasicLib.Forms.Base;
 using BasicLib.Forms.Colors;
 using BasicLib.Graphic;
 using BasicLib.Num;
@@ -207,17 +206,5 @@ namespace BasicLib.Forms.Scatter{
 		private void LabelEditComboBoxClick(object sender, EventArgs e){
 			Invalidate(true);
 		}
-
-		//public void DoPaint2(IGraphics g, Control container, int addx, int addy){
-		//	foreach (Control c in PlaneViewer.GetTableLayoutPanel().Controls){
-		//		if (c is BasicControl){
-		//			System.Diagnostics.Debug.WriteLine("- BasicControl");
-		//			g.SetClippingMask(c.Width, c.Height, container.Location.X + Location.X + c.Location.X,
-		//				container.Location.Y + Location.Y + c.Location.Y);
-		//			((BasicControl) c).view.OnPaintBackground(g, c.Width, c.Height);
-		//			((BasicControl) c).view.OnPaint(g, c.Width, c.Height);
-		//		}
-		//	}
-		//}
 	}
 }
