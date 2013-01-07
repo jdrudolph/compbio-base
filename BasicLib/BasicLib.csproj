@@ -191,8 +191,6 @@
     <Compile Include="Forms\Help\HelpToolStripButton.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Forms\Base\IGridView.cs" />
-    <Compile Include="Forms\Base\IPaintable.cs" />
     <Compile Include="Forms\Select\ListSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
