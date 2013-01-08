@@ -111,14 +111,14 @@ namespace BasicLib.Forms.Axis{
 		private float ModelToView(double val, int length){
 			float x = (float) Math.Round((val - VisibleMin)/(VisibleMax - VisibleMin)*length);
 			if (Reverse){
-				x = length - x;
+				x = length - 1 - x;
 			}
 			return x;
 		}
 
 		internal double ViewToModel(float x, int length){
 			if (Reverse){
-				x = length - x;
+				x = length - 1 - x;
 			}
 			return VisibleMin + x*(VisibleMax - VisibleMin)/length;
 		}
@@ -270,7 +270,7 @@ namespace BasicLib.Forms.Axis{
 							pos = Math.Max(-2, pos);
 							pos = Math.Min(width - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
-								g.DrawString(s, numbersFont.Font, brush, xm + pos, ym + y0 - MajorTickLength - numbersFont.Height + 1);
+								g.DrawString(s, numbersFont.Font, brush, xm + pos + 1, ym + y0 - MajorTickLength - numbersFont.Height);
 								previousstringEnd = pos + Sign*w;
 							}
 						}
@@ -313,7 +313,7 @@ namespace BasicLib.Forms.Axis{
 					if (y < 0){
 						y = 0;
 					}
-					g.DrawString(label, font, brush, -ym + x, xm + y);
+					g.DrawString(label, font, brush, -ym + x, xm + y-2);
 					g.RotateTransform(90);
 					break;
 				case AxisPositioning.Bottom:
@@ -330,7 +330,7 @@ namespace BasicLib.Forms.Axis{
 							pos = Math.Max(-2, pos);
 							pos = Math.Min(width - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
-								g.DrawString(s, numbersFont.Font, brush, xm + pos, ym + y0 + MajorTickLength - 1);
+								g.DrawString(s, numbersFont.Font, brush, xm + pos + 1, ym + y0 + 1 + MajorTickLength - 1);
 								previousstringEnd = pos + Sign*w;
 							}
 						}
@@ -357,7 +357,7 @@ namespace BasicLib.Forms.Axis{
 							pos = Math.Min(height - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
 								g.RotateTransform(90);
-								g.DrawString(s, numbersFont.Font, brush, ym + pos, -xm - MajorTickLength - numbersFont.Height*0.99f);
+								g.DrawString(s, numbersFont.Font, brush, ym + pos + 1, -xm - MajorTickLength - numbersFont.Height*0.99f);
 								g.RotateTransform(-90);
 								previousstringEnd = pos + Sign*w;
 							}
@@ -369,7 +369,7 @@ namespace BasicLib.Forms.Axis{
 					}
 					g.RotateTransform(90);
 					g.DrawString(label, font, brush, ym + height/2 - (int) g.MeasureString(label, font).Width/2,
-						-xm - MajorTickLength - numbersFont.Height - labelFont.Height - 5);
+						-xm - MajorTickLength - numbersFont.Height - labelFont.Height - 3);
 					g.RotateTransform(-90);
 					break;
 			}

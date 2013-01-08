@@ -421,16 +421,16 @@ namespace BasicLib.Forms.Scatter{
 			zoomablePlane.Invalidate();
 		}
 
-		private void UpdateZoomFromMap(Object source, int imin, int imax, int jmin, int jmax, bool relative){
+		private void UpdateZoomFromMap(Object source, int imin, int imax, int jmin, int jmax, bool relative, int width, int height){
 			if (relative){
 				if (leftAxis.Zoomable){
-					leftAxis.SetZoomFromView(jmin, jmax, MainHeight);
+					leftAxis.SetZoomFromView(jmin, jmax, height);
 				}
 				if (bottomAxis.Zoomable){
-					bottomAxis.SetZoomFromView(imin, imax, MainWidth);
+					bottomAxis.SetZoomFromView(imin, imax, width);
 				}
-				zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-				zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
+				zoomablePlane.XTics = bottomAxis.GetTics(width);
+				zoomablePlane.YTics = leftAxis.GetTics(height);
 			} else{
 				if (rightAxis.Zoomable){
 					rightAxis.FullZoom();
@@ -438,8 +438,8 @@ namespace BasicLib.Forms.Scatter{
 				if (topAxis.Zoomable){
 					topAxis.FullZoom();
 				}
-				zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-				zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
+				zoomablePlane.XTics = bottomAxis.GetTics(width);
+				zoomablePlane.YTics = leftAxis.GetTics(height);
 			}
 		}
 
@@ -603,7 +603,6 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		private void SaveAsButtonClick(object sender, EventArgs e){
-			//ExportGraphics.ExportGraphic(tableLayoutControl, "ScatterPlot");
 			Printing.Print(tableLayoutView, "ScatterPlot", tableLayoutControl.Width, tableLayoutControl.Height);
 		}
 

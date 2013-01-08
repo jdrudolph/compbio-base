@@ -7,20 +7,20 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 
 namespace BasicLib.Graphic{
-	public class PdfGraphics : IGraphics{
-		private float Width;
-		private float Height;
+	internal class PdfGraphics : IGraphics{
+		private float currentWidth;
+		private float currentHeight;
 		private readonly float originalWidth;
 		private readonly float originalHeight;
 		private readonly Document document;
 		private readonly PdfWriter writer;
 		private readonly PdfContentByte content;
-		private PdfTemplate topTemplate;
+		private readonly PdfTemplate topTemplate;
 		private PdfTemplate template;
 
-		public PdfGraphics(string filename, int width, int height){
-			originalWidth = Width = width;
-			originalHeight = Height = height;
+		internal PdfGraphics(string filename, int width, int height){
+			originalWidth = currentWidth = width;
+			originalHeight = currentHeight = height;
 			document = new Document(new iTextSharp.text.Rectangle(width, height), 50, 50, 50, 50);
 			document.AddAuthor("");
 			document.AddSubject("");
@@ -44,22 +44,13 @@ namespace BasicLib.Graphic{
 			}
 		}
 
-		/// <summary>
-		/// Adds a new blank page to the document.
-		/// </summary>
-		public void NewPage(){
-			document.NewPage();
-			template = topTemplate = content.CreateTemplate(originalWidth, originalHeight);
-			content.AddTemplate(template, 0, 0);
-		}
-
 		public SmoothingMode SmoothingMode { get; set; }
 
 		public void SetClippingMask(int width, int height, int x, int y){
 			template = topTemplate.CreateTemplate(width, height);
 			topTemplate.AddTemplate(template, x, topTemplate.Height - height - y);
-			Width = width;
-			Height = height;
+			currentWidth = width;
+			currentHeight = height;
 		}
 
 		public void RotateTransform(float angle){
@@ -67,11 +58,11 @@ namespace BasicLib.Graphic{
 				"PdfGraphics.RotateTransform(float) currently only supports -90 and 90 degrees");
 			Matrix m = new Matrix();
 			if (angle == 90){
-				m.Translate(-(Height + 2), (Height - 4));
+				m.Translate(-(currentHeight + 2), (currentHeight - 4));
 				m.Rotate(-angle);
 			} else if (angle == -90){
 				m.Rotate(-angle);
-				m.Translate((Height + 2), -(Height - 4));
+				m.Translate((currentHeight + 2), -(currentHeight - 4));
 			}
 			template.Transform(m);
 		}
@@ -84,15 +75,15 @@ namespace BasicLib.Graphic{
 
 		public void DrawLine(Pen pen, int x1, int y1, int x2, int y2){
 			SetPen(pen);
-			template.MoveTo(x1, Height - y1);
-			template.LineTo(x2, Height - y2);
+			template.MoveTo(x1, currentHeight - y1);
+			template.LineTo(x2, currentHeight - y2);
 			template.Stroke();
 		}
 
 		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
 			SetPen(pen);
-			template.MoveTo(x1, Height - y1);
-			template.LineTo(x2, Height - y2);
+			template.MoveTo(x1, currentHeight - y1);
+			template.LineTo(x2, currentHeight - y2);
 			template.Stroke();
 		}
 
@@ -105,11 +96,11 @@ namespace BasicLib.Graphic{
 			for (int index = 0; index < path.PathData.Points.Length; index++){
 				PointF point = path.PathData.Points[index];
 				if (index == 0){
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
-					template.LineTo(point.X, Height - point.Y);
+					template.LineTo(point.X, currentHeight - point.Y);
 					template.Stroke();
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				}
 			}
 			template.Stroke();
@@ -120,11 +111,11 @@ namespace BasicLib.Graphic{
 			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
 				if (index == 0){
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
-					template.LineTo(point.X, Height - point.Y);
+					template.LineTo(point.X, currentHeight - point.Y);
 					template.Stroke();
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				}
 			}
 			template.Stroke();
@@ -132,14 +123,14 @@ namespace BasicLib.Graphic{
 
 		public void DrawLines(Pen pen, Point[] points){
 			SetPen(pen);
-			for (int index = 0; index < points.Length; index++) {
+			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
-				if (index == 0) {
-					template.MoveTo(point.X, Height - point.Y);
-				} else {
-					template.LineTo(point.X, Height - point.Y);
+				if (index == 0){
+					template.MoveTo(point.X, currentHeight - point.Y);
+				} else{
+					template.LineTo(point.X, currentHeight - point.Y);
 					template.Stroke();
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				}
 			}
 			template.Stroke();
@@ -147,37 +138,37 @@ namespace BasicLib.Graphic{
 
 		public void DrawEllipse(Pen pen, int x, int y, int width, int height){
 			SetPen(pen);
-			template.Ellipse(x, Height - y, x + width, Height - (y + height));
+			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Stroke();
 		}
 
 		public void DrawEllipse(Pen pen, float x, float y, float width, float height){
 			SetPen(pen);
-			template.Ellipse(x, Height - y, x + width, Height - (y + height));
+			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Stroke();
 		}
 
 		public void FillEllipse(Brush brush, int x, int y, int width, int height){
 			SetBrush(brush);
-			template.Ellipse(x, Height - y, x + width, Height - (y + height));
+			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Fill();
 		}
 
 		public void FillEllipse(Brush brush, float x, float y, float width, float height){
 			SetBrush(brush);
-			template.Ellipse(x, Height - y, x + width, Height - (y + height));
+			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Fill();
 		}
 
 		public void DrawRectangle(Pen pen, int x, int y, int width, int height){
 			SetPen(pen);
-			template.Rectangle(x, Height - y, width, -height);
+			template.Rectangle(x, currentHeight - y, width, -height);
 			template.Stroke();
 		}
 
 		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
 			SetPen(pen);
-			template.Rectangle(x, Height - y, width, -height);
+			template.Rectangle(x, currentHeight - y, width, -height);
 			template.Stroke();
 		}
 
@@ -207,7 +198,7 @@ namespace BasicLib.Graphic{
 				}
 			}
 			SetBrush(brush);
-			template.Rectangle(x, Height - y, width, -height);
+			template.Rectangle(x, currentHeight - y, width, -height);
 			template.Fill();
 		}
 
@@ -245,11 +236,11 @@ namespace BasicLib.Graphic{
 			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
 				if (index == 0){
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
-					template.LineTo(point.X, Height - point.Y);
+					template.LineTo(point.X, currentHeight - point.Y);
 					template.Stroke();
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				}
 			}
 			template.Stroke();
@@ -260,11 +251,11 @@ namespace BasicLib.Graphic{
 			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
 				if (index == 0){
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
-					template.LineTo(point.X, Height - point.Y);
+					template.LineTo(point.X, currentHeight - point.Y);
 					template.Stroke();
-					template.MoveTo(point.X, Height - point.Y);
+					template.MoveTo(point.X, currentHeight - point.Y);
 				}
 			}
 			template.Fill();
@@ -281,19 +272,21 @@ namespace BasicLib.Graphic{
 		}
 
 		public void FillClosedCurve(Brush brush, Point[] points){
-			//TODO
+			FillPolygon(brush, points);
 		}
 
 		public void DrawCurve(Pen pen, Point[] points){
-			//TODO
+			DrawPolygon(pen, points);
 		}
 
 		public void TranslateTransform(float dx, float dy){
-			//TODO
+			Matrix m = new Matrix();
+			m.Translate(dx, -dy);
 		}
 
+		//TODO: is the transform additive?
 		public void ResetTransform(){
-			//TODO
+			template.Transform(new Matrix());
 		}
 
 		public void ResetClip(){
@@ -301,7 +294,10 @@ namespace BasicLib.Graphic{
 		}
 
 		public void SetClip(System.Drawing.Rectangle rectangle){
-			//TODO
+			template = topTemplate.CreateTemplate(rectangle.Width, rectangle.Height);
+			topTemplate.AddTemplate(template, rectangle.X, topTemplate.Height - rectangle.Height - rectangle.Y);
+			currentWidth = rectangle.Width;
+			currentHeight = rectangle.Height;
 		}
 
 		public void Close(){
@@ -364,10 +360,10 @@ namespace BasicLib.Graphic{
 				if (vertical){
 					Matrix m = new Matrix();
 					m.Rotate(-90);
-					m.Translate(y - Height, x + (font.Height*0.5f));
+					m.Translate(y - currentHeight, x + (font.Height*0.5f));
 					template.SetTextMatrix(m);
 				} else{
-					template.SetTextMatrix(x, Height - y - (font.Height*0.5f));
+					template.SetTextMatrix(x, currentHeight - y - (font.Height*0.5f));
 				}
 				template.ShowText(t.TrimStart().TrimEnd());
 				y += (font.Height*0.5f);
@@ -448,7 +444,7 @@ namespace BasicLib.Graphic{
 			}
 			if (img != null){
 				img.ScaleAbsolute(width, height);
-				img.SetAbsolutePosition(x, (Height - img.ScaledHeight) - y);
+				img.SetAbsolutePosition(x, (currentHeight - img.ScaledHeight) - y);
 				template.AddImage(img);
 			}
 		}
@@ -461,17 +457,17 @@ namespace BasicLib.Graphic{
 			// TODO reduce the resolution to fit
 			try{
 				iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Tiff);
-				img.SetAbsolutePosition(x, (Height - img.ScaledHeight) - y);
+				img.SetAbsolutePosition(x, (currentHeight - img.ScaledHeight) - y);
 				template.AddImage(img);
 			} catch{}
 		}
 
-		protected void SetFont(System.Drawing.Font font){
+		private void SetFont(System.Drawing.Font font){
 			iTextSharp.text.Font f = GetFont(font);
 			template.SetFontAndSize(f.BaseFont, font.SizeInPoints);
 		}
 
-		protected iTextSharp.text.Font GetFont(System.Drawing.Font font){
+		private iTextSharp.text.Font GetFont(System.Drawing.Font font){
 			iTextSharp.text.Font f = FontFactory.GetFont("c:/windows/fonts/arial.ttf", BaseFont.CP1252, BaseFont.EMBEDDED,
 				font.Size, font.Bold ? 1 : 0);
 			try{
@@ -494,7 +490,7 @@ namespace BasicLib.Graphic{
 			return f;
 		}
 
-		protected void SetPen(Pen pen){
+		private void SetPen(Pen pen){
 			template.SetRGBColorStroke(pen.Color.R, pen.Color.G, pen.Color.B);
 			template.SetLineWidth(pen.Width);
 			switch (pen.DashCap){
@@ -515,7 +511,7 @@ namespace BasicLib.Graphic{
 			}
 		}
 
-		protected void SetBrush(Brush brush){
+		private void SetBrush(Brush brush){
 			if (brush is SolidBrush){
 				SolidBrush b = (SolidBrush) brush;
 				template.SetRGBColorFill(b.Color.R, b.Color.G, b.Color.B);

@@ -24,7 +24,7 @@ namespace BasicLib.Forms.Scatter{
 	}
 
 	public delegate void ViewZoom2DChangeHandler(
-		object source, int imin, int imax, int jmin, int jmax, bool relativeToVisibleAxis);
+		object source, int imin, int imax, int jmin, int jmax, bool relativeToVisibleAxis, int width, int height);
 
 	public enum ScatterPlotLabelMode{
 		None,
@@ -883,9 +883,9 @@ namespace BasicLib.Forms.Scatter{
 		private int MaxIndicatorY { get { return Math.Max(indicatorY1, indicatorY2); } }
 		private int DeltaIndicatorY { get { return Math.Abs((indicatorY1 - indicatorY2)); } }
 
-		private void FireZoom(bool relativeToVisibleAxis){
+		private void FireZoom(bool relativeToVisibleAxis, int width, int height){
 			if (OnZoomChange != null){
-				OnZoomChange(this, MinIndicatorX, MaxIndicatorX, MinIndicatorY, MaxIndicatorY, relativeToVisibleAxis);
+				OnZoomChange(this, MinIndicatorX, MaxIndicatorX, MinIndicatorY, MaxIndicatorY, relativeToVisibleAxis, width, height);
 			}
 		}
 
@@ -899,7 +899,7 @@ namespace BasicLib.Forms.Scatter{
 		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
 			switch (MouseMode){
 				case ScatterPlotMouseMode.Zoom:
-					FireZoom(true);
+					FireZoom(true, e.Width, e.Height);
 					break;
 				case ScatterPlotMouseMode.Select:
 					if (HasMoved()){
@@ -933,7 +933,7 @@ namespace BasicLib.Forms.Scatter{
 			indicatorX2 = -1;
 			indicatorY1 = -1;
 			indicatorY2 = -1;
-			FireZoom(false);
+			FireZoom(false, e.Width, e.Height);
 			Invalidate();
 		}
 

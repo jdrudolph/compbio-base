@@ -2,7 +2,8 @@
 using System.Drawing.Drawing2D;
 
 namespace BasicLib.Graphic{
-	public abstract class WindowsBasedGraphics : IGraphics{
+	//TODO: should not be exposed
+	public abstract class WindowsBasedGraphics : IGraphics {
 		protected Graphics gc;
 
 		protected WindowsBasedGraphics(Graphics gc){

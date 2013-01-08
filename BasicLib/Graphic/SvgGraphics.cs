@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using BasicLib.Util;
 
 namespace BasicLib.Graphic{
-	public class SvgGraphics : IGraphics{
+	internal class SvgGraphics : IGraphics {
 		private readonly Svg svg;
 		private readonly Stream stream;
 		private readonly float width;
@@ -26,7 +26,7 @@ namespace BasicLib.Graphic{
 		private float scale = 1;
 		private Group clippingMask;
 
-		public SvgGraphics(string filename, int width, int height) {
+		internal SvgGraphics(string filename, int width, int height) {
 			stream = new FileStream(filename, FileMode.Create);
 			this.width = width;
 			this.height = height;
