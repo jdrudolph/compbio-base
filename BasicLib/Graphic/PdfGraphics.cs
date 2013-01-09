@@ -324,7 +324,8 @@ namespace BasicLib.Graphic{
 			SetBrush(brush);
 			float x = rectangleF.X-4;
 			//float y = rectangleF.Y + 1;
-			float y = rectangleF.Y;
+			//float y = rectangleF.Y;
+			float y = rectangleF.Y - 1;
 			IEnumerable<string> items = GetItems(font, rectangleF, s);
 			foreach (string t in items){
 				SizeF size = MeasureString(t, font);
@@ -390,6 +391,8 @@ namespace BasicLib.Graphic{
 			DrawString(s, font, brush, rectangleF, new StringFormat());
 		}
 
+		//TODO: move out of rendering
+		[Obsolete]
 		private IEnumerable<string> GetItems(System.Drawing.Font font, RectangleF rectangleF, string s){
 			string[] lines = s.Split(new[]{'\n'});
 			List<string> items = new List<string>();
