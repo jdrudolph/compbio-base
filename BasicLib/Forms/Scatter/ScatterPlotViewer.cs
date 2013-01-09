@@ -604,6 +604,7 @@ namespace BasicLib.Forms.Scatter{
 
 		private void SaveAsButtonClick(object sender, EventArgs e){
 			Printing.Print(tableLayoutView, "ScatterPlot", tableLayoutControl.Width, tableLayoutControl.Height);
+			zoomablePlane.Invalidate();
 		}
 
 		internal Control GetTableLayoutPanel(){

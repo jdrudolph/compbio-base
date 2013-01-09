@@ -126,7 +126,7 @@ namespace BasicLib.Forms.Scatter{
 			}
 		}
 
-		private void UpdateColor(){
+		internal void UpdateColor(){
 			InvalidateData(false);
 			InvalidateImage();
 			Invalidate();

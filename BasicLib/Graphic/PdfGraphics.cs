@@ -264,7 +264,7 @@ namespace BasicLib.Graphic{
 		public SizeF MeasureString(string text, System.Drawing.Font font){
 			SetFont(font);
 			Chunk chunk = new Chunk(text, GetFont(font));
-			return new SizeF(chunk.GetWidthPoint(), font.Height*0.5f);
+			return new SizeF(chunk.GetWidthPoint(), font.Height * 0.5f * 1.5f);
 		}
 
 		public SizeF MeasureString(string text, System.Drawing.Font font, int width){
@@ -309,12 +309,12 @@ namespace BasicLib.Graphic{
 			return MeasureString(text, font);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, float x, float y){
-			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
+		public void DrawString(string s, System.Drawing.Font font, Brush brush, float x, float y) {
+			StringFormat format = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
 			DrawString(s, font, brush, new RectangleF(new PointF(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, Point point, StringFormat format){
+		public void DrawString(string s, System.Drawing.Font font, Brush brush, Point point, StringFormat format) {
 			DrawString(s, font, brush, new RectangleF(point, MeasureString(s, font)), format);
 		}
 
@@ -322,7 +322,8 @@ namespace BasicLib.Graphic{
 			template.BeginText();
 			SetFont(font);
 			SetBrush(brush);
-			float x = rectangleF.X;
+			float x = rectangleF.X-4;
+			//float y = rectangleF.Y + 1;
 			float y = rectangleF.Y;
 			IEnumerable<string> items = GetItems(font, rectangleF, s);
 			foreach (string t in items){
@@ -360,13 +361,13 @@ namespace BasicLib.Graphic{
 				if (vertical){
 					Matrix m = new Matrix();
 					m.Rotate(-90);
-					m.Translate(y - currentHeight, x + (font.Height*0.5f));
+					m.Translate(y - currentHeight, x + (font.Height * 0.5f *1.5f));
 					template.SetTextMatrix(m);
 				} else{
-					template.SetTextMatrix(x, currentHeight - y - (font.Height*0.5f));
+					template.SetTextMatrix(x, currentHeight - y - (font.Height * 0.5f * 1.5f));
 				}
 				template.ShowText(t.TrimStart().TrimEnd());
-				y += (font.Height*0.5f);
+				y += (font.Height * 0.5f * 1.5f);
 			}
 			template.EndText();
 		}
@@ -464,25 +465,29 @@ namespace BasicLib.Graphic{
 
 		private void SetFont(System.Drawing.Font font){
 			iTextSharp.text.Font f = GetFont(font);
-			template.SetFontAndSize(f.BaseFont, font.SizeInPoints);
+			template.SetFontAndSize(f.BaseFont, font.SizeInPoints * 1.5f);
 		}
 
-		private iTextSharp.text.Font GetFont(System.Drawing.Font font){
+		private static iTextSharp.text.Font GetFont(System.Drawing.Font font){
 			iTextSharp.text.Font f = FontFactory.GetFont("c:/windows/fonts/arial.ttf", BaseFont.CP1252, BaseFont.EMBEDDED,
 				font.Size, font.Bold ? 1 : 0);
 			try{
 				string file;
-				if (font.Name == "Lucida Sans Unicode"){
-					file = "c:/windows/fonts/L_10646.TTF";
-					f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size, font.Bold ? 1 : 0);
-				} else if (font.Name == "Arial Unicode MS"){
-					file = "c:/windows/fonts/ARIALUNI.TTF";
-					f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size, font.Bold ? 1 : 0);
-				} else{
-					file = string.Format("c:/windows/fonts/{0}.ttf", font.Name);
-					if (File.Exists(file)){
-						f = FontFactory.GetFont(file, BaseFont.CP1252, BaseFont.EMBEDDED, font.Size, font.Bold ? 1 : 0);
-					}
+				switch (font.Name){
+					case "Lucida Sans Unicode":
+						file = "c:/windows/fonts/L_10646.TTF";
+						f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size, font.Bold ? 1 : 0);
+						break;
+					case "Arial Unicode MS":
+						file = "c:/windows/fonts/ARIALUNI.TTF";
+						f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size, font.Bold ? 1 : 0);
+						break;
+					default:
+						file = string.Format("c:/windows/fonts/{0}.ttf", font.Name);
+						if (File.Exists(file)){
+							f = FontFactory.GetFont(file, BaseFont.CP1252, BaseFont.EMBEDDED, font.Size, font.Bold ? 1 : 0);
+						}
+						break;
 				}
 			} catch (Exception){
 				// do nothing
