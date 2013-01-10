@@ -375,7 +375,7 @@ namespace BasicLib.Forms.Base{
 		}
 
 		public int[] GetColumnWidths(int width, int height){
-			if (heights == null) {
+			if (heights == null){
 				InitSizes(width, height);
 			}
 			return heights;

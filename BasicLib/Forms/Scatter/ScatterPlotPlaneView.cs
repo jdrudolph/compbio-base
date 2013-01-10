@@ -173,7 +173,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		protected internal override void OnPaint(IGraphics g, int width, int height){
-			if (width < 0 || height < 0){
+			if (width <= 0 || height <= 0){
 				return;
 			}
 			if (!Visible){

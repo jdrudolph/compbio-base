@@ -263,7 +263,7 @@ namespace BasicLib.Graphic{
 		public SizeF MeasureString(string text, System.Drawing.Font font){
 			SetFont(font);
 			Chunk chunk = new Chunk(text, GetFont(font));
-			return new SizeF(chunk.GetWidthPoint(), font.Height*0.5f*1.5f);
+			return new SizeF(chunk.GetWidthPoint() * 1.5f, font.Height * 0.5f * 1.5f);
 		}
 
 		public SizeF MeasureString(string text, System.Drawing.Font font, int width){
