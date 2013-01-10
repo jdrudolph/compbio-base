@@ -28,8 +28,6 @@ namespace BasicLib.Graphic{
 		SmoothingMode SmoothingMode { get; set; }
 		void Dispose();
 
-		#region transformations
-
 		/// <summary>
 		/// Applies the specified rotation to the transformation matrix.
 		/// </summary>
@@ -50,10 +48,6 @@ namespace BasicLib.Graphic{
 		//TODO:somehow clipping and transforming is mixed up here.
 		[Obsolete]
 		void SetClippingMask(int width, int height, int x, int y);
-
-		#endregion
-
-		#region shapes
 
 		/// <summary>
 		/// 
@@ -101,7 +95,6 @@ namespace BasicLib.Graphic{
 		void DrawPath(Pen pen, GraphicsPath path);
 
 		void DrawLines(Pen pen, PointF[] points);
-
 		void DrawLines(Pen pen, Point[] points);
 
 		/// <summary>
@@ -231,10 +224,6 @@ namespace BasicLib.Graphic{
 		void DrawPolygon(Pen pen, Point[] points);
 		void FillPolygon(Brush brush, Point[] points);
 
-		#endregion
-
-		#region text
-
 		/// <summary>
 		/// Measures the specified string when drawn with the specified Font.
 		/// </summary>
@@ -294,10 +283,6 @@ namespace BasicLib.Graphic{
 		void DrawString(string s, Font font, Brush brush, Point location);
 		void DrawString(string s, Font font, Brush brush, RectangleF rectangleF);
 
-		#endregion
-
-		#region images
-
 		/// <summary>
 		/// Draws the specified Image at the specified location and with the specified size.
 		/// </summary>
@@ -317,8 +302,6 @@ namespace BasicLib.Graphic{
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn image.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
 		void DrawImageUnscaled(Image image, int x, int y);
-
-		#endregion
 
 		SizeF MeasureString(string text, Font font, int width);
 		void FillClosedCurve(Brush brush, Point[] points);

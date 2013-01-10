@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -58,11 +57,11 @@ namespace BasicLib.Graphic{
 				"PdfGraphics.RotateTransform(float) currently only supports -90 and 90 degrees");
 			Matrix m = new Matrix();
 			if (angle == 90){
-				m.Translate(-(currentHeight + 2), (currentHeight - 4));
+				m.Translate(-currentHeight, currentHeight);
 				m.Rotate(-angle);
 			} else if (angle == -90){
 				m.Rotate(-angle);
-				m.Translate((currentHeight + 2), -(currentHeight - 4));
+				m.Translate(currentHeight, -currentHeight);
 			}
 			template.Transform(m);
 		}
@@ -264,7 +263,7 @@ namespace BasicLib.Graphic{
 		public SizeF MeasureString(string text, System.Drawing.Font font){
 			SetFont(font);
 			Chunk chunk = new Chunk(text, GetFont(font));
-			return new SizeF(chunk.GetWidthPoint(), font.Height * 0.5f * 1.5f);
+			return new SizeF(chunk.GetWidthPoint(), font.Height*0.5f*1.5f);
 		}
 
 		public SizeF MeasureString(string text, System.Drawing.Font font, int width){
@@ -309,12 +308,12 @@ namespace BasicLib.Graphic{
 			return MeasureString(text, font);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, float x, float y) {
-			StringFormat format = new StringFormat { Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near };
+		public void DrawString(string s, System.Drawing.Font font, Brush brush, float x, float y){
+			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
 			DrawString(s, font, brush, new RectangleF(new PointF(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, Point point, StringFormat format) {
+		public void DrawString(string s, System.Drawing.Font font, Brush brush, Point point, StringFormat format){
 			DrawString(s, font, brush, new RectangleF(point, MeasureString(s, font)), format);
 		}
 
@@ -322,54 +321,35 @@ namespace BasicLib.Graphic{
 			template.BeginText();
 			SetFont(font);
 			SetBrush(brush);
-			float x = rectangleF.X-4;
-			//float y = rectangleF.Y + 1;
-			//float y = rectangleF.Y;
+			float x = rectangleF.X - 4;
 			float y = rectangleF.Y - 1;
-			IEnumerable<string> items = GetItems(font, rectangleF, s);
-			foreach (string t in items){
-				SizeF size = MeasureString(t, font);
-				bool vertical = false;
-				if (format != null){
-					switch (format.Alignment){
-						case StringAlignment.Center:
-							x = x + (rectangleF.Width - size.Width)/2f;
-							break;
-						case StringAlignment.Near:
-							x = x + 2;
-							break;
-						case StringAlignment.Far:
-							x = x + (rectangleF.Width - size.Width) - 2;
-							break;
-					}
-					switch (format.LineAlignment){
-						case StringAlignment.Center:
-							y = y + font.Height/2f;
-							break;
-						case StringAlignment.Near:
-							y = y + 2;
-							break;
-						case StringAlignment.Far:
-							y = y + font.Height;
-							break;
-					}
-					switch (format.FormatFlags){
-						case StringFormatFlags.DirectionVertical:
-							vertical = true;
-							break;
-					}
+			SizeF size = MeasureString(s, font);
+			if (format != null){
+				switch (format.Alignment){
+					case StringAlignment.Center:
+						x = x + (rectangleF.Width - size.Width)/2f;
+						break;
+					case StringAlignment.Near:
+						x = x + 2;
+						break;
+					case StringAlignment.Far:
+						x = x + (rectangleF.Width - size.Width) - 2;
+						break;
 				}
-				if (vertical){
-					Matrix m = new Matrix();
-					m.Rotate(-90);
-					m.Translate(y - currentHeight, x + (font.Height * 0.5f *1.5f));
-					template.SetTextMatrix(m);
-				} else{
-					template.SetTextMatrix(x, currentHeight - y - (font.Height * 0.5f * 1.5f));
+				switch (format.LineAlignment){
+					case StringAlignment.Center:
+						y = y + font.Height/2f;
+						break;
+					case StringAlignment.Near:
+						y = y + 2;
+						break;
+					case StringAlignment.Far:
+						y = y + font.Height;
+						break;
 				}
-				template.ShowText(t.TrimStart().TrimEnd());
-				y += (font.Height * 0.5f * 1.5f);
 			}
+			template.SetTextMatrix(x, currentHeight - y - (font.Height*0.5f*1.5f));
+			template.ShowText(s.TrimStart().TrimEnd());
 			template.EndText();
 		}
 
@@ -391,54 +371,6 @@ namespace BasicLib.Graphic{
 			DrawString(s, font, brush, rectangleF, new StringFormat());
 		}
 
-		//TODO: move out of rendering
-		[Obsolete]
-		private IEnumerable<string> GetItems(System.Drawing.Font font, RectangleF rectangleF, string s){
-			string[] lines = s.Split(new[]{'\n'});
-			List<string> items = new List<string>();
-			foreach (string line in lines){
-				if (MeasureString(line, font).Width > rectangleF.Width){
-					List<string> words = new List<string>(line.Split(new[]{'\t', ' '}));
-					string word = "";
-					int c = 0;
-					while (words.Count > 0){
-						if (c == 100){
-							throw new Exception("endless loop");
-						}
-						if (words.Count == 1){
-							items.Add(words[0].Trim());
-							break;
-						}
-						if (word == words[0]){
-							items.Add(words[0].Trim());
-							words.RemoveAt(0);
-						}
-						if (MeasureString(words[0], font).Width > rectangleF.Width){
-							items.Add(words[0].Trim());
-							words.RemoveAt(0);
-							continue;
-						}
-						string l = "";
-						while (MeasureString(l, font).Width < rectangleF.Width && words.Count > 0){
-							word = words[0].Trim();
-							words.RemoveAt(0);
-							l += word + " ";
-						}
-						if (MeasureString(l, font).Width > rectangleF.Width){
-							items.Add(l.Remove(l.Length - word.Length - 1).Trim());
-							words.Insert(0, word);
-						} else{
-							items.Add(l.Trim());
-						}
-						c++;
-					}
-				} else{
-					items.Add(line);
-				}
-			}
-			return items;
-		}
-
 		public void DrawImage(System.Drawing.Image image, int x, int y, int width, int height){
 			iTextSharp.text.Image img = null;
 			try{
@@ -458,7 +390,7 @@ namespace BasicLib.Graphic{
 		}
 
 		public void DrawImageUnscaled(System.Drawing.Image image, int x, int y){
-			// TODO reduce the resolution to fit
+			// TODO reduce the resolution to fit (?)
 			try{
 				iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Tiff);
 				img.SetAbsolutePosition(x, (currentHeight - img.ScaledHeight) - y);
@@ -468,7 +400,7 @@ namespace BasicLib.Graphic{
 
 		private void SetFont(System.Drawing.Font font){
 			iTextSharp.text.Font f = GetFont(font);
-			template.SetFontAndSize(f.BaseFont, font.SizeInPoints * 1.5f);
+			template.SetFontAndSize(f.BaseFont, font.SizeInPoints*1.5f);
 		}
 
 		private static iTextSharp.text.Font GetFont(System.Drawing.Font font){
