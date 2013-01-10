@@ -5,7 +5,7 @@ using BasicLib.Forms.Base;
 using BasicLib.Graphic;
 
 namespace BasicLib.Forms.Scroll{
-	public class CompoundScrollableControl : UserControl, IScrollableControl, IPrintable{
+	public class CompoundScrollableControl : UserControl, IScrollableControl{
 		public const int scrollBarWidth = 18;
 		private int rowHeaderWidth = 40;
 		private int rowFooterWidth;
@@ -136,10 +136,14 @@ namespace BasicLib.Forms.Scroll{
 		}
 		public virtual int TotalWidth { get { return 200; } }
 		public virtual int TotalHeight { get { return 200; } }
+		public int ClientWidth { get { return Width - scrollBarWidth; } }
+		public int ClientHeight { get { return Height - scrollBarWidth; } }
 		public virtual int DeltaX { get { return (Width - RowHeaderWidth)/20; } }
 		public virtual int DeltaY { get { return (Height - ColumnHeaderHeight)/20; } }
 		public int VisibleWidth { get { return Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth; } }
 		public int VisibleHeight { get { return Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth; } }
+		public int TotalClientWidth { get { return TotalWidth + RowHeaderWidth + RowFooterWidth; } }
+		public int TotalClientHeight { get { return TotalHeight + ColumnHeaderHeight + ColumnFooterHeight; } }
 
 		protected override void OnResize(EventArgs e){
 			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth - VisibleWidth - 1));
@@ -337,7 +341,9 @@ namespace BasicLib.Forms.Scroll{
 		}
 
 		public void Print(IGraphics g, int width, int height){
-			mainView.Print(g, width, height);
+			tableLayoutPanel2.InvalidateSizes();
+			tableLayoutPanel2.Print(g, width, height);
+			tableLayoutPanel2.InvalidateSizes();
 		}
 	}
 }

@@ -1,5 +1,7 @@
-﻿namespace BasicLib.Forms.Scroll {
-	internal interface IScrollableControl {
+﻿using BasicLib.Forms.Base;
+
+namespace BasicLib.Forms.Scroll {
+	public interface IScrollableControl : IPrintable{
 		int DeltaX { get; }
 		int DeltaY { get; }
 		int VisibleX { get; set; }
@@ -8,6 +10,10 @@
 		int VisibleHeight { get; }
 		int TotalWidth { get; }
 		int TotalHeight { get; }
+		int ClientWidth { get; }
+		int ClientHeight { get; }
+		int TotalClientWidth { get; }
+		int TotalClientHeight { get; }
 		int DeltaDownToSelection();
 		int DeltaUpToSelection();
 	}

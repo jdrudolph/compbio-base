@@ -5,7 +5,7 @@ using BasicLib.Forms.Base;
 using BasicLib.Graphic;
 
 namespace BasicLib.Forms.Scroll{
-	public class SimpleScrollableControl : UserControl, IScrollableControl, IPrintable{
+	public class SimpleScrollableControl : UserControl, IScrollableControl{
 		private int visibleX;
 		private int visibleY;
 		private BasicView horizontalScrollBar;
@@ -59,7 +59,11 @@ namespace BasicLib.Forms.Scroll{
 
 		public virtual int TotalWidth { get { return 200; } }
 		public virtual int TotalHeight { get { return 200; } }
-		public virtual int DeltaX { get { return (Width)/20; } }
+		public int ClientWidth { get { return VisibleWidth; } }
+		public int ClientHeight { get { return VisibleHeight; } }
+		public int TotalClientWidth { get { return TotalWidth; } }
+		public int TotalClientHeight { get { return TotalHeight; } }
+		public virtual int DeltaX { get { return (Width) / 20; } }
 		public virtual int DeltaY { get { return (Height)/20; } }
 		public int VisibleWidth { get { return mainControl.Width; } }
 		public int VisibleHeight { get { return mainControl.Height; } }
