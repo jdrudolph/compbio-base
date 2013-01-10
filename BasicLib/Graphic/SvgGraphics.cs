@@ -10,8 +10,8 @@ namespace BasicLib.Graphic{
 	internal class SvgGraphics : IGraphics {
 		private readonly Svg svg;
 		private readonly Stream stream;
-		private readonly float width;
-		private readonly float height;
+		private readonly float docWidth;
+		private readonly float docHeight;
 		private readonly List<Line> lines = new List<Line>();
 		private readonly List<Rect> rectList = new List<Rect>();
 		private readonly List<Text> textList = new List<Text>();
@@ -28,8 +28,8 @@ namespace BasicLib.Graphic{
 
 		internal SvgGraphics(string filename, int width, int height) {
 			stream = new FileStream(filename, FileMode.Create);
-			this.width = width;
-			this.height = height;
+			docWidth = width;
+			docHeight = height;
 			scale = 1;
 			svg = new Svg{
 				Width = width*scale, Height = height*scale, ViewBox = String.Format("0 0 {0} {1}", width*scale, height*scale),
@@ -38,15 +38,9 @@ namespace BasicLib.Graphic{
 		}
 
 		public void Dispose(){
-			svg.Line = lines.ToArray();
-			svg.Rect = rectList.ToArray();
-			svg.Text = textList.ToArray();
-			svg.SvgImage = imageList.ToArray();
-			svg.Path = pathList.ToArray();
-			svg.Circle = circleList.ToArray();
-			svg.Ellipse = ellipseList.ToArray();
-			XmlSerialization.WriteToStream(stream, svg);
-			stream.Close();
+			if (stream != null){
+				stream.Dispose();
+			}
 		}
 
 		private string Transform{
@@ -85,8 +79,6 @@ namespace BasicLib.Graphic{
 			return GetColor(pen.Color);
 		}
 
-		#region Implementation of IGraphics
-
 		/// <summary>
 		/// 
 		/// </summary>
@@ -116,8 +108,8 @@ namespace BasicLib.Graphic{
 		public void SetClippingMask(int w, int h, int x, int y){
 			locationX = x;
 			locationY = y;
-			float wscale = width/w;
-			float hscale = height/h;
+			float wscale = docWidth/w;
+			float hscale = docHeight/h;
 			if (wscale == hscale){
 				scale = wscale;
 			}
@@ -565,11 +557,11 @@ namespace BasicLib.Graphic{
 		}
 
 		public void FillClosedCurve(Brush brush, Point[] points){
-			//TODO
+			FillPolygon(brush, points);
 		}
 
 		public void DrawCurve(Pen pen, Point[] points){
-			//TODO
+			DrawPolygon(pen, points);
 		}
 
 		public void TranslateTransform(float dx, float dy){
@@ -589,9 +581,15 @@ namespace BasicLib.Graphic{
 		}
 
 		public void Close(){
-			
+			svg.Line = lines.ToArray();
+			svg.Rect = rectList.ToArray();
+			svg.Text = textList.ToArray();
+			svg.SvgImage = imageList.ToArray();
+			svg.Path = pathList.ToArray();
+			svg.Circle = circleList.ToArray();
+			svg.Ellipse = ellipseList.ToArray();
+			XmlSerialization.WriteToStream(stream, svg);
+			stream.Close();
 		}
-
-		#endregion
 	}
 }

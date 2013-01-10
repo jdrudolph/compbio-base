@@ -25,7 +25,7 @@ namespace BasicLib.Forms.Base{
 			(filename, width, height) => new BitmapGraphics(filename, width, height, ImageFormat.Tiff));
 		public static readonly BasicImageFormat wmf = new BasicImageFormat(new[]{".wmf"}, "WMF Windows Meta File",
 			(filename, width, height) => new BitmapGraphics(filename, width, height, ImageFormat.Wmf));
-		public static readonly BasicImageFormat[] allFormats = new[]{pdf, png, svg, gif, jpeg, tiff, wmf, bmp, emf};
+		public static readonly BasicImageFormat[] allFormats = new[] { png, pdf, gif, jpeg, tiff, wmf, bmp, emf };// svg
 		private static readonly Dictionary<string, BasicImageFormat> map = new Dictionary<string, BasicImageFormat>();
 
 		static BasicImageFormat(){

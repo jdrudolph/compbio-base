@@ -50,12 +50,6 @@ namespace BasicLib.Graphic{
 		void SetClippingMask(int width, int height, int x, int y);
 
 		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="color"></param>
-		void Clear(Color color);
-
-		/// <summary>
 		/// Draws a line connecting the two points specified by the coordinate pairs.
 		/// </summary>
 		/// <param name="pen">Pen that determines the color, width, and style of the line.</param>
