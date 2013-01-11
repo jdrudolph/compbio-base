@@ -1431,17 +1431,27 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static double[] ExtractValidValues(double[] x){
+		public static double[] ExtractValidValues(IList<double> x) {
 			List<double> result = new List<double>();
-			foreach (double y in x){
-				if (!double.IsNaN(y) && !double.IsInfinity(y)){
+			foreach (double y in x) {
+				if (!double.IsNaN(y) && !double.IsInfinity(y)) {
 					result.Add(y);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static float[] SmoothMedian(IList<float> m, int width){
+		public static float[] ExtractValidValues(IList<float> x) {
+			List<float> result = new List<float>();
+			foreach (float y in x) {
+				if (!float.IsNaN(y) && !float.IsInfinity(y)) {
+					result.Add(y);
+				}
+			}
+			return result.ToArray();
+		}
+
+		public static float[] SmoothMedian(IList<float> m, int width) {
 			float[] result = new float[m.Count];
 			for (int i = 0; i < result.Length; i++){
 				int min = Math.Max(0, i - width);
