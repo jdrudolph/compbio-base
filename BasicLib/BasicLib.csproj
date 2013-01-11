@@ -112,7 +112,6 @@
     <Compile Include="Forms\Base\BasicColumnStyle.cs" />
     <Compile Include="Forms\Base\IPrintable.cs" />
     <Compile Include="Forms\Colors\ColorStripView.cs" />
-    <Compile Include="Forms\Scatter\EquationProperties.cs" />
     <Compile Include="Forms\Scatter\PlanePropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
