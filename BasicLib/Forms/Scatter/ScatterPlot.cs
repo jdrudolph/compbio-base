@@ -29,7 +29,7 @@ namespace BasicLib.Forms.Scatter{
 		public Func<int, PolygonData> GetPolygon { set { ScatterPlotPlane.GetPolygon = value; } }
 		public Func<int> GetPolygonCount { set { ScatterPlotPlane.GetPolygonCount = value; } }
 		public ColorScale ColorScale { set { ScatterPlotPlane.ColorScale = value; } }
-		public Action<IGraphics, int, int, Func<double, int, int>, Func<double, int, int>, Func<int, int, double>>
+		public Action<IGraphics, int, int, Func<double, int, int>, Func<double, int, int>, Func<int, int, double>, Func<int, int, double>>
 			DrawFunctions { set { ScatterPlotPlane.drawFunctions = value; } }
 
 		public void AddToolStripItem(ToolStripItem item){

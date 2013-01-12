@@ -87,7 +87,7 @@ namespace BasicLib.Forms.Scatter{
 		internal Func<int> GetPolygonCount { get; set; }
 		private static readonly SymbolProperties defaultSymbol = new SymbolProperties(Color.DarkGray, 4, 1);
 		internal Action<IGraphics, int, int,Func<double, int, int> , Func<double, int, int> ,
-			Func<int, int, double>> drawFunctions;
+			Func<int, int, double>, Func<int, int, double>> drawFunctions;
 
 
 		internal ScatterPlot ScatterPlot{
@@ -353,7 +353,7 @@ namespace BasicLib.Forms.Scatter{
 			}
 			DrawPolygons(g, width, height);
 			if (drawFunctions != null) {
-				drawFunctions(g, width, height, ModelToViewX, ModelToViewY, ViewToModelX);
+				drawFunctions(g, width, height, ModelToViewX, ModelToViewY, ViewToModelX, ViewToModelY);
 			}
 		}
 
@@ -542,7 +542,7 @@ namespace BasicLib.Forms.Scatter{
 			g.SmoothingMode = SmoothingMode.AntiAlias;
 			DrawPolygons(g, width, height);
 			if (drawFunctions != null){
-				drawFunctions(g, width, height, ModelToViewX, ModelToViewY, ViewToModelX);
+				drawFunctions(g, width, height, ModelToViewX, ModelToViewY, ViewToModelX, ViewToModelY);
 			}
 			g.SmoothingMode = SmoothingMode.Default;
 		}
@@ -849,9 +849,9 @@ namespace BasicLib.Forms.Scatter{
 			return ZoomXMin + x*(ZoomXMax - ZoomXMin)/width;
 		}
 
-		private float ViewToModelY(int y, int height){
+		private double ViewToModelY(int y, int height){
 			y = height - 1 - y;
-			return (float) (ZoomYMin + y*(ZoomYMax - ZoomYMin)/height);
+			return (ZoomYMin + y*(ZoomYMax - ZoomYMin)/height);
 		}
 
 		private bool IsDragging(){
