@@ -28,6 +28,14 @@ namespace BasicLib.Num{
 			return NumUtils.Gasdev(ref iset, ref gset, this);
 		}
 
+		public bool NextBoolean(){
+			return NextBoolean(0.5);
+		}
+
+		public bool NextBoolean(double pTrue){
+			return NextDouble() < pTrue;
+		}
+
 		/// <summary>
 		/// This method generates a pseudo random number drawn from a normal distribution
 		/// with the given mean and standard deviation.

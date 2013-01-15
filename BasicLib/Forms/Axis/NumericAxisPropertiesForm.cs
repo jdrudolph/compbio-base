@@ -1,10 +1,10 @@
 ﻿using System.Windows.Forms;
 
 namespace BasicLib.Forms.Axis{
-	public partial class NumericAxisPropertiesForm : Form{
-		public bool Ok { get; set; }
+	internal partial class NumericAxisPropertiesForm : Form{
+		internal bool Ok { get; set; }
 
-		public NumericAxisPropertiesForm(string title, double minValue, double maxValue){
+		internal NumericAxisPropertiesForm(string title, double minValue, double maxValue){
 			InitializeComponent();
 			MinValue = minValue;
 			MaxValue = maxValue;
@@ -21,8 +21,8 @@ namespace BasicLib.Forms.Axis{
 			Close();
 		}
 
-		public string Title { get { return titleTextBox.Text; } set { titleTextBox.Text = value; } }
-		public double MinValue{
+		internal string Title { get { return titleTextBox.Text; } set { titleTextBox.Text = value; } }
+		internal double MinValue{
 			get{
 				double x;
 				bool s = double.TryParse(minValueTextBox.Text, out x);
@@ -33,7 +33,7 @@ namespace BasicLib.Forms.Axis{
 			}
 			set { minValueTextBox.Text = "" + value; }
 		}
-		public double MaxValue{
+		internal double MaxValue{
 			get{
 				double x;
 				bool s = double.TryParse(maxValueTextBox.Text, out x);
