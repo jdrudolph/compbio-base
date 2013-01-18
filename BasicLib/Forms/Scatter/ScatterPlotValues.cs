@@ -1,4 +1,6 @@
-﻿namespace BasicLib.Forms.Scatter{
+﻿using BasicLib.Util;
+
+namespace BasicLib.Forms.Scatter{
 	public class ScatterPlotValues{
 		public double[] SingleValues { get; private set; }
 		public double[][] MultiValues { get; private set; }
@@ -17,5 +19,9 @@
 		}
 
 		public int Length { get { return IsMulti ? MultiValues.Length : SingleValues.Length; } }
+
+		public ScatterPlotValues Rank(){
+			return IsMulti ? null : new ScatterPlotValues(ArrayUtils.Rank(SingleValues));
+		}
 	}
 }
