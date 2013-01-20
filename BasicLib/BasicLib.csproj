@@ -76,7 +76,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\ByteArray.cs" />
     <Compile Include="Data\Cache.cs" />
     <Compile Include="Data\CacheElem.cs" />
     <Compile Include="Data\EquatableArray.cs" />
