@@ -16,12 +16,11 @@ namespace BasicLib.Util{
 	/// Static class containing utility routines for accessing and handling files.
 	/// </summary>
 	public static class FileUtils{
-		public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
-		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta|Fasta file (*.fa)|*.fa|Fasta file (*.fas)|*.fas";
-		public static string executableFile = Application.ExecutablePath;
-		public static string executablePath = Path.GetDirectoryName(executableFile);
+		public const string dateFormat = "dd/MM/yyyy HH:mm:ss";
+		public const string fastaFilter = "Fasta file (*.fasta)|*.fasta|Fasta file (*.fa)|*.fa|Fasta file (*.fas)|*.fas";
+		public static readonly string executableFile = Application.ExecutablePath;
+		public static readonly string executablePath = Path.GetDirectoryName(executableFile);
 		private static readonly Random random = new Random();
-		private const string classname = "FileUtil";
 
 		/// <summary>
 		/// Creates a <code>BinaryReader</code> reading from the given file path.
@@ -350,7 +349,7 @@ namespace BasicLib.Util{
 				try{
 					File.Delete(file);
 				} catch (IOException){
-					Logger.Warn(classname, "The process cannot delete the file " + file + ". This process will try to delete it later.");
+					Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name, "The process cannot delete the file " + file + ". This process will try to delete it later.");
 					Thread.Sleep(1000);
 				}
 			}
@@ -583,25 +582,25 @@ namespace BasicLib.Util{
 				Directory.CreateDirectory(destFolder);
 			}
 			while (Directory.GetFiles(srcFolder).Length > 0){
-				Logger.Debug(classname,
+				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
 					string.Format("Number of files in {0} is {1}", srcFolder, Directory.GetFiles(srcFolder).Length));
 				foreach (string file in Directory.GetFiles(srcFolder)){
 					try{
 						Move(file, destFolder);
 					} catch (Exception){
-						Logger.Debug(classname, "Cannot move file " + file);
+						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move file " + file);
 						Thread.Sleep(50);
 					}
 				}
 			}
 			while (Directory.GetDirectories(srcFolder).Length > 0){
-				Logger.Debug(classname,
+				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
 					string.Format("Number of directories in {0} is {1}", srcFolder, Directory.GetDirectories(srcFolder).Length));
 				foreach (string dir in Directory.GetDirectories(srcFolder)){
 					try{
 						MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
 					} catch (Exception){
-						Logger.Debug(classname, "Cannot move directory " + dir);
+						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move directory " + dir);
 						Thread.Sleep(50);
 					}
 				}
@@ -623,25 +622,25 @@ namespace BasicLib.Util{
 				}
 			}
 			while (Directory.GetFiles(srcFolder).Length > 0){
-				Logger.Debug(classname,
+				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
 					string.Format("Number of files in {0} is {1}", srcFolder, Directory.GetFiles(srcFolder).Length));
 				foreach (string file in Directory.GetFiles(srcFolder)){
 					try{
 						Move(file, destFolder);
 					} catch (Exception){
-						Logger.Debug(classname, "Cannot move file " + file);
+						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move file " + file);
 						Thread.Sleep(50);
 					}
 				}
 			}
 			while (Directory.GetDirectories(srcFolder).Length > 0){
-				Logger.Debug(classname,
+				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
 					string.Format("Number of directories in {0} is {1}", srcFolder, Directory.GetDirectories(srcFolder).Length));
 				foreach (string dir in Directory.GetDirectories(srcFolder)){
 					try{
 						MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
 					} catch (Exception){
-						Logger.Debug(classname, "Cannot move directory " + dir);
+						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move directory " + dir);
 						Thread.Sleep(50);
 					}
 				}
