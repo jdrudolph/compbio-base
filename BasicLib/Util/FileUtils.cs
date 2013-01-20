@@ -16,10 +16,10 @@ namespace BasicLib.Util{
 	/// Static class containing utility routines for accessing and handling files.
 	/// </summary>
 	public static class FileUtils{
-		public const string dateFormat = "dd/MM/yyyy HH:mm:ss";
-		public const string fastaFilter = "Fasta file (*.fasta)|*.fasta|Fasta file (*.fa)|*.fa|Fasta file (*.fas)|*.fas";
-		public static readonly string executableFile = Application.ExecutablePath;
-		public static readonly string executablePath = Path.GetDirectoryName(executableFile);
+		public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
+		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta|Fasta file (*.fa)|*.fa|Fasta file (*.fas)|*.fas";
+		public static string executableFile = Application.ExecutablePath;
+		public static string executablePath = Path.GetDirectoryName(executableFile);
 		private static readonly Random random = new Random();
 
 		/// <summary>

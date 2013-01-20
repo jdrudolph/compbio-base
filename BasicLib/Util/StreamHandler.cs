@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 
 namespace BasicLib.Util{
@@ -11,8 +12,6 @@ namespace BasicLib.Util{
 	}
 
 	public static class StreamHandler{
-		private const string classname = "StreamHandler";
-
 		private static StreamWriter GetStreamWriter(string filename){
 			if (filename == null){
 				return null;
@@ -20,7 +19,8 @@ namespace BasicLib.Util{
 			try{
 				return new StreamWriter(filename, true);
 			} catch (Exception ex){
-				Logger.Warn(classname, "Can not create StreamWriter for file " + filename + "\n" + ex);
+				Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name,
+					"Cannot create StreamWriter for file " + filename + "\n" + ex);
 				return null;
 			}
 		}
@@ -40,7 +40,7 @@ namespace BasicLib.Util{
 		public static void StartLog(string infoFolder, string name, int id, string title, string description,
 			WorkType workType, DateTime starttime){
 			if (string.IsNullOrEmpty(infoFolder)){
-				Logger.Warn(classname, "function parameter infoFolder is null or empty.");
+				Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name, "function parameter infoFolder is null or empty.");
 				return;
 			}
 			if (workType == WorkType.Process){
@@ -101,7 +101,7 @@ namespace BasicLib.Util{
 		public static void EndLog(string infoFolder, string name, int id, string title, string description, WorkType workType,
 			DateTime starttime, DateTime endtime){
 			if (string.IsNullOrEmpty(infoFolder)){
-				Logger.Warn(classname, "function parameter infoFolder is null or empty.");
+				Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name, "function parameter infoFolder is null or empty.");
 				return;
 			}
 			if (workType == WorkType.Process){
@@ -162,7 +162,7 @@ namespace BasicLib.Util{
 		public static void ErrorLog(string infoFolder, string name, int id, string title, string description,
 			WorkType workType, DateTime starttime, DateTime endtime, string error){
 			if (string.IsNullOrEmpty(infoFolder)){
-				Logger.Warn(classname, "function parameter infoFolder is null or empty.");
+				Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name, "function parameter infoFolder is null or empty.");
 				return;
 			}
 			if (workType == WorkType.Process){
@@ -245,7 +245,7 @@ namespace BasicLib.Util{
 				writer.Flush();
 				writer.Close();
 			} catch (Exception){
-				Logger.Warn(classname, "Could not write to " + path);
+				Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name, "Could not write to " + path);
 			}
 		}
 
