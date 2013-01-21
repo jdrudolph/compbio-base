@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BasicLib.Num {
+namespace BasicLib.Forms.Scatter {
 	[Serializable]
 	public class PolygonData{
 		public double[] x;
