@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using BasicLib.Util;
 
-namespace BasicLib.Util{
+namespace BasicLib.Data{
 	public class NeighbourList{
 		private readonly Dictionary<int, List<int>> neighborList = new Dictionary<int, List<int>>();
 
