@@ -1,7 +1,5 @@
 using System.Drawing;
 using System.Windows.Forms;
-using BasicLib.Forms;
-using BasicLib.Forms.Base;
 using BasicLib.Forms.Help;
 
 namespace BasicLib.Param{

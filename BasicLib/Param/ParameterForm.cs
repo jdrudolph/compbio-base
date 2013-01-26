@@ -37,5 +37,7 @@ namespace BasicLib.Param{
 			parameterPanel1.SetParameters();
 			Close();
 		}
+
+
 	}
 }

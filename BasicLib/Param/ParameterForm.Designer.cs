@@ -2,9 +2,9 @@ namespace BasicLib.Param{
 	sealed partial class ParameterForm {
 		/// <summary>
 		/// Required designer variable.
+
 		/// </summary>
 		private System.ComponentModel.IContainer components = null;
-
 		/// <summary>
 		/// Clean up any resources being used.
 		/// </summary>
@@ -29,9 +29,9 @@ namespace BasicLib.Param{
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.parameterPanel1 = new BasicLib.Param.ParameterPanel();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.helpTextBox = new System.Windows.Forms.RichTextBox();
-			this.parameterPanel1 = new BasicLib.Param.ParameterPanel();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.tabControl1.SuspendLayout();
@@ -46,7 +46,7 @@ namespace BasicLib.Param{
 			this.cancelButton.Location = new System.Drawing.Point(3, 6);
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(75, 23);
-			this.cancelButton.TabIndex = 0;
+			this.cancelButton.TabIndex = 1;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
@@ -106,29 +106,9 @@ namespace BasicLib.Param{
 			this.tabPage1.Name = "tabPage1";
 			this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage1.Size = new System.Drawing.Size(1031, 808);
-			this.tabPage1.TabIndex = 0;
+			this.tabPage1.TabIndex = 4;
 			this.tabPage1.Text = "Parameters";
 			this.tabPage1.UseVisualStyleBackColor = true;
-			// 
-			// tabPage2
-			// 
-			this.tabPage2.Controls.Add(this.helpTextBox);
-			this.tabPage2.Location = new System.Drawing.Point(4, 22);
-			this.tabPage2.Name = "tabPage2";
-			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(1031, 735);
-			this.tabPage2.TabIndex = 1;
-			this.tabPage2.Text = "Help";
-			this.tabPage2.UseVisualStyleBackColor = true;
-			// 
-			// helpTextBox
-			// 
-			this.helpTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.helpTextBox.Location = new System.Drawing.Point(3, 3);
-			this.helpTextBox.Name = "helpTextBox";
-			this.helpTextBox.Size = new System.Drawing.Size(1025, 729);
-			this.helpTextBox.TabIndex = 0;
-			this.helpTextBox.Text = "";
 			// 
 			// parameterPanel1
 			// 
@@ -140,6 +120,26 @@ namespace BasicLib.Param{
 			this.parameterPanel1.Size = new System.Drawing.Size(900, 347);
 			this.parameterPanel1.TabIndex = 1;
 			// 
+			// tabPage2
+			// 
+			this.tabPage2.Controls.Add(this.helpTextBox);
+			this.tabPage2.Location = new System.Drawing.Point(4, 22);
+			this.tabPage2.Name = "tabPage2";
+			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+			this.tabPage2.Size = new System.Drawing.Size(1031, 808);
+			this.tabPage2.TabIndex = 1;
+			this.tabPage2.Text = "Help";
+			this.tabPage2.UseVisualStyleBackColor = true;
+			// 
+			// helpTextBox
+			// 
+			this.helpTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.helpTextBox.Location = new System.Drawing.Point(3, 3);
+			this.helpTextBox.Name = "helpTextBox";
+			this.helpTextBox.Size = new System.Drawing.Size(1025, 802);
+			this.helpTextBox.TabIndex = 5;
+			this.helpTextBox.Text = "";
+			// 
 			// ParameterForm
 			// 
 			this.AcceptButton = this.okButton;
@@ -148,6 +148,7 @@ namespace BasicLib.Param{
 			this.CancelButton = this.cancelButton;
 			this.ClientSize = new System.Drawing.Size(1045, 878);
 			this.Controls.Add(this.tableLayoutPanel1);
+			this.MinimizeBox = false;
 			this.Name = "ParameterForm";
 			this.Text = "Parameters";
 			this.tableLayoutPanel1.ResumeLayout(false);
