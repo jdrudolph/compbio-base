@@ -6,8 +6,9 @@ using BasicLib.Forms.Axis;
 using BasicLib.Forms.Base;
 
 namespace BasicLib.Forms.Scatter{
+	//TODO: should be internal
 	public partial class ScatterPlotViewer : UserControl{
-		private readonly ScatterPlotPlaneView zoomablePlane;
+		private readonly ScatterPlotPlaneView scatterPlotPlane;
 		private readonly NumericAxisView leftAxis;
 		private readonly NumericAxisView rightAxis;
 		private readonly NumericAxisView topAxis;
@@ -25,7 +26,7 @@ namespace BasicLib.Forms.Scatter{
 			leftAxis = new NumericAxisView();
 			topAxis = new NumericAxisView();
 			rightAxis = new NumericAxisView();
-			zoomablePlane = new ScatterPlotPlaneView();
+			scatterPlotPlane = new ScatterPlotPlaneView();
 			spacer1 = new BasicView();
 			spacer2 = new BasicView();
 			spacer3 = new BasicView();
@@ -40,7 +41,7 @@ namespace BasicLib.Forms.Scatter{
 			tableLayoutView.Add(spacer2, 0, 2);
 			tableLayoutView.Add(spacer3, 2, 0);
 			tableLayoutView.Add(spacer4, 2, 2);
-			tableLayoutView.Add(zoomablePlane, 1, 1);
+			tableLayoutView.Add(scatterPlotPlane, 1, 1);
 			tableLayoutView.Add(bottomAxis, 1, 2);
 			tableLayoutView.Add(leftAxis, 0, 1);
 			tableLayoutView.Add(topAxis, 1, 0);
@@ -55,10 +56,10 @@ namespace BasicLib.Forms.Scatter{
 			tableLayoutControl = tableLayoutView.CreateControl();
 			Controls.Add(tableLayoutControl);
 			Controls.Add(toolStrip1);
-			zoomablePlane.BackColor = Color.White;
-			zoomablePlane.ForeColor = SystemColors.HotTrack;
-			zoomablePlane.IndicatorColor = Color.Transparent;
-			zoomablePlane.MouseMode = ScatterPlotMouseMode.Zoom;
+			scatterPlotPlane.BackColor = Color.White;
+			scatterPlotPlane.ForeColor = SystemColors.HotTrack;
+			scatterPlotPlane.IndicatorColor = Color.Transparent;
+			scatterPlotPlane.MouseMode = ScatterPlotMouseMode.Zoom;
 			bottomAxis.Configurable = true;
 			bottomAxis.Positioning = AxisPositioning.Bottom;
 			bottomAxis.Reverse = false;
@@ -79,7 +80,7 @@ namespace BasicLib.Forms.Scatter{
 			bottomAxis.OnZoomChange += UpdateZoomTop;
 			rightAxis.OnZoomChange += UpdateZoomRight;
 			leftAxis.OnZoomChange += UpdateZoomLeft;
-			zoomablePlane.OnZoomChange += UpdateZoomFromMap;
+			scatterPlotPlane.OnZoomChange += UpdateZoomFromMap;
 			bottomAxis.BackColor = Color.White;
 			bottomAxis.Font = new Font("Lucida Sans Unicode", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
 			bottomAxis.ForeColor = Color.Black;
@@ -276,21 +277,21 @@ namespace BasicLib.Forms.Scatter{
 			bottomAxis.ZoomMin = xMin;
 			bottomAxis.TotalMax = xMax;
 			bottomAxis.ZoomMax = xMax;
-			zoomablePlane.TotalYMin = rightAxis.TotalMin;
-			zoomablePlane.TotalYMax = rightAxis.TotalMax;
-			zoomablePlane.TotalXMin = topAxis.TotalMin;
-			zoomablePlane.TotalXMax = topAxis.TotalMax;
-			zoomablePlane.ZoomYMin = rightAxis.TotalMin;
-			zoomablePlane.ZoomYMax = rightAxis.TotalMax;
-			zoomablePlane.ZoomXMin = topAxis.TotalMin;
-			zoomablePlane.ZoomXMax = topAxis.TotalMax;
+			scatterPlotPlane.TotalYMin = rightAxis.TotalMin;
+			scatterPlotPlane.TotalYMax = rightAxis.TotalMax;
+			scatterPlotPlane.TotalXMin = topAxis.TotalMin;
+			scatterPlotPlane.TotalXMax = topAxis.TotalMax;
+			scatterPlotPlane.ZoomYMin = rightAxis.TotalMin;
+			scatterPlotPlane.ZoomYMax = rightAxis.TotalMax;
+			scatterPlotPlane.ZoomXMin = topAxis.TotalMin;
+			scatterPlotPlane.ZoomXMax = topAxis.TotalMax;
 			rightAxis.Invalidate();
 			leftAxis.Invalidate();
 			topAxis.Invalidate();
 			bottomAxis.Invalidate();
-			zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-			zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
+			scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
+			scatterPlotPlane.Invalidate();
 		}
 
 		internal void SetRange(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
@@ -310,21 +311,21 @@ namespace BasicLib.Forms.Scatter{
 			bottomAxis.ZoomMin = xMin;
 			bottomAxis.TotalMax = xMax;
 			bottomAxis.ZoomMax = xMax;
-			zoomablePlane.TotalYMin = rightAxis.TotalMin;
-			zoomablePlane.TotalYMax = rightAxis.TotalMax;
-			zoomablePlane.TotalXMin = topAxis.TotalMin;
-			zoomablePlane.TotalXMax = topAxis.TotalMax;
-			zoomablePlane.ZoomYMin = rightAxis.TotalMin;
-			zoomablePlane.ZoomYMax = rightAxis.TotalMax;
-			zoomablePlane.ZoomXMin = topAxis.TotalMin;
-			zoomablePlane.ZoomXMax = topAxis.TotalMax;
+			scatterPlotPlane.TotalYMin = rightAxis.TotalMin;
+			scatterPlotPlane.TotalYMax = rightAxis.TotalMax;
+			scatterPlotPlane.TotalXMin = topAxis.TotalMin;
+			scatterPlotPlane.TotalXMax = topAxis.TotalMax;
+			scatterPlotPlane.ZoomYMin = rightAxis.TotalMin;
+			scatterPlotPlane.ZoomYMax = rightAxis.TotalMax;
+			scatterPlotPlane.ZoomXMin = topAxis.TotalMin;
+			scatterPlotPlane.ZoomXMax = topAxis.TotalMax;
 			rightAxis.Invalidate();
 			leftAxis.Invalidate();
 			topAxis.Invalidate();
 			bottomAxis.Invalidate();
-			zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-			zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
+			scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
+			scatterPlotPlane.Invalidate();
 		}
 
 		internal void SetMouseModes(AxisMouseMode axisMouseMode, ScatterPlotMouseMode zoomablePlaneMouseMode){
@@ -332,11 +333,11 @@ namespace BasicLib.Forms.Scatter{
 			rightAxis.MouseMode = axisMouseMode;
 			bottomAxis.MouseMode = axisMouseMode;
 			leftAxis.MouseMode = axisMouseMode;
-			zoomablePlane.MouseMode = zoomablePlaneMouseMode;
+			scatterPlotPlane.MouseMode = zoomablePlaneMouseMode;
 		}
 
 		internal void InitializeZoomablePlane(ScatterPlot scatterPlot){
-			zoomablePlane.ScatterPlot = scatterPlot;
+			scatterPlotPlane.ScatterPlot = scatterPlot;
 		}
 
 		internal int MainWidth{
@@ -357,68 +358,69 @@ namespace BasicLib.Forms.Scatter{
 				return x.Length < 2 ? 0 : x[1];
 			}
 		}
-		internal ScatterPlotPlaneView ScatterPlotPlane { get { return zoomablePlane; } }
+		internal ScatterPlotPlaneView ScatterPlotPlane { get { return scatterPlotPlane; } }
+		public Icon Icon { get; set; }
 
 		protected override void OnResize(EventArgs e){
 			base.OnResize(e);
-			if (zoomablePlane == null){
+			if (scatterPlotPlane == null){
 				return;
 			}
 			if (tableLayoutView == null){
 				return;
 			}
 			if (bottomAxis != null){
-				zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
+				scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
 			}
 			if (leftAxis != null){
-				zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
+				scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
 			}
-			zoomablePlane.InvalidateImage();
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.InvalidateImage();
+			scatterPlotPlane.Invalidate();
 		}
 
 		private void UpdateZoomBottom(object source, double min, double max){
 			bottomAxis.ZoomMin = min;
 			bottomAxis.ZoomMax = max;
-			zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-			zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
+			scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
+			scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
 			bottomAxis.Invalidate();
-			zoomablePlane.ZoomXMin = min;
-			zoomablePlane.ZoomXMax = max;
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.ZoomXMin = min;
+			scatterPlotPlane.ZoomXMax = max;
+			scatterPlotPlane.Invalidate();
 		}
 
 		private void UpdateZoomTop(object source, double min, double max){
 			topAxis.ZoomMin = min;
 			topAxis.ZoomMax = max;
-			zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-			zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
+			scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
+			scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
 			topAxis.Invalidate();
-			zoomablePlane.ZoomXMin = min;
-			zoomablePlane.ZoomXMax = max;
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.ZoomXMin = min;
+			scatterPlotPlane.ZoomXMax = max;
+			scatterPlotPlane.Invalidate();
 		}
 
 		private void UpdateZoomLeft(object source, double min, double max){
 			rightAxis.ZoomMin = min;
 			rightAxis.ZoomMax = max;
-			zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-			zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
+			scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
+			scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
 			rightAxis.Invalidate();
-			zoomablePlane.ZoomYMin = min;
-			zoomablePlane.ZoomYMax = max;
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.ZoomYMin = min;
+			scatterPlotPlane.ZoomYMax = max;
+			scatterPlotPlane.Invalidate();
 		}
 
 		private void UpdateZoomRight(object source, double min, double max){
 			leftAxis.ZoomMin = min;
 			leftAxis.ZoomMax = max;
-			zoomablePlane.XTics = bottomAxis.GetTics(MainWidth);
-			zoomablePlane.YTics = leftAxis.GetTics(MainHeight);
+			scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
+			scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
 			leftAxis.Invalidate();
-			zoomablePlane.ZoomYMin = min;
-			zoomablePlane.ZoomYMax = max;
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.ZoomYMin = min;
+			scatterPlotPlane.ZoomYMax = max;
+			scatterPlotPlane.Invalidate();
 		}
 
 		private void UpdateZoomFromMap(Object source, int imin, int imax, int jmin, int jmax, bool relative, int width, int height){
@@ -429,8 +431,8 @@ namespace BasicLib.Forms.Scatter{
 				if (bottomAxis.Zoomable){
 					bottomAxis.SetZoomFromView(imin, imax, width);
 				}
-				zoomablePlane.XTics = bottomAxis.GetTics(width);
-				zoomablePlane.YTics = leftAxis.GetTics(height);
+				scatterPlotPlane.XTics = bottomAxis.GetTics(width);
+				scatterPlotPlane.YTics = leftAxis.GetTics(height);
 			} else{
 				if (rightAxis.Zoomable){
 					rightAxis.FullZoom();
@@ -438,8 +440,8 @@ namespace BasicLib.Forms.Scatter{
 				if (topAxis.Zoomable){
 					topAxis.FullZoom();
 				}
-				zoomablePlane.XTics = bottomAxis.GetTics(width);
-				zoomablePlane.YTics = leftAxis.GetTics(height);
+				scatterPlotPlane.XTics = bottomAxis.GetTics(width);
+				scatterPlotPlane.YTics = leftAxis.GetTics(height);
 			}
 		}
 
@@ -523,30 +525,33 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		private void ConfigureButtonClick(object sender, EventArgs e){
-			PlanePropertiesForm f = new PlanePropertiesForm(zoomablePlane.HorizontalGridColor, zoomablePlane.VerticalGridColor,
-				zoomablePlane.HorizontalGrid, zoomablePlane.VerticalGrid, zoomablePlane.HorizontalGridWidth,
-				zoomablePlane.VerticalGridWidth, FillColor, zoomablePlane.BackColor, LineColor, MajorTickLength, MajorTickLineWidth,
+			PlanePropertiesForm f = new PlanePropertiesForm(scatterPlotPlane.HorizontalGridColor, scatterPlotPlane.VerticalGridColor,
+				scatterPlotPlane.HorizontalGrid, scatterPlotPlane.VerticalGrid, scatterPlotPlane.HorizontalGridWidth,
+				scatterPlotPlane.VerticalGridWidth, FillColor, scatterPlotPlane.BackColor, LineColor, MajorTickLength, MajorTickLineWidth,
 				MinorTickLength, MinorTickLineWidth, topAxis.Visible, rightAxis.Visible, LineWidth, (int) NumbersFontSize,
-				NumbersFontBold, (int) LabelFontSize, LabelFontBold, zoomablePlane.HorizontalZeroColor,
-				zoomablePlane.VerticalZeroColor, zoomablePlane.HorizontalZeroWidth, zoomablePlane.VerticalZeroWidth,
-				zoomablePlane.HorizontalZeroVisible, zoomablePlane.VerticalZeroVisible);
+				NumbersFontBold, (int) LabelFontSize, LabelFontBold, scatterPlotPlane.HorizontalZeroColor,
+				scatterPlotPlane.VerticalZeroColor, scatterPlotPlane.HorizontalZeroWidth, scatterPlotPlane.VerticalZeroWidth,
+				scatterPlotPlane.HorizontalZeroVisible, scatterPlotPlane.VerticalZeroVisible);
+			if (Icon != null){
+				f.Icon = Icon;
+			}
 			f.ShowDialog(ParentForm);
 			if (f.Ok){
-				zoomablePlane.HorizontalGrid = f.HorizontalGrid;
-				zoomablePlane.VerticalGrid = f.VerticalGrid;
-				zoomablePlane.HorizontalGridColor = f.HorizontalGridColor;
-				zoomablePlane.VerticalGridColor = f.VerticalGridColor;
-				zoomablePlane.HorizontalGridWidth = f.HorizontalGridWidth;
-				zoomablePlane.VerticalGridWidth = f.VerticalGridWidth;
-				zoomablePlane.HorizontalZeroColor = f.HorizontalZeroColor;
-				zoomablePlane.VerticalZeroColor = f.VerticalZeroColor;
-				zoomablePlane.HorizontalZeroWidth = f.HorizontalZeroWidth;
-				zoomablePlane.VerticalZeroWidth = f.VerticalZeroWidth;
-				zoomablePlane.HorizontalZeroVisible = f.HorizontalZeroVisible;
-				zoomablePlane.VerticalZeroVisible = f.VerticalZeroVisible;
+				scatterPlotPlane.HorizontalGrid = f.HorizontalGrid;
+				scatterPlotPlane.VerticalGrid = f.VerticalGrid;
+				scatterPlotPlane.HorizontalGridColor = f.HorizontalGridColor;
+				scatterPlotPlane.VerticalGridColor = f.VerticalGridColor;
+				scatterPlotPlane.HorizontalGridWidth = f.HorizontalGridWidth;
+				scatterPlotPlane.VerticalGridWidth = f.VerticalGridWidth;
+				scatterPlotPlane.HorizontalZeroColor = f.HorizontalZeroColor;
+				scatterPlotPlane.VerticalZeroColor = f.VerticalZeroColor;
+				scatterPlotPlane.HorizontalZeroWidth = f.HorizontalZeroWidth;
+				scatterPlotPlane.VerticalZeroWidth = f.VerticalZeroWidth;
+				scatterPlotPlane.HorizontalZeroVisible = f.HorizontalZeroVisible;
+				scatterPlotPlane.VerticalZeroVisible = f.VerticalZeroVisible;
 				FillColor = f.FillColor;
 				LineColor = f.LineColor;
-				zoomablePlane.BackColor = f.BackgroundColor;
+				scatterPlotPlane.BackColor = f.BackgroundColor;
 				topAxis.Visible = f.TopAxesVisible;
 				rightAxis.Visible = f.RightAxesVisible;
 				MajorTickLength = f.MajorTickLength;
@@ -558,7 +563,7 @@ namespace BasicLib.Forms.Scatter{
 				NumbersFontBold = f.NumbersFontBold;
 				LabelFontSize = f.TitleFontSize;
 				LabelFontBold = f.TitleFontBold;
-				zoomablePlane.InvalidateImage();
+				scatterPlotPlane.InvalidateImage();
 				Invalidate(true);
 			}
 			f.Dispose();
@@ -604,7 +609,7 @@ namespace BasicLib.Forms.Scatter{
 
 		private void SaveAsButtonClick(object sender, EventArgs e){
 			Printing.Print(tableLayoutView, "ScatterPlot", tableLayoutControl.Width, tableLayoutControl.Height);
-			zoomablePlane.Invalidate();
+			scatterPlotPlane.Invalidate();
 		}
 
 		internal Control GetTableLayoutPanel(){
@@ -613,7 +618,7 @@ namespace BasicLib.Forms.Scatter{
 
 		protected override void OnSizeChanged(EventArgs e){
 			base.OnSizeChanged(e);
-			if (sizeLabel != null && zoomablePlane != null){
+			if (sizeLabel != null && scatterPlotPlane != null){
 				sizeLabel.Text = "width=" + Width + ", height=" + (Height - 24);
 			}
 		}
