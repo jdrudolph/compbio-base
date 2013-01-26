@@ -32,7 +32,7 @@ namespace BasicLib.Forms.Scatter{
 			this.boldButton = new System.Windows.Forms.ToolStripButton();
 			this.labelTypeComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this.labelEditComboBox = new System.Windows.Forms.ToolStripComboBox();
-			this.planeViewer = new BasicLib.Forms.Scatter.ScatterPlotViewer();
+			this.scatterPlotViewer = new BasicLib.Forms.Scatter.ScatterPlotViewer();
 			this.toolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -108,37 +108,37 @@ namespace BasicLib.Forms.Scatter{
 			// 
 			// planeViewer
 			// 
-			this.planeViewer.BackColor = System.Drawing.Color.White;
-			this.planeViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.planeViewer.FillColor = System.Drawing.Color.White;
-			this.planeViewer.FullAxesVisible = false;
-			this.planeViewer.HasSelectButton = true;
-			this.planeViewer.LabelFontBold = false;
-			this.planeViewer.LabelFontSize = 10F;
-			this.planeViewer.LineColor = System.Drawing.Color.Black;
-			this.planeViewer.LineWidth = 0.5F;
-			this.planeViewer.Location = new System.Drawing.Point(0, 25);
-			this.planeViewer.MajorTickLength = 6;
-			this.planeViewer.MajorTickLineWidth = 1F;
-			this.planeViewer.MenuStripVisible = true;
-			this.planeViewer.MinorTickLength = 3;
-			this.planeViewer.MinorTickLineWidth = 1F;
-			this.planeViewer.Name = "planeViewer";
-			this.planeViewer.NumbersFontBold = false;
-			this.planeViewer.NumbersFontSize = 8F;
-			this.planeViewer.Size = new System.Drawing.Size(554, 346);
-			this.planeViewer.TabIndex = 1;
-			this.planeViewer.XIsLogarithmic = false;
-			this.planeViewer.XLabel = "x";
-			this.planeViewer.YIsLogarithmic = false;
-			this.planeViewer.YLabel = "y";
-			this.planeViewer.ZLabel = "z";
+			this.scatterPlotViewer.BackColor = System.Drawing.Color.White;
+			this.scatterPlotViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.scatterPlotViewer.FillColor = System.Drawing.Color.White;
+			this.scatterPlotViewer.FullAxesVisible = false;
+			this.scatterPlotViewer.HasSelectButton = true;
+			this.scatterPlotViewer.LabelFontBold = false;
+			this.scatterPlotViewer.LabelFontSize = 10F;
+			this.scatterPlotViewer.LineColor = System.Drawing.Color.Black;
+			this.scatterPlotViewer.LineWidth = 0.5F;
+			this.scatterPlotViewer.Location = new System.Drawing.Point(0, 25);
+			this.scatterPlotViewer.MajorTickLength = 6;
+			this.scatterPlotViewer.MajorTickLineWidth = 1F;
+			this.scatterPlotViewer.MenuStripVisible = true;
+			this.scatterPlotViewer.MinorTickLength = 3;
+			this.scatterPlotViewer.MinorTickLineWidth = 1F;
+			this.scatterPlotViewer.Name = "scatterPlotViewer";
+			this.scatterPlotViewer.NumbersFontBold = false;
+			this.scatterPlotViewer.NumbersFontSize = 8F;
+			this.scatterPlotViewer.Size = new System.Drawing.Size(554, 346);
+			this.scatterPlotViewer.TabIndex = 1;
+			this.scatterPlotViewer.XIsLogarithmic = false;
+			this.scatterPlotViewer.XLabel = "x";
+			this.scatterPlotViewer.YIsLogarithmic = false;
+			this.scatterPlotViewer.YLabel = "y";
+			this.scatterPlotViewer.ZLabel = "z";
 			// 
 			// ScatterPlot
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.planeViewer);
+			this.Controls.Add(this.scatterPlotViewer);
 			this.Controls.Add(this.toolStrip);
 			this.Name = "ScatterPlot";
 			this.Size = new System.Drawing.Size(554, 371);
@@ -152,7 +152,7 @@ namespace BasicLib.Forms.Scatter{
 		#endregion
 
 		private System.Windows.Forms.ToolStrip toolStrip;
-		protected ScatterPlotViewer planeViewer;
+		protected ScatterPlotViewer scatterPlotViewer;
 		private System.Windows.Forms.ToolStripComboBox showLabelsComboBox;
 		private System.Windows.Forms.ToolStripTextBox fontSizeTextBox;
 		private System.Windows.Forms.ToolStripLabel titleLabel;

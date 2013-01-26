@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using BasicLib.Forms.Colors;
 using BasicLib.Graphic;
-using BasicLib.Num;
 using BasicLib.Symbol;
 
 namespace BasicLib.Forms.Scatter{
@@ -14,17 +13,17 @@ namespace BasicLib.Forms.Scatter{
 
 		public ScatterPlot(){
 			InitializeComponent();
-			planeViewer.InitializeZoomablePlane(this);
+			scatterPlotViewer.InitializeZoomablePlane(this);
 			showLabelsComboBox.SelectedIndex = 0;
 			labelEditComboBox.SelectedIndex = 1;
 			labelTypeComboBox.SelectedIndexChanged += LabelTypeComboBoxSelectedIndexChanged;
 			labelEditComboBox.SelectedIndexChanged += LabelEditComboBoxSelectedIndexChanged;
 			showLabelsComboBox.SelectedIndexChanged += ShowLabelsComboBoxSelectedIndexChanged;
-			planeViewer.FullAxesVisible = false;
+			scatterPlotViewer.FullAxesVisible = false;
 		}
 
 		public Func<int, SymbolProperties> GetPointProperties { set { ScatterPlotPlane.GetPointProperties = value; } }
-		internal ScatterPlotPlaneView ScatterPlotPlane { get { return planeViewer.ScatterPlotPlane; } }
+		internal ScatterPlotPlaneView ScatterPlotPlane { get { return scatterPlotViewer.ScatterPlotPlane; } }
 		public Func<int, PolygonProperties> GetPolygonProperties { set { ScatterPlotPlane.GetPolygonProperties = value; } }
 		public Func<int, PolygonData> GetPolygon { set { ScatterPlotPlane.GetPolygon = value; } }
 		public Func<int> GetPolygonCount { set { ScatterPlotPlane.GetPolygonCount = value; } }
@@ -79,8 +78,8 @@ namespace BasicLib.Forms.Scatter{
 			set{
 				scatterPlotData = value;
 				if (value != null){
-					planeViewer.XIsLogarithmic = scatterPlotData.XIsLogarithmic;
-					planeViewer.YIsLogarithmic = scatterPlotData.YIsLogarithmic;
+					scatterPlotViewer.XIsLogarithmic = scatterPlotData.XIsLogarithmic;
+					scatterPlotViewer.YIsLogarithmic = scatterPlotData.YIsLogarithmic;
 					if (scatterPlotData.IsEmpty){
 						SetRange(-3, 3, -3, 3);
 					} else{
@@ -96,7 +95,7 @@ namespace BasicLib.Forms.Scatter{
 					if (scatterPlotData.YLabel != null){
 						YLabel = scatterPlotData.YLabel;
 					}
-					ScatterPlotPlane.SetScatterPlotData(value, planeViewer.MainWidth, planeViewer.MainHeight);
+					ScatterPlotPlane.SetScatterPlotData(value, scatterPlotViewer.MainWidth, scatterPlotViewer.MainHeight);
 				}
 			}
 		}
@@ -156,15 +155,15 @@ namespace BasicLib.Forms.Scatter{
 			SetRange(xmin, xmax, ymin, ymax);
 		}
 
-		public bool HasSelectButton { get { return planeViewer.HasSelectButton; } set { planeViewer.HasSelectButton = value; } }
-		public string XLabel { get { return planeViewer.XLabel; } set { planeViewer.XLabel = value; } }
-		public string YLabel { get { return planeViewer.YLabel; } set { planeViewer.YLabel = value; } }
+		public bool HasSelectButton { get { return scatterPlotViewer.HasSelectButton; } set { scatterPlotViewer.HasSelectButton = value; } }
+		public string XLabel { get { return scatterPlotViewer.XLabel; } set { scatterPlotViewer.XLabel = value; } }
+		public string YLabel { get { return scatterPlotViewer.YLabel; } set { scatterPlotViewer.YLabel = value; } }
 		public Color SelectionColor { set { ScatterPlotPlane.SelectionColor = value; } get { return ScatterPlotPlane.SelectionColor; } }
 		public bool CutLabels { get { return labelEditComboBox.SelectedIndex == 1; } }
-		public ScatterPlotViewer PlaneViewer { get { return planeViewer; } }
+		public ScatterPlotViewer ScatterPlotViewer { get { return scatterPlotViewer; } }
 
 		public void SetRange(double xMin, double xMax, double yMin, double yMax){
-			planeViewer.SetRange(xMin, xMax, yMin, yMax);
+			scatterPlotViewer.SetRange(xMin, xMax, yMin, yMax);
 		}
 
 		public void InvalidateData(){
