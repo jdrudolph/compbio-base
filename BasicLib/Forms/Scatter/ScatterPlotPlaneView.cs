@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using BasicLib.Forms.Base;
 using BasicLib.Forms.Colors;
 using BasicLib.Graphic;
-using BasicLib.Num;
 using BasicLib.Symbol;
 using BasicLib.Util;
 

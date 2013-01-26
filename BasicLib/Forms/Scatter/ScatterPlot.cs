@@ -22,6 +22,7 @@ namespace BasicLib.Forms.Scatter{
 			scatterPlotViewer.FullAxesVisible = false;
 		}
 
+		public Icon Icon { set; private get; }
 		public Func<int, SymbolProperties> GetPointProperties { set { ScatterPlotPlane.GetPointProperties = value; } }
 		internal ScatterPlotPlaneView ScatterPlotPlane { get { return scatterPlotViewer.ScatterPlotPlane; } }
 		public Func<int, PolygonProperties> GetPolygonProperties { set { ScatterPlotPlane.GetPolygonProperties = value; } }
