@@ -40,6 +40,9 @@ namespace BasicLib.Forms.Base{
 		}
 
 		private int GetSeparatorInd(int[] pos, int x){
+			if (pos == null){
+				return -1;
+			}
 			int ci = ArrayUtils.ClosestIndex(pos, x);
 			if (ci < 1){
 				return -1;
