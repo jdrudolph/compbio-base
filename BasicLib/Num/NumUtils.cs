@@ -4,7 +4,13 @@ using System.Globalization;
 using BasicLib.Util;
 
 namespace BasicLib.Num{
-	public static class NumUtils{
+	public enum CorrelationType {
+		Pearson,
+		Rsquared,
+		Spearman
+	}
+
+	public static class NumUtils {
 		public static readonly double log10 = Math.Log(10);
 
 		/// <summary>
