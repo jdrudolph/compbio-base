@@ -137,6 +137,9 @@ namespace BasicLib.Forms.Base{
 		}
 
 		private static int GetCurrentComponentInd(int[] pos, int p1){
+			if (pos == null){
+				return -1;
+			}
 			return ArrayUtils.FloorIndex(pos, p1);
 		}
 
@@ -310,6 +313,11 @@ namespace BasicLib.Forms.Base{
 		}
 
 		private BasicView GetComponentAt(int x, int y, out int indX1, out int indY1){
+			if (xpos == null || ypos == null) {
+				indX1 = -1;
+				indY1 = -1;
+				return null;
+			}
 			int indX = GetSeparatorInd(xpos, x);
 			int indY = GetSeparatorInd(ypos, y);
 			if (indX >= 0 || indY >= 0){
@@ -332,6 +340,9 @@ namespace BasicLib.Forms.Base{
 		private int currentComponentY;
 
 		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
+			if (xpos == null || ypos == null){
+				return;
+			}
 			int indX = GetSeparatorInd(xpos, e.X);
 			int indY = GetSeparatorInd(ypos, e.Y);
 			if (indX >= 0){
