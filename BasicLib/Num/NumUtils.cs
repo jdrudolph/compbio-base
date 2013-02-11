@@ -23,7 +23,9 @@ namespace BasicLib.Num{
 		KendallPvalNegative,
 		DistanceCorrelation,
 		MutualInformation,
-		EuclideanDistance
+		EuclideanDistance,
+		L1Distance,
+		MaximumDistance
 	}
 
 	public static class NumUtils{
