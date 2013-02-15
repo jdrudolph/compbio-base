@@ -134,7 +134,13 @@ namespace BasicLib.Forms.Scatter{
 		internal void SetScatterPlotData(ScatterPlotData value, int width, int height){
 			scatterPlotData = value;
 			InvalidateData(false);
-			NeedRecalcValues(width, height);
+			if (value != null && !value.IsEmpty){
+				NeedRecalcValues(width, height);
+			} else {
+				RecalcValuesImpl(width, height);
+				PrevWidth = width;
+				PrevHeight = height;				
+			}
 			Invalidate();
 		}
 

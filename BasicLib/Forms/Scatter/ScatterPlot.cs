@@ -96,8 +96,8 @@ namespace BasicLib.Forms.Scatter{
 					if (scatterPlotData.YLabel != null){
 						YLabel = scatterPlotData.YLabel;
 					}
-					ScatterPlotPlane.SetScatterPlotData(value, scatterPlotViewer.MainWidth, scatterPlotViewer.MainHeight);
 				}
+				ScatterPlotPlane.SetScatterPlotData(value, scatterPlotViewer.MainWidth, scatterPlotViewer.MainHeight);
 			}
 		}
 		//TODO: zrange

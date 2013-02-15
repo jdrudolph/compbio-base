@@ -292,7 +292,11 @@ namespace BasicLib.Forms.Table{
 				if (row < 0) {
 					continue;
 				}
-				modelRowSel[row] = true;
+				if (add){
+					modelRowSel[row] = !modelRowSel[row];
+				} else{
+					modelRowSel[row] = true;
+				}
 			}
 			if (SelectionChanged != null) {
 				SelectionChanged(this, new EventArgs());
