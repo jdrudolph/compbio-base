@@ -1714,5 +1714,13 @@ namespace BasicLib.Util{
 			}
 			return Median(w.ToArray());
 		}
+
+		public static HashSet<T> ToHashSet<T>(IEnumerable<T> x){
+			HashSet<T> result = new HashSet<T>();
+			foreach (T t in x){
+				result.Add(t);
+			}
+			return result;
+		}
 	}
 }
