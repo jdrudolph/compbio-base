@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using BasicLib.Forms;
 using BasicLib.Forms.Select;
 
 namespace BasicLib.Param{
