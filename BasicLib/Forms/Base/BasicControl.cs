@@ -25,7 +25,11 @@ namespace BasicLib.Forms.Base{
 		protected override sealed void OnPaint(PaintEventArgs e) {
 			base.OnPaint(e);
 			if (view != null) {
-				view.OnPaint(new CGraphics(e.Graphics), Width, Height);
+				try{
+					view.OnPaint(new CGraphics(e.Graphics), Width, Height);
+				} catch (Exception e1){
+					MessageBox.Show(e1.Message + "\n" + e1.StackTrace);
+				}
 			}
 		}
 
