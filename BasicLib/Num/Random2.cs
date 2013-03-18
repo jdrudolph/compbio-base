@@ -37,6 +37,24 @@ namespace BasicLib.Num{
 		}
 
 		/// <summary>
+		/// Returns a random number uniformly distributed between -x and x;
+		/// </summary>
+		/// <returns></returns>
+		public double NextPm(double x) {
+			return NextRange(-x, x);
+		}
+
+		/// <summary>
+		/// Returns a random number uniformly distributed between -x and x;
+		/// </summary>
+		/// <returns></returns>
+		public double NextRange(double min, double max){
+			double range = max - min;
+			double x = NextDouble();
+			return min + x*range;
+		}
+
+		/// <summary>
 		/// This method generates a pseudo random number drawn from a normal distribution
 		/// with the given mean and standard deviation.
 		/// </summary>
