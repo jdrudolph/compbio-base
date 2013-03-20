@@ -226,7 +226,7 @@ namespace BasicLib.Graphic{
 		/// <returns></returns>
 		SizeF MeasureString(string text, Font font);
 
-		SizeF MeasureString(string text, Font font, int width, StringFormat format);
+		//SizeF MeasureString(string text, Font font, int width, StringFormat format);
 
 		/// <summary>
 		/// Draws the specified text string at the specified location with the specified Brush and Font objects.
