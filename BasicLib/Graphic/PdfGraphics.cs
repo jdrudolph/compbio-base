@@ -353,16 +353,6 @@ namespace BasicLib.Graphic{
 			template.EndText();
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, RectangleF rectangleF, StringFormat format,
-			string title, string description){
-			DrawString(s, font, brush, rectangleF, format);
-		}
-
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, RectangleF rectangleF, string title,
-			string decription){
-			DrawString(s, font, brush, rectangleF);
-		}
-
 		public void DrawString(string s, System.Drawing.Font font, Brush brush, Point location){
 			DrawString(s, font, brush, new RectangleF(location, new SizeF(0, 0)), new StringFormat());
 		}

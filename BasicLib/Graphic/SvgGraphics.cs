@@ -118,14 +118,6 @@ namespace BasicLib.Graphic{
 		}
 
 		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="color"></param>
-		public void Clear(Color color){
-			throw new NotImplementedException();
-		}
-
-		/// <summary>
 		/// Draws a line connecting the two points specified by the coordinate pairs.
 		/// </summary>
 		/// <param name="pen">Pen that determines the color, width, and style of the line.</param>
@@ -472,33 +464,19 @@ namespace BasicLib.Graphic{
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line spacing and alignment, that are applied to the drawn text.</param>
 		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format){
-			DrawString(s, font, brush, rectangleF, format, null, null);
-		}
-
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format, string title,
-			string decription){
-			if (format != null && rectangleF.Width > 0){
-				switch (format.Alignment){
+			if (format != null && rectangleF.Width > 0) {
+				switch (format.Alignment) {
 					case StringAlignment.Center:
-						rectangleF.X += (rectangleF.Width - MeasureString(s, font, (int) rectangleF.Width, format).Width)*0.5f;
+						rectangleF.X += (rectangleF.Width - MeasureString(s, font, (int)rectangleF.Width, format).Width) * 0.5f;
 						break;
 					case StringAlignment.Far:
-						rectangleF.X += rectangleF.Width - MeasureString(s, font, (int) rectangleF.Width, format).Width;
+						rectangleF.X += rectangleF.Width - MeasureString(s, font, (int)rectangleF.Width, format).Width;
 						break;
 				}
 			}
-			textList.Add(new Text{
-				X = rectangleF.X, Y = rectangleF.Y + (font.Height*0.5f), FontFamily = font.Name, FontSize = font.Size*1.2f,
-				FontWeight = font.Bold ? "bold" : "normal", Value = s, Fill = BrushColor(brush), Transform = Transform,
-				Title = title, Description = decription
-			});
-		}
-
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, string title, string decription){
-			textList.Add(new Text{
-				X = rectangleF.X, Y = rectangleF.Y + (font.Height*0.5f), FontFamily = font.Name, FontSize = font.Size*1.2f,
-				FontWeight = font.Bold ? "bold" : "normal", Value = s, Fill = BrushColor(brush), Transform = Transform,
-				Title = title, Description = decription
+			textList.Add(new Text {
+				X = rectangleF.X, Y = rectangleF.Y + (font.Height * 0.5f), FontFamily = font.Name, FontSize = font.Size * 1.2f,
+				FontWeight = font.Bold ? "bold" : "normal", Value = s, Fill = BrushColor(brush), Transform = Transform
 			});
 		}
 

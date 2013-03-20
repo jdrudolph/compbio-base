@@ -3,7 +3,7 @@ using System.Drawing.Drawing2D;
 
 namespace BasicLib.Graphic{
 	//TODO: should not be exposed
-	public abstract class WindowsBasedGraphics : IGraphics {
+	public abstract class WindowsBasedGraphics : IGraphics{
 		protected Graphics gc;
 
 		protected WindowsBasedGraphics(Graphics gc){
@@ -21,10 +21,6 @@ namespace BasicLib.Graphic{
 
 		public void RotateTransform(float angle){
 			gc.RotateTransform(angle);
-		}
-
-		public void Clear(Color color){
-			gc.Clear(color);
 		}
 
 		public void DrawLine(Pen pen, int x1, int y1, int x2, int y2){
@@ -187,25 +183,12 @@ namespace BasicLib.Graphic{
 			gc.DrawString(s, font, brush, rectangleF, format);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format, string title,
-			string description){
-			gc.DrawString(s, font, brush, rectangleF, format);
-		}
-
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, string title, string decription){
-			gc.DrawString(s, font, brush, rectangleF);
-		}
-
 		public void DrawString(string s, Font font, Brush brush, Point location){
 			gc.DrawString(s, font, brush, location);
 		}
 
 		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF){
 			gc.DrawString(s, font, brush, rectangleF);
-		}
-
-		public void DrawString(string s, Font font, SolidBrush brush, Point location){
-			gc.DrawString(s, font, brush, location);
 		}
 
 		public void DrawString(string s, Font font, Brush brush, Point point, StringFormat format){

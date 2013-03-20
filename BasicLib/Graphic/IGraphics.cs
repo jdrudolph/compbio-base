@@ -250,30 +250,6 @@ namespace BasicLib.Graphic{
 
 		void DrawString(string s, Font font, Brush brush, Point point, StringFormat format);
 
-		/// <summary>
-		/// Draws the specified text string at the specified location with the specified Brush and Font objects.
-		/// </summary>
-		/// <param name="s">String to draw.</param>
-		/// <param name="font">Font that defines the text format of the string.</param>
-		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
-		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
-		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line spacing and alignment, that are applied to the drawn text.</param>
-		/// <param name="title">Title which will be shown by Tooltip for example in SVG.</param>
-		/// <param name="decription">Description which will be shown by Tooltip for example in SVG.</param>
-		void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format, string title,
-			string decription);
-
-		/// <summary>
-		/// Draws the specified text string at the specified location with the specified Brush and Font objects.
-		/// </summary>
-		/// <param name="s">String to draw.</param>
-		/// <param name="font">Font that defines the text format of the string.</param>
-		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
-		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
-		/// <param name="title">Title which will be shown by Tooltip for example in SVG.</param>
-		/// <param name="decription">Description which will be shown by Tooltip for example in SVG.</param>
-		void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, string title, string decription);
-
 		void DrawString(string s, Font font, Brush brush, Point location);
 		void DrawString(string s, Font font, Brush brush, RectangleF rectangleF);
 
