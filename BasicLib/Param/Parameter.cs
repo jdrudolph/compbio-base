@@ -32,6 +32,8 @@ namespace BasicLib.Param{
 		public abstract object Clone();
 		public abstract void Clear();
 		public abstract bool IsModified { get; }
+		public virtual bool IsDropTarget { get { return false; } }
+		public virtual void Drop(string x) {}
 		protected abstract Control Control { get; }
 
 		public Control GetControl(){

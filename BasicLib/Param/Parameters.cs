@@ -140,6 +140,18 @@ namespace BasicLib.Param{
 			throw new Exception("Parameter does not exist: " + name);
 		}
 
+		public Parameter[] GetDropTargets(){
+			List<Parameter> result = new List<Parameter>();
+			foreach (ParameterGroup parameterGroup in paramGroups){
+				foreach (Parameter p in parameterGroup.ParameterList){
+					if (p.IsDropTarget){
+						result.Add(p);
+					}
+				}
+			}
+			return result.ToArray();
+		}
+
 		public Parameter GetParamNoException(string name){
 			foreach (ParameterGroup parameterGroup in paramGroups){
 				Parameter p = parameterGroup.GetParam(name);
