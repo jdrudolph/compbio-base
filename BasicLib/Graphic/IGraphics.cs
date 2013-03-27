@@ -70,18 +70,6 @@ namespace BasicLib.Graphic{
 		void DrawLine(Pen pen, float x1, float y1, float x2, float y2);
 
 		/// <summary>
-		/// Draws a line connecting the two points specified by the coordinate pairs.
-		/// </summary>
-		/// <param name="pen">Pen that determines the color, width, and style of the line.</param>
-		/// <param name="x1">The x-coordinate of the first point.</param>
-		/// <param name="y1">The y-coordinate of the first point. </param>
-		/// <param name="x2">The x-coordinate of the second point.</param>
-		/// <param name="y2">The y-coordinate of the second point. </param>
-		/// <param name="title">Title which will be shown by Tooltip for example in SVG.</param>
-		/// <param name="description">Description which will be shown by Tooltip for example in SVG.</param>
-		void DrawLine(Pen pen, float x1, float y1, float x2, float y2, string title, string description);
-
-		/// <summary>
 		/// Draws a GraphicsPath.
 		/// </summary>
 		/// <param name="pen">Pen that determines the color, width, and style of the path.</param>
@@ -153,20 +141,6 @@ namespace BasicLib.Graphic{
 		/// <param name="height">Height of the rectangle to draw.</param>
 		void DrawRectangle(Pen pen, float x, float y, float width, float height);
 
-		/// <summary>
-		/// Draws a rectangle
-		/// </summary>
-		/// <param name="pen">Pen  that determines the color, width, and style of the rectangle.</param>
-		/// <param name="rectangle">The rectangle to draw.</param>
-		void DrawRectangle(Pen pen, Rectangle rectangle);
-
-		/// <summary>
-		/// Draws a rectangle
-		/// </summary>
-		/// <param name="pen">Pen  that determines the color, width, and style of the rectangle.</param>
-		/// <param name="rectangle">The rectangle to draw.</param>
-		void DrawRectangle(Pen pen, RectangleF rectangle);
-
 		void DrawRectangle(Pen pen, int x, int y, int width, int height, int radius, RectangleCorners corners);
 
 		/// <summary>
@@ -188,20 +162,6 @@ namespace BasicLib.Graphic{
 		/// <param name="width">Width of the rectangle to fill.</param>
 		/// <param name="height">Height of the rectangle to fill.</param>
 		void FillRectangle(Brush brush, float x, float y, float width, float height);
-
-		/// <summary>
-		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="rectangle">The rectangle to fill.</param>
-		void FillRectangle(Brush brush, Rectangle rectangle);
-
-		/// <summary>
-		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="rectangle">The rectangle to fill.</param>
-		void FillRectangle(Brush brush, RectangleF rectangle);
 
 		/// <summary>
 		/// Fills the interior of a rectangle with rounded corners specified by a pair of coordinates, a width, and a height.

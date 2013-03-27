@@ -71,14 +71,6 @@ namespace BasicLib.Graphic{
 			gc.DrawRectangle(pen, x, y, width, height);
 		}
 
-		public void DrawRectangle(Pen pen, Rectangle rectangle){
-			gc.DrawRectangle(pen, rectangle);
-		}
-
-		public void DrawRectangle(Pen pen, RectangleF rectangle){
-			gc.DrawRectangle(pen, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-		}
-
 		public void DrawRectangle(Pen pen, int x, int y, int width, int height, int radius, RectangleCorners corners){
 			GraphicsPath path = GetRectangleWithRoundedCorners(x, y, width, height, radius, corners);
 			gc.DrawPath(pen, path);
@@ -90,14 +82,6 @@ namespace BasicLib.Graphic{
 
 		public void FillRectangle(Brush brush, float x, float y, float width, float height){
 			gc.FillRectangle(brush, x, y, width, height);
-		}
-
-		public void FillRectangle(Brush brush, Rectangle rectangle){
-			gc.FillRectangle(brush, rectangle);
-		}
-
-		public void FillRectangle(Brush brush, RectangleF rectangle){
-			gc.FillRectangle(brush, rectangle);
 		}
 
 		public void FillRectangle(Brush brush, float x, float y, float width, float height, float radius,

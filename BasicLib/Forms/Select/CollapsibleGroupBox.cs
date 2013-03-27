@@ -76,8 +76,7 @@ namespace BasicLib.Forms.Select{
 		}
 
 		public void DoPaintBackground(IGraphics g){
-			Rectangle rect = new Rectangle(Location.X, Location.Y, Width, Height);
-			g.FillRectangle(new SolidBrush(BackColor), rect);
+			g.FillRectangle(new SolidBrush(BackColor), Location.X, Location.Y, Width, Height);
 		}
 
 		private void DrawGroupBox(IGraphics g){
