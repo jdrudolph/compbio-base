@@ -12,7 +12,7 @@ namespace BasicLib.Forms.Select{
 
 		private void ButtonClick(object sender, EventArgs e){
 			if (Save){
-				SaveFileDialog ofd = new SaveFileDialog();
+				SaveFileDialog ofd = new SaveFileDialog{FileName = Text};
 				if (!string.IsNullOrEmpty(Filter)){
 					ofd.Filter = Filter;
 				}
