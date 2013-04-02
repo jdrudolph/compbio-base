@@ -241,7 +241,7 @@ namespace BasicLib.Graphic{
 			rectList.Add(rect);
 		}
 
-		public void DrawRectangle(Pen pen, int x, int y, int w, int h, int radius, RectangleCorners corners){
+		public void DrawRectangle(Pen pen, float x, float y, float w, float h, float radius, RectangleCorners corners) {
 			rectList.Add(new Rect{
 				X = x, Y = y, Width = w, Height = h, Fill = "none", Transform = Transform, Stroke = pen.Color.Name,
 				StrokeWidth = pen.Width, Rx = radius, Ry = radius
@@ -258,30 +258,6 @@ namespace BasicLib.Graphic{
 		/// <param name="height">Height of the rectangle to fill.</param>
 		public void FillRectangle(Brush brush, float x, float y, float width, float height){
 			rectList.Add(new Rect{X = x, Y = y, Width = width, Height = height, Fill = BrushColor(brush), Transform = Transform});
-		}
-
-		/// <summary>
-		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="rectangle">The rectangle to fill.</param>
-		public void FillRectangle(Brush brush, Rectangle rectangle){
-			rectList.Add(new Rect{
-				X = rectangle.X, Y = rectangle.Y, Width = rectangle.Width, Height = rectangle.Height, Fill = BrushColor(brush),
-				Transform = Transform
-			});
-		}
-
-		/// <summary>
-		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="rectangle">The rectangle to fill.</param>
-		public void FillRectangle(Brush brush, RectangleF rectangle){
-			rectList.Add(new Rect{
-				X = rectangle.X, Y = rectangle.Y, Width = rectangle.Width, Height = rectangle.Height, Fill = BrushColor(brush),
-				Transform = Transform
-			});
 		}
 
 		/// <summary>

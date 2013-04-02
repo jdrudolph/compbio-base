@@ -51,7 +51,7 @@ namespace BasicLib.Graphic{
 			gc.DrawRectangle(pen, x, y, width, height);
 		}
 
-		public void DrawRectangle(Pen pen, int x, int y, int width, int height, int radius, RectangleCorners corners){
+		public void DrawRectangle(Pen pen, float x, float y, float width, float height, float radius, RectangleCorners corners) {
 			GraphicsPath path = GetRectangleWithRoundedCorners(x, y, width, height, radius, corners);
 			gc.DrawPath(pen, path);
 		}

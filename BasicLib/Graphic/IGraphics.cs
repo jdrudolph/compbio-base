@@ -100,7 +100,7 @@ namespace BasicLib.Graphic{
 		/// <param name="height">Height of the rectangle to draw.</param>
 		void DrawRectangle(Pen pen, float x, float y, float width, float height);
 
-		void DrawRectangle(Pen pen, int x, int y, int width, int height, int radius, RectangleCorners corners);
+		void DrawRectangle(Pen pen, float x, float y, float width, float height, float radius, RectangleCorners corners);
 
 		/// <summary>
 		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.

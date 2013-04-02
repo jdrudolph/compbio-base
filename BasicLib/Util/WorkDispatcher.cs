@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using Microsoft.Hpc.Scheduler;
 
@@ -126,7 +127,24 @@ namespace BasicLib.Util{
 		}
 
 		protected virtual string GetName(int taskIndex){
-			return GetMessagePrefix() + " (" + (taskIndex + 1) + "/" + nTasks + ")";
+			return GetMessagePrefix() + " (" + IntString(taskIndex + 1, nTasks) + "/" + nTasks + ")";
+		}
+
+		private static string IntString(int x, int n){
+			int npos = (int) Math.Ceiling(Math.Log10(n));
+			string result = "" + x;
+			if (result.Length >= npos){
+				return result;
+			}
+			return Repeat(npos - result.Length, "0") + result;
+		}
+
+		private static string Repeat(int n, string s){
+			StringBuilder b = new StringBuilder();
+			for (int i = 0; i < n; i++){
+				b.Append(s);
+			}
+			return b.ToString();
 		}
 
 		public string GetLogArgs(int taskIndex, WorkType workType, int id){

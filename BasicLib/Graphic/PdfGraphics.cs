@@ -146,16 +146,7 @@ namespace BasicLib.Graphic{
 			template.Stroke();
 		}
 
-		/// <summary>
-		/// Draws a rectangle
-		/// </summary>
-		/// <param name="pen">Pen  that determines the color, width, and style of the rectangle.</param>
-		/// <param name="rectangle">The rectangle to draw.</param>
-		public void DrawRectangle(Pen pen, RectangleF rectangle){
-			DrawRectangle(pen, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-		}
-
-		public void DrawRectangle(Pen pen, int x, int y, int width, int height, int radius, RectangleCorners corners){
+		public void DrawRectangle(Pen pen, float x, float y, float width, float height, float radius, RectangleCorners corners) {
 			SetPen(pen);
 			template.RoundRectangle(x, y, width, height, radius);
 			template.Stroke();
