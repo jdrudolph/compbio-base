@@ -1431,27 +1431,27 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static double[] ExtractValidValues(IList<double> x) {
+		public static double[] ExtractValidValues(IList<double> x){
 			List<double> result = new List<double>();
-			foreach (double y in x) {
-				if (!double.IsNaN(y) && !double.IsInfinity(y)) {
+			foreach (double y in x){
+				if (!double.IsNaN(y) && !double.IsInfinity(y)){
 					result.Add(y);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static float[] ExtractValidValues(IList<float> x) {
+		public static float[] ExtractValidValues(IList<float> x){
 			List<float> result = new List<float>();
-			foreach (float y in x) {
-				if (!float.IsNaN(y) && !float.IsInfinity(y)) {
+			foreach (float y in x){
+				if (!float.IsNaN(y) && !float.IsInfinity(y)){
 					result.Add(y);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static float[] SmoothMedian(IList<float> m, int width) {
+		public static float[] SmoothMedian(IList<float> m, int width){
 			float[] result = new float[m.Count];
 			for (int i = 0; i < result.Length; i++){
 				int min = Math.Max(0, i - width);
@@ -1719,6 +1719,34 @@ namespace BasicLib.Util{
 			HashSet<T> result = new HashSet<T>();
 			foreach (T t in x){
 				result.Add(t);
+			}
+			return result;
+		}
+
+		private static int[] SplitIndices(int n, int k){
+			int[] result = new int[k + 1];
+			for (int i = 0; i < k + 1; i++){
+				result[i] = (int) Math.Round(i/(double) k*n);
+			}
+			return result;
+		}
+
+		public static T[][] SplitArray<T>(T[] x, int n){
+			n = Math.Min(n, x.Length);
+			int[] indices = SplitIndices(x.Length, n);
+			T[][] result = new T[n][];
+			for (int i = 0; i < n; i++){
+				result[i] = SubArray(x, indices[i], indices[i + 1]);
+			}
+			return result;
+		}
+
+		public static Dictionary<T, int> GetIndexMap<T>(IList<T> list) {
+			Dictionary<T, int> result = new Dictionary<T, int>();
+			for (int i = 0; i < list.Count; i++) {
+				if (!result.ContainsKey(list[i])) {
+					result.Add(list[i], i);
+				}
 			}
 			return result;
 		}

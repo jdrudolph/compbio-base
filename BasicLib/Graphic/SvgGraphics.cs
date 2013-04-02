@@ -125,26 +125,9 @@ namespace BasicLib.Graphic{
 		/// <param name="y1">The y-coordinate of the first point. </param>
 		/// <param name="x2">The x-coordinate of the second point.</param>
 		/// <param name="y2">The y-coordinate of the second point. </param>
-		public void DrawLine(Pen pen, int x1, int y1, int x2, int y2){
-			DrawLine(pen, x1, y1, x2, (float) y2);
-		}
-
-		/// <summary>
-		/// Draws a line connecting the two points specified by the coordinate pairs.
-		/// </summary>
-		/// <param name="pen">Pen that determines the color, width, and style of the line.</param>
-		/// <param name="x1">The x-coordinate of the first point.</param>
-		/// <param name="y1">The y-coordinate of the first point. </param>
-		/// <param name="x2">The x-coordinate of the second point.</param>
-		/// <param name="y2">The y-coordinate of the second point. </param>
 		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
-			DrawLine(pen, x1, y1, x2, y2, null, null);
-		}
-
-		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2, string title, string description){
-			Line line = new Line{
-				X1 = x1, X2 = x2, Y1 = y1, Y2 = y2, Transform = Transform, Stroke = PenColor(pen), Strokewidth = pen.Width,
-				Title = title, Description = description
+			Line line = new Line {
+				X1 = x1, X2 = x2, Y1 = y1, Y2 = y2, Transform = Transform, Stroke = PenColor(pen), Strokewidth = pen.Width
 			};
 			lines.Add(line);
 		}
@@ -183,30 +166,22 @@ namespace BasicLib.Graphic{
 		}
 
 		public void DrawLines(Pen pen, Point[] points){
-			//TODO
-		}
-
-		/// <summary>
-		/// Draws an ellipse defined by a bounding rectangle specified by coordinates for the upper-left corner of
-		/// the rectangle, a height, and a width.
-		/// </summary>
-		/// <param name="pen">Pen that determines the color, width, and style of the ellipse.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
-		/// <param name="width">Width of the bounding rectangle that defines the ellipse.</param>
-		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
-		public void DrawEllipse(Pen pen, int x, int y, int width, int height){
-			if (width == height){
-				circleList.Add(new Circle{
-					X = x + width/2f, Y = y + height/2f, R = width, Fill = "none", Stroke = pen.Color.Name, StrokeWidth = pen.Width,
-					Transform = Transform
-				});
-			} else{
-				ellipseList.Add(new Ellipse{
-					Cx = x, Cy = y, Rx = width, Ry = height, Fill = "none", Stroke = pen.Color.Name, StrokeWidth = pen.Width,
-					Transform = Transform
-				});
+			Path path = new Path { D = "", Transform = Transform };
+			for (int i = 0; i < points.Length; i++) {
+				if (i == 0) {
+					path.D += string.Format("M{0} {1} ", points[i].X, points[i].Y);
+				} else {
+					path.D += string.Format("L{0} {1} ", points[i].X, points[i].Y);
+				}
 			}
+			path.Stroke = PenColor(pen);
+			path.StrokeWidth = pen.Width;
+			path.Fill = "none";
+			if (pen.DashStyle != DashStyle.Solid) {
+				path.StrokeDashArray = "1, 1";
+			}
+			//path.D = path.D + " Z";
+			pathList.Add(path);
 		}
 
 		/// <summary>
@@ -229,24 +204,6 @@ namespace BasicLib.Graphic{
 					Cx = x, Cy = y, Rx = width, Ry = height, Fill = "none", Stroke = pen.Color.Name, StrokeWidth = pen.Width,
 					Transform = Transform
 				});
-			}
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="brush"></param>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		/// <param name="width"></param>
-		/// <param name="height"></param>
-		public void FillEllipse(Brush brush, int x, int y, int width, int height){
-			if (width == height){
-				circleList.Add(new Circle
-				{X = x + width/2f, Y = y + height/2f, R = width, Fill = BrushColor(brush), Transform = Transform});
-			} else{
-				ellipseList.Add(new Ellipse
-				{Cx = x, Cy = y, Rx = width, Ry = height, Fill = BrushColor(brush), Transform = Transform});
 			}
 		}
 
@@ -276,47 +233,10 @@ namespace BasicLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to draw.</param>
 		/// <param name="width">Width of the rectangle to draw.</param>
 		/// <param name="height">Height of the rectangle to draw.</param>
-		public void DrawRectangle(Pen pen, int x, int y, int width, int height){
-			Rect rect = new Rect{
-				X = x, Y = y, Width = width, Height = height, Fill = "none", Stroke = PenColor(pen), StrokeWidth = pen.Width,
-				Transform = Transform
-			};
-			rectList.Add(rect);
-		}
-
-		/// <summary>
-		/// Draws a rectangle specified by a coordinate pair, a width, and a height.
-		/// </summary>
-		/// <param name="pen">Pen  that determines the color, width, and style of the rectangle.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the rectangle to draw.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to draw.</param>
-		/// <param name="width">Width of the rectangle to draw.</param>
-		/// <param name="height">Height of the rectangle to draw.</param>
 		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
 			Rect rect = new Rect{
 				X = x, Y = y, Width = width, Height = height, Fill = "none", Transform = Transform, Stroke = pen.Color.Name,
 				StrokeWidth = pen.Width
-			};
-			rectList.Add(rect);
-		}
-
-		/// <summary>
-		/// Draws a rectangle
-		/// </summary>
-		/// <param name="pen">Pen  that determines the color, width, and style of the rectangle.</param>
-		/// <param name="rectangle">The rectangle to draw.</param>
-		public void DrawRectangle(Pen pen, Rectangle rectangle){
-			Rect rect = new Rect{
-				X = rectangle.X, Y = rectangle.Y, Width = rectangle.Width, Height = rectangle.Height, Fill = "none",
-				Transform = Transform, Stroke = pen.Color.Name, StrokeWidth = pen.Width
-			};
-			rectList.Add(rect);
-		}
-
-		public void DrawRectangle(Pen pen, RectangleF rectangle){
-			Rect rect = new Rect{
-				X = rectangle.X, Y = rectangle.Y, Width = rectangle.Width, Height = rectangle.Height, Fill = "none",
-				Transform = Transform, Stroke = pen.Color.Name, StrokeWidth = pen.Width
 			};
 			rectList.Add(rect);
 		}
@@ -326,18 +246,6 @@ namespace BasicLib.Graphic{
 				X = x, Y = y, Width = w, Height = h, Fill = "none", Transform = Transform, Stroke = pen.Color.Name,
 				StrokeWidth = pen.Width, Rx = radius, Ry = radius
 			});
-		}
-
-		/// <summary>
-		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="width">Width of the rectangle to fill.</param>
-		/// <param name="height">Height of the rectangle to fill.</param>
-		public void FillRectangle(Brush brush, int x, int y, int width, int height){
-			rectList.Add(new Rect{X = x, Y = y, Width = width, Height = height, Fill = BrushColor(brush), Transform = Transform});
 		}
 
 		/// <summary>

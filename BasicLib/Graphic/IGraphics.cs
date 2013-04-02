@@ -57,16 +57,6 @@ namespace BasicLib.Graphic{
 		/// <param name="y1">The y-coordinate of the first point. </param>
 		/// <param name="x2">The x-coordinate of the second point.</param>
 		/// <param name="y2">The y-coordinate of the second point. </param>
-		void DrawLine(Pen pen, int x1, int y1, int x2, int y2);
-
-		/// <summary>
-		/// Draws a line connecting the two points specified by the coordinate pairs.
-		/// </summary>
-		/// <param name="pen">Pen that determines the color, width, and style of the line.</param>
-		/// <param name="x1">The x-coordinate of the first point.</param>
-		/// <param name="y1">The y-coordinate of the first point. </param>
-		/// <param name="x2">The x-coordinate of the second point.</param>
-		/// <param name="y2">The y-coordinate of the second point. </param>
 		void DrawLine(Pen pen, float x1, float y1, float x2, float y2);
 
 		/// <summary>
@@ -88,28 +78,7 @@ namespace BasicLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="width">Width of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
-		void DrawEllipse(Pen pen, int x, int y, int width, int height);
-
-		/// <summary>
-		/// Draws an ellipse defined by a bounding rectangle specified by coordinates for the upper-left corner of
-		/// the rectangle, a height, and a width.
-		/// </summary>
-		/// <param name="pen">Pen that determines the color, width, and style of the ellipse.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
-		/// <param name="width">Width of the bounding rectangle that defines the ellipse.</param>
-		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
 		void DrawEllipse(Pen pen, float x, float y, float width, float height);
-
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="brush">System.Drawing.Brush that determines the characteristics of the fill.</param>
-		/// <param name="x"></param>
-		/// <param name="y"></param>
-		/// <param name="width"></param>
-		/// <param name="height"></param>
-		void FillEllipse(Brush brush, int x, int y, int width, int height);
 
 		/// <summary>
 		/// Fills the interior of an ellipse defined by a bounding rectangle specified by a pair of coordinates, a width, and a height.
@@ -129,29 +98,9 @@ namespace BasicLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to draw.</param>
 		/// <param name="width">Width of the rectangle to draw.</param>
 		/// <param name="height">Height of the rectangle to draw.</param>
-		void DrawRectangle(Pen pen, int x, int y, int width, int height);
-
-		/// <summary>
-		/// Draws a rectangle specified by a coordinate pair, a width, and a height.
-		/// </summary>
-		/// <param name="pen">Pen  that determines the color, width, and style of the rectangle.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the rectangle to draw.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to draw.</param>
-		/// <param name="width">Width of the rectangle to draw.</param>
-		/// <param name="height">Height of the rectangle to draw.</param>
 		void DrawRectangle(Pen pen, float x, float y, float width, float height);
 
 		void DrawRectangle(Pen pen, int x, int y, int width, int height, int radius, RectangleCorners corners);
-
-		/// <summary>
-		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="width">Width of the rectangle to fill.</param>
-		/// <param name="height">Height of the rectangle to fill.</param>
-		void FillRectangle(Brush brush, int x, int y, int width, int height);
 
 		/// <summary>
 		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
@@ -185,8 +134,6 @@ namespace BasicLib.Graphic{
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <returns></returns>
 		SizeF MeasureString(string text, Font font);
-
-		//SizeF MeasureString(string text, Font font, int width, StringFormat format);
 
 		/// <summary>
 		/// Draws the specified text string at the specified location with the specified Brush and Font objects.

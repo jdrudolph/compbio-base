@@ -23,15 +23,7 @@ namespace BasicLib.Graphic{
 			gc.RotateTransform(angle);
 		}
 
-		public void DrawLine(Pen pen, int x1, int y1, int x2, int y2){
-			gc.DrawLine(pen, x1, y1, x2, y2);
-		}
-
 		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
-			gc.DrawLine(pen, x1, y1, x2, y2);
-		}
-
-		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2, string title, string description){
 			gc.DrawLine(pen, x1, y1, x2, y2);
 		}
 
@@ -47,24 +39,12 @@ namespace BasicLib.Graphic{
 			gc.DrawLines(pen, points);
 		}
 
-		public void DrawEllipse(Pen pen, int x, int y, int width, int height){
-			gc.DrawEllipse(pen, x, y, width, height);
-		}
-
 		public void DrawEllipse(Pen pen, float x, float y, float width, float height){
 			gc.DrawEllipse(pen, x, y, width, height);
 		}
 
-		public void FillEllipse(Brush brush, int x, int y, int width, int height){
-			gc.FillEllipse(brush, x, y, width, height);
-		}
-
 		public void FillEllipse(Brush brush, float x, float y, float width, float height){
 			gc.FillEllipse(brush, x, y, width, height);
-		}
-
-		public void DrawRectangle(Pen pen, int x, int y, int width, int height){
-			gc.DrawRectangle(pen, x, y, width, height);
 		}
 
 		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
@@ -74,10 +54,6 @@ namespace BasicLib.Graphic{
 		public void DrawRectangle(Pen pen, int x, int y, int width, int height, int radius, RectangleCorners corners){
 			GraphicsPath path = GetRectangleWithRoundedCorners(x, y, width, height, radius, corners);
 			gc.DrawPath(pen, path);
-		}
-
-		public void FillRectangle(Brush brush, int x, int y, int width, int height){
-			gc.FillRectangle(brush, x, y, width, height);
 		}
 
 		public void FillRectangle(Brush brush, float x, float y, float width, float height){
@@ -153,10 +129,6 @@ namespace BasicLib.Graphic{
 
 		public SizeF MeasureString(string text, Font font){
 			return gc.MeasureString(text, font);
-		}
-
-		public SizeF MeasureString(string text, Font font, int width, StringFormat format){
-			return gc.MeasureString(text, font, width, format);
 		}
 
 		public void DrawString(string s, Font font, Brush brush, float x, float y){

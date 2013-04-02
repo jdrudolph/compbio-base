@@ -7,7 +7,7 @@ namespace BasicLib.Data{
 	[Serializable]
 	public class ThreadSafeHashSet<T> : ISet<T>{
 		private readonly HashSet<T> hashSet;
-		private readonly object mutex = new object();
+		private readonly object locker = new object();
 
 		public ThreadSafeHashSet(){
 			hashSet = new HashSet<T>();
@@ -19,7 +19,7 @@ namespace BasicLib.Data{
 
 		public IEnumerator<T> GetEnumerator(){
 			HashSet<T> clone;
-			lock (mutex){
+			lock (locker){
 				clone = new HashSet<T>(hashSet);
 			}
 			return clone.GetEnumerator();
@@ -31,7 +31,7 @@ namespace BasicLib.Data{
 
 		public bool Add(T item){
 			bool elementWasAdded;
-			lock (mutex){
+			lock (locker){
 				elementWasAdded = hashSet.Add(item);
 			}
 			return elementWasAdded;
@@ -39,20 +39,20 @@ namespace BasicLib.Data{
 
 		public bool Remove(T item){
 			bool foundAndRemoved;
-			lock (mutex){
+			lock (locker){
 				foundAndRemoved = hashSet.Remove(item);
 			}
 			return foundAndRemoved;
 		}
 
 		public void ExceptWith(IEnumerable<T> other){
-			lock (mutex){
+			lock (locker){
 				hashSet.ExceptWith(other);
 			}
 		}
 
 		public void IntersectWith(IEnumerable<T> other){
-			lock (mutex){
+			lock (locker){
 				hashSet.IntersectWith(other);
 			}
 		}
@@ -88,13 +88,13 @@ namespace BasicLib.Data{
 		}
 
 		public void SymmetricExceptWith(IEnumerable<T> other){
-			lock (mutex){
+			lock (locker){
 				hashSet.SymmetricExceptWith(other);
 			}
 		}
 
 		public void UnionWith(IEnumerable<T> other){
-			lock (mutex){
+			lock (locker){
 				hashSet.UnionWith(other);
 			}
 		}
@@ -104,7 +104,7 @@ namespace BasicLib.Data{
 		}
 
 		public void Clear(){
-			lock (mutex){
+			lock (locker){
 				hashSet.Clear();
 			}
 		}
@@ -133,7 +133,7 @@ namespace BasicLib.Data{
 				}
 			}
 			int foundAndRemovedCount = 0;
-			lock (mutex){
+			lock (locker){
 				foreach (T item in toBeRemoved){
 					bool foundAndRemoved = hashSet.Remove(item);
 					if (foundAndRemoved){
@@ -146,7 +146,7 @@ namespace BasicLib.Data{
 
 		public T[] ToArray(){
 			T[] result;
-			lock (mutex){
+			lock (locker){
 				result = ArrayUtils.ToArray(hashSet);
 			}
 			return result;

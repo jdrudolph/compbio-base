@@ -72,13 +72,6 @@ namespace BasicLib.Graphic{
 			template.FillStroke();
 		}
 
-		public void DrawLine(Pen pen, int x1, int y1, int x2, int y2){
-			SetPen(pen);
-			template.MoveTo(x1, currentHeight - y1);
-			template.LineTo(x2, currentHeight - y2);
-			template.Stroke();
-		}
-
 		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
 			SetPen(pen);
 			template.MoveTo(x1, currentHeight - y1);
@@ -135,34 +128,16 @@ namespace BasicLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawEllipse(Pen pen, int x, int y, int width, int height){
-			SetPen(pen);
-			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
-			template.Stroke();
-		}
-
 		public void DrawEllipse(Pen pen, float x, float y, float width, float height){
 			SetPen(pen);
 			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Stroke();
 		}
 
-		public void FillEllipse(Brush brush, int x, int y, int width, int height){
-			SetBrush(brush);
-			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
-			template.Fill();
-		}
-
 		public void FillEllipse(Brush brush, float x, float y, float width, float height){
 			SetBrush(brush);
 			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Fill();
-		}
-
-		public void DrawRectangle(Pen pen, int x, int y, int width, int height){
-			SetPen(pen);
-			template.Rectangle(x, currentHeight - y, width, -height);
-			template.Stroke();
 		}
 
 		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
@@ -176,10 +151,6 @@ namespace BasicLib.Graphic{
 		/// </summary>
 		/// <param name="pen">Pen  that determines the color, width, and style of the rectangle.</param>
 		/// <param name="rectangle">The rectangle to draw.</param>
-		public void DrawRectangle(Pen pen, System.Drawing.Rectangle rectangle){
-			DrawRectangle(pen, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-		}
-
 		public void DrawRectangle(Pen pen, RectangleF rectangle){
 			DrawRectangle(pen, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 		}
@@ -201,17 +172,6 @@ namespace BasicLib.Graphic{
 			template.Fill();
 		}
 
-		public void FillRectangle(Brush brush, int x, int y, int width, int height){
-			FillRectangle(brush, x, y, width, (float) height);
-		}
-
-		public void FillRectangle(Brush brush, System.Drawing.Rectangle rectangle){
-			FillRectangle(brush, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-		}
-
-		public void FillRectangle(Brush brush, RectangleF rectangle){
-			FillRectangle(brush, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-		}
 
 		/// <summary>
 		/// Fills the interior of a rectangle with rounded corners specified by a pair of coordinates, a width, and a height.
@@ -302,10 +262,6 @@ namespace BasicLib.Graphic{
 		public void Close(){
 			document.Close();
 			writer.Close();
-		}
-
-		public SizeF MeasureString(string text, System.Drawing.Font font, int width, StringFormat format){
-			return MeasureString(text, font);
 		}
 
 		public void DrawString(string s, System.Drawing.Font font, Brush brush, float x, float y){
