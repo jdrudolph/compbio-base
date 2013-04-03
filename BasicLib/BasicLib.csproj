@@ -79,6 +79,8 @@
   <ItemGroup>
     <Compile Include="Data\Cache.cs" />
     <Compile Include="Data\CacheElem.cs" />
+    <Compile Include="Data\ICache.cs" />
+    <Compile Include="Data\ThreadSafeCache.cs" />
     <Compile Include="Data\EquatableArray.cs" />
     <Compile Include="Data\IndexedBitMatrix.cs" />
     <Compile Include="Data\ThreadSafeHashSet.cs" />

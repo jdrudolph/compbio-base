@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 
 namespace BasicLib.Data{
-	public class Cache<Tk, Tv> : IDisposable{
+	public class Cache<Tk, Tv> : IDisposable, ICache<Tk, Tv> {
 		private CacheElem<Tk, Tv> first;
 		private CacheElem<Tk, Tv> last;
 		private readonly Dictionary<Tk, CacheElem<Tk, Tv>> map = new Dictionary<Tk, CacheElem<Tk, Tv>>();
