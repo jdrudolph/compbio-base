@@ -17,13 +17,11 @@ namespace BasicLib.Util{
 		protected Stack<int> toBeProcessed;
 		protected readonly string infoFolder;
 		protected readonly Random random = new Random();
-		protected readonly bool runOnCluster;
 
-		protected WorkDispatcher(int nThreads, int nTasks, string infoFolder, bool runOnCluster){
+		protected WorkDispatcher(int nThreads, int nTasks, string infoFolder){
 			this.nThreads = Math.Min(nThreads, nTasks);
 			this.nTasks = nTasks;
 			this.infoFolder = infoFolder;
-			this.runOnCluster = runOnCluster;
 			if (!string.IsNullOrEmpty(infoFolder) && !Directory.Exists(infoFolder)){
 				Directory.CreateDirectory(infoFolder);
 			}
@@ -96,24 +94,9 @@ namespace BasicLib.Util{
 			externalProcesses[threadIndex] = new Process{StartInfo = psi};
 			psi.CreateNoWindow = true;
 			psi.UseShellExecute = false;
-			if (runOnCluster){
-				psi.RedirectStandardError = true;
-				psi.RedirectStandardOutput = true;
-				// Set our event handler to asynchronously read the output.
-				externalProcesses[threadIndex].OutputDataReceived += StreamHandler.OutputHandler;
-				externalProcesses[threadIndex].ErrorDataReceived += StreamHandler.ErrorHandler;
-			}
 			externalProcesses[threadIndex].Start();
 			Logger.Info("WorkDispatcher",
 				"Started Process id:" + externalProcesses[threadIndex].Id + " " + Path.GetFileName(psi.FileName.Replace("\"", "")));
-			if (psi.RedirectStandardOutput){
-				// Start the asynchronous read of the output stream.
-				externalProcesses[threadIndex].BeginOutputReadLine();
-			}
-			if (psi.RedirectStandardError){
-				// Start the asynchronous read of the error stream.
-				externalProcesses[threadIndex].BeginErrorReadLine();
-			}
 			externalProcesses[threadIndex].WaitForExit();
 			int exitcode = externalProcesses[threadIndex].ExitCode;
 			int processid = externalProcesses[threadIndex].Id;
