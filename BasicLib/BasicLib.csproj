@@ -273,6 +273,7 @@
     <Compile Include="Graphic\SvgGraphics.cs" />
     <Compile Include="Graphic\WindowsBasedGraphics.cs" />
     <Compile Include="Forms\Scatter\PolygonData.cs" />
+    <Compile Include="Num\TukeyBiweightCalc.cs" />
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Symbol\DashStyles.cs" />
     <Compile Include="Util\HelpType.cs" />

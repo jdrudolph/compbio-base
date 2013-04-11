@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BasicLib.Num;
 
 namespace BasicLib.Util{
 	public static class ArrayUtils{
@@ -265,7 +266,16 @@ namespace BasicLib.Util{
 			return 0.5f*(x[o[n/2 - 1]] + x[o[n/2]]);
 		}
 
-		public static double MostFrequentValue(IList<double> data){
+		public static double TukeyBiweight(IList<double> x) {
+			return TukeyBiweightCalc.TukeyBiweight(x);
+		}
+
+		public static double TukeyBiweightSe(IList<double> x) {
+			double result = TukeyBiweightCalc.TukeyBiweight(x);
+			return TukeyBiweightCalc.TukeyBiweightSe(x, result);
+		}
+
+		public static double MostFrequentValue(IList<double> data) {
 			int n = data.Count;
 			if (n <= 3){
 				return Median(data);
