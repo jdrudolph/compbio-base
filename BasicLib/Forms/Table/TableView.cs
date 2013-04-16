@@ -1029,29 +1029,31 @@ namespace BasicLib.Forms.Table{
 				return;
 			}
 			if (e.IsMainButton){
-				int row = (VisibleY + e.Y)/rowHeight;
-				if (model == null || row >= model.RowCount || row < 0){
-					return;
-				}
-				bool ctrl = (ModifierKeys & Keys.Control) == Keys.Control;
-				bool shift = (ModifierKeys & Keys.Shift) == Keys.Shift;
-				if (!ctrl || !multiSelect){
-					ClearSelection();
-				}
-				int ox = order[row];
-				if (ox < 0 || ox >= modelRowSel.Length){
-					return;
-				}
-				modelRowSel[ox] = !ctrl || !modelRowSel[ox];
-				if (multiSelect && shift && selectStart != -1){
-					SelectRange(selectStart, row);
-				} else{
-					selectStart = row;
-				}
-				Invalidate(true);
-				if (SelectionChanged != null){
-					SelectionChanged(this, new EventArgs());
-				}
+				try{
+					int row = (VisibleY + e.Y) / rowHeight;
+					if (model == null || row >= model.RowCount || row < 0) {
+						return;
+					}
+					bool ctrl = (ModifierKeys & Keys.Control) == Keys.Control;
+					bool shift = (ModifierKeys & Keys.Shift) == Keys.Shift;
+					if (!ctrl || !multiSelect) {
+						ClearSelection();
+					}
+					int ox = order[row];
+					if (ox < 0 || ox >= modelRowSel.Length) {
+						return;
+					}
+					modelRowSel[ox] = !ctrl || !modelRowSel[ox];
+					if (multiSelect && shift && selectStart != -1) {
+						SelectRange(selectStart, row);
+					} else {
+						selectStart = row;
+					}
+					Invalidate(true);
+					if (SelectionChanged != null) {
+						SelectionChanged(this, new EventArgs());
+					}
+				}catch(Exception){}
 			}
 		}
 

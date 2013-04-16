@@ -433,5 +433,27 @@ namespace BasicLib.Util{
 			}
 			return sb + "...";
 		}
+
+		public static string Repeat(string s, int n){
+			if (n == 0){
+				return "";
+			}
+			StringBuilder result = new StringBuilder();
+			for (int i = 0; i < n; i++){
+				result.Append(s);
+			}
+			return result.ToString();
+		}
+
+		public static string Repeat(char c, int n){
+			if (n == 0){
+				return "";
+			}
+			StringBuilder result = new StringBuilder();
+			for (int i = 0; i < n; i++){
+				result.Append(c);
+			}
+			return result.ToString();
+		}
 	}
 }
