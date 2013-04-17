@@ -5,6 +5,11 @@ using BasicLib.Num;
 
 namespace BasicLib.Util{
 	public static class ArrayUtils{
+		/// <summary>
+		/// Determines the smallest number in the input array.
+		/// </summary>
+		/// <param name="x">The input array. It may contain NaN and infinity values.</param>
+		/// <returns>The minimum.</returns>
 		public static double Min(IList<double> x){
 			if (x == null || x.Count == 0){
 				return double.NaN;
