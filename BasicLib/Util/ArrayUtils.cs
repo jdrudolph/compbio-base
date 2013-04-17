@@ -1328,7 +1328,7 @@ namespace BasicLib.Util{
 		}
 
 		public static int ClosestIndex(double[] array, double value){
-			if (Double.IsNaN(value)){
+			if (double.IsNaN(value)){
 				return -1;
 			}
 			int n = array.Length;
@@ -1359,7 +1359,7 @@ namespace BasicLib.Util{
 		}
 
 		public static int ClosestIndex(float[] array, float value){
-			if (Single.IsNaN(value)){
+			if (float.IsNaN(value)){
 				return -1;
 			}
 			int n = array.Length;
