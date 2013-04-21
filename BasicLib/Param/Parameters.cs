@@ -140,11 +140,11 @@ namespace BasicLib.Param{
 			throw new Exception("Parameter does not exist: " + name);
 		}
 
-		public Parameter[] GetDropTargets(){
+		public Parameter[] GetDropTargets() {
 			List<Parameter> result = new List<Parameter>();
-			foreach (ParameterGroup parameterGroup in paramGroups){
-				foreach (Parameter p in parameterGroup.ParameterList){
-					if (p.IsDropTarget){
+			foreach (ParameterGroup parameterGroup in paramGroups) {
+				foreach (Parameter p in parameterGroup.ParameterList) {
+					if (p.IsDropTarget) {
 						result.Add(p);
 					}
 				}
@@ -152,7 +152,19 @@ namespace BasicLib.Param{
 			return result.ToArray();
 		}
 
-		public Parameter GetParamNoException(string name){
+		public void SetSizes(int paramNameWidth, int totalWidth) {
+			foreach (ParameterGroup parameterGroup in paramGroups) {
+				foreach (Parameter p in parameterGroup.ParameterList) {
+					if (p is SingleChoiceWithSubParams){
+						SingleChoiceWithSubParams q = (SingleChoiceWithSubParams) p;
+						q.paramNameWidth = paramNameWidth;
+						q.totalWidth = totalWidth;
+					}
+				}
+			}
+		}
+
+		public Parameter GetParamNoException(string name) {
 			foreach (ParameterGroup parameterGroup in paramGroups){
 				Parameter p = parameterGroup.GetParam(name);
 				if (p != null){
@@ -200,16 +212,16 @@ namespace BasicLib.Param{
 			return FindParameter(paramName, this);
 		}
 
-		private static Parameter FindParameter(string paramName, Parameters parameters){
+		private static Parameter FindParameter(string paramName, Parameters parameters) {
 			Parameter p = parameters.GetParamNoException(paramName);
-			if (p != null){
+			if (p != null) {
 				return p;
 			}
-			foreach (Parameter px in parameters.GetAllParameters()){
-				if (px is ParameterWithSubParams){
-					Parameters ps = ((ParameterWithSubParams) px).GetSubParameters();
+			foreach (Parameter px in parameters.GetAllParameters()) {
+				if (px is ParameterWithSubParams) {
+					Parameters ps = ((ParameterWithSubParams)px).GetSubParameters();
 					Parameter pq = FindParameter(paramName, ps);
-					if (pq != null){
+					if (pq != null) {
 						return pq;
 					}
 				}
