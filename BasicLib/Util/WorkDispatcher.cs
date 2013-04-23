@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Microsoft.Hpc.Scheduler;
 
 namespace BasicLib.Util{
 	public abstract class WorkDispatcher{
@@ -142,53 +141,6 @@ namespace BasicLib.Util{
 			}
 			return GetMessagePrefix().Trim().Replace("/", "").Replace("(", "_").Replace(")", "_").Replace(" ", "_") + "_" +
 				workType + end;
-		}
-
-		public virtual ISchedulerTask GetTask(int id, ISchedulerJob job, int taskIndex, string workdir){
-			ISchedulerTask task = job.CreateTask();
-			task.Name = GetMessagePrefix().Trim();
-			task.CommandLine = GetCommandFilename() + " " + GetLogArgs(taskIndex, WorkType.Task, id) + " " +
-				GetCommandArguments(taskIndex);
-			if (!string.IsNullOrEmpty(infoFolder)){
-				string name = GetFilename(WorkType.Task, id);
-				task.StdOutFilePath = Path.Combine(infoFolder, name + ".out");
-				task.StdErrFilePath = Path.Combine(infoFolder, name + ".err");
-				task.WorkDirectory = infoFolder;
-			}
-			return task;
-		}
-
-		public virtual void AddTasks(ref int taskid, ISchedulerJob job, string workdir, List<string> group,
-			List<string> allnames){
-			// Collect all names of previous group
-			StringCollection dependsOn = new StringCollection();
-			string[] unique = ArrayUtils.UniqueValues(group.ToArray());
-			foreach (string taskname in unique){
-				dependsOn.Add(taskname);
-			}
-			// Clear group names
-			group.Clear();
-			for (int i = 0; i < nTasks; i++){
-				// Create new Task
-				ISchedulerTask task = GetTask(taskid, job, i, workdir);
-				// Change name of task if necessary
-				if (i == 0){
-					string temp = task.Name;
-					int n = 2;
-					while (allnames.Contains(task.Name)){
-						task.Name = string.Format("{0} - {1}", temp, n);
-						n++;
-					}
-					allnames.Add(task.Name);
-				}
-				// add collected dependen names
-				task.DependsOn = dependsOn;
-				// add task to job
-				job.AddTask(task);
-				// add task name to dependency group
-				group.Add(task.Name);
-				taskid++;
-			}
 		}
 
 		public virtual bool IsFallbackPosition { get { return true; } }
