@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
@@ -533,30 +532,6 @@ namespace BasicLib.Util{
 			}
 		}
 
-		public static void Concate(string source, string destination, int sleep){
-			string lockfile = destination.Replace(Path.GetExtension(destination), ".lock");
-			Thread.Sleep(sleep);
-			while (File.Exists(lockfile)){
-				Thread.Sleep(sleep);
-			}
-			File.Create(lockfile).Close();
-			if (File.Exists(destination)){
-				StreamReader reader = new StreamReader(source);
-				//skip header of table
-				reader.ReadLine();
-				StreamWriter writer = new StreamWriter(destination, true);
-				string line;
-				while ((line = reader.ReadLine()) != null){
-					writer.WriteLine(line);
-				}
-				reader.Close();
-				writer.Close();
-			} else{
-				File.Copy(source, destination);
-			}
-			File.Delete(lockfile);
-		}
-
 		public static void Move(string filePath, string destFolder){
 			string name = Path.GetFileName(filePath);
 			string destFilePath = Path.Combine(destFolder, name);
@@ -583,31 +558,39 @@ namespace BasicLib.Util{
 				Directory.CreateDirectory(destFolder);
 			}
 			while (Directory.GetFiles(srcFolder).Length > 0){
-				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
-					string.Format("Number of files in {0} is {1}", srcFolder, Directory.GetFiles(srcFolder).Length));
 				foreach (string file in Directory.GetFiles(srcFolder)){
-					try{
-						Move(file, destFolder);
-					} catch (Exception){
-						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move file " + file);
-						Thread.Sleep(50);
+					for (int i = 0; i < maxTries; i++){
+						try{
+							Move(file, destFolder);
+							break;
+						} catch (Exception) {
+							if (i == maxTries - 1) {
+								throw;
+							}
+							Thread.Sleep(50);
+						}
 					}
 				}
 			}
 			while (Directory.GetDirectories(srcFolder).Length > 0){
-				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
-					string.Format("Number of directories in {0} is {1}", srcFolder, Directory.GetDirectories(srcFolder).Length));
 				foreach (string dir in Directory.GetDirectories(srcFolder)){
-					try{
-						MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
-					} catch (Exception){
-						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move directory " + dir);
-						Thread.Sleep(50);
+					for (int i = 0; i < maxTries; i++){
+						try{
+							MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
+							break;
+						} catch (Exception) {
+							if (i == maxTries - 1) {
+								throw;
+							}
+							Thread.Sleep(50);
+						}
 					}
 				}
 			}
 			Directory.Delete(srcFolder);
 		}
+
+		private const int maxTries = 18000;
 
 		public static void MoveFolder(string srcFolder, string destFolder){
 			if (!Directory.Exists(destFolder)){
@@ -623,53 +606,39 @@ namespace BasicLib.Util{
 				}
 			}
 			while (Directory.GetFiles(srcFolder).Length > 0){
-				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
-					string.Format("Number of files in {0} is {1}", srcFolder, Directory.GetFiles(srcFolder).Length));
 				foreach (string file in Directory.GetFiles(srcFolder)){
-					try{
-						Move(file, destFolder);
-					} catch (Exception){
-						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move file " + file);
-						Thread.Sleep(50);
+					for (int i = 0; i < maxTries; i++){
+						try{
+							Move(file, destFolder);
+							break;
+						} catch (Exception){
+							if (i == maxTries - 1){
+								throw;
+							}
+							Thread.Sleep(50);
+						}
 					}
 				}
 			}
 			while (Directory.GetDirectories(srcFolder).Length > 0){
-				Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name,
-					string.Format("Number of directories in {0} is {1}", srcFolder, Directory.GetDirectories(srcFolder).Length));
 				foreach (string dir in Directory.GetDirectories(srcFolder)){
-					try{
-						MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
-					} catch (Exception){
-						Logger.Debug(MethodBase.GetCurrentMethod().ReflectedType.Name, "Cannot move directory " + dir);
-						Thread.Sleep(50);
+					for (int i = 0; i < maxTries; i++){
+						try{
+							MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
+							break;
+						} catch (Exception) {
+							if (i == maxTries - 1) {
+								throw;
+							}
+							Thread.Sleep(50);
+						}
 					}
 				}
 			}
 			Directory.Delete(srcFolder);
 		}
 
-		public static void Append(string source, string destination, int skip){
-			if (File.Exists(destination)){
-				if (skip > 0){
-					File.WriteAllLines(source, File.ReadAllLines(source).Skip(skip).ToArray());
-				}
-				StartProcess(string.Format("/C more {0} >> {1}", source, destination));
-			} else{
-				File.Copy(source, destination);
-			}
-		}
-
-		private static void StartProcess(string args){
-			ProcessStartInfo psi = new ProcessStartInfo("CMD.exe", args)
-			{WindowStyle = ProcessWindowStyle.Hidden, CreateNoWindow = true, UseShellExecute = false};
-			Console.Out.WriteLine(psi.Arguments);
-			Process process = new Process{StartInfo = psi};
-			process.Start();
-			process.WaitForExit();
-		}
-
-		public static bool IsNet45OrNewer() {
+		public static bool IsNet45OrNewer(){
 			// Class "ReflectionContext" exists from .NET 4.5 onwards.
 			return Type.GetType("System.Reflection.ReflectionContext", false) != null;
 		}
