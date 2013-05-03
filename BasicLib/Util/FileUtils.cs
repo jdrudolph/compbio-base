@@ -348,8 +348,7 @@ namespace BasicLib.Util{
 				try{
 					File.Delete(file);
 				} catch (IOException){
-					Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name,
-						"The process cannot delete the file " + file + ". This process will try to delete it later.");
+					Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name, "The process cannot delete the file " + file + ".");
 					Thread.Sleep(1000);
 				}
 			}
@@ -563,8 +562,8 @@ namespace BasicLib.Util{
 						try{
 							Move(file, destFolder);
 							break;
-						} catch (Exception) {
-							if (i == maxTries - 1) {
+						} catch (Exception){
+							if (i == maxTries - 1){
 								throw;
 							}
 							Thread.Sleep(50);
@@ -578,8 +577,8 @@ namespace BasicLib.Util{
 						try{
 							MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
 							break;
-						} catch (Exception) {
-							if (i == maxTries - 1) {
+						} catch (Exception){
+							if (i == maxTries - 1){
 								throw;
 							}
 							Thread.Sleep(50);
@@ -626,8 +625,8 @@ namespace BasicLib.Util{
 						try{
 							MoveFolderOld(dir, Path.Combine(destFolder, Path.GetFileName(dir)));
 							break;
-						} catch (Exception) {
-							if (i == maxTries - 1) {
+						} catch (Exception){
+							if (i == maxTries - 1){
 								throw;
 							}
 							Thread.Sleep(50);

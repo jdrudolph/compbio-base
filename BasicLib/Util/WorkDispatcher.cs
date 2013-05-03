@@ -88,8 +88,7 @@ namespace BasicLib.Util{
 
 		public virtual void ProcessSingleRunExternal(int taskIndex, int threadIndex){
 			ProcessStartInfo psi = new ProcessStartInfo(GetCommandFilename(),
-				GetLogArgs(taskIndex, WorkType.Process, taskIndex) + GetCommandArguments(taskIndex))
-			{WindowStyle = ProcessWindowStyle.Hidden};
+				GetLogArgs(taskIndex, taskIndex) + GetCommandArguments(taskIndex)){WindowStyle = ProcessWindowStyle.Hidden};
 			externalProcesses[threadIndex] = new Process{StartInfo = psi};
 			psi.CreateNoWindow = true;
 			psi.UseShellExecute = false;
@@ -129,18 +128,13 @@ namespace BasicLib.Util{
 			return b.ToString();
 		}
 
-		public string GetLogArgs(int taskIndex, WorkType workType, int id){
-			return string.Format("\"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" ", infoFolder, GetFilename(workType, id), id,
-				GetName(taskIndex), GetComment(taskIndex), workType);
+		private string GetLogArgs(int taskIndex, int id){
+			return string.Format("\"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" ", infoFolder, GetFilename(), id,
+				GetName(taskIndex), GetComment(taskIndex), "Process");
 		}
 
-		public string GetFilename(WorkType workType, int id){
-			string end = "";
-			if (workType == WorkType.Task){
-				end = "_" + id;
-			}
-			return GetMessagePrefix().Trim().Replace("/", "").Replace("(", "_").Replace(")", "_").Replace(" ", "_") + "_" +
-				workType + end;
+		private string GetFilename(){
+			return GetMessagePrefix().Trim().Replace("/", "").Replace("(", "_").Replace(")", "_").Replace(" ", "_");
 		}
 
 		public virtual bool IsFallbackPosition { get { return true; } }

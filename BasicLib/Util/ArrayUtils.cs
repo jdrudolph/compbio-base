@@ -1756,7 +1756,7 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static Dictionary<T, int> GetIndexMap<T>(IList<T> list) {
+		public static Dictionary<T, int> InverseMap<T>(IList<T> list) {
 			Dictionary<T, int> result = new Dictionary<T, int>();
 			for (int i = 0; i < list.Count; i++) {
 				if (!result.ContainsKey(list[i])) {
