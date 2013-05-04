@@ -72,8 +72,8 @@ namespace BasicLib.Forms.Scatter{
 		internal int PrevHeight { set { prevHeight = value; } }
 		internal bool PaintBackground { get { return paintBackground; } set { paintBackground = value; } }
 		private ScatterPlotData scatterPlotData;
-		private readonly Dictionary<SymbolProperties, Tuple<int, bool[,]>> values =
-			new Dictionary<SymbolProperties, Tuple<int, bool[,]>>();
+		private readonly Dictionary<SymbolProperties, GridData> values =
+			new Dictionary<SymbolProperties, GridData>();
 		private  ScatterPlot scatterPlot;
 		private Dictionary<SymbolProperties, double[,]> zValues;
 		private ColorScale colorScale;
@@ -244,13 +244,13 @@ namespace BasicLib.Forms.Scatter{
 			SymbolProperties[] gg = ArrayUtils.GetKeys(values);
 			int[] counts = new int[gg.Length];
 			for (int i = 0; i < counts.Length; i++){
-				counts[i] = values[gg[i]].Item1;
+				counts[i] = values[gg[i]].Count;
 			}
 			int[] o = ArrayUtils.Order(counts);
 			Array.Reverse(o);
 			gg = ArrayUtils.SubArray(gg, o);
 			foreach (SymbolProperties g1 in gg){
-				bool[,] vals = values[g1].Item2;
+				bool[,] vals = values[g1].Data;
 				double[,] zvals = null;
 				if (zValues != null){
 					zvals = zValues[g1];
@@ -710,7 +710,7 @@ namespace BasicLib.Forms.Scatter{
 						zValues = null;
 					}
 					SymbolProperties prop = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
-					Tuple<int, bool[,]> vals;
+					GridData vals;
 					double[,] zVals = null;
 					if (values.ContainsKey(prop)){
 						try{
@@ -719,7 +719,7 @@ namespace BasicLib.Forms.Scatter{
 							break;
 						}
 					} else{
-						vals = new Tuple<int, bool[,]>(0, new bool[width,height]);
+						vals = new GridData(0, new bool[width, height]);
 						values.Add(prop, vals);
 					}
 					if (zValues != null){
@@ -737,9 +737,9 @@ namespace BasicLib.Forms.Scatter{
 					for (int i = 0; i < x.Length; i++){
 						int ix = ModelToViewX(x[i], width);
 						int iy = ModelToViewY(y[i], height);
-						if (ix >= 0 && iy >= 0 && ix < vals.Item2.GetLength(0) && iy < vals.Item2.GetLength(1)){
-							vals.Item2[ix, iy] = true;
-							vals = new Tuple<int, bool[,]>(vals.Item1 + 1, vals.Item2);
+						if (ix >= 0 && iy >= 0 && ix < vals.Data.GetLength(0) && iy < vals.Data.GetLength(1)){
+							vals.Data[ix, iy] = true;
+							vals.Count++;
 							if (zVals != null && z != null){
 								zVals[ix, iy] = z[i];
 							}
@@ -770,13 +770,13 @@ namespace BasicLib.Forms.Scatter{
 			SymbolProperties[] gg = ArrayUtils.GetKeys(values);
 			int[] counts = new int[gg.Length];
 			for (int i = 0; i < counts.Length; i++){
-				counts[i] = values[gg[i]].Item1;
+				counts[i] = values[gg[i]].Count;
 			}
 			int[] o = ArrayUtils.Order(counts);
 			Array.Reverse(o);
 			gg = ArrayUtils.SubArray(gg, o);
 			foreach (SymbolProperties g in gg){
-				bool[,] vals = values[g].Item2;
+				bool[,] vals = values[g].Data;
 				double[,] zvals = null;
 				if (zValues != null){
 					zvals = zValues[g];
