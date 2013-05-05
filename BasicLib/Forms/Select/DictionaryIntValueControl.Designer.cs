@@ -32,7 +32,7 @@
 			this.button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.button.Location = new System.Drawing.Point(264, 0);
 			this.button.Name = "button";
-			this.button.Size = new System.Drawing.Size(35, 23);
+			this.button.Size = new System.Drawing.Size(35, 21);
 			this.button.TabIndex = 3;
 			this.button.Text = "Edit";
 			this.button.UseVisualStyleBackColor = true;

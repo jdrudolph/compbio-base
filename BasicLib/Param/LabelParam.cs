@@ -37,7 +37,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			Label tb = (Label) control;
+			if (control == null) {
+				return;
+			}
+			Label tb = (Label)control;
 			tb.Text = Value;
 		}
 

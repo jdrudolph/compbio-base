@@ -43,7 +43,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			FileParameterPanel lfp = (FileParameterPanel) control;
+			if (control == null) {
+				return;
+			}
+			FileParameterPanel lfp = (FileParameterPanel)control;
 			lfp.Text = Value;
 		}
 

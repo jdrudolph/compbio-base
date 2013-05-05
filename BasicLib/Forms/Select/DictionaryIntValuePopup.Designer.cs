@@ -24,10 +24,10 @@
 		/// </summary>
 		private void InitializeComponent() {
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.parameterPanel1 = new BasicLib.Param.ParameterPanel();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.button1 = new System.Windows.Forms.Button();
-			this.button2 = new System.Windows.Forms.Button();
+			this.okButton = new System.Windows.Forms.Button();
+			this.cancelButton = new System.Windows.Forms.Button();
+			this.parameterPanel1 = new BasicLib.Param.ParameterPanel();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -47,6 +47,39 @@
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(343, 424);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.okButton);
+			this.panel1.Controls.Add(this.cancelButton);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.panel1.Location = new System.Drawing.Point(3, 391);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(337, 30);
+			this.panel1.TabIndex = 3;
+			// 
+			// okButton
+			// 
+			this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.okButton.Location = new System.Drawing.Point(259, 3);
+			this.okButton.Name = "okButton";
+			this.okButton.Size = new System.Drawing.Size(75, 23);
+			this.okButton.TabIndex = 1;
+			this.okButton.Text = "OK";
+			this.okButton.UseVisualStyleBackColor = true;
+			this.okButton.Click += new System.EventHandler(this.OkButtonClick);
+			// 
+			// cancelButton
+			// 
+			this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+			this.cancelButton.Location = new System.Drawing.Point(3, 3);
+			this.cancelButton.Name = "cancelButton";
+			this.cancelButton.Size = new System.Drawing.Size(75, 23);
+			this.cancelButton.TabIndex = 0;
+			this.cancelButton.Text = "Cancel";
+			this.cancelButton.UseVisualStyleBackColor = true;
+			this.cancelButton.Click += new System.EventHandler(this.CancelButtonClick);
+			// 
 			// parameterPanel1
 			// 
 			this.parameterPanel1.AutoScroll = true;
@@ -58,40 +91,12 @@
 			this.parameterPanel1.Size = new System.Drawing.Size(337, 382);
 			this.parameterPanel1.TabIndex = 2;
 			// 
-			// panel1
-			// 
-			this.panel1.Controls.Add(this.button2);
-			this.panel1.Controls.Add(this.button1);
-			this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel1.Location = new System.Drawing.Point(3, 391);
-			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(337, 30);
-			this.panel1.TabIndex = 3;
-			// 
-			// button1
-			// 
-			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.button1.Location = new System.Drawing.Point(3, 3);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			// 
-			// button2
-			// 
-			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.button2.Location = new System.Drawing.Point(259, 3);
-			this.button2.Name = "button2";
-			this.button2.Size = new System.Drawing.Size(75, 23);
-			this.button2.TabIndex = 1;
-			this.button2.Text = "button2";
-			this.button2.UseVisualStyleBackColor = true;
-			// 
 			// DictionaryIntValuePopup
 			// 
+			this.AcceptButton = this.okButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.CancelButton = this.cancelButton;
 			this.ClientSize = new System.Drawing.Size(343, 424);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Name = "DictionaryIntValuePopup";
@@ -106,7 +111,7 @@
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private Param.ParameterPanel parameterPanel1;
 		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Button button2;
-		private System.Windows.Forms.Button button1;
+		private System.Windows.Forms.Button okButton;
+		private System.Windows.Forms.Button cancelButton;
 	}
 }

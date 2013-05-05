@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using BasicLib.Util;
 
 namespace BasicLib.Forms.Select{
 	public partial class DictionaryIntValueControl : UserControl{
@@ -16,6 +17,17 @@ namespace BasicLib.Forms.Select{
 			p.SetData(Value, Keys, Default);
 			if (p.ShowDialog() == DialogResult.OK){
 				Value = p.GetData(Keys);
+				textBox.Text = StringVal;
+			}
+		}
+
+		private string StringVal{
+			get{
+				List<string> result = new List<string>();
+				foreach (KeyValuePair<string, int> pair in Value){
+					result.Add("[" + pair.Key + "," + pair.Value + "]");
+				}
+				return StringUtils.Concat(",", result);
 			}
 		}
 	}

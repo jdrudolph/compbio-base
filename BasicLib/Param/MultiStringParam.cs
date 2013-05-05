@@ -62,7 +62,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			RichTextBox rtb = (RichTextBox) control;
+			if (control == null) {
+				return;
+			}
+			RichTextBox rtb = (RichTextBox)control;
 			if (Value.Length >= 10){
 				rtb.Text = StringUtils.Concat("\n", Value);
 			} else{

@@ -72,7 +72,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			ListSelector ls = (ListSelector) control;
+			if (control == null) {
+				return;
+			}
+			ListSelector ls = (ListSelector)control;
 			ls.SelectedIndices = Value;
 		}
 

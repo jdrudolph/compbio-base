@@ -87,7 +87,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			TableLayoutPanel tlp = (TableLayoutPanel) control;
+			if (control == null) {
+				return;
+			}
+			TableLayoutPanel tlp = (TableLayoutPanel)control;
 			ComboBox cb = (ComboBox) tlp.GetControlFromPosition(0, 0);
 			if (Value >= 0 && Value < Values.Count){
 				cb.SelectedIndex = Value;

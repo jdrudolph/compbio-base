@@ -55,7 +55,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			MultiFileParameterPanel lfp = (MultiFileParameterPanel) control;
+			if (control == null) {
+				return;
+			}
+			MultiFileParameterPanel lfp = (MultiFileParameterPanel)control;
 			lfp.Filenames = Value;
 		}
 

@@ -314,19 +314,29 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static int[] Complement(IList<int> present, int length){
+		public static int[] Complement(IList<int> present, int length) {
 			HashSet<int> dummy = new HashSet<int>();
 			dummy.UnionWith(present);
 			List<int> result = new List<int>();
-			for (int i = 0; i < length; i++){
-				if (!dummy.Contains(i)){
+			for (int i = 0; i < length; i++) {
+				if (!dummy.Contains(i)) {
 					result.Add(i);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static T[] Concat<T>(IList<T> first, IList<T> second){
+		public static int[] Complement(HashSet<int> present, int length) {
+			List<int> result = new List<int>();
+			for (int i = 0; i < length; i++) {
+				if (!present.Contains(i)) {
+					result.Add(i);
+				}
+			}
+			return result.ToArray();
+		}
+
+		public static T[] Concat<T>(IList<T> first, IList<T> second) {
 			if (first == null && second == null){
 				return null;
 			}

@@ -40,7 +40,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			TextBox tb = (TextBox) control;
+			if (control == null) {
+				return;
+			}
+			TextBox tb = (TextBox)control;
 			tb.Text = "" + Value;
 		}
 

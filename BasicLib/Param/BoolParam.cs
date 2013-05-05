@@ -38,7 +38,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			CheckBox cb = (CheckBox) control;
+			if (control == null) {
+				return;
+			}
+			CheckBox cb = (CheckBox)control;
 			cb.Checked = Value;
 		}
 

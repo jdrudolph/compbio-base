@@ -63,7 +63,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			ComboBox cb = (ComboBox) control;
+			if (control == null) {
+				return;
+			}
+			ComboBox cb = (ComboBox)control;
 			if (cb != null && Value >= 0 && Value < Values.Count){
 				cb.SelectedIndex = Value;
 			}

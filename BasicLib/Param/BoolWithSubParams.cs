@@ -70,6 +70,9 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
+			if (control == null){
+				return;
+			}
 			TableLayoutPanel tlp = (TableLayoutPanel) control;
 			CheckBox cb = (CheckBox) tlp.GetControlFromPosition(0, 0);
 			cb.Checked = Value;

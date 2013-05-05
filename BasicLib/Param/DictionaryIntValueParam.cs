@@ -9,10 +9,13 @@ namespace BasicLib.Param{
 	public class DictionaryIntValueParam : Parameter{
 		public Dictionary<string, int> Value { get; set; }
 		public Dictionary<string, int> Default { get; private set; }
+		public int DefaultValue { get; set; }
+		public string[] Keys { get; set; }
 
-		public DictionaryIntValueParam(string name, Dictionary<string, int> value) : base(name){
+		public DictionaryIntValueParam(string name, Dictionary<string, int> value, string[] keys) : base(name){
 			Value = value;
 			Default = value;
+			Keys = keys;
 		}
 
 		public override string StringValue { get { return StringUtils.ToString(Value); } set { Value = DictionaryFromString(value); } }
@@ -48,7 +51,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
+			if (control == null) {
+				return;
+			}
+			DictionaryIntValueControl tb = (DictionaryIntValueControl)control;
 			tb.Value = Value;
 		}
 
@@ -58,13 +64,13 @@ namespace BasicLib.Param{
 
 		protected override Control Control{
 			get{
-				DictionaryIntValueControl tb = new DictionaryIntValueControl{Value = Value};
+				DictionaryIntValueControl tb = new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue};
 				return tb;
 			}
 		}
 
 		public override object Clone(){
-			return new DictionaryIntValueParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+			return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};
 		}
 	}
 }

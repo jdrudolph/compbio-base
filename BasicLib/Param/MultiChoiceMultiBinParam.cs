@@ -81,7 +81,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			MultiListSelector ls = (MultiListSelector) control;
+			if (control == null) {
+				return;
+			}
+			MultiListSelector ls = (MultiListSelector)control;
 			ls.SelectedIndices = Value;
 		}
 
