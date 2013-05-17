@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using BasicLib.Num;
 
@@ -271,16 +272,16 @@ namespace BasicLib.Util{
 			return 0.5f*(x[o[n/2 - 1]] + x[o[n/2]]);
 		}
 
-		public static double TukeyBiweight(IList<double> x) {
+		public static double TukeyBiweight(IList<double> x){
 			return TukeyBiweightCalc.TukeyBiweight(x);
 		}
 
-		public static double TukeyBiweightSe(IList<double> x) {
+		public static double TukeyBiweightSe(IList<double> x){
 			double result = TukeyBiweightCalc.TukeyBiweight(x);
 			return TukeyBiweightCalc.TukeyBiweightSe(x, result);
 		}
 
-		public static double MostFrequentValue(IList<double> data) {
+		public static double MostFrequentValue(IList<double> data){
 			int n = data.Count;
 			if (n <= 3){
 				return Median(data);
@@ -314,29 +315,29 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static int[] Complement(IList<int> present, int length) {
+		public static int[] Complement(IList<int> present, int length){
 			HashSet<int> dummy = new HashSet<int>();
 			dummy.UnionWith(present);
 			List<int> result = new List<int>();
-			for (int i = 0; i < length; i++) {
-				if (!dummy.Contains(i)) {
+			for (int i = 0; i < length; i++){
+				if (!dummy.Contains(i)){
 					result.Add(i);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static int[] Complement(HashSet<int> present, int length) {
+		public static int[] Complement(HashSet<int> present, int length){
 			List<int> result = new List<int>();
-			for (int i = 0; i < length; i++) {
-				if (!present.Contains(i)) {
+			for (int i = 0; i < length; i++){
+				if (!present.Contains(i)){
 					result.Add(i);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static T[] Concat<T>(IList<T> first, IList<T> second) {
+		public static T[] Concat<T>(IList<T> first, IList<T> second){
 			if (first == null && second == null){
 				return null;
 			}
@@ -677,12 +678,12 @@ namespace BasicLib.Util{
 		public static void MinMax(IList<float> x, out double min, out double max){
 			int n = x.Count;
 			if (n == 0){
-				min = Double.NaN;
-				max = Double.NaN;
+				min = double.NaN;
+				max = double.NaN;
 				return;
 			}
-			min = Double.MaxValue;
-			max = -Double.MaxValue;
+			min = double.MaxValue;
+			max = -double.MaxValue;
 			for (int i = 0; i < n; i++){
 				double val = x[i];
 				if (val < min){
@@ -692,9 +693,9 @@ namespace BasicLib.Util{
 					max = val;
 				}
 			}
-			if (min == Double.MaxValue){
-				min = Double.NaN;
-				max = Double.NaN;
+			if (min == double.MaxValue){
+				min = double.NaN;
+				max = double.NaN;
 			}
 		}
 
@@ -1766,14 +1767,83 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static Dictionary<T, int> InverseMap<T>(IList<T> list) {
+		public static Dictionary<T, int> InverseMap<T>(IList<T> list){
 			Dictionary<T, int> result = new Dictionary<T, int>();
-			for (int i = 0; i < list.Count; i++) {
-				if (!result.ContainsKey(list[i])) {
+			for (int i = 0; i < list.Count; i++){
+				if (!result.ContainsKey(list[i])){
 					result.Add(list[i], i);
 				}
 			}
 			return result;
+		}
+
+		public static T[] EveryNth<T>(T[] array, int n){
+			List<T> result = new List<T>();
+			for (int i = 0; i < array.Length; i += n){
+				result.Add(array[i]);
+			}
+			return result.ToArray();
+		}
+
+		public static double CalcCovariance(IList<double> data){
+			int n = data.Count;
+			double means = 0;
+			for (int j = 0; j < n; j++){
+				means += data[j];
+			}
+			means /= n;
+			double cov = 0;
+			for (int k = 0; k < n; k++){
+				cov += (data[k] - means)*(data[k] - means);
+			}
+			cov /= n;
+			return cov;
+		}
+
+		public static int[] GetTopN(IList<double> vals, int n) {
+			if (vals.Count <= n) {
+				return ConsecutiveInts(vals.Count);
+			}
+			int[] o = Order(vals);
+			int[] result = new int[n];
+			for (int i = 0; i < n; i++) {
+				result[i] = o[vals.Count - 1 - i];
+			}
+			return result;
+		}
+
+		public static T[][] Split<T>(IList<T> array, int size) {
+			if (array.Count <= size) {
+				return new[] { array.ToArray() };
+			}
+			int n = (array.Count - 1) / size + 1;
+			T[][] result = new T[n][];
+			for (int i = 0; i < n - 1; i++) {
+				result[i] = SubArray(array, i * size, (i + 1) * size);
+			}
+			result[n - 1] = SubArray(array, (n - 1) * size, array.Count);
+			return result;
+		}
+
+		/// <summary>
+		/// Checks whether the given value is in the array.
+		/// </summary>
+		/// <typeparam name="T">The type of the array and value.</typeparam>
+		/// <param name="array">The array to look for the value.</param>
+		/// <param name="value">The value to look for.</param>
+		/// <returns></returns>
+		public static bool Contains<T>(IList<T> array, T value) {
+			foreach (T t in array) {
+				if (t.Equals(value)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static int TriangleToLinearIndex(int i, int j) {
+			int b = (i * (i - 1)) / 2;
+			return b + j;
 		}
 	}
 }

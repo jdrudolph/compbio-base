@@ -133,7 +133,7 @@ namespace BasicLib.Util{
 				GetName(taskIndex), GetComment(taskIndex), "Process");
 		}
 
-		private string GetFilename(){
+		protected string GetFilename(){
 			return GetMessagePrefix().Trim().Replace("/", "").Replace("(", "_").Replace(")", "_").Replace(" ", "_");
 		}
 

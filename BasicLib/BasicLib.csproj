@@ -283,6 +283,7 @@
     <Compile Include="Graphic\SvgGraphics.cs" />
     <Compile Include="Graphic\WindowsBasedGraphics.cs" />
     <Compile Include="Forms\Scatter\PolygonData.cs" />
+    <Compile Include="Mol\ChemElement.cs" />
     <Compile Include="Num\TukeyBiweightCalc.cs" />
     <Compile Include="Param\DictionaryIntValueParam.cs" />
     <Compile Include="Parse\TabSep.cs" />
