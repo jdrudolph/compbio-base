@@ -284,6 +284,7 @@
     <Compile Include="Graphic\WindowsBasedGraphics.cs" />
     <Compile Include="Forms\Scatter\PolygonData.cs" />
     <Compile Include="Mol\ChemElement.cs" />
+    <Compile Include="Mol\Molecule.cs" />
     <Compile Include="Num\TukeyBiweightCalc.cs" />
     <Compile Include="Param\DictionaryIntValueParam.cs" />
     <Compile Include="Parse\TabSep.cs" />
