@@ -6,6 +6,23 @@ using BasicLib.Util;
 
 namespace BasicLib.Mol{
 	public class Molecule{
+		public static readonly decimal massProtonM = 1.0072764666m;
+		public static readonly double massProton = 1.0072764666;
+		public static readonly double massElectron = 5.4857990943e-4;
+		public static readonly double massC = CalcMonoMass("C");
+		public static readonly double massH = CalcMonoMass("H");
+		public static readonly double massN = CalcMonoMass("N");
+		public static readonly double massO = CalcMonoMass("O");
+		public static readonly double massP = CalcMonoMass("P");
+		public static readonly double massS = CalcMonoMass("S");
+		public static readonly double weightC = CalcWeight("C");
+		public static readonly double weightH = CalcWeight("H");
+		public static readonly double weightN = CalcWeight("N");
+		public static readonly double weightO = CalcWeight("O");
+		public static readonly double weightP = CalcWeight("P");
+		public static readonly double weightS = CalcWeight("S");
+		public static readonly double massWater = CalcMonoMass("H2O");
+		public static readonly double massAmmonia = CalcMonoMass("NH3");
 		public int[] AtomType { get; set; }
 		public int[] AtomCount { get; set; }
 		public double MonoIsotopicMass { get; set; }
@@ -422,6 +439,14 @@ namespace BasicLib.Mol{
 				}
 			}
 			return true;
+		}
+
+		public static double CalcMonoMass(string formula){
+			return new Molecule(formula).MonoIsotopicMass;
+		}
+
+		public static double CalcWeight(string formula){
+			return new Molecule(formula).MolecularWeight;
 		}
 
 		public override bool Equals(object obj){
