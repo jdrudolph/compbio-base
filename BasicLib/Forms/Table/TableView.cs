@@ -568,7 +568,6 @@ namespace BasicLib.Forms.Table{
 
 		protected internal override void OnMouseLeaveMainView(EventArgs e) {
 			mainViewToolTip.Hide(this);
-			base.OnMouseLeaveMainView(e);
 		}
 
 		public static bool IsLogarithmic(ColumnType columnType) {
@@ -1002,14 +1001,14 @@ namespace BasicLib.Forms.Table{
 
 		private void Copy(){
 			StringBuilder str = new StringBuilder();
-			// dump the column-names
+			// store the column-names
 			str.Append(TableModel.GetColumnName(0));
 			for (int i = 1; i < TableModel.ColumnCount; ++i){
 				str.Append("\t");
 				str.Append(TableModel.GetColumnName(i));
 			}
 			str.Append("\n");
-			// dump the selected rows
+			// store the selected rows
 			int[] selection = GetSelectedRows();
 			for (int i = 0; i < selection.Length; i++){
 				int t = selection[i];
@@ -1188,8 +1187,6 @@ namespace BasicLib.Forms.Table{
 				mainViewToolTip.Show(s, this, currentX, currentY, 5000);
 				toolTipX = currentX;
 				toolTipY = currentY;
-			} else {
-				//mainViewToolTip.Hide(this);
 			}
 		}
 

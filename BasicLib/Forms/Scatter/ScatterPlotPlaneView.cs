@@ -279,17 +279,20 @@ namespace BasicLib.Forms.Scatter{
 					}
 				}
 			}
-			// selected data-points
+			// selected data points
 			Brush selectionBrush = new SolidBrush(selectionColor);
 			Pen selectionPen = new Pen(selectionColor);
-			foreach (int s in scatterPlotData.Selection){
+			foreach (int s in scatterPlotData.Selection) {
 				double[] w = scatterPlotData.GetDataAt(s);
-				if (w.Length > 0){
+				if (w.Length > 0) {
 					double x = w[0];
 					double y = w[1];
-					SymbolType symbolType = SymbolType.cross; //TODO
-					const int symbolSize = 7; //TODO
-					symbolType.Draw(symbolSize, ModelToViewX(x, width), ModelToViewY(y, height), g, selectionPen, selectionBrush);
+					SymbolProperties gx = GetPointProperties != null ? GetPointProperties(s) : defaultSymbol;
+					SymbolType symbolType = SymbolType.allSymbols[gx.Type];
+					int symbolSize = gx.Size;
+					if (symbolSize > 0) {
+						symbolType.Draw(symbolSize, ModelToViewX(x, width), ModelToViewY(y, height), g, selectionPen, selectionBrush);
+					}
 				}
 			}
 			// labels
