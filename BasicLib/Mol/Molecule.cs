@@ -23,6 +23,9 @@ namespace BasicLib.Mol{
 		public static readonly double weightS = CalcWeight("S");
 		public static readonly double massWater = CalcMonoMass("H2O");
 		public static readonly double massAmmonia = CalcMonoMass("NH3");
+		public static readonly double s34S32Diff = CalcMonoMass("Sx") - massS;
+		public static readonly double c13C12Diff = CalcMonoMass("Cx") - massC;
+		public static readonly double sulphurShift = 2*c13C12Diff - s34S32Diff;
 		public int[] AtomType { get; set; }
 		public int[] AtomCount { get; set; }
 		public double MonoIsotopicMass { get; set; }

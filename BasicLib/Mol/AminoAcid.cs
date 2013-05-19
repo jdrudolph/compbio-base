@@ -11,6 +11,14 @@ namespace BasicLib.Mol{
 		public static readonly double massNormalNTerminus = massH;
 		public static readonly double weightNormalCTerminus = weightO + weightH;
 		public static readonly double weightNormalNTerminus = weightH;
+		public static readonly double aIonMassOffset = -massC - massO - massH;
+		public static readonly double bIonMassOffset = -massH;
+		public static readonly double cIonMassOffset = massN + 2*massH;
+		public static readonly double xIonMassOffset = massC + massO - massH;
+		public static readonly double yIonMassOffset = massH;
+		public static readonly double zIonMassOffset = -massN - 2*massH;
+		public static readonly double zDotIonMassOffset = -massN - 1*massH;
+		public static readonly double zPrimeIonMassOffset = -massN;
 		private static AminoAcid[] aminoAcids;
 		private static double[] aaMonoMasses;
 		private static Dictionary<char, double> aaOccurences;
@@ -33,30 +41,47 @@ namespace BasicLib.Mol{
 		public static string StandardSingleLetterAas { get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(true)); } }
 
 		private static AminoAcid[] InitAminoAcids(){
-			AminoAcid alanine = new AminoAcid("C3H5NO", "Alanine", "Ala", 'A', 7.4, new[] { "GCT", "GCC", "GCA", "GCG" }, "hydrophobic aliphatic", true, 1.8);
+			AminoAcid alanine = new AminoAcid("C3H5NO", "Alanine", "Ala", 'A', 7.4, new[]{"GCT", "GCC", "GCA", "GCG"},
+				"hydrophobic aliphatic", true, 1.8);
 			AminoAcid arginine = new AminoAcid("C6H12N4O", "Arginine", "Arg", 'R', 4.2,
-				new[] { "CGT", "CGC", "CGA", "CGG", "AGA", "AGG" }, "charged basic", true, -4.5);
-			AminoAcid asparagine = new AminoAcid("C4H6N2O2", "Asparagine", "Asn", 'N', 4.4, new[] { "AAT", "AAC" }, "polar neutral", true, -3.5);
-			AminoAcid asparticAcid = new AminoAcid("C4H5NO3", "Aspartic acid", "Asp", 'D', 5.9, new[] { "GAT", "GAC" }, "charged acidic", true, -3.5);
-			AminoAcid cysteine = new AminoAcid("C3H5NOS", "Cysteine", "Cys", 'C', 3.3, new[] { "TGT", "TGC" }, "polar neutral", true, 2.5);
-			AminoAcid glutamicAcid = new AminoAcid("C5H7NO3", "Glutamic acid", "Glu", 'E', 5.8, new[] { "GAA", "GAG" }, "charged acidic", true, -3.5);
-			AminoAcid glutamine = new AminoAcid("C5H8N2O2", "Glutamine", "Gln", 'Q', 3.7, new[] { "CAA", "CAG" }, "polar neutral", true, -3.5);
-			AminoAcid glycine = new AminoAcid("C2H3NO", "Glycine", "Gly", 'G', 7.4, new[] { "GGT", "GGC", "GGA", "GGG" }, "", true, -0.4);
-			AminoAcid histidine = new AminoAcid("C6H7N3O", "Histidine", "His", 'H', 2.9, new[] { "CAT", "CAC" }, "charged basic", true, -3.2);
-			AminoAcid isoleucine = new AminoAcid("C6H11NO", "Isoleucine", "Ile", 'I', 3.8, new[] { "ATT", "ATC", "ATA" }, "hydrophobic aliphatic", true, 4.5);
+				new[]{"CGT", "CGC", "CGA", "CGG", "AGA", "AGG"}, "charged basic", true, -4.5);
+			AminoAcid asparagine = new AminoAcid("C4H6N2O2", "Asparagine", "Asn", 'N', 4.4, new[]{"AAT", "AAC"}, "polar neutral",
+				true, -3.5);
+			AminoAcid asparticAcid = new AminoAcid("C4H5NO3", "Aspartic acid", "Asp", 'D', 5.9, new[]{"GAT", "GAC"},
+				"charged acidic", true, -3.5);
+			AminoAcid cysteine = new AminoAcid("C3H5NOS", "Cysteine", "Cys", 'C', 3.3, new[]{"TGT", "TGC"}, "polar neutral", true,
+				2.5);
+			AminoAcid glutamicAcid = new AminoAcid("C5H7NO3", "Glutamic acid", "Glu", 'E', 5.8, new[]{"GAA", "GAG"},
+				"charged acidic", true, -3.5);
+			AminoAcid glutamine = new AminoAcid("C5H8N2O2", "Glutamine", "Gln", 'Q', 3.7, new[]{"CAA", "CAG"}, "polar neutral",
+				true, -3.5);
+			AminoAcid glycine = new AminoAcid("C2H3NO", "Glycine", "Gly", 'G', 7.4, new[]{"GGT", "GGC", "GGA", "GGG"}, "", true,
+				-0.4);
+			AminoAcid histidine = new AminoAcid("C6H7N3O", "Histidine", "His", 'H', 2.9, new[]{"CAT", "CAC"}, "charged basic",
+				true, -3.2);
+			AminoAcid isoleucine = new AminoAcid("C6H11NO", "Isoleucine", "Ile", 'I', 3.8, new[]{"ATT", "ATC", "ATA"},
+				"hydrophobic aliphatic", true, 4.5);
 			AminoAcid leucine = new AminoAcid("C6H11NO", "Leucine", "Leu", 'L', 7.6,
-				new[] { "TTA", "TTG", "CTT", "CTC", "CTA", "CTG" }, "hydrophobic aliphatic", true, 3.8);
-			AminoAcid lysine = new AminoAcid("C6H12N2O", "Lysine", "Lys", 'K', 7.2, new[] { "AAA", "AAG" }, "charged basic", true, -3.9);
-			AminoAcid methionine = new AminoAcid("C5H9NOS", "Methionine", "Met", 'M', 1.8, new[] { "ATG" }, "polar neutral", true, 1.9);
-			AminoAcid phenylalanine = new AminoAcid("C9H9NO", "Phenylalanine", "Phe", 'F', 4, new[] { "TTT", "TTC" }, "hydrophobic aromatic", true, 2.8);
-			AminoAcid proline = new AminoAcid("C5H7NO", "Proline", "Pro", 'P', 5, new[] { "CCT", "CCC", "CCA", "CCG" }, "", true, -1.6);
+				new[]{"TTA", "TTG", "CTT", "CTC", "CTA", "CTG"}, "hydrophobic aliphatic", true, 3.8);
+			AminoAcid lysine = new AminoAcid("C6H12N2O", "Lysine", "Lys", 'K', 7.2, new[]{"AAA", "AAG"}, "charged basic", true,
+				-3.9);
+			AminoAcid methionine = new AminoAcid("C5H9NOS", "Methionine", "Met", 'M', 1.8, new[]{"ATG"}, "polar neutral", true,
+				1.9);
+			AminoAcid phenylalanine = new AminoAcid("C9H9NO", "Phenylalanine", "Phe", 'F', 4, new[]{"TTT", "TTC"},
+				"hydrophobic aromatic", true, 2.8);
+			AminoAcid proline = new AminoAcid("C5H7NO", "Proline", "Pro", 'P', 5, new[]{"CCT", "CCC", "CCA", "CCG"}, "", true,
+				-1.6);
 			AminoAcid serine = new AminoAcid("C3H5NO2", "Serine", "Ser", 'S', 8.1,
-				new[] { "TCT", "TCC", "TCA", "TCG", "AGT", "AGC" }, "polar neutral", true, -0.8);
-			AminoAcid threonine = new AminoAcid("C4H7NO2", "Threonine", "Thr", 'T', 6.2, new[] { "ACT", "ACC", "ACA", "ACG" }, "polar neutral", true, -0.7);
-			AminoAcid tryptophan = new AminoAcid("C11H10N2O", "Tryptophan", "Trp", 'W', 1.3, new[] { "TGG" }, "hydrophobic aromatic", true, -0.9);
-			AminoAcid tyrosine = new AminoAcid("C9H9NO2", "Tyrosine", "Tyr", 'Y', 3.3, new[] { "TAT", "TAC" }, "hydrophobic aromatic", true, -1.3);
-			AminoAcid valine = new AminoAcid("C5H9NO", "Valine", "Val", 'V', 6.8, new[] { "GTT", "GTC", "GTA", "GTG" }, "hydrophobic aliphatic", true, 4.2);
-			AminoAcid selenocysteine = new AminoAcid("C3H7NO2Se", "Selenocysteine", "Sec", 'U', 0.0, new[] { "TGA" }, "", false, 0.0);
+				new[]{"TCT", "TCC", "TCA", "TCG", "AGT", "AGC"}, "polar neutral", true, -0.8);
+			AminoAcid threonine = new AminoAcid("C4H7NO2", "Threonine", "Thr", 'T', 6.2, new[]{"ACT", "ACC", "ACA", "ACG"},
+				"polar neutral", true, -0.7);
+			AminoAcid tryptophan = new AminoAcid("C11H10N2O", "Tryptophan", "Trp", 'W', 1.3, new[]{"TGG"}, "hydrophobic aromatic",
+				true, -0.9);
+			AminoAcid tyrosine = new AminoAcid("C9H9NO2", "Tyrosine", "Tyr", 'Y', 3.3, new[]{"TAT", "TAC"},
+				"hydrophobic aromatic", true, -1.3);
+			AminoAcid valine = new AminoAcid("C5H9NO", "Valine", "Val", 'V', 6.8, new[]{"GTT", "GTC", "GTA", "GTG"},
+				"hydrophobic aliphatic", true, 4.2);
+			AminoAcid selenocysteine = new AminoAcid("C3H7NO2Se", "Selenocysteine", "Sec", 'U', 0.0, new[]{"TGA"}, "", false, 0.0);
 			AminoAcid[] aas = new[]{
 				alanine, arginine, asparagine, asparticAcid, cysteine, glutamine, glutamicAcid, glycine, histidine, isoleucine,
 				leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine, selenocysteine
@@ -150,9 +175,9 @@ namespace BasicLib.Mol{
 			return result;
 		}
 
-		private static string ExtractSingleLetterAa(bool onlyStandard) {
+		private static string ExtractSingleLetterAa(bool onlyStandard){
 			StringBuilder result = new StringBuilder();
-			foreach (AminoAcid t in AminoAcids) {
+			foreach (AminoAcid t in AminoAcids){
 				if (!onlyStandard || t.isStandard){
 					result.Append(t.letter);
 				}
@@ -209,19 +234,19 @@ namespace BasicLib.Mol{
 			return true;
 		}
 
-		public static double CalcMolecularWeight(string sequence) {
+		public static double CalcMolecularWeight(string sequence){
 			double result = weightNormalCTerminus + weightNormalNTerminus;
-			foreach (char aa in sequence) {
-				if (AaWeights.ContainsKey(aa)) {
+			foreach (char aa in sequence){
+				if (AaWeights.ContainsKey(aa)){
 					result += AaWeights[aa];
 				}
 			}
 			return result;
 		}
 
-		public static double CalcMonoisotopicMass(string sequence) {
+		public static double CalcMonoisotopicMass(string sequence){
 			double result = massNormalCTerminus + massNormalNTerminus;
-			foreach (char aa in sequence) {
+			foreach (char aa in sequence){
 				result += AaMonoMasses[aa];
 			}
 			return result;

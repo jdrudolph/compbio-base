@@ -286,6 +286,9 @@
     <Compile Include="Mol\AminoAcid.cs" />
     <Compile Include="Mol\ChemElement.cs" />
     <Compile Include="Mol\Molecule.cs" />
+    <Compile Include="Num\Bootstrap.cs" />
+    <Compile Include="Num\CorrelationType.cs" />
+    <Compile Include="Num\CubicSpline.cs" />
     <Compile Include="Num\TukeyBiweightCalc.cs" />
     <Compile Include="Param\DictionaryIntValueParam.cs" />
     <Compile Include="Parse\TabSep.cs" />
@@ -362,6 +365,7 @@
     <Compile Include="Util\LockFile.cs" />
     <Compile Include="Data\NeighbourList.cs" />
     <Compile Include="Util\StringUtils.cs" />
+    <Compile Include="Util\ThreadDistributor.cs" />
     <Compile Include="Util\WorkDispatcher.cs" />
     <Compile Include="Util\XmlSerialization.cs" />
   </ItemGroup>

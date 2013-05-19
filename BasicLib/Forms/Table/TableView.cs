@@ -76,6 +76,8 @@ namespace BasicLib.Forms.Table{
 		private int currentCol = -1;
 		private int currentX = -1;
 		private int currentY = -1;
+		private int toolTipX = -1;
+		private int toolTipY = -1;
 		private bool matrixHelp;
 		private SortState sortState = SortState.Unsorted;
 		private int colDragX = -1;
@@ -1164,9 +1166,16 @@ namespace BasicLib.Forms.Table{
 		}
 
 		protected internal override void OnMouseHoverMainView(EventArgs e) {
+			HandleToolTip(true);
+		}
+
+		private void HandleToolTip(bool hover){
 			if (currentX < 0 || currentY < 0 || currentRow < 0 || currentCol < 0 || model == null || currentRow >= model.RowCount ||
 				currentCol >= model.ColumnCount) {
 				mainViewToolTip.Hide(this);
+				return;
+			}
+			if (order.Length != model.RowCount){
 				return;
 			}
 			object o = model.GetEntry(order[currentRow], currentCol);
@@ -1175,16 +1184,19 @@ namespace BasicLib.Forms.Table{
 				return;
 			}
 			string s = o.ToString();
-			if (s.Length > 0) {
-				mainViewToolTip.Show(s, this, currentX, currentY);
+			if (s.Length > 0 && (hover || currentX != toolTipX || currentY != toolTipY)) {
+				mainViewToolTip.Show(s, this, currentX, currentY, 5000);
+				toolTipX = currentX;
+				toolTipY = currentY;
 			} else {
-				mainViewToolTip.Hide(this);
+				//mainViewToolTip.Hide(this);
 			}
 		}
 
 		protected internal override void OnMouseMoveMainView(BasicMouseEventArgs e) {
 			currentX = e.X;
 			currentY = e.Y;
+			HandleToolTip(false);
 			CalcCurrentRowAndColumn(e);
 		}
 

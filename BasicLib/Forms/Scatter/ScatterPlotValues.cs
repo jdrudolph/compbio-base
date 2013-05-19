@@ -21,7 +21,17 @@ namespace BasicLib.Forms.Scatter{
 		public int Length { get { return IsMulti ? MultiValues.Length : SingleValues.Length; } }
 
 		public ScatterPlotValues Rank(){
-			return IsMulti ? null : new ScatterPlotValues(ArrayUtils.Rank(SingleValues));
+			return IsMulti ? null : new ScatterPlotValues(Rank(SingleValues));
+		}
+
+		private static double[] Rank(double[] x){
+			int[] v = ArrayUtils.GetValidInds(x);
+			double[] r = ArrayUtils.Rank(ArrayUtils.SubArray(x, v));
+			double[] result = (double[]) x.Clone();
+			for (int i = 0; i < v.Length; i++){
+				result[v[i]] = r[i];
+			}
+			return result;
 		}
 	}
 }

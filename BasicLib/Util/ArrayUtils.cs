@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using BasicLib.Num;
 
@@ -1457,17 +1456,28 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static double[] ExtractValidValues(IList<double> x){
+		public static double[] ExtractValidValues(IList<double> x) {
 			List<double> result = new List<double>();
-			foreach (double y in x){
-				if (!double.IsNaN(y) && !double.IsInfinity(y)){
+			foreach (double y in x) {
+				if (!double.IsNaN(y) && !double.IsInfinity(y)) {
 					result.Add(y);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static float[] ExtractValidValues(IList<float> x){
+		public static int[] GetValidInds(IList<double> x) {
+			List<int> result = new List<int>();
+			for (int i = 0; i < x.Count; i++){
+				double y = x[i];
+				if (!double.IsNaN(y) && !double.IsInfinity(y)){
+					result.Add(i);
+				}
+			}
+			return result.ToArray();
+		}
+
+		public static float[] ExtractValidValues(IList<float> x) {
 			List<float> result = new List<float>();
 			foreach (float y in x){
 				if (!float.IsNaN(y) && !float.IsInfinity(y)){
