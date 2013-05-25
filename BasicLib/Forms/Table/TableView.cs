@@ -46,11 +46,9 @@ namespace BasicLib.Forms.Table{
 		private bool hasHelp = true; //TODO
 		private bool multiSelect = true; //TODO
 		public event EventHandler SelectionChanged;
-		private TableStatisticsForm statisticsForm;
 		private ContextMenuStrip contextMenuStrip;
 		private ToolStripMenuItem searchToolStripMenuItem;
 		private ToolStripMenuItem filterToolStripMenuItem;
-		private ToolStripMenuItem statisticsToolStripMenuItem;
 		private ToolStripMenuItem invertSelectionToolStripMenuItem;
 		private ToolStripMenuItem selectionTopToolStripMenuItem;
 		private ToolStripMenuItem copyToolStripMenuItem;
@@ -115,7 +113,6 @@ namespace BasicLib.Forms.Table{
 			contextMenuStrip = new ContextMenuStrip();
 			searchToolStripMenuItem = new ToolStripMenuItem();
 			filterToolStripMenuItem = new ToolStripMenuItem();
-			statisticsToolStripMenuItem = new ToolStripMenuItem();
 			invertSelectionToolStripMenuItem = new ToolStripMenuItem();
 			selectionTopToolStripMenuItem = new ToolStripMenuItem();
 			copyToolStripMenuItem = new ToolStripMenuItem();
@@ -127,7 +124,7 @@ namespace BasicLib.Forms.Table{
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
 				searchToolStripMenuItem, filterToolStripMenuItem, invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem,
-				statisticsToolStripMenuItem, exportToolStripMenuItem, copyToolStripMenuItem, removeSeparator,
+				exportToolStripMenuItem, copyToolStripMenuItem, removeSeparator,
 				showAllRowsToolStripMenuItem, removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
 			contextMenuStrip.Name = "contextMenuStrip";
@@ -140,10 +137,6 @@ namespace BasicLib.Forms.Table{
 			filterToolStripMenuItem.Size = new Size(209, 22);
 			filterToolStripMenuItem.Text = "Filter...";
 			filterToolStripMenuItem.Click += FilterToolStripMenuItemClick;
-			statisticsToolStripMenuItem.Name = "statisticsToolStripMenuItem";
-			statisticsToolStripMenuItem.Size = new Size(209, 22);
-			statisticsToolStripMenuItem.Text = "Statistics...";
-			statisticsToolStripMenuItem.Click += StatisticsToolStripMenuItemClick;
 			invertSelectionToolStripMenuItem.Name = "invertSelectionToolStripMenuItem";
 			invertSelectionToolStripMenuItem.Size = new Size(209, 22);
 			invertSelectionToolStripMenuItem.Text = "Invert selection";
@@ -355,13 +348,6 @@ namespace BasicLib.Forms.Table{
 			contextMenuStrip.Items.Add(item);
 		}
 
-		public bool HasStatisticsMenuItem {
-			get { return hasStatisticsMenuItem; }
-			set {
-				hasStatisticsMenuItem = value;
-				statisticsToolStripMenuItem.Visible = value;
-			}
-		}
 		public bool HasRemoveRowsMenuItems {
 			get { return hasRemoveRowsMenuItems; }
 			set {
@@ -714,22 +700,6 @@ namespace BasicLib.Forms.Table{
 			findForm.Show(this);
 		}
 
-		private void StatisticsToolStripMenuItemClick(object sender, EventArgs e) {
-			if (model == null) {
-				return;
-			}
-			if (statisticsForm == null) {
-				statisticsForm = new TableStatisticsForm();
-				statisticsForm.SetTable(model);
-				statisticsForm.Disposed += StatisticsFormDisposed;
-				statisticsForm.Text = "Statistics - " + model.Name;
-				statisticsForm.TopMost = true;
-			}
-			if (!statisticsForm.Visible) {
-				statisticsForm.Show(this);
-			}
-		}
-
 		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e) {
 			if (model == null) {
 				return;
@@ -804,10 +774,6 @@ namespace BasicLib.Forms.Table{
 				writer.WriteLine(line.ToString());
 			}
 			writer.Close();
-		}
-
-		private void StatisticsFormDisposed(object sender, EventArgs e) {
-			statisticsForm = null;
 		}
 
 		private void RemoveSelectedRowsToolStripMenuItemClick(object sender, EventArgs e) {
