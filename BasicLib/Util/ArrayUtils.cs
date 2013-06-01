@@ -891,7 +891,7 @@ namespace BasicLib.Util{
 		public static double MeanAndStddev(IList<double> vals, out double stddev){
 			double mean = 0;
 			int c = 0;
-			foreach (double t in vals.Where(t => !Double.IsNaN(t))){
+			foreach (double t in vals.Where(t => !double.IsNaN(t))){
 				mean += t;
 				c++;
 			}
@@ -906,7 +906,7 @@ namespace BasicLib.Util{
 			mean /= c;
 			stddev = 0;
 			foreach (double v in vals){
-				if (!Double.IsNaN(v)){
+				if (!double.IsNaN(v)){
 					double x = v - mean;
 					stddev += x*x;
 				}
