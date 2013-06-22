@@ -1,6 +1,6 @@
 using System;
 
-namespace Utils.Util{
+namespace BasicLib.Num{
 	public static class Bootstrap{
 		private const int bootstrapBufferLen = 999;
 		private const int maxBootstrapVectorLen = 99;
