@@ -107,34 +107,34 @@ namespace BasicLib.Param{
 					panels[i] = new ParameterPanel();
 					panels[i].Init(SubParams[i], ParamNameWidth, (int) (TotalWidth));
 				}
-				ComboBox tb = new ComboBox{DropDownStyle = ComboBoxStyle.DropDownList};
-				tb.SelectedIndexChanged += (sender, e) =>{
+				ComboBox cb = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };
+				cb.SelectedIndexChanged += (sender, e) => {
 					SetValueFromControl();
 					ValueHasChanged();
 				};
 				if (Values != null){
-					tb.Items.AddRange(Values.ToArray());
+					cb.Items.AddRange(Values.ToArray());
 					if (Value >= 0 && Value < Values.Count){
-						tb.SelectedIndex = Value;
+						cb.SelectedIndex = Value;
 					}
 				}
-				tb.Dock = DockStyle.Fill;
+				cb.Dock = DockStyle.Fill;
 				TableLayoutPanel tlp = new TableLayoutPanel{ColumnCount = 1};
 				tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
 				tlp.RowCount = 2;
 				tlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
 				tlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-				tlp.Controls.Add(tb, 0, 0);
+				tlp.Controls.Add(cb, 0, 0);
 				for (int i = 0; i < panels.Length; i++){
 					panels[i].Visible = (i == Value);
 					panels[i].Dock = DockStyle.Fill;
 					tlp.Controls.Add(panels[i], 0, 1);
 				}
 				tlp.Dock = DockStyle.Fill;
-				tb.SelectedIndexChanged += (sender, e) =>{
+				cb.SelectedIndexChanged += (sender, e) => {
 					tlp.SuspendLayout();
 					for (int i = 0; i < panels.Length; i++){
-						panels[i].Visible = (i == tb.SelectedIndex);
+						panels[i].Visible = (i == cb.SelectedIndex);
 					}
 					tlp.ResumeLayout();
 				};

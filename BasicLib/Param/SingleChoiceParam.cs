@@ -57,16 +57,19 @@ namespace BasicLib.Param{
 		}
 
 		public override void SetValueFromControl(){
-			ComboBox tb = (ComboBox) control;
-			int val = tb.SelectedIndex;
+			ComboBox cb = (ComboBox) control;
+			if (cb == null){
+				return;
+			}
+			int val = cb.SelectedIndex;
 			Value = val;
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			ComboBox cb = (ComboBox)control;
+			ComboBox cb = (ComboBox) control;
 			if (cb != null && Value >= 0 && Value < Values.Count){
 				cb.SelectedIndex = Value;
 			}
@@ -89,7 +92,10 @@ namespace BasicLib.Param{
 		protected override Control Control{
 			get{
 				ComboBox cb = new ComboBox{DropDownStyle = ComboBoxStyle.DropDownList};
-				cb.SelectedIndexChanged += (sender, e) => ValueHasChanged();
+				cb.SelectedIndexChanged += (sender, e) =>{
+					SetValueFromControl();
+					ValueHasChanged();
+				};
 				if (Values != null){
 					cb.Items.AddRange(Values.ToArray());
 					if (Value >= 0 && Value < Values.Count){

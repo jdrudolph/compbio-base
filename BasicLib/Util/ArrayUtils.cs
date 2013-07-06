@@ -63,13 +63,13 @@ namespace BasicLib.Util{
 			return ind;
 		}
 
-		public static int MinInd(IList<double> x){
+		public static int MinInd(IList<double> x) {
 			int n = x.Count;
 			double min = double.MaxValue;
 			int ind = -1;
-			for (int i = 0; i < n; i++){
+			for (int i = 0; i < n; i++) {
 				double val = x[i];
-				if (val <= min){
+				if (val <= min) {
 					min = val;
 					ind = i;
 				}
@@ -77,7 +77,21 @@ namespace BasicLib.Util{
 			return ind;
 		}
 
-		public static int MinInd(IList<int> x){
+		public static int MinInd(IList<float> x) {
+			int n = x.Count;
+			float min = float.MaxValue;
+			int ind = -1;
+			for (int i = 0; i < n; i++) {
+				float val = x[i];
+				if (val <= min) {
+					min = val;
+					ind = i;
+				}
+			}
+			return ind;
+		}
+
+		public static int MinInd(IList<int> x) {
 			int n = x.Count;
 			int min = int.MaxValue;
 			int ind = -1;
