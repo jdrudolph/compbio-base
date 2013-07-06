@@ -7,15 +7,25 @@ using BasicLib.Util;
 namespace BasicLib.Param{
 	[Serializable]
 	public class DictionaryIntValueParam : Parameter{
+		private string[] keys;
 		public Dictionary<string, int> Value { get; set; }
 		public Dictionary<string, int> Default { get; private set; }
 		public int DefaultValue { get; set; }
-		public string[] Keys { get; set; }
+		public string[] Keys{
+			get { return keys; }
+			set{
+				keys = value;
+				if (control != null){
+					DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
+					tb.Keys = keys;
+				}
+			}
+		}
 
 		public DictionaryIntValueParam(string name, Dictionary<string, int> value, string[] keys) : base(name){
 			Value = value;
 			Default = value;
-			Keys = keys;
+			this.keys = keys;
 		}
 
 		public override string StringValue { get { return StringUtils.ToString(Value); } set { Value = DictionaryFromString(value); } }
@@ -51,10 +61,10 @@ namespace BasicLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			DictionaryIntValueControl tb = (DictionaryIntValueControl)control;
+			DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
 			tb.Value = Value;
 		}
 
