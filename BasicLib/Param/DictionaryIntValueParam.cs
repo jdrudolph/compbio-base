@@ -72,12 +72,7 @@ namespace BasicLib.Param{
 			Value = new Dictionary<string, int>();
 		}
 
-		protected override Control Control{
-			get{
-				DictionaryIntValueControl tb = new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue};
-				return tb;
-			}
-		}
+		protected override Control Control { get { return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; } }
 
 		public override object Clone(){
 			return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};
