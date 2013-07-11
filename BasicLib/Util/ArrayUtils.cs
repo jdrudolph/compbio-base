@@ -1869,5 +1869,23 @@ namespace BasicLib.Util{
 			int b = (i * (i - 1)) / 2;
 			return b + j;
 		}
+
+		public static bool Or(IList<bool> x) {
+			foreach (bool b in x) {
+				if (b) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool And(IList<bool> x) {
+			foreach (bool b in x) {
+				if (!b) {
+					return false;
+				}
+			}
+			return true;
+		}
 	}
 }
