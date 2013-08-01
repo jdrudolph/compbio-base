@@ -174,6 +174,9 @@
     <Compile Include="Forms\Select\DictionaryIntValuePopup.Designer.cs">
       <DependentUpon>DictionaryIntValuePopup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Genome\DnaFastaParser.cs" />
+    <Compile Include="Genome\DnaSequence.cs" />
+    <Compile Include="Genome\GeneticCode.cs" />
     <Compile Include="Graphic\BitmapGraphics.cs" />
     <Compile Include="Forms\Select\FileParameterPanel.cs">
       <SubType>UserControl</SubType>
@@ -280,6 +283,7 @@
     <Compile Include="Graphic\SvgGraphics.cs" />
     <Compile Include="Graphic\WindowsBasedGraphics.cs" />
     <Compile Include="Forms\Scatter\PolygonData.cs" />
+    <Compile Include="Mol\AaSequence.cs" />
     <Compile Include="Mol\AminoAcid.cs" />
     <Compile Include="Mol\ChemElement.cs" />
     <Compile Include="Mol\Molecule.cs" />

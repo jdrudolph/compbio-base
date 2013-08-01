@@ -75,6 +75,9 @@ namespace BasicLib.Param{
 			}
 			TableLayoutPanel tlp = (TableLayoutPanel) control;
 			CheckBox cb = (CheckBox) tlp.GetControlFromPosition(0, 0);
+			if (cb == null){
+				return;
+			}
 			cb.Checked = Value;
 			if (SubParamsFalse != null){
 				SubParamsFalse.UpdateControlsFromValue();
