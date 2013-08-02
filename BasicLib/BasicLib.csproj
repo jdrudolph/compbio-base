@@ -286,6 +286,10 @@
     <Compile Include="Mol\AaSequence.cs" />
     <Compile Include="Mol\AminoAcid.cs" />
     <Compile Include="Mol\ChemElement.cs" />
+    <Compile Include="Num\NumRecipes.cs" />
+    <Compile Include="Num\Test\FisherExactTest.cs" />
+    <Compile Include="Num\Test\PearsonCorrelationTest.cs" />
+    <Compile Include="Num\Test\SpearmanCorrelationTest.cs" />
     <Compile Include="Num\Vector\BaseVector.cs" />
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
@@ -548,6 +552,7 @@
   <ItemGroup>
     <None Include="Resources\Y.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

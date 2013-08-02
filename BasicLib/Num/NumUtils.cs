@@ -297,6 +297,61 @@ namespace BasicLib.Num{
 			});
 		}
 
+		public static void FitNonlin(double[] x, double[] y, double[] sig, double[] a, double[] amin, double[] amax,
+			out double chisq, Func<double, double[], double> func, double epsilon, int nthreads){
+			MrqminFunc f = delegate(double x1, double[] a1, out double y1, double[] dyda, int na){
+				y1 = func(x1, a1);
+				for (int i = 0; i < na; i++){
+					dyda[i] = Dyda(x1, a1, func, i, epsilon);
+				}
+			};
+			FitNonlin(x, y, sig, a, amin, amax, out chisq, f, nthreads);
+		}
+
+		public static double Dyda(double x, IList<double> a, Func<double, double[], double> func, int ind, double epsilon){
+			double[] a1 = new double[a.Count];
+			double[] a2 = new double[a.Count];
+			for (int i = 0; i < a.Count; i++){
+				a1[i] = a[i];
+				a2[i] = a[i];
+			}
+			a1[ind] += epsilon/2.0;
+			a2[ind] -= epsilon/2.0;
+			return (func(x, a1) - func(x, a2))/epsilon;
+		}
+
+		private static void FitNonlin(double[] x, double[] y, double[] sig, double[] a, double[] amin, double[] amax,
+			out double chisq, MrqminFunc func, int nthreads){
+			int ndata = x.Length;
+			if (sig == null){
+				sig = new double[ndata];
+				for (int i = 0; i < sig.Length; i++){
+					sig[i] = 1;
+				}
+			}
+			int ma = a.Length;
+			double[,] covar = new double[ma,ma];
+			double[,] alpha = new double[ma,ma];
+			double alamda = -1;
+			double ochisq = 0;
+			double[,] oneda = null;
+			int mfit = 0;
+			double[] atry = null;
+			double[] beta = null;
+			double[] da = null;
+			NumRecipes.Mrqmin(x, y, sig, ndata, a, amin, amax, covar, alpha, out chisq, func, ref alamda, ref ochisq, ref oneda,
+				ref mfit, ref atry, ref beta, ref da, nthreads);
+			int count1 = 0;
+			while (alamda > 1e-60 && alamda < 1e60 && count1 < 500){
+				NumRecipes.Mrqmin(x, y, sig, ndata, a, amin, amax, covar, alpha, out chisq, func, ref alamda, ref ochisq, ref oneda,
+					ref mfit, ref atry, ref beta, ref da, nthreads);
+				count1++;
+			}
+			alamda = 0;
+			NumRecipes.Mrqmin(x, y, sig, ndata, a, amin, amax, covar, alpha, out chisq, func, ref alamda, ref ochisq, ref oneda,
+				ref mfit, ref atry, ref beta, ref da, nthreads);
+		}
+
 		public static void LinFit2(double[] x, double[] y, double[] a, Action<double, double[]> funcs){
 			double chisq;
 			LinFit2(x, y, null, a, out chisq, funcs);
