@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using BasicLib.Data;
 using BasicLib.Util;
 
 namespace BasicLib.Num{
@@ -1187,6 +1188,48 @@ namespace BasicLib.Num{
 				return aaa[n] != 0 ? aaa[n] : (aaa[n] = Gammln(n + 1.0));
 			}
 			return Gammln(n + 1.0);
+		}
+
+		public static int[][] CalcCollapse(string[] names) {
+			string[][] names2 = new string[names.Length][];
+			for (int i = 0; i < names.Length; i++) {
+				string s = names[i].Trim();
+				names2[i] = s.Length > 0 ? s.Split(';') : new string[0];
+				Array.Sort(names2[i]);
+			}
+			NeighbourList neighbourList = new NeighbourList();
+			for (int i = 0; i < names2.Length; i++) {
+				for (int j = i + 1; j < names2.Length; j++) {
+					if (CommonElement(names2[i], names2[j])) {
+						neighbourList.Add(i, j);
+					}
+				}
+			}
+			List<int[]> clusterList = new List<int[]>();
+			for (int i = 0; i < names2.Length; i++) {
+				if (neighbourList.IsEmptyAt(i)) {
+					if (names2[i].Length > 0) {
+						clusterList.Add(new[] { i });
+					}
+				}
+			}
+			for (int i = 0; i < names2.Length; i++) {
+				if (!neighbourList.IsEmptyAt(i)) {
+					int[] cc = neighbourList.GetClusterAt(i);
+					Array.Sort(cc);
+					clusterList.Add(cc);
+				}
+			}
+			return clusterList.ToArray();
+		}
+
+		private static bool CommonElement(IEnumerable<string> s1, string[] s2) {
+			foreach (string s in s1) {
+				if (Array.BinarySearch(s2, s) >= 0) {
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }
