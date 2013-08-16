@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using BasicLib.Data;
+using BasicLib.Num.Test;
 using BasicLib.Util;
 
 namespace BasicLib.Num{
@@ -1190,31 +1191,31 @@ namespace BasicLib.Num{
 			return Gammln(n + 1.0);
 		}
 
-		public static int[][] CalcCollapse(string[] names) {
+		public static int[][] CalcCollapse(string[] names){
 			string[][] names2 = new string[names.Length][];
-			for (int i = 0; i < names.Length; i++) {
+			for (int i = 0; i < names.Length; i++){
 				string s = names[i].Trim();
 				names2[i] = s.Length > 0 ? s.Split(';') : new string[0];
 				Array.Sort(names2[i]);
 			}
 			NeighbourList neighbourList = new NeighbourList();
-			for (int i = 0; i < names2.Length; i++) {
-				for (int j = i + 1; j < names2.Length; j++) {
-					if (CommonElement(names2[i], names2[j])) {
+			for (int i = 0; i < names2.Length; i++){
+				for (int j = i + 1; j < names2.Length; j++){
+					if (CommonElement(names2[i], names2[j])){
 						neighbourList.Add(i, j);
 					}
 				}
 			}
 			List<int[]> clusterList = new List<int[]>();
-			for (int i = 0; i < names2.Length; i++) {
-				if (neighbourList.IsEmptyAt(i)) {
-					if (names2[i].Length > 0) {
-						clusterList.Add(new[] { i });
+			for (int i = 0; i < names2.Length; i++){
+				if (neighbourList.IsEmptyAt(i)){
+					if (names2[i].Length > 0){
+						clusterList.Add(new[]{i});
 					}
 				}
 			}
-			for (int i = 0; i < names2.Length; i++) {
-				if (!neighbourList.IsEmptyAt(i)) {
+			for (int i = 0; i < names2.Length; i++){
+				if (!neighbourList.IsEmptyAt(i)){
 					int[] cc = neighbourList.GetClusterAt(i);
 					Array.Sort(cc);
 					clusterList.Add(cc);
@@ -1223,13 +1224,121 @@ namespace BasicLib.Num{
 			return clusterList.ToArray();
 		}
 
-		private static bool CommonElement(IEnumerable<string> s1, string[] s2) {
-			foreach (string s in s1) {
-				if (Array.BinarySearch(s2, s) >= 0) {
+		private static bool CommonElement(IEnumerable<string> s1, string[] s2){
+			foreach (string s in s1){
+				if (Array.BinarySearch(s2, s) >= 0){
 					return true;
 				}
 			}
 			return false;
+		}
+
+		public static double[] MovingBoxPlot(double[] values, double[] controlValues, int nbins){
+			return MovingBoxPlot(values, controlValues, nbins, TestSide.Both);
+		}
+
+		public static double[] MovingBoxPlot(double[] values, double[] controlValues, int nbins, TestSide type){
+			double[] lowerQuart;
+			double[] median;
+			double[] upperQuart;
+			double[] binBoundaries;
+			return MovingBoxPlot(values, controlValues, nbins, out lowerQuart, out median, out upperQuart, out binBoundaries,
+				type);
+		}
+
+		public static readonly int minBinsize = 500;
+
+		public static double[] MovingBoxPlot(double[] values, double[] controlValues, int nbins, out double[] lowerQuart,
+			out double[] median, out double[] upperQuart, out double[] binBoundaries, TestSide type){
+			int n = values.Length;
+			if (n == 0){
+				lowerQuart = new double[0];
+				median = new double[0];
+				upperQuart = new double[0];
+				binBoundaries = new double[0];
+				return new double[0];
+			}
+			nbins = nbins < 0 ? Math.Max(1, (int) Math.Round(n/(double) minBinsize)) : Math.Min(nbins, 1 + n/4);
+			int[] pos = new int[nbins + 1];
+			for (int i = 0; i < nbins + 1; i++){
+				pos[i] = (int) Math.Round(i/(double) nbins*n);
+			}
+			double[] result = new double[n];
+			lowerQuart = new double[nbins];
+			median = new double[nbins];
+			upperQuart = new double[nbins];
+			binBoundaries = new double[nbins];
+			int[] o = ArrayUtils.Order(controlValues);
+			int[][] indices = new int[nbins][];
+			for (int i = 0; i < nbins; i++){
+				indices[i] = new int[pos[i + 1] - pos[i]];
+				Array.Copy(o, pos[i], indices[i], 0, pos[i + 1] - pos[i]);
+			}
+			for (int i = 0; i < nbins; i++){
+				double[] r = ArrayUtils.SubArray(values, indices[i]);
+				double[] c = ArrayUtils.SubArray(controlValues, indices[i]);
+				int[] o1 = ArrayUtils.Order(r);
+				double rlow = r[o1[(int) Math.Round(0.1587*(r.Length - 1))]];
+				double rmed = r[o1[(int) Math.Round(0.5*(r.Length - 1))]];
+				double rhigh = r[o1[(int) Math.Round(0.8413*(r.Length - 1))]];
+				lowerQuart[i] = rlow;
+				median[i] = rmed;
+				upperQuart[i] = rhigh;
+				binBoundaries[i] = ArrayUtils.Min(c);
+				if (indices[i].Length > 2){
+					for (int j = 0; j < indices[i].Length; j++){
+						double ratio = r[j];
+						switch (type){
+							case TestSide.Right:
+								if (rhigh == rmed){
+									result[indices[i][j]] = 1;
+								} else{
+									double z = (ratio - rmed)/(rhigh - rmed);
+									result[indices[i][j]] = Errfunc(z);
+								}
+								break;
+							case TestSide.Left:
+								if (rlow == rmed){
+									result[indices[i][j]] = 1;
+								} else{
+									double z = (ratio - rmed)/(rlow - rmed);
+									result[indices[i][j]] = Errfunc(z);
+								}
+								break;
+							default:
+								if (ratio >= rmed){
+									if (rhigh == rmed){
+										result[indices[i][j]] = 1;
+									} else{
+										double z = (ratio - rmed)/(rhigh - rmed);
+										result[indices[i][j]] = 2*Errfunc(z);
+									}
+								} else{
+									if (rlow == rmed){
+										result[indices[i][j]] = 1;
+									} else{
+										double z = (ratio - rmed)/(rlow - rmed);
+										result[indices[i][j]] = 2*Errfunc(z);
+									}
+								}
+								break;
+						}
+					}
+				} else{
+					for (int j = 0; j < indices[i].Length; j++){
+						result[indices[i][j]] = 1;
+					}
+				}
+			}
+			return result;
+		}
+
+		public static double Errfunc(double z){
+			try{
+				return (Erffc(z/Math.Sqrt(2.0)))/2.0;
+			} catch (Exception){
+				return 1;
+			}
 		}
 	}
 }
