@@ -159,6 +159,8 @@ namespace BasicLib.Parse.Uniprot{
 		public static DbReferenceType chEmbl = new DbReferenceType("chembl");
 		public static DbReferenceType sabioRk = new DbReferenceType("sabio-rk");
 		public static DbReferenceType mycoClap = new DbReferenceType("mycoclap");
+		public static DbReferenceType geneWiki = new DbReferenceType("genewiki");
+		public static DbReferenceType uniCarbKb = new DbReferenceType("unicarbkb");
 		public static string[] allDbReferenceTypeStrings;
 		public static DbReferenceType[] allDbReferenceTypes = CreateDbReferenceTypeList();
 
@@ -177,7 +179,7 @@ namespace BasicLib.Parse.Uniprot{
 				pathwayInteractionDb, twoDBaseEcoli, ogp, maizeGdb, conoServer, disProt, aarhusGhent2Dpage, euPathDb, phci2Dpage,
 				compluyeast2Dpage, reBase, arachnoServer, euHcvDb, pmma2Dpage, pptaseDb, ratHeart2Dpage, anu2Dpage, ruleBase, saas,
 				pirsr, pirnr, genpept, evolutionaryTrace, uniPathway, genomeRnai, paxDb, signaLink, hamapRule, chiTars, chEmbl,
-				sabioRk, mycoClap
+				sabioRk, mycoClap, geneWiki, uniCarbKb
 			};
 			allDbReferenceTypeStrings = new string[ft.Count];
 			allDbReferenceTypeStrings = new string[ft.Count];

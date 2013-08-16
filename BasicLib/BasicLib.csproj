@@ -290,6 +290,8 @@
     <Compile Include="Num\Test\FisherExactTest.cs" />
     <Compile Include="Num\Test\PearsonCorrelationTest.cs" />
     <Compile Include="Num\Test\SpearmanCorrelationTest.cs" />
+    <Compile Include="Num\Test\TestSide.cs" />
+    <Compile Include="Num\Test\TestTruncation.cs" />
     <Compile Include="Num\Vector\BaseVector.cs" />
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
