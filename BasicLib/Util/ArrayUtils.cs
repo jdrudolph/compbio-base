@@ -522,7 +522,15 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static T[] SubArray<T>(IList<T> array, int startIndex, int stopIndex){
+		/// <summary>
+		/// Extracts the subarrry from the position <code>startIndex</code> to the position <code>stopIndex</code> (exclusive). 
+		/// </summary>
+		/// <typeparam name="T">Arbitrary type of the array elements.</typeparam>
+		/// <param name="array">The input array.</param>
+		/// <param name="startIndex">Start position of the output array.</param>
+		/// <param name="stopIndex">Exclusive stop position of the output array.</param>
+		/// <returns>The subarrry.</returns>
+		public static T[] SubArray<T>(IList<T> array, int startIndex, int stopIndex) {
 			int len = stopIndex - startIndex;
 			T[] result = new T[len];
 			for (int i = 0; i < len; i++){

@@ -282,13 +282,30 @@ namespace BasicLib.Util{
 		/// <summary>
 		/// Returns a string that is the same as the input string, except that all whitespace characters are removed.
 		/// </summary>
-		public static string RemoveWhitespace(string str){
+		public static string RemoveWhitespace(string str) {
 			StringBuilder s = new StringBuilder();
 			int len = str.Length;
-			for (int i = 0; i < len; i++){
+			for (int i = 0; i < len; i++) {
+				char c = str[i];
+				if (!Char.IsWhiteSpace(c)) {
+					s.Append(c);
+				}
+			}
+			return s.ToString();
+		}
+
+		/// <summary>
+		/// Returns a string that is the same as the input string, except that all whitespace characters are replaced.
+		/// </summary>
+		public static string ReplaceWhitespace(string str, string replaceBy) {
+			StringBuilder s = new StringBuilder();
+			int len = str.Length;
+			for (int i = 0; i < len; i++) {
 				char c = str[i];
 				if (!Char.IsWhiteSpace(c)){
 					s.Append(c);
+				} else{
+					s.Append(replaceBy);
 				}
 			}
 			return s.ToString();
@@ -457,77 +474,78 @@ namespace BasicLib.Util{
 			return result.ToString();
 		}
 
-		public static string[] SplitCsv(string line) {
+		public static string[] SplitCsv(string line){
 			bool inQuote = false;
 			List<int> indices = new List<int>();
-			for (int i = 0; i < line.Length; i++) {
-				if (line[i] == '\"') {
+			for (int i = 0; i < line.Length; i++){
+				if (line[i] == '\"'){
 					inQuote = !inQuote;
-				} else if (!inQuote && line[i] == ',') {
+				} else if (!inQuote && line[i] == ','){
 					indices.Add(i);
 				}
 			}
 			return SplitAtIndices(line, indices);
 		}
 
-		public static string[] SplitAtIndices(string line, IList<int> indices) {
-			if (indices.Count == 0) {
-				return new[] { line };
+		public static string[] SplitAtIndices(string line, IList<int> indices){
+			if (indices.Count == 0){
+				return new[]{line};
 			}
 			string[] result = new string[indices.Count + 1];
 			result[0] = line.Substring(0, indices[0]);
-			for (int i = 1; i < indices.Count; i++) {
+			for (int i = 1; i < indices.Count; i++){
 				result[i] = line.Substring(indices[i - 1] + 1, indices[i] - indices[i - 1] - 1);
 			}
 			result[indices.Count] = line.Substring(indices[indices.Count - 1], line.Length - indices[indices.Count - 1] - 1);
-			for (int i = 0; i < result.Length; i++) {
-				if (result[i][0] == '\"' && result[i][result[i].Length - 1] == '\"') {
+			for (int i = 0; i < result.Length; i++){
+				if (result[i][0] == '\"' && result[i][result[i].Length - 1] == '\"'){
 					result[i] = result[i].Substring(1, result[i].Length - 2);
 				}
 			}
 			return result;
 		}
 
-
 		private static readonly HashSet<char> notInFilenames =
-			new HashSet<char>(new[] { '\\', '/', ':', '*', '?', '\"', '<', '>', '|' });
+			new HashSet<char>(new[]{'\\', '/', ':', '*', '?', '\"', '<', '>', '|'});
 
-		public static string ReplaceCharactersForFilename(string str) {
+		/// <summary>
+		/// Replaces occurences of characters that are problematic in file names or paths with an underscore.
+		/// </summary>
+		public static string ReplaceCharactersForFilename(string str){
 			return ReplaceCharactersForFilename(str, '_');
 		}
 
-		public static string ReplaceCharactersForFilename(string str, char replaceBy) {
+		public static string ReplaceCharactersForFilename(string str, char replaceBy){
 			StringBuilder s = new StringBuilder();
 			int len = str.Length;
-			for (int i = 0; i < len; i++) {
+			for (int i = 0; i < len; i++){
 				char c = str[i];
 				s.Append(notInFilenames.Contains(c) ? replaceBy : c);
 			}
 			return s.ToString();
 		}
 
-
-		public static string GetFileSizeString(String filename) {
+		public static string GetFileSizeString(String filename){
 			FileInfo info = new FileInfo(filename);
 			// ReSharper disable PossibleLossOfFraction
-			double len = info.Length / 1024;
+			double len = info.Length/1024;
 			// ReSharper restore PossibleLossOfFraction
-			if (len < 1024) {
-				return "" + ((int)(10 * len)) / 10.0 + " KB";
+			if (len < 1024){
+				return "" + ((int) (10*len))/10.0 + " KB";
 			}
 			len /= 1024;
-			if (len < 1024) {
-				return "" + ((int)(10 * len)) / 10.0 + " MB";
+			if (len < 1024){
+				return "" + ((int) (10*len))/10.0 + " MB";
 			}
 			len /= 1024;
-			return "" + ((int)(10 * len)) / 10.0 + " GB";
+			return "" + ((int) (10*len))/10.0 + " GB";
 		}
 
-		public static string[] SplitWithBrackets(string line, char separator) {
+		public static string[] SplitWithBrackets(string line, char separator){
 			bool inQuote = false;
 			List<int> indices = new List<int>();
-			for (int i = 0; i < line.Length; i++) {
-				switch (line[i]) {
+			for (int i = 0; i < line.Length; i++){
+				switch (line[i]){
 					case '(':
 						inQuote = true;
 						break;
@@ -535,7 +553,7 @@ namespace BasicLib.Util{
 						inQuote = false;
 						break;
 					default:
-						if (!inQuote && line[i] == separator) {
+						if (!inQuote && line[i] == separator){
 							indices.Add(i);
 						}
 						break;
@@ -548,31 +566,30 @@ namespace BasicLib.Util{
 		/// Contains all the invalid characters of strings for R. These can be replaced
 		/// with the appropriate values with the function <see cref="Replace(string,string[][])"/>.
 		/// </summary>
-		public static readonly string[][] invalidR = new[] { new[] { "\t", ";" }, new[] { "\"", "" }, new[] { "'", "" }, new[] { "?", "" } };
-
+		public static readonly string[][] invalidR = new[]{new[]{"\t", ";"}, new[]{"\"", ""}, new[]{"'", ""}, new[]{"?", ""}};
 
 		/// <summary>
 		/// Replaces the occurances in the given string of the chs[][0] vector with the chs[][1]. Predefined
-		/// values can be found in <see cref="invalidR"/> and <see cref="invalidFilenames"/>.
+		/// values can be found in <see cref="invalidR"/> and <see cref="notInFilenames"/>.
 		/// </summary>
 		/// <param name="str">The string to be converted</param>
 		/// <param name="chs">The mapping.</param>
 		/// <returns>The new string.</returns>
-		public static string Replace(string str, string[][] chs) {
+		public static string Replace(string str, string[][] chs){
 			string s = str;
-			foreach (string[] t in chs) {
+			foreach (string[] t in chs){
 				s = s.Replace(t[0], t[1]);
 			}
 			return s;
 		}
 
-		public static string GetTimeString(double t) {
-			long sec = (long)Math.Round(t / 1000.0);
-			long min = sec / 60;
-			sec -= min * 60;
-			long hrs = min / 60;
-			min -= hrs * 60;
-			if (hrs == 0) {
+		public static string GetTimeString(double t){
+			long sec = (long) Math.Round(t/1000.0);
+			long min = sec/60;
+			sec -= min*60;
+			long hrs = min/60;
+			min -= hrs*60;
+			if (hrs == 0){
 				return "" + min + ":" + (sec < 10 ? "0" : "") + sec;
 			}
 			return "" + hrs + ":" + (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;

@@ -25,7 +25,8 @@ namespace BasicLib.Num{
 		/// <param name="nItems">Number of items to be distributed into the classes.</param>
 		/// <param name="nClasses">Number of classes</param>
 		/// <param name="validPartition">Here you can add a criterion for the partition to be valid.</param>
-		/// <param name="task">If <code>task != null</code> this action will be performed on all valid partitions. In that case the return value will be <code>null</code>.</param>
+		/// <param name="task">If <code>task != null</code> this action will be performed on all valid partitions. 
+		/// In that case the return value will be <code>null</code>.</param>
 		/// <returns></returns>
 		public static int[][] GetPartitions(int nItems, int nClasses, Func<int[], bool> validPartition, Action<int[]> task){
 			List<int[]> partitions = new List<int[]>();
@@ -322,7 +323,7 @@ namespace BasicLib.Num{
 			return (func(x, a1) - func(x, a2))/epsilon;
 		}
 
-		private static void FitNonlin(double[] x, double[] y, double[] sig, double[] a, double[] amin, double[] amax,
+		public static void FitNonlin(double[] x, double[] y, double[] sig, double[] a, double[] amin, double[] amax,
 			out double chisq, MrqminFunc func, int nthreads){
 			int ndata = x.Length;
 			if (sig == null){
