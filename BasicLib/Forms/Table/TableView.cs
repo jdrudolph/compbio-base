@@ -41,13 +41,13 @@ namespace BasicLib.Forms.Table{
 		private static readonly Pen selectHeader3Pen = new Pen(selectHeader3Color);
 		private static readonly Color selectHeader4Color = Color.FromArgb(222, 223, 216);
 		private static readonly Brush selectHeader4Brush = new SolidBrush(selectHeader4Color);
-		private bool hasStatisticsMenuItem;
 		private bool hasRemoveRowsMenuItems;
 		private bool hasHelp = true; //TODO
 		private bool multiSelect = true; //TODO
 		public event EventHandler SelectionChanged;
 		private ContextMenuStrip contextMenuStrip;
 		private ToolStripMenuItem searchToolStripMenuItem;
+		private ToolStripMenuItem fontsToolStripMenuItem;
 		private ToolStripMenuItem filterToolStripMenuItem;
 		private ToolStripMenuItem invertSelectionToolStripMenuItem;
 		private ToolStripMenuItem selectionTopToolStripMenuItem;
@@ -62,7 +62,9 @@ namespace BasicLib.Forms.Table{
 		private int[] columnWidthSumsOld;
 		private ITableModel origModel;
 		private ITableModel model;
-		private readonly Font textFont = new Font("Arial", 9);
+		private Font textFont = new Font("Arial", 9);
+		private Brush textBrush = Brushes.Black;
+		private Color textColor = Color.Black;
 		private bool[] modelRowSel;
 		private int[] order;
 		private int[] inverseOrder;
@@ -112,6 +114,7 @@ namespace BasicLib.Forms.Table{
 		public void InitContextMenu(){
 			contextMenuStrip = new ContextMenuStrip();
 			searchToolStripMenuItem = new ToolStripMenuItem();
+			fontsToolStripMenuItem = new ToolStripMenuItem();
 			filterToolStripMenuItem = new ToolStripMenuItem();
 			invertSelectionToolStripMenuItem = new ToolStripMenuItem();
 			selectionTopToolStripMenuItem = new ToolStripMenuItem();
@@ -123,7 +126,7 @@ namespace BasicLib.Forms.Table{
 			removeUnselectedRowsToolStripMenuItem = new ToolStripMenuItem();
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
-				searchToolStripMenuItem, filterToolStripMenuItem, invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem,
+				searchToolStripMenuItem, fontsToolStripMenuItem, filterToolStripMenuItem, invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem,
 				exportToolStripMenuItem, copyToolStripMenuItem, removeSeparator,
 				showAllRowsToolStripMenuItem, removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
@@ -133,6 +136,10 @@ namespace BasicLib.Forms.Table{
 			searchToolStripMenuItem.Size = new Size(209, 22);
 			searchToolStripMenuItem.Text = "Find...";
 			searchToolStripMenuItem.Click += SearchToolStripMenuItemClick;
+			fontsToolStripMenuItem.Name = "searchToolStripMenuItem";
+			fontsToolStripMenuItem.Size = new Size(209, 22);
+			fontsToolStripMenuItem.Text = "Font...";
+			fontsToolStripMenuItem.Click += FontsToolStripMenuItemClick;
 			filterToolStripMenuItem.Name = "filterToolStripMenuItem";
 			filterToolStripMenuItem.Size = new Size(209, 22);
 			filterToolStripMenuItem.Text = "Filter...";
@@ -665,6 +672,10 @@ namespace BasicLib.Forms.Table{
 			Find();
 		}
 
+		private void FontsToolStripMenuItemClick(object sender, EventArgs e) {
+			ChangeFonts();
+		}
+
 		private void FilterToolStripMenuItemClick(object sender, EventArgs e) {
 			Filter();
 		}
@@ -699,6 +710,20 @@ namespace BasicLib.Forms.Table{
 			findForm.BringToFront();
 			findForm.Focus();
 			findForm.Show(this);
+		}
+
+		private void ChangeFonts() {
+			if (model == null) {
+				return;
+			}
+			FontDialog fontDialog=new FontDialog{ShowColor = true, Font = textFont, Color = textColor};
+			if (fontDialog.ShowDialog() != DialogResult.Cancel) {
+				textFont = fontDialog.Font;
+				textColor = fontDialog.Color;
+				textBrush = new SolidBrush(textColor);
+			}
+			fontDialog.Dispose();
+			Invalidate(true);
 		}
 
 		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e) {
@@ -843,7 +868,7 @@ namespace BasicLib.Forms.Table{
 		}
 
 		private void RenderCellString(IGraphics g, bool selected, object o, int width, int x1, int y1){
-			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : Brushes.Black, x1 + 3,
+			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3,
 				y1 + 4);
 		}
 
