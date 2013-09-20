@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace BasicLib.Forms.Table{
+	/// <summary>
+	/// Partial implementation of <code>ITableModel</code>, implementing all functionality that is shared 
+	/// between the full implementations of <code>ITableModel</code>.
+	/// </summary>
 	[Serializable]
 	public abstract class TableModelImpl : ITableModel{
 		protected readonly List<string> columnNames = new List<string>();

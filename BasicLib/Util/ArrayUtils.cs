@@ -63,13 +63,13 @@ namespace BasicLib.Util{
 			return ind;
 		}
 
-		public static int MinInd(IList<double> x) {
+		public static int MinInd(IList<double> x){
 			int n = x.Count;
 			double min = double.MaxValue;
 			int ind = -1;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				double val = x[i];
-				if (val <= min) {
+				if (val <= min){
 					min = val;
 					ind = i;
 				}
@@ -77,13 +77,13 @@ namespace BasicLib.Util{
 			return ind;
 		}
 
-		public static int MinInd(IList<float> x) {
+		public static int MinInd(IList<float> x){
 			int n = x.Count;
 			float min = float.MaxValue;
 			int ind = -1;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				float val = x[i];
-				if (val <= min) {
+				if (val <= min){
 					min = val;
 					ind = i;
 				}
@@ -91,7 +91,7 @@ namespace BasicLib.Util{
 			return ind;
 		}
 
-		public static int MinInd(IList<int> x) {
+		public static int MinInd(IList<int> x){
 			int n = x.Count;
 			int min = int.MaxValue;
 			int ind = -1;
@@ -247,6 +247,18 @@ namespace BasicLib.Util{
 				sum += x[i];
 			}
 			return sum/n;
+		}
+
+		public static double GeometricMean(IList<double> x){
+			int n = x.Count;
+			if (n == 0){
+				return double.NaN;
+			}
+			double prod = 1;
+			for (int i = 0; i < n; i++){
+				prod *= x[i];
+			}
+			return Math.Pow(prod, 1.0/n);
 		}
 
 		public static double Median(IList<double> x){
@@ -530,7 +542,7 @@ namespace BasicLib.Util{
 		/// <param name="startIndex">Start position of the output array.</param>
 		/// <param name="stopIndex">Exclusive stop position of the output array.</param>
 		/// <returns>The subarrry.</returns>
-		public static T[] SubArray<T>(IList<T> array, int startIndex, int stopIndex) {
+		public static T[] SubArray<T>(IList<T> array, int startIndex, int stopIndex){
 			int len = stopIndex - startIndex;
 			T[] result = new T[len];
 			for (int i = 0; i < len; i++){
@@ -562,18 +574,21 @@ namespace BasicLib.Util{
 		}
 
 		public static double StandardDeviation(IList<double> x){
-			return Math.Sqrt(Variance(x));
+			return x.Count < 2 ? double.NaN : Math.Sqrt(Variance(x));
 		}
 
 		public static double StandardDeviation(IList<float> x){
-			return Math.Sqrt(Variance(x));
+			return x.Count < 2 ? double.NaN : Math.Sqrt(Variance(x));
 		}
 
 		public static double StandardDeviation(IList<int> x){
-			return Math.Sqrt(Variance(x));
+			return x.Count < 2 ? double.NaN : Math.Sqrt(Variance(x));
 		}
 
 		public static double Variance(IList<double> x){
+			if (x.Count < 2){
+				return double.NaN;
+			}
 			int n = x.Count;
 			double mean = Mean(x);
 			double var = 0;
@@ -586,6 +601,9 @@ namespace BasicLib.Util{
 		}
 
 		public static double Variance(IList<float> x){
+			if (x.Count < 2) {
+				return double.NaN;
+			}
 			int n = x.Count;
 			double mean = Mean(x);
 			double var = 0;
@@ -598,6 +616,9 @@ namespace BasicLib.Util{
 		}
 
 		public static double Variance(IList<int> x){
+			if (x.Count < 2) {
+				return double.NaN;
+			}
 			int n = x.Count;
 			double mean = Mean(x);
 			double var = 0;
@@ -1478,17 +1499,17 @@ namespace BasicLib.Util{
 			return result;
 		}
 
-		public static double[] ExtractValidValues(IList<double> x) {
+		public static double[] ExtractValidValues(IList<double> x){
 			List<double> result = new List<double>();
-			foreach (double y in x) {
-				if (!double.IsNaN(y) && !double.IsInfinity(y)) {
+			foreach (double y in x){
+				if (!double.IsNaN(y) && !double.IsInfinity(y)){
 					result.Add(y);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public static int[] GetValidInds(IList<double> x) {
+		public static int[] GetValidInds(IList<double> x){
 			List<int> result = new List<int>();
 			for (int i = 0; i < x.Count; i++){
 				double y = x[i];
@@ -1499,7 +1520,7 @@ namespace BasicLib.Util{
 			return result.ToArray();
 		}
 
-		public static float[] ExtractValidValues(IList<float> x) {
+		public static float[] ExtractValidValues(IList<float> x){
 			List<float> result = new List<float>();
 			foreach (float y in x){
 				if (!float.IsNaN(y) && !float.IsInfinity(y)){
@@ -1832,28 +1853,28 @@ namespace BasicLib.Util{
 			return cov;
 		}
 
-		public static int[] GetTopN(IList<double> vals, int n) {
-			if (vals.Count <= n) {
+		public static int[] GetTopN(IList<double> vals, int n){
+			if (vals.Count <= n){
 				return ConsecutiveInts(vals.Count);
 			}
 			int[] o = Order(vals);
 			int[] result = new int[n];
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				result[i] = o[vals.Count - 1 - i];
 			}
 			return result;
 		}
 
-		public static T[][] Split<T>(IList<T> array, int size) {
-			if (array.Count <= size) {
-				return new[] { array.ToArray() };
+		public static T[][] Split<T>(IList<T> array, int size){
+			if (array.Count <= size){
+				return new[]{array.ToArray()};
 			}
-			int n = (array.Count - 1) / size + 1;
+			int n = (array.Count - 1)/size + 1;
 			T[][] result = new T[n][];
-			for (int i = 0; i < n - 1; i++) {
-				result[i] = SubArray(array, i * size, (i + 1) * size);
+			for (int i = 0; i < n - 1; i++){
+				result[i] = SubArray(array, i*size, (i + 1)*size);
 			}
-			result[n - 1] = SubArray(array, (n - 1) * size, array.Count);
+			result[n - 1] = SubArray(array, (n - 1)*size, array.Count);
 			return result;
 		}
 
@@ -1864,32 +1885,32 @@ namespace BasicLib.Util{
 		/// <param name="array">The array to look for the value.</param>
 		/// <param name="value">The value to look for.</param>
 		/// <returns></returns>
-		public static bool Contains<T>(IList<T> array, T value) {
-			foreach (T t in array) {
-				if (t.Equals(value)) {
+		public static bool Contains<T>(IList<T> array, T value){
+			foreach (T t in array){
+				if (t.Equals(value)){
 					return true;
 				}
 			}
 			return false;
 		}
 
-		public static int TriangleToLinearIndex(int i, int j) {
-			int b = (i * (i - 1)) / 2;
+		public static int TriangleToLinearIndex(int i, int j){
+			int b = (i*(i - 1))/2;
 			return b + j;
 		}
 
-		public static bool Or(IList<bool> x) {
-			foreach (bool b in x) {
-				if (b) {
+		public static bool Or(IList<bool> x){
+			foreach (bool b in x){
+				if (b){
 					return true;
 				}
 			}
 			return false;
 		}
 
-		public static bool And(IList<bool> x) {
-			foreach (bool b in x) {
-				if (!b) {
+		public static bool And(IList<bool> x){
+			foreach (bool b in x){
+				if (!b){
 					return false;
 				}
 			}

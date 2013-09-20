@@ -63,6 +63,7 @@ namespace BasicLib.Forms.Table{
 		private ITableModel origModel;
 		private ITableModel model;
 		private Font textFont = new Font("Arial", 9);
+		private readonly Font headerFont = new Font("Arial", 9);
 		private Brush textBrush = Brushes.Black;
 		private Color textColor = Color.Black;
 		private bool[] modelRowSel;
@@ -126,8 +127,8 @@ namespace BasicLib.Forms.Table{
 			removeUnselectedRowsToolStripMenuItem = new ToolStripMenuItem();
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
-				searchToolStripMenuItem, fontsToolStripMenuItem, filterToolStripMenuItem, invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem,
-				exportToolStripMenuItem, copyToolStripMenuItem, removeSeparator,
+				searchToolStripMenuItem, fontsToolStripMenuItem, filterToolStripMenuItem, invertSelectionToolStripMenuItem,
+				selectionTopToolStripMenuItem, exportToolStripMenuItem, copyToolStripMenuItem, removeSeparator,
 				showAllRowsToolStripMenuItem, removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
 			contextMenuStrip.Name = "contextMenuStrip";
@@ -226,7 +227,7 @@ namespace BasicLib.Forms.Table{
 			return (inds[ind] - visRow)*rowHeight;
 		}
 
-		public void RemoveSelectedRows() {
+		public void RemoveSelectedRows(){
 			int[] x = GetUnselectedRows();
 			model = new SubTableModel(model, x);
 			modelRowSel = new bool[model.RowCount];
@@ -236,12 +237,12 @@ namespace BasicLib.Forms.Table{
 			sortState = SortState.Unsorted;
 			VisibleY = 0;
 			Invalidate(true);
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void ShowAllRows() {
+		public void ShowAllRows(){
 			model = origModel;
 			modelRowSel = new bool[model.RowCount];
 			order = ArrayUtils.ConsecutiveInts(model.RowCount);
@@ -254,7 +255,7 @@ namespace BasicLib.Forms.Table{
 			}
 		}
 
-		public void RemoveUnselectedRows() {
+		public void RemoveUnselectedRows(){
 			int[] x = GetSelectedRows();
 			model = new SubTableModel(model, x);
 			modelRowSel = new bool[model.RowCount];
@@ -264,12 +265,12 @@ namespace BasicLib.Forms.Table{
 			sortState = SortState.Unsorted;
 			VisibleY = 0;
 			Invalidate(true);
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void SetVisibleRows(IList<int> rows) {
+		public void SetVisibleRows(IList<int> rows){
 			model = new SubTableModel(origModel, rows.ToArray());
 			modelRowSel = new bool[model.RowCount];
 			order = ArrayUtils.ConsecutiveInts(model.RowCount);
@@ -277,21 +278,21 @@ namespace BasicLib.Forms.Table{
 			sortCol = -1;
 			sortState = SortState.Unsorted;
 			Invalidate(true);
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void SetSelectedRows(IList<int> rows) {
+		public void SetSelectedRows(IList<int> rows){
 			SetSelectedRows(rows, false);
 		}
 
-		public void SetSelectedRows(IList<int> rows, bool add) {
-			if (!add || modelRowSel == null) {
+		public void SetSelectedRows(IList<int> rows, bool add){
+			if (!add || modelRowSel == null){
 				modelRowSel = new bool[RowCount];
 			}
-			foreach (int row in rows) {
-				if (row < 0) {
+			foreach (int row in rows){
+				if (row < 0){
 					continue;
 				}
 				if (add){
@@ -300,64 +301,64 @@ namespace BasicLib.Forms.Table{
 					modelRowSel[row] = true;
 				}
 			}
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void FireSelectionChange() {
-			if (SelectionChanged != null) {
+		public void FireSelectionChange(){
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void SetSelectedRowsAndMove(IList<int> rows) {
+		public void SetSelectedRowsAndMove(IList<int> rows){
 			modelRowSel = new bool[RowCount];
-			foreach (int row in rows) {
+			foreach (int row in rows){
 				modelRowSel[row] = true;
 			}
-			if (rows.Count > 0) {
+			if (rows.Count > 0){
 				ScrollToRow(inverseOrder[rows[0]]);
-			} else {
+			} else{
 				Invalidate(true);
 			}
 		}
 
-		public int[] GetSelectedRows() {
-			if (model == null) {
+		public int[] GetSelectedRows(){
+			if (model == null){
 				return new int[0];
 			}
 			CheckSizes();
 			List<int> result = new List<int>();
-			for (int i = 0; i < model.RowCount; i++) {
-				if (modelRowSel[i]) {
+			for (int i = 0; i < model.RowCount; i++){
+				if (modelRowSel[i]){
 					result.Add(i);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public int[] GetSelectedRowsView() {
-			if (model == null) {
+		public int[] GetSelectedRowsView(){
+			if (model == null){
 				return new int[0];
 			}
 			CheckSizes();
 			List<int> result = new List<int>();
-			for (int i = 0; i < model.RowCount; i++) {
-				if (modelRowSel[order[i]]) {
+			for (int i = 0; i < model.RowCount; i++){
+				if (modelRowSel[order[i]]){
 					result.Add(i);
 				}
 			}
 			return result.ToArray();
 		}
 
-		public void AddContextMenuItem(ToolStripItem item) {
+		public void AddContextMenuItem(ToolStripItem item){
 			contextMenuStrip.Items.Add(item);
 		}
 
-		public bool HasRemoveRowsMenuItems {
+		public bool HasRemoveRowsMenuItems{
 			get { return hasRemoveRowsMenuItems; }
-			set {
+			set{
 				hasRemoveRowsMenuItems = value;
 				removeSelectedRowsToolStripMenuItem.Visible = value;
 				showAllRowsToolStripMenuItem.Visible = value;
@@ -365,71 +366,71 @@ namespace BasicLib.Forms.Table{
 				removeSeparator.Visible = value;
 			}
 		}
-		public ITableModel TableModel {
+		public ITableModel TableModel{
 			get { return model; }
-			set {
+			set{
 				model = value;
-				if (model == null) {
+				if (model == null){
 					return;
 				}
 				modelRowSel = new bool[model.RowCount];
 				order = ArrayUtils.ConsecutiveInts(model.RowCount);
 				inverseOrder = ArrayUtils.ConsecutiveInts(model.RowCount);
 				columnWidthSums = new int[model.ColumnCount];
-				if (model.ColumnCount > 0) {
+				if (model.ColumnCount > 0){
 					columnWidthSums[0] = model.GetColumnWidth(0);
 				}
-				for (int i = 1; i < model.ColumnCount; i++) {
+				for (int i = 1; i < model.ColumnCount; i++){
 					columnWidthSums[i] = columnWidthSums[i - 1] + model.GetColumnWidth(i);
 				}
 				origModel = model;
-				if (model.AnnotationRowsCount > 0) {
-					base.ColumnHeaderHeight = origColumnHeaderHeight + model.AnnotationRowsCount * rowHeight;
+				if (model.AnnotationRowsCount > 0){
+					base.ColumnHeaderHeight = origColumnHeaderHeight + model.AnnotationRowsCount*rowHeight;
 				}
 			}
 		}
-		public override sealed int TotalWidth {
-			get {
-				if (model == null) {
+		public override sealed int TotalWidth{
+			get{
+				if (model == null){
 					return 0;
 				}
-				if (columnWidthSums == null) {
+				if (columnWidthSums == null){
 					return 0;
 				}
 				int ind = model.ColumnCount - 1;
-				if (ind < 0 || ind >= columnWidthSums.Length) {
+				if (ind < 0 || ind >= columnWidthSums.Length){
 					return 0;
 				}
 				return columnWidthSums[ind] + 5;
 			}
 		}
-		public override sealed int TotalHeight { get { return model == null ? 0 : rowHeight * model.RowCount + 5; } }
+		public override sealed int TotalHeight { get { return model == null ? 0 : rowHeight*model.RowCount + 5; } }
 		public override sealed int DeltaX { get { return 40; } }
 		public override sealed int DeltaY { get { return rowHeight; } }
 		public int RowCount { get { return model == null ? 0 : model.RowCount; } }
 
-		public bool ViewRowIsSelected(int row) {
-			if (modelRowSel == null) {
+		public bool ViewRowIsSelected(int row){
+			if (modelRowSel == null){
 				return false;
 			}
-			if (row < 0 || order == null || row >= order.Length) {
+			if (row < 0 || order == null || row >= order.Length){
 				return false;
 			}
 			return modelRowSel[order[row]];
 		}
 
-		public bool ModelRowIsSelected(int row) {
-			if (modelRowSel == null) {
+		public bool ModelRowIsSelected(int row){
+			if (modelRowSel == null){
 				return false;
 			}
-			if (row < 0 || row >= modelRowSel.Length) {
+			if (row < 0 || row >= modelRowSel.Length){
 				return false;
 			}
 			return modelRowSel[row];
 		}
 
-		protected internal override sealed void OnPaintRowHeaderView(IGraphics g, int y, int height) {
-			if (model == null) {
+		protected internal override sealed void OnPaintRowHeaderView(IGraphics g, int y, int height){
+			if (model == null){
 				return;
 			}
 			g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, height);
@@ -439,24 +440,24 @@ namespace BasicLib.Forms.Table{
 			g.DrawLine(shadow1Pen, RowHeaderWidth - 2, 0, RowHeaderWidth - 2, height);
 			g.DrawLine(shadow2Pen, RowHeaderWidth - 3, 0, RowHeaderWidth - 3, height);
 			g.DrawLine(shadow3Pen, RowHeaderWidth - 4, 0, RowHeaderWidth - 4, height);
-			int offset = -y % rowHeight;
-			for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight) {
-				int row = (y + y1) / rowHeight;
-				if (model == null || row > model.RowCount) {
+			int offset = -y%rowHeight;
+			for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
+				int row = (y + y1)/rowHeight;
+				if (model == null || row > model.RowCount){
 					break;
 				}
 				g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
 				g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
 			}
-			for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight) {
-				int row = (y + y1) / rowHeight;
-				if (row < 0) {
+			for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
+				int row = (y + y1)/rowHeight;
+				if (row < 0){
 					continue;
 				}
-				if (model == null || row >= model.RowCount) {
+				if (model == null || row >= model.RowCount){
 					break;
 				}
-				if (ViewRowIsSelected(row)) {
+				if (ViewRowIsSelected(row)){
 					g.DrawLine(selectHeader1Pen, 2, y1 + 1, RowHeaderWidth - 2, y1 + 1);
 					g.DrawLine(selectHeader1Pen, 2, y1 + rowHeight, RowHeaderWidth - 2, y1 + rowHeight);
 					g.DrawLine(selectHeader1Pen, RowHeaderWidth - 2, y1 + 1, RowHeaderWidth - 2, y1 + rowHeight);
@@ -470,8 +471,8 @@ namespace BasicLib.Forms.Table{
 			}
 		}
 
-		protected internal override sealed void OnPaintColumnHeaderView(IGraphics g, int x, int width) {
-			if (model == null) {
+		protected internal override sealed void OnPaintColumnHeaderView(IGraphics g, int x, int width){
+			if (model == null){
 				return;
 			}
 			g.FillRectangle(headerBrush, 0, 0, width, ColumnHeaderHeight - 1);
@@ -481,52 +482,52 @@ namespace BasicLib.Forms.Table{
 			g.DrawLine(shadow1Pen, 0, ColumnHeaderHeight - 2, width, ColumnHeaderHeight - 2);
 			g.DrawLine(shadow2Pen, 0, ColumnHeaderHeight - 3, width, ColumnHeaderHeight - 3);
 			g.DrawLine(shadow3Pen, 0, ColumnHeaderHeight - 4, width, ColumnHeaderHeight - 4);
-			if (columnWidthSums != null) {
+			if (columnWidthSums != null){
 				int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
 				int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
-				if (startInd >= 0) {
-					for (int i = startInd; i <= endInd; i++) {
+				if (startInd >= 0){
+					for (int i = startInd; i <= endInd; i++){
 						int x1 = columnWidthSums[i] - x;
 						g.DrawLine(headerGridPen, x1, 5, x1, ColumnHeaderHeight - 6);
 						g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, ColumnHeaderHeight - 6);
 					}
 				}
 			}
-			if (columnWidthSums != null && columnWidthSums.Length > 0) {
+			if (columnWidthSums != null && columnWidthSums.Length > 0){
 				int startInd = Math.Max(0, ArrayUtils.CeilIndex(columnWidthSums, x) - 1);
 				int endInd = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, x + width) + 1);
-				if (startInd >= 0) {
-					for (int i = startInd; i <= endInd; i++) {
+				if (startInd >= 0){
+					for (int i = startInd; i <= endInd; i++){
 						int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
 						int w = i == 0 ? columnWidthSums[0] : columnWidthSums[i] - columnWidthSums[i - 1];
-						string[] q = GetStringHeader(g, i, w, textFont);
-						for (int j = 0; j < q.Length; j++) {
-							g.DrawString(q[j], textFont, Brushes.Black, x1 + 3, 4 + 11 * j);
+						string[] q = GetStringHeader(g, i, w, headerFont);
+						for (int j = 0; j < q.Length; j++){
+							g.DrawString(q[j], headerFont, Brushes.Black, x1 + 3, 4 + 11*j);
 						}
 					}
-					if (sortCol != -1 && sortState != SortState.Unsorted) {
+					if (sortCol != -1 && sortState != SortState.Unsorted){
 						int x1 = columnWidthSums[sortCol] - x - 11;
-						if (x1 >= -15 && x1 <= width) {
+						if (x1 >= -15 && x1 <= width){
 							g.DrawImage(sortState == SortState.Increasing ? Resources.arrowDown : Resources.arrowUp, x1, 6, 9, 13);
 						}
 					}
-					if (helpCol != -1) {
+					if (helpCol != -1){
 						int x1 = (helpCol == 0 ? 0 : columnWidthSums[helpCol - 1]) - x + 5;
-						if (x1 >= -15 && x1 <= width) {
+						if (x1 >= -15 && x1 <= width){
 							g.DrawImage(Resources.question1, x1, 7, 10, 10);
 						}
 					}
-					if (model != null && model.AnnotationRowsCount > 0) {
-						for (int i = startInd; i <= endInd; i++) {
+					if (model != null && model.AnnotationRowsCount > 0){
+						for (int i = startInd; i <= endInd; i++){
 							int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
 							int x2 = (i >= 0 ? columnWidthSums[i] : 0) - x;
-							for (int k = 0; k < model.AnnotationRowsCount; k++) {
-								int y1 = origColumnHeaderHeight + k * rowHeight;
+							for (int k = 0; k < model.AnnotationRowsCount; k++){
+								int y1 = origColumnHeaderHeight + k*rowHeight;
 								g.DrawLine(headerGridPen, x1 + 5, y1 - 1, x2 - 6, y1 - 1);
 								g.DrawLine(Pens.White, x1 + 5, y1, x2 - 6, y1);
-								string s = (string)model.GetAnnotationRowValue(k, i);
-								if (s != null) {
-									g.DrawString("" + GetStringValue(g, s, x2 - x1 - 2, textFont), textFont, Brushes.Black, x1 + 3, y1 + 3);
+								string s = (string) model.GetAnnotationRowValue(k, i);
+								if (s != null){
+									g.DrawString("" + GetStringValue(g, s, x2 - x1 - 2, headerFont), textFont, Brushes.Black, x1 + 3, y1 + 3);
 								}
 							}
 						}
@@ -535,160 +536,167 @@ namespace BasicLib.Forms.Table{
 			}
 		}
 
-		protected internal override sealed void OnPaintCornerView(IGraphics g) {
-			if (model == null) {
+		protected internal override sealed void OnPaintCornerView(IGraphics g){
+			if (model == null){
 				return;
 			}
 			g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
 			g.DrawRectangle(gridPen, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
 			g.DrawLine(Pens.White, 1, 1, RowHeaderWidth - 2, 1);
 			g.DrawLine(Pens.White, 1, 1, 1, ColumnHeaderHeight - 2);
-			if (matrixHelp) {
+			if (matrixHelp){
 				g.DrawImage(Resources.question1, 7, 7, 10, 10);
 			}
-			if (model != null && model.AnnotationRowsCount > 0) {
-				for (int i = 0; i < model.AnnotationRowsCount; i++) {
-					int y1 = origColumnHeaderHeight + i * rowHeight;
+			if (model != null && model.AnnotationRowsCount > 0){
+				for (int i = 0; i < model.AnnotationRowsCount; i++){
+					int y1 = origColumnHeaderHeight + i*rowHeight;
 					g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
 					g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
 					string s = model.GetAnnotationRowName(i);
-					if (s != null) {
-						g.DrawString("" + GetStringValue(g, s, RowHeaderWidth - 6, textFont), textFont, Brushes.Black, 3, y1 + 3);
+					if (s != null){
+						g.DrawString("" + GetStringValue(g, s, RowHeaderWidth - 6, headerFont), textFont, Brushes.Black, 3, y1 + 3);
 					}
 				}
 			}
 		}
 
-		protected internal override void OnMouseLeaveMainView(EventArgs e) {
+		protected internal override void OnMouseLeaveMainView(EventArgs e){
 			//TODO
 			//mainViewToolTip.Hide(this);
 		}
 
-		public static bool IsLogarithmic(ColumnType columnType) {
+		public static bool IsLogarithmic(ColumnType columnType){
 			return columnType == ColumnType.NumericLog || columnType == ColumnType.MultiNumericLog ||
 				columnType == ColumnType.Expression;
 		}
 
-		public static bool IsMulti(ColumnType columnType) {
+		public static bool IsMulti(ColumnType columnType){
 			return columnType == ColumnType.MultiNumeric || columnType == ColumnType.MultiNumericLog ||
 				columnType == ColumnType.MultiInteger;
 		}
 
-		public static bool IsNumeric(ColumnType columnType) {
+		public static bool IsNumeric(ColumnType columnType){
 			return columnType == ColumnType.NumericLog || columnType == ColumnType.Expression || columnType == ColumnType.Numeric ||
 				columnType == ColumnType.Integer || columnType == ColumnType.MultiInteger || columnType == ColumnType.MultiNumeric ||
 				columnType == ColumnType.MultiNumericLog;
 		}
 
-		public void ScrollToRow(int row) {
-			VisibleY = row * rowHeight;
+		public void ScrollToRow(int row){
+			if ((RowCount - row)*rowHeight < VisibleHeight){
+				ScrollToEnd();
+			} else{
+				VisibleY = row*rowHeight;
+			}
 		}
 
-		public void ScrollToEnd() {
-			//todo
+		public void ScrollToEnd(){
+			if ((RowCount)*rowHeight < VisibleHeight){
+				VisibleY = 0;
+			} else{
+				VisibleY = (RowCount - (int) (VisibleHeight/(double) rowHeight))*rowHeight;
+			}
 		}
 
-		public int GetModelIndex(int rowIndView) {
+		public int GetModelIndex(int rowIndView){
 			return order[rowIndView];
 		}
 
-
-		public void ClearSelection() {
-			if (modelRowSel == null) {
+		public void ClearSelection(){
+			if (modelRowSel == null){
 				return;
 			}
-			for (int i = 0; i < modelRowSel.Length; i++) {
+			for (int i = 0; i < modelRowSel.Length; i++){
 				modelRowSel[i] = false;
 			}
 		}
 
-		public void ClearSelectionFire() {
+		public void ClearSelectionFire(){
 			ClearSelection();
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void SelectAll() {
-			if (modelRowSel == null) {
+		public void SelectAll(){
+			if (modelRowSel == null){
 				return;
 			}
-			for (int i = 0; i < modelRowSel.Length; i++) {
+			for (int i = 0; i < modelRowSel.Length; i++){
 				modelRowSel[i] = true;
 			}
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void SetSetectedViewIndex(int index) {
+		public void SetSetectedViewIndex(int index){
 			CheckSizes();
-			if (!multiSelect) {
+			if (!multiSelect){
 				ClearSelection();
 			}
 			modelRowSel[order[index]] = true;
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public void SetSetectedIndex(int index) {
+		public void SetSetectedIndex(int index){
 			SetSetectedIndex(index, this);
 		}
 
-		public void SetectAll() {
+		public void SetectAll(){
 			CheckSizes();
 			bool[] x = new bool[RowCount];
-			for (int i = 0; i < x.Length; i++) {
+			for (int i = 0; i < x.Length; i++){
 				x[i] = true;
 			}
 			SetSetection(x);
 		}
 
-		public void SetSetectedIndex(int index, object sender) {
+		public void SetSetectedIndex(int index, object sender){
 			CheckSizes();
-			if (!multiSelect) {
+			if (!multiSelect){
 				ClearSelection();
 			}
 			modelRowSel[index] = true;
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(sender, new EventArgs());
 			}
 		}
 
-		public void SetSetection(bool[] s) {
+		public void SetSetection(bool[] s){
 			modelRowSel = s;
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		public object GetEntry(int row, int col) {
+		public object GetEntry(int row, int col){
 			CheckSizes();
 			return model == null ? null : model.GetEntry(order[row], col);
 		}
 
-		private void SearchToolStripMenuItemClick(object sender, EventArgs e) {
+		private void SearchToolStripMenuItemClick(object sender, EventArgs e){
 			Find();
 		}
 
-		private void FontsToolStripMenuItemClick(object sender, EventArgs e) {
+		private void FontsToolStripMenuItemClick(object sender, EventArgs e){
 			ChangeFonts();
 		}
 
-		private void FilterToolStripMenuItemClick(object sender, EventArgs e) {
+		private void FilterToolStripMenuItemClick(object sender, EventArgs e){
 			Filter();
 		}
 
-		private void Filter() {
-			if (model == null) {
+		private void Filter(){
+			if (model == null){
 				return;
 			}
-			if (filterForm == null) {
-				filterForm = new FilterForm(this) { TopMost = true };
+			if (filterForm == null){
+				filterForm = new FilterForm(this){TopMost = true};
 			}
 			filterForm.Visible = false;
-			if (filterForm.WindowState == FormWindowState.Minimized) {
+			if (filterForm.WindowState == FormWindowState.Minimized){
 				filterForm.WindowState = FormWindowState.Normal;
 			}
 			filterForm.BringToFront();
@@ -696,15 +704,15 @@ namespace BasicLib.Forms.Table{
 			filterForm.Show(this);
 		}
 
-		private void Find() {
-			if (model == null) {
+		private void Find(){
+			if (model == null){
 				return;
 			}
-			if (findForm == null) {
-				findForm = new FindForm(this) { TopMost = true };
+			if (findForm == null){
+				findForm = new FindForm(this){TopMost = true};
 			}
 			findForm.Visible = false;
-			if (findForm.WindowState == FormWindowState.Minimized) {
+			if (findForm.WindowState == FormWindowState.Minimized){
 				findForm.WindowState = FormWindowState.Normal;
 			}
 			findForm.BringToFront();
@@ -712,12 +720,12 @@ namespace BasicLib.Forms.Table{
 			findForm.Show(this);
 		}
 
-		private void ChangeFonts() {
-			if (model == null) {
+		private void ChangeFonts(){
+			if (model == null){
 				return;
 			}
-			FontDialog fontDialog=new FontDialog{ShowColor = true, Font = textFont, Color = textColor};
-			if (fontDialog.ShowDialog() != DialogResult.Cancel) {
+			FontDialog fontDialog = new FontDialog{ShowColor = true, Font = textFont, Color = textColor};
+			if (fontDialog.ShowDialog() != DialogResult.Cancel){
 				textFont = fontDialog.Font;
 				textColor = fontDialog.Color;
 				textBrush = new SolidBrush(textColor);
@@ -726,35 +734,35 @@ namespace BasicLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e) {
-			if (model == null) {
+		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
 				return;
 			}
-			if (modelRowSel == null) {
+			if (modelRowSel == null){
 				return;
 			}
-			for (int i = 0; i < modelRowSel.Length; i++) {
+			for (int i = 0; i < modelRowSel.Length; i++){
 				modelRowSel[i] = !modelRowSel[i];
 			}
 			Invalidate(true);
-			if (SelectionChanged != null) {
+			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
 
-		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e) {
-			if (model == null) {
+		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
 				return;
 			}
-			if (modelRowSel == null) {
+			if (modelRowSel == null){
 				return;
 			}
 			List<int> l1 = new List<int>();
 			List<int> l2 = new List<int>();
-			for (int i = 0; i < modelRowSel.Length; i++) {
-				if (modelRowSel[i]) {
+			for (int i = 0; i < modelRowSel.Length; i++){
+				if (modelRowSel[i]){
 					l1.Add(i);
-				} else {
+				} else{
 					l2.Add(i);
 				}
 			}
@@ -762,39 +770,39 @@ namespace BasicLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private void CopyToolStripMenuItemClick(object sender, EventArgs e) {
-			if (model == null) {
+		private void CopyToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
 				return;
 			}
 			Copy();
 		}
 
-		private void ExportToolStripMenuItemClick(object sender, EventArgs e) {
-			if (model == null) {
+		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
 				return;
 			}
-			SaveFileDialog ofd = new SaveFileDialog { Filter = "Text File (*.txt)|*.txt" };
-			if (ofd.ShowDialog() == DialogResult.OK) {
+			SaveFileDialog ofd = new SaveFileDialog{Filter = "Text File (*.txt)|*.txt"};
+			if (ofd.ShowDialog() == DialogResult.OK){
 				ExportMatrix(ofd.FileName);
 			}
 		}
 
-		private void ExportMatrix(string fileName) {
+		private void ExportMatrix(string fileName){
 			StreamWriter writer = new StreamWriter(fileName);
 			StringBuilder line = new StringBuilder();
-			if (model.ColumnCount > 0) {
+			if (model.ColumnCount > 0){
 				line.Append(model.GetColumnName(0));
 			}
-			for (int i = 1; i < model.ColumnCount; i++) {
+			for (int i = 1; i < model.ColumnCount; i++){
 				line.Append("\t" + model.GetColumnName(i));
 			}
 			writer.WriteLine(line.ToString());
-			for (int j = 0; j < model.RowCount; j++) {
+			for (int j = 0; j < model.RowCount; j++){
 				line = new StringBuilder();
-				if (model.ColumnCount > 0) {
+				if (model.ColumnCount > 0){
 					line.Append(model.GetEntry(j, 0));
 				}
-				for (int i = 1; i < model.ColumnCount; i++) {
+				for (int i = 1; i < model.ColumnCount; i++){
 					line.Append("\t" + model.GetEntry(j, i));
 				}
 				writer.WriteLine(line.ToString());
@@ -802,15 +810,15 @@ namespace BasicLib.Forms.Table{
 			writer.Close();
 		}
 
-		private void RemoveSelectedRowsToolStripMenuItemClick(object sender, EventArgs e) {
+		private void RemoveSelectedRowsToolStripMenuItemClick(object sender, EventArgs e){
 			RemoveSelectedRows();
 		}
 
-		private void ShowAllRowsToolStripMenuItemClick(object sender, EventArgs e) {
+		private void ShowAllRowsToolStripMenuItemClick(object sender, EventArgs e){
 			ShowAllRows();
 		}
 
-		private void RemoveUnselectedRowsToolStripMenuItemClick(object sender, EventArgs e) {
+		private void RemoveUnselectedRowsToolStripMenuItemClick(object sender, EventArgs e){
 			RemoveUnselectedRows();
 		}
 
@@ -849,17 +857,17 @@ namespace BasicLib.Forms.Table{
 			}
 		}
 
-		private static void RenderCellDashStyle(IGraphics g, bool selected, object o, int x1, int y1) {
-			int dashInd = (int)o;
+		private static void RenderCellDashStyle(IGraphics g, bool selected, object o, int x1, int y1){
+			int dashInd = (int) o;
 			Pen p = selected ? Pens.White : Pens.Black;
-			p = (Pen)p.Clone();
+			p = (Pen) p.Clone();
 			p.DashStyle = DashStyles.DashStyleFromIndex(dashInd);
 			p.Width = 2;
 			g.DrawLine(p, x1 + 4, y1 + 11, x1 + 40, y1 + 11);
 		}
 
-		private static void RenderCellColor(IGraphics g, bool selected, object o, int x1, int y1) {
-			Color c = (Color)o;
+		private static void RenderCellColor(IGraphics g, bool selected, object o, int x1, int y1){
+			Color c = (Color) o;
 			Brush b = new SolidBrush(c);
 			Pen p = selected ? Pens.White : Pens.Black;
 			const int w = 14;
@@ -868,8 +876,7 @@ namespace BasicLib.Forms.Table{
 		}
 
 		private void RenderCellString(IGraphics g, bool selected, object o, int width, int x1, int y1){
-			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3,
-				y1 + 4);
+			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3, y1 + 4);
 		}
 
 		private static string GetStringValue(IGraphics g, object o, int width, Font font){
@@ -1017,47 +1024,47 @@ namespace BasicLib.Forms.Table{
 			Clipboard.SetDataObject(str.ToString());
 		}
 
-		protected internal override void OnMouseIsDownMainView(BasicMouseEventArgs e) {
+		protected internal override void OnMouseIsDownMainView(BasicMouseEventArgs e){
 			if (!Enabled){
 				return;
 			}
 			if (e.IsMainButton){
 				try{
-					int row = (VisibleY + e.Y) / rowHeight;
-					if (model == null || row >= model.RowCount || row < 0) {
+					int row = (VisibleY + e.Y)/rowHeight;
+					if (model == null || row >= model.RowCount || row < 0){
 						return;
 					}
 					bool ctrl = (ModifierKeys & Keys.Control) == Keys.Control;
 					bool shift = (ModifierKeys & Keys.Shift) == Keys.Shift;
-					if (!ctrl || !multiSelect) {
+					if (!ctrl || !multiSelect){
 						ClearSelection();
 					}
 					int ox = order[row];
-					if (ox < 0 || ox >= modelRowSel.Length) {
+					if (ox < 0 || ox >= modelRowSel.Length){
 						return;
 					}
 					modelRowSel[ox] = !ctrl || !modelRowSel[ox];
-					if (multiSelect && shift && selectStart != -1) {
+					if (multiSelect && shift && selectStart != -1){
 						SelectRange(selectStart, row);
-					} else {
+					} else{
 						selectStart = row;
 					}
 					Invalidate(true);
-					if (SelectionChanged != null) {
+					if (SelectionChanged != null){
 						SelectionChanged(this, new EventArgs());
 					}
-				}catch(Exception){}
+				} catch (Exception){}
 			}
 		}
 
-		protected internal override void OnMouseDraggedRowHeaderView(BasicMouseEventArgs e) {
+		protected internal override void OnMouseDraggedRowHeaderView(BasicMouseEventArgs e){
 			if (!Enabled){
 				return;
 			}
 			OnMouseDraggedMainView(e);
 		}
 
-		protected internal override void OnMouseDraggedMainView(BasicMouseEventArgs e) {
+		protected internal override void OnMouseDraggedMainView(BasicMouseEventArgs e){
 			if (!Enabled){
 				return;
 			}
@@ -1084,49 +1091,49 @@ namespace BasicLib.Forms.Table{
 			}
 		}
 
-		protected internal override sealed void OnPaintMainView(IGraphics g, int x, int y, int width, int height) {
+		protected internal override sealed void OnPaintMainView(IGraphics g, int x, int y, int width, int height){
 			if (model == null){
 				return;
 			}
-			try {
+			try{
 				CheckSizes();
 				g.FillRectangle(Brushes.White, 0, 0, width, height);
-				int offset = -y % rowHeight;
-				if (columnWidthSums == null || columnWidthSums.Length == 0) {
+				int offset = -y%rowHeight;
+				if (columnWidthSums == null || columnWidthSums.Length == 0){
 					return;
 				}
-				for (int y1 = offset; y1 < height; y1 += rowHeight) {
+				for (int y1 = offset; y1 < height; y1 += rowHeight){
 					int xmax = Math.Min(width, columnWidthSums[columnWidthSums.Length - 1] - x);
 					g.DrawLine(gridPen, 0, y1, xmax, y1);
-					int row = (y + y1) / rowHeight;
-					if (row < 0) {
+					int row = (y + y1)/rowHeight;
+					if (row < 0){
 						continue;
 					}
-					if (model == null || row >= model.RowCount) {
+					if (model == null || row >= model.RowCount){
 						break;
 					}
 					bool sel = ViewRowIsSelected(row);
-					if (sel) {
+					if (sel){
 						g.FillRectangle(selectBgBrush, 0, y1 + 1, xmax, rowHeight - 1);
-					} else if (row % 2 == 1) {
+					} else if (row%2 == 1){
 						g.FillRectangle(oddBgBrush, 0, y1 + 1, xmax, rowHeight - 1);
 					}
 					int startInd = Math.Max(0, ArrayUtils.CeilIndex(columnWidthSums, x) - 1);
 					int endInd = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, x + width) + 1);
-					if (order.Length == 0) {
+					if (order.Length == 0){
 						return;
 					}
-					if (startInd >= 0 && endInd >= 0) {
-						for (int i = startInd; i <= endInd; i++) {
-							if (i >= columnWidthSums.Length) {
+					if (startInd >= 0 && endInd >= 0){
+						for (int i = startInd; i <= endInd; i++){
+							if (i >= columnWidthSums.Length){
 								continue;
 							}
 							int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
 							int w;
-							if (i == 0) {
+							if (i == 0){
 								w = columnWidthSums[0];
-							} else {
-								if (i >= columnWidthSums.Length || i - 1 < 0) {
+							} else{
+								if (i >= columnWidthSums.Length || i - 1 < 0){
 									continue;
 								}
 								w = columnWidthSums[i] - columnWidthSums[i - 1];
@@ -1138,10 +1145,10 @@ namespace BasicLib.Forms.Table{
 				{
 					int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
 					int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
-					if (startInd >= 0 && endInd >= 0) {
-						int ymax = Math.Min(height, rowHeight * model.RowCount - y);
-						for (int i = startInd; i <= endInd; i++) {
-							if (i >= columnWidthSums.Length || i < 0) {
+					if (startInd >= 0 && endInd >= 0){
+						int ymax = Math.Min(height, rowHeight*model.RowCount - y);
+						for (int i = startInd; i <= endInd; i++){
+							if (i >= columnWidthSums.Length || i < 0){
 								continue;
 							}
 							int x1 = columnWidthSums[i] - x;
@@ -1149,20 +1156,20 @@ namespace BasicLib.Forms.Table{
 						}
 					}
 				}
-			} catch (Exception) {
+			} catch (Exception){
 				//This is an exceptional case where we put an unspecific try/catch block around code. Everything is working fine
 				//except for extremely rare index out of bounds crashes, which are probably due to lack of thread safety. This avoilds
 				//crashes of the MaxQuant interface during very long running times.
 			}
 		}
 
-		protected internal override void OnMouseHoverMainView(EventArgs e) {
+		protected internal override void OnMouseHoverMainView(EventArgs e){
 			HandleToolTip(true);
 		}
 
 		private void HandleToolTip(bool hover){
 			if (currentX < 0 || currentY < 0 || currentRow < 0 || currentCol < 0 || model == null || currentRow >= model.RowCount ||
-				currentCol >= model.ColumnCount) {
+				currentCol >= model.ColumnCount){
 				//TODO
 				//mainViewToolTip.Hide(this);
 				return;
@@ -1171,13 +1178,13 @@ namespace BasicLib.Forms.Table{
 				return;
 			}
 			object o = model.GetEntry(order[currentRow], currentCol);
-			if (o == null) {
+			if (o == null){
 				//TODO
 				//mainViewToolTip.Hide(this);
 				return;
 			}
 			string s = o.ToString();
-			if (s.Length > 0 && (hover || currentX != toolTipX || currentY != toolTipY)) {
+			if (s.Length > 0 && (hover || currentX != toolTipX || currentY != toolTipY)){
 				//TODO
 				//mainViewToolTip.Show(s, this, currentX, currentY, 5000);
 				toolTipX = currentX;
@@ -1185,7 +1192,7 @@ namespace BasicLib.Forms.Table{
 			}
 		}
 
-		protected internal override void OnMouseMoveMainView(BasicMouseEventArgs e) {
+		protected internal override void OnMouseMoveMainView(BasicMouseEventArgs e){
 			currentX = e.X;
 			currentY = e.Y;
 			HandleToolTip(false);
@@ -1193,114 +1200,114 @@ namespace BasicLib.Forms.Table{
 		}
 
 		protected internal override void OnMouseDoubleClickMainView(BasicMouseEventArgs e){
-			if (e.IsMainButton) {
-				int row = (VisibleY + e.Y) / rowHeight;
-				if (model == null || row >= model.RowCount || row < 0) {
+			if (e.IsMainButton){
+				int row = (VisibleY + e.Y)/rowHeight;
+				if (model == null || row >= model.RowCount || row < 0){
 					return;
 				}
 			}
 			//TODO: edit
 		}
 
-		public void CalcCurrentRowAndColumn(BasicMouseEventArgs e) {
+		public void CalcCurrentRowAndColumn(BasicMouseEventArgs e){
 			int x1 = VisibleX + e.X;
 			int y1 = VisibleY + e.Y;
-			try {
+			try{
 				int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
-				if (model != null) {
-					if (indf >= 0) {
+				if (model != null){
+					if (indf >= 0){
 						currentCol = indf;
-					} else {
+					} else{
 						currentCol = -1;
 					}
 				}
-			} catch (Exception) { }
-			currentRow = (y1) / rowHeight;
+			} catch (Exception){}
+			currentRow = (y1)/rowHeight;
 		}
 
-		protected internal override void OnMouseIsDownRowHeaderView(BasicMouseEventArgs e) {
-			if (!Enabled) {
+		protected internal override void OnMouseIsDownRowHeaderView(BasicMouseEventArgs e){
+			if (!Enabled){
 				return;
 			}
 			OnMouseIsDownMainView(e);
 		}
 
-		protected internal override void OnMouseMoveColumnHeaderView(BasicMouseEventArgs e) {
-			if (!Enabled) {
+		protected internal override void OnMouseMoveColumnHeaderView(BasicMouseEventArgs e){
+			if (!Enabled){
 				return;
 			}
 			int x1 = VisibleX + e.X;
-			if (columnWidthSums == null) {
+			if (columnWidthSums == null){
 				return;
 			}
 			int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
-			if (ind >= 0) {
-				if (Math.Abs(columnWidthSums[ind] - x1) < 5) {
+			if (ind >= 0){
+				if (Math.Abs(columnWidthSums[ind] - x1) < 5){
 					Cursor.Current = Cursors.VSplit;
 					resizeCol = ind;
-				} else {
+				} else{
 					Cursor.Current = Cursors.Default;
 					resizeCol = -1;
 				}
 			}
 			int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			try {
-				if (model != null) {
+			try{
+				if (model != null){
 					if (indf >= 0 && !string.IsNullOrEmpty(model.GetColumnDescription(indf)) &&
-						Math.Abs((indf == 0 ? 0 : columnWidthSums[indf - 1]) + 9 - x1) < 4 && e.Y > 7 && e.Y < 17) {
-						if (helpCol != indf) {
+						Math.Abs((indf == 0 ? 0 : columnWidthSums[indf - 1]) + 9 - x1) < 4 && e.Y > 7 && e.Y < 17){
+						if (helpCol != indf){
 							helpCol = indf;
 							InvalidateColumnHeaderView();
 						}
-					} else {
-						if (helpCol != -1) {
+					} else{
+						if (helpCol != -1){
 							helpCol = -1;
 							InvalidateColumnHeaderView();
 						}
 					}
 				}
-			} catch (Exception) { }
+			} catch (Exception){}
 		}
 
-		protected internal override void OnMouseMoveCornerView(BasicMouseEventArgs e) {
-			if (model == null) {
+		protected internal override void OnMouseMoveCornerView(BasicMouseEventArgs e){
+			if (model == null){
 				return;
 			}
 			int x1 = e.X;
-			if (!string.IsNullOrEmpty(model.Description) && Math.Abs(9 - x1) < 4 && e.Y > 7 && e.Y < 17) {
-				if (!matrixHelp) {
+			if (!string.IsNullOrEmpty(model.Description) && Math.Abs(9 - x1) < 4 && e.Y > 7 && e.Y < 17){
+				if (!matrixHelp){
 					matrixHelp = true;
 					InvalidateCornerView();
-				} else {
+				} else{
 					matrixHelp = false;
 					InvalidateCornerView();
 				}
 			}
 		}
 
-		protected internal override void OnMouseIsUpColumnHeaderView(BasicMouseEventArgs e) {
+		protected internal override void OnMouseIsUpColumnHeaderView(BasicMouseEventArgs e){
 			//TODO
 			//columnViewToolTip.Hide(this);
 		}
 
-		protected internal override void OnMouseIsUpCornerView(BasicMouseEventArgs e) {
+		protected internal override void OnMouseIsUpCornerView(BasicMouseEventArgs e){
 			//TODO
 			//columnViewToolTip.Hide(this);
 		}
 
-		protected internal override void OnMouseIsDownColumnHeaderView(BasicMouseEventArgs e) {
-			if (!Enabled) {
+		protected internal override void OnMouseIsDownColumnHeaderView(BasicMouseEventArgs e){
+			if (!Enabled){
 				return;
 			}
-			if (columnWidthSums == null) {
+			if (columnWidthSums == null){
 				return;
 			}
-			if (resizeCol != -1) {
+			if (resizeCol != -1){
 				colDragX = e.X;
-				columnWidthSumsOld = (int[])columnWidthSums.Clone();
+				columnWidthSumsOld = (int[]) columnWidthSums.Clone();
 				return;
 			}
-			if (helpCol >= 0) {
+			if (helpCol >= 0){
 				//TODO
 				//columnViewToolTip.ToolTipTitle = model.GetColumnName(helpCol);
 				//StringBuilder text = new StringBuilder();
@@ -1317,10 +1324,10 @@ namespace BasicLib.Forms.Table{
 				InvalidateColumnHeaderView();
 				return;
 			}
-			if (Sortable) {
+			if (Sortable){
 				int ind = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, VisibleX + e.X) + 1);
-				if (sortCol == ind) {
-					switch (sortState) {
+				if (sortCol == ind){
+					switch (sortState){
 						case SortState.Unsorted:
 							Sort();
 							break;
@@ -1331,7 +1338,7 @@ namespace BasicLib.Forms.Table{
 							Unsort();
 							break;
 					}
-				} else {
+				} else{
 					sortCol = ind;
 					Sort();
 				}
@@ -1339,11 +1346,11 @@ namespace BasicLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		protected internal override void OnMouseIsDownCornerView(BasicMouseEventArgs e) {
-			if (!Enabled) {
+		protected internal override void OnMouseIsDownCornerView(BasicMouseEventArgs e){
+			if (!Enabled){
 				return;
 			}
-			if (matrixHelp) {
+			if (matrixHelp){
 				//TODO
 				//columnViewToolTip.ToolTipTitle = model.Name;
 				//StringBuilder text = new StringBuilder();
@@ -1363,22 +1370,22 @@ namespace BasicLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		protected internal override void OnMouseDraggedColumnHeaderView(BasicMouseEventArgs e) {
-			if (!Enabled) {
+		protected internal override void OnMouseDraggedColumnHeaderView(BasicMouseEventArgs e){
+			if (!Enabled){
 				return;
 			}
-			if (resizeCol != -1) {
+			if (resizeCol != -1){
 				int mind = resizeCol == 0
 					? 6 - columnWidthSumsOld[0] : columnWidthSumsOld[resizeCol - 1] - columnWidthSumsOld[resizeCol] + 6;
 				deltaDragX = Math.Max(mind, e.X - colDragX);
-				for (int i = resizeCol; i < columnWidthSums.Length; i++) {
+				for (int i = resizeCol; i < columnWidthSums.Length; i++){
 					columnWidthSums[i] = columnWidthSumsOld[i] + deltaDragX;
 				}
 				Invalidate(true);
 			}
 		}
 
-		protected override void Dispose(bool disposing) {
+		protected override void Dispose(bool disposing){
 			base.Dispose(disposing);
 			if (findForm != null){
 				findForm.Close();
@@ -1390,33 +1397,45 @@ namespace BasicLib.Forms.Table{
 			}
 		}
 
-		protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
-			switch (keyData) {
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
+			switch (keyData){
+				case Keys.Shift | Keys.Home:
+				case Keys.Home:{
+					VisibleX = 0;
+					Invalidate(true);
+				}
+					break;
+				case Keys.Shift | Keys.End:
+				case Keys.End:{
+					ScrollToEnd();
+					Invalidate(true);
+				}
+					break;
 				case Keys.Shift | Keys.Down:
-				case Keys.Down: {
-						int[] selection = GetSelectedRowsView();
-						if (selection != null && selection.Length != 0 && selection[selection.Length - 1] < RowCount - 1) {
-							if (keyData == Keys.Down) {
-								modelRowSel[order[selection[selection.Length - 1]]] = false;
-							}
-							SetSetectedViewIndex(selection[selection.Length - 1] + 1);
-							MoveDown(rowHeight);
-							Invalidate(true);
+				case Keys.Down:{
+					int[] selection = GetSelectedRowsView();
+					if (selection != null && selection.Length != 0 && selection[selection.Length - 1] < RowCount - 1){
+						if (keyData == Keys.Down){
+							modelRowSel[order[selection[selection.Length - 1]]] = false;
 						}
+						SetSetectedViewIndex(selection[selection.Length - 1] + 1);
+						MoveDown(rowHeight);
+						Invalidate(true);
 					}
+				}
 					break;
 				case Keys.Shift | Keys.Up:
-				case Keys.Up: {
-						int[] selection = GetSelectedRowsView();
-						if (selection != null && selection.Length != 0 && selection[0] > 0) {
-							if (keyData == Keys.Up) {
-								modelRowSel[order[selection[0]]] = false;
-							}
-							SetSetectedViewIndex(selection[0] - 1);
-							MoveUp(rowHeight);
-							Invalidate(true);
+				case Keys.Up:{
+					int[] selection = GetSelectedRowsView();
+					if (selection != null && selection.Length != 0 && selection[0] > 0){
+						if (keyData == Keys.Up){
+							modelRowSel[order[selection[0]]] = false;
 						}
+						SetSetectedViewIndex(selection[0] - 1);
+						MoveUp(rowHeight);
+						Invalidate(true);
 					}
+				}
 					break;
 				case Keys.Control | Keys.A:
 					SelectAll();
