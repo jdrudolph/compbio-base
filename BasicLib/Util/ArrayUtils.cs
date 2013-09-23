@@ -237,6 +237,26 @@ namespace BasicLib.Util{
 			return sum/n;
 		}
 
+		public static double Mean(float[,] x){
+			int n0 = x.GetLength(0);
+			int n1 = x.GetLength(1);
+			double sum = 0;
+			long n = 0;
+			for (int i = 0; i < n0; i++){
+				for (int j = 0; j < n1; j++){
+					float v = x[i, j];
+					if (!float.IsNaN(v) && !float.IsInfinity(v)){
+						sum += v;
+						n++;
+					}
+				}
+			}
+			if (n == 0){
+				return double.NaN;
+			}
+			return sum/n;
+		}
+
 		public static double Mean(IList<double> x){
 			int n = x.Count;
 			if (n == 0){
@@ -343,13 +363,7 @@ namespace BasicLib.Util{
 		public static int[] Complement(IList<int> present, int length){
 			HashSet<int> dummy = new HashSet<int>();
 			dummy.UnionWith(present);
-			List<int> result = new List<int>();
-			for (int i = 0; i < length; i++){
-				if (!dummy.Contains(i)){
-					result.Add(i);
-				}
-			}
-			return result.ToArray();
+			return Complement(dummy, length);
 		}
 
 		public static int[] Complement(HashSet<int> present, int length){
@@ -574,15 +588,19 @@ namespace BasicLib.Util{
 		}
 
 		public static double StandardDeviation(IList<double> x){
-			return x.Count < 2 ? double.NaN : Math.Sqrt(Variance(x));
+			return Math.Sqrt(Variance(x));
 		}
 
-		public static double StandardDeviation(IList<float> x){
-			return x.Count < 2 ? double.NaN : Math.Sqrt(Variance(x));
+		public static double StandardDeviation(IList<float> x) {
+			return Math.Sqrt(Variance(x));
 		}
 
-		public static double StandardDeviation(IList<int> x){
-			return x.Count < 2 ? double.NaN : Math.Sqrt(Variance(x));
+		public static double StandardDeviation(float[,] x) {
+			return Math.Sqrt(Variance(x));
+		}
+
+		public static double StandardDeviation(IList<int> x) {
+			return Math.Sqrt(Variance(x));
 		}
 
 		public static double Variance(IList<double> x){
@@ -600,23 +618,45 @@ namespace BasicLib.Util{
 			return var;
 		}
 
-		public static double Variance(IList<float> x){
+		public static double Variance(IList<float> x) {
 			if (x.Count < 2) {
 				return double.NaN;
 			}
 			int n = x.Count;
 			double mean = Mean(x);
 			double var = 0;
-			for (int i = 0; i < n; i++){
+			for (int i = 0; i < n; i++) {
 				double w = x[i] - mean;
-				var += w*w;
+				var += w * w;
 			}
 			var /= (n - 1);
 			return var;
 		}
 
-		public static double Variance(IList<int> x){
-			if (x.Count < 2) {
+		public static double Variance(float[,] x) {
+			int n0 = x.GetLength(0);
+			int n1 = x.GetLength(1);
+			double mean = Mean(x);
+			double var = 0;
+			long n = 0;
+			for (int i = 0; i < n0; i++){
+				for (int j = 0; j < n1; j++){
+					double w = x[i,j] - mean;
+					if (!double.IsNaN(w) && !double.IsInfinity(w)){
+						var += w*w;
+						n++;
+					}
+				}
+			}
+			if (n < 2) {
+				return double.NaN;
+			}
+			var /= (n - 1);
+			return var;
+		}
+
+		public static double Variance(IList<int> x) {
+			if (x.Count < 2){
 				return double.NaN;
 			}
 			int n = x.Count;

@@ -328,11 +328,7 @@ namespace BasicLib.Forms.Scatter{
 			scatterPlotPlane.Invalidate();
 		}
 
-		internal void SetMouseModes(AxisMouseMode axisMouseMode, ScatterPlotMouseMode zoomablePlaneMouseMode){
-			topAxis.MouseMode = axisMouseMode;
-			rightAxis.MouseMode = axisMouseMode;
-			bottomAxis.MouseMode = axisMouseMode;
-			leftAxis.MouseMode = axisMouseMode;
+		internal void SetMouseModes(ScatterPlotMouseMode zoomablePlaneMouseMode){
 			scatterPlotPlane.MouseMode = zoomablePlaneMouseMode;
 		}
 
@@ -596,7 +592,7 @@ namespace BasicLib.Forms.Scatter{
 			modeDropDownButton.Image = ((Image) (resources.GetObject("zoomToolStripMenuItem.Image")));
 			DeselectMode();
 			zoomToolStripMenuItem.Checked = true;
-			SetMouseModes(AxisMouseMode.Zoom, ScatterPlotMouseMode.Zoom);
+			SetMouseModes(ScatterPlotMouseMode.Zoom);
 		}
 
 		private void SelectToolStripMenuItemClick(object sender, EventArgs e){
@@ -604,7 +600,7 @@ namespace BasicLib.Forms.Scatter{
 			modeDropDownButton.Image = ((Image) (resources.GetObject("selectToolStripMenuItem.Image")));
 			DeselectMode();
 			selectToolStripMenuItem.Checked = true;
-			SetMouseModes(AxisMouseMode.Zoom, ScatterPlotMouseMode.Select);
+			SetMouseModes(ScatterPlotMouseMode.Select);
 		}
 
 		private void SaveAsButtonClick(object sender, EventArgs e){

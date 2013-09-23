@@ -1,6 +1,8 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace BasicLib.Forms.Axis{
+	[Obsolete]
 	public class AxisFont{
 		private float size;
 		private string familyname;
