@@ -380,10 +380,10 @@ namespace BasicLib.Util{
 			if (first == null && second == null){
 				return null;
 			}
-			if (first == null){
+			if (first == null || first.Count == 0){
 				return second.ToArray();
 			}
-			if (second == null){
+			if (second == null || second.Count == 0){
 				return first.ToArray();
 			}
 			T[] result = new T[first.Count + second.Count];
@@ -591,15 +591,15 @@ namespace BasicLib.Util{
 			return Math.Sqrt(Variance(x));
 		}
 
-		public static double StandardDeviation(IList<float> x) {
+		public static double StandardDeviation(IList<float> x){
 			return Math.Sqrt(Variance(x));
 		}
 
-		public static double StandardDeviation(float[,] x) {
+		public static double StandardDeviation(float[,] x){
 			return Math.Sqrt(Variance(x));
 		}
 
-		public static double StandardDeviation(IList<int> x) {
+		public static double StandardDeviation(IList<int> x){
 			return Math.Sqrt(Variance(x));
 		}
 
@@ -618,22 +618,22 @@ namespace BasicLib.Util{
 			return var;
 		}
 
-		public static double Variance(IList<float> x) {
-			if (x.Count < 2) {
+		public static double Variance(IList<float> x){
+			if (x.Count < 2){
 				return double.NaN;
 			}
 			int n = x.Count;
 			double mean = Mean(x);
 			double var = 0;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				double w = x[i] - mean;
-				var += w * w;
+				var += w*w;
 			}
 			var /= (n - 1);
 			return var;
 		}
 
-		public static double Variance(float[,] x) {
+		public static double Variance(float[,] x){
 			int n0 = x.GetLength(0);
 			int n1 = x.GetLength(1);
 			double mean = Mean(x);
@@ -641,21 +641,21 @@ namespace BasicLib.Util{
 			long n = 0;
 			for (int i = 0; i < n0; i++){
 				for (int j = 0; j < n1; j++){
-					double w = x[i,j] - mean;
+					double w = x[i, j] - mean;
 					if (!double.IsNaN(w) && !double.IsInfinity(w)){
 						var += w*w;
 						n++;
 					}
 				}
 			}
-			if (n < 2) {
+			if (n < 2){
 				return double.NaN;
 			}
 			var /= (n - 1);
 			return var;
 		}
 
-		public static double Variance(IList<int> x) {
+		public static double Variance(IList<int> x){
 			if (x.Count < 2){
 				return double.NaN;
 			}

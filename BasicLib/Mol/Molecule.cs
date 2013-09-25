@@ -380,12 +380,20 @@ namespace BasicLib.Mol{
 		}
 
 		public static Molecule Sum(Molecule molecule1, Molecule molecule2){
-			return Sum(new[]{molecule1, molecule2}, new[]{1, 1});
+			return Sum(new[]{molecule1, molecule2});
 		}
 
-		public static Molecule Sum(Molecule[] molecules, int[] n){
+		public static Molecule Sum(IList<Molecule> molecules){
+			int[] n = new int[molecules.Count];
+			for (int i = 0; i < n.Length; i++){
+				n[i] = 1;
+			}
+			return Sum(molecules, n);
+		}
+
+		public static Molecule Sum(IList<Molecule> molecules, IList<int> n){
 			int[] counts = new int[ChemElement.Elements.Length];
-			for (int i = 0; i < molecules.Length; i++){
+			for (int i = 0; i < molecules.Count; i++){
 				Molecule mol = molecules[i];
 				for (int j = 0; j < mol.AtomType.Length; j++){
 					counts[mol.AtomType[j]] += n[i]*mol.AtomCount[j];

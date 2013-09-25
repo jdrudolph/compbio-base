@@ -24,6 +24,7 @@ namespace BasicLib.Mol{
 		private static Dictionary<char, double> aaOccurences;
 		private static Dictionary<char, double> aaWeights;
 		private static Dictionary<string, char> codonToAa;
+		private static Dictionary<char, AminoAcid> letterToAa;
 		private static string singleLetterAas;
 		private readonly string abbreviation;
 		private readonly string[] codons;
@@ -39,6 +40,15 @@ namespace BasicLib.Mol{
 		public static Dictionary<string, char> CodonToAa { get { return codonToAa ?? (codonToAa = InitCodonToAa()); } }
 		public static string SingleLetterAas { get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(false)); } }
 		public static string StandardSingleLetterAas { get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(true)); } }
+		public static Dictionary<char, AminoAcid> LetterToAa { get { return letterToAa ?? (letterToAa = InitLetter2Aa()); } }
+
+		private static Dictionary<char, AminoAcid> InitLetter2Aa(){
+			Dictionary<char,AminoAcid> result = new Dictionary<char, AminoAcid>();
+			foreach (AminoAcid aminoAcid in AminoAcids){
+				result.Add(aminoAcid.Letter, aminoAcid);
+			}
+			return result;
+		}
 
 		private static AminoAcid[] InitAminoAcids(){
 			AminoAcid alanine = new AminoAcid("C3H5NO", "Alanine", "Ala", 'A', 7.4, new[]{"GCT", "GCC", "GCA", "GCG"},
@@ -87,6 +97,18 @@ namespace BasicLib.Mol{
 				leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine, selenocysteine
 			};
 			return aas;
+		}
+
+		public Molecule GetPeptideMolecule(string aaseq){
+			List<Molecule> m = new List<Molecule>();
+			foreach (char c in aaseq){
+				if (!LetterToAa.ContainsKey(c)) {
+					return null;
+				}
+				m.Add(LetterToAa[c]);
+			}
+			m.Add(new Molecule("H20"));
+			return Sum(m);
 		}
 
 		public static Image GetImage(AminoAcid aa){
