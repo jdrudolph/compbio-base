@@ -21,14 +21,14 @@ namespace BasicLib.Forms.Base{
 			Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular);
 		}
 
-		public virtual void Activate(BasicControl control){
+		public void Activate(BasicControl control){
 			invalidate = control.Invalidate;
 			resetCursor = control.ResetCursor;
 			setCursor = c => control.Cursor = c;
 			control.view = this;
 		}
 
-		public virtual void Activate(BasicView view){
+		public void Activate(BasicView view){
 			invalidate = view.Invalidate;
 			resetCursor = view.ResetCursor;
 			setCursor = c => view.Cursor = c;

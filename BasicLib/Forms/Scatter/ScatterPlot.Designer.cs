@@ -113,8 +113,6 @@ namespace BasicLib.Forms.Scatter{
 			this.scatterPlotViewer.FillColor = System.Drawing.Color.White;
 			this.scatterPlotViewer.FullAxesVisible = false;
 			this.scatterPlotViewer.HasSelectButton = true;
-			this.scatterPlotViewer.LabelFontBold = false;
-			this.scatterPlotViewer.LabelFontSize = 10F;
 			this.scatterPlotViewer.LineColor = System.Drawing.Color.Black;
 			this.scatterPlotViewer.LineWidth = 0.5F;
 			this.scatterPlotViewer.Location = new System.Drawing.Point(0, 25);
@@ -124,8 +122,6 @@ namespace BasicLib.Forms.Scatter{
 			this.scatterPlotViewer.MinorTickLength = 3;
 			this.scatterPlotViewer.MinorTickLineWidth = 1F;
 			this.scatterPlotViewer.Name = "scatterPlotViewer";
-			this.scatterPlotViewer.NumbersFontBold = false;
-			this.scatterPlotViewer.NumbersFontSize = 8F;
 			this.scatterPlotViewer.Size = new System.Drawing.Size(554, 346);
 			this.scatterPlotViewer.TabIndex = 1;
 			this.scatterPlotViewer.XIsLogarithmic = false;

@@ -13,8 +13,8 @@ namespace BasicLib.Forms.Axis{
 	public class NumericAxisView : BasicView{
 		public event ZoomChangeHandler OnZoomChange;
 		private const int spacePerNumber = 110;
-		public readonly AxisFont numbersFont = new AxisFont("Arial", 8, false);
-		public readonly AxisFont labelFont = new AxisFont("Arial Unicode MS", 9, false);
+		public Font numbersFont = new Font("Arial", 8, FontStyle.Regular);
+		public Font labelFont = new Font("Arial Unicode MS", 9, FontStyle.Regular);
 		private double dragStart = double.NaN;
 		private double zeroPoint = double.NaN;
 		private float indicator1 = -1;
@@ -251,7 +251,7 @@ namespace BasicLib.Forms.Axis{
 				}
 				max = Math.Max(Math.Abs(ArrayUtils.Max(tics[0])), Math.Abs(ArrayUtils.Min(tics[0])));
 			}
-			Font font = labelFont.Font;
+			Font font = labelFont;
 			while (g.MeasureString(label, font).Width > Math.Max(width, height)*0.95f && font.Size > 5f){
 				font = new Font(font.FontFamily, font.Size - 0.5f, font.Style, font.Unit);
 			}
@@ -265,12 +265,12 @@ namespace BasicLib.Forms.Axis{
 							x0 = ModelToView(tics[0][i], width, height);
 							g.DrawLine(majorTicPen, xm + x0, ym + y0, xm + x0, ym + y0 - MajorTickLength);
 							string s = GetTicLabel(tics[0][i], decade, max);
-							int w = (int) g.MeasureString(s, numbersFont.Font).Width;
+							int w = (int) g.MeasureString(s, numbersFont).Width;
 							int pos = (int) (x0 - w/2.0);
 							pos = Math.Max(-2, pos);
 							pos = Math.Min(width - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
-								g.DrawString(s, numbersFont.Font, brush, xm + pos + 1, ym + y0 - MajorTickLength - numbersFont.Height);
+								g.DrawString(s, numbersFont, brush, xm + pos + 1, ym + y0 - MajorTickLength - numbersFont.Height);
 								previousstringEnd = pos + Sign*w;
 							}
 						}
@@ -291,13 +291,13 @@ namespace BasicLib.Forms.Axis{
 							y0 = ModelToView(tics[0][i], width, height);
 							g.DrawLine(majorTicPen, xm + x0, ym + y0, xm + x0 - MajorTickLength, ym + y0);
 							string s = GetTicLabel(tics[0][i], decade, max);
-							int w = (int) g.MeasureString(s, numbersFont.Font).Width;
+							int w = (int) g.MeasureString(s, numbersFont).Width;
 							int pos = (int) (y0 + w/2.0) + 1;
 							pos = Math.Max(w - 2, pos);
 							pos = Math.Min(height + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
 								g.RotateTransform(-90);
-								g.DrawString(s, numbersFont.Font, brush, -pos - ym, xm + x0 - MajorTickLength - numbersFont.Height);
+								g.DrawString(s, numbersFont, brush, -pos - ym, xm + x0 - MajorTickLength - numbersFont.Height);
 								g.RotateTransform(90);
 								previousstringEnd = pos + Sign*w;
 							}
@@ -325,12 +325,12 @@ namespace BasicLib.Forms.Axis{
 							x0 = ModelToView(tics[0][i], width, height);
 							g.DrawLine(majorTicPen, xm + x0, ym + y0, xm + x0, ym + y0 + MajorTickLength);
 							string s = GetTicLabel(tics[0][i], decade, max);
-							int w = (int) g.MeasureString(s, numbersFont.Font).Width;
+							int w = (int) g.MeasureString(s, numbersFont).Width;
 							int pos = (int) (x0 - w/2.0);
 							pos = Math.Max(-2, pos);
 							pos = Math.Min(width - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
-								g.DrawString(s, numbersFont.Font, brush, xm + pos + 1, ym + y0 + 1 + MajorTickLength - 1);
+								g.DrawString(s, numbersFont, brush, xm + pos + 1, ym + y0 + 1 + MajorTickLength - 1);
 								previousstringEnd = pos + Sign*w;
 							}
 						}
@@ -351,13 +351,13 @@ namespace BasicLib.Forms.Axis{
 							y0 = ModelToView(tics[0][i], width, height);
 							g.DrawLine(majorTicPen, xm + x0, ym + y0, xm + x0 + MajorTickLength, ym + y0);
 							string s = GetTicLabel(tics[0][i], decade, max);
-							int w = (int) g.MeasureString(s, numbersFont.Font).Width;
+							int w = (int) g.MeasureString(s, numbersFont).Width;
 							int pos = (int) (y0 - w/2.0);
 							pos = Math.Max(-2, pos);
 							pos = Math.Min(height - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
 								g.RotateTransform(90);
-								g.DrawString(s, numbersFont.Font, brush, ym + pos + 1, -xm - MajorTickLength - numbersFont.Height*0.99f);
+								g.DrawString(s, numbersFont, brush, ym + pos + 1, -xm - MajorTickLength - numbersFont.Height*0.99f);
 								g.RotateTransform(-90);
 								previousstringEnd = pos + Sign*w;
 							}

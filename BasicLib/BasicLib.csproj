@@ -81,7 +81,6 @@
     <Compile Include="Data\EquatableArray.cs" />
     <Compile Include="Data\IndexedBitMatrix.cs" />
     <Compile Include="Data\ThreadSafeHashSet.cs" />
-    <Compile Include="Forms\Axis\AxisFont.cs" />
     <Compile Include="Forms\Axis\AxisMouseMode.cs" />
     <Compile Include="Forms\Axis\AxisPositioning.cs" />
     <Compile Include="Forms\Axis\AxisZoomType.cs" />

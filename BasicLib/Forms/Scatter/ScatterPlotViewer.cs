@@ -95,40 +95,22 @@ namespace BasicLib.Forms.Scatter{
 			rightAxis.ForeColor = Color.Black;
 		}
 
-		public float NumbersFontSize{
-			get { return bottomAxis.numbersFont.Size; }
+		public Font NumbersFont{
+			get { return bottomAxis.numbersFont; }
 			set{
-				topAxis.numbersFont.Size = value;
-				bottomAxis.numbersFont.Size = value;
-				leftAxis.numbersFont.Size = value;
-				rightAxis.numbersFont.Size = value;
+				topAxis.numbersFont = value;
+				bottomAxis.numbersFont = value;
+				leftAxis.numbersFont = value;
+				rightAxis.numbersFont = value;
 			}
 		}
-		public float LabelFontSize{
-			get { return bottomAxis.labelFont.Size; }
+		public Font LabelFont{
+			get { return bottomAxis.labelFont; }
 			set{
-				topAxis.labelFont.Size = value;
-				bottomAxis.labelFont.Size = value;
-				leftAxis.labelFont.Size = value;
-				rightAxis.labelFont.Size = value;
-			}
-		}
-		public bool NumbersFontBold{
-			get { return bottomAxis.numbersFont.Bold; }
-			set{
-				topAxis.numbersFont.Bold = value;
-				bottomAxis.numbersFont.Bold = value;
-				leftAxis.numbersFont.Bold = value;
-				rightAxis.numbersFont.Bold = value;
-			}
-		}
-		public bool LabelFontBold{
-			get { return bottomAxis.labelFont.Bold; }
-			set{
-				topAxis.labelFont.Bold = value;
-				bottomAxis.labelFont.Bold = value;
-				leftAxis.labelFont.Bold = value;
-				rightAxis.labelFont.Bold = value;
+				topAxis.labelFont = value;
+				bottomAxis.labelFont = value;
+				leftAxis.labelFont = value;
+				rightAxis.labelFont = value;
 			}
 		}
 		public Color LineColor{
@@ -419,7 +401,8 @@ namespace BasicLib.Forms.Scatter{
 			scatterPlotPlane.Invalidate();
 		}
 
-		private void UpdateZoomFromMap(Object source, int imin, int imax, int jmin, int jmax, bool relative, int width, int height){
+		private void UpdateZoomFromMap(Object source, int imin, int imax, int jmin, int jmax, bool relative, int width,
+			int height){
 			if (relative){
 				if (leftAxis.Zoomable){
 					leftAxis.SetZoomFromView(jmin, jmax, height);
@@ -521,13 +504,13 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		private void ConfigureButtonClick(object sender, EventArgs e){
-			PlanePropertiesForm f = new PlanePropertiesForm(scatterPlotPlane.HorizontalGridColor, scatterPlotPlane.VerticalGridColor,
-				scatterPlotPlane.HorizontalGrid, scatterPlotPlane.VerticalGrid, scatterPlotPlane.HorizontalGridWidth,
-				scatterPlotPlane.VerticalGridWidth, FillColor, scatterPlotPlane.BackColor, LineColor, MajorTickLength, MajorTickLineWidth,
-				MinorTickLength, MinorTickLineWidth, topAxis.Visible, rightAxis.Visible, LineWidth, (int) NumbersFontSize,
-				NumbersFontBold, (int) LabelFontSize, LabelFontBold, scatterPlotPlane.HorizontalZeroColor,
-				scatterPlotPlane.VerticalZeroColor, scatterPlotPlane.HorizontalZeroWidth, scatterPlotPlane.VerticalZeroWidth,
-				scatterPlotPlane.HorizontalZeroVisible, scatterPlotPlane.VerticalZeroVisible);
+			PlanePropertiesForm f = new PlanePropertiesForm(scatterPlotPlane.HorizontalGridColor,
+				scatterPlotPlane.VerticalGridColor, scatterPlotPlane.HorizontalGrid, scatterPlotPlane.VerticalGrid,
+				scatterPlotPlane.HorizontalGridWidth, scatterPlotPlane.VerticalGridWidth, FillColor, scatterPlotPlane.BackColor,
+				LineColor, MajorTickLength, MajorTickLineWidth, MinorTickLength, MinorTickLineWidth, topAxis.Visible,
+				rightAxis.Visible, LineWidth, (int) NumbersFont.Size, NumbersFont.Bold, (int) LabelFont.Size, LabelFont.Bold,
+				scatterPlotPlane.HorizontalZeroColor, scatterPlotPlane.VerticalZeroColor, scatterPlotPlane.HorizontalZeroWidth,
+				scatterPlotPlane.VerticalZeroWidth, scatterPlotPlane.HorizontalZeroVisible, scatterPlotPlane.VerticalZeroVisible);
 			if (Icon != null){
 				f.Icon = Icon;
 			}
@@ -555,10 +538,8 @@ namespace BasicLib.Forms.Scatter{
 				MinorTickLength = f.MinorTickLength;
 				MinorTickLineWidth = f.MinorTickLineWidth;
 				LineWidth = f.LineWidth;
-				NumbersFontSize = f.NumbersFontSize;
-				NumbersFontBold = f.NumbersFontBold;
-				LabelFontSize = f.TitleFontSize;
-				LabelFontBold = f.TitleFontBold;
+				NumbersFont = new Font("Arial", f.NumbersFontSize, f.NumbersFontBold ? FontStyle.Bold : FontStyle.Regular);
+				LabelFont = new Font("Arial Unicode MS", f.TitleFontSize, f.TitleFontBold ? FontStyle.Bold : FontStyle.Regular);
 				scatterPlotPlane.InvalidateImage();
 				Invalidate(true);
 			}
