@@ -309,7 +309,7 @@
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Symbol\DashStyles.cs" />
     <Compile Include="Util\GenericWorkDispatcher.cs" />
-    <Compile Include="Util\HelpType.cs" />
+    <Compile Include="Util\DocumentType.cs" />
     <Compile Include="Util\Logger.cs" />
     <Compile Include="Util\LogLevel.cs" />
     <Compile Include="Num\Combination.cs" />

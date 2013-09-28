@@ -1,5 +1,5 @@
 ﻿namespace BasicLib.Util {
-	public enum HelpType {
+	public enum DocumentType {
 		PlainText,
 		Html,
 		Rtf
