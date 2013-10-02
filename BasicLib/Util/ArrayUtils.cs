@@ -1402,9 +1402,7 @@ namespace BasicLib.Util{
 			return 0f;
 		}
 
-		public delegate T Map<out T>(int i);
-
-		public static T[] FillArray<T>(Map<T> map, int len){
+		public static T[] FillArray<T>(Func<int, T> map, int len){
 			T[] array = new T[len];
 			for (int i = 0; i < len; i++){
 				array[i] = map(i);
