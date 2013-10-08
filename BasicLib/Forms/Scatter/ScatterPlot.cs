@@ -141,16 +141,16 @@ namespace BasicLib.Forms.Scatter{
 			ymin -= 0.05*dy;
 			ymax += 0.05*dy;
 			scatterPlotDat.Reset();
-			if (!Double.IsNaN(scatterPlotDat.XMin)){
+			if (!double.IsNaN(scatterPlotDat.XMin)){
 				xmin = scatterPlotDat.XMin;
 			}
-			if (!Double.IsNaN(scatterPlotDat.XMax)){
+			if (!double.IsNaN(scatterPlotDat.XMax)){
 				xmax = scatterPlotDat.XMax;
 			}
-			if (!Double.IsNaN(scatterPlotDat.YMin)){
+			if (!double.IsNaN(scatterPlotDat.YMin)){
 				ymin = scatterPlotDat.YMin;
 			}
-			if (!Double.IsNaN(scatterPlotDat.YMax)){
+			if (!double.IsNaN(scatterPlotDat.YMax)){
 				ymax = scatterPlotDat.YMax;
 			}
 			SetRange(xmin, xmax, ymin, ymax);

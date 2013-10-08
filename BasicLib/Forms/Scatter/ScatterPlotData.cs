@@ -59,7 +59,29 @@ namespace BasicLib.Forms.Scatter{
 			}
 		}
 
-		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle){
+		public void AddPoint(double x, double y) {
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+		}
+
+		public void AddPoint(double x, double y, double z) {
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+			ColorValues.AddValue(z);
+		}
+
+		public void AddPoint(double[] x, double[] y) {
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+		}
+
+		public void AddPoint(double[] x, double[] y, double[] z) {
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+			ColorValues.AddValue(z);
+		}
+
+		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle) {
 			if (toggle){
 				HashSet<int> sel = add ? new HashSet<int>(selection) : new HashSet<int>();
 				for (int i = 0; i < XValues.Length; i++){

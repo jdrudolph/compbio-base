@@ -21,6 +21,14 @@ namespace BasicLib.Forms.Scatter{
 			IsMulti = true;
 		}
 
+		public void AddValue(double v) {
+			SingleValues.Add(v);
+		}
+
+		public void AddValue(double[] v) {
+			MultiValues.Add(v);
+		}
+
 		public int Length { get { return IsMulti ? MultiValues.Count : SingleValues.Count; } }
 
 		public ScatterPlotValues Rank(){
