@@ -16,10 +16,6 @@ namespace BasicLib.Forms.Scatter{
 		private IList<string> labels;
 		private int count;
 		private int[] selection = new int[0];
-		private double xMin = double.NaN;
-		private double xMax = double.NaN;
-		private double yMin = double.NaN;
-		private double yMax = double.NaN;
 		private double colorMin = double.NaN;
 		private double colorMax = double.NaN;
 		public ScatterPlotValues XValues { get; set; }
@@ -41,10 +37,6 @@ namespace BasicLib.Forms.Scatter{
 		public bool XIsLogarithmic { get; set; }
 		public bool YIsLogarithmic { get; set; }
 		public bool ColorIsLogarithmic { get; set; }
-		public double XMin { get { return xMin; } set { xMin = value; } }
-		public double XMax { get { return xMax; } set { xMax = value; } }
-		public double YMin { get { return yMin; } set { yMin = value; } }
-		public double YMax { get { return yMax; } set { yMax = value; } }
 		public double ColorMin { get { return colorMin; } set { colorMin = value; } }
 		public double ColorMax { get { return colorMax; } set { colorMax = value; } }
 		public string XLabel { get; set; }
@@ -59,29 +51,29 @@ namespace BasicLib.Forms.Scatter{
 			}
 		}
 
-		public void AddPoint(double x, double y) {
+		public void AddPoint(double x, double y){
 			XValues.AddValue(x);
 			YValues.AddValue(y);
 		}
 
-		public void AddPoint(double x, double y, double z) {
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-			ColorValues.AddValue(z);
-		}
-
-		public void AddPoint(double[] x, double[] y) {
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-		}
-
-		public void AddPoint(double[] x, double[] y, double[] z) {
+		public void AddPoint(double x, double y, double z){
 			XValues.AddValue(x);
 			YValues.AddValue(y);
 			ColorValues.AddValue(z);
 		}
 
-		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle) {
+		public void AddPoint(double[] x, double[] y){
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+		}
+
+		public void AddPoint(double[] x, double[] y, double[] z){
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+			ColorValues.AddValue(z);
+		}
+
+		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle){
 			if (toggle){
 				HashSet<int> sel = add ? new HashSet<int>(selection) : new HashSet<int>();
 				for (int i = 0; i < XValues.Length; i++){
@@ -207,15 +199,11 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		public void InvalidateData(){
-			xMin = double.NaN;
-			yMin = double.NaN;
 			colorMin = double.NaN;
-			xMax = double.NaN;
-			yMax = double.NaN;
 			colorMax = double.NaN;
 		}
 
-		public bool AutoRange { get { return double.IsNaN(XMin) || double.IsNaN(XMax) || double.IsNaN(YMin) || double.IsNaN(YMax); } }
+		public bool AutoRange { get { return true; } }
 		public double[] XRange { get; set; }
 		public double[] YRange { get; set; }
 		public bool IsEmpty { get { return XValues == null || XValues.Length == 0; } }

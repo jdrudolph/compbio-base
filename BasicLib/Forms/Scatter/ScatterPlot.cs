@@ -84,11 +84,7 @@ namespace BasicLib.Forms.Scatter{
 					if (scatterPlotData.IsEmpty){
 						SetRange(-3, 3, -3, 3);
 					} else{
-						if (scatterPlotData.AutoRange){
 							CalcRanges(scatterPlotData);
-						} else{
-							SetRange(scatterPlotData.XMin, scatterPlotData.XMax, scatterPlotData.YMin, scatterPlotData.YMax);
-						}
 					}
 					if (scatterPlotData.XLabel != null){
 						XLabel = scatterPlotData.XLabel;
@@ -141,18 +137,6 @@ namespace BasicLib.Forms.Scatter{
 			ymin -= 0.05*dy;
 			ymax += 0.05*dy;
 			scatterPlotDat.Reset();
-			if (!double.IsNaN(scatterPlotDat.XMin)){
-				xmin = scatterPlotDat.XMin;
-			}
-			if (!double.IsNaN(scatterPlotDat.XMax)){
-				xmax = scatterPlotDat.XMax;
-			}
-			if (!double.IsNaN(scatterPlotDat.YMin)){
-				ymin = scatterPlotDat.YMin;
-			}
-			if (!double.IsNaN(scatterPlotDat.YMax)){
-				ymax = scatterPlotDat.YMax;
-			}
 			SetRange(xmin, xmax, ymin, ymax);
 		}
 
