@@ -7,7 +7,6 @@ namespace BasicLib.Forms.Scatter{
 		private ScatterPlotValues zvals;
 		private IList<string> labels;
 		private int count;
-		private int[] selection = new int[0];
 
 		public ScatterPlotData(){
 			ColorMax = double.NaN;
@@ -34,39 +33,6 @@ namespace BasicLib.Forms.Scatter{
 		public double ColorMax { get; set; }
 		public string ColorLabel { get; set; }
 		public bool HasLabels { get { return labels != null; } }
-		public int[] Selection{
-			get { return selection; }
-			set{
-				selection = value;
-				Array.Sort(selection);
-			}
-		}
-
-		public void AddPoint(double x, double y){
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-		}
-
-		public void AddPoint(double x, double y, double z){
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-			ColorValues.AddValue(z);
-		}
-
-		public void AddPoint(double[] x, double[] y){
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-		}
-
-		public void AddPoint(double[] x, double[] y, double[] z){
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-			ColorValues.AddValue(z);
-		}
-
-		public bool IsSelected(int ind){
-			return Array.BinarySearch(selection, ind) >= 0;
-		}
 
 		public string GetLabelAt(int index){
 			return labels[index];

@@ -10,6 +10,7 @@ using BasicLib.Util;
 namespace BasicLib.Forms.Scatter{
 	public partial class ScatterPlot : UserControl{
 		private ScatterPlotData scatterPlotData;
+		private int[] selection = new int[0];
 		private Action<int> labelTypeChange;
 		public event EventHandler SelectionChanged;
 
@@ -30,9 +31,17 @@ namespace BasicLib.Forms.Scatter{
 			scatterPlotViewer.FullAxesVisible = false;
 		}
 
-		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle){
+		public int[] Selection {
+			get { return selection; }
+			set {
+				selection = value;
+				Array.Sort(selection);
+			}
+		}
+
+		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle) {
 			if (toggle){
-				HashSet<int> sel = add ? new HashSet<int>(scatterPlotData.Selection) : new HashSet<int>();
+				HashSet<int> sel = add ? new HashSet<int>(Selection) : new HashSet<int>();
 				for (int i = 0; i < scatterPlotData.XValues.Length; i++){
 					if (scatterPlotData.XValues.SingleValues[i] >= x1 && scatterPlotData.XValues.SingleValues[i] <= x2 &&
 						scatterPlotData.YValues.SingleValues[i] >= y1 && scatterPlotData.YValues.SingleValues[i] <= y2){
@@ -43,7 +52,7 @@ namespace BasicLib.Forms.Scatter{
 						}
 					}
 				}
-				scatterPlotData.Selection = ArrayUtils.ToArray(sel);
+				Selection = ArrayUtils.ToArray(sel);
 			} else{
 				List<int> sel = new List<int>();
 				for (int i = 0; i < scatterPlotData.XValues.Length; i++){
@@ -52,13 +61,39 @@ namespace BasicLib.Forms.Scatter{
 						sel.Add(i);
 					}
 				}
-				if (add && scatterPlotData.Selection.Length > 0){
-					scatterPlotData.Selection = ArrayUtils.UniqueValues(ArrayUtils.Concat(sel.ToArray(), scatterPlotData.Selection));
+				if (add && Selection.Length > 0){
+					Selection = ArrayUtils.UniqueValues(ArrayUtils.Concat(sel.ToArray(), Selection));
 				} else{
-					scatterPlotData.Selection = sel.ToArray();
+					Selection = sel.ToArray();
 				}
 			}
 			FireSelectionChanged();
+		}
+
+		public bool IsSelected(int ind) {
+			return Array.BinarySearch(selection, ind) >= 0;
+		}
+
+		public void AddPoint(double x, double y) {
+			ScatterPlotData.XValues.AddValue(x);
+			ScatterPlotData.YValues.AddValue(y);
+		}
+
+		public void AddPoint(double x, double y, double z) {
+			ScatterPlotData.XValues.AddValue(x);
+			ScatterPlotData.YValues.AddValue(y);
+			ScatterPlotData.ColorValues.AddValue(z);
+		}
+
+		public void AddPoint(double[] x, double[] y) {
+			ScatterPlotData.XValues.AddValue(x);
+			ScatterPlotData.YValues.AddValue(y);
+		}
+
+		public void AddPoint(double[] x, double[] y, double[] z) {
+			ScatterPlotData.XValues.AddValue(x);
+			ScatterPlotData.YValues.AddValue(y);
+			ScatterPlotData.ColorValues.AddValue(z);
 		}
 
 		public Icon Icon { set { scatterPlotViewer.Icon = value; } }
