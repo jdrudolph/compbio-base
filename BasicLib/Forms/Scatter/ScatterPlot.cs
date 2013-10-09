@@ -125,24 +125,30 @@ namespace BasicLib.Forms.Scatter{
 			if (XValues.Length < 30) {
 				CalcRanges();
 				scatterPlotViewer.UpdateView();
-			} else {
+			} else{
+				bool changed = false;
 				if (x < scatterPlotViewer.XMin) {
 					double delta = scatterPlotViewer.XMax - x;
 					scatterPlotViewer.XMin -= delta / 3;
-					scatterPlotViewer.UpdateView();
+					changed = true;
 				} else if (x > scatterPlotViewer.XMax) {
 					double delta = x - scatterPlotViewer.XMin;
 					scatterPlotViewer.XMax += delta / 3;
-					scatterPlotViewer.UpdateView();
+					changed = true;
 				}
 				if (y < scatterPlotViewer.YMin) {
 					double delta = scatterPlotViewer.YMax - y;
 					scatterPlotViewer.YMin -= delta / 3;
-					scatterPlotViewer.UpdateView();
+					changed = true;
 				} else if (y > scatterPlotViewer.YMax) {
 					double delta = y - scatterPlotViewer.YMin;
 					scatterPlotViewer.YMax += delta / 3;
+					changed = true;
+				}
+				if (changed){
 					scatterPlotViewer.UpdateView();
+				} else{
+					scatterPlotViewer.InvalidatePane();
 				}
 			}
 		}
@@ -367,7 +373,7 @@ namespace BasicLib.Forms.Scatter{
 		public void InvalidateData(){
 			ColorMin = double.NaN;
 			ColorMax = double.NaN;
-			ScatterPlotPlane.InvalidateData(true);
+			ScatterPlotPlane.InvalidateData();
 			ScatterPlotPlane.Invalidate();
 		}
 

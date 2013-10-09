@@ -32,6 +32,8 @@ namespace BasicLib.Forms.Scatter{
 	}
 
 	internal class ScatterPlotPlaneView : BasicView{
+		private readonly object locker = new object();
+		private static readonly SymbolProperties defaultSymbol = new SymbolProperties(Color.DarkGray, 4, 1);
 		internal event ViewZoom2DChangeHandler OnZoomChange;
 		private double zoomXMin;
 		private double zoomXMax;
@@ -81,7 +83,8 @@ namespace BasicLib.Forms.Scatter{
 		internal Func<int, PolygonProperties> GetPolygonProperties { get; set; }
 		internal Func<int, PolygonData> GetPolygon { get; set; }
 		internal Func<int> GetPolygonCount { get; set; }
-		private static readonly SymbolProperties defaultSymbol = new SymbolProperties(Color.DarkGray, 4, 1);
+		internal Color SelectionColor { get; set; }
+
 		internal
 			Action
 				<IGraphics, int, int, Func<double, int, int>, Func<double, int, int>, Func<int, int, double>, Func<int, int, double>
@@ -122,13 +125,13 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		internal void UpdateColor(){
-			InvalidateData(false);
+			InvalidateData();
 			InvalidateImage();
 			Invalidate();
 		}
 
 		internal void SetScatterPlotData(int width, int height){
-			InvalidateData(false);
+			InvalidateData();
 			if (scatterPlot != null && !scatterPlot.IsEmpty){
 				NeedRecalcValues(width, height);
 			} else{
@@ -139,13 +142,11 @@ namespace BasicLib.Forms.Scatter{
 			Invalidate();
 		}
 
-		internal Color SelectionColor { get; set; }
-
 		protected bool IsInitialized(){
 			return scatterPlot != null;
 		}
 
-		internal void InvalidateData(bool deleteBuffer){
+		internal void InvalidateData(){
 			values.Clear();
 			area = Rectangle.Empty;
 			if (zValues != null){
@@ -183,7 +184,7 @@ namespace BasicLib.Forms.Scatter{
 				return;
 			}
 			if (width != prevWidth || height != prevHeight){
-				InvalidateData(true);
+				InvalidateData();
 			}
 			prevHeight = height;
 			prevWidth = width;
@@ -659,7 +660,7 @@ namespace BasicLib.Forms.Scatter{
 				return;
 			}
 			if (scatterPlot != null) {
-				InvalidateData(false);
+				InvalidateData();
 				for (;;){
 					double[] x;
 					double[] y;
@@ -700,15 +701,17 @@ namespace BasicLib.Forms.Scatter{
 						values.Add(prop, vals);
 					}
 					if (zValues != null){
-						if (zValues.ContainsKey(prop)){
-							try{
-								zVals = zValues[prop];
-							} catch (Exception){
-								break;
+						lock (locker){
+							if (zValues.ContainsKey(prop)) {
+								try {
+									zVals = zValues[prop];
+								} catch (Exception) {
+									break;
+								}
+							} else {
+								zVals = new double[width, height];
+								zValues.Add(prop, zVals);
 							}
-						} else{
-							zVals = new double[width,height];
-							zValues.Add(prop, zVals);
 						}
 					}
 					for (int i = 0; i < x.Length; i++){
@@ -790,7 +793,7 @@ namespace BasicLib.Forms.Scatter{
 			set{
 				zoomXMin = value;
 				TotalXMin = Math.Min(zoomXMin, TotalXMin);
-				InvalidateData(true);
+				InvalidateData();
 			}
 		}
 		internal double ZoomXMax{
@@ -798,7 +801,7 @@ namespace BasicLib.Forms.Scatter{
 			set{
 				zoomXMax = value;
 				TotalXMax = Math.Max(zoomXMax, TotalXMax);
-				InvalidateData(true);
+				InvalidateData();
 			}
 		}
 		internal double ZoomYMin{
@@ -806,7 +809,7 @@ namespace BasicLib.Forms.Scatter{
 			set{
 				zoomYMin = value;
 				TotalYMin = Math.Min(zoomYMin, TotalYMin);
-				InvalidateData(true);
+				InvalidateData();
 			}
 		}
 		internal double ZoomYMax{
@@ -814,7 +817,7 @@ namespace BasicLib.Forms.Scatter{
 			set{
 				zoomYMax = value;
 				TotalYMax = Math.Max(zoomYMax, TotalYMax);
-				InvalidateData(true);
+				InvalidateData();
 			}
 		}
 

@@ -266,7 +266,7 @@ namespace BasicLib.Forms.Scatter{
 				bottomAxis.TotalMin = value;
 				bottomAxis.ZoomMin = value;
 				scatterPlotPlane.TotalXMin = value;
-				scatterPlotPlane.TotalXMax = value;
+				scatterPlotPlane.ZoomXMin = value;
 			}
 			get { return topAxis.TotalMin; }
 		}
@@ -276,7 +276,7 @@ namespace BasicLib.Forms.Scatter{
 				topAxis.ZoomMax = value;
 				bottomAxis.TotalMax = value;
 				bottomAxis.ZoomMax = value;
-				scatterPlotPlane.ZoomXMin = value;
+				scatterPlotPlane.TotalXMax = value;
 				scatterPlotPlane.ZoomXMax = value;
 			}
 			get { return topAxis.TotalMax; }
@@ -570,6 +570,11 @@ namespace BasicLib.Forms.Scatter{
 			if (sizeLabel != null && scatterPlotPlane != null){
 				sizeLabel.Text = "width=" + Width + ", height=" + (Height - 24);
 			}
+		}
+
+		public void InvalidatePane(){
+			scatterPlotPlane.InvalidateData();
+			scatterPlotPlane.Invalidate();
 		}
 	}
 }
