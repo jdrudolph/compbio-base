@@ -30,9 +30,6 @@ namespace BasicLib.Forms.Scatter{
 			count = 0;
 		}
 
-		public bool XIsLogarithmic { get; set; }
-		public bool YIsLogarithmic { get; set; }
-		public bool ColorIsLogarithmic { get; set; }
 		public double ColorMin { get; set; }
 		public double ColorMax { get; set; }
 		public string ColorLabel { get; set; }

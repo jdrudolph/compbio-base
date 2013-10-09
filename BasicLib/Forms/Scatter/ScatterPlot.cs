@@ -120,8 +120,6 @@ namespace BasicLib.Forms.Scatter{
 			set{
 				scatterPlotData = value;
 				if (value != null){
-					scatterPlotViewer.XIsLogarithmic = scatterPlotData.XIsLogarithmic;
-					scatterPlotViewer.YIsLogarithmic = scatterPlotData.YIsLogarithmic;
 					if (scatterPlotData.IsEmpty){
 						SetRange(-3, 3, -3, 3);
 					} else{

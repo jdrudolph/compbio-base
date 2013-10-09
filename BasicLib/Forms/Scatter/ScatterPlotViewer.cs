@@ -219,20 +219,6 @@ namespace BasicLib.Forms.Scatter{
 				}
 			}
 		}
-		public bool XIsLogarithmic{
-			get { return bottomAxis.IsLogarithmic; }
-			set{
-				bottomAxis.IsLogarithmic = value;
-				topAxis.IsLogarithmic = value;
-			}
-		}
-		public bool YIsLogarithmic{
-			get { return leftAxis.IsLogarithmic; }
-			set{
-				leftAxis.IsLogarithmic = value;
-				rightAxis.IsLogarithmic = value;
-			}
-		}
 		public bool MenuStripVisible { set { toolStrip1.Visible = value; } get { return toolStrip1.Visible; } }
 
 		private void DeselectMode(){

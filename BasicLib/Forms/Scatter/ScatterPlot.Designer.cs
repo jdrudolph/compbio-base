@@ -124,9 +124,7 @@ namespace BasicLib.Forms.Scatter{
 			this.scatterPlotViewer.Name = "scatterPlotViewer";
 			this.scatterPlotViewer.Size = new System.Drawing.Size(554, 346);
 			this.scatterPlotViewer.TabIndex = 1;
-			this.scatterPlotViewer.XIsLogarithmic = false;
 			this.scatterPlotViewer.XLabel = "x";
-			this.scatterPlotViewer.YIsLogarithmic = false;
 			this.scatterPlotViewer.YLabel = "y";
 			this.scatterPlotViewer.ZLabel = "z";
 			// 
