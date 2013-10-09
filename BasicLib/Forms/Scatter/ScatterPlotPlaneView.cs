@@ -275,7 +275,7 @@ namespace BasicLib.Forms.Scatter{
 			Brush selectionBrush = new SolidBrush(SelectionColor);
 			Pen selectionPen = new Pen(SelectionColor);
 			foreach (int s in scatterPlot.Selection){
-				double[] w = ScatterPlotData.GetDataAt(s);
+				double[] w = scatterPlot.GetDataAt(s);
 				if (w.Length > 0){
 					double x = w[0];
 					double y = w[1];
@@ -298,7 +298,7 @@ namespace BasicLib.Forms.Scatter{
 					double[] z;
 					string[] labels;
 					int index;
-					ScatterPlotData.GetData(out x, out y, out z, out labels, out index);
+					scatterPlot.GetData(out x, out y, out z, out labels, out index);
 					if (x == null){
 						break;
 					}
@@ -328,12 +328,12 @@ namespace BasicLib.Forms.Scatter{
 						}
 					}
 				}
-				ScatterPlotData.Reset();
+				scatterPlot.Reset();
 			}
 			if (labelMode == ScatterPlotLabelMode.Selected && ScatterPlotData.HasLabels){
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				foreach (int s in scatterPlot.Selection) {
-					double[] w = ScatterPlotData.GetDataAt(s);
+					double[] w = scatterPlot.GetDataAt(s);
 					string label = ScatterPlotData.GetLabelAt(s);
 					double x = w[0];
 					double y = w[1];
@@ -451,7 +451,7 @@ namespace BasicLib.Forms.Scatter{
 			copyBackBuffer.LockBitmap();
 			// selected data-points
 			foreach (int s in scatterPlot.Selection) {
-				double[] w = ScatterPlotData.GetDataAt(s);
+				double[] w = scatterPlot.GetDataAt(s);
 				if (w.Length > 0){
 					double x = w[0];
 					double y = w[1];
@@ -479,7 +479,7 @@ namespace BasicLib.Forms.Scatter{
 					string[] labels;
 					int index;
 					try{
-						ScatterPlotData.GetData(out x, out y, out z, out labels, out index);
+						scatterPlot.GetData(out x, out y, out z, out labels, out index);
 					} catch (IndexOutOfRangeException){
 						break;
 					}
@@ -512,13 +512,13 @@ namespace BasicLib.Forms.Scatter{
 						}
 					}
 				}
-				ScatterPlotData.Reset();
+				scatterPlot.Reset();
 			}
 			if (labelMode == ScatterPlotLabelMode.Selected && ScatterPlotData.HasLabels){
 				Brush br = new SolidBrush(SelectionColor);
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				foreach (int s in scatterPlot.Selection) {
-					double[] w = ScatterPlotData.GetDataAt(s);
+					double[] w = scatterPlot.GetDataAt(s);
 					string label = ScatterPlotData.GetLabelAt(s);
 					double x = w[0];
 					double y = w[1];
@@ -667,7 +667,7 @@ namespace BasicLib.Forms.Scatter{
 					double[] z;
 					string[] labels;
 					int index;
-					ScatterPlotData.GetData(out x, out y, out z, out labels, out index);
+					scatterPlot.GetData(out x, out y, out z, out labels, out index);
 					if (x == null){
 						break;
 					}
@@ -724,7 +724,7 @@ namespace BasicLib.Forms.Scatter{
 						}
 					}
 				}
-				ScatterPlotData.Reset();
+				scatterPlot.Reset();
 				if (colorScale != null){
 					colorScale.Max = ScatterPlotData.ColorMax;
 					colorScale.Min = ScatterPlotData.ColorMin;

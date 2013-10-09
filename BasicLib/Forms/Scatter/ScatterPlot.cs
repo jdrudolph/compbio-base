@@ -96,6 +96,97 @@ namespace BasicLib.Forms.Scatter{
 			ScatterPlotData.ColorValues.AddValue(z);
 		}
 
+		public double[] GetDataAt(int index) {
+			if (ScatterPlotData.XValues == null || ScatterPlotData.YValues == null) {
+				return new double[0];
+			}
+			return ScatterPlotData.XValues.Length == ScatterPlotData.YValues.Length
+				? new[] { ScatterPlotData.XValues.SingleValues[index], ScatterPlotData.YValues.SingleValues[index] } : new double[] { };
+		}
+
+		private int count;
+		public void Reset() {
+			count = 0;
+		}
+
+		public void GetData(out double[] x, out double[] y, out double[] z, out string[] label, out int index) {
+			x = null;
+			y = null;
+			z = null;
+			label = null;
+			index = count;
+			if (ScatterPlotData.XValues == null || ScatterPlotData.YValues == null || count >= ScatterPlotData.XValues.Length || ScatterPlotData.XValues.Length != ScatterPlotData.YValues.Length) {
+				return;
+			}
+			if (!ScatterPlotData.XValues.IsMulti && !ScatterPlotData.YValues.IsMulti) {
+				try {
+					x = new[] { ScatterPlotData.XValues.SingleValues[count] };
+					y = new[] { ScatterPlotData.YValues.SingleValues[count] };
+					if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
+						z = new[] { ScatterPlotData.zvals.SingleValues[count] };
+					}
+					if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
+						label = new[] { ScatterPlotData.labels[count] };
+					}
+				} catch (Exception) { }
+				count++;
+				return;
+			}
+			if (!ScatterPlotData.XValues.IsMulti && ScatterPlotData.YValues.IsMulti) {
+				y = ScatterPlotData.YValues.MultiValues[count];
+				x = ArrayUtils.FillArray(i => ScatterPlotData.XValues.SingleValues[count], y.Length);
+				if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
+					if (ScatterPlotData.zvals.IsMulti) {
+						if (ScatterPlotData.zvals.MultiValues[count].Length == y.Length) {
+							z = ScatterPlotData.zvals.MultiValues[count];
+						}
+					} else {
+						z = ArrayUtils.FillArray(i => ScatterPlotData.zvals.SingleValues[count], y.Length);
+					}
+				}
+				if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
+					label = ArrayUtils.FillArray(i => ScatterPlotData.labels[count], y.Length);
+				}
+				count++;
+				return;
+			}
+			if (ScatterPlotData.XValues.IsMulti && !ScatterPlotData.YValues.IsMulti) {
+				x = ScatterPlotData.XValues.MultiValues[count];
+				y = ArrayUtils.FillArray(i => ScatterPlotData.YValues.SingleValues[count], x.Length);
+				if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
+					if (ScatterPlotData.zvals.IsMulti) {
+						if (ScatterPlotData.zvals.MultiValues[count].Length == x.Length) {
+							z = ScatterPlotData.zvals.MultiValues[count];
+						}
+					} else {
+						z = ArrayUtils.FillArray(i => ScatterPlotData.zvals.SingleValues[count], x.Length);
+					}
+				}
+				if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
+					label = ArrayUtils.FillArray(i => ScatterPlotData.labels[count], x.Length);
+				}
+				count++;
+				return;
+			}
+			if (ScatterPlotData.XValues.IsMulti && ScatterPlotData.YValues.IsMulti) {
+				x = ScatterPlotData.XValues.MultiValues[count];
+				y = ScatterPlotData.YValues.MultiValues[count];
+				if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
+					if (ScatterPlotData.zvals.IsMulti) {
+						if (ScatterPlotData.zvals.MultiValues[count].Length == x.Length) {
+							z = ScatterPlotData.zvals.MultiValues[count];
+						}
+					} else {
+						z = ArrayUtils.FillArray(i => ScatterPlotData.zvals.SingleValues[count], x.Length);
+					}
+				}
+				if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
+					label = ArrayUtils.FillArray(i => ScatterPlotData.labels[count], x.Length);
+				}
+				count++;
+			}
+		}
+
 		public Icon Icon { set { scatterPlotViewer.Icon = value; } }
 		public Func<int, SymbolProperties> GetPointProperties { set { ScatterPlotPlane.GetPointProperties = value; } }
 		internal ScatterPlotPlaneView ScatterPlotPlane { get { return scatterPlotViewer.ScatterPlotPlane; } }
@@ -158,14 +249,14 @@ namespace BasicLib.Forms.Scatter{
 					if (scatterPlotData.IsEmpty){
 						SetRange(-3, 3, -3, 3);
 					} else{
-						CalcRanges(scatterPlotData);
+						CalcRanges();
 					}
 				}
 				ScatterPlotPlane.SetScatterPlotData(scatterPlotViewer.MainWidth, scatterPlotViewer.MainHeight);
 			}
 		}
 		//TODO: zrange
-		private void CalcRanges(ScatterPlotData scatterPlotDat){
+		private void CalcRanges(){
 			double xmin = double.MaxValue;
 			double xmax = double.MinValue;
 			double ymin = double.MaxValue;
@@ -176,7 +267,7 @@ namespace BasicLib.Forms.Scatter{
 				double[] z;
 				string[] labels;
 				int index;
-				scatterPlotDat.GetData(out x, out y, out z, out labels, out index);
+				GetData(out x, out y, out z, out labels, out index);
 				if (x == null || y == null){
 					break;
 				}
@@ -204,7 +295,7 @@ namespace BasicLib.Forms.Scatter{
 			xmax += 0.05*dx;
 			ymin -= 0.05*dy;
 			ymax += 0.05*dy;
-			scatterPlotDat.Reset();
+			Reset();
 			SetRange(xmin, xmax, ymin, ymax);
 		}
 
