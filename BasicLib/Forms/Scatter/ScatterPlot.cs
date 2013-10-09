@@ -12,14 +12,15 @@ namespace BasicLib.Forms.Scatter{
 		private int[] selection = new int[0];
 		private Action<int> labelTypeChange;
 		public event EventHandler SelectionChanged;
+		public ScatterPlotValues XValues { get; set; }
+		public ScatterPlotValues YValues { get; set; }
 		internal ScatterPlotValues zvals;
-		internal IList<string> labels;
-
-		internal void FireSelectionChanged(){
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
-		}
+		public IList<string> Labels { get; set; }
+		public double ColorMin { get; set; }
+		public double ColorMax { get; set; }
+		public string ColorLabel { get; set; }
+		private int count;
+		private bool menuStripVisible;
 
 		public ScatterPlot(){
 			InitializeComponent();
@@ -34,8 +35,6 @@ namespace BasicLib.Forms.Scatter{
 			ColorMin = double.NaN;
 		}
 
-		public ScatterPlotValues XValues { get; set; }
-		public ScatterPlotValues YValues { get; set; }
 		public ScatterPlotValues ColorValues{
 			get { return zvals; }
 			set{
@@ -44,14 +43,10 @@ namespace BasicLib.Forms.Scatter{
 				zvals = value;
 			}
 		}
-		public IList<string> Labels { get { return labels; } set { labels = value; } }
-		public double ColorMin { get; set; }
-		public double ColorMax { get; set; }
-		public string ColorLabel { get; set; }
-		public bool HasLabels { get { return labels != null; } }
+		public bool HasLabels { get { return Labels != null; } }
 
 		public string GetLabelAt(int index){
-			return labels[index];
+			return Labels[index];
 		}
 
 		public bool IsEmpty { get { return XValues == null || XValues.Length == 0; } }
@@ -128,8 +123,6 @@ namespace BasicLib.Forms.Scatter{
 				? new[]{XValues.SingleValues[index], YValues.SingleValues[index]} : new double[]{};
 		}
 
-		private int count;
-
 		public void Reset(){
 			count = 0;
 		}
@@ -150,8 +143,8 @@ namespace BasicLib.Forms.Scatter{
 					if (zvals != null && XValues.Length == zvals.Length){
 						z = new[]{zvals.SingleValues[count]};
 					}
-					if (labels != null && count < labels.Count){
-						label = new[]{labels[count]};
+					if (Labels != null && count < Labels.Count){
+						label = new[]{Labels[count]};
 					}
 				} catch (Exception){}
 				count++;
@@ -169,8 +162,8 @@ namespace BasicLib.Forms.Scatter{
 						z = ArrayUtils.FillArray(i => zvals.SingleValues[count], y.Length);
 					}
 				}
-				if (labels != null && count < labels.Count){
-					label = ArrayUtils.FillArray(i => labels[count], y.Length);
+				if (Labels != null && count < Labels.Count){
+					label = ArrayUtils.FillArray(i => Labels[count], y.Length);
 				}
 				count++;
 				return;
@@ -187,8 +180,8 @@ namespace BasicLib.Forms.Scatter{
 						z = ArrayUtils.FillArray(i => zvals.SingleValues[count], x.Length);
 					}
 				}
-				if (labels != null && count < labels.Count){
-					label = ArrayUtils.FillArray(i => labels[count], x.Length);
+				if (Labels != null && count < Labels.Count){
+					label = ArrayUtils.FillArray(i => Labels[count], x.Length);
 				}
 				count++;
 				return;
@@ -205,8 +198,8 @@ namespace BasicLib.Forms.Scatter{
 						z = ArrayUtils.FillArray(i => zvals.SingleValues[count], x.Length);
 					}
 				}
-				if (labels != null && count < labels.Count){
-					label = ArrayUtils.FillArray(i => labels[count], x.Length);
+				if (Labels != null && count < Labels.Count){
+					label = ArrayUtils.FillArray(i => Labels[count], x.Length);
 				}
 				count++;
 			}
@@ -230,7 +223,6 @@ namespace BasicLib.Forms.Scatter{
 
 		public int FontSize { get { return int.Parse(fontSizeTextBox.Text); } }
 		public FontStyle FontStyle { get { return boldButton.Checked ? FontStyle.Bold : FontStyle.Regular; } }
-		private bool menuStripVisible;
 		public bool MenuStripVisible{
 			get { return menuStripVisible; }
 			set{
@@ -367,6 +359,12 @@ namespace BasicLib.Forms.Scatter{
 
 		private void LabelEditComboBoxClick(object sender, EventArgs e){
 			Invalidate(true);
+		}
+
+		internal void FireSelectionChanged(){
+			if (SelectionChanged != null){
+				SelectionChanged(this, new EventArgs());
+			}
 		}
 	}
 }
