@@ -226,7 +226,6 @@
     <Compile Include="Forms\Scatter\ScatterPlot.designer.cs">
       <DependentUpon>ScatterPlot.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Scatter\ScatterPlotData.cs" />
     <Compile Include="Forms\Scatter\ScatterPlotValues.cs" />
     <Compile Include="Forms\Scroll\IScrollableControl.cs" />
     <Compile Include="Forms\Scroll\CompoundScrollableControl.cs">

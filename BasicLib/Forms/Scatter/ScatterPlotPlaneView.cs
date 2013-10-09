@@ -71,7 +71,6 @@ namespace BasicLib.Forms.Scatter{
 		internal int PrevWidth { set { prevWidth = value; } }
 		internal int PrevHeight { set { prevHeight = value; } }
 		internal bool PaintBackground { get { return paintBackground; } set { paintBackground = value; } }
-		private ScatterPlotData ScatterPlotData { get { return scatterPlot != null ? scatterPlot.ScatterPlotData : null; } }
 		private readonly Dictionary<SymbolProperties, GridData> values = new Dictionary<SymbolProperties, GridData>();
 		private ScatterPlot scatterPlot;
 		private Dictionary<SymbolProperties, double[,]> zValues;
@@ -130,7 +129,7 @@ namespace BasicLib.Forms.Scatter{
 
 		internal void SetScatterPlotData(int width, int height){
 			InvalidateData(false);
-			if (ScatterPlotData != null && !scatterPlot.IsEmpty){
+			if (scatterPlot != null && !scatterPlot.IsEmpty){
 				NeedRecalcValues(width, height);
 			} else{
 				RecalcValuesImpl(width, height);
@@ -143,7 +142,7 @@ namespace BasicLib.Forms.Scatter{
 		internal Color SelectionColor { get; set; }
 
 		protected bool IsInitialized(){
-			return ScatterPlotData != null;
+			return scatterPlot != null;
 		}
 
 		internal void InvalidateData(bool deleteBuffer){
@@ -163,10 +162,10 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		internal bool ValuesNeedRecalc(){
-			if (ScatterPlotData != null && scatterPlot.IsEmpty) {
+			if (scatterPlot != null && scatterPlot.IsEmpty) {
 				return false;
 			}
-			return ScatterPlotData != null && values.Count == 0;
+			return scatterPlot != null && values.Count == 0;
 		}
 
 		protected internal override void OnPaint(IGraphics g, int width, int height){
@@ -180,7 +179,7 @@ namespace BasicLib.Forms.Scatter{
 			if (paintBackground && IsInitialized() && !IsDragging()){
 				g.DrawString("Loading...", Font, foreBrush, width/2 - 20, height/2 - 10);
 			}
-			if (ScatterPlotData == null){
+			if (scatterPlot == null) {
 				return;
 			}
 			if (width != prevWidth || height != prevHeight){
@@ -223,7 +222,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		protected void PaintOnGraphicsVector(IGraphics g, int width, int height){
-			if (ScatterPlotData == null){
+			if (scatterPlot == null) {
 				return;
 			}
 			if (!area.IsEmpty){
@@ -444,7 +443,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		protected void PaintOnGraphicsBitmap(IGraphics g, int width, int height){
-			if (backBuffer == null || ScatterPlotData == null){
+			if (backBuffer == null || scatterPlot == null) {
 				return;
 			}
 			UnsafeBitmap copyBackBuffer = new UnsafeBitmap(backBuffer);
@@ -639,7 +638,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		internal void Select(int x1, int x2, int y1, int y2, bool add, int width, int height){
-			if (ScatterPlotData != null){
+			if (scatterPlot != null) {
 				double mx1 = ViewToModelX(x1, width);
 				double mx2 = ViewToModelX(x2, width);
 				double my1 = ViewToModelY(y1, height);
@@ -649,7 +648,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		internal void SelectAt(int x, int y, bool add, int width, int height){
-			if (ScatterPlotData != null){
+			if (scatterPlot != null) {
 				scatterPlot.Select(ViewToModelX(x - 2, width), ViewToModelX(x + 2, width), ViewToModelY(y + 2, height),
 					ViewToModelY(y - 2, height), add, true);
 			}
@@ -659,7 +658,7 @@ namespace BasicLib.Forms.Scatter{
 			if (width < 0 || height < 0){
 				return;
 			}
-			if (ScatterPlotData != null){
+			if (scatterPlot != null) {
 				InvalidateData(false);
 				for (;;){
 					double[] x;
