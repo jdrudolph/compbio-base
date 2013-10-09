@@ -274,7 +274,7 @@ namespace BasicLib.Forms.Scatter{
 			// selected data points
 			Brush selectionBrush = new SolidBrush(SelectionColor);
 			Pen selectionPen = new Pen(SelectionColor);
-			foreach (int s in ScatterPlotData.Selection){
+			foreach (int s in scatterPlot.Selection){
 				double[] w = ScatterPlotData.GetDataAt(s);
 				if (w.Length > 0){
 					double x = w[0];
@@ -304,7 +304,7 @@ namespace BasicLib.Forms.Scatter{
 					}
 					SymbolProperties gx = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
 					for (int i = 0; i < x.Length; i++){
-						if (labelMode == ScatterPlotLabelMode.All || ScatterPlotData.IsSelected(i)){
+						if (labelMode == ScatterPlotLabelMode.All || scatterPlot.IsSelected(i)) {
 							int ix = ModelToViewX(x[i], width);
 							int iy = ModelToViewY(y[i], height);
 							Color c;
@@ -332,7 +332,7 @@ namespace BasicLib.Forms.Scatter{
 			}
 			if (labelMode == ScatterPlotLabelMode.Selected && ScatterPlotData.HasLabels){
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
-				foreach (int s in ScatterPlotData.Selection){
+				foreach (int s in scatterPlot.Selection) {
 					double[] w = ScatterPlotData.GetDataAt(s);
 					string label = ScatterPlotData.GetLabelAt(s);
 					double x = w[0];
@@ -450,7 +450,7 @@ namespace BasicLib.Forms.Scatter{
 			UnsafeBitmap copyBackBuffer = new UnsafeBitmap(backBuffer);
 			copyBackBuffer.LockBitmap();
 			// selected data-points
-			foreach (int s in ScatterPlotData.Selection){
+			foreach (int s in scatterPlot.Selection) {
 				double[] w = ScatterPlotData.GetDataAt(s);
 				if (w.Length > 0){
 					double x = w[0];
@@ -488,7 +488,7 @@ namespace BasicLib.Forms.Scatter{
 					}
 					SymbolProperties gx = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
 					for (int i = 0; i < x.Length; i++){
-						if (labelMode == ScatterPlotLabelMode.All || ScatterPlotData.IsSelected(i)){
+						if (labelMode == ScatterPlotLabelMode.All || scatterPlot.IsSelected(i)) {
 							int ix = ModelToViewX(x[i], width);
 							int iy = ModelToViewY(y[i], height);
 							Color c;
@@ -517,7 +517,7 @@ namespace BasicLib.Forms.Scatter{
 			if (labelMode == ScatterPlotLabelMode.Selected && ScatterPlotData.HasLabels){
 				Brush br = new SolidBrush(SelectionColor);
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
-				foreach (int s in ScatterPlotData.Selection){
+				foreach (int s in scatterPlot.Selection) {
 					double[] w = ScatterPlotData.GetDataAt(s);
 					string label = ScatterPlotData.GetLabelAt(s);
 					double x = w[0];
