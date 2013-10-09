@@ -21,7 +21,7 @@ namespace BasicLib.Forms.Scatter{
 		private readonly BasicControl tableLayoutControl;
 		private bool hasSelectButton;
 
-		internal ScatterPlotViewer(){
+		public ScatterPlotViewer() {
 			bottomAxis = new NumericAxisView();
 			leftAxis = new NumericAxisView();
 			topAxis = new NumericAxisView();
