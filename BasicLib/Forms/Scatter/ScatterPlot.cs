@@ -5,11 +5,19 @@ using System.Windows.Forms;
 using BasicLib.Forms.Colors;
 using BasicLib.Graphic;
 using BasicLib.Symbol;
+using BasicLib.Util;
 
 namespace BasicLib.Forms.Scatter{
 	public partial class ScatterPlot : UserControl{
 		private ScatterPlotData scatterPlotData;
 		private Action<int> labelTypeChange;
+		public event EventHandler SelectionChanged;
+
+		internal void FireSelectionChanged(){
+			if (SelectionChanged != null){
+				SelectionChanged(this, new EventArgs());
+			}
+		}
 
 		public ScatterPlot(){
 			InitializeComponent();
@@ -22,6 +30,37 @@ namespace BasicLib.Forms.Scatter{
 			scatterPlotViewer.FullAxesVisible = false;
 		}
 
+		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle){
+			if (toggle){
+				HashSet<int> sel = add ? new HashSet<int>(scatterPlotData.Selection) : new HashSet<int>();
+				for (int i = 0; i < scatterPlotData.XValues.Length; i++){
+					if (scatterPlotData.XValues.SingleValues[i] >= x1 && scatterPlotData.XValues.SingleValues[i] <= x2 &&
+						scatterPlotData.YValues.SingleValues[i] >= y1 && scatterPlotData.YValues.SingleValues[i] <= y2){
+						if (sel.Contains(i)){
+							sel.Remove(i);
+						} else{
+							sel.Add(i);
+						}
+					}
+				}
+				scatterPlotData.Selection = ArrayUtils.ToArray(sel);
+			} else{
+				List<int> sel = new List<int>();
+				for (int i = 0; i < scatterPlotData.XValues.Length; i++){
+					if (scatterPlotData.XValues.SingleValues[i] >= x1 && scatterPlotData.XValues.SingleValues[i] <= x2 &&
+						scatterPlotData.YValues.SingleValues[i] >= y1 && scatterPlotData.YValues.SingleValues[i] <= y2){
+						sel.Add(i);
+					}
+				}
+				if (add && scatterPlotData.Selection.Length > 0){
+					scatterPlotData.Selection = ArrayUtils.UniqueValues(ArrayUtils.Concat(sel.ToArray(), scatterPlotData.Selection));
+				} else{
+					scatterPlotData.Selection = sel.ToArray();
+				}
+			}
+			FireSelectionChanged();
+		}
+
 		public Icon Icon { set { scatterPlotViewer.Icon = value; } }
 		public Func<int, SymbolProperties> GetPointProperties { set { ScatterPlotPlane.GetPointProperties = value; } }
 		internal ScatterPlotPlaneView ScatterPlotPlane { get { return scatterPlotViewer.ScatterPlotPlane; } }
@@ -29,8 +68,10 @@ namespace BasicLib.Forms.Scatter{
 		public Func<int, PolygonData> GetPolygon { set { ScatterPlotPlane.GetPolygon = value; } }
 		public Func<int> GetPolygonCount { set { ScatterPlotPlane.GetPolygonCount = value; } }
 		public ColorScale ColorScale { set { ScatterPlotPlane.ColorScale = value; } }
-		public Action<IGraphics, int, int, Func<double, int, int>, Func<double, int, int>, Func<int, int, double>, Func<int, int, double>>
-			DrawFunctions { set { ScatterPlotPlane.drawFunctions = value; } }
+		public
+			Action
+				<IGraphics, int, int, Func<double, int, int>, Func<double, int, int>, Func<int, int, double>, Func<int, int, double>
+					> DrawFunctions { set { ScatterPlotPlane.drawFunctions = value; } }
 
 		public void AddToolStripItem(ToolStripItem item){
 			toolStrip.Items.Add(item);
@@ -84,7 +125,7 @@ namespace BasicLib.Forms.Scatter{
 					if (scatterPlotData.IsEmpty){
 						SetRange(-3, 3, -3, 3);
 					} else{
-							CalcRanges(scatterPlotData);
+						CalcRanges(scatterPlotData);
 					}
 				}
 				ScatterPlotPlane.SetScatterPlotData(scatterPlotViewer.MainWidth, scatterPlotViewer.MainHeight);

@@ -76,7 +76,6 @@ namespace BasicLib.Forms.Scatter{
 		private ScatterPlot scatterPlot;
 		private Dictionary<SymbolProperties, double[,]> zValues;
 		private ColorScale colorScale;
-		private Color selectionColor = Color.Red;
 		private Rectangle area = Rectangle.Empty;
 		private bool vectorGraphics;
 		internal Func<int, SymbolProperties> GetPointProperties { get; set; }
@@ -95,6 +94,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		internal ScatterPlotPlaneView(){
+			SelectionColor = Color.Red;
 			VerticalGrid = GridType.None;
 			HorizontalGrid = GridType.None;
 			VerticalGridWidth = 1;
@@ -140,7 +140,7 @@ namespace BasicLib.Forms.Scatter{
 			Invalidate();
 		}
 
-		internal Color SelectionColor { get { return selectionColor; } set { selectionColor = value; } }
+		internal Color SelectionColor { get; set; }
 
 		protected bool IsInitialized(){
 			return ScatterPlotData != null;
@@ -272,8 +272,8 @@ namespace BasicLib.Forms.Scatter{
 				}
 			}
 			// selected data points
-			Brush selectionBrush = new SolidBrush(selectionColor);
-			Pen selectionPen = new Pen(selectionColor);
+			Brush selectionBrush = new SolidBrush(SelectionColor);
+			Pen selectionPen = new Pen(SelectionColor);
 			foreach (int s in ScatterPlotData.Selection){
 				double[] w = ScatterPlotData.GetDataAt(s);
 				if (w.Length > 0){
@@ -462,7 +462,7 @@ namespace BasicLib.Forms.Scatter{
 						int[] pathX;
 						int[] pathY;
 						symbolType.GetPath(symbolSize, out pathX, out pathY);
-						copyBackBuffer.DrawPath(selectionColor, ModelToViewX(x, width), ModelToViewY(y, height), pathX, pathY);
+						copyBackBuffer.DrawPath(SelectionColor, ModelToViewX(x, width), ModelToViewY(y, height), pathX, pathY);
 					}
 				}
 			}
@@ -515,7 +515,7 @@ namespace BasicLib.Forms.Scatter{
 				ScatterPlotData.Reset();
 			}
 			if (labelMode == ScatterPlotLabelMode.Selected && ScatterPlotData.HasLabels){
-				Brush br = new SolidBrush(selectionColor);
+				Brush br = new SolidBrush(SelectionColor);
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				foreach (int s in ScatterPlotData.Selection){
 					double[] w = ScatterPlotData.GetDataAt(s);
@@ -644,13 +644,13 @@ namespace BasicLib.Forms.Scatter{
 				double mx2 = ViewToModelX(x2, width);
 				double my1 = ViewToModelY(y1, height);
 				double my2 = ViewToModelY(y2, height);
-				ScatterPlotData.Select(mx1, mx2, my1, my2, add, false);
+				scatterPlot.Select(mx1, mx2, my1, my2, add, false);
 			}
 		}
 
 		internal void SelectAt(int x, int y, bool add, int width, int height){
 			if (ScatterPlotData != null){
-				ScatterPlotData.Select(ViewToModelX(x - 2, width), ViewToModelX(x + 2, width), ViewToModelY(y + 2, height),
+				scatterPlot.Select(ViewToModelX(x - 2, width), ViewToModelX(x + 2, width), ViewToModelY(y + 2, height),
 					ViewToModelY(y - 2, height), add, true);
 			}
 		}

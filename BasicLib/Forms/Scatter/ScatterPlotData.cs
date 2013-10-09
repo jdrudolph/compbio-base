@@ -4,27 +4,23 @@ using BasicLib.Util;
 
 namespace BasicLib.Forms.Scatter{
 	public class ScatterPlotData{
-		public event EventHandler SelectionChanged;
-
-		internal void FireSelectionChanged(){
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
-		}
-
 		private ScatterPlotValues zvals;
 		private IList<string> labels;
 		private int count;
 		private int[] selection = new int[0];
-		private double colorMin = double.NaN;
-		private double colorMax = double.NaN;
+
+		public ScatterPlotData(){
+			ColorMax = double.NaN;
+			ColorMin = double.NaN;
+		}
+
 		public ScatterPlotValues XValues { get; set; }
 		public ScatterPlotValues YValues { get; set; }
 		public ScatterPlotValues ColorValues{
 			get { return zvals; }
 			set{
-				colorMin = double.NaN;
-				colorMax = double.NaN;
+				ColorMin = double.NaN;
+				ColorMax = double.NaN;
 				zvals = value;
 			}
 		}
@@ -37,8 +33,8 @@ namespace BasicLib.Forms.Scatter{
 		public bool XIsLogarithmic { get; set; }
 		public bool YIsLogarithmic { get; set; }
 		public bool ColorIsLogarithmic { get; set; }
-		public double ColorMin { get { return colorMin; } set { colorMin = value; } }
-		public double ColorMax { get { return colorMax; } set { colorMax = value; } }
+		public double ColorMin { get; set; }
+		public double ColorMax { get; set; }
 		public string ColorLabel { get; set; }
 		public bool HasLabels { get { return labels != null; } }
 		public int[] Selection{
@@ -69,37 +65,6 @@ namespace BasicLib.Forms.Scatter{
 			XValues.AddValue(x);
 			YValues.AddValue(y);
 			ColorValues.AddValue(z);
-		}
-
-		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle){
-			if (toggle){
-				HashSet<int> sel = add ? new HashSet<int>(selection) : new HashSet<int>();
-				for (int i = 0; i < XValues.Length; i++){
-					if (XValues.SingleValues[i] >= x1 && XValues.SingleValues[i] <= x2 && YValues.SingleValues[i] >= y1 &&
-						YValues.SingleValues[i] <= y2){
-						if (sel.Contains(i)){
-							sel.Remove(i);
-						} else{
-							sel.Add(i);
-						}
-					}
-				}
-				Selection = ArrayUtils.ToArray(sel);
-			} else{
-				List<int> sel = new List<int>();
-				for (int i = 0; i < XValues.Length; i++){
-					if (XValues.SingleValues[i] >= x1 && XValues.SingleValues[i] <= x2 && YValues.SingleValues[i] >= y1 &&
-						YValues.SingleValues[i] <= y2){
-						sel.Add(i);
-					}
-				}
-				if (add && selection.Length > 0){
-					Selection = ArrayUtils.UniqueValues(ArrayUtils.Concat(sel.ToArray(), selection));
-				} else{
-					Selection = sel.ToArray();
-				}
-			}
-			FireSelectionChanged();
 		}
 
 		public bool IsSelected(int ind){
@@ -197,8 +162,8 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		public void InvalidateData(){
-			colorMin = double.NaN;
-			colorMax = double.NaN;
+			ColorMin = double.NaN;
+			ColorMax = double.NaN;
 		}
 
 		public bool IsEmpty { get { return XValues == null || XValues.Length == 0; } }
