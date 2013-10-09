@@ -661,23 +661,6 @@ namespace BasicLib.Forms.Scatter{
 			}
 			if (ScatterPlotData != null){
 				InvalidateData(false);
-				double[] rx = ScatterPlotData.XRange;
-				double[] ry = ScatterPlotData.YRange;
-				if (rx != null || ry != null){
-					int x = 0;
-					int w = width;
-					if (rx != null){
-						x = ModelToViewX(rx[0], width);
-						w = ModelToViewX(rx[1], width) - ModelToViewX(rx[0], width);
-					}
-					int y = 0;
-					int h = height;
-					if (ry != null){
-						y = ModelToViewY(ry[0], height);
-						h = ModelToViewY(ry[1], height) - ModelToViewY(ry[0], height);
-					}
-					area = new Rectangle(x, y, w, h);
-				}
 				for (;;){
 					double[] x;
 					double[] y;

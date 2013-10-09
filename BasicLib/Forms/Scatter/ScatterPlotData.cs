@@ -39,8 +39,6 @@ namespace BasicLib.Forms.Scatter{
 		public bool ColorIsLogarithmic { get; set; }
 		public double ColorMin { get { return colorMin; } set { colorMin = value; } }
 		public double ColorMax { get { return colorMax; } set { colorMax = value; } }
-		public string XLabel { get; set; }
-		public string YLabel { get; set; }
 		public string ColorLabel { get; set; }
 		public bool HasLabels { get { return labels != null; } }
 		public int[] Selection{
@@ -203,9 +201,6 @@ namespace BasicLib.Forms.Scatter{
 			colorMax = double.NaN;
 		}
 
-		public bool AutoRange { get { return true; } }
-		public double[] XRange { get; set; }
-		public double[] YRange { get; set; }
 		public bool IsEmpty { get { return XValues == null || XValues.Length == 0; } }
 	}
 }

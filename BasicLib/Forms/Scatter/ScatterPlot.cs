@@ -86,12 +86,6 @@ namespace BasicLib.Forms.Scatter{
 					} else{
 							CalcRanges(scatterPlotData);
 					}
-					if (scatterPlotData.XLabel != null){
-						XLabel = scatterPlotData.XLabel;
-					}
-					if (scatterPlotData.YLabel != null){
-						YLabel = scatterPlotData.YLabel;
-					}
 				}
 				ScatterPlotPlane.SetScatterPlotData(scatterPlotViewer.MainWidth, scatterPlotViewer.MainHeight);
 			}
