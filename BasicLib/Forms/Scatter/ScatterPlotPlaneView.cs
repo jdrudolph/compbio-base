@@ -130,7 +130,7 @@ namespace BasicLib.Forms.Scatter{
 
 		internal void SetScatterPlotData(int width, int height){
 			InvalidateData(false);
-			if (ScatterPlotData != null && !ScatterPlotData.IsEmpty){
+			if (ScatterPlotData != null && !scatterPlot.IsEmpty){
 				NeedRecalcValues(width, height);
 			} else{
 				RecalcValuesImpl(width, height);
@@ -163,7 +163,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		internal bool ValuesNeedRecalc(){
-			if (ScatterPlotData != null && ScatterPlotData.IsEmpty){
+			if (ScatterPlotData != null && scatterPlot.IsEmpty) {
 				return false;
 			}
 			return ScatterPlotData != null && values.Count == 0;
@@ -290,7 +290,7 @@ namespace BasicLib.Forms.Scatter{
 			// labels
 			ScatterPlotLabelMode labelMode = scatterPlot.GetLabelMode();
 			bool cutLabels = scatterPlot.CutLabels;
-			if (labelMode == ScatterPlotLabelMode.All && ScatterPlotData.HasLabels){
+			if (labelMode == ScatterPlotLabelMode.All && scatterPlot.HasLabels) {
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				for (;;){
 					double[] x;
@@ -330,11 +330,11 @@ namespace BasicLib.Forms.Scatter{
 				}
 				scatterPlot.Reset();
 			}
-			if (labelMode == ScatterPlotLabelMode.Selected && ScatterPlotData.HasLabels){
+			if (labelMode == ScatterPlotLabelMode.Selected && scatterPlot.HasLabels) {
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				foreach (int s in scatterPlot.Selection) {
 					double[] w = scatterPlot.GetDataAt(s);
-					string label = ScatterPlotData.GetLabelAt(s);
+					string label = scatterPlot.GetLabelAt(s);
 					double x = w[0];
 					double y = w[1];
 					int ix = ModelToViewX(x, width);
@@ -470,7 +470,7 @@ namespace BasicLib.Forms.Scatter{
 			// labels
 			ScatterPlotLabelMode labelMode = scatterPlot.GetLabelMode();
 			bool cutLabels = scatterPlot.CutLabels;
-			if (labelMode == ScatterPlotLabelMode.All && ScatterPlotData.HasLabels){
+			if (labelMode == ScatterPlotLabelMode.All && scatterPlot.HasLabels) {
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				for (;;){
 					double[] x;
@@ -514,12 +514,12 @@ namespace BasicLib.Forms.Scatter{
 				}
 				scatterPlot.Reset();
 			}
-			if (labelMode == ScatterPlotLabelMode.Selected && ScatterPlotData.HasLabels){
+			if (labelMode == ScatterPlotLabelMode.Selected && scatterPlot.HasLabels) {
 				Brush br = new SolidBrush(SelectionColor);
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				foreach (int s in scatterPlot.Selection) {
 					double[] w = scatterPlot.GetDataAt(s);
-					string label = ScatterPlotData.GetLabelAt(s);
+					string label = scatterPlot.GetLabelAt(s);
 					double x = w[0];
 					double y = w[1];
 					int ix = ModelToViewX(x, width);
@@ -678,11 +678,11 @@ namespace BasicLib.Forms.Scatter{
 						double min;
 						double max;
 						ArrayUtils.MinMax(z, out min, out max);
-						if (double.IsNaN(ScatterPlotData.ColorMax) || max > ScatterPlotData.ColorMax){
-							ScatterPlotData.ColorMax = max;
+						if (double.IsNaN(scatterPlot.ColorMax) || max > scatterPlot.ColorMax) {
+							scatterPlot.ColorMax = max;
 						}
-						if (double.IsNaN(ScatterPlotData.ColorMin) || min < ScatterPlotData.ColorMin){
-							ScatterPlotData.ColorMin = min;
+						if (double.IsNaN(scatterPlot.ColorMin) || min < scatterPlot.ColorMin) {
+							scatterPlot.ColorMin = min;
 						}
 					} else{
 						zValues = null;
@@ -726,8 +726,8 @@ namespace BasicLib.Forms.Scatter{
 				}
 				scatterPlot.Reset();
 				if (colorScale != null){
-					colorScale.Max = ScatterPlotData.ColorMax;
-					colorScale.Min = ScatterPlotData.ColorMin;
+					colorScale.Max = scatterPlot.ColorMax;
+					colorScale.Min = scatterPlot.ColorMin;
 				}
 			}
 			InvalidateImage();

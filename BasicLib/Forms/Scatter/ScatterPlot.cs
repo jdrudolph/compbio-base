@@ -13,6 +13,8 @@ namespace BasicLib.Forms.Scatter{
 		private int[] selection = new int[0];
 		private Action<int> labelTypeChange;
 		public event EventHandler SelectionChanged;
+		internal ScatterPlotValues zvals;
+		internal IList<string> labels;
 
 		internal void FireSelectionChanged(){
 			if (SelectionChanged != null){
@@ -29,7 +31,32 @@ namespace BasicLib.Forms.Scatter{
 			labelEditComboBox.SelectedIndexChanged += LabelEditComboBoxSelectedIndexChanged;
 			showLabelsComboBox.SelectedIndexChanged += ShowLabelsComboBoxSelectedIndexChanged;
 			scatterPlotViewer.FullAxesVisible = false;
+			ColorMax = double.NaN;
+			ColorMin = double.NaN;
 		}
+
+		public ScatterPlotValues XValues { get; set; }
+		public ScatterPlotValues YValues { get; set; }
+		public ScatterPlotValues ColorValues {
+			get { return zvals; }
+			set {
+				ColorMin = double.NaN;
+				ColorMax = double.NaN;
+				zvals = value;
+			}
+		}
+		public IList<string> Labels { get { return labels; } set { labels = value; } }
+
+		public double ColorMin { get; set; }
+		public double ColorMax { get; set; }
+		public string ColorLabel { get; set; }
+		public bool HasLabels { get { return labels != null; } }
+
+		public string GetLabelAt(int index) {
+			return labels[index];
+		}
+
+		public bool IsEmpty { get { return XValues == null || XValues.Length == 0; } }
 
 		public int[] Selection {
 			get { return selection; }
@@ -42,9 +69,9 @@ namespace BasicLib.Forms.Scatter{
 		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle) {
 			if (toggle){
 				HashSet<int> sel = add ? new HashSet<int>(Selection) : new HashSet<int>();
-				for (int i = 0; i < scatterPlotData.XValues.Length; i++){
-					if (scatterPlotData.XValues.SingleValues[i] >= x1 && scatterPlotData.XValues.SingleValues[i] <= x2 &&
-						scatterPlotData.YValues.SingleValues[i] >= y1 && scatterPlotData.YValues.SingleValues[i] <= y2){
+				for (int i = 0; i < XValues.Length; i++){
+					if (XValues.SingleValues[i] >= x1 && XValues.SingleValues[i] <= x2 &&
+						YValues.SingleValues[i] >= y1 && YValues.SingleValues[i] <= y2){
 						if (sel.Contains(i)){
 							sel.Remove(i);
 						} else{
@@ -55,9 +82,9 @@ namespace BasicLib.Forms.Scatter{
 				Selection = ArrayUtils.ToArray(sel);
 			} else{
 				List<int> sel = new List<int>();
-				for (int i = 0; i < scatterPlotData.XValues.Length; i++){
-					if (scatterPlotData.XValues.SingleValues[i] >= x1 && scatterPlotData.XValues.SingleValues[i] <= x2 &&
-						scatterPlotData.YValues.SingleValues[i] >= y1 && scatterPlotData.YValues.SingleValues[i] <= y2){
+				for (int i = 0; i < XValues.Length; i++){
+					if (XValues.SingleValues[i] >= x1 && XValues.SingleValues[i] <= x2 &&
+						YValues.SingleValues[i] >= y1 && YValues.SingleValues[i] <= y2){
 						sel.Add(i);
 					}
 				}
@@ -75,33 +102,33 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		public void AddPoint(double x, double y) {
-			ScatterPlotData.XValues.AddValue(x);
-			ScatterPlotData.YValues.AddValue(y);
+			XValues.AddValue(x);
+			YValues.AddValue(y);
 		}
 
 		public void AddPoint(double x, double y, double z) {
-			ScatterPlotData.XValues.AddValue(x);
-			ScatterPlotData.YValues.AddValue(y);
-			ScatterPlotData.ColorValues.AddValue(z);
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+			ColorValues.AddValue(z);
 		}
 
 		public void AddPoint(double[] x, double[] y) {
-			ScatterPlotData.XValues.AddValue(x);
-			ScatterPlotData.YValues.AddValue(y);
+			XValues.AddValue(x);
+			YValues.AddValue(y);
 		}
 
 		public void AddPoint(double[] x, double[] y, double[] z) {
-			ScatterPlotData.XValues.AddValue(x);
-			ScatterPlotData.YValues.AddValue(y);
-			ScatterPlotData.ColorValues.AddValue(z);
+			XValues.AddValue(x);
+			YValues.AddValue(y);
+			ColorValues.AddValue(z);
 		}
 
 		public double[] GetDataAt(int index) {
-			if (ScatterPlotData.XValues == null || ScatterPlotData.YValues == null) {
+			if (XValues == null || YValues == null) {
 				return new double[0];
 			}
-			return ScatterPlotData.XValues.Length == ScatterPlotData.YValues.Length
-				? new[] { ScatterPlotData.XValues.SingleValues[index], ScatterPlotData.YValues.SingleValues[index] } : new double[] { };
+			return XValues.Length == YValues.Length
+				? new[] { XValues.SingleValues[index], YValues.SingleValues[index] } : new double[] { };
 		}
 
 		private int count;
@@ -115,73 +142,73 @@ namespace BasicLib.Forms.Scatter{
 			z = null;
 			label = null;
 			index = count;
-			if (ScatterPlotData.XValues == null || ScatterPlotData.YValues == null || count >= ScatterPlotData.XValues.Length || ScatterPlotData.XValues.Length != ScatterPlotData.YValues.Length) {
+			if (XValues == null || YValues == null || count >= XValues.Length || XValues.Length != YValues.Length) {
 				return;
 			}
-			if (!ScatterPlotData.XValues.IsMulti && !ScatterPlotData.YValues.IsMulti) {
+			if (!XValues.IsMulti && !YValues.IsMulti) {
 				try {
-					x = new[] { ScatterPlotData.XValues.SingleValues[count] };
-					y = new[] { ScatterPlotData.YValues.SingleValues[count] };
-					if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
-						z = new[] { ScatterPlotData.zvals.SingleValues[count] };
+					x = new[] { XValues.SingleValues[count] };
+					y = new[] { YValues.SingleValues[count] };
+					if (zvals != null && XValues.Length == zvals.Length) {
+						z = new[] { zvals.SingleValues[count] };
 					}
-					if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
-						label = new[] { ScatterPlotData.labels[count] };
+					if (labels != null && count < labels.Count) {
+						label = new[] { labels[count] };
 					}
 				} catch (Exception) { }
 				count++;
 				return;
 			}
-			if (!ScatterPlotData.XValues.IsMulti && ScatterPlotData.YValues.IsMulti) {
-				y = ScatterPlotData.YValues.MultiValues[count];
-				x = ArrayUtils.FillArray(i => ScatterPlotData.XValues.SingleValues[count], y.Length);
-				if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
-					if (ScatterPlotData.zvals.IsMulti) {
-						if (ScatterPlotData.zvals.MultiValues[count].Length == y.Length) {
-							z = ScatterPlotData.zvals.MultiValues[count];
+			if (!XValues.IsMulti && YValues.IsMulti) {
+				y = YValues.MultiValues[count];
+				x = ArrayUtils.FillArray(i => XValues.SingleValues[count], y.Length);
+				if (zvals != null && XValues.Length == zvals.Length) {
+					if (zvals.IsMulti) {
+						if (zvals.MultiValues[count].Length == y.Length) {
+							z = zvals.MultiValues[count];
 						}
 					} else {
-						z = ArrayUtils.FillArray(i => ScatterPlotData.zvals.SingleValues[count], y.Length);
+						z = ArrayUtils.FillArray(i => zvals.SingleValues[count], y.Length);
 					}
 				}
-				if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
-					label = ArrayUtils.FillArray(i => ScatterPlotData.labels[count], y.Length);
+				if (labels != null && count < labels.Count) {
+					label = ArrayUtils.FillArray(i => labels[count], y.Length);
 				}
 				count++;
 				return;
 			}
-			if (ScatterPlotData.XValues.IsMulti && !ScatterPlotData.YValues.IsMulti) {
-				x = ScatterPlotData.XValues.MultiValues[count];
-				y = ArrayUtils.FillArray(i => ScatterPlotData.YValues.SingleValues[count], x.Length);
-				if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
-					if (ScatterPlotData.zvals.IsMulti) {
-						if (ScatterPlotData.zvals.MultiValues[count].Length == x.Length) {
-							z = ScatterPlotData.zvals.MultiValues[count];
+			if (XValues.IsMulti && !YValues.IsMulti) {
+				x = XValues.MultiValues[count];
+				y = ArrayUtils.FillArray(i => YValues.SingleValues[count], x.Length);
+				if (zvals != null && XValues.Length == zvals.Length) {
+					if (zvals.IsMulti) {
+						if (zvals.MultiValues[count].Length == x.Length) {
+							z = zvals.MultiValues[count];
 						}
 					} else {
-						z = ArrayUtils.FillArray(i => ScatterPlotData.zvals.SingleValues[count], x.Length);
+						z = ArrayUtils.FillArray(i => zvals.SingleValues[count], x.Length);
 					}
 				}
-				if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
-					label = ArrayUtils.FillArray(i => ScatterPlotData.labels[count], x.Length);
+				if (labels != null && count < labels.Count) {
+					label = ArrayUtils.FillArray(i => labels[count], x.Length);
 				}
 				count++;
 				return;
 			}
-			if (ScatterPlotData.XValues.IsMulti && ScatterPlotData.YValues.IsMulti) {
-				x = ScatterPlotData.XValues.MultiValues[count];
-				y = ScatterPlotData.YValues.MultiValues[count];
-				if (ScatterPlotData.zvals != null && ScatterPlotData.XValues.Length == ScatterPlotData.zvals.Length) {
-					if (ScatterPlotData.zvals.IsMulti) {
-						if (ScatterPlotData.zvals.MultiValues[count].Length == x.Length) {
-							z = ScatterPlotData.zvals.MultiValues[count];
+			if (XValues.IsMulti && YValues.IsMulti) {
+				x = XValues.MultiValues[count];
+				y = YValues.MultiValues[count];
+				if (zvals != null && XValues.Length == zvals.Length) {
+					if (zvals.IsMulti) {
+						if (zvals.MultiValues[count].Length == x.Length) {
+							z = zvals.MultiValues[count];
 						}
 					} else {
-						z = ArrayUtils.FillArray(i => ScatterPlotData.zvals.SingleValues[count], x.Length);
+						z = ArrayUtils.FillArray(i => zvals.SingleValues[count], x.Length);
 					}
 				}
-				if (ScatterPlotData.labels != null && count < ScatterPlotData.labels.Count) {
-					label = ArrayUtils.FillArray(i => ScatterPlotData.labels[count], x.Length);
+				if (labels != null && count < labels.Count) {
+					label = ArrayUtils.FillArray(i => labels[count], x.Length);
 				}
 				count++;
 			}
@@ -238,7 +265,7 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		public void SetLabels(IList<string> labels){
-			scatterPlotData.Labels = labels;
+			Labels = labels;
 		}
 
 		public ScatterPlotData ScatterPlotData{
@@ -246,7 +273,7 @@ namespace BasicLib.Forms.Scatter{
 			set{
 				scatterPlotData = value;
 				if (value != null){
-					if (scatterPlotData.IsEmpty){
+					if (IsEmpty){
 						SetRange(-3, 3, -3, 3);
 					} else{
 						CalcRanges();
@@ -311,9 +338,8 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		public void InvalidateData(){
-			if (scatterPlotData != null){
-				scatterPlotData.InvalidateData();
-			}
+			ColorMin = double.NaN;
+			ColorMax = double.NaN;
 			ScatterPlotPlane.InvalidateData(true);
 			ScatterPlotPlane.Invalidate();
 		}
