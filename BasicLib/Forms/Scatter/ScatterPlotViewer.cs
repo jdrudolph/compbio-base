@@ -6,7 +6,6 @@ using BasicLib.Forms.Axis;
 using BasicLib.Forms.Base;
 
 namespace BasicLib.Forms.Scatter{
-	//TODO: should be internal
 	public partial class ScatterPlotViewer : UserControl{
 		private readonly ScatterPlotPlaneView scatterPlotPlane;
 		private readonly NumericAxisView leftAxis;
@@ -21,7 +20,7 @@ namespace BasicLib.Forms.Scatter{
 		private readonly BasicControl tableLayoutControl;
 		private bool hasSelectButton;
 
-		public ScatterPlotViewer() {
+		public ScatterPlotViewer(){
 			bottomAxis = new NumericAxisView();
 			leftAxis = new NumericAxisView();
 			topAxis = new NumericAxisView();
@@ -228,31 +227,7 @@ namespace BasicLib.Forms.Scatter{
 			} catch (InvalidOperationException){}
 		}
 
-		internal void SetRange(double xMin, double xMax, double yMin, double yMax){
-			rightAxis.TotalMin = yMin;
-			rightAxis.ZoomMin = yMin;
-			rightAxis.TotalMax = yMax;
-			rightAxis.ZoomMax = yMax;
-			leftAxis.TotalMin = yMin;
-			leftAxis.ZoomMin = yMin;
-			leftAxis.TotalMax = yMax;
-			leftAxis.ZoomMax = yMax;
-			topAxis.TotalMin = xMin;
-			topAxis.ZoomMin = xMin;
-			topAxis.TotalMax = xMax;
-			topAxis.ZoomMax = xMax;
-			bottomAxis.TotalMin = xMin;
-			bottomAxis.ZoomMin = xMin;
-			bottomAxis.TotalMax = xMax;
-			bottomAxis.ZoomMax = xMax;
-			scatterPlotPlane.TotalYMin = rightAxis.TotalMin;
-			scatterPlotPlane.TotalYMax = rightAxis.TotalMax;
-			scatterPlotPlane.TotalXMin = topAxis.TotalMin;
-			scatterPlotPlane.TotalXMax = topAxis.TotalMax;
-			scatterPlotPlane.ZoomYMin = rightAxis.TotalMin;
-			scatterPlotPlane.ZoomYMax = rightAxis.TotalMax;
-			scatterPlotPlane.ZoomXMin = topAxis.TotalMin;
-			scatterPlotPlane.ZoomXMax = topAxis.TotalMax;
+		internal void UpdateView(){
 			rightAxis.Invalidate();
 			leftAxis.Invalidate();
 			topAxis.Invalidate();
@@ -262,38 +237,49 @@ namespace BasicLib.Forms.Scatter{
 			scatterPlotPlane.Invalidate();
 		}
 
-		internal void SetRange(double xMin, double xMax, double yMin, double yMax, double zMin, double zMax){
-			rightAxis.TotalMin = zMin;
-			rightAxis.ZoomMin = zMin;
-			rightAxis.TotalMax = zMax;
-			rightAxis.ZoomMax = zMax;
-			leftAxis.TotalMin = yMin;
-			leftAxis.ZoomMin = yMin;
-			leftAxis.TotalMax = yMax;
-			leftAxis.ZoomMax = yMax;
-			topAxis.TotalMin = xMin;
-			topAxis.ZoomMin = xMin;
-			topAxis.TotalMax = xMax;
-			topAxis.ZoomMax = xMax;
-			bottomAxis.TotalMin = xMin;
-			bottomAxis.ZoomMin = xMin;
-			bottomAxis.TotalMax = xMax;
-			bottomAxis.ZoomMax = xMax;
-			scatterPlotPlane.TotalYMin = rightAxis.TotalMin;
-			scatterPlotPlane.TotalYMax = rightAxis.TotalMax;
-			scatterPlotPlane.TotalXMin = topAxis.TotalMin;
-			scatterPlotPlane.TotalXMax = topAxis.TotalMax;
-			scatterPlotPlane.ZoomYMin = rightAxis.TotalMin;
-			scatterPlotPlane.ZoomYMax = rightAxis.TotalMax;
-			scatterPlotPlane.ZoomXMin = topAxis.TotalMin;
-			scatterPlotPlane.ZoomXMax = topAxis.TotalMax;
-			rightAxis.Invalidate();
-			leftAxis.Invalidate();
-			topAxis.Invalidate();
-			bottomAxis.Invalidate();
-			scatterPlotPlane.XTics = bottomAxis.GetTics(MainWidth);
-			scatterPlotPlane.YTics = leftAxis.GetTics(MainHeight);
-			scatterPlotPlane.Invalidate();
+		internal double YMin{
+			set{
+				rightAxis.TotalMin = value;
+				rightAxis.ZoomMin = value;
+				leftAxis.TotalMin = value;
+				leftAxis.ZoomMin = value;
+				scatterPlotPlane.TotalYMin = value;
+				scatterPlotPlane.ZoomYMin = value;
+			}
+			get { return rightAxis.TotalMin; }
+		}
+		internal double YMax{
+			set{
+				rightAxis.TotalMax = value;
+				rightAxis.ZoomMax = value;
+				leftAxis.TotalMax = value;
+				leftAxis.ZoomMax = value;
+				scatterPlotPlane.TotalYMax = value;
+				scatterPlotPlane.ZoomYMax = value;
+			}
+			get { return rightAxis.TotalMax; }
+		}
+		internal double XMin{
+			set{
+				topAxis.TotalMin = value;
+				topAxis.ZoomMin = value;
+				bottomAxis.TotalMin = value;
+				bottomAxis.ZoomMin = value;
+				scatterPlotPlane.TotalXMin = value;
+				scatterPlotPlane.TotalXMax = value;
+			}
+			get { return topAxis.TotalMin; }
+		}
+		internal double XMax{
+			set{
+				topAxis.TotalMax = value;
+				topAxis.ZoomMax = value;
+				bottomAxis.TotalMax = value;
+				bottomAxis.ZoomMax = value;
+				scatterPlotPlane.ZoomXMin = value;
+				scatterPlotPlane.ZoomXMax = value;
+			}
+			get { return topAxis.TotalMax; }
 		}
 
 		internal void SetMouseModes(ScatterPlotMouseMode zoomablePlaneMouseMode){

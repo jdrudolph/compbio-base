@@ -94,25 +94,57 @@ namespace BasicLib.Forms.Scatter{
 		}
 
 		public void AddPoint(double x, double y){
+			if (XValues == null) {
+				XValues = new ScatterPlotValues(new List<double>());
+			}
+			if (YValues == null) {
+				YValues = new ScatterPlotValues(new List<double>());
+			}
 			XValues.AddValue(x);
 			YValues.AddValue(y);
+			Adjust(x, y);
 		}
 
 		public void AddPoint(double x, double y, double z){
+			if (XValues == null) {
+				XValues = new ScatterPlotValues(new List<double>());
+			}
+			if (YValues == null) {
+				YValues = new ScatterPlotValues(new List<double>());
+			}
+			if (ColorValues == null) {
+				ColorValues = new ScatterPlotValues(new List<double>());
+			}
 			XValues.AddValue(x);
 			YValues.AddValue(y);
 			ColorValues.AddValue(z);
+			Adjust(x, y);
 		}
 
-		public void AddPoint(double[] x, double[] y){
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-		}
-
-		public void AddPoint(double[] x, double[] y, double[] z){
-			XValues.AddValue(x);
-			YValues.AddValue(y);
-			ColorValues.AddValue(z);
+		private void Adjust(double x, double y) {
+			if (XValues.Length < 30) {
+				CalcRanges();
+				scatterPlotViewer.UpdateView();
+			} else {
+				if (x < scatterPlotViewer.XMin) {
+					double delta = scatterPlotViewer.XMax - x;
+					scatterPlotViewer.XMin -= delta / 3;
+					scatterPlotViewer.UpdateView();
+				} else if (x > scatterPlotViewer.XMax) {
+					double delta = x - scatterPlotViewer.XMin;
+					scatterPlotViewer.XMax += delta / 3;
+					scatterPlotViewer.UpdateView();
+				}
+				if (y < scatterPlotViewer.YMin) {
+					double delta = scatterPlotViewer.YMax - y;
+					scatterPlotViewer.YMin -= delta / 3;
+					scatterPlotViewer.UpdateView();
+				} else if (y > scatterPlotViewer.YMax) {
+					double delta = y - scatterPlotViewer.YMin;
+					scatterPlotViewer.YMax += delta / 3;
+					scatterPlotViewer.UpdateView();
+				}
+			}
 		}
 
 		public double[] GetDataAt(int index){
@@ -302,7 +334,13 @@ namespace BasicLib.Forms.Scatter{
 				}
 			}
 			double dx = xmax - xmin;
+			if (dx <= 0){
+				dx = 1;
+			}
 			double dy = ymax - ymin;
+			if (dy <= 0){
+				dy = 1;
+			}
 			xmin -= 0.05*dx;
 			xmax += 0.05*dx;
 			ymin -= 0.05*dy;
@@ -319,7 +357,11 @@ namespace BasicLib.Forms.Scatter{
 		public ScatterPlotViewer ScatterPlotViewer { get { return scatterPlotViewer; } }
 
 		public void SetRange(double xMin, double xMax, double yMin, double yMax){
-			scatterPlotViewer.SetRange(xMin, xMax, yMin, yMax);
+			scatterPlotViewer.YMin = yMin;
+			scatterPlotViewer.YMax = yMax;
+			scatterPlotViewer.XMin = xMin;
+			scatterPlotViewer.XMax = xMax;
+			scatterPlotViewer.UpdateView();
 		}
 
 		public void InvalidateData(){
