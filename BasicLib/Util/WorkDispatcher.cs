@@ -93,14 +93,9 @@ namespace BasicLib.Util{
 			psi.CreateNoWindow = true;
 			psi.UseShellExecute = false;
 			externalProcesses[threadIndex].Start();
-			Logger.Info("WorkDispatcher",
-				"Started Process id:" + externalProcesses[threadIndex].Id + " " + Path.GetFileName(psi.FileName.Replace("\"", "")));
 			externalProcesses[threadIndex].WaitForExit();
 			int exitcode = externalProcesses[threadIndex].ExitCode;
 			int processid = externalProcesses[threadIndex].Id;
-			Logger.Info("WorkDispatcher",
-				"Terminated Process id:" + externalProcesses[threadIndex].Id + " finished. ExitCode: " +
-					externalProcesses[threadIndex].ExitCode + " " + Path.GetFileName(psi.FileName.Replace("\"", "")));
 			externalProcesses[threadIndex].Close();
 			if (exitcode != 0){
 				throw new Exception("Exception during execution of external process: " + processid);

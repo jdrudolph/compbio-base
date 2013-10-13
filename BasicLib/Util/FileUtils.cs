@@ -513,7 +513,6 @@ namespace BasicLib.Util{
 
 		public static void CopyFolder(string sourceFolder, string destFolder, bool recursive, bool replace){
 			if (!Directory.Exists(destFolder)){
-				Logger.Debug("FileUtil", "Creating Directory " + destFolder);
 				DirectoryInfo info = Directory.CreateDirectory(destFolder);
 				if (!info.Exists){
 					throw new Exception("Could not create folder " + destFolder);

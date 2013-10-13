@@ -33,6 +33,7 @@ namespace BasicLib.Forms.Scatter{
 
 	internal class ScatterPlotPlaneView : BasicView{
 		private readonly object locker = new object();
+		private readonly object locker2 = new object();
 		private static readonly SymbolProperties defaultSymbol = new SymbolProperties(Color.DarkGray, 4, 1);
 		internal event ViewZoom2DChangeHandler OnZoomChange;
 		private double zoomXMin;
@@ -690,15 +691,17 @@ namespace BasicLib.Forms.Scatter{
 					SymbolProperties prop = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
 					GridData vals;
 					double[,] zVals = null;
-					if (values.ContainsKey(prop)){
-						try{
-							vals = values[prop];
-						} catch (Exception){
-							break;
+					lock (locker2){
+						if (values.ContainsKey(prop)){
+							try{
+								vals = values[prop];
+							} catch (Exception){
+								break;
+							}
+						} else{
+							vals = new GridData(0, new bool[width,height]);
+							values.Add(prop, vals);
 						}
-					} else{
-						vals = new GridData(0, new bool[width,height]);
-						values.Add(prop, vals);
 					}
 					if (zValues != null){
 						lock (locker){

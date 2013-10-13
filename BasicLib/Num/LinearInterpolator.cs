@@ -126,5 +126,14 @@ namespace BasicLib.Num{
 			xvals = newx;
 			yvals = newy;
 		}
+
+		public void Write(string filename){
+			StreamWriter writer = new StreamWriter(filename);
+			writer.WriteLine("x" + "\t" + "y");
+			for (int i = 0; i < xvals.Length; i++){
+				writer.WriteLine(xvals[i] + "\t" + yvals[i]);
+			}
+			writer.Close();
+		}
 	}
 }
