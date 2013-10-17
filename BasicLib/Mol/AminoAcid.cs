@@ -99,7 +99,7 @@ namespace BasicLib.Mol{
 			return aas;
 		}
 
-		public Molecule GetPeptideMolecule(string aaseq){
+		public static Molecule GetPeptideMolecule(string aaseq){
 			List<Molecule> m = new List<Molecule>();
 			foreach (char c in aaseq){
 				if (!LetterToAa.ContainsKey(c)) {
