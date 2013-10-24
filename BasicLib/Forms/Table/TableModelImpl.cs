@@ -64,6 +64,10 @@ namespace BasicLib.Forms.Table{
 			return GetEntry(row, GetColumnIndex(colname));
 		}
 
+		public void SetEntry(int row, string colname, object value){
+			SetEntry(row, GetColumnIndex(colname), value);
+		}
+
 		public abstract int RowCount { get; }
 		public abstract object GetEntry(int row, int column);
 		public abstract void SetEntry(int row, int column, object value);

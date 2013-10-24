@@ -101,6 +101,15 @@ namespace BasicLib.Forms.Table{
 			return result;
 		}
 
+		public int GetRowIndex(int colInd, object value){
+			for (int i = 0; i < RowCount; i++){
+				if (value.Equals(GetEntry(i, colInd))){
+					return i;
+				}
+			}
+			return -1;
+		}
+
 		private double GetDoubleValue(DataRow2 row, int colInd){
 			bool isInt = columnTypes[colInd] == ColumnType.Integer;
 			bool isDouble = IsNumeric(colInd);
@@ -132,15 +141,6 @@ namespace BasicLib.Forms.Table{
 		private bool IsNumeric(int ind){
 			ColumnType c = columnTypes[ind];
 			return c == ColumnType.Expression || c == ColumnType.Integer || c == ColumnType.Numeric || c == ColumnType.NumericLog;
-		}
-
-		public int GetRowIndex(int colInd, object value){
-			for (int i = 0; i < RowCount; i++){
-				if (value.Equals(GetEntry(i, colInd))){
-					return i;
-				}
-			}
-			return -1;
 		}
 	}
 }
