@@ -43,7 +43,7 @@ namespace BasicLib.Forms.Table{
 		private static readonly Brush selectHeader4Brush = new SolidBrush(selectHeader4Color);
 		private bool hasRemoveRowsMenuItems;
 		private bool hasHelp = true; //TODO
-		private bool multiSelect = true; //TODO
+		private bool multiSelect = true;
 		public event EventHandler SelectionChanged;
 		private ContextMenuStrip contextMenuStrip;
 		private ToolStripMenuItem searchToolStripMenuItem;
@@ -86,12 +86,21 @@ namespace BasicLib.Forms.Table{
 		//TODO
 		//private readonly ToolTip columnViewToolTip = new ToolTip();
 		//private readonly ToolTip mainViewToolTip = new ToolTip();
-		public bool Sortable { get; set; }
+		public bool Sortable{
+			get { return sortable; }
+			set{
+				if (selectionTopToolStripMenuItem != null){
+					selectionTopToolStripMenuItem.Visible = value;
+				}
+				sortable = value;
+			}
+		}
 		private FindForm findForm;
 		private FilterForm filterForm;
 		private int origColumnHeaderHeight = 40;
 		private const int maxColHeaderStringSplits = 3;
 		private bool hasFilter;
+		private bool sortable;
 		public TableView() : this("") {}
 
 		public TableView(string name){
@@ -178,7 +187,15 @@ namespace BasicLib.Forms.Table{
 			ContextMenuStrip = contextMenuStrip;
 		}
 
-		public bool MultiSelect { get { return multiSelect; } set { multiSelect = value; } }
+		public bool MultiSelect{
+			get { return multiSelect; }
+			set{
+				if (invertSelectionToolStripMenuItem != null){
+					invertSelectionToolStripMenuItem.Visible = value;
+				}
+				multiSelect = value;
+			}
+		}
 		public bool HasHelp { get { return hasHelp; } set { hasHelp = value; } }
 		public override sealed int ColumnHeaderHeight{
 			set{

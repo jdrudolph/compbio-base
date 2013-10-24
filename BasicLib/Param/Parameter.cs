@@ -6,6 +6,7 @@ namespace BasicLib.Param{
 
 	[Serializable]
 	public abstract class Parameter : ICloneable{
+		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
 		public string Name { get; private set; }
 		public string Help { get; set; }
