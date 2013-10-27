@@ -307,6 +307,7 @@
     <Compile Include="Param\DictionaryIntValueParam.cs" />
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Symbol\DashStyles.cs" />
+    <Compile Include="Util\ComparableList.cs" />
     <Compile Include="Util\GenericWorkDispatcher.cs" />
     <Compile Include="Util\DocumentType.cs" />
     <Compile Include="Util\Logger.cs" />
