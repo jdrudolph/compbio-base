@@ -26,7 +26,7 @@ namespace BasicLib.Util {
 		public override int GetHashCode(){
 			int result = 0;
 			foreach (T t in list){
-				result += 27*result + t.GetHashCode();
+				result += 29*result + t.GetHashCode();
 			}
 			return result;
 		}

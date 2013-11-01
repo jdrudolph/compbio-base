@@ -283,6 +283,7 @@
     <Compile Include="Mol\AaSequence.cs" />
     <Compile Include="Mol\AminoAcid.cs" />
     <Compile Include="Mol\ChemElement.cs" />
+    <Compile Include="Mol\ChemElementType.cs" />
     <Compile Include="Num\NumRecipes.cs" />
     <Compile Include="Num\Test\FisherExactTest.cs" />
     <Compile Include="Num\Test\PearsonCorrelationTest.cs" />
