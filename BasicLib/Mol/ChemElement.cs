@@ -139,7 +139,7 @@ namespace BasicLib.Mol{
 
 		private static ChemElement[] InitElements(){
 			ChemElement[] e = new[]{
-				new ChemElement(1, "H", "", new[]{1.0078250321, 2.014101778}, new[]{99.9885, 0.0115}, 1.00794,
+				new ChemElement(1, "H", "Hydrogen", new[]{1.0078250321, 2.014101778}, new[]{99.9885, 0.0115}, 1.00794,
 					ChemElementType.Nonmetal),
 				new ChemElement(1, "Hx", "", new[]{1.0078250321, 2.014101778}, new[]{0.0, 100.0}, 2.014101778,
 					ChemElementType.Nonmetal, true),

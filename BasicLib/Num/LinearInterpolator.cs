@@ -34,8 +34,44 @@ namespace BasicLib.Num{
 			}
 		}
 
+		public LinearInterpolator ScaleX(double mean, double width){
+			double[] newX = new double[xvals.Length];
+			for (int i = 0; i < newX.Length; i++){
+				newX[i] = xvals[i]*width + mean;
+			}
+			return new LinearInterpolator(newX, yvals);
+		}
+
 		public double Get(double x){
 			return Get(x, xvals, yvals);
+		}
+
+		public double Get(double x, out double dydx){
+			return Get(x, out dydx, xvals, yvals);
+		}
+
+		public static double Get(double x, out double dydx, double[] xvals, double[] yvals){
+			if (xvals.Length == 0){
+				dydx = double.NaN;
+				return double.NaN;
+			}
+			if (xvals.Length == 1){
+				dydx = 0;
+				return yvals[0];
+			}
+			if (x <= xvals[0]){
+				return Interpolate(xvals[0], xvals[1], yvals[0], yvals[1], x, out dydx);
+			}
+			if (x >= xvals[xvals.Length - 1]){
+				return Interpolate(xvals[xvals.Length - 2], xvals[xvals.Length - 1], yvals[xvals.Length - 2],
+					yvals[xvals.Length - 1], x, out dydx);
+			}
+			int a = Array.BinarySearch(xvals, x);
+			if (a >= 0){
+				Interpolate(xvals[-2 - a], xvals[-1 - a], yvals[-2 - a], yvals[-1 - a], x, out dydx);
+				return yvals[a];
+			}
+			return Interpolate(xvals[-2 - a], xvals[-1 - a], yvals[-2 - a], yvals[-1 - a], x, out dydx);
 		}
 
 		public static double Get(double x, double[] xvals, double[] yvals){
@@ -100,6 +136,11 @@ namespace BasicLib.Num{
 
 		private static double Interpolate(double x1, double x2, double y1, double y2, double x){
 			return (y2 - y1)/(x2 - x1)*(x - x1) + y1;
+		}
+
+		private static double Interpolate(double x1, double x2, double y1, double y2, double x, out double dydx){
+			dydx = (y2 - y1)/(x2 - x1);
+			return dydx*(x - x1) + y1;
 		}
 
 		public void Dispose(){

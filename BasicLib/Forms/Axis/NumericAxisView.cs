@@ -578,11 +578,11 @@ namespace BasicLib.Forms.Axis{
 		}
 
 		public void ZoomIn(int length){
-			SetZoomFromView(length/5, length*4/5, length);
+			SetZoomFromView(length/3, length*2/3, length);
 		}
 
 		public void ZoomOut(int length){
-			SetZoomFromView(-length/5, length*6/5, length);
+			SetZoomFromView(-length/3, length*4/3, length);
 		}
 
 		public void FullZoom(){
