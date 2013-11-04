@@ -34,12 +34,14 @@ namespace BasicLib.Num{
 			}
 		}
 
-		public LinearInterpolator ScaleX(double mean, double width){
+		public LinearInterpolator Scale(double mean, double width, double height){
 			double[] newX = new double[xvals.Length];
-			for (int i = 0; i < newX.Length; i++){
-				newX[i] = xvals[i]*width + mean;
+			double[] newY = new double[xvals.Length];
+			for (int i = 0; i < newX.Length; i++) {
+				newX[i] = xvals[i] * width + mean;
+				newY[i] = yvals[i] * height;
 			}
-			return new LinearInterpolator(newX, yvals);
+			return new LinearInterpolator(newX, newY);
 		}
 
 		public double Get(double x){
