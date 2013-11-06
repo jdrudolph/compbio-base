@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace BasicLib.Util {
+namespace BasicLib.Util{
 	public class ComparableList<T>{
 		private readonly IList<T> list;
 
@@ -8,18 +8,20 @@ namespace BasicLib.Util {
 			this.list = list;
 		}
 
-		public override bool Equals(object obj) {
-			if(obj == null){
+		public override bool Equals(object obj){
+			if (obj == null){
 				return false;
 			}
-			if(!(obj is ComparableList<T>)){
+			if (!(obj is ComparableList<T>)){
 				return false;
 			}
 			return Equals((ComparableList<T>) obj);
 		}
 
 		public bool Equals(ComparableList<T> other){
-			if (ReferenceEquals(null, other)) return false;
+			if (ReferenceEquals(null, other)){
+				return false;
+			}
 			return ReferenceEquals(this, other) || ArrayUtils.EqualArrays(other.list, list);
 		}
 
@@ -28,6 +30,12 @@ namespace BasicLib.Util {
 			foreach (T t in list){
 				result += 29*result + t.GetHashCode();
 			}
+			return result;
+		}
+
+		public T[] GetArray(){
+			T[] result = new T[list.Count];
+			list.CopyTo(result, 0);
 			return result;
 		}
 
