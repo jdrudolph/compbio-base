@@ -7,18 +7,15 @@ namespace BasicLib.Forms.Table{
 	/// </summary>
 	[Serializable]
 	public class ColumnDescription{
-		public ColumnDescription(string description) : this(null, description, null) {}
-		public ColumnDescription(string separator, string description) : this(separator, description, null) {}
+		public ColumnDescription(string description) : this(null, description) {}
 
-		public ColumnDescription(string separator, string description, string options){
+		public ColumnDescription(string separator, string description){
 			Separator = separator;
 			Description = description;
-			Options = options;
 		}
 
 		public string Separator { get; set; }
 		public string Description { get; set; }
-		public string Options { get; set; }
 
 		public override string ToString(){
 			return Description;

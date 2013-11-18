@@ -373,7 +373,7 @@ namespace BasicLib.Forms.Scatter{
 			scatterPlotPlane.Invalidate();
 		}
 
-		private void UpdateZoomFromMap(Object source, int imin, int imax, int jmin, int jmax, bool relative, int width,
+		private void UpdateZoomFromMap(object source, int imin, int imax, int jmin, int jmax, bool relative, int width,
 			int height){
 			if (relative){
 				if (leftAxis.Zoomable){
