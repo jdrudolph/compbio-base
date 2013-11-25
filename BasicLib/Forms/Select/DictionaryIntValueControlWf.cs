@@ -3,8 +3,8 @@ using System.Windows.Forms;
 using BasicLib.Util;
 
 namespace BasicLib.Forms.Select{
-	public partial class DictionaryIntValueControl : UserControl{
-		public DictionaryIntValueControl(){
+	public partial class DictionaryIntValueControlWf : UserControl{
+		public DictionaryIntValueControlWf(){
 			InitializeComponent();
 		}
 

@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using BasicLib.Forms.Select;
+using System.Windows.Controls;
 using BasicLib.Util;
+using BasicLib.Wpf;
 
-namespace BasicLib.ParamWf{
+namespace BasicLib.Param{
 	[Serializable]
-	public class DictionaryIntValueParamWf : ParameterWf{
+	public class DictionaryIntValueParam : Parameter{
 		private string[] keys;
 		public Dictionary<string, int> Value { get; set; }
 		public Dictionary<string, int> Default { get; private set; }
@@ -16,13 +16,13 @@ namespace BasicLib.ParamWf{
 			set{
 				keys = value;
 				if (control != null){
-					DictionaryIntValueControlWf tb = (DictionaryIntValueControlWf) control;
+					DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
 					tb.Keys = keys;
 				}
 			}
 		}
 
-		public DictionaryIntValueParamWf(string name, Dictionary<string, int> value, string[] keys) : base(name){
+		public DictionaryIntValueParam(string name, Dictionary<string, int> value, string[] keys) : base(name){
 			Value = value;
 			Default = value;
 			this.keys = keys;
@@ -56,7 +56,7 @@ namespace BasicLib.ParamWf{
 		public override bool IsModified { get { return Value != Default; } }
 
 		public override void SetValueFromControl(){
-			DictionaryIntValueControlWf tb = (DictionaryIntValueControlWf) control;
+			DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
 			Value = tb.Value;
 		}
 
@@ -64,7 +64,7 @@ namespace BasicLib.ParamWf{
 			if (control == null){
 				return;
 			}
-			DictionaryIntValueControlWf tb = (DictionaryIntValueControlWf) control;
+			DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
 			tb.Value = Value;
 		}
 
@@ -72,10 +72,10 @@ namespace BasicLib.ParamWf{
 			Value = new Dictionary<string, int>();
 		}
 
-		protected override Control Control { get { return new DictionaryIntValueControlWf{Value = Value, Keys = Keys, Default = DefaultValue}; } }
+		protected override Control Control { get { return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; } }
 
 		public override object Clone(){
-			return new DictionaryIntValueParamWf(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};
+			return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};
 		}
 	}
 }

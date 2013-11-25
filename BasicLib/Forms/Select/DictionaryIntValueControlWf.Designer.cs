@@ -1,5 +1,5 @@
 ﻿namespace BasicLib.Forms.Select {
-	partial class DictionaryIntValueControl {
+	partial class DictionaryIntValueControlWf {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
