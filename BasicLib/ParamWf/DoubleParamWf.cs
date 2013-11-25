@@ -2,13 +2,13 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class DoubleParam : Parameter{
+	public class DoubleParamWf : ParameterWf{
 		public double Value { get; set; }
 		public double Default { get; private set; }
 
-		public DoubleParam(string name, double value) : base(name){
+		public DoubleParamWf(string name, double value) : base(name){
 			Value = value;
 			Default = value;
 		}
@@ -63,7 +63,7 @@ namespace BasicLib.Param{
 		}
 
 		public override object Clone(){
-			return new DoubleParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+			return new DoubleParamWf(Name, Value){Help = Help, Visible = Visible, Default = Default};
 		}
 	}
 }

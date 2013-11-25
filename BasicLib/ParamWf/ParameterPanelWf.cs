@@ -2,24 +2,24 @@
 using System.Windows.Forms;
 using BasicLib.Forms.Select;
 
-namespace BasicLib.Param{
-	public partial class ParameterPanel : UserControl{
-		public Parameters Parameters { get; private set; }
+namespace BasicLib.ParamWf{
+	public partial class ParameterPanelWf : UserControl{
+		public ParametersWf Parameters { get; private set; }
 		private TableLayoutPanel tableLayoutPanel;
 		public bool Collapsible { get; set; }
 		public bool CollapsedDefault { get; set; }
 		private ParameterGroupPanel[] parameterGroupPanels;
 
-		public ParameterPanel(){
+		public ParameterPanelWf(){
 			InitializeComponent();
 			Collapsible = true;
 		}
 
-		public void Init(Parameters parameters1){
+		public void Init(ParametersWf parameters1){
 			Init(parameters1, 250F, 1000);
 		}
 
-		public void Init(Parameters parameters1, float paramNameWidth, int totalWidth){
+		public void Init(ParametersWf parameters1, float paramNameWidth, int totalWidth){
 			Parameters = parameters1;
 			int nrows = Parameters.GroupCount;
 			parameterGroupPanels = new ParameterGroupPanel[nrows];
@@ -55,13 +55,13 @@ namespace BasicLib.Param{
 		}
 
 		public void SetParameters(){
-			Parameters p1 = Parameters;
+			ParametersWf p1 = Parameters;
 			for (int i = 0; i < p1.GroupCount; i++){
 				p1.GetGroup(i).SetParametersFromConrtol();
 			}
 		}
 
-		private void AddParameterGroup(ParameterGroup p, int i, float paramNameWidth, int totalWidth){
+		private void AddParameterGroup(ParameterGroupWf p, int i, float paramNameWidth, int totalWidth){
 			ParameterGroupPanel pgp = new ParameterGroupPanel();
 			parameterGroupPanels[i] = pgp;
 			pgp.Init(p, paramNameWidth, totalWidth);

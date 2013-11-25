@@ -2,16 +2,16 @@ using System.Drawing;
 using System.Windows.Forms;
 using BasicLib.Forms.Help;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	public partial class ParameterGroupPanel : UserControl{
-		public ParameterGroup ParameterGroup { get; private set; }
+		public ParameterGroupWf ParameterGroup { get; private set; }
 		private TableLayoutPanel tableLayoutPanel;
 
-		public void Init(ParameterGroup parameters1){
+		public void Init(ParameterGroupWf parameters1){
 			Init(parameters1, 250F, 1000);
 		}
 
-		public void Init(ParameterGroup parameters1, float paramNameWidth, int totalWidth){
+		public void Init(ParameterGroupWf parameters1, float paramNameWidth, int totalWidth){
 			ParameterGroup = parameters1;
 			int nrows = ParameterGroup.Count;
 			tableLayoutPanel = new TableLayoutPanel();
@@ -48,13 +48,13 @@ namespace BasicLib.Param{
 		}
 
 		public void SetParameters(){
-			ParameterGroup p1 = ParameterGroup;
+			ParameterGroupWf p1 = ParameterGroup;
 			for (int i = 0; i < p1.Count; i++){
 				p1[i].SetValueFromControl();
 			}
 		}
 
-		private void AddParameter(Parameter p, int i){
+		private void AddParameter(ParameterWf p, int i){
 			if (!string.IsNullOrEmpty(p.Help)){
 				Panel pa = new Panel{Dock = DockStyle.Fill, Width = 245, Margin = new Padding(0), Padding = new Padding(0)};
 				pa.Controls.Add(CreateLabel(p.Name, p.Help));

@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
-	public sealed partial class ParameterForm : Form{
-		public ParameterForm(Parameters parameters, string title, string helpDescription, string helpOutput,
+namespace BasicLib.ParamWf{
+	public sealed partial class ParameterFormWf : Form{
+		public ParameterFormWf(ParametersWf parameters, string title, string helpDescription, string helpOutput,
 			IList<string> helpSuppls){
 			InitializeComponent();
 			parameterPanel1.Init(parameters);

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
-using BasicLib.Param;
+using BasicLib.ParamWf;
 
 namespace BasicLib.Forms.Select{
 	internal partial class DictionaryIntValuePopup : Form{
@@ -9,11 +9,11 @@ namespace BasicLib.Forms.Select{
 		}
 
 		internal void SetData(Dictionary<string, int> v, string[] keys, int d) {
-			Parameter[] p = new Parameter[keys.Length];
+			ParameterWf[] p = new ParameterWf[keys.Length];
 			for (int i = 0; i < p.Length; i++){
-				p[i] = new IntParam(keys[i], v.ContainsKey(keys[i]) ? v[keys[i]] : d);
+				p[i] = new IntParamWf(keys[i], v.ContainsKey(keys[i]) ? v[keys[i]] : d);
 			}
-			parameterPanel1.Init(new Parameters(p));
+			parameterPanel1.Init(new ParametersWf(p));
 		}
 
 		internal Dictionary<string, int> GetData(string[] keys) {

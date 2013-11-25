@@ -2,13 +2,13 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class IntParam : Parameter{
+	public class IntParamWf : ParameterWf{
 		public int Value { get; set; }
 		public int Default { get; private set; }
 
-		public IntParam(string name, int value) : base(name){
+		public IntParamWf(string name, int value) : base(name){
 			Value = value;
 			Default = value;
 		}
@@ -64,7 +64,7 @@ namespace BasicLib.Param{
 		}
 
 		public override object Clone(){
-			return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+			return new IntParamWf(Name, Value){Help = Help, Visible = Visible, Default = Default};
 		}
 	}
 }

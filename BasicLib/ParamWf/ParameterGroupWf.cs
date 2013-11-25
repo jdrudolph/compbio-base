@@ -2,25 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class ParameterGroup : ICloneable{
-		private readonly IList<Parameter> parameters = new List<Parameter>();
+	public class ParameterGroupWf : ICloneable{
+		private readonly IList<ParameterWf> parameters = new List<ParameterWf>();
 		private string name;
 		private bool collapsedDefault;
 
-		public ParameterGroup(IList<Parameter> parameters, string name, bool collapsedDefault){
+		public ParameterGroupWf(IList<ParameterWf> parameters, string name, bool collapsedDefault){
 			this.name = name;
 			this.parameters = parameters;
 			this.collapsedDefault = collapsedDefault;
 		}
 
-		private ParameterGroup() {}
+		private ParameterGroupWf() {}
 		public bool CollapsedDefault { get { return collapsedDefault; } set { collapsedDefault = value; } }
 		public string[] Markup{
 			get{
 				List<string> result = new List<string>();
-				foreach (Parameter p in parameters){
+				foreach (ParameterWf p in parameters){
 					result.AddRange(p.Markup);
 				}
 				return result.ToArray();
@@ -28,7 +28,7 @@ namespace BasicLib.Param{
 		}
 		public bool IsModified{
 			get{
-				foreach (Parameter parameterGroup in parameters){
+				foreach (ParameterWf parameterGroup in parameters){
 					if (parameterGroup.IsModified){
 						return true;
 					}
@@ -39,62 +39,62 @@ namespace BasicLib.Param{
 		public string Name { get { return name; } set { name = value; } }
 
 		public object Clone(){
-			ParameterGroup newParam = new ParameterGroup();
-			foreach (Parameter p in parameters){
-				newParam.parameters.Add((Parameter) p.Clone());
+			ParameterGroupWf newParam = new ParameterGroupWf();
+			foreach (ParameterWf p in parameters){
+				newParam.parameters.Add((ParameterWf) p.Clone());
 			}
 			newParam.name = name;
 			newParam.collapsedDefault = collapsedDefault;
 			return newParam;
 		}
 
-		public IList<Parameter> ParameterList { get { return parameters; } }
+		public IList<ParameterWf> ParameterList { get { return parameters; } }
 		public int Count { get { return parameters.Count; } }
 		public float Height{
 			get{
 				float h = 0;
-				foreach (Parameter parameter in parameters){
+				foreach (ParameterWf parameter in parameters){
 					h += parameter.Height;
 				}
 				return h;
 			}
 		}
 
-		public Parameter GetParam(string name1){
-			foreach (Parameter p in parameters.Where(p => p.Name.Equals(name1))){
+		public ParameterWf GetParam(string name1){
+			foreach (ParameterWf p in parameters.Where(p => p.Name.Equals(name1))){
 				return p;
 			}
 			return null;
 		}
 
 		public void UpdateControlsFromValue(){
-			foreach (Parameter parameter in parameters){
+			foreach (ParameterWf parameter in parameters){
 				parameter.UpdateControlFromValue();
 			}
 		}
 
-		public Parameter this[int i] { get { return parameters[i]; } }
+		public ParameterWf this[int i] { get { return parameters[i]; } }
 
 		public void SetParametersFromConrtol(){
-			foreach (Parameter parameter in parameters){
+			foreach (ParameterWf parameter in parameters){
 				parameter.SetValueFromControl();
 			}
 		}
 
 		public void Clear(){
-			foreach (Parameter parameter in parameters){
+			foreach (ParameterWf parameter in parameters){
 				parameter.Clear();
 			}
 		}
 
 		public void ResetValues(){
-			foreach (Parameter parameter in parameters){
+			foreach (ParameterWf parameter in parameters){
 				parameter.ResetValue();
 			}
 		}
 
 		public void ResetDefaults(){
-			foreach (Parameter parameter in parameters){
+			foreach (ParameterWf parameter in parameters){
 				parameter.ResetDefault();
 			}
 		}

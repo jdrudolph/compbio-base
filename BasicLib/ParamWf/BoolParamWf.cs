@@ -2,14 +2,14 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class BoolParam : Parameter{
+	public class BoolParamWf : ParameterWf{
 		public bool Value { get; set; }
 		public bool Default { get; private set; }
-		public BoolParam(string name) : this(name, false) {}
+		public BoolParamWf(string name) : this(name, false) {}
 
-		public BoolParam(string name, bool value) : base(name){
+		public BoolParamWf(string name, bool value) : base(name){
 			Value = value;
 			Default = value;
 		}
@@ -52,7 +52,7 @@ namespace BasicLib.Param{
 		protected override Control Control { get { return new CheckBox{Checked = Value}; } }
 
 		public override object Clone(){
-			return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+			return new BoolParamWf(Name, Value){Help = Help, Visible = Visible, Default = Default};
 		}
 	}
 }

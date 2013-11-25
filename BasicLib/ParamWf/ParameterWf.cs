@@ -1,11 +1,11 @@
 using System;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	public delegate void ValueChangedHandler();
 
 	[Serializable]
-	public abstract class Parameter : ICloneable{
+	public abstract class ParameterWf : ICloneable{
 		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
 		public string Name { get; private set; }
@@ -13,13 +13,13 @@ namespace BasicLib.Param{
 		public bool Visible { get; set; }
 		[NonSerialized] protected Control control;
 
-		protected Parameter(string name){
+		protected ParameterWf(string name){
 			Name = name;
 			Help = "";
 			Visible = true;
 		}
 
-		public Parameter SetValFromCtrl(){
+		public ParameterWf SetValFromCtrl(){
 			SetValueFromControl();
 			return this;
 		}

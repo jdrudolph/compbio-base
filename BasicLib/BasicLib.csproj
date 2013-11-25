@@ -305,7 +305,7 @@
     <Compile Include="Num\CorrelationType.cs" />
     <Compile Include="Num\CubicSpline.cs" />
     <Compile Include="Num\TukeyBiweightCalc.cs" />
-    <Compile Include="Param\DictionaryIntValueParam.cs" />
+    <Compile Include="ParamWf\DictionaryIntValueParamWf.cs" />
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Symbol\DashStyles.cs" />
     <Compile Include="Util\ComparableList.cs" />
@@ -318,42 +318,42 @@
     <Compile Include="Num\LinearInterpolator.cs" />
     <Compile Include="Num\NumUtils.cs" />
     <Compile Include="Num\Random2.cs" />
-    <Compile Include="Param\BoolParam.cs" />
-    <Compile Include="Param\BoolWithSubParams.cs" />
-    <Compile Include="Param\DoubleParam.cs" />
-    <Compile Include="Param\FileParam.cs" />
-    <Compile Include="Param\FolderParam.cs" />
-    <Compile Include="Param\IntParam.cs" />
-    <Compile Include="Param\LabelParam.cs" />
-    <Compile Include="Param\MultiChoiceMultiBinParam.cs" />
-    <Compile Include="Param\MultiChoiceParam.cs" />
-    <Compile Include="Param\MultiFileParam.cs" />
-    <Compile Include="Param\MultiStringParam.cs" />
-    <Compile Include="Param\Parameter.cs" />
-    <Compile Include="Param\ParameterForm.cs">
+    <Compile Include="ParamWf\BoolParamWf.cs" />
+    <Compile Include="ParamWf\BoolWithSubParamsWf.cs" />
+    <Compile Include="ParamWf\DoubleParamWf.cs" />
+    <Compile Include="ParamWf\FileParamWf.cs" />
+    <Compile Include="ParamWf\FolderParamWf.cs" />
+    <Compile Include="ParamWf\IntParamWf.cs" />
+    <Compile Include="ParamWf\LabelParamWf.cs" />
+    <Compile Include="ParamWf\MultiChoiceMultiBinParamWf.cs" />
+    <Compile Include="ParamWf\MultiChoiceParamWf.cs" />
+    <Compile Include="ParamWf\MultiFileParamWf.cs" />
+    <Compile Include="ParamWf\MultiStringParamWf.cs" />
+    <Compile Include="ParamWf\ParameterWf.cs" />
+    <Compile Include="ParamWf\ParameterFormWf.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Param\ParameterForm.designer.cs">
-      <DependentUpon>ParameterForm.cs</DependentUpon>
+    <Compile Include="ParamWf\ParameterFormWf.designer.cs">
+      <DependentUpon>ParameterFormWf.cs</DependentUpon>
     </Compile>
-    <Compile Include="Param\ParameterGroup.cs" />
-    <Compile Include="Param\ParameterGroupPanel.cs">
+    <Compile Include="ParamWf\ParameterGroupWf.cs" />
+    <Compile Include="ParamWf\ParameterGroupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Param\ParameterGroupPanel.designer.cs">
+    <Compile Include="ParamWf\ParameterGroupPanel.designer.cs">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Param\ParameterPanel.cs">
+    <Compile Include="ParamWf\ParameterPanelWf.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Param\ParameterPanel.designer.cs">
-      <DependentUpon>ParameterPanel.cs</DependentUpon>
+    <Compile Include="ParamWf\ParameterPanelWf.designer.cs">
+      <DependentUpon>ParameterPanelWf.cs</DependentUpon>
     </Compile>
-    <Compile Include="Param\Parameters.cs" />
-    <Compile Include="Param\ParameterWithSubParams.cs" />
-    <Compile Include="Param\SingleChoiceParam.cs" />
-    <Compile Include="Param\SingleChoiceWithSubParams.cs" />
-    <Compile Include="Param\StringParam.cs" />
+    <Compile Include="ParamWf\ParametersWf.cs" />
+    <Compile Include="ParamWf\ParameterWithSubParamsWf.cs" />
+    <Compile Include="ParamWf\SingleChoiceParamWf.cs" />
+    <Compile Include="ParamWf\SingleChoiceWithSubParamsWf.cs" />
+    <Compile Include="ParamWf\StringParamWf.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -460,11 +460,11 @@
     <EmbeddedResource Include="Forms\Table\TableView.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Param\ParameterForm.resx">
-      <DependentUpon>ParameterForm.cs</DependentUpon>
+    <EmbeddedResource Include="ParamWf\ParameterFormWf.resx">
+      <DependentUpon>ParameterFormWf.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Param\ParameterGroupPanel.resx">
+    <EmbeddedResource Include="ParamWf\ParameterGroupPanel.resx">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

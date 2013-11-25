@@ -2,14 +2,14 @@
 using System.Windows.Forms;
 using BasicLib.Forms.Select;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class FolderParam : Parameter{
+	public class FolderParamWf : ParameterWf{
 		public string Value { get; set; }
 		public string Default { get; private set; }
-		public FolderParam(string name) : this(name, "") {}
+		public FolderParamWf(string name) : this(name, "") {}
 
-		public FolderParam(string name, string value) : base(name){
+		public FolderParamWf(string name, string value) : base(name){
 			Value = value;
 			Default = value;
 		}
@@ -58,7 +58,7 @@ namespace BasicLib.Param{
 		}
 
 		public override object Clone(){
-			return new FolderParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+			return new FolderParamWf(Name, Value){Help = Help, Visible = Visible, Default = Default};
 		}
 	}
 }

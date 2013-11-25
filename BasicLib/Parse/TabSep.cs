@@ -149,9 +149,17 @@ namespace BasicLib.Parse{
 			}
 			List<string[]> x = new List<string[]>();
 			while ((line = reader.ReadLine()) != null){
+				if (line.Trim().Length == 0) {
+					continue;
+				}
 				string[] w = line.Split(separator);
-				string[] z = ArrayUtils.SubArray(w, colIndices);
-				for (int i = 0; i < z.Length; i++){
+				string[] z;
+				try {
+					z = ArrayUtils.SubArray(w, colIndices);
+				} catch (Exception e) {
+					continue;
+				}
+				for (int i = 0; i < z.Length; i++) {
 					if (z[i].StartsWith("\"") && z[i].EndsWith("\"")){
 						z[i] = z[i].Substring(1, z[i].Length - 2);
 					}

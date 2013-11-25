@@ -3,15 +3,15 @@ using System.Windows.Forms;
 using BasicLib.Forms.Select;
 using BasicLib.Util;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class MultiFileParam : Parameter{
+	public class MultiFileParamWf : ParameterWf{
 		public string Filter { get; set; }
 		public string[] Value { get; set; }
 		public string[] Default { get; private set; }
-		public MultiFileParam(string name) : this(name, new string[0]) {}
+		public MultiFileParamWf(string name) : this(name, new string[0]) {}
 
-		public MultiFileParam(string name, string[] value) : base(name){
+		public MultiFileParamWf(string name, string[] value) : base(name){
 			Value = value;
 			Default = value;
 			Filter = null;
@@ -65,7 +65,7 @@ namespace BasicLib.Param{
 		protected override Control Control { get { return new MultiFileParameterPanel{Filter = Filter, Filenames = Value}; } }
 
 		public override object Clone(){
-			return new MultiFileParam(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default};
+			return new MultiFileParamWf(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default};
 		}
 
 		public override float Height { get { return 120; } }

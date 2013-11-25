@@ -5,18 +5,18 @@ using System.Collections.Generic;
 using BasicLib.Forms.Select;
 using BasicLib.Util;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class MultiChoiceParam : Parameter{
+	public class MultiChoiceParamWf : ParameterWf{
 		public bool Repeats { get; set; }
 		public int[] Value { get; set; }
 		public int[] Default { get; private set; }
 		public IList<string> Values { get; set; }
 		private readonly List<string> defaultSelectionNames = new List<string>();
 		private readonly List<string[]> defaultSelections = new List<string[]>();
-		public MultiChoiceParam(string name) : this(name, new int[0]) {}
+		public MultiChoiceParamWf(string name) : this(name, new int[0]) {}
 
-		public MultiChoiceParam(string name, int[] value) : base(name){
+		public MultiChoiceParamWf(string name, int[] value) : base(name){
 			Value = value;
 			Default = value;
 			Values = new string[0];
@@ -92,7 +92,7 @@ namespace BasicLib.Param{
 		public override float Height { get { return 160f; } }
 
 		public override object Clone(){
-			return new MultiChoiceParam(Name, Value)
+			return new MultiChoiceParamWf(Name, Value)
 			{Help = Help, Visible = Visible, Repeats = Repeats, Values = Values, Default = Default};
 		}
 

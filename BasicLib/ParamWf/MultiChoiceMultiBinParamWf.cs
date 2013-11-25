@@ -4,16 +4,16 @@ using System.Collections.Generic;
 using BasicLib.Forms.Select;
 using BasicLib.Util;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class MultiChoiceMultiBinParam : Parameter{
+	public class MultiChoiceMultiBinParamWf : ParameterWf{
 		public int[][] Value { get; set; }
 		public int[][] Default { get; private set; }
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
-		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]) {}
+		public MultiChoiceMultiBinParamWf(string name) : this(name, new int[0][]) {}
 
-		public MultiChoiceMultiBinParam(string name, int[][] value) : base(name){
+		public MultiChoiceMultiBinParamWf(string name, int[][] value) : base(name){
 			Value = value;
 			Default = value;
 			Values = new string[0];
@@ -99,7 +99,7 @@ namespace BasicLib.Param{
 		public override float Height { get { return 310f; } }
 
 		public override object Clone(){
-			return new MultiChoiceMultiBinParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
+			return new MultiChoiceMultiBinParamWf(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
 		}
 	}
 }

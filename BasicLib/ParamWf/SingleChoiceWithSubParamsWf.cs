@@ -4,24 +4,24 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class SingleChoiceWithSubParams : ParameterWithSubParams{
+	public class SingleChoiceWithSubParamsWf : ParameterWithSubParamsWf{
 		public int Value { get; set; }
 		public int Default { get; private set; }
 		public IList<string> Values { get; set; }
-		public IList<Parameters> SubParams { get; set; }
+		public IList<ParametersWf> SubParams { get; set; }
 		public float paramNameWidth = 250F;
 		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
 		public float totalWidth = 1000F;
 		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
-		public SingleChoiceWithSubParams(string name) : this(name, 0) {}
+		public SingleChoiceWithSubParamsWf(string name) : this(name, 0) {}
 
-		public SingleChoiceWithSubParams(string name, int value) : base(name){
+		public SingleChoiceWithSubParamsWf(string name, int value) : base(name){
 			Value = value;
 			Default = value;
 			Values = new[]{""};
-			SubParams = new[]{new Parameters()};
+			SubParams = new[]{new ParametersWf()};
 		}
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
@@ -34,14 +34,14 @@ namespace BasicLib.Param{
 
 		public override void ResetValue(){
 			Value = Default;
-			foreach (Parameters p in SubParams){
+			foreach (ParametersWf p in SubParams){
 				p.ResetValues();
 			}
 		}
 
 		public override void ResetDefault(){
 			Default = Value;
-			foreach (Parameters p in SubParams){
+			foreach (ParametersWf p in SubParams){
 				p.ResetDefaults();
 			}
 		}
@@ -51,7 +51,7 @@ namespace BasicLib.Param{
 				if (Value != Default){
 					return true;
 				}
-				foreach (Parameters p in SubParams){
+				foreach (ParametersWf p in SubParams){
 					if (p.IsModified){
 						return true;
 					}
@@ -61,13 +61,13 @@ namespace BasicLib.Param{
 		}
 		public string SelectedValue { get { return Value < 0 || Value >= Values.Count ? null : Values[Value]; } }
 
-		public override Parameters GetSubParameters(){
+		public override ParametersWf GetSubParameters(){
 			return SubParams[Value];
 		}
 
 		public override void Clear(){
 			Value = 0;
-			foreach (Parameters parameters in SubParams){
+			foreach (ParametersWf parameters in SubParams){
 				parameters.Clear();
 			}
 		}
@@ -81,7 +81,7 @@ namespace BasicLib.Param{
 			if (cb != null){
 				Value = cb.SelectedIndex;
 			}
-			foreach (Parameters p in SubParams){
+			foreach (ParametersWf p in SubParams){
 				p.SetValuesFromControl();
 			}
 		}
@@ -95,16 +95,16 @@ namespace BasicLib.Param{
 			if (Value >= 0 && Value < Values.Count){
 				cb.SelectedIndex = Value;
 			}
-			foreach (Parameters p in SubParams){
+			foreach (ParametersWf p in SubParams){
 				p.UpdateControlsFromValue();
 			}
 		}
 
 		protected override Control Control{
 			get{
-				ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
+				ParameterPanelWf[] panels = new ParameterPanelWf[SubParams.Count];
 				for (int i = 0; i < panels.Length; i++){
-					panels[i] = new ParameterPanel();
+					panels[i] = new ParameterPanelWf();
 					panels[i].Init(SubParams[i], ParamNameWidth, (int) (TotalWidth));
 				}
 				ComboBox cb = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };
@@ -144,7 +144,7 @@ namespace BasicLib.Param{
 		public override float Height{
 			get{
 				float max = 0;
-				foreach (Parameters param in SubParams){
+				foreach (ParametersWf param in SubParams){
 					max = Math.Max(max, param.Height + 6);
 				}
 				return 44 + max;
@@ -152,21 +152,21 @@ namespace BasicLib.Param{
 		}
 
 		public override object Clone(){
-			SingleChoiceWithSubParams s = new SingleChoiceWithSubParams(Name, Value)
-			{Help = Help, Visible = Visible, Values = Values, Default = Default, SubParams = new Parameters[SubParams.Count]};
+			SingleChoiceWithSubParamsWf s = new SingleChoiceWithSubParamsWf(Name, Value)
+			{Help = Help, Visible = Visible, Values = Values, Default = Default, SubParams = new ParametersWf[SubParams.Count]};
 			for (int i = 0; i < SubParams.Count; i++){
-				s.SubParams[i] = (Parameters) SubParams[i].Clone();
+				s.SubParams[i] = (ParametersWf) SubParams[i].Clone();
 			}
 			return s;
 		}
 
 		public void SetValueChangedHandlerForSubParams(ValueChangedHandler action){
 			ValueChanged += action;
-			foreach (Parameter p in GetSubParameters().GetAllParameters()){
-				if (p is IntParam || p is DoubleParam){
+			foreach (ParameterWf p in GetSubParameters().GetAllParameters()){
+				if (p is IntParamWf || p is DoubleParamWf){
 					p.ValueChanged += action;
-				} else if (p is SingleChoiceWithSubParams){
-					((SingleChoiceWithSubParams) p).SetValueChangedHandlerForSubParams(action);
+				} else if (p is SingleChoiceWithSubParamsWf){
+					((SingleChoiceWithSubParamsWf) p).SetValueChangedHandlerForSubParams(action);
 				}
 			}
 		}

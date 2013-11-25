@@ -1,4 +1,4 @@
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	partial class ParameterGroupPanel {
 
 	}

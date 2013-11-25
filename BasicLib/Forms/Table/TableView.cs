@@ -84,7 +84,7 @@ namespace BasicLib.Forms.Table{
 		private int colDragX = -1;
 		private int deltaDragX;
 		//TODO
-		//private readonly ToolTip columnViewToolTip = new ToolTip();
+		private readonly ToolTip columnViewToolTip = new ToolTip();
 		//private readonly ToolTip mainViewToolTip = new ToolTip();
 		public bool Sortable{
 			get { return sortable; }
@@ -1304,12 +1304,12 @@ namespace BasicLib.Forms.Table{
 
 		protected internal override void OnMouseIsUpColumnHeaderView(BasicMouseEventArgs e){
 			//TODO
-			//columnViewToolTip.Hide(this);
+			columnViewToolTip.Hide(this);
 		}
 
 		protected internal override void OnMouseIsUpCornerView(BasicMouseEventArgs e){
 			//TODO
-			//columnViewToolTip.Hide(this);
+			columnViewToolTip.Hide(this);
 		}
 
 		protected internal override void OnMouseIsDownColumnHeaderView(BasicMouseEventArgs e){
@@ -1326,17 +1326,17 @@ namespace BasicLib.Forms.Table{
 			}
 			if (helpCol >= 0){
 				//TODO
-				//columnViewToolTip.ToolTipTitle = model.GetColumnName(helpCol);
-				//StringBuilder text = new StringBuilder();
-				//string[] wrapped = StringUtils.Wrap(model.GetColumnDescription(helpCol), 75);
-				//for (int i = 0; i < wrapped.Length; ++i) {
-				//	string s = wrapped[i];
-				//	text.Append(s);
-				//	if (i < wrapped.Length - 1) {
-				//		text.Append("\n");
-				//	}
-				//}
-				//columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
+				columnViewToolTip.ToolTipTitle = model.GetColumnName(helpCol);
+				StringBuilder text = new StringBuilder();
+				string[] wrapped = StringUtils.Wrap(model.GetColumnDescription(helpCol), 75);
+				for (int i = 0; i < wrapped.Length; ++i) {
+					string s = wrapped[i];
+					text.Append(s);
+					if (i < wrapped.Length - 1) {
+						text.Append("\n");
+					}
+				}
+				columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
 				helpCol = -1;
 				InvalidateColumnHeaderView();
 				return;
@@ -1369,17 +1369,17 @@ namespace BasicLib.Forms.Table{
 			}
 			if (matrixHelp){
 				//TODO
-				//columnViewToolTip.ToolTipTitle = model.Name;
-				//StringBuilder text = new StringBuilder();
-				//string[] wrapped = StringUtils.Wrap(model.Description, 75);
-				//for (int i = 0; i < wrapped.Length; ++i) {
-				//	string s = wrapped[i];
-				//	text.Append(s);
-				//	if (i < wrapped.Length - 1) {
-				//		text.Append("\n");
-				//	}
-				//}
-				//columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
+				columnViewToolTip.ToolTipTitle = model.Name;
+				StringBuilder text = new StringBuilder();
+				string[] wrapped = StringUtils.Wrap(model.Description, 75);
+				for (int i = 0; i < wrapped.Length; ++i) {
+					string s = wrapped[i];
+					text.Append(s);
+					if (i < wrapped.Length - 1) {
+						text.Append("\n");
+					}
+				}
+				columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
 				matrixHelp = false;
 				InvalidateCornerView();
 				return;

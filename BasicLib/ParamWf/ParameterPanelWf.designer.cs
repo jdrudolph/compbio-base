@@ -1,5 +1,5 @@
-﻿namespace BasicLib.Param {
-	partial class ParameterPanel {
+﻿namespace BasicLib.ParamWf {
+	partial class ParameterPanelWf {
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>

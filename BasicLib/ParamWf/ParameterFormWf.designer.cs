@@ -1,5 +1,6 @@
-namespace BasicLib.Param{
-	sealed partial class ParameterForm {
+
+namespace BasicLib.ParamWf{
+	sealed partial class ParameterFormWf {
 		/// <summary>
 		/// Required designer variable.
 
@@ -29,7 +30,7 @@ namespace BasicLib.Param{
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tabPage1 = new System.Windows.Forms.TabPage();
-			this.parameterPanel1 = new BasicLib.Param.ParameterPanel();
+			this.parameterPanel1 = new ParameterPanelWf();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.helpTextBox = new System.Windows.Forms.RichTextBox();
 			this.tableLayoutPanel1.SuspendLayout();
@@ -164,7 +165,7 @@ namespace BasicLib.Param{
 
 		private System.Windows.Forms.Button cancelButton;
 		private System.Windows.Forms.Button okButton;
-		private ParameterPanel parameterPanel1;
+		private ParameterPanelWf parameterPanel1;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.TabControl tabControl1;

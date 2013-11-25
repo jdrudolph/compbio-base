@@ -2,24 +2,24 @@ using System;
 using System.Globalization;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class BoolWithSubParams : ParameterWithSubParams{
+	public class BoolWithSubParamsWf : ParameterWithSubParamsWf{
 		public bool Value { get; set; }
 		public bool Default { get; private set; }
-		public Parameters SubParamsFalse { get; set; }
-		public Parameters SubParamsTrue { get; set; }
+		public ParametersWf SubParamsFalse { get; set; }
+		public ParametersWf SubParamsTrue { get; set; }
 		public float paramNameWidth = 250F;
 		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
 		public float totalWidth = 1000F;
 		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
-		public BoolWithSubParams(string name) : this(name, false) {}
+		public BoolWithSubParamsWf(string name) : this(name, false) {}
 
-		public BoolWithSubParams(string name, bool value) : base(name){
+		public BoolWithSubParamsWf(string name, bool value) : base(name){
 			Value = value;
 			Default = value;
-			SubParamsFalse = new Parameters();
-			SubParamsTrue = new Parameters();
+			SubParamsFalse = new ParametersWf();
+			SubParamsTrue = new ParametersWf();
 		}
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = bool.Parse(value); } }
@@ -51,7 +51,7 @@ namespace BasicLib.Param{
 			}
 		}
 
-		public override Parameters GetSubParameters(){
+		public override ParametersWf GetSubParameters(){
 			return Value ? SubParamsTrue : SubParamsFalse;
 		}
 
@@ -89,8 +89,8 @@ namespace BasicLib.Param{
 
 		protected override Control Control{
 			get{
-				ParameterPanel panelFalse = new ParameterPanel();
-				ParameterPanel panelTrue = new ParameterPanel();
+				ParameterPanelWf panelFalse = new ParameterPanelWf();
+				ParameterPanelWf panelTrue = new ParameterPanelWf();
 				panelFalse.Init(SubParamsFalse, ParamNameWidth, (int) (TotalWidth));
 				panelTrue.Init(SubParamsTrue, ParamNameWidth, (int) (TotalWidth));
 				CheckBox cb = new CheckBox{Checked = Value, Dock = DockStyle.Fill};
@@ -120,9 +120,9 @@ namespace BasicLib.Param{
 		public override float Height { get { return 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height); } }
 
 		public override object Clone(){
-			return new BoolWithSubParams(Name, Value){
-				Help = Help, Visible = Visible, SubParamsFalse = (Parameters) SubParamsFalse.Clone(),
-				SubParamsTrue = (Parameters) SubParamsTrue.Clone(), Default = Default
+			return new BoolWithSubParamsWf(Name, Value){
+				Help = Help, Visible = Visible, SubParamsFalse = (ParametersWf) SubParamsFalse.Clone(),
+				SubParamsTrue = (ParametersWf) SubParamsTrue.Clone(), Default = Default
 			};
 		}
 	}

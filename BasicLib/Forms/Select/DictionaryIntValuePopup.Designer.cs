@@ -1,4 +1,6 @@
-﻿namespace BasicLib.Forms.Select {
+﻿using BasicLib.ParamWf;
+
+namespace BasicLib.Forms.Select {
 	partial class DictionaryIntValuePopup {
 		/// <summary>
 		/// Required designer variable.
@@ -27,7 +29,7 @@
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.okButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
-			this.parameterPanel1 = new BasicLib.Param.ParameterPanel();
+			this.parameterPanel1 = new ParameterPanelWf();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -109,7 +111,7 @@
 		#endregion
 
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-		private Param.ParameterPanel parameterPanel1;
+		private ParameterPanelWf parameterPanel1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button okButton;
 		private System.Windows.Forms.Button cancelButton;

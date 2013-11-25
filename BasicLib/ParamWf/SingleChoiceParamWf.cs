@@ -4,15 +4,15 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class SingleChoiceParam : Parameter{
+	public class SingleChoiceParamWf : ParameterWf{
 		public int Value { get; set; }
 		public int Default { get; private set; }
 		public IList<string> Values { get; set; }
-		public SingleChoiceParam(string name) : this(name, 0) {}
+		public SingleChoiceParamWf(string name) : this(name, 0) {}
 
-		public SingleChoiceParam(string name, int value) : base(name){
+		public SingleChoiceParamWf(string name, int value) : base(name){
 			Value = value;
 			Default = value;
 			Values = new[]{""};
@@ -107,7 +107,7 @@ namespace BasicLib.Param{
 		}
 
 		public override object Clone(){
-			return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
+			return new SingleChoiceParamWf(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
 		}
 	}
 }

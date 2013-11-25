@@ -1,14 +1,14 @@
-﻿using System;
+using System;
 using System.Windows.Forms;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class LabelParam : Parameter{
+	public class StringParamWf : ParameterWf{
 		public string Value { get; set; }
 		public string Default { get; private set; }
-		public LabelParam(string name) : this(name, "") {}
+		public StringParamWf(string name) : this(name, "") {}
 
-		public LabelParam(string name, string value) : base(name){
+		public StringParamWf(string name, string value) : base(name){
 			Value = value;
 			Default = value;
 		}
@@ -29,18 +29,19 @@ namespace BasicLib.Param{
 			Default = Value;
 		}
 
-		public override bool IsModified { get { return false; } }
+		public override bool IsModified { get { return !Value.Equals(Default); } }
 
 		public override void SetValueFromControl(){
-			Label tb = (Label) control;
-			Value = tb.Text;
+			TextBox tb = (TextBox) control;
+			string val = tb.Text;
+			Value = val;
 		}
 
 		public override void UpdateControlFromValue(){
 			if (control == null) {
 				return;
 			}
-			Label tb = (Label)control;
+			TextBox tb = (TextBox)control;
 			tb.Text = Value;
 		}
 
@@ -48,10 +49,10 @@ namespace BasicLib.Param{
 			Value = "";
 		}
 
-		protected override Control Control { get { return new Label{Text = Value}; } }
+		protected override Control Control { get { return new TextBox{Text = Value}; } }
 
 		public override object Clone(){
-			return new LabelParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+			return new StringParamWf(Name, Value){Help = Help, Visible = Visible, Default = Default};
 		}
 	}
 }

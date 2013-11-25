@@ -2,16 +2,16 @@ using System;
 using System.Windows.Forms;
 using BasicLib.Forms.Select;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class FileParam : Parameter{
+	public class FileParamWf : ParameterWf{
 		public string Filter { get; set; }
 		public bool Save { get; set; }
 		public string Value { get; set; }
 		public string Default { get; private set; }
-		public FileParam(string name) : this(name, "") {}
+		public FileParamWf(string name) : this(name, "") {}
 
-		public FileParam(string name, string value) : base(name){
+		public FileParamWf(string name, string value) : base(name){
 			Value = value;
 			Default = value;
 			Filter = null;
@@ -57,7 +57,7 @@ namespace BasicLib.Param{
 		protected override Control Control { get { return new FileParameterPanel{Filter = Filter, Text = Value, Save = Save}; } }
 
 		public override object Clone(){
-			return new FileParam(Name, Value){Help = Help, Visible = Visible, Save = Save, Filter = Filter, Default = Default};
+			return new FileParamWf(Name, Value){Help = Help, Visible = Visible, Save = Save, Filter = Filter, Default = Default};
 		}
 	}
 }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using BasicLib.Util;
 
-namespace BasicLib.Param{
+namespace BasicLib.ParamWf{
 	[Serializable]
-	public class MultiStringParam : Parameter{
+	public class MultiStringParamWf : ParameterWf{
 		public string[] Value { get; set; }
 		public string[] Default { get; private set; }
-		public MultiStringParam(string name) : this(name, new string[0]) {}
+		public MultiStringParamWf(string name) : this(name, new string[0]) {}
 
-		public MultiStringParam(string name, string[] value) : base(name){
+		public MultiStringParamWf(string name, string[] value) : base(name){
 			Value = value;
 			Default = value;
 		}
@@ -94,7 +94,7 @@ namespace BasicLib.Param{
 		}
 
 		public override object Clone(){
-			return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+			return new MultiStringParamWf(Name, Value){Help = Help, Visible = Visible, Default = Default};
 		}
 
 		public override float Height { get { return 150f; } }
