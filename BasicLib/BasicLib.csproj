@@ -56,6 +56,9 @@
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="itextsharp, Version=5.0.6.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -307,6 +310,9 @@
     <Compile Include="Param\FolderParam.cs" />
     <Compile Include="Param\IntParam.cs" />
     <Compile Include="Param\LabelParam.cs" />
+    <Compile Include="Param\ParameterWindow.xaml.cs">
+      <DependentUpon>ParameterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Param\MultiChoiceMultiBinParam.cs" />
     <Compile Include="Param\MultiChoiceParam.cs" />
     <Compile Include="Param\MultiFileParam.cs" />
@@ -607,6 +613,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <CodeAnalysisDictionary Include="Param\ParameterWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </CodeAnalysisDictionary>
     <Page Include="Wpf\DictionaryIntValueControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
