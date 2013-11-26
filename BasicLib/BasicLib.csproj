@@ -310,9 +310,6 @@
     <Compile Include="Param\FolderParam.cs" />
     <Compile Include="Param\IntParam.cs" />
     <Compile Include="Param\LabelParam.cs" />
-    <Compile Include="Param\ParameterWindow.xaml.cs">
-      <DependentUpon>ParameterWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Param\MultiChoiceMultiBinParam.cs" />
     <Compile Include="Param\MultiChoiceParam.cs" />
     <Compile Include="Param\MultiFileParam.cs" />
@@ -613,10 +610,6 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <CodeAnalysisDictionary Include="Param\ParameterWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </CodeAnalysisDictionary>
     <Page Include="Wpf\DictionaryIntValueControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
