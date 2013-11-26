@@ -8,7 +8,7 @@ namespace BasicLib.ParamWf{
 		private TableLayoutPanel tableLayoutPanel;
 		public bool Collapsible { get; set; }
 		public bool CollapsedDefault { get; set; }
-		private ParameterGroupPanel[] parameterGroupPanels;
+		private ParameterGroupPanelWf[] parameterGroupPanels;
 
 		public ParameterPanelWf(){
 			InitializeComponent();
@@ -22,7 +22,7 @@ namespace BasicLib.ParamWf{
 		public void Init(ParametersWf parameters1, float paramNameWidth, int totalWidth){
 			Parameters = parameters1;
 			int nrows = Parameters.GroupCount;
-			parameterGroupPanels = new ParameterGroupPanel[nrows];
+			parameterGroupPanels = new ParameterGroupPanelWf[nrows];
 			tableLayoutPanel = new TableLayoutPanel();
 			SuspendLayout();
 			tableLayoutPanel.ColumnCount = 1;
@@ -62,7 +62,7 @@ namespace BasicLib.ParamWf{
 		}
 
 		private void AddParameterGroup(ParameterGroupWf p, int i, float paramNameWidth, int totalWidth){
-			ParameterGroupPanel pgp = new ParameterGroupPanel();
+			ParameterGroupPanelWf pgp = new ParameterGroupPanelWf();
 			parameterGroupPanels[i] = pgp;
 			pgp.Init(p, paramNameWidth, totalWidth);
 			if (p.Name == null){
@@ -81,13 +81,13 @@ namespace BasicLib.ParamWf{
 		}
 
 		public void Disable(){
-			foreach (ParameterGroupPanel parameterGroupPanel in parameterGroupPanels){
+			foreach (ParameterGroupPanelWf parameterGroupPanel in parameterGroupPanels){
 				parameterGroupPanel.Disable();
 			}
 		}
 
 		public void Enable(){
-			foreach (ParameterGroupPanel parameterGroupPanel in parameterGroupPanels){
+			foreach (ParameterGroupPanelWf parameterGroupPanel in parameterGroupPanels){
 				parameterGroupPanel.Enable();
 			}
 		}

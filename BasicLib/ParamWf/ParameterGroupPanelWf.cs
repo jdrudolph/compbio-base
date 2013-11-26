@@ -3,7 +3,7 @@ using System.Windows.Forms;
 using BasicLib.Forms.Help;
 
 namespace BasicLib.ParamWf{
-	public partial class ParameterGroupPanel : UserControl{
+	public partial class ParameterGroupPanelWf : UserControl{
 		public ParameterGroupWf ParameterGroup { get; private set; }
 		private TableLayoutPanel tableLayoutPanel;
 

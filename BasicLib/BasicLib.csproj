@@ -317,6 +317,7 @@
     <Compile Include="Param\ParameterGroupPanel.Designer.cs">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Param\ParameterPanel.cs" />
     <Compile Include="Param\Parameters.cs" />
     <Compile Include="Param\ParameterWithSubParams.cs" />
     <Compile Include="Param\SingleChoiceParam.cs" />
@@ -365,11 +366,11 @@
       <DependentUpon>ParameterFormWf.cs</DependentUpon>
     </Compile>
     <Compile Include="ParamWf\ParameterGroupWf.cs" />
-    <Compile Include="ParamWf\ParameterGroupPanel.cs">
+    <Compile Include="ParamWf\ParameterGroupPanelWf.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ParamWf\ParameterGroupPanel.designer.cs">
-      <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
+    <Compile Include="ParamWf\ParameterGroupPanelWf.designer.cs">
+      <DependentUpon>ParameterGroupPanelWf.cs</DependentUpon>
     </Compile>
     <Compile Include="ParamWf\ParameterPanelWf.cs">
       <SubType>UserControl</SubType>
@@ -510,8 +511,8 @@
       <DependentUpon>ParameterFormWf.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="ParamWf\ParameterGroupPanel.resx">
-      <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
+    <EmbeddedResource Include="ParamWf\ParameterGroupPanelWf.resx">
+      <DependentUpon>ParameterGroupPanelWf.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Param\ParameterGroupPanel.resx">
