@@ -65,7 +65,9 @@
     <Compile Include="Forms\Axis\AxisMouseMode.cs" />
     <Compile Include="Forms\Axis\AxisPositioning.cs" />
     <Compile Include="Forms\Axis\AxisZoomType.cs" />
-    <Compile Include="Forms\Axis\NumericAxis.cs" />
+    <Compile Include="Forms\Axis\NumericAxis.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Forms\Axis\NumericAxisPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -349,6 +351,9 @@
     </Compile>
     <Compile Include="Param\ParameterPanel.cs" />
     <Compile Include="Param\Parameters.cs" />
+    <Compile Include="Param\ParameterWindow.xaml.cs">
+      <DependentUpon>ParameterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Param\ParameterWithSubParams.cs" />
     <Compile Include="Param\SingleChoiceParam.cs" />
     <Compile Include="Param\SingleChoiceWithSubParams.cs" />
@@ -602,6 +607,10 @@
     <Resource Include="Resources\Y.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Param\ParameterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Wpf\DictionaryIntValueControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
