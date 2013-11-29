@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BaseLib.Param{
@@ -87,7 +88,7 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
 			//TODO
@@ -101,47 +102,43 @@ namespace BaseLib.Param{
 			//}
 		}
 
-		protected override Control Control{
+		protected override FrameworkElement Control {
 			get{
-				//TODO
-				//ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
-				//for (int i = 0; i < panels.Length; i++){
-				//	panels[i] = new ParameterPanel();
-				//	panels[i].Init(SubParams[i], ParamNameWidth, (int) (TotalWidth));
-				//}
-				//ComboBox cb = new ComboBox { DropDownStyle = ComboBoxStyle.DropDownList };
-				//cb.SelectedIndexChanged += (sender, e) => {
-				//	SetValueFromControl();
-				//	ValueHasChanged();
-				//};
-				//if (Values != null){
-				//	cb.Items.AddRange(Values.ToArray());
-				//	if (Value >= 0 && Value < Values.Count){
-				//		cb.SelectedIndex = Value;
-				//	}
-				//}
-				//cb.Dock = DockStyle.Fill;
-				//TableLayoutPanel tlp = new TableLayoutPanel{ColumnCount = 1};
-				//tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-				//tlp.RowCount = 2;
-				//tlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
-				//tlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-				//tlp.Controls.Add(cb, 0, 0);
-				//for (int i = 0; i < panels.Length; i++){
-				//	panels[i].Visible = (i == Value);
-				//	panels[i].Dock = DockStyle.Fill;
-				//	tlp.Controls.Add(panels[i], 0, 1);
-				//}
-				//tlp.Dock = DockStyle.Fill;
-				//cb.SelectedIndexChanged += (sender, e) => {
-				//	tlp.SuspendLayout();
-				//	for (int i = 0; i < panels.Length; i++){
-				//		panels[i].Visible = (i == cb.SelectedIndex);
-				//	}
-				//	tlp.ResumeLayout();
-				//};
-				//return tlp;
-				return null;
+				ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
+				for (int i = 0; i < panels.Length; i++){
+					panels[i] = new ParameterPanel();
+					panels[i].Init(SubParams[i], ParamNameWidth, (int) (TotalWidth));
+				}
+				ComboBox cb = new ComboBox();
+				cb.SelectionChanged += (sender, e) =>{
+					SetValueFromControl();
+					ValueHasChanged();
+				};
+				if (Values != null){
+					foreach (string value in Values){
+						cb.Items.Add(value);
+					}
+					if (Value >= 0 && Value < Values.Count){
+						cb.SelectedIndex = Value;
+					}
+				}
+				Grid tlp = new Grid();
+				tlp.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(100, GridUnitType.Star)});
+				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(30, GridUnitType.Pixel)});
+				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
+				Grid.SetRow(cb, 0);
+				tlp.Children.Add(cb);
+				for (int i = 0; i < panels.Length; i++){
+					panels[i].Visibility = (i == Value) ? Visibility.Visible : Visibility.Hidden;
+					Grid.SetRow(panels[i], 1);
+					tlp.Children.Add(panels[i]);
+				}
+				cb.SelectionChanged += (sender, e) =>{
+					for (int i = 0; i < panels.Length; i++){
+						panels[i].Visibility = (i == cb.SelectedIndex) ? Visibility.Visible : Visibility.Hidden;
+					}
+				};
+				return tlp;
 			}
 		}
 		public override float Height{

@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Wpf;
 
@@ -54,7 +55,7 @@ namespace BaseLib.Param{
 			Value = "";
 		}
 
-		protected override Control Control { get { return new FileParameterControl { Filter = Filter, Text = Value, Save = Save }; } }
+		protected override FrameworkElement Control { get { return new FileParameterControl { Filter = Filter, Text = Value, Save = Save }; } }
 
 		public override object Clone(){
 			return new FileParam(Name, Value){Help = Help, Visible = Visible, Save = Save, Filter = Filter, Default = Default};

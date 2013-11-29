@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BaseLib.Param{
@@ -49,7 +50,7 @@ namespace BaseLib.Param{
 			Value = false;
 		}
 
-		protected override Control Control { get { return new CheckBox{IsChecked = Value}; } }
+		protected override FrameworkElement Control { get { return new CheckBox { IsChecked = Value }; } }
 
 		public override object Clone(){
 			return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default};

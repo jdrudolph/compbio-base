@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Util;
 using BaseLib.Wpf;
@@ -62,7 +63,7 @@ namespace BaseLib.Param{
 			lfp.Filenames = Value;
 		}
 
-		protected override Control Control { get { return new MultiFileParameterControl { Filter = Filter, Filenames = Value }; } }
+		protected override FrameworkElement Control { get { return new MultiFileParameterControl { Filter = Filter, Filenames = Value }; } }
 
 		public override object Clone(){
 			return new MultiFileParam(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default};

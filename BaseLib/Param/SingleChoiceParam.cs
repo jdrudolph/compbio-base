@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BaseLib.Param{
@@ -89,7 +90,7 @@ namespace BaseLib.Param{
 			//}
 		}
 
-		protected override Control Control{
+		protected override FrameworkElement Control {
 			get{
 				//TODO
 				//ComboBox cb = new ComboBox{DropDownStyle = ComboBoxStyle.DropDownList};

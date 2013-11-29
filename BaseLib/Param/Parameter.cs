@@ -1,5 +1,5 @@
 using System;
-using System.Windows.Controls;
+using System.Windows;
 
 namespace BaseLib.Param{
 	public delegate void ValueChangedHandler();
@@ -11,7 +11,8 @@ namespace BaseLib.Param{
 		public string Name { get; private set; }
 		public string Help { get; set; }
 		public bool Visible { get; set; }
-		[NonSerialized] protected Control control;
+		[NonSerialized]
+		protected FrameworkElement control;
 
 		protected Parameter(string name){
 			Name = name;
@@ -35,9 +36,9 @@ namespace BaseLib.Param{
 		public abstract bool IsModified { get; }
 		public virtual bool IsDropTarget { get { return false; } }
 		public virtual void Drop(string x) {}
-		protected abstract Control Control { get; }
+		protected abstract FrameworkElement Control { get; }
 
-		public Control GetControl(){
+		public FrameworkElement GetControl(){
 			control = Control;
 			return control;
 		}

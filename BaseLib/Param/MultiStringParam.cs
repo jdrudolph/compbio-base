@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Util;
 
@@ -78,7 +79,7 @@ namespace BaseLib.Param{
 			//}
 		}
 
-		protected override Control Control{
+		protected override FrameworkElement Control {
 			get{
 				//TODO
 				//RichTextBox tb = new RichTextBox{Multiline = true};

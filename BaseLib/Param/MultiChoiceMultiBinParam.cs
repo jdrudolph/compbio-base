@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Util;
 using BaseLib.Wpf;
@@ -88,7 +89,7 @@ namespace BaseLib.Param{
 			ls.SelectedIndices = Value;
 		}
 
-		protected override Control Control{
+		protected override FrameworkElement Control {
 			get{
 				MultiListSelectorControl ls = new MultiListSelectorControl();
 				ls.Init(Values, Bins);

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BaseLib.Param{
@@ -52,7 +53,7 @@ namespace BaseLib.Param{
 			Value = 0;
 		}
 
-		protected override Control Control{
+		protected override FrameworkElement Control {
 			get{
 				TextBox tb = new TextBox{Text = "" + Value};
 				tb.TextChanged += (sender, e) =>{

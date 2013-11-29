@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Wpf;
 
@@ -50,7 +51,7 @@ namespace BaseLib.Param{
 			Value = "";
 		}
 
-		protected override Control Control{
+		protected override FrameworkElement Control {
 			get{
 				FolderParameterControl tb = new FolderParameterControl { Text = Value };
 				return tb;

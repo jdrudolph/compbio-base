@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BaseLib.Param{
@@ -49,7 +50,7 @@ namespace BaseLib.Param{
 			Value = "";
 		}
 
-		protected override Control Control { get { return new TextBox{Text = Value}; } }
+		protected override FrameworkElement Control { get { return new TextBox { Text = Value }; } }
 
 		public override object Clone(){
 			return new StringParam(Name, Value){Help = Help, Visible = Visible, Default = Default};

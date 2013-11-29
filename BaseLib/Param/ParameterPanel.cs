@@ -38,9 +38,7 @@ namespace BaseLib.Param{
 			for (int i = 0; i < nrows; i++){
 				AddParameterGroup(parameters1.GetGroup(i), i, paramNameWidth, totalWidth);
 			}
-			//TODO
-			//Controls.Clear();
-			AddChild(tableLayoutPanel);
+			Content = tableLayoutPanel;
 			Name = "ParameterPanel";
 			Width = totalWidth;
 			Height = (int) totalHeight;
