@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using BaseLib.Wpf;
 
 namespace BaseLib.Param{
 	[Serializable]
@@ -73,36 +74,34 @@ namespace BaseLib.Param{
 		}
 
 		public override void SetValueFromControl(){
-			//TODO
-			//TableLayoutPanel tbl = (TableLayoutPanel) control;
-			//if (tbl == null){
-			//	return;
-			//}
-			//ComboBox cb = (ComboBox) tbl.GetControlFromPosition(0, 0);
-			//if (cb != null){
-			//	Value = cb.SelectedIndex;
-			//}
-			//foreach (Parameters p in SubParams){
-			//	p.SetValuesFromControl();
-			//}
+			Grid tbl = (Grid) control;
+			if (tbl == null){
+				return;
+			}
+			ComboBox cb = (ComboBox) WpfUtils.GetGridChild(tbl, 0, 0);
+			if (cb != null){
+				Value = cb.SelectedIndex;
+			}
+			foreach (Parameters p in SubParams){
+				p.SetValuesFromControl();
+			}
 		}
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			//TODO
-			//TableLayoutPanel tlp = (TableLayoutPanel)control;
-			//ComboBox cb = (ComboBox) tlp.GetControlFromPosition(0, 0);
-			//if (Value >= 0 && Value < Values.Count){
-			//	cb.SelectedIndex = Value;
-			//}
-			//foreach (Parameters p in SubParams){
-			//	p.UpdateControlsFromValue();
-			//}
+			Grid tlp = (Grid) control;
+			ComboBox cb = (ComboBox) WpfUtils.GetGridChild(tlp, 0, 0);
+			if (Value >= 0 && Value < Values.Count){
+				cb.SelectedIndex = Value;
+			}
+			foreach (Parameters p in SubParams){
+				p.UpdateControlsFromValue();
+			}
 		}
 
-		protected override FrameworkElement Control {
+		protected override FrameworkElement Control{
 			get{
 				ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
 				for (int i = 0; i < panels.Length; i++){

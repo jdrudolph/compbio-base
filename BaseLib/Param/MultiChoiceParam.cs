@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using BaseLib.Util;
 using BaseLib.Wpf;
 
@@ -82,8 +81,9 @@ namespace BaseLib.Param{
 		protected override FrameworkElement Control {
 			get{
 				ListSelectorControl ls = new ListSelectorControl { HasMoveButtons = true };
-				//TODO
-				//ls.Items.AddRange(Values.ToArray());
+				foreach (string value in Values){
+					ls.Items.Add(value);
+				}
 				ls.Repeats = Repeats;
 				ls.SelectedIndices = Value;
 				ls.SetDefaultSelectors(defaultSelectionNames, defaultSelections);

@@ -429,6 +429,7 @@
     <Compile Include="Wpf\MultiListSelectorSubSelectionControl.xaml.cs">
       <DependentUpon>MultiListSelectorSubSelectionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\Axis\NumericAxisPropertiesForm.resx">
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>
       <SubType>Designer</SubType>

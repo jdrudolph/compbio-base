@@ -1,6 +1,5 @@
 using System;
 using System.Windows;
-using System.Windows.Controls;
 using BaseLib.Wpf;
 
 namespace BaseLib.Param{

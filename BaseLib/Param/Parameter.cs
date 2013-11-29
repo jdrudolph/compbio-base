@@ -11,8 +11,7 @@ namespace BaseLib.Param{
 		public string Name { get; private set; }
 		public string Help { get; set; }
 		public bool Visible { get; set; }
-		[NonSerialized]
-		protected FrameworkElement control;
+		[NonSerialized] protected FrameworkElement control;
 
 		protected Parameter(string name){
 			Name = name;

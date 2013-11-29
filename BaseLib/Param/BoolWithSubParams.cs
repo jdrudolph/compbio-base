@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
+using BaseLib.Wpf;
 
 namespace BaseLib.Param{
 	[Serializable]
@@ -57,10 +58,9 @@ namespace BaseLib.Param{
 		}
 
 		public override void SetValueFromControl(){
-			//TODO
-			//TableLayoutPanel tbl = (TableLayoutPanel) control;
-			//CheckBox cb = (CheckBox) tbl.GetControlFromPosition(0, 0);
-			//Value = cb.IsChecked != null && cb.IsChecked.Value;
+			Grid tbl = (Grid)control;
+			CheckBox cb = (CheckBox)WpfUtils.GetGridChild(tbl, 0, 0);
+			Value = cb.IsChecked != null && cb.IsChecked.Value;
 			SubParamsFalse.SetValuesFromControl();
 			SubParamsTrue.SetValuesFromControl();
 		}
@@ -75,13 +75,12 @@ namespace BaseLib.Param{
 			if (control == null){
 				return;
 			}
-			//TODO
-			//TableLayoutPanel tlp = (TableLayoutPanel) control;
-			//CheckBox cb = (CheckBox) tlp.GetControlFromPosition(0, 0);
-			//if (cb == null){
-			//	return;
-			//}
-			//cb.IsChecked = Value;
+			Grid tlp = (Grid) control;
+			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(tlp, 0, 0);
+			if (cb == null){
+				return;
+			}
+			cb.IsChecked = Value;
 			if (SubParamsFalse != null){
 				SubParamsFalse.UpdateControlsFromValue();
 			}
@@ -90,34 +89,32 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override FrameworkElement Control {
+		protected override FrameworkElement Control{
 			get{
-				//TODO
-				//ParameterPanel panelFalse = new ParameterPanel();
-				//ParameterPanel panelTrue = new ParameterPanel();
-				//panelFalse.Init(SubParamsFalse, ParamNameWidth, (int) (TotalWidth));
-				//panelTrue.Init(SubParamsTrue, ParamNameWidth, (int) (TotalWidth));
-				//CheckBox cb = new CheckBox{IsChecked = Value};
-				//cb.CheckStateChanged += (sender, e) => ValueHasChanged();
-				//TableLayoutPanel tlp = new TableLayoutPanel{ColumnCount = 1};
-				//tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
-				//tlp.RowCount = 2;
-				//tlp.RowStyles.Add(new RowStyle(SizeType.Absolute, 30));
-				//tlp.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-				//tlp.Controls.Add(cb, 0, 0);
-				//panelFalse.Visible = !Value;
-				//panelTrue.Visible = Value;
-				//panelFalse.Dock = DockStyle.Fill;
-				//panelTrue.Dock = DockStyle.Fill;
-				//tlp.Controls.Add(panelFalse, 0, 1);
-				//tlp.Controls.Add(panelTrue, 0, 1);
-				//tlp.Dock = DockStyle.Fill;
-				//cb.CheckedChanged += (sender, e) =>{
-				//	panelFalse.Visible = !cb.IsChecked.Value;
-				//	panelTrue.Visible = cb.IsChecked.Value;
-				//};
-				//return tlp;
-				return null;
+				ParameterPanel panelFalse = new ParameterPanel();
+				ParameterPanel panelTrue = new ParameterPanel();
+				panelFalse.Init(SubParamsFalse, ParamNameWidth, (int) (TotalWidth));
+				panelTrue.Init(SubParamsTrue, ParamNameWidth, (int) (TotalWidth));
+				CheckBox cb = new CheckBox{IsChecked = Value};
+				cb.Checked += (sender, e) => ValueHasChanged();
+				cb.Unchecked += (sender, e) => ValueHasChanged();
+				Grid tlp = new Grid();
+				tlp.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(100, GridUnitType.Star)});
+				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(30, GridUnitType.Pixel)});
+				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
+				Grid.SetRow(cb, 0);
+				tlp.Children.Add(cb);
+				panelFalse.Visibility = !Value ? Visibility.Visible : Visibility.Hidden;
+				panelTrue.Visibility = Value ? Visibility.Visible : Visibility.Hidden;
+				Grid.SetRow(panelFalse, 1);
+				tlp.Children.Add(panelFalse);
+				Grid.SetRow(panelTrue, 1);
+				tlp.Children.Add(panelTrue);
+				cb.Checked += (sender, e) =>{
+					panelFalse.Visibility = cb.IsChecked != null && !cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
+					panelTrue.Visibility = cb.IsChecked != null && cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
+				};
+				return tlp;
 			}
 		}
 		public override float Height { get { return 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height); } }

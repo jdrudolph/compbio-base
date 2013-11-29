@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -76,36 +77,38 @@ namespace BaseLib.Param{
 		}
 
 		public void UpdateControlFromValue2(){
-			//TODO
-			//ComboBox cb = (ComboBox) control;
-			//if (cb != null && Values != null){
-			//	cb.Items.Clear();
-			//	cb.Items.AddRange(Values.ToArray());
-			//	if (Value >= 0 && Value < Values.Count){
-			//		cb.SelectedIndex = Value;
-			//	}
-			//}
-			//if (cb != null && Value >= 0 && Value < Values.Count){
-			//	cb.SelectedIndex = Value;
-			//}
+			ComboBox cb = (ComboBox) control;
+			if (cb != null && Values != null){
+				cb.Items.Clear();
+				foreach (string value in Values){
+					cb.Items.Add(value);
+				}
+				if (Value >= 0 && Value < Values.Count){
+					cb.SelectedIndex = Value;
+				}
+			}
+			if (cb != null && Value >= 0 && Value < Values.Count){
+				cb.SelectedIndex = Value;
+			}
 		}
 
-		protected override FrameworkElement Control {
+		protected override FrameworkElement Control{
 			get{
 				//TODO
-				//ComboBox cb = new ComboBox{DropDownStyle = ComboBoxStyle.DropDownList};
-				//cb.SelectedIndexChanged += (sender, e) =>{
-				//	SetValueFromControl();
-				//	ValueHasChanged();
-				//};
-				//if (Values != null){
-				//	cb.Items.AddRange(Values.ToArray());
-				//	if (Value >= 0 && Value < Values.Count){
-				//		cb.SelectedIndex = Value;
-				//	}
-				//}
-				//return cb;
-				return null;
+				ComboBox cb = new ComboBox();
+				cb.SelectionChanged += (sender, e) =>{
+					SetValueFromControl();
+					ValueHasChanged();
+				};
+				if (Values != null){
+					foreach (string value in Values){
+						cb.Items.Add(value);
+					}
+					if (Value >= 0 && Value < Values.Count){
+						cb.SelectedIndex = Value;
+					}
+				}
+				return cb;
 			}
 		}
 

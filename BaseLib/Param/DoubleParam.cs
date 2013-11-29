@@ -41,10 +41,10 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			TextBox tb = (TextBox)control;
+			TextBox tb = (TextBox) control;
 			tb.Text = "" + Value;
 		}
 
@@ -52,7 +52,7 @@ namespace BaseLib.Param{
 			Value = 0;
 		}
 
-		protected override FrameworkElement Control {
+		protected override FrameworkElement Control{
 			get{
 				TextBox tb = new TextBox{Text = "" + Value};
 				tb.TextChanged += (sender, e) =>{

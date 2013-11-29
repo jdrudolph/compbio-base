@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using BaseLib.Util;
 using BaseLib.Wpf;
 
@@ -73,7 +72,7 @@ namespace BaseLib.Param{
 			Value = new Dictionary<string, int>();
 		}
 
-		protected override FrameworkElement Control { get { return new DictionaryIntValueControl { Value = Value, Keys = Keys, Default = DefaultValue }; } }
+		protected override FrameworkElement Control { get { return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; } }
 
 		public override object Clone(){
 			return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};

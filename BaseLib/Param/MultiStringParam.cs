@@ -82,7 +82,7 @@ namespace BaseLib.Param{
 		protected override FrameworkElement Control {
 			get{
 				//TODO
-				//RichTextBox tb = new RichTextBox{Multiline = true};
+				RichTextBox tb = new RichTextBox();
 				//if (Value.Length >= 10){
 				//	tb.Text = StringUtils.Concat("\n", Value);
 				//} else{

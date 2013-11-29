@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using BaseLib.Util;
 using BaseLib.Wpf;
 

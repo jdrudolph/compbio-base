@@ -39,10 +39,10 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			CheckBox cb = (CheckBox)control;
+			CheckBox cb = (CheckBox) control;
 			cb.IsChecked = Value;
 		}
 
@@ -50,7 +50,7 @@ namespace BaseLib.Param{
 			Value = false;
 		}
 
-		protected override FrameworkElement Control { get { return new CheckBox { IsChecked = Value }; } }
+		protected override FrameworkElement Control { get { return new CheckBox{IsChecked = Value}; } }
 
 		public override object Clone(){
 			return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
