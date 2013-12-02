@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using BaseLib.Util;
 
 namespace BaseLib.Wpf{
@@ -24,7 +23,6 @@ namespace BaseLib.Wpf{
 			tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(56, GridUnitType.Star)});
 			Grid.SetRow(allListBox, 0);
 			Grid.SetColumn(allListBox, 0);
-			allListBox.Background = Brushes.Gold;
 			tableLayoutPanel1.Children.Add(allListBox);
 			tableLayoutPanel1.Margin = new Thickness(0);
 			tableLayoutPanel1.RowDefinitions.Add(new RowDefinition());
@@ -35,8 +33,8 @@ namespace BaseLib.Wpf{
 			//Height = 379;
 		}
 
-		private ListBox allListBox;
-		private Grid tableLayoutPanel1;
+		private readonly ListBox allListBox;
+		private readonly Grid tableLayoutPanel1;
 
 		public void Init(IList<string> items1){
 			items = items1;

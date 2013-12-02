@@ -7,7 +7,7 @@ namespace BaseLib.Param{
 		private Grid tableLayoutPanel;
 
 		public void Init(ParameterGroup parameters1){
-			Init(parameters1, 250F, 1000);
+			Init(parameters1, 200F, 1050);
 		}
 
 		public void Init(ParameterGroup parameters1, float paramNameWidth, int totalWidth){
@@ -57,7 +57,7 @@ namespace BaseLib.Param{
 			Grid.SetColumn(txt1, 0);
 			Grid.SetRow(txt1, i);
 			FrameworkElement c = p.GetControl();
-			c.Width = 500;
+			c.Width = 750;
 			Grid.SetColumn(c, 1);
 			Grid.SetRow(c, i);
 			tableLayoutPanel.Children.Add(txt1);

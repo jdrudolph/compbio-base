@@ -14,7 +14,7 @@ namespace BaseLib.Param{
 		}
 
 		public void Init(Parameters parameters1){
-			Init(parameters1, 250F, 1000);
+			Init(parameters1, 250F, 1050);
 		}
 
 		public void Init(Parameters parameters1, float paramNameWidth, int totalWidth){
