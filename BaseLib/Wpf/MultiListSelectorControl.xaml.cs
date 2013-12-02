@@ -59,7 +59,8 @@ namespace BaseLib.Wpf{
 			subSelection = new MultiListSelectorSubSelectionControl[n];
 			for (int i = 0; i < n; i++){
 				subSelection[i] = new MultiListSelectorSubSelectionControl
-				{Content = selectorNames[i], MultiListSelectorControl = this};
+				{MultiListSelectorControl = this};
+				//Content = selectorNames[i]
 			}
 			tableLayoutPanel2.Margin = new Thickness(0);
 			tableLayoutPanel2.ColumnDefinitions.Add(new ColumnDefinition());

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Documents;
 
 namespace BaseLib.Param {
 	/// <summary>
@@ -13,22 +12,23 @@ namespace BaseLib.Param {
 			cancelButton.Click += CancelButtonClick;
 			okButton.Click += OkButtonClick;
 			parameterPanel1.Init(parameters);
-			if (!string.IsNullOrEmpty(helpDescription)) {
-				helpDoc.Blocks.Add(new Paragraph(new Run("Description:")));
-				helpDoc.Blocks.Add(new Paragraph(new Run(helpDescription)));
-			}
-			if (!string.IsNullOrEmpty(helpOutput)) {
-				helpDoc.Blocks.Add(new Paragraph(new Run("Output:")));
-				helpDoc.Blocks.Add(new Paragraph(new Run(helpOutput)));
-			}
-			if (helpSuppls != null) {
-				for (int i = 0; i < helpSuppls.Count; i++) {
-					if (!string.IsNullOrEmpty(helpSuppls[i])) {
-						helpDoc.Blocks.Add(new Paragraph(new Run("Suppl. table " + (i + 1) + ":")));
-						helpDoc.Blocks.Add(new Paragraph(new Run(helpSuppls[i])));
-					}
-				}
-			}
+			//TODO
+			//if (!string.IsNullOrEmpty(helpDescription)) {
+			//	helpDoc.Blocks.Add(new Paragraph(new Run("Description:")));
+			//	helpDoc.Blocks.Add(new Paragraph(new Run(helpDescription)));
+			//}
+			//if (!string.IsNullOrEmpty(helpOutput)) {
+			//	helpDoc.Blocks.Add(new Paragraph(new Run("Output:")));
+			//	helpDoc.Blocks.Add(new Paragraph(new Run(helpOutput)));
+			//}
+			//if (helpSuppls != null) {
+			//	for (int i = 0; i < helpSuppls.Count; i++) {
+			//		if (!string.IsNullOrEmpty(helpSuppls[i])) {
+			//			helpDoc.Blocks.Add(new Paragraph(new Run("Suppl. table " + (i + 1) + ":")));
+			//			helpDoc.Blocks.Add(new Paragraph(new Run(helpSuppls[i])));
+			//		}
+			//	}
+			//}
 			Title = title;
 		}
 

@@ -1,29 +1,26 @@
 ﻿<Window x:Class="BaseLib.Param.ParameterWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:param="clr-namespace:BaseLib.Param"
-        Title="Parameters" Height="500" Width="1100">
+        Title="Parameters" Height="500" Width="900">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="26"></RowDefinition>
         </Grid.RowDefinitions>
-        <TabControl Grid.Row="0" >
-            <TabItem Header="Parameters">
                 <Grid Background="#FFE5E5E5">
-                    <param:ParameterPanel x:Name="parameterPanel1"/>
+                    <ScrollViewer>
+                        <param:ParameterPanel x:Name="parameterPanel1" VerticalAlignment="Top"/>
+                    </ScrollViewer>
                 </Grid>
-            </TabItem>
-            <TabItem Header="Help">
-                <Grid Background="#FFE5E5E5">
-                    <RichTextBox >
-                        <FlowDocument x:Name="helpDoc"></FlowDocument>
-                    </RichTextBox>
-                </Grid>
-            </TabItem>
-        </TabControl>
-        <DockPanel Grid.Row="1">
-            <Button Width="50" HorizontalAlignment="Left" x:Name="cancelButton">Cancel</Button>
-            <Button Width="50" HorizontalAlignment="Right" x:Name="okButton">OK</Button>
-        </DockPanel>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Width="50" HorizontalAlignment="Left" x:Name="cancelButton">Cancel</Button>
+            <TextBlock Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center">Description</TextBlock>
+            <Button Grid.Column="2" Width="50" HorizontalAlignment="Right" x:Name="okButton">OK</Button>
+        </Grid>
     </Grid>
 </Window>
