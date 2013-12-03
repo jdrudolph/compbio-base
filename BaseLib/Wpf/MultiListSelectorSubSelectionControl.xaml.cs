@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
-using BaseLib.Forms.Select;
+using System.Windows.Input;
 using BaseLib.Util;
 
 namespace BaseLib.Wpf {
@@ -17,194 +16,25 @@ namespace BaseLib.Wpf {
 
 		public MultiListSelectorSubSelectionControl() {
 			InitializeComponent();
-			//tableLayoutPanel1 = new Grid();
-			//selectedListBox = new System.Windows.Controls.ListBox();
-			//panel1 = new Canvas();
-			//helpLabel6 = new TextBlock();
-			//helpLabel5 = new TextBlock();
-			//deselectButton = new System.Windows.Controls.Button();
-			//selectButton = new System.Windows.Controls.Button();
-			//panel2 = new Canvas();
-			//helpLabel4 = new TextBlock();
-			//helpLabel3 = new TextBlock();
-			//helpLabel2 = new TextBlock();
-			//helpLabel1 = new TextBlock();
-			//bottomButton = new System.Windows.Controls.Button();
-			//downButton = new System.Windows.Controls.Button();
-			//upButton = new System.Windows.Controls.Button();
-			//topButton = new System.Windows.Controls.Button();
-			//tableLayoutPanel2 = new Grid();
-			//panel3 = new Canvas();
-			//tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
-			//tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(100, GridUnitType.Star) });
-			//tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(30, GridUnitType.Pixel) });
-			//tableLayoutPanel1.RowDefinitions.Add(new RowDefinition());
-			//tableLayoutPanel1.Width = 280;
-			//tableLayoutPanel1.Height = 326;
-			//Grid.SetRow(selectedListBox, 0);
-			//Grid.SetRow(panel1, 0);
-			//Grid.SetRow(panel2, 0);
-			//Grid.SetColumn(selectedListBox, 1);
-			//Grid.SetColumn(panel1, 0);
-			//Grid.SetColumn(panel2, 2);
-			//tableLayoutPanel1.Children.Add(selectedListBox);
-			//tableLayoutPanel1.Children.Add(panel1);
-			//tableLayoutPanel1.Children.Add(panel2);
-			//tableLayoutPanel1.Margin = new Thickness(0);
-			//// 
-			//// selectedListBox
-			//// 
-			//selectedListBox.Width = 214;
-			//selectedListBox.Height = 316;
-			//// 
-			//// panel1
-			//// 
-			//panel1.Children.Add(helpLabel6);
-			//panel1.Children.Add(helpLabel5);
-			//panel1.Children.Add(deselectButton);
-			//panel1.Children.Add(selectButton);
-			//panel1.Width = 24;
-			//panel1.Height = 320;
-			//// 
-			//// helpLabel6
-			//// 
-			//helpLabel6.ToolTip = "Deselect.";
-			//helpLabel6.Text = "<";
-			////helpLabel6.Location = new System.Drawing.Point(1, 59);
-			//helpLabel6.Width = 23;
-			//helpLabel6.Height = 13;
-			//// 
-			//// helpLabel5
-			//// 
-			//helpLabel5.ToolTip = "Select.";
-			//helpLabel5.Text = ">";
-			////helpLabel5.Location = new System.Drawing.Point(2, 23);
-			//helpLabel5.Width = 23;
-			//helpLabel5.Height = 13;
-			//// 
-			//// deselectButton
-			//// 
-			////deselectButton.Location = new System.Drawing.Point(0, 36);
-			//deselectButton.Width = 24;
-			//deselectButton.Height = 23;
-			//deselectButton.Content = "<";
-			//deselectButton.Click += DeselectButtonClick;
-			//// 
-			//// selectButton
-			//// 
-			////selectButton.Location = new System.Drawing.Point(0, 0);
-			//selectButton.Width = 24;
-			//selectButton.Height = 23;
-			//selectButton.Content = ">";
-			//selectButton.Click += SelectButtonClick;
-			//// 
-			//// panel2
-			//// 
-			//panel2.Children.Add(helpLabel4);
-			//panel2.Children.Add(helpLabel3);
-			//panel2.Children.Add(helpLabel2);
-			//panel2.Children.Add(helpLabel1);
-			//panel2.Children.Add(bottomButton);
-			//panel2.Children.Add(downButton);
-			//panel2.Children.Add(upButton);
-			//panel2.Children.Add(topButton);
-			//panel2.Width = 24;
-			//panel2.Height = 320;
-			//// 
-			//// helpLabel4
-			//// 
-			//helpLabel4.ToolTip = "Move selection to the bottom.";
-			//helpLabel4.Text = "b";
-			////helpLabel4.Location = new System.Drawing.Point(1, 113);
-			//helpLabel4.Width = 23;
-			//helpLabel4.Height = 13;
-			//// 
-			//// helpLabel3
-			//// 
-			//helpLabel3.ToolTip = "Move selection down.";
-			//helpLabel3.Text = "d";
-			////helpLabel3.Location = new System.Drawing.Point(1, 82);
-			//helpLabel3.Width = 23;
-			//helpLabel3.Height = 13;
-			//// 
-			//// helpLabel2
-			//// 
-			//helpLabel2.ToolTip = "Move selection up.";
-			//helpLabel2.Text = "u";
-			////helpLabel2.Location = new System.Drawing.Point(1, 50);
-			//helpLabel2.Width = 23;
-			//helpLabel2.Height = 13;
-			//// 
-			//// helpLabel1
-			//// 
-			//helpLabel1.ToolTip = "Move selection to the top.";
-			//helpLabel1.Text = "t";
-			////helpLabel1.Location = new System.Drawing.Point(1, 19);
-			//helpLabel1.Width = 23;
-			//helpLabel1.Height = 13;
-			//// 
-			//// bottomButton
-			//// 
-			////bottomButton.Location = new System.Drawing.Point(0, 94);
-			//bottomButton.Width = 24;
-			//bottomButton.Height = 20;
-			//bottomButton.Content = "b";
-			//bottomButton.Click += BottomButtonClick;
-			//// 
-			//// downButton
-			//// 
-			////downButton.Location = new System.Drawing.Point(0, 62);
-			//downButton.Width = 24;
-			//downButton.Height = 20;
-			//downButton.Content = "d";
-			//downButton.Click += DownButtonClick;
-			//// 
-			//// upButton
-			//// 
-			////upButton.Location = new System.Drawing.Point(0, 31);
-			//upButton.Width = 24;
-			//upButton.Height = 20;
-			//upButton.Content = "u";
-			//upButton.Click += UpButtonClick;
-			//// 
-			//// topButton
-			//// 
-			////topButton.Location = new System.Drawing.Point(0, 0);
-			//topButton.Width = 24;
-			//topButton.Height = 20;
-			//topButton.Content = "t";
-			//topButton.Click += TopButtonClick;
-			//// 
-			//// tableLayoutPanel2
-			//// 
-			//tableLayoutPanel2.ColumnDefinitions.Add(new ColumnDefinition());
-			//tableLayoutPanel2.RowDefinitions.Add(new RowDefinition{ Height = new GridLength(20, GridUnitType.Pixel) });
-			//tableLayoutPanel2.RowDefinitions.Add(new RowDefinition{ Height = new GridLength(100, GridUnitType.Star) });
-			//Grid.SetRow(tableLayoutPanel1, 1);
-			//Grid.SetRow(panel3, 0);
-			//Grid.SetColumn(tableLayoutPanel1, 0);
-			//Grid.SetColumn(panel3, 0);		
-	
-			
-			//tableLayoutPanel2.Children.Add(tableLayoutPanel1);
-			//tableLayoutPanel2.Children.Add(panel3);
-			//tableLayoutPanel2.Margin =new Thickness(0);
-			//tableLayoutPanel2.Width = 280;
-			//tableLayoutPanel2.Height = 346;
-			//// 
-			//// panel3
-			//// 
-			//panel3.Margin = new Thickness(0);
-			//panel3.Width = 280;
-			//panel3.Height = 20;
-			//// 
-			//// MultiListSelectorSubSelection
-			//// 
-			//Content=tableLayoutPanel2;
-			//Width = 280;
-			//Height = 346;
-
+			downButton.MouseDown += DownButtonMouseDown;
+			downButton.MouseUp += DownButtonMouseUp;
+			upButton.MouseDown += UpButtonMouseDown;
+			upButton.MouseUp += UpButtonMouseUp;
 		}
+
+		public string Text { set { titleBlock.Text = value; } }
+		internal System.Windows.Controls.ItemCollection SelectedItems { get { return selectedListBox.Items; } }
+		internal string[] SelectedStrings {
+			get {
+				System.Windows.Controls.ItemCollection sel = SelectedItems;
+				string[] result = new string[sel.Count];
+				for (int i = 0; i < result.Length; i++) {
+					result[i] = sel[i].ToString();
+				}
+				return result;
+			}
+		}
+		public System.Windows.Controls.ListBox SelectedListBox { get { return selectedListBox; } }
 
 		private static int[] GetSelectedIndices(System.Windows.Controls.ListBox box) {
 			int[] result = new int[box.SelectedItems.Count];
@@ -221,12 +51,52 @@ namespace BaseLib.Wpf {
 			}
 			selectedListBox.Items.Clear();
 			//TODO
-			//selectedListBox.ClearSelected();
-			//items = ArrayUtils.SubArray(items, order);
-			//selectedListBox.Items.AddRange(items);
-			//foreach (int i in selection) {
-			//	selectedListBox.SetSelected(i, true);
-			//}
+			selectedListBox.UnselectAll();
+			items = ArrayUtils.SubArray(items, order);
+			foreach (object item in items){
+				selectedListBox.Items.Add(item);
+			}
+			foreach (int i in selection){
+				selectedListBox.SelectedIndex = i;
+				//selectedListBox.SetSelected(i, true);
+			}
+		}
+
+
+		private void DownButtonMouseUp(object sender, MouseButtonEventArgs e) {
+			downThread.Abort();
+			downThread = null;
+		}
+
+		private void UpButtonMouseUp(object sender, MouseButtonEventArgs e) {
+			upThread.Abort();
+			upThread = null;
+		}
+
+		private void DownButtonMouseDown(object sender, MouseButtonEventArgs e) {
+			downThread = new Thread(WalkDown);
+			downThread.Start();
+		}
+
+		private void UpButtonMouseDown(object sender, MouseButtonEventArgs e) {
+			upThread = new Thread(WalkUp);
+			upThread.Start();
+		}
+
+		private void WalkDown() {
+			Thread.Sleep(400);
+			while (true) {
+				Dispatcher.Invoke(() => DownButtonClick(null, null));
+				Thread.Sleep(150);
+			}
+		}
+
+		private void WalkUp() {
+			Thread.Sleep(400);
+			while (true) {
+				Dispatcher.Invoke(() => UpButtonClick(null, null));
+				Thread.Sleep(150);
+			}
 		}
 
 
@@ -328,20 +198,6 @@ namespace BaseLib.Wpf {
 			SetOrder(order, selection);
 		}
 
-		private void SelectButtonClick(object sender, EventArgs e) {
-			object[] os = new object[MultiListSelectorControl.AllListBox.SelectedItems.Count];
-			MultiListSelectorControl.AllListBox.SelectedItems.CopyTo(os, 0);
-			foreach (object o in os) {
-				if (!selectedListBox.Items.Contains(o)) {
-					selectedListBox.Items.Add(o);
-				}
-			}
-			foreach (object o in os) {
-				MultiListSelectorControl.AllListBox.Items.Remove(o);
-			}
-			MultiListSelectorControl.SelectionHasChanged(this, e);
-		}
-
 		//TODO
 		//protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
 		//	switch (keyData) {
@@ -358,7 +214,21 @@ namespace BaseLib.Wpf {
 		//	return base.ProcessCmdKey(ref msg, keyData);
 		//}
 
-		private void DeselectButtonClick(object sender, EventArgs e) {
+		private void Select_OnClick(object sender, RoutedEventArgs e){
+			object[] os = new object[MultiListSelectorControl.AllListBox.SelectedItems.Count];
+			MultiListSelectorControl.AllListBox.SelectedItems.CopyTo(os, 0);
+			foreach (object o in os) {
+				if (!selectedListBox.Items.Contains(o)) {
+					selectedListBox.Items.Add(o);
+				}
+			}
+			foreach (object o in os) {
+				MultiListSelectorControl.AllListBox.Items.Remove(o);
+			}
+			MultiListSelectorControl.SelectionHasChanged(this, e);
+		}
+
+		private void Deselect_OnClick(object sender, RoutedEventArgs e){
 			object[] os = new object[selectedListBox.SelectedItems.Count];
 			selectedListBox.SelectedItems.CopyTo(os, 0);
 			foreach (object o in os) {
@@ -369,32 +239,5 @@ namespace BaseLib.Wpf {
 			}
 			MultiListSelectorControl.SelectionHasChanged(this, e);
 		}
-
-		private Grid tableLayoutPanel1;
-		private System.Windows.Controls.ListBox selectedListBox;
-		private Canvas panel1;
-		private TextBlock helpLabel6;
-		private TextBlock helpLabel5;
-		private System.Windows.Controls.Button deselectButton;
-		private System.Windows.Controls.Button selectButton;
-		private Canvas panel2;
-		private TextBlock helpLabel4;
-		private TextBlock helpLabel3;
-		private TextBlock helpLabel2;
-		private TextBlock helpLabel1;
-		private System.Windows.Controls.Button bottomButton;
-		private System.Windows.Controls.Button downButton;
-		private System.Windows.Controls.Button upButton;
-		private System.Windows.Controls.Button topButton;
-		private Grid tableLayoutPanel2;
-		private Canvas panel3;
-
-		//TODO
-		internal string[] SelectedStrings {
-			get {
-				return new string[0];
-			}
-		}
-
 	}
 }

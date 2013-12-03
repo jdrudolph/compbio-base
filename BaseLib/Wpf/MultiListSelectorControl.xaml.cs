@@ -15,7 +15,7 @@ namespace BaseLib.Wpf{
 
 		public MultiListSelectorControl(){
 			InitializeComponent();
-			allListBox = new ListBox();
+			allListBox = new ListBox{SelectionMode = SelectionMode.Extended};
 			tableLayoutPanel1 = new Grid();
 			//allListBox.Width = 182;
 			//allListBox.Height = 368;
@@ -44,7 +44,33 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public int[][] SelectedIndices { get; set; }
+		public int[][] SelectedIndices{
+			get{
+				int[][] result = new int[subSelection.Length][];
+				for (int i = 0; i < result.Length; i++){
+					result[i] = GetSelectedIndices(i);
+				}
+				return result;
+			}
+			set{
+				ClearSelection();
+				for (int i = 0; i < value.Length; i++){
+					foreach (int x in value[i]){
+						SetSelected(i, x, true);
+					}
+				}
+			}
+		}
+
+		private void ClearSelection() {
+			foreach (MultiListSelectorSubSelectionControl t in subSelection) {
+				foreach (object x in t.SelectedListBox.Items) {
+					AllListBox.Items.Add(x);
+				}
+				t.SelectedListBox.Items.Clear();
+			}
+		}
+
 		public void Connect(int connectionId, object target) {}
 
 		public void Init(IList<string> items1, IList<string> selectorNames){
@@ -56,9 +82,7 @@ namespace BaseLib.Wpf{
 			Grid tableLayoutPanel2 = new Grid();
 			subSelection = new MultiListSelectorSubSelectionControl[n];
 			for (int i = 0; i < n; i++){
-				subSelection[i] = new MultiListSelectorSubSelectionControl
-				{MultiListSelectorControl = this};
-				//Content = selectorNames[i]
+				subSelection[i] = new MultiListSelectorSubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
 			}
 			tableLayoutPanel2.Margin = new Thickness(0);
 			tableLayoutPanel2.ColumnDefinitions.Add(new ColumnDefinition());
@@ -83,8 +107,29 @@ namespace BaseLib.Wpf{
 			}
 		}
 
+		private HashSet<string> GetSubSelection(int selectorInd) {
+			return new HashSet<string>(subSelection[selectorInd].SelectedStrings);
+		}
+
 		public void SetSelected(int selectorInd, int itemInd, bool b){
-			//TODO
+			HashSet<string> x = GetSubSelection(selectorInd);
+			if (x.Contains(items[itemInd])) {
+				return;
+			}
+			if (!AllListBox.Items.Contains(items[itemInd])) {
+				for (int i = 0; i < subSelection.Length; i++) {
+					if (i == selectorInd) {
+						continue;
+					}
+					if (subSelection[i].SelectedListBox.Items.Contains(items[itemInd])) {
+						subSelection[i].SelectedListBox.Items.Remove(items[itemInd]);
+						AllListBox.Items.Add(items[itemInd]);
+						break;
+					}
+				}
+			}
+			AllListBox.Items.Remove(items[itemInd]);
+			subSelection[selectorInd].SelectedListBox.Items.Add(items[itemInd]);
 		}
 
 		internal ListBox AllListBox { get { return allListBox; } }
