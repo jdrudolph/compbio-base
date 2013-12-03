@@ -10,9 +10,9 @@ using System.Windows;
 [assembly: AssemblyTitle("BaseLib")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Max-Planck-Institute of Biochemistry")]
+[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BaseLib")]
-[assembly: AssemblyCopyright("Copyright © Max-Planck-Institute of Biochemistry 2013")]
+[assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 
 namespace BaseLib.Wpf {
 	/// <summary>
@@ -9,9 +10,15 @@ namespace BaseLib.Wpf {
 			InitializeComponent();
 		}
 
-		public string Filter { get; set; }
-		public string Text { get; set; }
-		public bool Save { get; set; }
+		private void ButtonClick(object sender, RoutedEventArgs e) {
+			//TODO
+			//FolderBrowserDialog ofd = new FolderBrowserDialog();
+			//if (ofd.ShowDialog() == true) {
+			//	textBox.Text = ofd.SelectedPath;
+			//}
+		}
+
+		public string Text { get { return textBox.Text; } set { textBox.Text = value; } }
 		public void Connect(int connectionId, object target) {}
 	}
 }

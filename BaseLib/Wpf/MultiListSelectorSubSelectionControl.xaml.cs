@@ -50,7 +50,6 @@ namespace BaseLib.Wpf {
 				items[i] = selectedListBox.Items[i];
 			}
 			selectedListBox.Items.Clear();
-			//TODO
 			selectedListBox.UnselectAll();
 			items = ArrayUtils.SubArray(items, order);
 			foreach (object item in items){
@@ -58,10 +57,8 @@ namespace BaseLib.Wpf {
 			}
 			foreach (int i in selection){
 				selectedListBox.SelectedIndex = i;
-				//selectedListBox.SetSelected(i, true);
 			}
 		}
-
 
 		private void DownButtonMouseUp(object sender, MouseButtonEventArgs e) {
 			downThread.Abort();
