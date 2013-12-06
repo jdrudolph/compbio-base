@@ -12,7 +12,7 @@
                         <param:ParameterPanel x:Name="parameterPanel1" VerticalAlignment="Top"/>
                     </ScrollViewer>
                 </Grid>
-        <Grid Grid.Row="1" Background="CornflowerBlue">
+        <Grid Grid.Row="1" Background="#FFEDC864">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>

@@ -430,6 +430,9 @@
     <Compile Include="Wpf\MultiListSelectorSubSelectionControl.xaml.cs">
       <DependentUpon>MultiListSelectorSubSelectionControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Query\StringQueryWindow.xaml.cs">
+      <DependentUpon>StringQueryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\TableViewWpf.xaml.cs">
       <DependentUpon>TableViewWpf.xaml</DependentUpon>
     </Compile>
@@ -644,6 +647,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Wpf\MultiListSelectorSubSelectionControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Query\StringQueryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

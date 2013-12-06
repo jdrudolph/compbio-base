@@ -11,6 +11,9 @@ namespace BaseLib.Wpf {
 		}
 
 		public static BitmapSource LoadBitmap(System.Drawing.Bitmap source) {
+			if (source == null){
+				return null;
+			}
 			return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(source.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
 				BitmapSizeOptions.FromEmptyOptions());
 			
