@@ -1,7 +1,7 @@
 ﻿<Window x:Class="BaseLib.Param.ParameterWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:param="clr-namespace:BaseLib.Param"
-        Title="Parameters" Height="870" Width="1070">
+        Title="Parameters" Height="870" Width="1070" ShowInTaskbar="false">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
