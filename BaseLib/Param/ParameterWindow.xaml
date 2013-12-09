@@ -9,7 +9,7 @@
         </Grid.RowDefinitions>
                 <Grid Background="#FFE5E5E5">
                     <ScrollViewer>
-                        <param:ParameterPanel x:Name="parameterPanel1" VerticalAlignment="Top"/>
+                        <param:ParameterPanel x:Name="ParameterPanel1" VerticalAlignment="Top"/>
                     </ScrollViewer>
                 </Grid>
         <Grid Grid.Row="1" Background="#FFEDC864">
@@ -18,9 +18,9 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button Grid.Column="0" Width="50" HorizontalAlignment="Left" x:Name="cancelButton">Cancel</Button>
-            <DockPanel Grid.Column="1" VerticalAlignment="Center" x:Name="helpPanel"></DockPanel>
-            <Button Grid.Column="2" Width="50" HorizontalAlignment="Right" x:Name="okButton">OK</Button>
+            <Button Grid.Column="0" Width="50" HorizontalAlignment="Left" x:Name="CancelButton">Cancel</Button>
+            <DockPanel Grid.Column="1" VerticalAlignment="Center" x:Name="HelpPanel"></DockPanel>
+            <Button Grid.Column="2" Width="50" HorizontalAlignment="Right" x:Name="OkButton">OK</Button>
         </Grid>
     </Grid>
 </Window>

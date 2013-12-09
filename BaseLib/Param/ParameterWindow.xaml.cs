@@ -10,10 +10,10 @@ namespace BaseLib.Param{
 		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
 			IList<string> helpSuppls){
 			InitializeComponent();
-			cancelButton.Click += CancelButtonClick;
-			okButton.Click += OkButtonClick;
-			parameterPanel1.Init(parameters);
-			helpPanel.Children.Clear();
+			CancelButton.Click += CancelButtonClick;
+			OkButton.Click += OkButtonClick;
+			ParameterPanel1.Init(parameters);
+			HelpPanel.Children.Clear();
 			List<string> titles = new List<string>();
 			List<string> description = new List<string>();
 			if (!string.IsNullOrEmpty(helpDescription)){
@@ -50,13 +50,13 @@ namespace BaseLib.Param{
 				Grid.SetColumn(tb, i + 1);
 				g.Children.Add(tb);
 			}
-			helpPanel.Children.Add(g);
+			HelpPanel.Children.Add(g);
 			Title = title;
 		}
 
 		private void OkButtonClick(object sender, RoutedEventArgs e){
 			Ok = true;
-			parameterPanel1.SetParameters();
+			ParameterPanel1.SetParameters();
 			Close();
 		}
 
