@@ -22,6 +22,14 @@ namespace BaseLib.Param{
 			return result.ToArray();
 		}
 
+		public string[] GetAllGroupHeadings() {
+			List<string> result = new List<string>();
+			foreach (ParameterGroup pg in paramGroups) {
+				result.Add(pg.Name);
+			}
+			return result.ToArray();
+		}
+
 		public string[] Markup{
 			get{
 				List<string> result = new List<string>();

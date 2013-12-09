@@ -14,15 +14,23 @@ namespace BaseLib.ParamWf{
 		public ParametersWf(IList<ParameterWf> param) : this(param, null) {}
 		public ParametersWf() {}
 
-		public ParameterWf[] GetAllParameters(){
+		public ParameterWf[] GetAllParameters() {
 			List<ParameterWf> result = new List<ParameterWf>();
-			foreach (ParameterGroupWf pg in paramGroups){
+			foreach (ParameterGroupWf pg in paramGroups) {
 				result.AddRange(pg.ParameterList);
 			}
 			return result.ToArray();
 		}
 
-		public string[] Markup{
+		public string[] GetAllGroupHeadings() {
+			List<string> result = new List<string>();
+			foreach (ParameterGroupWf pg in paramGroups) {
+				result.Add(pg.Name);
+			}
+			return result.ToArray();
+		}
+
+		public string[] Markup {
 			get{
 				List<string> result = new List<string>();
 				foreach (ParameterGroupWf paramGroup in paramGroups){
