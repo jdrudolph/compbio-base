@@ -50,7 +50,7 @@ namespace BaseLib.Param{
 			Value = false;
 		}
 
-		protected override FrameworkElement Control { get { return new CheckBox{IsChecked = Value}; } }
+		protected override FrameworkElement Control { get { return new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center}; } }
 
 		public override object Clone(){
 			return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default};

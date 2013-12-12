@@ -1,12 +1,14 @@
-﻿using System.Windows.Forms.Integration;
+﻿using System.Windows.Controls;
+using System.Windows.Forms.Integration;
 using BaseLib.Forms.Table;
 
 namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for TableViewWpf.xaml
 	/// </summary>
-	public partial class TableViewWpf : System.Windows.Controls.UserControl{
+	public partial class TableViewWpf : UserControl{
 		private readonly TableView tableView;
+
 		public TableViewWpf(){
 			InitializeComponent();
 			WindowsFormsHost wfh = new WindowsFormsHost();
@@ -15,26 +17,16 @@ namespace BaseLib.Wpf{
 			Grid1.Children.Add(wfh);
 		}
 
-		public ITableModel TableModel{
-			get { return tableView.TableModel; }
-			set { tableView.TableModel = value; }
-		}
+		public ITableModel TableModel { get { return tableView.TableModel; } set { tableView.TableModel = value; } }
+		public bool MultiSelect { get { return tableView.MultiSelect; } set { tableView.MultiSelect = value; } }
+		public bool Sortable { get { return tableView.Sortable; } set { tableView.Sortable = value; } }
+		public bool HasRemoveRowsMenuItems { get { return tableView.HasRemoveRowsMenuItems; } set { tableView.HasRemoveRowsMenuItems = value; } }
 
-		public bool MultiSelect {
-			get { return tableView.MultiSelect; }
-			set { tableView.MultiSelect = value; }
-		}
-
-		public bool Sortable {
-			get { return tableView.Sortable; }
-			set { tableView.Sortable = value; }
-		}
-
-		public void Invalidate() {
+		public void Invalidate(){
 			tableView.Invalidate();
 		}
 
-		public void Invalidate(bool b) {
+		public void Invalidate(bool b){
 			tableView.Invalidate(b);
 		}
 

@@ -56,7 +56,7 @@ namespace BaseLib.Param{
 			}
 			Grid.SetColumn(txt1, 0);
 			Grid.SetRow(txt1, i);
-			FrameworkElement c = p.GetControl();
+			FrameworkElement c = p.GetControl() ?? new Control();
 			c.Width = 750;
 			Grid.SetColumn(c, 1);
 			Grid.SetRow(c, i);

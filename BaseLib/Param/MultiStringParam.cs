@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Util;
@@ -43,19 +44,17 @@ namespace BaseLib.Param{
 		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
 
 		public override void SetValueFromControl(){
-			//TODO
-			//RichTextBox tb = (RichTextBox) control;
-			//string text = tb.Text;
-			//string[] b = text.Split('\n');
-			//List<string> result = new List<string>();
-			//foreach (string x in b){
-			//	string y = x.Trim();
-			//	if (y.Length > 0){
-			//		result.Add(y);
-			//	}
-			//}
-			//string[] val = result.ToArray();
-			//Value = val;
+			TextBox tb = (TextBox) control;
+			string text = tb.Text;
+			string[] b = text.Split('\n');
+			List<string> result = new List<string>();
+			foreach (string x in b){
+				string y = x.Trim();
+				if (y.Length > 0){
+					result.Add(y);
+				}
+			}
+			Value = result.ToArray();
 		}
 
 		public override void Clear(){
@@ -63,37 +62,18 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			RichTextBox rtb = (RichTextBox)control;
-			//TODO
-			//if (Value.Length >= 10) {
-			//	rtb.Text = StringUtils.Concat("\n", Value);
-			//} else{
-			//	string[] q = new string[10 - Value.Length];
-			//	for (int i = 0; i < q.Length; i++){
-			//		q[i] = "";
-			//	}
-			//	rtb.Text = StringUtils.Concat("\n", ArrayUtils.Concat(Value, q));
-			//}
+			TextBox tb = (TextBox) control;
+			tb.Text = StringUtils.Concat("\n", Value);
 		}
 
-		protected override FrameworkElement Control {
+		protected override FrameworkElement Control{
 			get{
-				//TODO
-				RichTextBox tb = new RichTextBox();
-				//if (Value.Length >= 10){
-				//	tb.Text = StringUtils.Concat("\n", Value);
-				//} else{
-				//	string[] q = new string[10 - Value.Length];
-				//	for (int i = 0; i < q.Length; i++){
-				//		q[i] = "";
-				//	}
-				//	tb.Text = StringUtils.Concat("\n", ArrayUtils.Concat(Value, q));
-				//}
-				//return tb;
-				return null;
+				TextBox tb = new TextBox();
+				tb.Text = StringUtils.Concat("\n", Value);
+				return tb;
 			}
 		}
 

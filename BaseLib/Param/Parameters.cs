@@ -14,6 +14,10 @@ namespace BaseLib.Param{
 		public Parameters(IList<Parameter> param) : this(param, null) {}
 		public Parameters() {}
 
+		public Parameters GetSubGroupAt(int index){
+			return new Parameters(paramGroups[index].ParameterList);
+		}
+
 		public Parameter[] GetAllParameters(){
 			List<Parameter> result = new List<Parameter>();
 			foreach (ParameterGroup pg in paramGroups){
