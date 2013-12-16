@@ -65,5 +65,17 @@ namespace BaseLib.Wpf {
 		public static BitmapSource GetMergeBitmap() {
 			return LoadBitmap(Properties.Resources.merge);
 		}
+
+		public static BitmapSource GetMinusBitmap() {
+			return LoadBitmap(Properties.Resources.minus_icon);
+		}
+
+		public static BitmapSource GetPlusBitmap() {
+			return LoadBitmap(Properties.Resources.plus_icon);
+		}
+
+		public static BitmapSource GetArrowCornerBitmap() {
+			return LoadBitmap(Properties.Resources.arrowCorner);
+		}
 	}
 }
