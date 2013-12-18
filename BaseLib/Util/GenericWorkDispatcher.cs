@@ -1,22 +1,17 @@
 ﻿namespace BaseLib.Util{
 	public abstract class GenericWorkDispatcher : WorkDispatcher{
-		protected readonly bool bit32;
 		protected readonly bool externalCalculations;
 
-		protected GenericWorkDispatcher(int nThreads, int nTasks, string infoFolder, bool bit32, bool externalCalculations)
+		protected GenericWorkDispatcher(int nThreads, int nTasks, string infoFolder, bool externalCalculations)
 			: base(nThreads, nTasks, infoFolder){
-			this.bit32 = bit32;
 			this.externalCalculations = externalCalculations;
 		}
 
 		protected override sealed string GetCommandFilename(){
-			return bit32
-				? "\"" + FileUtils.executablePath + "\\" + Executable32Bit + "\""
-				: "\"" + FileUtils.executablePath + "\\" + Executable64Bit + "\"";
+			return "\"" + FileUtils.executablePath + "\\" + Executable64Bit + "\"";
 		}
 
 		protected abstract string Executable64Bit { get; }
-		protected abstract string Executable32Bit { get; }
 
 		protected override sealed bool ExternalCalculation(){
 			return externalCalculations;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Forms;
 using BaseLib.Util;
 
@@ -78,7 +79,7 @@ namespace BaseLib.Forms.Table{
 			toolStripStatusLabel1.Text = "";
 			if (lookInComboBox.SelectedIndex > tableModel.ColumnCount){
 				if (multipleColumns.Length == 0){
-					MessageBox.Show("Please select columns.");
+					System.Windows.Forms.MessageBox.Show("Please select columns.");
 					return;
 				}
 			}
@@ -86,7 +87,7 @@ namespace BaseLib.Forms.Table{
 			bool matchWholeWord = MatchWholeWord;
 			string searchString = SearchString;
 			if (string.IsNullOrEmpty(searchString)){
-				MessageBox.Show("Please enter a search string.");
+				System.Windows.Forms.MessageBox.Show("Please enter a search string.");
 				return;
 			}
 			IEnumerable<int> colInds = GetColumnIndices();
@@ -140,7 +141,7 @@ namespace BaseLib.Forms.Table{
 		private void FindNextButtonClick(object sender, EventArgs e){
 			if (lookInComboBox.SelectedIndex > tableModel.ColumnCount){
 				if (multipleColumns.Length == 0){
-					MessageBox.Show("Please select columns.");
+					System.Windows.Forms.MessageBox.Show("Please select columns.");
 					return;
 				}
 			}
@@ -149,7 +150,7 @@ namespace BaseLib.Forms.Table{
 			bool searchUp = SearchUp;
 			string searchString = SearchString;
 			if (string.IsNullOrEmpty(searchString)){
-				MessageBox.Show("Please enter a search string.");
+				System.Windows.Forms.MessageBox.Show("Please enter a search string.");
 				return;
 			}
 			IEnumerable<int> colInds = GetColumnIndices();
