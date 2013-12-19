@@ -452,6 +452,16 @@ namespace BaseLib.Mol{
 			return true;
 		}
 
+		public int CountAtoms(string elem){
+			Dictionary<string, int> d = ChemElement.ElementIndex;
+			if (!d.ContainsKey(elem)){
+				return 0;
+			}
+			int index = d[elem];
+			int c = Array.BinarySearch(AtomType, index);
+			return c < 0 ? 0 : AtomCount[c];
+		}
+
 		public static double CalcMonoMass(string formula){
 			return new Molecule(formula).MonoIsotopicMass;
 		}

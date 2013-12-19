@@ -9,15 +9,34 @@ namespace BaseLib.Mol{
 	public class ChemElement{
 		private static ChemElement[] elements;
 		public static ChemElement[] Elements { get { return elements ?? (elements = InitElements()); } }
-		public static Dictionary<string, ChemElement> ElementDictionary{
-			get{
-				Dictionary<string, ChemElement> result = new Dictionary<string, ChemElement>();
-				foreach (ChemElement t in Elements){
-					result.Add(t.Symbol, t);
+		private static Dictionary<string, ChemElement> elementDictionary;
+		public static Dictionary<string, ChemElement> ElementDictionary {
+			get {
+				if (elementDictionary == null) {
+					Dictionary<string, ChemElement> elementDictionary1 = new Dictionary<string, ChemElement>();
+					foreach (ChemElement t in Elements) {
+						elementDictionary1.Add(t.Symbol, t);
+					}
+					elementDictionary = elementDictionary1;
 				}
-				return result;
+				return elementDictionary;
 			}
 		}
+		private static Dictionary<string, int> elementIndex;
+		public static Dictionary<string, int> ElementIndex {
+			get {
+				if (elementIndex == null) {
+					Dictionary<string, int> elementIndex1 = new Dictionary<string, int>();
+					for (int i = 0; i < Elements.Length; i++){
+						ChemElement t = Elements[i];
+						elementIndex1.Add(t.Symbol, i);
+					}
+					elementIndex = elementIndex1;
+				}
+				return elementIndex;
+			}
+		}
+
 		public int Z { get; private set; }
 		public string Name { get; private set; }
 		public ChemElementType Type { get; private set; }

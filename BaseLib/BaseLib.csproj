@@ -272,6 +272,7 @@
     <Compile Include="Graphic\WindowsBasedGraphics.cs" />
     <Compile Include="Mol\AaSequence.cs" />
     <Compile Include="Mol\AminoAcid.cs" />
+    <Compile Include="Mol\AminoAcids.cs" />
     <Compile Include="Mol\ChemElement.cs" />
     <Compile Include="Mol\ChemElementType.cs" />
     <Compile Include="Mol\Molecule.cs" />
@@ -408,6 +409,9 @@
     <Compile Include="Util\ThreadDistributor.cs" />
     <Compile Include="Util\WorkDispatcher.cs" />
     <Compile Include="Util\XmlSerialization.cs" />
+    <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
+      <DependentUpon>CheckedListBoxControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\DictionaryIntValueControl.xaml.cs">
       <DependentUpon>DictionaryIntValueControl.xaml</DependentUpon>
     </Compile>
@@ -621,6 +625,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Param\ParameterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf\CheckedListBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

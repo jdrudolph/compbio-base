@@ -51,7 +51,7 @@ namespace BaseLib.Mol {
 			int n = seq.Length;
 			for (int i = 0; i < n; i++) {
 				char c = seq[n - 1 - i];
-				int x = AminoAcid.SingleLetterAas.IndexOf(c);
+				int x = AminoAcids.SingleLetterAas.IndexOf(c);
 				if (x == -1) {
 					x = 20;
 				}
@@ -62,7 +62,7 @@ namespace BaseLib.Mol {
 
 		private static void Prepare() {
 			q = new string[basis4];
-			aas = AminoAcid.SingleLetterAas + "X";
+			aas = AminoAcids.SingleLetterAas + "X";
 			for (int i1 = 0; i1 < 21; i1++) {
 				int q1 = i1;
 				for (int i2 = 0; i2 < 21; i2++) {

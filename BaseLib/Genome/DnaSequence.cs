@@ -10,7 +10,6 @@ namespace BaseLib.Genome{
 		private static readonly char[] symbols = "ACGT".ToCharArray();
 		private static readonly Dictionary<char, char> complement = InitComplement();
 		private static readonly ulong[] powers = InitPowers();
-
 		private List<ulong> data = new List<ulong>();
 		private List<byte> remaining = new List<byte>();
 
@@ -23,19 +22,19 @@ namespace BaseLib.Genome{
 			return result;
 		}
 
-		private static IList<char> ReadRawSubsequence(BinaryReader reader, long dataStart, long dataEnd, long chromoLen) {
+		private static IList<char> ReadRawSubsequence(BinaryReader reader, long dataStart, long dataEnd, long chromoLen){
 			IEnumerable<ulong> data = ReadData(reader, dataStart, dataEnd);
 			List<char> result = new List<char>();
-			foreach (ulong u in data) {
-				for (int i = 0; i < 27; i++) {
+			foreach (ulong u in data){
+				for (int i = 0; i < 27; i++){
 					result.Add(GetCharInLong(u, i));
 				}
 			}
-			long dataLen = (chromoLen - 1) / 27;
+			long dataLen = (chromoLen - 1)/27;
 			bool hasTrailer = dataEnd > dataLen;
-			if (hasTrailer) {
+			if (hasTrailer){
 				IEnumerable<byte> t = ReadTrailer(reader, dataLen);
-				foreach (byte b in t) {
+				foreach (byte b in t){
 					result.Add(b == 4 ? 'X' : symbols[b]);
 				}
 			}
@@ -43,20 +42,20 @@ namespace BaseLib.Genome{
 		}
 
 		//inclusive end
-		public static char[] ReadSubsequence(BinaryReader reader, long start, long end, long chromoLen) {
-			long dataStart = start / 27;
-			long dataEnd = end / 27;
+		public static char[] ReadSubsequence(BinaryReader reader, long start, long end, long chromoLen){
+			long dataStart = start/27;
+			long dataEnd = end/27;
 			IList<char> s = ReadRawSubsequence(reader, dataStart, dataEnd, chromoLen);
-			int start1 = (int)(start - dataStart * 27);
-			int end1 = (int)(end - dataStart * 27);
-			return start1<0 ? new char[0] : ArrayUtils.SubArray(s, start1, end1 + 1);
+			int start1 = (int) (start - dataStart*27);
+			int end1 = (int) (end - dataStart*27);
+			return start1 < 0 ? new char[0] : ArrayUtils.SubArray(s, start1, end1 + 1);
 		}
 
-		private static IEnumerable<byte> ReadTrailer(BinaryReader reader, long len) {
-			reader.BaseStream.Seek(len * 8 + 4, SeekOrigin.Begin);
+		private static IEnumerable<byte> ReadTrailer(BinaryReader reader, long len){
+			reader.BaseStream.Seek(len*8 + 4, SeekOrigin.Begin);
 			int n = reader.ReadInt32();
 			byte[] result = new byte[n];
-			for(int i = 0; i < n; i++){
+			for (int i = 0; i < n; i++){
 				result[i] = reader.ReadByte();
 			}
 			return result;
@@ -65,42 +64,32 @@ namespace BaseLib.Genome{
 		private static IEnumerable<ulong> ReadData(BinaryReader reader, long start, long end){
 			ulong[] result = new ulong[end - start + 1];
 			try{
-				reader.BaseStream.Seek(start * 8 + 4, SeekOrigin.Begin);
-				for (int i = 0; i < result.Length; i++) {
+				reader.BaseStream.Seek(start*8 + 4, SeekOrigin.Begin);
+				for (int i = 0; i < result.Length; i++){
 					result[i] = reader.ReadUInt64();
 				}
-			} catch (Exception) {
-			}
+			} catch (Exception){}
 			return result;
 		}
 
-		public DnaSequence(BinaryReader reader) {
+		public DnaSequence(BinaryReader reader){
 			int n = reader.ReadInt32();
 			data = new List<ulong>();
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				data.Add(reader.ReadUInt64());
 			}
 			n = reader.ReadInt32();
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				remaining.Add(reader.ReadByte());
 			}
 		}
 
-		public DnaSequence() {
-		}
-
-		public int Length {
-			get { return data.Count*27 + remaining.Count; }
-		}
+		public DnaSequence() {}
+		public int Length { get { return data.Count*27 + remaining.Count; } }
 
 		private static Dictionary<char, char> InitComplement(){
-			Dictionary<char, char> result = new Dictionary<char, char>{
-			                                                          	{'A', 'T'},
-			                                                          	{'T', 'A'},
-			                                                          	{'G', 'C'},
-			                                                          	{'C', 'G'},
-			                                                          	{'X', 'X'}
-			                                                          };
+			Dictionary<char, char> result = new Dictionary<char, char>
+			{{'A', 'T'}, {'T', 'A'}, {'G', 'C'}, {'C', 'G'}, {'X', 'X'}};
 			return result;
 		}
 
@@ -109,7 +98,7 @@ namespace BaseLib.Genome{
 			if (codon[0] == 'X' || codon[1] == 'X' || codon[2] == 'X'){
 				return 'X';
 			}
-			char aa = AminoAcid.CodonToAa[codon];
+			char aa = AminoAcids.CodonToAa[codon];
 			return aa;
 		}
 
@@ -118,7 +107,7 @@ namespace BaseLib.Genome{
 			if (codon[0] == 'X' || codon[1] == 'X' || codon[2] == 'X'){
 				return 'X';
 			}
-			char aa = AminoAcid.CodonToAa[codon];
+			char aa = AminoAcids.CodonToAa[codon];
 			return aa;
 		}
 
@@ -192,8 +181,8 @@ namespace BaseLib.Genome{
 			}
 		}
 
-		private static char GetCharInLong(ulong w, int pos) {
-			int n = (int)((w / powers[pos]) % 5);
+		private static char GetCharInLong(ulong w, int pos){
+			int n = (int) ((w/powers[pos])%5);
 			return n == 4 ? 'X' : symbols[n];
 		}
 
@@ -204,26 +193,26 @@ namespace BaseLib.Genome{
 			remaining = null;
 		}
 
-		public void Write(BinaryWriter writer) {
+		public void Write(BinaryWriter writer){
 			writer.Write(data.Count);
-			foreach (ulong t in data) {
+			foreach (ulong t in data){
 				writer.Write(t);
 			}
 			writer.Write(remaining.Count);
-			foreach (byte t in remaining) {
+			foreach (byte t in remaining){
 				writer.Write(t);
 			}
 		}
 
-		public void Write(string filename) {
+		public void Write(string filename){
 			BinaryWriter writer = FileUtils.GetBinaryWriter(filename);
 			Write(writer);
 			writer.Close();
 		}
 
-		public override string ToString() {
+		public override string ToString(){
 			StringBuilder sb = new StringBuilder();
-			for(int i = 0; i < Length; i++){
+			for (int i = 0; i < Length; i++){
 				sb.Append(this[i]);
 			}
 			return sb.ToString();
