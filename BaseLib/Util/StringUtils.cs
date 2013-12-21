@@ -282,12 +282,12 @@ namespace BaseLib.Util{
 		/// <summary>
 		/// Returns a string that is the same as the input string, except that all whitespace characters are removed.
 		/// </summary>
-		public static string RemoveWhitespace(string str) {
+		public static string RemoveWhitespace(string str){
 			StringBuilder s = new StringBuilder();
 			int len = str.Length;
-			for (int i = 0; i < len; i++) {
+			for (int i = 0; i < len; i++){
 				char c = str[i];
-				if (!Char.IsWhiteSpace(c)) {
+				if (!Char.IsWhiteSpace(c)){
 					s.Append(c);
 				}
 			}
@@ -297,10 +297,10 @@ namespace BaseLib.Util{
 		/// <summary>
 		/// Returns a string that is the same as the input string, except that all whitespace characters are replaced.
 		/// </summary>
-		public static string ReplaceWhitespace(string str, string replaceBy) {
+		public static string ReplaceWhitespace(string str, string replaceBy){
 			StringBuilder s = new StringBuilder();
 			int len = str.Length;
-			for (int i = 0; i < len; i++) {
+			for (int i = 0; i < len; i++){
 				char c = str[i];
 				if (!Char.IsWhiteSpace(c)){
 					s.Append(c);
@@ -593,6 +593,19 @@ namespace BaseLib.Util{
 				return "" + min + ":" + (sec < 10 ? "0" : "") + sec;
 			}
 			return "" + hrs + ":" + (min < 10 ? "0" : "") + min + ":" + (sec < 10 ? "0" : "") + sec;
+		}
+
+		public static string IntToStringLeadingZeroes(int n, int len){
+			if (n == 0){
+				return Repeat('0', n);
+			}
+			bool negative = n < 0;
+			n = Math.Abs(n);
+			int ndigits = (int) Math.Log10(n) + 1;
+			if (ndigits >= len){
+				return (negative ? "-" : "") + n;
+			}
+			return (negative ? "-" : "") + Repeat('0', len - ndigits) + n;
 		}
 	}
 }

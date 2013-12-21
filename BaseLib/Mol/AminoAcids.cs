@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Globalization;
 using System.Text;
+using BaseLib.Num;
 using BaseLib.Properties;
 using BaseLib.Util;
 
@@ -228,6 +229,42 @@ namespace BaseLib.Mol{
 				}
 			}
 			return result.ToString();
+		}
+
+		public static Dictionary<string, List<string>> GetPeptideCompositions(double maxMass){
+			Dictionary<string, List<string>> result = new Dictionary<string, List<string>>();
+			double mg = glycine.MonoIsotopicMass;
+			int maxN = (int) ((maxMass - Molecule.massWater)/mg);
+			string aas = StandardSingleLetterAas;
+			double[] masses = AaMonoMasses;
+			NumUtils.GetPartitions(maxN, 21, i1 =>{
+				double m1 = Molecule.massWater;
+				for (int i = 0; i < i1.Length; i++){
+					if (i < 20){
+						m1 += i1[i]*masses[aas[i]];
+					}
+				}
+				return m1 <= maxMass;
+			}, i2 =>{
+				string seq = GetSequence(i2, aas);
+				Molecule m = GetPeptideMolecule(seq);
+				string formula = m.GetEmpiricalFormula();
+				if (!result.ContainsKey(formula)){
+					result.Add(formula, new List<string>());
+				}
+				result[formula].Add(seq);
+			});
+			return result;
+		}
+
+		private static string GetSequence(IList<int> i1, string aas){
+			StringBuilder s = new StringBuilder();
+			for (int i = 0; i < 20; i++){
+				for (int j = 0; j < i1[i]; j++){
+					s.Append(aas[i]);
+				}
+			}
+			return s.ToString();
 		}
 	}
 }
