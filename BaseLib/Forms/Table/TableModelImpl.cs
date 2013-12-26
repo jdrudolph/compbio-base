@@ -45,7 +45,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public ColumnType GetColumnType(int col){
-			return columnTypes[col];
+			return col < 0 ? ColumnType.Text : columnTypes[col];
 		}
 
 		public int GetColumnIndex(string colName){

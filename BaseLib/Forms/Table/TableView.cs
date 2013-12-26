@@ -51,7 +51,8 @@ namespace BaseLib.Forms.Table{
 		private ToolStripMenuItem filterToolStripMenuItem;
 		private ToolStripMenuItem invertSelectionToolStripMenuItem;
 		private ToolStripMenuItem selectionTopToolStripMenuItem;
-		private ToolStripMenuItem copyToolStripMenuItem;
+		private ToolStripMenuItem copySelectedRowsToolStripMenuItem;
+		private ToolStripMenuItem copyCellToolStripMenuItem;
 		private ToolStripMenuItem exportToolStripMenuItem;
 		private ToolStripMenuItem showAllRowsToolStripMenuItem;
 		private ToolStripSeparator removeSeparator;
@@ -128,7 +129,8 @@ namespace BaseLib.Forms.Table{
 			filterToolStripMenuItem = new ToolStripMenuItem();
 			invertSelectionToolStripMenuItem = new ToolStripMenuItem();
 			selectionTopToolStripMenuItem = new ToolStripMenuItem();
-			copyToolStripMenuItem = new ToolStripMenuItem();
+			copySelectedRowsToolStripMenuItem = new ToolStripMenuItem();
+			copyCellToolStripMenuItem = new ToolStripMenuItem();
 			exportToolStripMenuItem = new ToolStripMenuItem();
 			showAllRowsToolStripMenuItem = new ToolStripMenuItem();
 			removeSelectedRowsToolStripMenuItem = new ToolStripMenuItem();
@@ -137,7 +139,7 @@ namespace BaseLib.Forms.Table{
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
 				searchToolStripMenuItem, fontsToolStripMenuItem, filterToolStripMenuItem, invertSelectionToolStripMenuItem,
-				selectionTopToolStripMenuItem, exportToolStripMenuItem, copyToolStripMenuItem, removeSeparator,
+				selectionTopToolStripMenuItem, exportToolStripMenuItem, copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, removeSeparator,
 				showAllRowsToolStripMenuItem, removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
 			contextMenuStrip.Name = "contextMenuStrip";
@@ -162,13 +164,17 @@ namespace BaseLib.Forms.Table{
 			selectionTopToolStripMenuItem.Size = new Size(209, 22);
 			selectionTopToolStripMenuItem.Text = "Bring selection to top";
 			selectionTopToolStripMenuItem.Click += SelectionTopToolStripMenuItemClick;
-			copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-			copyToolStripMenuItem.Size = new Size(209, 22);
-			copyToolStripMenuItem.Text = "Copy";
-			copyToolStripMenuItem.Click += CopyToolStripMenuItemClick;
+			copySelectedRowsToolStripMenuItem.Name = "copyToolStripMenuItem";
+			copySelectedRowsToolStripMenuItem.Size = new Size(209, 22);
+			copySelectedRowsToolStripMenuItem.Text = "Copy selected rows";
+			copySelectedRowsToolStripMenuItem.Click += CopySelectedRowsToolStripMenuItemClick;
+			copyCellToolStripMenuItem.Name = "copyCellToolStripMenuItem";
+			copyCellToolStripMenuItem.Size = new Size(209, 22);
+			copyCellToolStripMenuItem.Text = "Copy cell";
+			copyCellToolStripMenuItem.Click += CopyCellToolStripMenuItemClick;
 			exportToolStripMenuItem.Name = "exportToolStripMenuItem";
 			exportToolStripMenuItem.Size = new Size(209, 22);
-			exportToolStripMenuItem.Text = "Export...";
+			exportToolStripMenuItem.Text = "Export matrix...";
 			exportToolStripMenuItem.Click += ExportToolStripMenuItemClick;
 			showAllRowsToolStripMenuItem.Name = "showAllRowsToolStripMenuItem";
 			showAllRowsToolStripMenuItem.Size = new Size(209, 22);
@@ -787,14 +793,21 @@ namespace BaseLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private void CopyToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
+		private void CopySelectedRowsToolStripMenuItemClick(object sender, EventArgs e) {
+			if (model == null) {
 				return;
 			}
 			Copy();
 		}
 
-		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
+		private void CopyCellToolStripMenuItemClick(object sender, EventArgs e) {
+			if (model == null) {
+				return;
+			}
+			CopyCell();
+		}
+
+		private void ExportToolStripMenuItemClick(object sender, EventArgs e) {
 			if (model == null){
 				return;
 			}
@@ -1012,6 +1025,25 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private void Goto(){
+			//TODO
+		}
+
+		private void CopyCell(){
+			int x1 = VisibleX + e.X;
+			if (columnWidthSums == null) {
+				return;
+			}
+			int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
+			if (ind >= 0) {
+				if (Math.Abs(columnWidthSums[ind] - x1) < 5) {
+					Cursor.Current = Cursors.VSplit;
+					resizeCol = ind;
+				} else {
+					Cursor.Current = Cursors.Default;
+					resizeCol = -1;
+				}
+			}
+			int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
 			//TODO
 		}
 

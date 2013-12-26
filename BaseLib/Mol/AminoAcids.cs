@@ -257,6 +257,48 @@ namespace BaseLib.Mol{
 			return result;
 		}
 
+		public static HashSet<string> GetPeptideCompositionsNew(double maxMass){
+			HashSet<string> result = new HashSet<string>();
+			double mg = glycine.MonoIsotopicMass;
+			int maxN = (int) ((maxMass - Molecule.massWater)/mg);
+			string aas = StandardSingleLetterAas;
+			double[] masses = AaMonoMasses;
+			Partition(new TmpPartitionNew(maxN), 21, maxMass, masses, aas, result);
+			return result;
+		}
+
+		private static void Partition(TmpPartitionNew x, int len, double maxMass, IList<double> masses, string aas,
+			ISet<string> result){
+			if (x.remainder == 0 && x.partition.Count == len){
+				IList<int> part = x.partition;
+				double m1 = Molecule.massWater;
+				for (int i = 0; i < part.Count; i++){
+					if (i < 20){
+						m1 += part[i]*masses[aas[i]];
+					}
+				}
+				if (m1 <= maxMass){
+					string seq = GetSequence(part, aas);
+					Molecule m = GetPeptideMolecule(seq);
+					string formula = m.GetEmpiricalFormula();
+					if (!result.Contains(formula)){
+						result.Add(formula);
+					}
+				}
+				return;
+			}
+			if (x.partition.Count == len){
+				return;
+			}
+			for (int i = 0; i <= x.remainder; i++){
+				TmpPartitionNew w = x.Add(i, masses, aas);
+				if (w.mass > maxMass){
+					break;
+				}
+				Partition(w, len, maxMass, masses, aas, result);
+			}
+		}
+
 		private static string GetSequence(IList<int> i1, string aas){
 			StringBuilder s = new StringBuilder();
 			for (int i = 0; i < 20; i++){
@@ -265,6 +307,30 @@ namespace BaseLib.Mol{
 				}
 			}
 			return s.ToString();
+		}
+	}
+
+	internal class TmpPartitionNew{
+		public List<int> partition;
+		public int remainder;
+		public double mass;
+		private TmpPartitionNew() {}
+
+		internal TmpPartitionNew(int n){
+			remainder = n;
+			partition = new List<int>(n);
+			mass = 0;
+		}
+
+		internal TmpPartitionNew Add(int a, IList<double> masses, string aas){
+			TmpPartitionNew result = new TmpPartitionNew{remainder = remainder - a, partition = new List<int>()};
+			result.partition.AddRange(partition);
+			result.mass = mass;
+			if (result.partition.Count < 20){
+				result.mass += a*masses[aas[result.partition.Count]];
+			}
+			result.partition.Add(a);
+			return result;
 		}
 	}
 }

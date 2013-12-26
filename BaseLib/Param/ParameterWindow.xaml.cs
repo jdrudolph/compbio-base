@@ -45,7 +45,7 @@ namespace BaseLib.Param{
 			for (int i = 0; i < titles.Count; i++){
 				TextBlock tb = new TextBlock{Text = titles[i]};
 				if (description[i] != null){
-					tb.ToolTip = description[i];
+					tb.ToolTip = new ToolTip{Content = description[i]};
 				}
 				Grid.SetColumn(tb, i + 1);
 				g.Children.Add(tb);

@@ -254,7 +254,11 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static string[] GetColumnNames(string filename, char separator){
+		public static string[] GetColumnNames(string filename, int nskip, char separator) {
+			return GetColumnNames(filename, nskip, null, null, null, separator);
+		}
+
+		public static string[] GetColumnNames(string filename, char separator) {
 			return GetColumnNames(filename, 0, null, null, null, separator);
 		}
 

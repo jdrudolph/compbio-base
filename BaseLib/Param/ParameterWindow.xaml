@@ -9,7 +9,7 @@
         </Grid.RowDefinitions>
                 <Grid Background="#FFE5E5E5">
                     <ScrollViewer>
-                        <param:ParameterPanel x:Name="ParameterPanel1" VerticalAlignment="Top"/>
+                        <param:ParameterPanel x:Name="ParameterPanel1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
                     </ScrollViewer>
                 </Grid>
         <Grid Grid.Row="1" Background="#FFEDC864">

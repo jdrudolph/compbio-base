@@ -26,14 +26,14 @@ namespace BaseLib.Param{
 				tableLayoutPanel.RowDefinitions.Add(new RowDefinition{Height = new GridLength(h, GridUnitType.Pixel)});
 				totalHeight += h;
 			}
-			tableLayoutPanel.Width = totalWidth;
+			//tableLayoutPanel.Width = totalWidth;
 			tableLayoutPanel.Height = (int) totalHeight;
 			for (int i = 0; i < nrows; i++){
 				AddParameter(ParameterGroup[i], i);
 			}
 			AddChild(tableLayoutPanel);
 			Name = "ParameterPanel";
-			Width = totalWidth;
+			//Width = totalWidth;
 			Height = (int) totalHeight;
 			Margin = new Thickness(3);
 			Padding = new Thickness(3);

@@ -140,8 +140,8 @@ namespace BaseLib.Num{
 		}
 
 		public static int Fit(double[] theorWeights, double[] weights, out double maxCorr){
-			maxCorr = -Double.MaxValue;
-			int maxCorrInd = Int32.MinValue;
+			maxCorr = -double.MaxValue;
+			int maxCorrInd = int.MinValue;
 			for (int i = -theorWeights.Length + 1; i < weights.Length - 1; i++){
 				int start = Math.Min(i, 0);
 				int end = Math.Max(i + theorWeights.Length, weights.Length);
