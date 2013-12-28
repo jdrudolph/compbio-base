@@ -1029,21 +1029,21 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private void CopyCell(){
-			int x1 = VisibleX + e.X;
-			if (columnWidthSums == null) {
-				return;
-			}
-			int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
-			if (ind >= 0) {
-				if (Math.Abs(columnWidthSums[ind] - x1) < 5) {
-					Cursor.Current = Cursors.VSplit;
-					resizeCol = ind;
-				} else {
-					Cursor.Current = Cursors.Default;
-					resizeCol = -1;
-				}
-			}
-			int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
+			//int x1 = VisibleX + e.X;
+			//if (columnWidthSums == null) {
+			//	return;
+			//}
+			//int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
+			//if (ind >= 0) {
+			//	if (Math.Abs(columnWidthSums[ind] - x1) < 5) {
+			//		Cursor.Current = Cursors.VSplit;
+			//		resizeCol = ind;
+			//	} else {
+			//		Cursor.Current = Cursors.Default;
+			//		resizeCol = -1;
+			//	}
+			//}
+			//int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
 			//TODO
 		}
 

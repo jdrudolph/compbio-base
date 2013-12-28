@@ -10,8 +10,7 @@ namespace BaseLib.Param{
 		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
 			IList<string> helpSuppls){
 			InitializeComponent();
-			CancelButton.Click += CancelButtonClick;
-			OkButton.Click += OkButtonClick;
+			OkButton.Focus();
 			ParameterPanel1.Init(parameters);
 			HelpPanel.Children.Clear();
 			List<string> titles = new List<string>();
