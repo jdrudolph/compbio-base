@@ -379,6 +379,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Query\DoubleQueryWindow.xaml.cs">
+      <DependentUpon>DoubleQueryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Symbol\DashStyles.cs" />
     <Compile Include="Symbol\LineProperties.cs" />
     <Compile Include="Symbol\Symbol3DProperties.cs" />
@@ -438,6 +441,9 @@
     </Compile>
     <Compile Include="Wpf\NumericUpDownControl.xaml.cs">
       <DependentUpon>NumericUpDownControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Query\IntQueryWindow.xaml.cs">
+      <DependentUpon>IntQueryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\TableViewWpf.xaml.cs">
       <DependentUpon>TableViewWpf.xaml</DependentUpon>
@@ -628,6 +634,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Query\DoubleQueryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Wpf\CheckedListBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -665,6 +675,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\NumericUpDownControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Query\IntQueryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

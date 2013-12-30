@@ -42,7 +42,7 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public virtual float Height { get { return 30; } }
+		public virtual float Height { get { return 23; } }
 
 		protected virtual void ValueHasChanged(){
 			if (ValueChanged != null){

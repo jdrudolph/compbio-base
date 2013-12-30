@@ -79,10 +79,16 @@ namespace BaseLib.Mol{
 		}
 
 		public string GetEmpiricalFormula(){
+			return GetEmpiricalFormula(true);
+		}
+
+		public string GetEmpiricalFormula(bool oneForSingleAtoms){
 			StringBuilder result = new StringBuilder();
 			for (int i = 0; i < AtomType.Length; i++){
 				if (AtomCount[i] > 0){
-					result.Append(ChemElement.Elements[AtomType[i]].Symbol + AtomCount[i]);
+					int count = AtomCount[i];
+					string ac = (count != 1 || oneForSingleAtoms) ? "" + count : "";
+					result.Append(ChemElement.Elements[AtomType[i]].Symbol + ac);
 				}
 			}
 			return result.ToString();
