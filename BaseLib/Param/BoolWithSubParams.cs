@@ -101,7 +101,7 @@ namespace BaseLib.Param{
 				cb.VerticalAlignment = VerticalAlignment.Center;
 				Grid tlp = new Grid();
 				tlp.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(100, GridUnitType.Star)});
-				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(30, GridUnitType.Pixel)});
+				tlp.RowDefinitions.Add(new RowDefinition { Height = new GridLength(paramHeight, GridUnitType.Pixel) });
 				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
 				Grid.SetRow(cb, 0);
 				tlp.Children.Add(cb);

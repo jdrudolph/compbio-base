@@ -385,11 +385,30 @@ namespace BaseLib.Mol{
 			return new Tuple<Molecule, Molecule>(diff1, diff2);
 		}
 
-		public static Molecule Sum(Molecule molecule1, Molecule molecule2){
-			return Sum(new[]{molecule1, molecule2});
+		public static Molecule Sum(Molecule molecule1, Molecule molecule2) {
+			return Sum(new[] { molecule1, molecule2 });
 		}
 
-		public static Molecule Sum(IList<Molecule> molecules){
+		public static Molecule Subtract(Molecule molecule1, Molecule molecule2) {
+			int[] counts = new int[ChemElement.Elements.Length];
+			for (int j = 0; j < molecule1.AtomType.Length; j++) {
+				counts[molecule1.AtomType[j]] += molecule1.AtomCount[j];
+			}
+			for (int j = 0; j < molecule2.AtomType.Length; j++) {
+				counts[molecule2.AtomType[j]] -= molecule2.AtomCount[j];
+			}
+			int[] types = new int[counts.Length];
+			int count = 0;
+			for (int i = 0; i < counts.Length; i++) {
+				if (counts[i] > 0) {
+					types[count++] = i;
+				}
+			}
+			Array.Resize(ref types, count);
+			return new Molecule(types, ArrayUtils.SubArray(counts, types));
+		}
+
+		public static Molecule Sum(IList<Molecule> molecules) {
 			int[] n = new int[molecules.Count];
 			for (int i = 0; i < n.Length; i++){
 				n[i] = 1;

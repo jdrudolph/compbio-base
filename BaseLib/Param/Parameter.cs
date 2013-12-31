@@ -6,6 +6,7 @@ namespace BaseLib.Param{
 
 	[Serializable]
 	public abstract class Parameter : ICloneable{
+		public static int paramHeight = 25;
 		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
 		public string Name { get; private set; }
@@ -42,7 +43,7 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public virtual float Height { get { return 23; } }
+		public virtual float Height { get { return paramHeight; } }
 
 		protected virtual void ValueHasChanged(){
 			if (ValueChanged != null){
