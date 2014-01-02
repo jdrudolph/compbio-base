@@ -484,7 +484,15 @@ namespace BaseLib.Util{
 					indices.Add(i);
 				}
 			}
-			return SplitAtIndices(line, indices);
+			string[] result = SplitAtIndices(line, indices);
+			for (int i = 0; i < result.Length; i++) {
+				if (result[i].Length > 1){
+					if (result[i][0] == '\"' && result[i][result[i].Length - 1] == '\"') {
+						result[i] = result[i].Substring(1, result[i].Length - 2);
+					}
+				}
+			}
+			return result;
 		}
 
 		public static string[] SplitAtIndices(string line, IList<int> indices){
@@ -497,11 +505,6 @@ namespace BaseLib.Util{
 				result[i] = line.Substring(indices[i - 1] + 1, indices[i] - indices[i - 1] - 1);
 			}
 			result[indices.Count] = line.Substring(indices[indices.Count - 1], line.Length - indices[indices.Count - 1] - 1);
-			for (int i = 0; i < result.Length; i++){
-				if (result[i][0] == '\"' && result[i][result[i].Length - 1] == '\"'){
-					result[i] = result[i].Substring(1, result[i].Length - 2);
-				}
-			}
 			return result;
 		}
 

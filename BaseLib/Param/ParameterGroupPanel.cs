@@ -27,16 +27,16 @@ namespace BaseLib.Param{
 				totalHeight += h;
 			}
 			//tableLayoutPanel.Width = totalWidth;
-			tableLayoutPanel.Height = (int) totalHeight;
+			//tableLayoutPanel.Height = (int) totalHeight;
 			for (int i = 0; i < nrows; i++){
 				AddParameter(ParameterGroup[i], i);
 			}
 			AddChild(tableLayoutPanel);
 			Name = "ParameterPanel";
 			//Width = totalWidth;
-			Height = (int) totalHeight;
+			//Height = (int) totalHeight;
 			Margin = new Thickness(3);
-			Padding = new Thickness(3);
+			//Padding = new Thickness(3);
 			VerticalAlignment = VerticalAlignment.Top;
 			HorizontalAlignment = HorizontalAlignment.Left;
 		}

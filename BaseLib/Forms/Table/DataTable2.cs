@@ -6,15 +6,16 @@ namespace BaseLib.Forms.Table{
 	[Serializable]
 	public class DataTable2 : TableModelImpl, IDataTable{
 		public Collection<DataRow2> Rows { get; private set; }
-
-		public DataRow2 NewRow(){
-			return new DataRow2(columnNames.Count, nameMapping);
-		}
+		public DataTable2(string name) : this(name, "") {}
 
 		public DataTable2(string name, string description){
 			Rows = new Collection<DataRow2>();
 			Name = name;
 			Description = description;
+		}
+
+		public DataRow2 NewRow(){
+			return new DataRow2(columnNames.Count, nameMapping);
 		}
 
 		public void AddRow(DataRow2 row){

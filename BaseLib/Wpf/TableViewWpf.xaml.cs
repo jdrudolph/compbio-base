@@ -32,13 +32,19 @@ namespace BaseLib.Wpf{
 		public int RowCount { get { return tableView.RowCount; } }
 		public int RowHeaderWidth { get { return tableView.RowHeaderWidth; } set { tableView.RowHeaderWidth = value; } }
 		public int ColumnHeaderHeight { get { return tableView.ColumnHeaderHeight; } set { tableView.ColumnHeaderHeight = value; } }
+		public int VisibleX { get { return tableView.VisibleX; } set { tableView.VisibleX = value; } }
+		public int VisibleY { get { return tableView.VisibleY; } set { tableView.VisibleY = value; } }
+
+		public void SetSelectedRow(int row){
+			tableView.SetSelectedRow(row);
+		}
 
 		public void SetSelectedRows(IList<int> rows){
 			tableView.SetSelectedRows(rows);
 		}
 
-		public void SetSelectedRows(IList<int> rows, bool add){
-			tableView.SetSelectedRows(rows, add);
+		public void SetSelectedRows(IList<int> rows, bool add, bool fire){
+			tableView.SetSelectedRows(rows, add, fire);
 		}
 
 		public void Invalidate(){
@@ -51,6 +57,10 @@ namespace BaseLib.Wpf{
 
 		public int[] GetSelectedRows(){
 			return tableView.GetSelectedRows();
+		}
+
+		public int GetSelectedRow(){
+			return tableView.GetSelectedRow();
 		}
 	}
 }

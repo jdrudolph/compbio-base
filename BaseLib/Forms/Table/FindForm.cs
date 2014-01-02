@@ -14,24 +14,6 @@ namespace BaseLib.Forms.Table{
 		private int searchRowIndView = -1;
 		private int[] multipleColumns = new int[0];
 
-		protected override void OnClosing(CancelEventArgs e){
-			e.Cancel = true;
-			Visible = false;
-		}
-
-		private void TableView1SelectionChanged(object sender, EventArgs e){
-			tableView.ClearSelection();
-			int[] rows = tableView1.GetSelectedRows();
-			foreach (int ind in rows.Select(row => (int) tableView1.GetEntry(row, 0) - 1)){
-				tableView.SetSetectedIndex(ind);
-			}
-			if (rows.Length > 0){
-				int ind0 = (int) tableView1.GetEntry(rows[0], 0) - 1;
-				tableView.ScrollToRow(ind0);
-			}
-			tableView.Invalidate();
-		}
-
 		public FindForm(TableView tableView){
 			InitializeComponent();
 			this.tableView = tableView;
@@ -53,7 +35,29 @@ namespace BaseLib.Forms.Table{
 			tableView1.SelectionChanged += TableView1SelectionChanged;
 		}
 
-		private void LookInComboBoxSelectedIndexChanged(object sender, EventArgs e){
+		protected override void OnLoad(EventArgs e){
+			expressionTextBox.Select();
+		}
+
+		protected override void OnClosing(CancelEventArgs e) {
+			e.Cancel = true;
+			Visible = false;
+		}
+
+		private void TableView1SelectionChanged(object sender, EventArgs e) {
+			tableView.ClearSelection();
+			int[] rows = tableView1.GetSelectedRows();
+			foreach (int ind in rows.Select(row => (int)tableView1.GetEntry(row, 0) - 1)) {
+				tableView.SetSetectedIndex(ind);
+			}
+			if (rows.Length > 0) {
+				int ind0 = (int)tableView1.GetEntry(rows[0], 0) - 1;
+				tableView.ScrollToRow(ind0);
+			}
+			tableView.Invalidate();
+		}
+
+		private void LookInComboBoxSelectedIndexChanged(object sender, EventArgs e) {
 			columnSelectButton.Enabled = lookInComboBox.SelectedIndex == tableModel.ColumnCount + 1;
 		}
 
@@ -101,6 +105,7 @@ namespace BaseLib.Forms.Table{
 			}
 			Height = expandedHeight;
 			tableView1.TableModel = CreateTable(searchInds, matchingCols);
+			tableView1.VisibleY = 0;
 			tableView1.Invalidate(true);
 		}
 

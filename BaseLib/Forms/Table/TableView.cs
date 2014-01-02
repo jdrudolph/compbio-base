@@ -48,6 +48,7 @@ namespace BaseLib.Forms.Table{
 		private ContextMenuStrip contextMenuStrip;
 		private ToolStripMenuItem searchToolStripMenuItem;
 		private ToolStripMenuItem fontsToolStripMenuItem;
+		private ToolStripMenuItem monospaceToolStripMenuItem;
 		private ToolStripMenuItem filterToolStripMenuItem;
 		private ToolStripMenuItem invertSelectionToolStripMenuItem;
 		private ToolStripMenuItem selectionTopToolStripMenuItem;
@@ -126,6 +127,7 @@ namespace BaseLib.Forms.Table{
 			contextMenuStrip = new ContextMenuStrip();
 			searchToolStripMenuItem = new ToolStripMenuItem();
 			fontsToolStripMenuItem = new ToolStripMenuItem();
+			monospaceToolStripMenuItem = new ToolStripMenuItem();
 			filterToolStripMenuItem = new ToolStripMenuItem();
 			invertSelectionToolStripMenuItem = new ToolStripMenuItem();
 			selectionTopToolStripMenuItem = new ToolStripMenuItem();
@@ -138,9 +140,10 @@ namespace BaseLib.Forms.Table{
 			removeUnselectedRowsToolStripMenuItem = new ToolStripMenuItem();
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
-				searchToolStripMenuItem, fontsToolStripMenuItem, filterToolStripMenuItem, invertSelectionToolStripMenuItem,
-				selectionTopToolStripMenuItem, exportToolStripMenuItem, copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, removeSeparator,
-				showAllRowsToolStripMenuItem, removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
+				searchToolStripMenuItem, fontsToolStripMenuItem, monospaceToolStripMenuItem, filterToolStripMenuItem,
+				invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem, exportToolStripMenuItem,
+				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, removeSeparator, showAllRowsToolStripMenuItem,
+				removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
 			contextMenuStrip.Name = "contextMenuStrip";
 			contextMenuStrip.Size = new Size(210, 142);
@@ -152,6 +155,10 @@ namespace BaseLib.Forms.Table{
 			fontsToolStripMenuItem.Size = new Size(209, 22);
 			fontsToolStripMenuItem.Text = "Font...";
 			fontsToolStripMenuItem.Click += FontsToolStripMenuItemClick;
+			monospaceToolStripMenuItem.Name = "monospaceToolStripMenuItem";
+			monospaceToolStripMenuItem.Size = new Size(209, 22);
+			monospaceToolStripMenuItem.Text = "Monospace font";
+			monospaceToolStripMenuItem.Click += MonospaceToolStripMenuItemClick;
 			filterToolStripMenuItem.Name = "filterToolStripMenuItem";
 			filterToolStripMenuItem.Size = new Size(209, 22);
 			filterToolStripMenuItem.Text = "Filter...";
@@ -306,25 +313,22 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSelectedRows(IList<int> rows){
-			SetSelectedRows(rows, false);
+		public void SetSelectedRow(int row){
+			SetSelectedRows(new[]{row}, false, true);
 		}
 
-		public void SetSelectedRows(IList<int> rows, bool add){
+		public void SetSelectedRows(IList<int> rows){
+			SetSelectedRows(rows, false, true);
+		}
+
+		public void SetSelectedRows(IList<int> rows, bool add, bool fire){
 			if (!add || modelRowSel == null){
 				modelRowSel = new bool[RowCount];
 			}
-			foreach (int row in rows){
-				if (row < 0){
-					continue;
-				}
-				if (add){
-					modelRowSel[row] = !modelRowSel[row];
-				} else{
-					modelRowSel[row] = true;
-				}
+			foreach (int row in rows.Where(row => row >= 0)){
+				modelRowSel[row] = !add || !modelRowSel[row];
 			}
-			if (SelectionChanged != null){
+			if (fire && SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
 		}
@@ -333,6 +337,10 @@ namespace BaseLib.Forms.Table{
 			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
 			}
+		}
+
+		public void SetSelectedRowAndMove(int row){
+			SetSelectedRowsAndMove(new[]{row});
 		}
 
 		public void SetSelectedRowsAndMove(IList<int> rows){
@@ -345,6 +353,17 @@ namespace BaseLib.Forms.Table{
 			} else{
 				Invalidate(true);
 			}
+			if (SelectionChanged != null){
+				SelectionChanged(this, new EventArgs());
+			}
+		}
+
+		public int GetSelectedRow(){
+			int[] sel = GetSelectedRows();
+			if (sel.Length != 1){
+				return -1;
+			}
+			return sel[0];
 		}
 
 		public int[] GetSelectedRows(){
@@ -707,6 +726,10 @@ namespace BaseLib.Forms.Table{
 			ChangeFonts();
 		}
 
+		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e){
+			MonospaceFont();
+		}
+
 		private void FilterToolStripMenuItemClick(object sender, EventArgs e){
 			Filter();
 		}
@@ -739,8 +762,13 @@ namespace BaseLib.Forms.Table{
 				findForm.WindowState = FormWindowState.Normal;
 			}
 			findForm.BringToFront();
-			findForm.Focus();
 			findForm.Show(this);
+			findForm.Activate();
+		}
+
+		private void MonospaceFont(){
+			textFont = new Font(FontFamily.GenericMonospace, 9);
+			Invalidate(true);
 		}
 
 		private void ChangeFonts(){
@@ -793,21 +821,21 @@ namespace BaseLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private void CopySelectedRowsToolStripMenuItemClick(object sender, EventArgs e) {
-			if (model == null) {
+		private void CopySelectedRowsToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
 				return;
 			}
 			Copy();
 		}
 
-		private void CopyCellToolStripMenuItemClick(object sender, EventArgs e) {
-			if (model == null) {
+		private void CopyCellToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
 				return;
 			}
 			CopyCell();
 		}
 
-		private void ExportToolStripMenuItemClick(object sender, EventArgs e) {
+		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
 				return;
 			}
@@ -1361,10 +1389,10 @@ namespace BaseLib.Forms.Table{
 				columnViewToolTip.ToolTipTitle = model.GetColumnName(helpCol);
 				StringBuilder text = new StringBuilder();
 				string[] wrapped = StringUtils.Wrap(model.GetColumnDescription(helpCol), 75);
-				for (int i = 0; i < wrapped.Length; ++i) {
+				for (int i = 0; i < wrapped.Length; ++i){
 					string s = wrapped[i];
 					text.Append(s);
-					if (i < wrapped.Length - 1) {
+					if (i < wrapped.Length - 1){
 						text.Append("\n");
 					}
 				}
@@ -1373,7 +1401,7 @@ namespace BaseLib.Forms.Table{
 				InvalidateColumnHeaderView();
 				return;
 			}
-			if (Sortable){
+			if (Sortable && e.IsMainButton){
 				int ind = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, VisibleX + e.X) + 1);
 				if (sortCol == ind){
 					switch (sortState){
@@ -1404,10 +1432,10 @@ namespace BaseLib.Forms.Table{
 				columnViewToolTip.ToolTipTitle = model.Name;
 				StringBuilder text = new StringBuilder();
 				string[] wrapped = StringUtils.Wrap(model.Description, 75);
-				for (int i = 0; i < wrapped.Length; ++i) {
+				for (int i = 0; i < wrapped.Length; ++i){
 					string s = wrapped[i];
 					text.Append(s);
-					if (i < wrapped.Length - 1) {
+					if (i < wrapped.Length - 1){
 						text.Append("\n");
 					}
 				}

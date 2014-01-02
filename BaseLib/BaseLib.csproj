@@ -379,6 +379,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Query\IntMinMaxQueryWindow.xaml.cs">
+      <DependentUpon>IntMinMaxQueryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Query\DoubleQueryWindow.xaml.cs">
       <DependentUpon>DoubleQueryWindow.xaml</DependentUpon>
     </Compile>
@@ -633,6 +636,10 @@
     <Page Include="Param\ParameterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Query\IntMinMaxQueryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Query\DoubleQueryWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
