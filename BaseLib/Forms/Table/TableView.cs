@@ -140,62 +140,49 @@ namespace BaseLib.Forms.Table{
 			removeUnselectedRowsToolStripMenuItem = new ToolStripMenuItem();
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
-				searchToolStripMenuItem, fontsToolStripMenuItem, monospaceToolStripMenuItem, filterToolStripMenuItem,
-				invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem, exportToolStripMenuItem,
+				searchToolStripMenuItem, invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem, new ToolStripSeparator(), 
+				fontsToolStripMenuItem, monospaceToolStripMenuItem, filterToolStripMenuItem,
+				exportToolStripMenuItem,
 				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, removeSeparator, showAllRowsToolStripMenuItem,
 				removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
-			contextMenuStrip.Name = "contextMenuStrip";
 			contextMenuStrip.Size = new Size(210, 142);
-			searchToolStripMenuItem.Name = "searchToolStripMenuItem";
 			searchToolStripMenuItem.Size = new Size(209, 22);
 			searchToolStripMenuItem.Text = "Find...";
 			searchToolStripMenuItem.Click += SearchToolStripMenuItemClick;
-			fontsToolStripMenuItem.Name = "searchToolStripMenuItem";
 			fontsToolStripMenuItem.Size = new Size(209, 22);
 			fontsToolStripMenuItem.Text = "Font...";
 			fontsToolStripMenuItem.Click += FontsToolStripMenuItemClick;
-			monospaceToolStripMenuItem.Name = "monospaceToolStripMenuItem";
 			monospaceToolStripMenuItem.Size = new Size(209, 22);
 			monospaceToolStripMenuItem.Text = "Monospace font";
 			monospaceToolStripMenuItem.Click += MonospaceToolStripMenuItemClick;
-			filterToolStripMenuItem.Name = "filterToolStripMenuItem";
 			filterToolStripMenuItem.Size = new Size(209, 22);
 			filterToolStripMenuItem.Text = "Filter...";
 			filterToolStripMenuItem.Click += FilterToolStripMenuItemClick;
-			invertSelectionToolStripMenuItem.Name = "invertSelectionToolStripMenuItem";
 			invertSelectionToolStripMenuItem.Size = new Size(209, 22);
 			invertSelectionToolStripMenuItem.Text = "Invert selection";
 			invertSelectionToolStripMenuItem.Click += InvertSelectionToolStripMenuItemClick;
-			selectionTopToolStripMenuItem.Name = "selectionTopToolStripMenuItem";
 			selectionTopToolStripMenuItem.Size = new Size(209, 22);
 			selectionTopToolStripMenuItem.Text = "Bring selection to top";
 			selectionTopToolStripMenuItem.Click += SelectionTopToolStripMenuItemClick;
-			copySelectedRowsToolStripMenuItem.Name = "copyToolStripMenuItem";
 			copySelectedRowsToolStripMenuItem.Size = new Size(209, 22);
 			copySelectedRowsToolStripMenuItem.Text = "Copy selected rows";
 			copySelectedRowsToolStripMenuItem.Click += CopySelectedRowsToolStripMenuItemClick;
-			copyCellToolStripMenuItem.Name = "copyCellToolStripMenuItem";
 			copyCellToolStripMenuItem.Size = new Size(209, 22);
 			copyCellToolStripMenuItem.Text = "Copy cell";
 			copyCellToolStripMenuItem.Click += CopyCellToolStripMenuItemClick;
-			exportToolStripMenuItem.Name = "exportToolStripMenuItem";
 			exportToolStripMenuItem.Size = new Size(209, 22);
 			exportToolStripMenuItem.Text = "Export matrix...";
 			exportToolStripMenuItem.Click += ExportToolStripMenuItemClick;
-			showAllRowsToolStripMenuItem.Name = "showAllRowsToolStripMenuItem";
 			showAllRowsToolStripMenuItem.Size = new Size(209, 22);
 			showAllRowsToolStripMenuItem.Text = "Show All Rows";
 			showAllRowsToolStripMenuItem.Click += ShowAllRowsToolStripMenuItemClick;
-			removeSelectedRowsToolStripMenuItem.Name = "removeSelectedRowsToolStripMenuItem";
 			removeSelectedRowsToolStripMenuItem.Size = new Size(209, 22);
 			removeSelectedRowsToolStripMenuItem.Text = "Remove Selected Rows";
 			removeSelectedRowsToolStripMenuItem.Click += RemoveSelectedRowsToolStripMenuItemClick;
-			removeUnselectedRowsToolStripMenuItem.Name = "removeUnselectedRowsToolStripMenuItem";
 			removeUnselectedRowsToolStripMenuItem.Size = new Size(209, 22);
 			removeUnselectedRowsToolStripMenuItem.Text = "Remove Unselected Rows";
 			removeUnselectedRowsToolStripMenuItem.Click += RemoveUnselectedRowsToolStripMenuItemClick;
-			toolStripSeparator1.Name = "toolStripSeparator1";
 			toolStripSeparator1.Size = new Size(206, 6);
 			ContextMenuStrip = contextMenuStrip;
 		}
@@ -755,12 +742,9 @@ namespace BaseLib.Forms.Table{
 				return;
 			}
 			if (findForm == null){
-				findForm = new FindForm(this){TopMost = true};
+				findForm = new FindForm(this);
 			}
 			findForm.Visible = false;
-			if (findForm.WindowState == FormWindowState.Minimized){
-				findForm.WindowState = FormWindowState.Normal;
-			}
 			findForm.BringToFront();
 			findForm.Show(this);
 			findForm.Activate();
