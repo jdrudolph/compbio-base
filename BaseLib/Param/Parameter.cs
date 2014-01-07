@@ -6,7 +6,7 @@ namespace BaseLib.Param{
 
 	[Serializable]
 	public abstract class Parameter : ICloneable{
-		public const int paramHeight = 25;
+		public const int paramHeight = 23;
 		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
 		public string Name { get; private set; }

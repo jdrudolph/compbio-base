@@ -17,26 +17,19 @@ namespace BaseLib.Param{
 			{HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top};
 			tableLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition
 			{Width = new GridLength(paramNameWidth, GridUnitType.Pixel)});
-			tableLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(100, GridUnitType.Star)});
+			tableLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition
+			{Width = new GridLength(totalWidth - paramNameWidth, GridUnitType.Pixel)});
 			tableLayoutPanel.Margin = new Thickness(0);
-			tableLayoutPanel.Name = "tableLayoutPanel";
-			float totalHeight = 0;
 			for (int i = 0; i < nrows; i++){
 				float h = ParameterGroup[i].Visible ? ParameterGroup[i].Height : 0;
 				tableLayoutPanel.RowDefinitions.Add(new RowDefinition{Height = new GridLength(h, GridUnitType.Pixel)});
-				totalHeight += h;
 			}
-			//tableLayoutPanel.Width = totalWidth;
-			//tableLayoutPanel.Height = (int) totalHeight;
 			for (int i = 0; i < nrows; i++){
 				AddParameter(ParameterGroup[i], i);
 			}
 			AddChild(tableLayoutPanel);
 			Name = "ParameterPanel";
-			//Width = totalWidth;
-			//Height = (int) totalHeight;
-			Margin = new Thickness(3);
-			//Padding = new Thickness(3);
+			Margin = new Thickness(0, 3, 0, 3);
 			VerticalAlignment = VerticalAlignment.Top;
 			HorizontalAlignment = HorizontalAlignment.Left;
 		}
@@ -57,7 +50,6 @@ namespace BaseLib.Param{
 			Grid.SetColumn(txt1, 0);
 			Grid.SetRow(txt1, i);
 			FrameworkElement c = p.GetControl() ?? new Control();
-			c.Width = 750;
 			Grid.SetColumn(c, 1);
 			Grid.SetRow(c, i);
 			tableLayoutPanel.Children.Add(txt1);

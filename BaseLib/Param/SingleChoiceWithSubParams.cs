@@ -106,7 +106,7 @@ namespace BaseLib.Param{
 				ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
 				for (int i = 0; i < panels.Length; i++){
 					panels[i] = new ParameterPanel();
-					panels[i].Init(SubParams[i], ParamNameWidth, (int) (TotalWidth));
+					panels[i].Init(SubParams[i], ParamNameWidth, (int) TotalWidth);
 				}
 				ComboBox cb = new ComboBox();
 				cb.SelectionChanged += (sender, e) =>{
@@ -122,8 +122,7 @@ namespace BaseLib.Param{
 					}
 				}
 				Grid tlp = new Grid();
-				tlp.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(100, GridUnitType.Star)});
-				tlp.RowDefinitions.Add(new RowDefinition { Height = new GridLength(paramHeight, GridUnitType.Pixel) });
+				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(paramHeight, GridUnitType.Pixel)});
 				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
 				Grid.SetRow(cb, 0);
 				tlp.Children.Add(cb);
@@ -137,6 +136,7 @@ namespace BaseLib.Param{
 						panels[i].Visibility = (i == cb.SelectedIndex) ? Visibility.Visible : Visibility.Hidden;
 					}
 				};
+				tlp.Width = totalWidth;
 				return tlp;
 			}
 		}
