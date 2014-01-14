@@ -18,6 +18,10 @@ namespace BaseLib.Num{
 			Ypn = 0;
 		}
 
+		/// <param name="x">x values</param>
+		/// <param name="y">y values</param>
+		/// <param name="yp1">derivative at <code>x[0]</code> </param>
+		/// <param name="ypn">derivative at <code>x[x.Length - 1]</code> </param>
 		public CubicSpline(double[] x, double[] y, double yp1, double ypn){
 			this.x = x;
 			Y = y;

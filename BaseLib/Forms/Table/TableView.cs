@@ -46,9 +46,12 @@ namespace BaseLib.Forms.Table{
 		private bool multiSelect = true;
 		public event EventHandler SelectionChanged;
 		private ContextMenuStrip contextMenuStrip;
-		private ToolStripMenuItem searchToolStripMenuItem;
+		private ToolStripMenuItem findToolStripMenuItem;
+		private ToolStripMenuItem clearSelectionToolStripMenuItem;
+		private ToolStripMenuItem selectAllToolStripMenuItem;
 		private ToolStripMenuItem fontsToolStripMenuItem;
 		private ToolStripMenuItem monospaceToolStripMenuItem;
+		private ToolStripMenuItem defaultToolStripMenuItem;
 		private ToolStripMenuItem filterToolStripMenuItem;
 		private ToolStripMenuItem invertSelectionToolStripMenuItem;
 		private ToolStripMenuItem selectionTopToolStripMenuItem;
@@ -64,8 +67,9 @@ namespace BaseLib.Forms.Table{
 		private int[] columnWidthSumsOld;
 		private ITableModel origModel;
 		private ITableModel model;
-		private Font textFont = new Font("Arial", 9);
-		private readonly Font headerFont = new Font("Arial", 9);
+		private static readonly Font defaultFont = new Font("Arial", 9);
+		private Font textFont = defaultFont;
+		private readonly Font headerFont = defaultFont;
 		private Brush textBrush = Brushes.Black;
 		private Color textColor = Color.Black;
 		private bool[] modelRowSel;
@@ -125,9 +129,12 @@ namespace BaseLib.Forms.Table{
 
 		public void InitContextMenu(){
 			contextMenuStrip = new ContextMenuStrip();
-			searchToolStripMenuItem = new ToolStripMenuItem();
+			findToolStripMenuItem = new ToolStripMenuItem();
+			selectAllToolStripMenuItem = new ToolStripMenuItem();
+			clearSelectionToolStripMenuItem = new ToolStripMenuItem();
 			fontsToolStripMenuItem = new ToolStripMenuItem();
 			monospaceToolStripMenuItem = new ToolStripMenuItem();
+			defaultToolStripMenuItem = new ToolStripMenuItem();
 			filterToolStripMenuItem = new ToolStripMenuItem();
 			invertSelectionToolStripMenuItem = new ToolStripMenuItem();
 			selectionTopToolStripMenuItem = new ToolStripMenuItem();
@@ -140,22 +147,31 @@ namespace BaseLib.Forms.Table{
 			removeUnselectedRowsToolStripMenuItem = new ToolStripMenuItem();
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
-				searchToolStripMenuItem, invertSelectionToolStripMenuItem, selectionTopToolStripMenuItem, new ToolStripSeparator(), 
-				fontsToolStripMenuItem, monospaceToolStripMenuItem, filterToolStripMenuItem,
-				exportToolStripMenuItem,
+				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem
+				, selectionTopToolStripMenuItem, filterToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
+				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
 				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, removeSeparator, showAllRowsToolStripMenuItem,
 				removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
 			contextMenuStrip.Size = new Size(210, 142);
-			searchToolStripMenuItem.Size = new Size(209, 22);
-			searchToolStripMenuItem.Text = "Find...";
-			searchToolStripMenuItem.Click += SearchToolStripMenuItemClick;
+			findToolStripMenuItem.Size = new Size(209, 22);
+			findToolStripMenuItem.Text = "Find...";
+			findToolStripMenuItem.Click += FindToolStripMenuItemClick;
+			selectAllToolStripMenuItem.Size = new Size(209, 22);
+			selectAllToolStripMenuItem.Text = "Select all";
+			selectAllToolStripMenuItem.Click += SelectAllToolStripMenuItemClick;
+			clearSelectionToolStripMenuItem.Size = new Size(209, 22);
+			clearSelectionToolStripMenuItem.Text = "Clear selection";
+			clearSelectionToolStripMenuItem.Click += ClearSelectionToolStripMenuItemClick;
 			fontsToolStripMenuItem.Size = new Size(209, 22);
 			fontsToolStripMenuItem.Text = "Font...";
 			fontsToolStripMenuItem.Click += FontsToolStripMenuItemClick;
 			monospaceToolStripMenuItem.Size = new Size(209, 22);
 			monospaceToolStripMenuItem.Text = "Monospace font";
 			monospaceToolStripMenuItem.Click += MonospaceToolStripMenuItemClick;
+			defaultToolStripMenuItem.Size = new Size(209, 22);
+			defaultToolStripMenuItem.Text = "Default font";
+			defaultToolStripMenuItem.Click += DefaultToolStripMenuItemClick;
 			filterToolStripMenuItem.Size = new Size(209, 22);
 			filterToolStripMenuItem.Text = "Filter...";
 			filterToolStripMenuItem.Click += FilterToolStripMenuItemClick;
@@ -178,10 +194,10 @@ namespace BaseLib.Forms.Table{
 			showAllRowsToolStripMenuItem.Text = "Show All Rows";
 			showAllRowsToolStripMenuItem.Click += ShowAllRowsToolStripMenuItemClick;
 			removeSelectedRowsToolStripMenuItem.Size = new Size(209, 22);
-			removeSelectedRowsToolStripMenuItem.Text = "Remove Selected Rows";
+			removeSelectedRowsToolStripMenuItem.Text = "Hide Selected Rows";
 			removeSelectedRowsToolStripMenuItem.Click += RemoveSelectedRowsToolStripMenuItemClick;
 			removeUnselectedRowsToolStripMenuItem.Size = new Size(209, 22);
-			removeUnselectedRowsToolStripMenuItem.Text = "Remove Unselected Rows";
+			removeUnselectedRowsToolStripMenuItem.Text = "Hide Unselected Rows";
 			removeUnselectedRowsToolStripMenuItem.Click += RemoveUnselectedRowsToolStripMenuItemClick;
 			toolStripSeparator1.Size = new Size(206, 6);
 			ContextMenuStrip = contextMenuStrip;
@@ -304,6 +320,10 @@ namespace BaseLib.Forms.Table{
 			SetSelectedRows(new[]{row}, false, true);
 		}
 
+		public void SetSelectedRow(int row, bool add, bool fire){
+			SetSelectedRows(new[]{row}, add, fire);
+		}
+
 		public void SetSelectedRows(IList<int> rows){
 			SetSelectedRows(rows, false, true);
 		}
@@ -335,6 +355,7 @@ namespace BaseLib.Forms.Table{
 			foreach (int row in rows){
 				modelRowSel[row] = true;
 			}
+			CheckSizes();
 			if (rows.Count > 0){
 				ScrollToRow(inverseOrder[rows[0]]);
 			} else{
@@ -365,6 +386,19 @@ namespace BaseLib.Forms.Table{
 				}
 			}
 			return result.ToArray();
+		}
+
+		public bool HasSelectedRows(){
+			if (model == null){
+				return false;
+			}
+			CheckSizes();
+			for (int i = 0; i < model.RowCount; i++){
+				if (modelRowSel[i]){
+					return true;
+				}
+			}
+			return false;
 		}
 
 		public int[] GetSelectedRowsView(){
@@ -402,6 +436,8 @@ namespace BaseLib.Forms.Table{
 				if (model == null){
 					return;
 				}
+				VisibleX = 0;
+				VisibleY = 0;
 				modelRowSel = new bool[model.RowCount];
 				order = ArrayUtils.ConsecutiveInts(model.RowCount);
 				inverseOrder = ArrayUtils.ConsecutiveInts(model.RowCount);
@@ -705,8 +741,18 @@ namespace BaseLib.Forms.Table{
 			return model == null ? null : model.GetEntry(order[row], col);
 		}
 
-		private void SearchToolStripMenuItemClick(object sender, EventArgs e){
+		private void FindToolStripMenuItemClick(object sender, EventArgs e){
 			Find();
+		}
+
+		private void SelectAllToolStripMenuItemClick(object sender, EventArgs e){
+			SelectAll();
+			Invalidate(true);
+		}
+
+		private void ClearSelectionToolStripMenuItemClick(object sender, EventArgs e){
+			ClearSelection();
+			Invalidate(true);
 		}
 
 		private void FontsToolStripMenuItemClick(object sender, EventArgs e){
@@ -715,6 +761,10 @@ namespace BaseLib.Forms.Table{
 
 		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e){
 			MonospaceFont();
+		}
+
+		private void DefaultToolStripMenuItemClick(object sender, EventArgs e){
+			DefaultFont1();
 		}
 
 		private void FilterToolStripMenuItemClick(object sender, EventArgs e){
@@ -752,6 +802,11 @@ namespace BaseLib.Forms.Table{
 
 		private void MonospaceFont(){
 			textFont = new Font(FontFamily.GenericMonospace, 9);
+			Invalidate(true);
+		}
+
+		private void DefaultFont1(){
+			textFont = defaultFont;
 			Invalidate(true);
 		}
 

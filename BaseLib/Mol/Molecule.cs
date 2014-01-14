@@ -266,6 +266,18 @@ namespace BaseLib.Mol{
 			return distrib;
 		}
 
+		public double[][] GetIsotopeSpectrum(double resolution, int charge){
+			double m = MonoIsotopicMass;
+			double sigma = charge*m/resolution*0.5/Math.Sqrt(2*Math.Log(2));
+			double[][] x = GetIsotopeSpectrum(sigma, 12, 0.0001);
+			double dm = charge > 0 ? -massElectron : massElectron;
+			for (int i = 0; i < x[0].Length; i++){
+				x[0][i] += dm;
+				x[0][i] /= Math.Abs(charge);
+			}
+			return x;
+		}
+
 		public double[][] GetIsotopeSpectrum(double sigma, int pointsPerSigma, double massPrecision){
 			double spacing = sigma/pointsPerSigma;
 			double[][] distrib = GetIsotopeDistribution(massPrecision);
@@ -385,22 +397,22 @@ namespace BaseLib.Mol{
 			return new Tuple<Molecule, Molecule>(diff1, diff2);
 		}
 
-		public static Molecule Sum(Molecule molecule1, Molecule molecule2) {
-			return Sum(new[] { molecule1, molecule2 });
+		public static Molecule Sum(Molecule molecule1, Molecule molecule2){
+			return Sum(new[]{molecule1, molecule2});
 		}
 
-		public static Molecule Subtract(Molecule molecule1, Molecule molecule2) {
+		public static Molecule Subtract(Molecule molecule1, Molecule molecule2){
 			int[] counts = new int[ChemElement.Elements.Length];
-			for (int j = 0; j < molecule1.AtomType.Length; j++) {
+			for (int j = 0; j < molecule1.AtomType.Length; j++){
 				counts[molecule1.AtomType[j]] += molecule1.AtomCount[j];
 			}
-			for (int j = 0; j < molecule2.AtomType.Length; j++) {
+			for (int j = 0; j < molecule2.AtomType.Length; j++){
 				counts[molecule2.AtomType[j]] -= molecule2.AtomCount[j];
 			}
 			int[] types = new int[counts.Length];
 			int count = 0;
-			for (int i = 0; i < counts.Length; i++) {
-				if (counts[i] > 0) {
+			for (int i = 0; i < counts.Length; i++){
+				if (counts[i] > 0){
 					types[count++] = i;
 				}
 			}
@@ -408,7 +420,7 @@ namespace BaseLib.Mol{
 			return new Molecule(types, ArrayUtils.SubArray(counts, types));
 		}
 
-		public static Molecule Sum(IList<Molecule> molecules) {
+		public static Molecule Sum(IList<Molecule> molecules){
 			int[] n = new int[molecules.Count];
 			for (int i = 0; i < n.Length; i++){
 				n[i] = 1;

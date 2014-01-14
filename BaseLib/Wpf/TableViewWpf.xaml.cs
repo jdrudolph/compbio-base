@@ -39,12 +39,28 @@ namespace BaseLib.Wpf{
 			tableView.SetSelectedRow(row);
 		}
 
+		public void SetSelectedRow(int row, bool add, bool fire){
+			tableView.SetSelectedRow(row, add, fire);
+		}
+
+		public bool HasSelectedRows(){
+			return tableView.HasSelectedRows();
+		}
+
 		public void SetSelectedRows(IList<int> rows){
 			tableView.SetSelectedRows(rows);
 		}
 
 		public void SetSelectedRows(IList<int> rows, bool add, bool fire){
 			tableView.SetSelectedRows(rows, add, fire);
+		}
+
+		public void SetSelectedRowAndMove(int row){
+			tableView.SetSelectedRowAndMove(row);
+		}
+
+		public void SetSelectedRowsAndMove(IList<int> rows){
+			tableView.SetSelectedRowsAndMove(rows);
 		}
 
 		public void Invalidate(){
@@ -61,6 +77,14 @@ namespace BaseLib.Wpf{
 
 		public int GetSelectedRow(){
 			return tableView.GetSelectedRow();
+		}
+
+		public void ScrollToRow(int row){
+			tableView.ScrollToRow(row);
+		}
+
+		public void FireSelectionChange(){
+			tableView.FireSelectionChange();
 		}
 	}
 }
