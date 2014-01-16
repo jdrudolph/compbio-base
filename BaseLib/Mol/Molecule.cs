@@ -275,10 +275,14 @@ namespace BaseLib.Mol{
 				x[0][i] += dm;
 				x[0][i] /= Math.Abs(charge);
 			}
+			double max = ArrayUtils.Max(x[1])*0.01;
+			for (int i = 0; i < x[1].Length; i++){
+				x[1][i] /= max;
+			}
 			return x;
 		}
 
-		public double[][] GetIsotopeSpectrum(double sigma, int pointsPerSigma, double massPrecision){
+		private double[][] GetIsotopeSpectrum(double sigma, int pointsPerSigma, double massPrecision){
 			double spacing = sigma/pointsPerSigma;
 			double[][] distrib = GetIsotopeDistribution(massPrecision);
 			double[] masses = distrib[0];

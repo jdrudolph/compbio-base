@@ -4,9 +4,9 @@ using BaseLib.Util;
 
 namespace BaseLib.Num{
 	public class CubicSpline{
-		private readonly double[] x;
-		private double[] y2;
+		public readonly double[] x;
 		public double[] Y { get; private set; }
+		private double[] y2;
 		public double Yp1 { get; private set; }
 		public double Ypn { get; private set; }
 

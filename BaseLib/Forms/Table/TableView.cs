@@ -188,7 +188,7 @@ namespace BaseLib.Forms.Table{
 			copyCellToolStripMenuItem.Text = "Copy cell";
 			copyCellToolStripMenuItem.Click += CopyCellToolStripMenuItemClick;
 			exportToolStripMenuItem.Size = new Size(209, 22);
-			exportToolStripMenuItem.Text = "Export matrix...";
+			exportToolStripMenuItem.Text = "Plain matrix export...";
 			exportToolStripMenuItem.Click += ExportToolStripMenuItemClick;
 			showAllRowsToolStripMenuItem.Size = new Size(209, 22);
 			showAllRowsToolStripMenuItem.Text = "Show All Rows";
