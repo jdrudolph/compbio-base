@@ -385,6 +385,9 @@
     <Compile Include="Query\DoubleQueryWindow.xaml.cs">
       <DependentUpon>DoubleQueryWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Query\SingleChoiceQueryWindow.xaml.cs">
+      <DependentUpon>SingleChoiceQueryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Symbol\DashStyles.cs" />
     <Compile Include="Symbol\LineProperties.cs" />
     <Compile Include="Symbol\Symbol3DProperties.cs" />
@@ -644,6 +647,10 @@
     <Page Include="Query\DoubleQueryWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Query\SingleChoiceQueryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\CheckedListBoxControl.xaml">
       <SubType>Designer</SubType>

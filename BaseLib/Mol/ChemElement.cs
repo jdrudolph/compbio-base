@@ -405,12 +405,11 @@ namespace BaseLib.Mol{
 		}
 
 		public static void DecodeComposition(string composition, Dictionary<string, ChemElement> elements1, out int[] counts,
-			out string[] comp, out double[] monoMasses, out double[] averageMasses){
+			out string[] comp, out double[] monoMasses){
 			string[] matches = composition.Split(new[]{" "}, StringSplitOptions.RemoveEmptyEntries);
 			counts = new int[matches.Length];
 			comp = new string[matches.Length];
 			monoMasses = new double[matches.Length];
-			averageMasses = new double[matches.Length];
 			Regex pattern2 = new Regex("\\(([-]*[0-9]+)\\)");
 			Regex pattern3 = new Regex("[0-9]+");
 			for (int i = 0; i < matches.Length; i++){
@@ -428,14 +427,12 @@ namespace BaseLib.Mol{
 					ChemElement element = elements1[key];
 					comp[i] = element.Symbol;
 					monoMasses[i] = element.MonoIsotopicMass;
-					averageMasses[i] = element.AtomicWeight;
 				} else if (pattern3.IsMatch(key)){
 					Match match = pattern3.Match(key);
 					string key2 = key.Replace(match.Value, "");
 					if (elements1.ContainsKey(key2 + "x")){
 						ChemElement element = elements1[key2 + "x"];
 						monoMasses[i] = element.MonoIsotopicMass;
-						averageMasses[i] = element.AtomicWeight;
 						comp[i] = element.Symbol;
 					} else{
 						throw new Exception();
@@ -453,8 +450,7 @@ namespace BaseLib.Mol{
 			int[] counts;
 			string[] comp;
 			double[] mono;
-			double[] average;
-			DecodeComposition(composition, ElementDictionary, out counts, out comp, out mono, out average);
+			DecodeComposition(composition, ElementDictionary, out counts, out comp, out mono);
 			double deltaMass = 0;
 			for (int i = 0; i < mono.Length; i++){
 				deltaMass += mono[i]*counts[i];

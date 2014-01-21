@@ -368,7 +368,7 @@ namespace BaseLib.Forms.Table{
 
 		public int GetSelectedRow(){
 			int[] sel = GetSelectedRows();
-			if (sel.Length != 1){
+			if (sel.Length == 0){
 				return -1;
 			}
 			return sel[0];

@@ -352,15 +352,31 @@ namespace BaseLib.Util{
 			return ind;
 		}
 
-		public static double[] ToDoubles(IList<float> floats){
+		public static double[] ToDoubles(IList<float> floats) {
 			double[] result = new double[floats.Count];
-			for (int i = 0; i < result.Length; i++){
+			for (int i = 0; i < result.Length; i++) {
 				result[i] = floats[i];
 			}
 			return result;
 		}
 
-		public static int[] Complement(IList<int> present, int length){
+		public static string[] ToStrings(IList<object> x) {
+			string[] result = new string[x.Count];
+			for (int i = 0; i < result.Length; i++) {
+				result[i] = x[i].ToString();
+			}
+			return result;
+		}
+
+		public static string[] ToStrings(IList<char> x) {
+			string[] result = new string[x.Count];
+			for (int i = 0; i < result.Length; i++) {
+				result[i] = "" + x[i];
+			}
+			return result;
+		}
+
+		public static int[] Complement(IList<int> present, int length) {
 			HashSet<int> dummy = new HashSet<int>();
 			dummy.UnionWith(present);
 			return Complement(dummy, length);

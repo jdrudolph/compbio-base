@@ -75,6 +75,9 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public DataRow2 GetRow(int index){
+			if (index < 0) {
+				return null;
+			}
 			return Rows[index];
 		}
 
