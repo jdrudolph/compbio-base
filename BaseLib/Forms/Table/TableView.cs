@@ -97,6 +97,9 @@ namespace BaseLib.Forms.Table{
 			set{
 				if (selectionTopToolStripMenuItem != null){
 					selectionTopToolStripMenuItem.Visible = value;
+					clearSelectionToolStripMenuItem.Visible = value;
+					selectAllToolStripMenuItem.Visible = value;
+					invertSelectionToolStripMenuItem.Visible = value;
 				}
 				sortable = value;
 			}
