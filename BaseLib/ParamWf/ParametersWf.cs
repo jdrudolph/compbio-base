@@ -82,10 +82,6 @@ namespace BaseLib.ParamWf{
 		}
 		public int GroupCount { get { return paramGroups.Count; } }
 
-		public LabelParamWf GetLabelParam(string name){
-			return (LabelParamWf) GetParam(name);
-		}
-
 		public IntParamWf GetIntParam(string name){
 			return (IntParamWf) GetParam(name);
 		}

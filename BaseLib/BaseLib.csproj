@@ -297,7 +297,6 @@
     <Compile Include="Num\Vector\SparseVector.cs" />
     <Compile Include="ParamWf\DictionaryIntValueParamWf.cs" />
     <Compile Include="ParamWf\IntParamWf.cs" />
-    <Compile Include="ParamWf\LabelParamWf.cs" />
     <Compile Include="ParamWf\ParameterFormWf.cs">
       <SubType>Form</SubType>
     </Compile>
