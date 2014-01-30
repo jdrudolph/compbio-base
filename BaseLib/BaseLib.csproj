@@ -295,7 +295,6 @@
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
     <Compile Include="Num\Vector\SparseVector.cs" />
-    <Compile Include="ParamWf\BoolWithSubParamsWf.cs" />
     <Compile Include="ParamWf\DictionaryIntValueParamWf.cs" />
     <Compile Include="ParamWf\DoubleParamWf.cs" />
     <Compile Include="ParamWf\FileParamWf.cs" />
@@ -327,10 +326,6 @@
     </Compile>
     <Compile Include="ParamWf\ParametersWf.cs" />
     <Compile Include="ParamWf\ParameterWf.cs" />
-    <Compile Include="ParamWf\ParameterWithSubParamsWf.cs" />
-    <Compile Include="ParamWf\SingleChoiceParamWf.cs" />
-    <Compile Include="ParamWf\SingleChoiceWithSubParamsWf.cs" />
-    <Compile Include="ParamWf\StringParamWf.cs" />
     <Compile Include="Param\BoolParam.cs" />
     <Compile Include="Param\BoolWithSubParams.cs" />
     <Compile Include="Param\DictionaryIntValueParam.cs" />

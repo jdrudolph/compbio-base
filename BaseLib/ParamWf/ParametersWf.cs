@@ -82,22 +82,6 @@ namespace BaseLib.ParamWf{
 		}
 		public int GroupCount { get { return paramGroups.Count; } }
 
-		public SingleChoiceParamWf GetSingleChoiceParam(string name){
-			return (SingleChoiceParamWf) GetParam(name);
-		}
-
-		public SingleChoiceWithSubParamsWf GetSingleChoiceWithSubParams(string name){
-			return (SingleChoiceWithSubParamsWf) GetParam(name);
-		}
-
-		public BoolWithSubParamsWf GetBoolWithSubParams(string name){
-			return (BoolWithSubParamsWf) GetParam(name);
-		}
-
-		public StringParamWf GetStringParam(string name){
-			return (StringParamWf) GetParam(name);
-		}
-
 		public LabelParamWf GetLabelParam(string name){
 			return (LabelParamWf) GetParam(name);
 		}
@@ -159,11 +143,6 @@ namespace BaseLib.ParamWf{
 		public void SetSizes(int paramNameWidth, int totalWidth) {
 			foreach (ParameterGroupWf parameterGroup in paramGroups) {
 				foreach (ParameterWf p in parameterGroup.ParameterList) {
-					if (p is SingleChoiceWithSubParamsWf){
-						SingleChoiceWithSubParamsWf q = (SingleChoiceWithSubParamsWf) p;
-						q.paramNameWidth = paramNameWidth;
-						q.totalWidth = totalWidth;
-					}
 				}
 			}
 		}
@@ -222,13 +201,6 @@ namespace BaseLib.ParamWf{
 				return p;
 			}
 			foreach (ParameterWf px in parameters.GetAllParameters()) {
-				if (px is ParameterWithSubParamsWf) {
-					ParametersWf ps = ((ParameterWithSubParamsWf)px).GetSubParameters();
-					ParameterWf pq = FindParameter(paramName, ps);
-					if (pq != null) {
-						return pq;
-					}
-				}
 			}
 			return null;
 		}
