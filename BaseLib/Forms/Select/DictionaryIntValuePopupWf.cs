@@ -3,8 +3,8 @@ using System.Windows.Forms;
 using BaseLib.ParamWf;
 
 namespace BaseLib.Forms.Select{
-	internal partial class DictionaryIntValuePopup : Form{
-		internal DictionaryIntValuePopup() {
+	internal partial class DictionaryIntValuePopupWf : Form{
+		internal DictionaryIntValuePopupWf() {
 			InitializeComponent();
 		}
 

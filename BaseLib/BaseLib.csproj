@@ -178,17 +178,11 @@
     <Compile Include="Forms\Select\CollapsibleGroupBox.Designer.cs">
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Select\DictionaryIntValueControlWf.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Select\DictionaryIntValueControlWf.Designer.cs">
-      <DependentUpon>DictionaryIntValueControlWf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Select\DictionaryIntValuePopup.cs">
+    <Compile Include="Forms\Select\DictionaryIntValuePopupWf.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Select\DictionaryIntValuePopup.Designer.cs">
-      <DependentUpon>DictionaryIntValuePopup.cs</DependentUpon>
+    <Compile Include="Forms\Select\DictionaryIntValuePopupWf.Designer.cs">
+      <DependentUpon>DictionaryIntValuePopupWf.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Select\FileParameterPanel.cs">
       <SubType>UserControl</SubType>
@@ -295,7 +289,6 @@
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
     <Compile Include="Num\Vector\SparseVector.cs" />
-    <Compile Include="ParamWf\DictionaryIntValueParamWf.cs" />
     <Compile Include="ParamWf\IntParamWf.cs" />
     <Compile Include="ParamWf\ParameterFormWf.cs">
       <SubType>Form</SubType>
@@ -410,6 +403,9 @@
     <Compile Include="Wpf\DictionaryIntValueControl.xaml.cs">
       <DependentUpon>DictionaryIntValueControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\DictionaryIntValuePopup.xaml.cs">
+      <DependentUpon>DictionaryIntValuePopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\FileParameterControl.xaml.cs">
       <DependentUpon>FileParameterControl.xaml</DependentUpon>
     </Compile>
@@ -475,11 +471,8 @@
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Select\DictionaryIntValueControlWf.resx">
-      <DependentUpon>DictionaryIntValueControlWf.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Select\DictionaryIntValuePopup.resx">
-      <DependentUpon>DictionaryIntValuePopup.cs</DependentUpon>
+    <EmbeddedResource Include="Forms\Select\DictionaryIntValuePopupWf.resx">
+      <DependentUpon>DictionaryIntValuePopupWf.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Select\FileParameterPanel.resx">
       <DependentUpon>FileParameterPanel.cs</DependentUpon>
@@ -645,6 +638,10 @@
     <Page Include="Wpf\DictionaryIntValueControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\DictionaryIntValuePopup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\FileParameterControl.xaml">
       <Generator>MSBuild:Compile</Generator>

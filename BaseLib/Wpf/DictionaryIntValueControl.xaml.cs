@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Forms;
-using BaseLib.Forms.Select;
+using System.Windows.Controls;
 using BaseLib.Util;
 
 namespace BaseLib.Wpf {
 	/// <summary>
 	/// Interaction logic for DictionaryIntValueControl.xaml
 	/// </summary>
-	public partial class DictionaryIntValueControl : System.Windows.Controls.UserControl {
+	public partial class DictionaryIntValueControl : UserControl {
 		public DictionaryIntValueControl() {
 			InitializeComponent();
 		}
@@ -22,7 +21,7 @@ namespace BaseLib.Wpf {
 		private void EditButton_OnClick(object sender, RoutedEventArgs e){
 			DictionaryIntValuePopup p = new DictionaryIntValuePopup();
 			p.SetData(Value, Keys, Default);
-			if (p.ShowDialog() == DialogResult.OK) {
+			if (p.ShowDialog() == true) {
 				Value = p.GetData(Keys);
 				TextBox1.Text = StringVal;
 			}

@@ -1,7 +1,7 @@
 ﻿using BaseLib.ParamWf;
 
 namespace BaseLib.Forms.Select {
-	partial class DictionaryIntValuePopup {
+	partial class DictionaryIntValuePopupWf {
 		/// <summary>
 		/// Required designer variable.
 		/// </summary>
