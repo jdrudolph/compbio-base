@@ -82,10 +82,6 @@ namespace BaseLib.ParamWf{
 		}
 		public int GroupCount { get { return paramGroups.Count; } }
 
-		public BoolParamWf GetBoolParam(string name){
-			return (BoolParamWf) GetParam(name);
-		}
-
 		public SingleChoiceParamWf GetSingleChoiceParam(string name){
 			return (SingleChoiceParamWf) GetParam(name);
 		}

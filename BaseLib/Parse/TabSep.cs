@@ -149,17 +149,17 @@ namespace BaseLib.Parse{
 			}
 			List<string[]> x = new List<string[]>();
 			while ((line = reader.ReadLine()) != null){
-				if (line.Trim().Length == 0) {
+				if (line.Trim().Length == 0){
 					continue;
 				}
 				string[] w = line.Split(separator);
 				string[] z;
-				try {
+				try{
 					z = ArrayUtils.SubArray(w, colIndices);
-				} catch (Exception e) {
+				} catch (Exception e){
 					continue;
 				}
-				for (int i = 0; i < z.Length; i++) {
+				for (int i = 0; i < z.Length; i++){
 					if (z[i].StartsWith("\"") && z[i].EndsWith("\"")){
 						z[i] = z[i].Substring(1, z[i].Length - 2);
 					}
@@ -254,11 +254,11 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static string[] GetColumnNames(string filename, int nskip, char separator) {
+		public static string[] GetColumnNames(string filename, int nskip, char separator){
 			return GetColumnNames(filename, nskip, null, null, null, separator);
 		}
 
-		public static string[] GetColumnNames(string filename, char separator) {
+		public static string[] GetColumnNames(string filename, char separator){
 			return GetColumnNames(filename, 0, null, null, null, separator);
 		}
 
@@ -270,6 +270,13 @@ namespace BaseLib.Parse{
 		public static string[] GetColumnNames(string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator){
 			StreamReader reader = new StreamReader(filename);
+			string[] titles = GetColumnNames(reader, nskip, commentPrefix, commentPrefixExceptions, annotationRows, separator);
+			reader.Close();
+			return titles;
+		}
+
+		public static string[] GetColumnNames(StreamReader reader, int nskip, HashSet<string> commentPrefix,
+			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator){
 			for (int i = 0; i < nskip; i++){
 				reader.ReadLine();
 			}
@@ -295,7 +302,6 @@ namespace BaseLib.Parse{
 					annotationRows.Add(name, terms);
 				}
 			}
-			reader.Close();
 			return titles;
 		}
 
@@ -335,17 +341,24 @@ namespace BaseLib.Parse{
 		}
 
 		public static int GetRowCount(string filename, int nskip, HashSet<string> commentPrefix,
-			HashSet<string> commentPrefixExceptions){
+			HashSet<string> commentPrefixExceptions) {
 			StreamReader reader = new StreamReader(filename);
+			int count = GetRowCount(reader,nskip,commentPrefix, commentPrefixExceptions);
+			reader.Close();
+			return count;
+		}
+
+		public static int GetRowCount(StreamReader reader, int nskip, HashSet<string> commentPrefix,
+			HashSet<string> commentPrefixExceptions) {
 			reader.ReadLine();
-			for (int i = 0; i < nskip; i++){
+			for (int i = 0; i < nskip; i++) {
 				reader.ReadLine();
 			}
 			int count = 0;
 			string line;
-			while ((line = reader.ReadLine()) != null){
-				if (commentPrefix != null){
-					while (IsCommentLine(line, commentPrefix, commentPrefixExceptions)){
+			while ((line = reader.ReadLine()) != null) {
+				if (commentPrefix != null) {
+					while (IsCommentLine(line, commentPrefix, commentPrefixExceptions)) {
 						line = reader.ReadLine();
 					}
 				}

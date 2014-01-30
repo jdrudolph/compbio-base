@@ -295,7 +295,6 @@
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
     <Compile Include="Num\Vector\SparseVector.cs" />
-    <Compile Include="ParamWf\BoolParamWf.cs" />
     <Compile Include="ParamWf\BoolWithSubParamsWf.cs" />
     <Compile Include="ParamWf\DictionaryIntValueParamWf.cs" />
     <Compile Include="ParamWf\DoubleParamWf.cs" />
