@@ -296,15 +296,8 @@
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
     <Compile Include="Num\Vector\SparseVector.cs" />
     <Compile Include="ParamWf\DictionaryIntValueParamWf.cs" />
-    <Compile Include="ParamWf\DoubleParamWf.cs" />
-    <Compile Include="ParamWf\FileParamWf.cs" />
-    <Compile Include="ParamWf\FolderParamWf.cs" />
     <Compile Include="ParamWf\IntParamWf.cs" />
     <Compile Include="ParamWf\LabelParamWf.cs" />
-    <Compile Include="ParamWf\MultiChoiceMultiBinParamWf.cs" />
-    <Compile Include="ParamWf\MultiChoiceParamWf.cs" />
-    <Compile Include="ParamWf\MultiFileParamWf.cs" />
-    <Compile Include="ParamWf\MultiStringParamWf.cs" />
     <Compile Include="ParamWf\ParameterFormWf.cs">
       <SubType>Form</SubType>
     </Compile>

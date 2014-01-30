@@ -86,36 +86,8 @@ namespace BaseLib.ParamWf{
 			return (LabelParamWf) GetParam(name);
 		}
 
-		public MultiStringParamWf GetMultiStringParam(string name){
-			return (MultiStringParamWf) GetParam(name);
-		}
-
-		public MultiChoiceParamWf GetMultiChoiceParam(string name){
-			return (MultiChoiceParamWf) GetParam(name);
-		}
-
 		public IntParamWf GetIntParam(string name){
 			return (IntParamWf) GetParam(name);
-		}
-
-		public DoubleParamWf GetDoubleParam(string name){
-			return (DoubleParamWf) GetParam(name);
-		}
-
-		public FileParamWf GetFileParam(string name){
-			return (FileParamWf) GetParam(name);
-		}
-
-		public MultiFileParamWf GetMultiFileParam(string name){
-			return (MultiFileParamWf) GetParam(name);
-		}
-
-		public FolderParamWf GetFolderParam(string name){
-			return (FolderParamWf) GetParam(name);
-		}
-
-		public MultiChoiceMultiBinParamWf GetMultiChoiceMultiBinParam(string name){
-			return (MultiChoiceMultiBinParamWf) GetParam(name);
 		}
 
 		public ParameterWf GetParam(string name){
