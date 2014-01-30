@@ -178,12 +178,6 @@
     <Compile Include="Forms\Select\CollapsibleGroupBox.Designer.cs">
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Select\DictionaryIntValuePopupWf.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Select\DictionaryIntValuePopupWf.Designer.cs">
-      <DependentUpon>DictionaryIntValuePopupWf.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Select\FileParameterPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -289,28 +283,6 @@
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
     <Compile Include="Num\Vector\SparseVector.cs" />
-    <Compile Include="ParamWf\IntParamWf.cs" />
-    <Compile Include="ParamWf\ParameterFormWf.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ParamWf\ParameterFormWf.designer.cs">
-      <DependentUpon>ParameterFormWf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ParamWf\ParameterGroupPanelWf.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ParamWf\ParameterGroupPanelWf.designer.cs">
-      <DependentUpon>ParameterGroupPanelWf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ParamWf\ParameterGroupWf.cs" />
-    <Compile Include="ParamWf\ParameterPanelWf.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="ParamWf\ParameterPanelWf.designer.cs">
-      <DependentUpon>ParameterPanelWf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ParamWf\ParametersWf.cs" />
-    <Compile Include="ParamWf\ParameterWf.cs" />
     <Compile Include="Param\BoolParam.cs" />
     <Compile Include="Param\BoolWithSubParams.cs" />
     <Compile Include="Param\DictionaryIntValueParam.cs" />
@@ -471,9 +443,6 @@
       <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Select\DictionaryIntValuePopupWf.resx">
-      <DependentUpon>DictionaryIntValuePopupWf.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Select\FileParameterPanel.resx">
       <DependentUpon>FileParameterPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -512,14 +481,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ParamWf\ParameterFormWf.resx">
-      <DependentUpon>ParameterFormWf.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="ParamWf\ParameterGroupPanelWf.resx">
-      <DependentUpon>ParameterGroupPanelWf.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Param\ParameterGroupPanel.resx">
