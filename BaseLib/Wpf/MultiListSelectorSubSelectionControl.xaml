@@ -26,7 +26,7 @@
                 <Button Grid.Row="0" Content="&gt;" ToolTip="Select" Click="Select_OnClick"></Button>
                 <Button Grid.Row="1" Content="&lt;" ToolTip="Deselect" Click="Deselect_OnClick"></Button>
             </Grid>
-            <ListBox Grid.Column="1" x:Name="selectedListBox"></ListBox>
+            <ListBox Grid.Column="1" x:Name="SelectedListBox" SelectionMode="Extended"></ListBox>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="23"/>
@@ -36,8 +36,8 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <Button Grid.Row="0" Content="t" ToolTip="Top" Click="TopButtonClick"></Button>
-                <Button Grid.Row="1" Content="u" ToolTip="Up" Click="UpButtonClick" x:Name="upButton"></Button>
-                <Button Grid.Row="2" Content="d" ToolTip="Down" Click="DownButtonClick" x:Name="downButton"></Button>
+                <Button Grid.Row="1" Content="u" ToolTip="Up" Click="UpButtonClick" x:Name="UpButton"></Button>
+                <Button Grid.Row="2" Content="d" ToolTip="Down" Click="DownButtonClick" x:Name="DownButton"></Button>
                 <Button Grid.Row="3" Content="b" ToolTip="Bottom" Click="BottomButtonClick"></Button>
             </Grid>
         </Grid>

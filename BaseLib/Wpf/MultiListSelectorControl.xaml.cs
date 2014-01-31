@@ -17,8 +17,6 @@ namespace BaseLib.Wpf{
 			InitializeComponent();
 			allListBox = new ListBox{SelectionMode = SelectionMode.Extended};
 			tableLayoutPanel1 = new Grid();
-			//allListBox.Width = 182;
-			//allListBox.Height = 368;
 			tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(44, GridUnitType.Star)});
 			tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(56, GridUnitType.Star)});
 			Grid.SetRow(allListBox, 0);
@@ -26,11 +24,7 @@ namespace BaseLib.Wpf{
 			tableLayoutPanel1.Children.Add(allListBox);
 			tableLayoutPanel1.Margin = new Thickness(0);
 			tableLayoutPanel1.RowDefinitions.Add(new RowDefinition());
-			//tableLayoutPanel1.Width = 428;
-			//tableLayoutPanel1.Height = 379;
 			Content = tableLayoutPanel1;
-			//Width = 428;
-			//Height = 379;
 		}
 
 		private readonly ListBox allListBox;
@@ -62,9 +56,9 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		private void ClearSelection() {
-			foreach (MultiListSelectorSubSelectionControl t in subSelection) {
-				foreach (object x in t.SelectedListBox.Items) {
+		private void ClearSelection(){
+			foreach (MultiListSelectorSubSelectionControl t in subSelection){
+				foreach (object x in t.SelectedListBox.Items){
 					AllListBox.Items.Add(x);
 				}
 				t.SelectedListBox.Items.Clear();
@@ -107,21 +101,21 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		private HashSet<string> GetSubSelection(int selectorInd) {
+		private HashSet<string> GetSubSelection(int selectorInd){
 			return new HashSet<string>(subSelection[selectorInd].SelectedStrings);
 		}
 
 		public void SetSelected(int selectorInd, int itemInd, bool b){
 			HashSet<string> x = GetSubSelection(selectorInd);
-			if (x.Contains(items[itemInd])) {
+			if (x.Contains(items[itemInd])){
 				return;
 			}
-			if (!AllListBox.Items.Contains(items[itemInd])) {
-				for (int i = 0; i < subSelection.Length; i++) {
-					if (i == selectorInd) {
+			if (!AllListBox.Items.Contains(items[itemInd])){
+				for (int i = 0; i < subSelection.Length; i++){
+					if (i == selectorInd){
 						continue;
 					}
-					if (subSelection[i].SelectedListBox.Items.Contains(items[itemInd])) {
+					if (subSelection[i].SelectedListBox.Items.Contains(items[itemInd])){
 						subSelection[i].SelectedListBox.Items.Remove(items[itemInd]);
 						AllListBox.Items.Add(items[itemInd]);
 						break;

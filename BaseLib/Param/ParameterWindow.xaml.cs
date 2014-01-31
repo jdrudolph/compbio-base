@@ -54,15 +54,14 @@ namespace BaseLib.Param{
 		}
 
 		private void OkButtonClick(object sender, RoutedEventArgs e){
-			Ok = true;
+			DialogResult = true;
 			ParameterPanel1.SetParameters();
 			Close();
 		}
 
 		private void CancelButtonClick(object sender, RoutedEventArgs e){
+			DialogResult = false;
 			Close();
 		}
-
-		public bool Ok { get; private set; }
 	}
 }
