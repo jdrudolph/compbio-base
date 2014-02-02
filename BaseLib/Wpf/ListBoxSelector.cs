@@ -14,7 +14,7 @@ namespace BaseLib.Wpf{
 	/// </summary>
 	public sealed class ListBoxSelector{
 		/// <summary>Identifies the IsEnabled attached property.</summary>
-		public static readonly DependencyProperty EnabledProperty = DependencyProperty.RegisterAttached("Enabled",
+		public static readonly DependencyProperty enabledProperty = DependencyProperty.RegisterAttached("Enabled",
 			typeof (bool), typeof (ListBoxSelector), new UIPropertyMetadata(false, IsEnabledChangedCallback));
 		// This stores the ListBoxSelector for each ListBox so we can unregister it.
 		private static readonly Dictionary<ListBox, ListBoxSelector> attachedControls =
@@ -31,11 +31,11 @@ namespace BaseLib.Wpf{
 		private ListBoxSelector(ListBox listBox){
 			this.listBox = listBox;
 			if (this.listBox.IsLoaded){
-				this.Register();
+				Register();
 			} else{
 				// We need to wait for it to be loaded so we can find the
 				// child controls.
-				this.listBox.Loaded += this.OnListBoxLoaded;
+				this.listBox.Loaded += OnListBoxLoaded;
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace BaseLib.Wpf{
 		/// true if items can be selected by a selection rectangle; otherwise, false.
 		/// </returns>
 		public static bool GetEnabled(DependencyObject obj){
-			return (bool) obj.GetValue(EnabledProperty);
+			return (bool) obj.GetValue(enabledProperty);
 		}
 
 		/// <summary>
@@ -58,7 +58,7 @@ namespace BaseLib.Wpf{
 		/// <param name="obj">Object on which to set the property.</param>
 		/// <param name="value">Value to set.</param>
 		public static void SetEnabled(DependencyObject obj, bool value){
-			obj.SetValue(EnabledProperty, value);
+			obj.SetValue(enabledProperty, value);
 		}
 
 		private static void IsEnabledChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e){
@@ -163,24 +163,23 @@ namespace BaseLib.Wpf{
 			// scroll bars for example).
 			Point mouse = e.GetPosition(this.scrollContent);
 			if ((mouse.X >= 0) && (mouse.X < this.scrollContent.ActualWidth) && (mouse.Y >= 0) &&
-				(mouse.Y < this.scrollContent.ActualHeight)){
-				this.mouseCaptured = this.TryCaptureMouse(e);
-				if (this.mouseCaptured){
-					this.StartSelection(mouse);
+				(mouse.Y < scrollContent.ActualHeight)){
+				mouseCaptured = TryCaptureMouse(e);
+				if (mouseCaptured){
+					StartSelection(mouse);
 				}
 			}
 		}
 
-		private bool TryCaptureMouse(MouseButtonEventArgs e){
-			Point position = e.GetPosition(this.scrollContent);
+		private bool TryCaptureMouse(MouseEventArgs e){
+			Point position = e.GetPosition(scrollContent);
 			// Check if there is anything under the mouse.
 			UIElement element = this.scrollContent.InputHitTest(position) as UIElement;
 			if (element != null){
 				// Simulate a mouse click by sending it the MouseButtonDown
 				// event based on the data we received.
-				var args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left, e.StylusDevice);
-				args.RoutedEvent = Mouse.MouseDownEvent;
-				args.Source = e.Source;
+				MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left, e.StylusDevice)
+				{RoutedEvent = Mouse.MouseDownEvent, Source = e.Source};
 				element.RaiseEvent(args);
 				// The ListBox will try to capture the mouse unless something
 				// else captures it.
@@ -189,7 +188,7 @@ namespace BaseLib.Wpf{
 				}
 			}
 			// Either there's nothing under the mouse or the element doesn't want the mouse.
-			return this.scrollContent.CaptureMouse();
+			return scrollContent.CaptureMouse();
 		}
 
 		private void StopSelection(){
@@ -318,14 +317,14 @@ namespace BaseLib.Wpf{
 				// The RepeatButton uses the SystemParameters.KeyboardSpeed as the
 				// default value for the Interval property. KeyboardSpeed returns
 				// a value between 0 (400ms) and 31 (33ms).
-				const double Ratio = (400.0 - 33.0)/31.0;
-				return 400 - (int) (SystemParameters.KeyboardSpeed*Ratio);
+				const double ratio = (400.0 - 33.0)/31.0;
+				return 400 - (int) (SystemParameters.KeyboardSpeed*ratio);
 			}
 
 			private double CalculateOffset(int startIndex, int endIndex){
 				double sum = 0;
 				for (int i = startIndex; i != endIndex; i++){
-					FrameworkElement container = this.itemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
+					FrameworkElement container = itemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
 					if (container != null){
 						// Height = Actual height + margin
 						sum += container.ActualHeight;
@@ -337,27 +336,27 @@ namespace BaseLib.Wpf{
 
 			private void OnScrollChanged(object sender, ScrollChangedEventArgs e){
 				// Do we need to update the offset?
-				if (this.IsEnabled){
+				if (IsEnabled){
 					double horizontal = e.HorizontalChange;
 					double vertical = e.VerticalChange;
 					// VerticalOffset means two seperate things based on the CanContentScroll
 					// property. If this property is true then the offset is the number of
 					// items to scroll; false then it's in Device Independant Pixels (DIPs).
-					if (this.scrollViewer.CanContentScroll){
+					if (scrollViewer.CanContentScroll){
 						// We need to either increase the offset or decrease it.
 						if (e.VerticalChange < 0){
 							int start = (int) e.VerticalOffset;
 							int end = (int) (e.VerticalOffset - e.VerticalChange);
-							vertical = -this.CalculateOffset(start, end);
+							vertical = -CalculateOffset(start, end);
 						} else{
 							int start = (int) (e.VerticalOffset - e.VerticalChange);
 							int end = (int) e.VerticalOffset;
-							vertical = this.CalculateOffset(start, end);
+							vertical = CalculateOffset(start, end);
 						}
 					}
-					this.offset.X += horizontal;
-					this.offset.Y += vertical;
-					var callback = this.OffsetChanged;
+					offset.X += horizontal;
+					offset.Y += vertical;
+					EventHandler<OffsetChangedEventArgs> callback = OffsetChanged;
 					if (callback != null){
 						callback(this, new OffsetChangedEventArgs(horizontal, vertical));
 					}
@@ -366,24 +365,24 @@ namespace BaseLib.Wpf{
 
 			private void PreformScroll(){
 				bool scrolled = false;
-				if (this.mouse.X > this.scrollContent.ActualWidth){
-					this.scrollViewer.LineRight();
+				if (mouse.X > scrollContent.ActualWidth){
+					scrollViewer.LineRight();
 					scrolled = true;
-				} else if (this.mouse.X < 0){
-					this.scrollViewer.LineLeft();
+				} else if (mouse.X < 0){
+					scrollViewer.LineLeft();
 					scrolled = true;
 				}
-				if (this.mouse.Y > this.scrollContent.ActualHeight){
-					this.scrollViewer.LineDown();
+				if (mouse.Y > scrollContent.ActualHeight){
+					scrollViewer.LineDown();
 					scrolled = true;
-				} else if (this.mouse.Y < 0){
-					this.scrollViewer.LineUp();
+				} else if (mouse.Y < 0){
+					scrollViewer.LineUp();
 					scrolled = true;
 				}
 				// It's important to disable scrolling if we're inside the bounds of
 				// the control so that when the user does leave the bounds we can
 				// re-enable scrolling and it will have the correct initial delay.
-				this.autoScroll.IsEnabled = scrolled;
+				autoScroll.IsEnabled = scrolled;
 			}
 		}
 
@@ -410,7 +409,7 @@ namespace BaseLib.Wpf{
 			/// Resets the cached information, allowing a new selection to begin.
 			/// </summary>
 			public void Reset(){
-				this.previousArea = new Rect();
+				previousArea = new Rect();
 			}
 
 			/// <summary>
@@ -419,7 +418,7 @@ namespace BaseLib.Wpf{
 			/// <param name="x">The horizontal scroll amount.</param>
 			/// <param name="y">The vertical scroll amount.</param>
 			public void Scroll(double x, double y){
-				this.previousArea.Offset(-x, -y);
+				previousArea.Offset(-x, -y);
 			}
 
 			/// <summary>
@@ -430,24 +429,24 @@ namespace BaseLib.Wpf{
 			/// </param>
 			public void UpdateSelection(Rect area){
 				// Check eack item to see if it intersects with the area.
-				for (int i = 0; i < this.itemsControl.Items.Count; i++){
-					FrameworkElement item = this.itemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
+				for (int i = 0; i < itemsControl.Items.Count; i++){
+					FrameworkElement item = itemsControl.ItemContainerGenerator.ContainerFromIndex(i) as FrameworkElement;
 					if (item != null){
 						// Get the bounds in the parent's co-ordinates.
-						Point topLeft = item.TranslatePoint(new Point(0, 0), this.itemsControl);
+						Point topLeft = item.TranslatePoint(new Point(0, 0), itemsControl);
 						Rect itemBounds = new Rect(topLeft.X, topLeft.Y, item.ActualWidth, item.ActualHeight);
 						// Only change the selection if it intersects with the area
 						// (or intersected i.e. we changed the value last time).
 						if (itemBounds.IntersectsWith(area)){
 							Selector.SetIsSelected(item, true);
-						} else if (itemBounds.IntersectsWith(this.previousArea)){
+						} else if (itemBounds.IntersectsWith(previousArea)){
 							// We previously changed the selection to true but it no
 							// longer intersects with the area so clear the selection.
 							Selector.SetIsSelected(item, false);
 						}
 					}
 				}
-				this.previousArea = area;
+				previousArea = area;
 			}
 		}
 
@@ -467,9 +466,9 @@ namespace BaseLib.Wpf{
 			}
 
 			/// <summary>Gets the change in horizontal scroll position.</summary>
-			public double HorizontalChange { get { return this.horizontal; } }
+			public double HorizontalChange { get { return horizontal; } }
 			/// <summary>Gets the change in vertical scroll position.</summary>
-			public double VerticalChange { get { return this.vertical; } }
+			public double VerticalChange { get { return vertical; } }
 		}
 
 		/// <summary>Draws a selection rectangle on an AdornerLayer.</summary>
@@ -485,17 +484,17 @@ namespace BaseLib.Wpf{
 			/// <exception cref="ArgumentNullException">parent is null.</exception>
 			public SelectionAdorner(UIElement parent) : base(parent){
 				// Make sure the mouse doesn't see us.
-				this.IsHitTestVisible = false;
+				IsHitTestVisible = false;
 				// We only draw a rectangle when we're enabled.
-				this.IsEnabledChanged += delegate { this.InvalidateVisual(); };
+				IsEnabledChanged += delegate { InvalidateVisual(); };
 			}
 
 			/// <summary>Gets or sets the area of the selection rectangle.</summary>
 			public Rect SelectionArea{
-				get { return this.selectionRect; }
+				private get { return selectionRect; }
 				set{
-					this.selectionRect = value;
-					this.InvalidateVisual();
+					selectionRect = value;
+					InvalidateVisual();
 				}
 			}
 
@@ -505,14 +504,14 @@ namespace BaseLib.Wpf{
 			/// <param name="drawingContext">The drawing instructions.</param>
 			protected override void OnRender(DrawingContext drawingContext){
 				base.OnRender(drawingContext);
-				if (this.IsEnabled){
+				if (IsEnabled){
 					// Make the lines snap to pixels (add half the pen width [0.5])
-					double[] x = {this.SelectionArea.Left + 0.5, this.SelectionArea.Right + 0.5};
-					double[] y = {this.SelectionArea.Top + 0.5, this.SelectionArea.Bottom + 0.5};
+					double[] x = {SelectionArea.Left + 0.5, SelectionArea.Right + 0.5};
+					double[] y = {SelectionArea.Top + 0.5, SelectionArea.Bottom + 0.5};
 					drawingContext.PushGuidelineSet(new GuidelineSet(x, y));
 					Brush fill = SystemColors.HighlightBrush.Clone();
 					fill.Opacity = 0.4;
-					drawingContext.DrawRectangle(fill, new Pen(SystemColors.HighlightBrush, 1.0), this.SelectionArea);
+					drawingContext.DrawRectangle(fill, new Pen(SystemColors.HighlightBrush, 1.0), SelectionArea);
 				}
 			}
 		}
