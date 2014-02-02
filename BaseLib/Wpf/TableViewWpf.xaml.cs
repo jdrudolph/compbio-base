@@ -28,7 +28,6 @@ namespace BaseLib.Wpf{
 		public ITableModel TableModel { get { return tableView.TableModel; } set { tableView.TableModel = value; } }
 		public bool MultiSelect { get { return tableView.MultiSelect; } set { tableView.MultiSelect = value; } }
 		public bool Sortable { get { return tableView.Sortable; } set { tableView.Sortable = value; } }
-		public bool HasRemoveRowsMenuItems { get { return tableView.HasRemoveRowsMenuItems; } set { tableView.HasRemoveRowsMenuItems = value; } }
 		public int RowCount { get { return tableView.RowCount; } }
 		public int RowHeaderWidth { get { return tableView.RowHeaderWidth; } set { tableView.RowHeaderWidth = value; } }
 		public int ColumnHeaderHeight { get { return tableView.ColumnHeaderHeight; } set { tableView.ColumnHeaderHeight = value; } }

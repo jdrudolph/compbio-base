@@ -41,7 +41,6 @@ namespace BaseLib.Forms.Table{
 		private static readonly Pen selectHeader3Pen = new Pen(selectHeader3Color);
 		private static readonly Color selectHeader4Color = Color.FromArgb(222, 223, 216);
 		private static readonly Brush selectHeader4Brush = new SolidBrush(selectHeader4Color);
-		private bool hasRemoveRowsMenuItems;
 		private bool hasHelp = true; //TODO
 		private bool multiSelect = true;
 		public event EventHandler SelectionChanged;
@@ -63,10 +62,6 @@ namespace BaseLib.Forms.Table{
 		private ToolStripMenuItem exportToolStripMenuItem;
 		private ToolStripMenuItem tagsToolStripMenuItem;
 		private ToolStripMenuItem tagsControlToolStripMenuItem;
-		private ToolStripMenuItem showAllRowsToolStripMenuItem;
-		private ToolStripSeparator removeSeparator;
-		private ToolStripMenuItem removeSelectedRowsToolStripMenuItem;
-		private ToolStripMenuItem removeUnselectedRowsToolStripMenuItem;
 		private ToolStripSeparator toolStripSeparator1;
 		private int[] columnWidthSums;
 		private int[] columnWidthSumsOld;
@@ -154,10 +149,6 @@ namespace BaseLib.Forms.Table{
 			exportToolStripMenuItem = new ToolStripMenuItem();
 			tagsToolStripMenuItem = new ToolStripMenuItem();
 			tagsControlToolStripMenuItem = new ToolStripMenuItem();
-			showAllRowsToolStripMenuItem = new ToolStripMenuItem();
-			removeSelectedRowsToolStripMenuItem = new ToolStripMenuItem();
-			removeSeparator = new ToolStripSeparator();
-			removeUnselectedRowsToolStripMenuItem = new ToolStripMenuItem();
 			toolStripSeparator1 = new ToolStripSeparator();
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
 				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem
@@ -165,8 +156,7 @@ namespace BaseLib.Forms.Table{
 				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
 				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem,
 				copyColumnSelectionToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(),
-			tagsToolStripMenuItem, tagsControlToolStripMenuItem, removeSeparator, showAllRowsToolStripMenuItem,
-				removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
+			tagsToolStripMenuItem, tagsControlToolStripMenuItem
 			});
 			contextMenuStrip.Size = new Size(210, 142);
 			findToolStripMenuItem.Size = new Size(209, 22);
@@ -220,15 +210,6 @@ namespace BaseLib.Forms.Table{
 			tagsControlToolStripMenuItem.Size = new Size(209, 22);
 			tagsControlToolStripMenuItem.Text = "";
 			//tagsControlToolStripMenuItem.Click += ExportToolStripMenuItemClick;
-			showAllRowsToolStripMenuItem.Size = new Size(209, 22);
-			showAllRowsToolStripMenuItem.Text = "Show All Rows";
-			showAllRowsToolStripMenuItem.Click += ShowAllRowsToolStripMenuItemClick;
-			removeSelectedRowsToolStripMenuItem.Size = new Size(209, 22);
-			removeSelectedRowsToolStripMenuItem.Text = "Hide Selected Rows";
-			removeSelectedRowsToolStripMenuItem.Click += RemoveSelectedRowsToolStripMenuItemClick;
-			removeUnselectedRowsToolStripMenuItem.Size = new Size(209, 22);
-			removeUnselectedRowsToolStripMenuItem.Text = "Hide Unselected Rows";
-			removeUnselectedRowsToolStripMenuItem.Click += RemoveUnselectedRowsToolStripMenuItemClick;
 			toolStripSeparator1.Size = new Size(206, 6);
 			ContextMenuStrip = contextMenuStrip;
 		}
@@ -288,49 +269,6 @@ namespace BaseLib.Forms.Table{
 				return TotalHeight - VisibleY - VisibleHeight;
 			}
 			return (inds[ind] - visRow)*rowHeight;
-		}
-
-		public void RemoveSelectedRows(){
-			int[] x = GetUnselectedRows();
-			model = new SubTableModel(model, x);
-			modelRowSel = new bool[model.RowCount];
-			order = ArrayUtils.ConsecutiveInts(model.RowCount);
-			inverseOrder = ArrayUtils.ConsecutiveInts(model.RowCount);
-			sortCol = -1;
-			sortState = SortState.Unsorted;
-			VisibleY = 0;
-			Invalidate(true);
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
-		}
-
-		public void ShowAllRows(){
-			model = origModel;
-			modelRowSel = new bool[model.RowCount];
-			order = ArrayUtils.ConsecutiveInts(model.RowCount);
-			inverseOrder = ArrayUtils.ConsecutiveInts(model.RowCount);
-			sortCol = -1;
-			sortState = SortState.Unsorted;
-			Invalidate(true);
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
-		}
-
-		public void RemoveUnselectedRows(){
-			int[] x = GetSelectedRows();
-			model = new SubTableModel(model, x);
-			modelRowSel = new bool[model.RowCount];
-			order = ArrayUtils.ConsecutiveInts(model.RowCount);
-			inverseOrder = ArrayUtils.ConsecutiveInts(model.RowCount);
-			sortCol = -1;
-			sortState = SortState.Unsorted;
-			VisibleY = 0;
-			Invalidate(true);
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
 		}
 
 		public void SetVisibleRows(IList<int> rows){
@@ -449,16 +387,6 @@ namespace BaseLib.Forms.Table{
 			contextMenuStrip.Items.Add(item);
 		}
 
-		public bool HasRemoveRowsMenuItems{
-			get { return hasRemoveRowsMenuItems; }
-			set{
-				hasRemoveRowsMenuItems = value;
-				removeSelectedRowsToolStripMenuItem.Visible = value;
-				showAllRowsToolStripMenuItem.Visible = value;
-				removeUnselectedRowsToolStripMenuItem.Visible = value;
-				removeSeparator.Visible = value;
-			}
-		}
 		public ITableModel TableModel{
 			get { return model; }
 			set{
@@ -887,6 +815,7 @@ namespace BaseLib.Forms.Table{
 				}
 			}
 			order = ArrayUtils.Concat(l1, l2);
+			VisibleY = 0;
 			Invalidate(true);
 		}
 
@@ -940,18 +869,6 @@ namespace BaseLib.Forms.Table{
 				writer.WriteLine(line.ToString());
 			}
 			writer.Close();
-		}
-
-		private void RemoveSelectedRowsToolStripMenuItemClick(object sender, EventArgs e){
-			RemoveSelectedRows();
-		}
-
-		private void ShowAllRowsToolStripMenuItemClick(object sender, EventArgs e){
-			ShowAllRows();
-		}
-
-		private void RemoveUnselectedRowsToolStripMenuItemClick(object sender, EventArgs e){
-			RemoveUnselectedRows();
 		}
 
 		private int[] GetUnselectedRows(){

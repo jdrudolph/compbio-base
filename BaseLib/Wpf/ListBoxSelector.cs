@@ -183,7 +183,7 @@ namespace BaseLib.Wpf{
 				element.RaiseEvent(args);
 				// The ListBox will try to capture the mouse unless something
 				// else captures it.
-				if (Mouse.Captured != this.listBox){
+				if (Mouse.Captured != listBox){
 					return false; // Something else wanted the mouse, let it keep it.
 				}
 			}
@@ -193,45 +193,45 @@ namespace BaseLib.Wpf{
 
 		private void StopSelection(){
 			// Hide the selection rectangle and stop the auto scrolling.
-			this.selectionRect.IsEnabled = false;
-			this.autoScroller.IsEnabled = false;
+			selectionRect.IsEnabled = false;
+			autoScroller.IsEnabled = false;
 		}
 
 		private void StartSelection(Point location){
 			// We've stolen the MouseLeftButtonDown event from the ListBox
 			// so we need to manually give it focus.
-			this.listBox.Focus();
-			this.start = location;
-			this.end = location;
+			listBox.Focus();
+			start = location;
+			end = location;
 			// Do we need to start a new selection?
 			if (((Keyboard.Modifiers & ModifierKeys.Control) == 0) && ((Keyboard.Modifiers & ModifierKeys.Shift) == 0)){
 				// Neither the shift key or control key is pressed, so
 				// clear the selection.
-				this.listBox.SelectedItems.Clear();
+				listBox.SelectedItems.Clear();
 			}
-			this.selector.Reset();
-			this.UpdateSelection();
-			this.selectionRect.IsEnabled = true;
-			this.autoScroller.IsEnabled = true;
+			selector.Reset();
+			UpdateSelection();
+			selectionRect.IsEnabled = true;
+			autoScroller.IsEnabled = true;
 		}
 
 		private void UpdateSelection(){
 			// Offset the start point based on the scroll offset.
-			Point start = this.autoScroller.TranslatePoint(this.start);
+			Point start1 = autoScroller.TranslatePoint(start);
 			// Draw the selecion rectangle.
 			// Rect can't have a negative width/height...
-			double x = Math.Min(start.X, this.end.X);
-			double y = Math.Min(start.Y, this.end.Y);
-			double width = Math.Abs(this.end.X - start.X);
-			double height = Math.Abs(this.end.Y - start.Y);
+			double x = Math.Min(start1.X, end.X);
+			double y = Math.Min(start1.Y, end.Y);
+			double width = Math.Abs(end.X - start1.X);
+			double height = Math.Abs(end.Y - start1.Y);
 			Rect area = new Rect(x, y, width, height);
-			this.selectionRect.SelectionArea = area;
+			selectionRect.SelectionArea = area;
 			// Select the items.
 			// Transform the points to be relative to the ListBox.
-			Point topLeft = this.scrollContent.TranslatePoint(area.TopLeft, this.listBox);
-			Point bottomRight = this.scrollContent.TranslatePoint(area.BottomRight, this.listBox);
+			Point topLeft = scrollContent.TranslatePoint(area.TopLeft, listBox);
+			Point bottomRight = scrollContent.TranslatePoint(area.BottomRight, listBox);
 			// And select the items.
-			this.selector.UpdateSelection(new Rect(topLeft, bottomRight));
+			selector.UpdateSelection(new Rect(topLeft, bottomRight));
 		}
 
 		/// <summary>
@@ -257,11 +257,11 @@ namespace BaseLib.Wpf{
 					throw new ArgumentNullException("itemsControl");
 				}
 				this.itemsControl = itemsControl;
-				this.scrollViewer = FindChild<ScrollViewer>(itemsControl);
-				this.scrollViewer.ScrollChanged += this.OnScrollChanged;
-				this.scrollContent = FindChild<ScrollContentPresenter>(this.scrollViewer);
-				this.autoScroll.Tick += delegate { this.PreformScroll(); };
-				this.autoScroll.Interval = TimeSpan.FromMilliseconds(GetRepeatRate());
+				scrollViewer = FindChild<ScrollViewer>(itemsControl);
+				scrollViewer.ScrollChanged += OnScrollChanged;
+				scrollContent = FindChild<ScrollContentPresenter>(scrollViewer);
+				autoScroll.Tick += delegate { PreformScroll(); };
+				autoScroll.Interval = TimeSpan.FromMilliseconds(GetRepeatRate());
 			}
 
 			/// <summary>Occurs when the scroll offset has changed.</summary>
@@ -271,13 +271,13 @@ namespace BaseLib.Wpf{
 			/// or not.
 			/// </summary>
 			public bool IsEnabled{
-				get { return this.isEnabled; }
+				private get { return isEnabled; }
 				set{
-					if (this.isEnabled != value){
-						this.isEnabled = value;
+					if (isEnabled != value){
+						isEnabled = value;
 						// Reset the auto-scroller and offset.
-						this.autoScroll.IsEnabled = false;
-						this.offset = new Point();
+						autoScroll.IsEnabled = false;
+						offset = new Point();
 					}
 				}
 			}
@@ -288,27 +288,27 @@ namespace BaseLib.Wpf{
 			/// <param name="point">The point to translate.</param>
 			/// <returns>A new point offset by the current scroll amount.</returns>
 			public Point TranslatePoint(Point point){
-				return new Point(point.X - this.offset.X, point.Y - this.offset.Y);
+				return new Point(point.X - offset.X, point.Y - offset.Y);
 			}
 
 			/// <summary>
 			/// Removes all the event handlers registered on the control.
 			/// </summary>
 			public void UnRegister(){
-				this.scrollViewer.ScrollChanged -= this.OnScrollChanged;
+				scrollViewer.ScrollChanged -= OnScrollChanged;
 			}
 
 			/// <summary>
 			/// Updates the location of the mouse and automatically scrolls if required.
 			/// </summary>
-			/// <param name="mouse">
+			/// <param name="mouse1">
 			/// The location of the mouse, relative to the ScrollViewer's content.
 			/// </param>
-			public void Update(Point mouse){
-				this.mouse = mouse;
+			public void Update(Point mouse1){
+				mouse = mouse1;
 				// If scrolling isn't enabled then see if it needs to be.
-				if (!this.autoScroll.IsEnabled){
-					this.PreformScroll();
+				if (!autoScroll.IsEnabled){
+					PreformScroll();
 				}
 			}
 
