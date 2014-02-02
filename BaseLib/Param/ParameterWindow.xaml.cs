@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace BaseLib.Param{
 	/// <summary>
@@ -62,6 +63,14 @@ namespace BaseLib.Param{
 		private void CancelButtonClick(object sender, RoutedEventArgs e){
 			DialogResult = false;
 			Close();
+		}
+
+		private void OnKeyDownHandler(object sender, KeyEventArgs e){
+			if (e.Key == Key.Return) {
+				DialogResult = true;
+				ParameterPanel1.SetParameters();
+				Close();
+			}
 		}
 	}
 }

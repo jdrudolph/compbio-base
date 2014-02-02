@@ -156,7 +156,7 @@ namespace BaseLib.Parse{
 				string[] z;
 				try{
 					z = ArrayUtils.SubArray(w, colIndices);
-				} catch (Exception e){
+				} catch (Exception){
 					continue;
 				}
 				for (int i = 0; i < z.Length; i++){
