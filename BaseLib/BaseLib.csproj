@@ -246,6 +246,15 @@
     <Compile Include="Forms\Table\TableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Forms\Table\TagsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\Table\TagsControl.Designer.cs">
+      <DependentUpon>TagsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Table\TagsWindow.xaml.cs">
+      <DependentUpon>TagsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Table\VirtualDataTable.cs" />
     <Compile Include="Genome\DnaFastaParser.cs" />
     <Compile Include="Genome\DnaSequence.cs" />
@@ -483,6 +492,9 @@
       <DependentUpon>TableView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Table\TagsControl.resx">
+      <DependentUpon>TagsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Param\ParameterGroupPanel.resx">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -576,6 +588,10 @@
     <Resource Include="Resources\Y.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Forms\Table\TagsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Param\ParameterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

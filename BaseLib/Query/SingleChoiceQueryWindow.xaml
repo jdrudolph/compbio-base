@@ -14,7 +14,7 @@
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBlock VerticalAlignment="Center" Padding="2" x:Name="Label1"></TextBlock>
-                <ComboBox Grid.Column="1" x:Name="ComboBox"></ComboBox>
+                <ComboBox Grid.Column="1" x:Name="ComboBox" KeyDown="OnKeyDownHandler"></ComboBox>
             </Grid>
 
             <Grid Grid.Row="1">

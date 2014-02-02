@@ -8,8 +8,8 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
-        <wpf:NumericUpDownControl x:Name="NumUpDown1"></wpf:NumericUpDownControl>
-        <wpf:NumericUpDownControl Grid.Row="1" x:Name="NumUpDown2"></wpf:NumericUpDownControl>
+        <wpf:NumericUpDownControl x:Name="NumUpDown1"  KeyDown="OnKeyDownHandler"></wpf:NumericUpDownControl>
+        <wpf:NumericUpDownControl Grid.Row="1" x:Name="NumUpDown2"  KeyDown="OnKeyDownHandler"></wpf:NumericUpDownControl>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50"></ColumnDefinition>

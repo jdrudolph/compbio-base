@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Input;
 
 namespace BaseLib.Query {
 	/// <summary>
@@ -12,6 +13,7 @@ namespace BaseLib.Query {
 				ComboBox.Items.Add(s);
 			}
 			ComboBox.SelectedIndex = 0;
+			ComboBox.Focus();
 		}
 
 		public string SelectedText { get { return ComboBox.Text; } }
@@ -25,6 +27,13 @@ namespace BaseLib.Query {
 		private void OkButton_OnClick(object sender, RoutedEventArgs e){
 			DialogResult = true;
 			Close();
+		}
+
+		private void OnKeyDownHandler(object sender, KeyEventArgs e) {
+			if (e.Key == Key.Return) {
+				DialogResult = true;
+				Close();
+			}
 		}
 	}
 }

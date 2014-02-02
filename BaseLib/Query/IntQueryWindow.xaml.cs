@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 
 namespace BaseLib.Query {
 	/// <summary>
@@ -10,6 +11,7 @@ namespace BaseLib.Query {
 			NumUpDown.Minimum = min;
 			NumUpDown.Maximum = max;
 			NumUpDown.Value = value;
+			NumUpDown.Focus();
 		}
 
 		public int Value {
@@ -24,6 +26,13 @@ namespace BaseLib.Query {
 		private void OkButtonClick(object sender, System.EventArgs e) {
 			DialogResult = true;
 			Close();
+		}
+
+		private void OnKeyDownHandler(object sender, KeyEventArgs e) {
+			if (e.Key == Key.Return) {
+				DialogResult = true;
+				Close();
+			}
 		}
 	}
 }

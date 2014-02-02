@@ -61,6 +61,8 @@ namespace BaseLib.Forms.Table{
 		private ToolStripMenuItem copyColumnSelectionToolStripMenuItem;
 		private ToolStripMenuItem pasteSelectionToolStripMenuItem;
 		private ToolStripMenuItem exportToolStripMenuItem;
+		private ToolStripMenuItem tagsToolStripMenuItem;
+		private ToolStripMenuItem tagsControlToolStripMenuItem;
 		private ToolStripMenuItem showAllRowsToolStripMenuItem;
 		private ToolStripSeparator removeSeparator;
 		private ToolStripMenuItem removeSelectedRowsToolStripMenuItem;
@@ -150,6 +152,8 @@ namespace BaseLib.Forms.Table{
 			copyColumnSelectionToolStripMenuItem = new ToolStripMenuItem();
 			pasteSelectionToolStripMenuItem =new ToolStripMenuItem();
 			exportToolStripMenuItem = new ToolStripMenuItem();
+			tagsToolStripMenuItem = new ToolStripMenuItem();
+			tagsControlToolStripMenuItem = new ToolStripMenuItem();
 			showAllRowsToolStripMenuItem = new ToolStripMenuItem();
 			removeSelectedRowsToolStripMenuItem = new ToolStripMenuItem();
 			removeSeparator = new ToolStripSeparator();
@@ -160,7 +164,8 @@ namespace BaseLib.Forms.Table{
 				, selectionTopToolStripMenuItem, filterToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
 				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
 				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem,
-				copyColumnSelectionToolStripMenuItem, pasteSelectionToolStripMenuItem, removeSeparator, showAllRowsToolStripMenuItem,
+				copyColumnSelectionToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(),
+			tagsToolStripMenuItem, tagsControlToolStripMenuItem, removeSeparator, showAllRowsToolStripMenuItem,
 				removeSelectedRowsToolStripMenuItem, removeUnselectedRowsToolStripMenuItem
 			});
 			contextMenuStrip.Size = new Size(210, 142);
@@ -209,6 +214,12 @@ namespace BaseLib.Forms.Table{
 			exportToolStripMenuItem.Size = new Size(209, 22);
 			exportToolStripMenuItem.Text = "Plain matrix export...";
 			exportToolStripMenuItem.Click += ExportToolStripMenuItemClick;
+			tagsToolStripMenuItem.Size = new Size(209, 22);
+			tagsToolStripMenuItem.Text = "Tags...";
+			tagsToolStripMenuItem.Click += TagsToolStripMenuItemClick;
+			tagsControlToolStripMenuItem.Size = new Size(209, 22);
+			tagsControlToolStripMenuItem.Text = "";
+			//tagsControlToolStripMenuItem.Click += ExportToolStripMenuItemClick;
 			showAllRowsToolStripMenuItem.Size = new Size(209, 22);
 			showAllRowsToolStripMenuItem.Text = "Show All Rows";
 			showAllRowsToolStripMenuItem.Click += ShowAllRowsToolStripMenuItemClick;
@@ -896,6 +907,7 @@ namespace BaseLib.Forms.Table{
 		private void CopyColumnFullToolStripMenuItemClick(object sender, EventArgs e) {}
 		private void CopyColumnSelectionToolStripMenuItemClick(object sender, EventArgs e) { }
 		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e) { }
+		private void TagsToolStripMenuItemClick(object sender, EventArgs e) { }
 
 		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
