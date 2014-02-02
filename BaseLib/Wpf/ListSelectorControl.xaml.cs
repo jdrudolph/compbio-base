@@ -18,10 +18,10 @@ namespace BaseLib.Wpf{
 
 		public ListSelectorControl(){
 			InitializeComponent();
-			downButton.MouseDown += DownButtonMouseDown;
-			downButton.MouseUp += DownButtonMouseUp;
-			upButton.MouseDown += UpButtonMouseDown;
-			upButton.MouseUp += UpButtonMouseUp;
+			DownButton.MouseDown += DownButtonMouseDown;
+			DownButton.MouseUp += DownButtonMouseUp;
+			UpButton.MouseDown += UpButtonMouseDown;
+			UpButton.MouseUp += UpButtonMouseUp;
 			HasMoveButtons = false;
 		}
 
@@ -63,8 +63,8 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public System.Windows.Controls.ItemCollection Items { get { return allListBox.Items; } }
-		public System.Windows.Controls.ItemCollection SelectedItems { get { return selectedListBox.Items; } }
+		public System.Windows.Controls.ItemCollection Items { get { return AllListBox.Items; } }
+		public System.Windows.Controls.ItemCollection SelectedItems { get { return SelectedListBox.Items; } }
 		public string[] SelectedStrings{
 			get{
 				System.Windows.Controls.ItemCollection sel = SelectedItems;
@@ -85,7 +85,7 @@ namespace BaseLib.Wpf{
 				return result;
 			}
 			set{
-				selectedListBox.Items.Clear();
+				SelectedListBox.Items.Clear();
 				foreach (int i in value){
 					SetSelected(i, true);
 				}
@@ -106,29 +106,29 @@ namespace BaseLib.Wpf{
 		}
 
 		public void SetSelected(int index, bool value){
-			if (index >= allListBox.Items.Count || index < 0){
+			if (index >= AllListBox.Items.Count || index < 0){
 				return;
 			}
-			object o = allListBox.Items[index];
+			object o = AllListBox.Items[index];
 			if (value){
-				if (!selectedListBox.Items.Contains(o)){
-					selectedListBox.Items.Add(o);
+				if (!SelectedListBox.Items.Contains(o)){
+					SelectedListBox.Items.Add(o);
 				}
 			} else{
-				if (selectedListBox.Items.Contains(o)){
-					selectedListBox.Items.Remove(o);
+				if (SelectedListBox.Items.Contains(o)){
+					SelectedListBox.Items.Remove(o);
 				}
 			}
 		}
 
 		public void SetSelected(object item, bool value){
 			if (value){
-				if (!selectedListBox.Items.Contains(item)){
-					selectedListBox.Items.Add(item);
+				if (!SelectedListBox.Items.Contains(item)){
+					SelectedListBox.Items.Add(item);
 				}
 			} else{
-				if (selectedListBox.Items.Contains(item)){
-					selectedListBox.Items.Remove(item);
+				if (SelectedListBox.Items.Contains(item)){
+					SelectedListBox.Items.Remove(item);
 				}
 			}
 		}
@@ -142,28 +142,28 @@ namespace BaseLib.Wpf{
 		}
 
 		private void SetOrder(IList<int> order, IEnumerable<int> selection){
-			object[] items = new object[selectedListBox.Items.Count];
+			object[] items = new object[SelectedListBox.Items.Count];
 			for (int i = 0; i < items.Length; i++){
-				items[i] = selectedListBox.Items[i];
+				items[i] = SelectedListBox.Items[i];
 			}
-			selectedListBox.Items.Clear();
-			selectedListBox.UnselectAll();
+			SelectedListBox.Items.Clear();
+			SelectedListBox.UnselectAll();
 			items = ArrayUtils.SubArray(items, order);
 			foreach (object item in items){
-				selectedListBox.Items.Add(item);
+				SelectedListBox.Items.Add(item);
 			}
 			foreach (int i in selection){
-				selectedListBox.SelectedIndex = i;
+				SelectedListBox.SelectedIndex = i;
 			}
 		}
 
 		public bool HasMoveButtons{
-			get { return topButton.Visibility == Visibility.Visible; }
+			get { return TopButton.Visibility == Visibility.Visible; }
 			set{
-				topButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
-				upButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
-				downButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
-				bottomButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
+				TopButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
+				UpButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
+				DownButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
+				BottomButton.Visibility = value ? Visibility.Visible : Visibility.Hidden;
 			}
 		}
 
@@ -223,18 +223,18 @@ namespace BaseLib.Wpf{
 		}
 
 		private void SelectItems(string[] defaultSelection){
-			selectedListBox.Items.Clear();
+			SelectedListBox.Items.Clear();
 			foreach (string s in defaultSelection){
-				selectedListBox.Items.Add(s);
+				SelectedListBox.Items.Add(s);
 			}
 		}
 
 		public void Connect(int connectionId, object target) {}
 
 		private void Select_OnClick(object sender, RoutedEventArgs e){
-			foreach (object o in allListBox.SelectedItems){
-				if (!selectedListBox.Items.Contains(o) || repeats){
-					selectedListBox.Items.Add(o);
+			foreach (object o in AllListBox.SelectedItems){
+				if (!SelectedListBox.Items.Contains(o) || repeats){
+					SelectedListBox.Items.Add(o);
 				}
 			}
 			if (SelectionChanged != null){
@@ -243,10 +243,10 @@ namespace BaseLib.Wpf{
 		}
 
 		private void Deselect_OnClick(object sender, RoutedEventArgs e){
-			object[] os = new object[selectedListBox.SelectedItems.Count];
-			selectedListBox.SelectedItems.CopyTo(os, 0);
+			object[] os = new object[SelectedListBox.SelectedItems.Count];
+			SelectedListBox.SelectedItems.CopyTo(os, 0);
 			foreach (object o in os){
-				selectedListBox.Items.Remove(o);
+				SelectedListBox.Items.Remove(o);
 			}
 			if (SelectionChanged != null){
 				SelectionChanged(this, e);
@@ -254,11 +254,11 @@ namespace BaseLib.Wpf{
 		}
 
 		private void TopButtonClick(object sender, RoutedEventArgs e){
-			int[] selectedIndices = GetSelectedIndices(selectedListBox);
+			int[] selectedIndices = GetSelectedIndices(SelectedListBox);
 			if (selectedIndices.Length == 0){
 				return;
 			}
-			int n = selectedListBox.Items.Count;
+			int n = SelectedListBox.Items.Count;
 			int[] unselectedIndices = ArrayUtils.Complement(selectedIndices, n);
 			int[] order = ArrayUtils.Concat(selectedIndices, unselectedIndices);
 			int[] selection = ArrayUtils.ConsecutiveInts(selectedIndices.Length);
@@ -266,7 +266,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void UpButtonClick(object sender, RoutedEventArgs e){
-			int[] selectedIndices = GetSelectedIndices(selectedListBox);
+			int[] selectedIndices = GetSelectedIndices(SelectedListBox);
 			if (selectedIndices.Length == 0){
 				return;
 			}
@@ -283,7 +283,7 @@ namespace BaseLib.Wpf{
 				return;
 			}
 			int m = selectedIndices.Length - index;
-			int n = selectedListBox.Items.Count;
+			int n = SelectedListBox.Items.Count;
 			int[] order = new int[n];
 			for (int i = 0; i < q - 1; i++){
 				order[i] = i;
@@ -303,7 +303,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void DownButtonClick(object sender, RoutedEventArgs e){
-			int[] selectedIndices = GetSelectedIndices(selectedListBox);
+			int[] selectedIndices = GetSelectedIndices(SelectedListBox);
 			if (selectedIndices.Length == 0){
 				return;
 			}
@@ -316,7 +316,7 @@ namespace BaseLib.Wpf{
 				}
 			}
 			int q = selectedIndices[0];
-			int n = selectedListBox.Items.Count;
+			int n = SelectedListBox.Items.Count;
 			if (selectedIndices[index] == n - 1){
 				return;
 			}
@@ -340,11 +340,11 @@ namespace BaseLib.Wpf{
 		}
 
 		private void BottomButtonClick(object sender, RoutedEventArgs e){
-			int[] selectedIndices = GetSelectedIndices(selectedListBox);
+			int[] selectedIndices = GetSelectedIndices(SelectedListBox);
 			if (selectedIndices.Length == 0){
 				return;
 			}
-			int n = selectedListBox.Items.Count;
+			int n = SelectedListBox.Items.Count;
 			int[] unselectedIndices = ArrayUtils.Complement(selectedIndices, n);
 			int[] order = ArrayUtils.Concat(unselectedIndices, selectedIndices);
 			int[] selection = ArrayUtils.ConsecutiveInts(n - selectedIndices.Length, n);

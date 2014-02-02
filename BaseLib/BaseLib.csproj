@@ -393,6 +393,7 @@
     <Compile Include="Wpf\FolderParameterControl.xaml.cs">
       <DependentUpon>FolderParameterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\ListBoxSelector.cs" />
     <Compile Include="Wpf\ListSelectorControl.xaml.cs">
       <DependentUpon>ListSelectorControl.xaml</DependentUpon>
     </Compile>

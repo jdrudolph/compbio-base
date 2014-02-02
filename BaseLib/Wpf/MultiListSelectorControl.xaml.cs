@@ -16,6 +16,7 @@ namespace BaseLib.Wpf{
 		public MultiListSelectorControl(){
 			InitializeComponent();
 			allListBox = new ListBox{SelectionMode = SelectionMode.Extended};
+			ListBoxSelector.SetEnabled(allListBox, true);
 			tableLayoutPanel1 = new Grid();
 			tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(44, GridUnitType.Star)});
 			tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(56, GridUnitType.Star)});
