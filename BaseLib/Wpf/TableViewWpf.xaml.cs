@@ -82,6 +82,10 @@ namespace BaseLib.Wpf{
 			tableView.ScrollToRow(row);
 		}
 
+		public void BringSelectionToTop(){
+			tableView.BringSelectionToTop();
+		}
+
 		public void FireSelectionChange(){
 			tableView.FireSelectionChange();
 		}

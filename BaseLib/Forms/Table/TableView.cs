@@ -132,15 +132,17 @@ namespace BaseLib.Forms.Table{
 				filterToolStripMenuItem.Visible = hasFilter;
 			}
 		}
-
 		private bool hasShowInPerseus;
-		public bool HasShowInPerseus { get { return hasShowInPerseus; } set{
-			hasShowInPerseus = value;
-			showAllInPerseusMenuItem.Visible = hasShowInPerseus;
-			showSelectedInPerseusMenuItem.Visible = hasShowInPerseus;
-			perseusPropertiesMenuItem.Visible = hasShowInPerseus;
-			perseusToolStripSeparator.Visible = hasShowInPerseus;
-		} }
+		public bool HasShowInPerseus{
+			get { return hasShowInPerseus; }
+			set{
+				hasShowInPerseus = value;
+				showAllInPerseusMenuItem.Visible = hasShowInPerseus;
+				showSelectedInPerseusMenuItem.Visible = hasShowInPerseus;
+				perseusPropertiesMenuItem.Visible = hasShowInPerseus;
+				perseusToolStripSeparator.Visible = hasShowInPerseus;
+			}
+		}
 
 		public void InitContextMenu(){
 			contextMenuStrip = new ContextMenuStrip();
@@ -309,19 +311,6 @@ namespace BaseLib.Forms.Table{
 				return TotalHeight - VisibleY - VisibleHeight;
 			}
 			return (inds[ind] - visRow)*rowHeight;
-		}
-
-		public void SetVisibleRows(IList<int> rows){
-			model = new SubTableModel(origModel, rows.ToArray());
-			modelRowSel = new bool[model.RowCount];
-			order = ArrayUtils.ConsecutiveInts(model.RowCount);
-			inverseOrder = ArrayUtils.ConsecutiveInts(model.RowCount);
-			sortCol = -1;
-			sortState = SortState.Unsorted;
-			Invalidate(true);
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
 		}
 
 		public void SetSelectedRow(int row){
@@ -823,23 +812,7 @@ namespace BaseLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
-				return;
-			}
-			if (modelRowSel == null){
-				return;
-			}
-			for (int i = 0; i < modelRowSel.Length; i++){
-				modelRowSel[i] = !modelRowSel[i];
-			}
-			Invalidate(true);
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
-		}
-
-		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e){
+		public void BringSelectionToTop(){
 			if (model == null){
 				return;
 			}
@@ -858,6 +831,26 @@ namespace BaseLib.Forms.Table{
 			order = ArrayUtils.Concat(l1, l2);
 			VisibleY = 0;
 			Invalidate(true);
+		}
+
+		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
+				return;
+			}
+			if (modelRowSel == null){
+				return;
+			}
+			for (int i = 0; i < modelRowSel.Length; i++){
+				modelRowSel[i] = !modelRowSel[i];
+			}
+			Invalidate(true);
+			if (SelectionChanged != null){
+				SelectionChanged(this, new EventArgs());
+			}
+		}
+
+		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e){
+			BringSelectionToTop();
 		}
 
 		private void CopySelectedRowsToolStripMenuItemClick(object sender, EventArgs e){
@@ -1019,7 +1012,7 @@ namespace BaseLib.Forms.Table{
 			sortState = SortState.Decreasing;
 			ArrayUtils.Revert(order);
 			inverseOrder = new int[order.Length];
-			for (int i = 0; i < order.Length; i++) {
+			for (int i = 0; i < order.Length; i++){
 				inverseOrder[order[i]] = i;
 			}
 		}
