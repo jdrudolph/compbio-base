@@ -33,6 +33,7 @@ namespace BaseLib.Forms.Table{
 			wildcardsComboBox.Visible = false;
 			helpButton.Visible = false;
 			tableView1.SelectionChanged += TableView1SelectionChanged;
+			expressionTextBox.Focus();
 		}
 
 		protected override void OnLoad(EventArgs e){
@@ -250,6 +251,11 @@ namespace BaseLib.Forms.Table{
 			SelectColumnsForm scf = new SelectColumnsForm(names, multipleColumns);
 			scf.ShowDialog();
 			multipleColumns = scf.SelectedIndices;
+		}
+
+		public void FocusInputField(){
+			expressionTextBox.Focus();
+			expressionTextBox.SelectAll();
 		}
 	}
 }

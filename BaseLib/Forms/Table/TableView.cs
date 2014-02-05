@@ -62,7 +62,10 @@ namespace BaseLib.Forms.Table{
 		private ToolStripMenuItem exportToolStripMenuItem;
 		private ToolStripMenuItem tagsToolStripMenuItem;
 		private ToolStripMenuItem tagsControlToolStripMenuItem;
-		private ToolStripSeparator toolStripSeparator1;
+		private ToolStripSeparator perseusToolStripSeparator;
+		private ToolStripMenuItem showAllInPerseusMenuItem;
+		private ToolStripMenuItem showSelectedInPerseusMenuItem;
+		private ToolStripMenuItem perseusPropertiesMenuItem;
 		private int[] columnWidthSums;
 		private int[] columnWidthSumsOld;
 		private ITableModel origModel;
@@ -130,6 +133,15 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
+		private bool hasShowInPerseus;
+		public bool HasShowInPerseus { get { return hasShowInPerseus; } set{
+			hasShowInPerseus = value;
+			showAllInPerseusMenuItem.Visible = hasShowInPerseus;
+			showSelectedInPerseusMenuItem.Visible = hasShowInPerseus;
+			perseusPropertiesMenuItem.Visible = hasShowInPerseus;
+			perseusToolStripSeparator.Visible = hasShowInPerseus;
+		} }
+
 		public void InitContextMenu(){
 			contextMenuStrip = new ContextMenuStrip();
 			findToolStripMenuItem = new ToolStripMenuItem();
@@ -145,18 +157,25 @@ namespace BaseLib.Forms.Table{
 			copyCellToolStripMenuItem = new ToolStripMenuItem();
 			copyColumnFullToolStripMenuItem = new ToolStripMenuItem();
 			copyColumnSelectionToolStripMenuItem = new ToolStripMenuItem();
-			pasteSelectionToolStripMenuItem =new ToolStripMenuItem();
+			pasteSelectionToolStripMenuItem = new ToolStripMenuItem();
 			exportToolStripMenuItem = new ToolStripMenuItem();
 			tagsToolStripMenuItem = new ToolStripMenuItem();
 			tagsControlToolStripMenuItem = new ToolStripMenuItem();
-			toolStripSeparator1 = new ToolStripSeparator();
+			showAllInPerseusMenuItem = new ToolStripMenuItem();
+			showSelectedInPerseusMenuItem = new ToolStripMenuItem();
+			perseusPropertiesMenuItem = new ToolStripMenuItem();
+			perseusToolStripSeparator = new ToolStripSeparator{Visible = false};
+			showAllInPerseusMenuItem.Visible = false;
+			showSelectedInPerseusMenuItem.Visible = false;
+			perseusPropertiesMenuItem.Visible = false;
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
 				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem
 				, selectionTopToolStripMenuItem, filterToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
 				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
 				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem,
 				copyColumnSelectionToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(),
-			tagsToolStripMenuItem, tagsControlToolStripMenuItem
+				tagsToolStripMenuItem, tagsControlToolStripMenuItem, perseusToolStripSeparator, showAllInPerseusMenuItem,
+				showSelectedInPerseusMenuItem, perseusPropertiesMenuItem
 			});
 			contextMenuStrip.Size = new Size(210, 142);
 			findToolStripMenuItem.Size = new Size(209, 22);
@@ -210,8 +229,29 @@ namespace BaseLib.Forms.Table{
 			tagsControlToolStripMenuItem.Size = new Size(209, 22);
 			tagsControlToolStripMenuItem.Text = "";
 			//tagsControlToolStripMenuItem.Click += ExportToolStripMenuItemClick;
-			toolStripSeparator1.Size = new Size(206, 6);
+			showAllInPerseusMenuItem.Click += ShowAllPerseusToolStripMenuItemClick;
+			showAllInPerseusMenuItem.Size = new Size(209, 22);
+			showAllInPerseusMenuItem.Text = "Show in Perseus (all)";
+			showSelectedInPerseusMenuItem.Click += ShowSelectedPerseusToolStripMenuItemClick;
+			showSelectedInPerseusMenuItem.Size = new Size(209, 22);
+			showSelectedInPerseusMenuItem.Text = "Show in Perseus (selected rows)";
+			perseusPropertiesMenuItem.Click += PerseusPropertiesToolStripMenuItemClick;
+			perseusPropertiesMenuItem.Size = new Size(209, 22);
+			perseusPropertiesMenuItem.Text = "Perseus properties";
+			perseusToolStripSeparator.Size = new Size(206, 6);
 			ContextMenuStrip = contextMenuStrip;
+		}
+
+		private void PerseusPropertiesToolStripMenuItemClick(object sender, EventArgs e){
+			//TODO
+		}
+
+		private void ShowSelectedPerseusToolStripMenuItemClick(object sender, EventArgs e){
+			//TODO
+		}
+
+		private void ShowAllPerseusToolStripMenuItemClick(object sender, EventArgs e){
+			//TODO
 		}
 
 		public bool MultiSelect{
@@ -756,6 +796,7 @@ namespace BaseLib.Forms.Table{
 			findForm.BringToFront();
 			findForm.Show(this);
 			findForm.Activate();
+			findForm.FocusInputField();
 		}
 
 		private void MonospaceFont(){
@@ -834,9 +875,9 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private void CopyColumnFullToolStripMenuItemClick(object sender, EventArgs e) {}
-		private void CopyColumnSelectionToolStripMenuItemClick(object sender, EventArgs e) { }
-		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e) { }
-		private void TagsToolStripMenuItemClick(object sender, EventArgs e) { }
+		private void CopyColumnSelectionToolStripMenuItemClick(object sender, EventArgs e) {}
+		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e) {}
+		private void TagsToolStripMenuItemClick(object sender, EventArgs e) {}
 
 		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
@@ -977,7 +1018,10 @@ namespace BaseLib.Forms.Table{
 		private void InvertOrder(){
 			sortState = SortState.Decreasing;
 			ArrayUtils.Revert(order);
-			ArrayUtils.Revert(inverseOrder);
+			inverseOrder = new int[order.Length];
+			for (int i = 0; i < order.Length; i++) {
+				inverseOrder[order[i]] = i;
+			}
 		}
 
 		private void Sort(){
