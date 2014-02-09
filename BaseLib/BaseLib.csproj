@@ -216,6 +216,7 @@
     </Compile>
     <Compile Include="Forms\Table\ColumnDescription.cs" />
     <Compile Include="Forms\Table\ColumnType.cs" />
+    <Compile Include="Forms\Table\VirtualDataTable2.cs" />
     <Compile Include="Forms\Table\DataAnnotationRow.cs" />
     <Compile Include="Forms\Table\DataRow2.cs" />
     <Compile Include="Forms\Table\DataTable2.cs" />
