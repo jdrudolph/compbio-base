@@ -1,23 +1,25 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System;
+using System.Windows;
+using Microsoft.Win32;
 
 namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for FileParameterControl.xaml
 	/// </summary>
-	public partial class FileParameterControl : UserControl{
+	public partial class FileParameterControl{
 		public FileParameterControl(){
 			InitializeComponent();
 		}
 
 		public string Filter { get; set; }
+		public Func<string, string> ProcessFileName { get; set; }
 		public string Text { get { return TextBox.Text; } set { TextBox.Text = value; } }
 		public bool Save { get; set; }
 		public void Connect(int connectionId, object target) {}
 
-		private void ButtonClick(object sender, RoutedEventArgs e) {
+		private void ButtonClick(object sender, RoutedEventArgs e){
 			if (Save){
-				Microsoft.Win32.SaveFileDialog ofd = new Microsoft.Win32.SaveFileDialog{FileName = Text};
+				SaveFileDialog ofd = new SaveFileDialog{FileName = Text};
 				if (!string.IsNullOrEmpty(Filter)){
 					ofd.Filter = Filter;
 				}
@@ -25,12 +27,16 @@ namespace BaseLib.Wpf{
 					TextBox.Text = ofd.FileName;
 				}
 			} else{
-				Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog();
+				OpenFileDialog ofd = new OpenFileDialog();
 				if (!string.IsNullOrEmpty(Filter)){
 					ofd.Filter = Filter;
 				}
 				if (ofd.ShowDialog() == true){
-					TextBox.Text = ofd.FileName;
+					string s = ofd.FileName;
+					if (ProcessFileName != null){
+						s = ProcessFileName(s);
+					}
+					TextBox.Text = s;
 				}
 			}
 		}

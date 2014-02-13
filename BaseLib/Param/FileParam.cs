@@ -6,6 +6,7 @@ namespace BaseLib.Param{
 	[Serializable]
 	public class FileParam : Parameter{
 		public string Filter { get; set; }
+		public Func<string, string> ProcessFileName { get; set; }
 		public bool Save { get; set; }
 		public string Value { get; set; }
 		public string Default { get; private set; }
@@ -37,16 +38,16 @@ namespace BaseLib.Param{
 		public override bool IsModified { get { return !Value.Equals(Default); } }
 
 		public override void SetValueFromControl(){
-			FileParameterControl tb = (FileParameterControl)control;
+			FileParameterControl tb = (FileParameterControl) control;
 			string val = tb.Text;
 			Value = val;
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			FileParameterControl lfp = (FileParameterControl)control;
+			FileParameterControl lfp = (FileParameterControl) control;
 			lfp.Text = Value;
 		}
 
@@ -54,10 +55,11 @@ namespace BaseLib.Param{
 			Value = "";
 		}
 
-		protected override FrameworkElement Control { get { return new FileParameterControl { Filter = Filter, Text = Value, Save = Save }; } }
+		protected override FrameworkElement Control { get { return new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save}; } }
 
 		public override object Clone(){
-			return new FileParam(Name, Value){Help = Help, Visible = Visible, Save = Save, Filter = Filter, Default = Default};
+			return new FileParam(Name, Value)
+			{Help = Help, Visible = Visible, Save = Save, Filter = Filter, Default = Default, ProcessFileName = ProcessFileName};
 		}
 	}
 }

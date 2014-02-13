@@ -8,7 +8,7 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for MultiListSelectorControl.xaml
 	/// </summary>
-	public partial class MultiListSelectorControl : UserControl{
+	public partial class MultiListSelectorControl{
 		public event EventHandler SelectionChanged;
 		private MultiListSelectorSubSelectionControl[] subSelection;
 		public IList<string> items;
