@@ -6,7 +6,9 @@ namespace BaseLib.Forms.Table{
 		private int rowInUse = -1;
 		private object[] rowDataInUse;
 		private readonly int rowCount;
-
+		private int[] persistentColInds;
+		private DataTable2 persistentTable;
+		
 		public VirtualDataTable2(string name, string description, int rowCount){
 			Name = name;
 			Description = description;
@@ -31,7 +33,14 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public override void SetEntry(int row, int column, object value){
-			throw new NotImplementedException();
+			if (persistentTable == null){
+				throw new Exception("The table has no persistent columns.");
+			}
+			int ind = Array.BinarySearch(persistentColInds, column);
+			if (ind < 0){
+				throw new Exception("The column is not persistent.");
+			}
+			persistentTable.SetEntry(row, ind, value);
 		}
 	}
 }

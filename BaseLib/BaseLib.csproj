@@ -214,7 +214,6 @@
     <Compile Include="Forms\Select\MultiListSelectorSubSelection.Designer.cs">
       <DependentUpon>MultiListSelectorSubSelection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\ColumnDescription.cs" />
     <Compile Include="Forms\Table\ColumnType.cs" />
     <Compile Include="Forms\Table\VirtualDataTable2.cs" />
     <Compile Include="Forms\Table\DataAnnotationRow.cs" />

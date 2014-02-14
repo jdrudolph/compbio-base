@@ -14,7 +14,7 @@ namespace BaseLib.Forms.Table{
 		protected readonly List<int> columnWidths = new List<int>();
 		protected readonly List<ColumnType> columnTypes = new List<ColumnType>();
 		protected readonly List<RenderTableCell> cellRenderers = new List<RenderTableCell>();
-		protected readonly List<ColumnDescription> columnDescriptions = new List<ColumnDescription>();
+		protected readonly List<string> columnDescriptions = new List<string>();
 		protected readonly List<string> annotationRowNames = new List<string>();
 		protected readonly List<string> annotationRowDescriptions = new List<string>();
 		private readonly Collection<DataAnnotationRow> annotationRows = new Collection<DataAnnotationRow>();
@@ -41,7 +41,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public string GetColumnDescription(int col){
-			return columnDescriptions[col].ToString();
+			return columnDescriptions[col];
 		}
 
 		public ColumnType GetColumnType(int col){
@@ -50,15 +50,6 @@ namespace BaseLib.Forms.Table{
 
 		public int GetColumnIndex(string colName){
 			return columnNames.IndexOf(colName);
-		}
-
-		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility){
-			AddColumn(colName, width, columnType, new ColumnDescription(description), visibility, null);
-		}
-
-		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility,
-			RenderTableCell renderer){
-			AddColumn(colName, width, columnType, new ColumnDescription(description), visibility, renderer);
 		}
 
 		public object GetEntry(int row, string colname){
@@ -101,12 +92,12 @@ namespace BaseLib.Forms.Table{
 			return GetAnnotationRowValue(index, GetColumnIndex(colname));
 		}
 
-		public virtual void AddColumn(string colName, int width, ColumnType columnType, ColumnDescription description,
+		public virtual void AddColumn(string colName, int width, ColumnType columnType, string description,
 			Visibility visibility){
 			AddColumn(colName, width, columnType, description, visibility, null);
 		}
 
-		public virtual void AddColumn(string colName, int width, ColumnType columnType, ColumnDescription description,
+		public virtual void AddColumn(string colName, int width, ColumnType columnType, string description,
 			Visibility visibility, RenderTableCell renderer){
 			nameMapping.Add(colName, columnNames.Count);
 			columnNames.Add(colName);
