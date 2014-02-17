@@ -49,7 +49,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public int GetColumnIndex(string colName){
-			return columnNames.IndexOf(colName);
+			return nameMapping.ContainsKey(colName) ? nameMapping[colName] : -1;
 		}
 
 		public object GetEntry(int row, string colname){
@@ -92,13 +92,12 @@ namespace BaseLib.Forms.Table{
 			return GetAnnotationRowValue(index, GetColumnIndex(colname));
 		}
 
-		public virtual void AddColumn(string colName, int width, ColumnType columnType, string description,
-			Visibility visibility){
+		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility){
 			AddColumn(colName, width, columnType, description, visibility, null);
 		}
 
-		public virtual void AddColumn(string colName, int width, ColumnType columnType, string description,
-			Visibility visibility, RenderTableCell renderer){
+		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility,
+			RenderTableCell renderer){
 			nameMapping.Add(colName, columnNames.Count);
 			columnNames.Add(colName);
 			columnWidths.Add(width);
