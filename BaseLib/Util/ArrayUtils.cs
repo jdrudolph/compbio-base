@@ -352,31 +352,31 @@ namespace BaseLib.Util{
 			return ind;
 		}
 
-		public static double[] ToDoubles(IList<float> floats) {
+		public static double[] ToDoubles(IList<float> floats){
 			double[] result = new double[floats.Count];
-			for (int i = 0; i < result.Length; i++) {
+			for (int i = 0; i < result.Length; i++){
 				result[i] = floats[i];
 			}
 			return result;
 		}
 
-		public static string[] ToStrings(IList<object> x) {
+		public static string[] ToStrings(IList<object> x){
 			string[] result = new string[x.Count];
-			for (int i = 0; i < result.Length; i++) {
+			for (int i = 0; i < result.Length; i++){
 				result[i] = x[i].ToString();
 			}
 			return result;
 		}
 
-		public static string[] ToStrings(IList<char> x) {
+		public static string[] ToStrings(IList<char> x){
 			string[] result = new string[x.Count];
-			for (int i = 0; i < result.Length; i++) {
+			for (int i = 0; i < result.Length; i++){
 				result[i] = "" + x[i];
 			}
 			return result;
 		}
 
-		public static int[] Complement(IList<int> present, int length) {
+		public static int[] Complement(IList<int> present, int length){
 			HashSet<int> dummy = new HashSet<int>();
 			dummy.UnionWith(present);
 			return Complement(dummy, length);
@@ -988,57 +988,81 @@ namespace BaseLib.Util{
 		}
 
 		public static double MeanAndStddev(IList<double> vals, out double stddev){
+			return MeanAndStddev(vals, out stddev, false);
+		}
+
+		public static double MeanAndStddev(IList<double> vals, out double stddev, bool useMedian){
 			double mean = 0;
-			int c = 0;
-			foreach (double t in vals.Where(t => !double.IsNaN(t))){
-				mean += t;
-				c++;
+			int validCount = 0;
+			if (useMedian){
+				int[] valids = GetValidInds(vals);
+				validCount = valids.Length;
+				mean = Median(SubArray(vals, valids));
+			} else{
+				foreach (double t in vals.Where(t => !double.IsNaN(t) && !double.IsInfinity(t))){
+					mean += t;
+					validCount++;
+				}
+				if (validCount == 0){
+					stddev = double.NaN;
+					return double.NaN;
+				}
+				if (validCount == 1){
+					stddev = double.NaN;
+					return mean;
+				}
+				mean /= validCount;
 			}
-			if (c == 0){
-				stddev = Double.NaN;
-				return Double.NaN;
-			}
-			if (c == 1){
-				stddev = Double.NaN;
-				return mean;
-			}
-			mean /= c;
 			stddev = 0;
 			foreach (double v in vals){
-				if (!double.IsNaN(v)){
+				if (!double.IsNaN(v) && !double.IsInfinity(v)){
 					double x = v - mean;
 					stddev += x*x;
 				}
 			}
-			stddev /= (c - 1.0);
+			stddev /= (validCount - 1.0);
 			stddev = Math.Sqrt(stddev);
 			return mean;
 		}
 
 		public static double MeanAndStddev(IList<float> vals, out double stddev){
+			return MeanAndStddev(vals, out stddev, false);
+		}
+
+		public static double MeanAndStddev(IList<float> vals, out double stddev, bool useMedian){
 			int validCount;
-			return MeanAndStddev(vals, out stddev, out validCount);
+			return MeanAndStddev(vals, out stddev, out validCount, useMedian);
 		}
 
 		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount){
+			return MeanAndStddev(vals, out stddev, out validCount, false);
+		}
+
+		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount, bool useMedian){
 			double mean = 0;
 			validCount = 0;
-			foreach (float t in vals.Where(t => !double.IsNaN(t))){
-				mean += t;
-				validCount++;
+			if (useMedian){
+				int[] valids = GetValidInds(vals);
+				validCount = valids.Length;
+				mean = Median(SubArray(vals, valids));
+			} else{
+				foreach (float t in vals.Where(t => !float.IsNaN(t) && !float.IsInfinity(t))){
+					mean += t;
+					validCount++;
+				}
+				if (validCount == 0){
+					stddev = Double.NaN;
+					return Double.NaN;
+				}
+				if (validCount == 1){
+					stddev = Double.NaN;
+					return mean;
+				}
+				mean /= validCount;
 			}
-			if (validCount == 0){
-				stddev = Double.NaN;
-				return Double.NaN;
-			}
-			if (validCount == 1){
-				stddev = Double.NaN;
-				return mean;
-			}
-			mean /= validCount;
 			stddev = 0;
 			foreach (float v in vals){
-				if (!float.IsNaN(v)){
+				if (!float.IsNaN(v) && !float.IsInfinity(v)){
 					double x = v - mean;
 					stddev += x*x;
 				}
@@ -1574,6 +1598,17 @@ namespace BaseLib.Util{
 			return result.ToArray();
 		}
 
+		public static int[] GetValidInds(IList<float> x){
+			List<int> result = new List<int>();
+			for (int i = 0; i < x.Count; i++){
+				float y = x[i];
+				if (!float.IsNaN(y) && !float.IsInfinity(y)){
+					result.Add(i);
+				}
+			}
+			return result.ToArray();
+		}
+
 		public static float[] ExtractValidValues(IList<float> x){
 			List<float> result = new List<float>();
 			foreach (float y in x){
@@ -1776,9 +1811,13 @@ namespace BaseLib.Util{
 		}
 
 		public static float[] Zscore(IList<float> vals){
+			return Zscore(vals, false);
+		}
+
+		public static float[] Zscore(IList<float> vals, bool useMedian){
 			int validCount;
 			double stddev;
-			double mean = MeanAndStddev(vals, out stddev, out validCount);
+			double mean = MeanAndStddev(vals, out stddev, out validCount, useMedian);
 			float[] result = new float[vals.Count];
 			if (validCount < 3){
 				for (int i = 0; i < result.Length; i++){

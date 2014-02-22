@@ -37,6 +37,7 @@ namespace BaseLib.Wpf{
 			foreach (string s in items1){
 				allListBox.Items.Add(s);
 			}
+			ClearSelection();
 		}
 
 		public int[][] SelectedIndices{
