@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
 using System.Windows.Forms.Integration;
 using BaseLib.Forms.Table;
 
@@ -8,7 +7,7 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for TableViewWpf.xaml
 	/// </summary>
-	public partial class TableViewWpf : UserControl{
+	public partial class TableViewWpf{
 		public event EventHandler SelectionChanged;
 		private readonly TableView tableView;
 
@@ -23,6 +22,7 @@ namespace BaseLib.Wpf{
 			};
 			wfh.Child = tableView;
 			Grid1.Children.Add(wfh);
+			KeyDown += (sender, args) => tableView.Focus();
 		}
 
 		public ITableModel TableModel { get { return tableView.TableModel; } set { tableView.TableModel = value; } }

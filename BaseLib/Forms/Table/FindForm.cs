@@ -34,6 +34,7 @@ namespace BaseLib.Forms.Table{
 			helpButton.Visible = false;
 			tableView1.SelectionChanged += TableView1SelectionChanged;
 			expressionTextBox.Focus();
+			expressionTextBox.SelectAll();
 		}
 
 		protected override void OnLoad(EventArgs e){

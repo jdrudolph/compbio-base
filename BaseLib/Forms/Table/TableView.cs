@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Windows.Input;
 using BaseLib.Forms.Base;
 using BaseLib.Forms.Scroll;
 using BaseLib.Graphic;
@@ -784,8 +785,8 @@ namespace BaseLib.Forms.Table{
 			findForm.Visible = false;
 			findForm.BringToFront();
 			findForm.Show(this);
-			findForm.Activate();
 			findForm.FocusInputField();
+			findForm.Activate();
 		}
 
 		private void MonospaceFont(){
@@ -1348,10 +1349,10 @@ namespace BaseLib.Forms.Table{
 			int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
 			if (ind >= 0){
 				if (Math.Abs(columnWidthSums[ind] - x1) < 5){
-					Cursor.Current = Cursors.VSplit;
+					System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.VSplit;
 					resizeCol = ind;
 				} else{
-					Cursor.Current = Cursors.Default;
+					System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
 					resizeCol = -1;
 				}
 			}
