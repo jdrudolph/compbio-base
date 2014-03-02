@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Windows.Input;
 using BaseLib.Forms.Base;
 using BaseLib.Forms.Scroll;
 using BaseLib.Graphic;
@@ -868,8 +867,20 @@ namespace BaseLib.Forms.Table{
 			CopyCell();
 		}
 
-		private void CopyColumnFullToolStripMenuItemClick(object sender, EventArgs e) {}
-		private void CopyColumnSelectionToolStripMenuItemClick(object sender, EventArgs e) {}
+		private void CopyColumnFullToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
+				return;
+			}
+			CopyColumnFull();
+		}
+
+		private void CopyColumnSelectionToolStripMenuItemClick(object sender, EventArgs e){
+			if (model == null){
+				return;
+			}
+			CopyColumnSelectedRows();
+		}
+
 		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e) {}
 		private void TagsToolStripMenuItemClick(object sender, EventArgs e) {}
 
@@ -1086,22 +1097,70 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private void CopyCell(){
-			//int x1 = VisibleX + e.X;
-			//if (columnWidthSums == null) {
-			//	return;
-			//}
-			//int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
-			//if (ind >= 0) {
-			//	if (Math.Abs(columnWidthSums[ind] - x1) < 5) {
-			//		Cursor.Current = Cursors.VSplit;
-			//		resizeCol = ind;
-			//	} else {
-			//		Cursor.Current = Cursors.Default;
-			//		resizeCol = -1;
-			//	}
-			//}
-			//int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			//TODO
+			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
+			Point q = PointToScreen(new Point(0, 0));
+			int cx = p.X - q.X - RowHeaderWidth;
+			int cy = p.Y - q.Y - ColumnHeaderHeight;
+			int x1 = VisibleX + cx;
+			if (columnWidthSums == null){
+				return;
+			}
+			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+			int row = (VisibleY + cy)/rowHeight;
+			if (model == null || row >= model.RowCount || row < 0){
+				return;
+			}
+			int ox = order[row];
+			Clipboard.Clear();
+			Clipboard.SetDataObject("" + TableModel.GetEntry(ox, ind));
+		}
+
+		private void CopyColumnFull(){
+			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
+			Point q = PointToScreen(new Point(0, 0));
+			int cx = p.X - q.X - RowHeaderWidth;
+			int x1 = VisibleX + cx;
+			if (columnWidthSums == null){
+				return;
+			}
+			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+			if (model == null){
+				return;
+			}
+			StringBuilder str = new StringBuilder();
+			for (int i = 0; i < order.Length; i++){
+				str.Append(TableModel.GetEntry(order[i], ind));
+				if (i != order.Length - 1){
+					str.Append("\n");
+				}
+			}
+			Clipboard.Clear();
+			Clipboard.SetDataObject(str.ToString());
+		}
+
+		private void CopyColumnSelectedRows(){
+			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
+			Point q = PointToScreen(new Point(0, 0));
+			int cx = p.X - q.X - RowHeaderWidth;
+			int x1 = VisibleX + cx;
+			if (columnWidthSums == null){
+				return;
+			}
+			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+			if (model == null){
+				return;
+			}
+			StringBuilder str = new StringBuilder();
+			int[] selection = GetSelectedRows();
+			for (int i = 0; i < selection.Length; i++){
+				int t = selection[i];
+				str.Append(TableModel.GetEntry(t, ind));
+				if (i != selection.Length - 1){
+					str.Append("\n");
+				}
+			}
+			Clipboard.Clear();
+			Clipboard.SetDataObject(str.ToString());
 		}
 
 		private void Copy(){

@@ -306,7 +306,7 @@ namespace BaseLib.Parse{
 		}
 
 		public static bool IsCommentLine(string line, IEnumerable<string> prefix, HashSet<string> prefixExceptions){
-			if (line.Length == 0){
+			if (string.IsNullOrEmpty(line)){
 				return true;
 			}
 			foreach (string s in prefixExceptions){
