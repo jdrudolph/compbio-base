@@ -397,7 +397,7 @@ namespace BaseLib.Util{
 				return null;
 			}
 			if (first == null || first.Count == 0){
-				return second.ToArray();
+				return second != null ? second.ToArray() : null;
 			}
 			if (second == null || second.Count == 0){
 				return first.ToArray();
@@ -409,6 +409,9 @@ namespace BaseLib.Util{
 		}
 
 		public static T[] Concat<T>(IList<T> a, T b){
+			if (a == null){
+				return new []{b};
+			}
 			T[] result = new T[a.Count + 1];
 			Array.Copy(a.ToArray(), 0, result, 0, a.Count);
 			result[a.Count] = b;
@@ -418,11 +421,13 @@ namespace BaseLib.Util{
 		public static T[] Concat<T>(IList<T[]> x){
 			int len = 0;
 			foreach (T[] t in x){
-				len += t.Length;
+				if (t != null){
+					len += t.Length;
+				}
 			}
 			T[] result = new T[len];
 			int c = 0;
-			foreach (T t1 in x.SelectMany(t => t)){
+			foreach (T t1 in x.Where(t => t != null).SelectMany(t => t)){
 				result[c++] = t1;
 			}
 			return result;

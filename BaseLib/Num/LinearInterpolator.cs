@@ -56,6 +56,10 @@ namespace BaseLib.Num{
 		}
 
 		public static double Get(double x, out double dydx, double[] xvals, double[] yvals){
+			if (double.IsNaN(x) || double.IsInfinity(x)){
+				dydx = double.NaN;
+				return double.NaN;
+			}
 			if (xvals.Length == 0){
 				dydx = double.NaN;
 				return double.NaN;
@@ -80,7 +84,10 @@ namespace BaseLib.Num{
 		}
 
 		public static double Get(double x, double[] xvals, double[] yvals){
-			if (xvals.Length == 0){
+			if (double.IsNaN(x) || double.IsInfinity(x)) {
+				return double.NaN;
+			}
+			if (xvals.Length == 0) {
 				return double.NaN;
 			}
 			if (xvals.Length == 1){
@@ -103,7 +110,10 @@ namespace BaseLib.Num{
 
 		public static double Get(double x, out double[] dyda, double[] xvals, double[] yvals){
 			dyda = new double[xvals.Length];
-			if (xvals.Length == 0){
+			if (double.IsNaN(x) || double.IsInfinity(x)) {
+				return double.NaN;
+			}
+			if (xvals.Length == 0) {
 				return double.NaN;
 			}
 			if (xvals.Length == 1){

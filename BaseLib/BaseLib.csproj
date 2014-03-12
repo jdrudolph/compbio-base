@@ -124,9 +124,6 @@
     <Compile Include="Forms\Help\HelpLabel.Designer.cs">
       <DependentUpon>HelpLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Help\HelpToolStripButton.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Forms\Scatter\GridData.cs" />
     <Compile Include="Forms\Scatter\PlanePropertiesForm.cs">
       <SubType>Form</SubType>
@@ -172,35 +169,11 @@
     </Compile>
     <Compile Include="Forms\Scroll\SimpleScrollableControlMainView.cs" />
     <Compile Include="Forms\Scroll\VerticalScrollBarView.cs" />
-    <Compile Include="Forms\Select\CollapsibleGroupBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\Select\CollapsibleGroupBox.Designer.cs">
-      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Select\FileParameterPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Select\FileParameterPanel.Designer.cs">
-      <DependentUpon>FileParameterPanel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Select\FolderParameterPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Select\FolderParameterPanel.Designer.cs">
-      <DependentUpon>FolderParameterPanel.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Select\ListSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Select\ListSelector.Designer.cs">
       <DependentUpon>ListSelector.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Select\MultiFileParameterPanel.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Select\MultiFileParameterPanel.Designer.cs">
-      <DependentUpon>MultiFileParameterPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Select\MultiListSelector.cs">
       <SubType>UserControl</SubType>
@@ -449,24 +422,8 @@
     <EmbeddedResource Include="Forms\Scatter\ScatterPlotViewer.resx">
       <DependentUpon>ScatterPlotViewer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Select\CollapsibleGroupBox.resx">
-      <DependentUpon>CollapsibleGroupBox.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Select\FileParameterPanel.resx">
-      <DependentUpon>FileParameterPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Select\FolderParameterPanel.resx">
-      <DependentUpon>FolderParameterPanel.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Select\ListSelector.resx">
       <DependentUpon>ListSelector.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Select\MultiFileParameterPanel.resx">
-      <DependentUpon>MultiFileParameterPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Select\MultiListSelector.resx">
