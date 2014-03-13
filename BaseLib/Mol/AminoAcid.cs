@@ -20,6 +20,7 @@ namespace BaseLib.Mol{
 			Name = name;
 		}
 
+        //Test
 		public string Abbreviation { get { return abbreviation; } }
 		public string Type { get { return type; } }
 		public char Letter { get { return letter; } }
