@@ -45,7 +45,7 @@ namespace BaseLib.Mol{
 		public static readonly AminoAcid lysine = new AminoAcid("C6H12N2O", "Lysine", "Lys", 'K', 7.2, new[]{"AAA", "AAG"},
 			"charged basic", true, -3.9);
 		public static readonly AminoAcid methionine = new AminoAcid("C5H9NOS", "Methionine", "Met", 'M', 1.8, new[]{"ATG"},
-			"polar neutral", true, 1.9);
+			"hydrophobic aliphatic", true, 1.9);
 		public static readonly AminoAcid phenylalanine = new AminoAcid("C9H9NO", "Phenylalanine", "Phe", 'F', 4,
 			new[]{"TTT", "TTC"}, "hydrophobic aromatic", true, 2.8);
 		public static readonly AminoAcid proline = new AminoAcid("C5H7NO", "Proline", "Pro", 'P', 5,
@@ -60,7 +60,7 @@ namespace BaseLib.Mol{
 			"hydrophobic aromatic", true, -1.3);
 		public static readonly AminoAcid valine = new AminoAcid("C5H9NO", "Valine", "Val", 'V', 6.8,
 			new[]{"GTT", "GTC", "GTA", "GTG"}, "hydrophobic aliphatic", true, 4.2);
-		public static readonly AminoAcid selenocysteine = new AminoAcid("C3H7NO2Se", "Selenocysteine", "Sec", 'U', 0.0,
+		public static readonly AminoAcid selenocysteine = new AminoAcid("C3H5NOSe", "Selenocysteine", "Sec", 'U', 0.0,
 			new[]{"TGA"}, "", false, 0.0);
 		public static readonly AminoAcid[] aminoAcids = new[]{
 			alanine, arginine, asparagine, asparticAcid, cysteine, glutamine, glutamicAcid, glycine, histidine, isoleucine,
