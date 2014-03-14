@@ -3,8 +3,8 @@
 namespace BaseLib.Num.Kernel{
     public static class KernelFunctions{
         private static readonly IKernelFunction[] allKernelFunctions = new IKernelFunction[]{
-            new LinearKernelFunction(), new PolynomialKernelFunction(3, 0.01, 0), new RbfKernelFunction(1),
-            new SigmoidKernelFunction(0.01, 0)
+            new LinearKernelFunction(), new PolynomialKernelFunction(), new RbfKernelFunction(),
+            new SigmoidKernelFunction()
         };
 
         public static string[] GetAllNames(){
@@ -18,7 +18,7 @@ namespace BaseLib.Num.Kernel{
         public static Parameters[] GetAllParameters(){
             Parameters[] result = new Parameters[allKernelFunctions.Length];
             for (int i = 0; i < result.Length; i++){
-                result[i] = allKernelFunctions[i].GetParameters();
+                result[i] = allKernelFunctions[i].Parameters;
             }
             return result;
         }

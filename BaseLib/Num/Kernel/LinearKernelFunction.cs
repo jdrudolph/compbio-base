@@ -13,14 +13,11 @@ namespace BaseLib.Num.Kernel{
 
         public Parameters Parameters{
             set { }
+            get { return new Parameters(); }
         }
 
         public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej){
             return xi.Dot(xj);
-        }
-
-        public Parameters GetParameters(){
-            return new Parameters();
         }
 
         public object Clone(){
