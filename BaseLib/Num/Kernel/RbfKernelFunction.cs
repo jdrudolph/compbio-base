@@ -3,6 +3,7 @@ using BaseLib.Num.Vector;
 using BaseLib.Param;
 
 namespace BaseLib.Num.Kernel{
+    [Serializable]
     public class RbfKernelFunction : IKernelFunction{
         private double sigma;
         public RbfKernelFunction() : this(1) {}

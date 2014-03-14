@@ -1,6 +1,8 @@
-﻿using BaseLib.Param;
+﻿using System;
+using BaseLib.Param;
 
 namespace BaseLib.Num.Kernel{
+    [Serializable]
     public static class KernelFunctions{
         private static readonly IKernelFunction[] allKernelFunctions = new IKernelFunction[]{
             new LinearKernelFunction(), new PolynomialKernelFunction(), new RbfKernelFunction(),

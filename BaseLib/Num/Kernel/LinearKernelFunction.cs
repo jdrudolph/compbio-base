@@ -1,7 +1,9 @@
-﻿using BaseLib.Num.Vector;
+﻿using System;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 
 namespace BaseLib.Num.Kernel{
+    [Serializable]
     public class LinearKernelFunction : IKernelFunction{
         public bool UsesSquares{
             get { return false; }

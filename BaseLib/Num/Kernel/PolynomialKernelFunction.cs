@@ -1,7 +1,9 @@
-﻿using BaseLib.Num.Vector;
+﻿using System;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 
 namespace BaseLib.Num.Kernel{
+    [Serializable]
     public class PolynomialKernelFunction : IKernelFunction{
         private int degree;
         private double gamma;
