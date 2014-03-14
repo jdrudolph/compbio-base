@@ -251,6 +251,12 @@
     <Compile Include="Num\CorrelationType.cs" />
     <Compile Include="Num\CubicSpline.cs" />
     <Compile Include="Num\DensityEstimation.cs" />
+    <Compile Include="Num\Kernel\IKernelFunction.cs" />
+    <Compile Include="Num\Kernel\KernelFunctions.cs" />
+    <Compile Include="Num\Kernel\LinearKernelFunction.cs" />
+    <Compile Include="Num\Kernel\PolynomialKernelFunction.cs" />
+    <Compile Include="Num\Kernel\RbfKernelFunction.cs" />
+    <Compile Include="Num\Kernel\SigmoidKernelFunction.cs" />
     <Compile Include="Num\LinearInterpolator.cs" />
     <Compile Include="Num\NumRecipes.cs" />
     <Compile Include="Num\NumUtils.cs" />
@@ -748,6 +754,7 @@
   <ItemGroup>
     <None Include="Resources\arrowCorner.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
