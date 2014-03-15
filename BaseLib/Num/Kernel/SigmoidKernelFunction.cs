@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using BaseLib.Num.Api;
 using BaseLib.Num.Vector;
 using BaseLib.Param;
@@ -38,5 +39,10 @@ namespace BaseLib.Num.Kernel{
         public object Clone(){
             return new SigmoidKernelFunction(Gamma, Coef);
         }
+
+        public string Description { get { return ""; } }
+        public float DisplayOrder { get { return 0; } }
+        public bool IsActive { get { return true; } }
+        public Bitmap DisplayImage { get { return null; } }
     }
 }

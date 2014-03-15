@@ -54,6 +54,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\INamedItem.cs" />
+    <Compile Include="Api\INamedListItem.cs" />
     <Compile Include="Data\Cache.cs" />
     <Compile Include="Data\CacheElem.cs" />
     <Compile Include="Data\EquatableArray.cs" />
@@ -247,7 +249,10 @@
     <Compile Include="Mol\ChemElementType.cs" />
     <Compile Include="Mol\Molecule.cs" />
     <Compile Include="Num\Api\ClassificationModel.cs" />
+    <Compile Include="Num\Api\IClassificationFeatureRankingMethod.cs" />
     <Compile Include="Num\Api\IClassificationMethod.cs" />
+    <Compile Include="Num\Api\IGroupDataProvider.cs" />
+    <Compile Include="Num\Api\IRegressionFeatureRankingMethod.cs" />
     <Compile Include="Num\Api\IRegressionMethod.cs" />
     <Compile Include="Num\Api\RegressionModel.cs" />
     <Compile Include="Num\Bootstrap.cs" />

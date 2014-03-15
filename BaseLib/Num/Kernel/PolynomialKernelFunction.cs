@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using BaseLib.Num.Api;
 using BaseLib.Num.Vector;
 using BaseLib.Param;
@@ -57,5 +58,9 @@ namespace BaseLib.Num.Kernel{
             }
             return ret;
         }
+        public string Description { get { return ""; } }
+        public float DisplayOrder { get { return 0; } }
+        public bool IsActive { get { return true; } }
+        public Bitmap DisplayImage { get { return null; } }
     }
 }
