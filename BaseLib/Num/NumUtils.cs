@@ -883,7 +883,10 @@ namespace BaseLib.Num{
 			return result;
 		}
 
-		public static double[] DiagonalizeSymmMatrix(double[,] m, out double[,] evec){
+        /// <param name="m">Symmetrical input matrix.</param>
+        /// <param name="evec">The matrix of eigenvectors. The second index iterates through the different eigenvectors.</param>
+        /// <returns>Vector of eigenvalues in no particular order.</returns>
+        public static double[] DiagonalizeSymmMatrix(double[,] m, out double[,] evec){
 			double[] d;
 			double[] e;
 			evec = (double[,]) m.Clone();
