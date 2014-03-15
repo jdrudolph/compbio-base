@@ -6,13 +6,13 @@ using BaseLib.Param;
 namespace BaseLib.Num.Kernel{
     [Serializable]
     public class SigmoidKernelFunction : IKernelFunction{
-        private double gamma;
-        private double coef;
+        private double Gamma { get; set; }
+        private double Coef { get; set; }
         public SigmoidKernelFunction() : this(0.01, 0) {}
 
         public SigmoidKernelFunction(double gamma, double coef){
-            this.gamma = gamma;
-            this.coef = coef;
+            Gamma = gamma;
+            Coef = coef;
         }
 
         public bool UsesSquares{
@@ -24,19 +24,19 @@ namespace BaseLib.Num.Kernel{
         }
 
         public Parameters Parameters{
-            get { return new Parameters(new Parameter[]{new DoubleParam("Gamma", gamma), new DoubleParam("Coef", coef)}); }
+            get { return new Parameters(new Parameter[]{new DoubleParam("Gamma", Gamma), new DoubleParam("Coef", Coef)}); }
             set{
-                gamma = value.GetDoubleParam("Gamma").Value;
-                coef = value.GetDoubleParam("Coef").Value;
+                Gamma = value.GetDoubleParam("Gamma").Value;
+                Coef = value.GetDoubleParam("Coef").Value;
             }
         }
 
         public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej){
-            return Math.Tanh(gamma*xi.Dot(xj) + coef);
+            return Math.Tanh(Gamma*xi.Dot(xj) + Coef);
         }
 
         public object Clone(){
-            return new SigmoidKernelFunction(gamma, coef);
+            return new SigmoidKernelFunction(Gamma, Coef);
         }
     }
 }

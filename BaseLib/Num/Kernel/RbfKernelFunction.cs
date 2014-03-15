@@ -6,11 +6,11 @@ using BaseLib.Param;
 namespace BaseLib.Num.Kernel{
     [Serializable]
     public class RbfKernelFunction : IKernelFunction{
-        private double sigma;
+        private double Sigma { get; set; }
         public RbfKernelFunction() : this(1) {}
 
         public RbfKernelFunction(double sigma){
-            this.sigma = sigma;
+            Sigma = sigma;
         }
 
         public bool UsesSquares{
@@ -22,16 +22,16 @@ namespace BaseLib.Num.Kernel{
         }
 
         public Parameters Parameters{
-            get { return new Parameters(new Parameter[]{new DoubleParam("Sigma", sigma)}); }
-            set { sigma = value.GetDoubleParam("Sigma").Value; }
+            get { return new Parameters(new Parameter[]{new DoubleParam("Sigma", Sigma)}); }
+            set { Sigma = value.GetDoubleParam("Sigma").Value; }
         }
 
         public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej){
-            return Math.Exp(-(xSquarei + xSquarej - 2*xi.Dot(xj))/2.0/xi.Length/sigma/sigma);
+            return Math.Exp(-(xSquarei + xSquarej - 2*xi.Dot(xj))/2.0/xi.Length/Sigma/Sigma);
         }
 
         public object Clone(){
-            return new RbfKernelFunction(sigma);
+            return new RbfKernelFunction(Sigma);
         }
     }
 }

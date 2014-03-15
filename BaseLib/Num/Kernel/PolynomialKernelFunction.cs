@@ -6,14 +6,14 @@ using BaseLib.Param;
 namespace BaseLib.Num.Kernel{
     [Serializable]
     public class PolynomialKernelFunction : IKernelFunction{
-        private int degree;
-        private double gamma;
-        private double coef;
+        public int Degree { get; set; }
+        public double Gamma { get; set; }
+        public double Coef { get; set; }
 
         public PolynomialKernelFunction(int degree, double gamma, double coef){
-            this.degree = degree;
-            this.gamma = gamma;
-            this.coef = coef;
+            Degree = degree;
+            Gamma = gamma;
+            Coef = coef;
         }
 
         public PolynomialKernelFunction() : this(3, 0.01, 0) {}
@@ -30,21 +30,21 @@ namespace BaseLib.Num.Kernel{
             get{
                 return
                     new Parameters(new Parameter[]
-                    {new IntParam("Degree", degree), new DoubleParam("Gamma", gamma), new DoubleParam("Coef", coef)});
+                    {new IntParam("Degree", Degree), new DoubleParam("Gamma", Gamma), new DoubleParam("Coef", Coef)});
             }
             set{
-                degree = value.GetIntParam("Degree").Value;
-                gamma = value.GetDoubleParam("Gamma").Value;
-                coef = value.GetDoubleParam("Coef").Value;
+                Degree = value.GetIntParam("Degree").Value;
+                Gamma = value.GetDoubleParam("Gamma").Value;
+                Coef = value.GetDoubleParam("Coef").Value;
             }
         }
 
         public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej){
-            return Powi(gamma*xi.Dot(xj) + coef, degree);
+            return Powi(Gamma*xi.Dot(xj) + Coef, Degree);
         }
 
         public object Clone(){
-            return new PolynomialKernelFunction(degree, gamma, coef);
+            return new PolynomialKernelFunction(Degree, Gamma, Coef);
         }
 
         private static double Powi(double base1, int times){

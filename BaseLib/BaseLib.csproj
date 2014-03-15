@@ -246,13 +246,16 @@
     <Compile Include="Mol\ChemElement.cs" />
     <Compile Include="Mol\ChemElementType.cs" />
     <Compile Include="Mol\Molecule.cs" />
+    <Compile Include="Num\Api\ClassificationModel.cs" />
+    <Compile Include="Num\Api\IClassificationMethod.cs" />
+    <Compile Include="Num\Api\IRegressionMethod.cs" />
+    <Compile Include="Num\Api\RegressionModel.cs" />
     <Compile Include="Num\Bootstrap.cs" />
     <Compile Include="Num\Combination.cs" />
     <Compile Include="Num\CorrelationType.cs" />
     <Compile Include="Num\CubicSpline.cs" />
     <Compile Include="Num\DensityEstimation.cs" />
     <Compile Include="Num\Api\IKernelFunction.cs" />
-    <Compile Include="Num\Kernel\KernelFunctions.cs" />
     <Compile Include="Num\Kernel\LinearKernelFunction.cs" />
     <Compile Include="Num\Kernel\PolynomialKernelFunction.cs" />
     <Compile Include="Num\Kernel\RbfKernelFunction.cs" />
