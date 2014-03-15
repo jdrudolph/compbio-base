@@ -1,4 +1,5 @@
 ﻿using System;
+using BaseLib.Num.Api;
 using BaseLib.Param;
 
 namespace BaseLib.Num.Kernel{

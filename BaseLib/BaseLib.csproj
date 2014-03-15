@@ -251,7 +251,7 @@
     <Compile Include="Num\CorrelationType.cs" />
     <Compile Include="Num\CubicSpline.cs" />
     <Compile Include="Num\DensityEstimation.cs" />
-    <Compile Include="Num\Kernel\IKernelFunction.cs" />
+    <Compile Include="Num\Api\IKernelFunction.cs" />
     <Compile Include="Num\Kernel\KernelFunctions.cs" />
     <Compile Include="Num\Kernel\LinearKernelFunction.cs" />
     <Compile Include="Num\Kernel\PolynomialKernelFunction.cs" />

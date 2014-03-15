@@ -2,7 +2,7 @@
 using BaseLib.Num.Vector;
 using BaseLib.Param;
 
-namespace BaseLib.Num.Kernel{
+namespace BaseLib.Num.Api{
     public interface IKernelFunction : ICloneable{
         bool UsesSquares { get; }
         string Name { get; }
