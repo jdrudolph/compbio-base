@@ -40,9 +40,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Svm\OneClassQ.cs" />
+    <Compile Include="Svm\SvcQ.cs" />
+    <Compile Include="Svm\SvmCache.cs" />
+    <Compile Include="Svm\SvmKernel.cs" />
+    <Compile Include="Svm\SvmMain.cs" />
+    <Compile Include="Svm\SvmMatrix.cs" />
+    <Compile Include="Svm\SvmModel.cs" />
+    <Compile Include="Svm\SvmParameter.cs" />
+    <Compile Include="Svm\SvmProblem.cs" />
+    <Compile Include="Svm\SvmSolver.cs" />
+    <Compile Include="Svm\SvmSolverNu.cs" />
+    <Compile Include="Svm\SvmType.cs" />
+    <Compile Include="Svm\SvrQ.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Svm\" />
+    <ProjectReference Include="..\BaseLib\BaseLib.csproj">
+      <Project>{E18D8469-F79D-4E28-A6F7-6DEA53300175}</Project>
+      <Name>BaseLib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
