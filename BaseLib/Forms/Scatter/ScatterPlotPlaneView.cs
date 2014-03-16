@@ -563,9 +563,11 @@ namespace BaseLib.Forms.Scatter{
 					if (double.IsNaN(xc[j]) || double.IsNaN(yc[j]) || double.IsInfinity(xc[j]) || double.IsInfinity(yc[j])){
 						continue;
 					}
-					int xi1 = ModelToViewX(xc[j], width);
-					int yi1 = ModelToViewY(yc[j], height);
-					ps.Add(new Point(xi1, yi1));
+                    if (!double.IsNaN(xc[j]) && !double.IsNaN(yc[j])){
+                        int xi1 = ModelToViewX(xc[j], width);
+                        int yi1 = ModelToViewY(yc[j], height);
+                        ps.Add(new Point(xi1, yi1));
+                    }
 				}
 				if (lp.LineWidth > 0){
 					g.DrawLines(linePen, ps.ToArray());
