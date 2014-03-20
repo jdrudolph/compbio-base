@@ -15,7 +15,7 @@ namespace BaseLib.Num.Kernel{
         }
 
         public bool UsesSquares{
-            get { return false; }
+            get { return true; }
         }
 
         public string Name{
