@@ -348,7 +348,7 @@ namespace BaseLib.Util{
 				try{
 					File.Delete(file);
 				} catch (IOException){
-					Logger.Warn(MethodBase.GetCurrentMethod().ReflectedType.Name, "The process cannot delete the file " + file + ".");
+					Console.WriteLine(MethodBase.GetCurrentMethod().ReflectedType.Name, "The process cannot delete the file " + file + ".");
 					Thread.Sleep(1000);
 				}
 			}

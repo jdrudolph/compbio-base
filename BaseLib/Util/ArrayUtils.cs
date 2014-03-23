@@ -105,9 +105,7 @@ namespace BaseLib.Util{
 			return ind;
 		}
 
-		public static double Range(IList<double> x){
-			return Max(x) - Min(x);
-		}
+		public static double Range(IList<double> x) { return Max(x) - Min(x); }
 
 		public static double Max(IList<double> x){
 			if (x == null || x.Count == 0){
@@ -317,9 +315,7 @@ namespace BaseLib.Util{
 			return 0.5f*(x[o[n/2 - 1]] + x[o[n/2]]);
 		}
 
-		public static double TukeyBiweight(IList<double> x){
-			return TukeyBiweightCalc.TukeyBiweight(x);
-		}
+		public static double TukeyBiweight(IList<double> x) { return TukeyBiweightCalc.TukeyBiweight(x); }
 
 		public static double TukeyBiweightSe(IList<double> x){
 			double result = TukeyBiweightCalc.TukeyBiweight(x);
@@ -410,7 +406,7 @@ namespace BaseLib.Util{
 
 		public static T[] Concat<T>(IList<T> a, T b){
 			if (a == null){
-				return new []{b};
+				return new[]{b};
 			}
 			T[] result = new T[a.Count + 1];
 			Array.Copy(a.ToArray(), 0, result, 0, a.Count);
@@ -469,16 +465,6 @@ namespace BaseLib.Util{
 			return max;
 		}
 
-		public static T[,] ExtractColumns<T>(T[,] values, IList<int> cols){
-			T[,] result = new T[values.GetLength(0),cols.Count];
-			for (int i = 0; i < values.GetLength(0); i++){
-				for (int j = 0; j < cols.Count; j++){
-					result[i, j] = values[i, cols[j]];
-				}
-			}
-			return result;
-		}
-
 		public static List<T> SubList<T>(List<T> list, int[] indices){
 			List<T> result = new List<T>();
 			foreach (int index in indices){
@@ -487,9 +473,7 @@ namespace BaseLib.Util{
 			return result;
 		}
 
-		public static int[] ConsecutiveInts(int to){
-			return ConsecutiveInts(0, to);
-		}
+		public static int[] ConsecutiveInts(int to) { return ConsecutiveInts(0, to); }
 
 		/// <summary>
 		/// Create a list of consecutive integers.
@@ -608,21 +592,10 @@ namespace BaseLib.Util{
 			Histogram(data, out x, out y, normalized, cumulative, h);
 		}
 
-		public static double StandardDeviation(IList<double> x){
-			return Math.Sqrt(Variance(x));
-		}
-
-		public static double StandardDeviation(IList<float> x){
-			return Math.Sqrt(Variance(x));
-		}
-
-		public static double StandardDeviation(float[,] x){
-			return Math.Sqrt(Variance(x));
-		}
-
-		public static double StandardDeviation(IList<int> x){
-			return Math.Sqrt(Variance(x));
-		}
+		public static double StandardDeviation(IList<double> x) { return Math.Sqrt(Variance(x)); }
+		public static double StandardDeviation(IList<float> x) { return Math.Sqrt(Variance(x)); }
+		public static double StandardDeviation(float[,] x) { return Math.Sqrt(Variance(x)); }
+		public static double StandardDeviation(IList<int> x) { return Math.Sqrt(Variance(x)); }
 
 		public static double Variance(IList<double> x){
 			if (x.Count < 2){
@@ -889,9 +862,7 @@ namespace BaseLib.Util{
 			return result;
 		}
 
-		public static double[] Rank<T>(IList<T> data) where T : IComparable<T>{
-			return Rank(data, true);
-		}
+		public static double[] Rank<T>(IList<T> data) where T : IComparable<T> { return Rank(data, true); }
 
 		/// <summary>
 		/// Calculates the rank of the given data. The lowest rank value is 0.
@@ -924,9 +895,7 @@ namespace BaseLib.Util{
 			return rank;
 		}
 
-		public static float[] RankF<T>(IList<T> data) where T : IComparable<T>{
-			return RankF(data, true);
-		}
+		public static float[] RankF<T>(IList<T> data) where T : IComparable<T> { return RankF(data, true); }
 
 		/// <summary>
 		/// Calculates the rank of the given data. The lowest rank value is 0.
@@ -992,9 +961,7 @@ namespace BaseLib.Util{
 			return result;
 		}
 
-		public static double MeanAndStddev(IList<double> vals, out double stddev){
-			return MeanAndStddev(vals, out stddev, false);
-		}
+		public static double MeanAndStddev(IList<double> vals, out double stddev) { return MeanAndStddev(vals, out stddev, false); }
 
 		public static double MeanAndStddev(IList<double> vals, out double stddev, bool useMedian){
 			double mean = 0;
@@ -1030,18 +997,14 @@ namespace BaseLib.Util{
 			return mean;
 		}
 
-		public static double MeanAndStddev(IList<float> vals, out double stddev){
-			return MeanAndStddev(vals, out stddev, false);
-		}
+		public static double MeanAndStddev(IList<float> vals, out double stddev) { return MeanAndStddev(vals, out stddev, false); }
 
 		public static double MeanAndStddev(IList<float> vals, out double stddev, bool useMedian){
 			int validCount;
 			return MeanAndStddev(vals, out stddev, out validCount, useMedian);
 		}
 
-		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount){
-			return MeanAndStddev(vals, out stddev, out validCount, false);
-		}
+		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount) { return MeanAndStddev(vals, out stddev, out validCount, false); }
 
 		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount, bool useMedian){
 			double mean = 0;
@@ -1815,9 +1778,53 @@ namespace BaseLib.Util{
 			return result;
 		}
 
-		public static float[] Zscore(IList<float> vals){
-			return Zscore(vals, false);
+		public static T[,] ExtractColumns<T>(T[,] values, IList<int> cols){
+			T[,] result = new T[values.GetLength(0),cols.Count];
+			for (int i = 0; i < values.GetLength(0); i++){
+				for (int j = 0; j < cols.Count; j++){
+					result[i, j] = values[i, cols[j]];
+				}
+			}
+			return result;
 		}
+
+		public static T[,,] ExtractDim0<T>(T[,,] values, IList<int> inds){
+			T[,,] result = new T[inds.Count,values.GetLength(1),values.GetLength(2)];
+			for (int i = 0; i < inds.Count; i++){
+				for (int j = 0; j < values.GetLength(1); j++){
+					for (int k = 0; k < values.GetLength(2); k++){
+						result[i, j, k] = values[inds[i], j, k];
+					}
+				}
+			}
+			return result;
+		}
+
+		public static T[,,] ExtractDim1<T>(T[,,] values, IList<int> inds){
+			T[,,] result = new T[values.GetLength(0),inds.Count,values.GetLength(2)];
+			for (int i = 0; i < values.GetLength(0); i++){
+				for (int j = 0; j < inds.Count; j++){
+					for (int k = 0; k < values.GetLength(2); k++){
+						result[i, j, k] = values[i, inds[j], k];
+					}
+				}
+			}
+			return result;
+		}
+
+		public static T[,,] ExtractDim2<T>(T[,,] values, IList<int> inds){
+			T[,,] result = new T[values.GetLength(0),values.GetLength(1),inds.Count];
+			for (int i = 0; i < values.GetLength(0); i++){
+				for (int j = 0; j < values.GetLength(1); j++){
+					for (int k = 0; k < inds.Count; k++){
+						result[i, j, k] = values[i, j, inds[k]];
+					}
+				}
+			}
+			return result;
+		}
+
+		public static float[] Zscore(IList<float> vals) { return Zscore(vals, false); }
 
 		public static float[] Zscore(IList<float> vals, bool useMedian){
 			int validCount;
@@ -1836,17 +1843,9 @@ namespace BaseLib.Util{
 			return result;
 		}
 
-		public static double InterQuartileRange(IList<double> vals){
-			return Quantile(vals, 0.75) - Quantile(vals, 0.25);
-		}
-
-		public static double FirstQuartile(IList<double> vals){
-			return Quantile(vals, 0.25);
-		}
-
-		public static double ThirdQuartile(IList<double> vals){
-			return Quantile(vals, 0.75);
-		}
+		public static double InterQuartileRange(IList<double> vals) { return Quantile(vals, 0.75) - Quantile(vals, 0.25); }
+		public static double FirstQuartile(IList<double> vals) { return Quantile(vals, 0.25); }
+		public static double ThirdQuartile(IList<double> vals) { return Quantile(vals, 0.75); }
 
 		public static double Skewness(IList<double> vals){
 			int n = vals.Count;
@@ -1879,9 +1878,7 @@ namespace BaseLib.Util{
 			return num/denom;
 		}
 
-		public static double CoefficientOfVariation(IList<double> x){
-			return StandardDeviation(x)/Mean(x);
-		}
+		public static double CoefficientOfVariation(IList<double> x) { return StandardDeviation(x)/Mean(x); }
 
 		public static double MeanAbsoluteDeviation(IList<double> x){
 			double median = Median(x);
