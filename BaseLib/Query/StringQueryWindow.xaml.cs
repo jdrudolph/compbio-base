@@ -5,7 +5,7 @@ namespace BaseLib.Query{
 	/// <summary>
 	/// Interaction logic for StringQueryWindow.xaml
 	/// </summary>
-	public partial class StringQueryWindow : Window{
+	public partial class StringQueryWindow{
 		public StringQueryWindow(string value){
 			InitializeComponent();
 			TextBox.Text = value;
@@ -26,7 +26,7 @@ namespace BaseLib.Query{
 		}
 
 		private void OnKeyDownHandler(object sender, KeyEventArgs e){
-			if (e.Key == Key.Return) {
+			if (e.Key == Key.Return){
 				DialogResult = true;
 				Close();
 			}

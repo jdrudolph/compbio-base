@@ -6,7 +6,7 @@ namespace BaseLib.Query {
 	/// <summary>
 	/// Interaction logic for SingleChoiceQueryWindow.xaml
 	/// </summary>
-	public partial class SingleChoiceQueryWindow : Window {
+	public partial class SingleChoiceQueryWindow {
 		public SingleChoiceQueryWindow(IEnumerable<string> choice) {
 			InitializeComponent();
 			foreach (string s in choice){

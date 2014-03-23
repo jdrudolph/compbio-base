@@ -1,11 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace BaseLib.Query {
 	/// <summary>
 	/// Interaction logic for IntQueryWindow.xaml
 	/// </summary>
-	public partial class IntQueryWindow : Window {
+	public partial class IntQueryWindow {
 		public IntQueryWindow(int value, int min, int max) {
 			InitializeComponent();
 			NumUpDown.Minimum = min;

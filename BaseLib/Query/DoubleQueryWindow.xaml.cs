@@ -5,7 +5,7 @@ namespace BaseLib.Query{
 	/// <summary>
 	/// Interaction logic for StringQueryWindow.xaml
 	/// </summary>
-	public partial class DoubleQueryWindow : Window{
+	public partial class DoubleQueryWindow{
 		public DoubleQueryWindow(double value){
 			InitializeComponent();
 			TextBox.Text = "" + value;
@@ -25,8 +25,8 @@ namespace BaseLib.Query{
 			Close();
 		}
 
-		private void OnKeyDownHandler(object sender, KeyEventArgs e) {
-			if (e.Key == Key.Return) {
+		private void OnKeyDownHandler(object sender, KeyEventArgs e){
+			if (e.Key == Key.Return){
 				DialogResult = true;
 				Close();
 			}
