@@ -15,6 +15,7 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
+
 		public int Value2{
 			get{
 				SetValueFromControl();
@@ -22,14 +23,8 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return Value != Default; } }
 
 		public override void SetValueFromControl(){
@@ -42,18 +37,16 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			TextBox tb = (TextBox)control;
+			TextBox tb = (TextBox) control;
 			tb.Text = "" + Value;
 		}
 
-		public override void Clear(){
-			Value = 0;
-		}
+		public override void Clear() { Value = 0; }
 
-		protected override FrameworkElement Control {
+		protected override UIElement Control{
 			get{
 				TextBox tb = new TextBox{Text = "" + Value};
 				tb.TextChanged += (sender, e) =>{
@@ -64,8 +57,6 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override object Clone(){
-			return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
+		public override object Clone() { return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

@@ -13,7 +13,7 @@ namespace BaseLib.Param{
 		public IList<string> Values { get; set; }
 		private readonly List<string> defaultSelectionNames = new List<string>();
 		private readonly List<string[]> defaultSelections = new List<string[]>();
-		public MultiChoiceParam(string name) : this(name, new int[0]) {}
+		public MultiChoiceParam(string name) : this(name, new int[0]) { }
 
 		public MultiChoiceParam(string name, int[] value) : base(name){
 			Value = value;
@@ -36,6 +36,7 @@ namespace BaseLib.Param{
 				}
 			}
 		}
+
 		public int[] Value2{
 			get{
 				SetValueFromControl();
@@ -43,16 +44,11 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
 		public string[] SelectedValues { get { return ArrayUtils.SubArray(Values, Value); } }
+
 		public string[] SelectedValues2{
 			get{
 				SetValueFromControl();
@@ -61,26 +57,24 @@ namespace BaseLib.Param{
 		}
 
 		public override void SetValueFromControl(){
-			ListSelectorControl ls = (ListSelectorControl)control;
+			ListSelectorControl ls = (ListSelectorControl) control;
 			int[] val = ls.SelectedIndices;
 			Value = val;
 		}
 
-		public override void Clear(){
-			Value = new int[0];
-		}
+		public override void Clear() { Value = new int[0]; }
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			ListSelectorControl ls = (ListSelectorControl)control;
+			ListSelectorControl ls = (ListSelectorControl) control;
 			ls.SelectedIndices = Value;
 		}
 
-		protected override FrameworkElement Control {
+		protected override UIElement Control{
 			get{
-				ListSelectorControl ls = new ListSelectorControl { HasMoveButtons = true };
+				ListSelectorControl ls = new ListSelectorControl{HasMoveButtons = true};
 				foreach (string value in Values){
 					ls.Items.Add(value);
 				}
@@ -90,11 +84,17 @@ namespace BaseLib.Param{
 				return ls;
 			}
 		}
+
 		public override float Height { get { return 160f; } }
 
 		public override object Clone(){
-			return new MultiChoiceParam(Name, Value)
-			{Help = Help, Visible = Visible, Repeats = Repeats, Values = Values, Default = Default};
+			return new MultiChoiceParam(Name, Value){
+				Help = Help,
+				Visible = Visible,
+				Repeats = Repeats,
+				Values = Values,
+				Default = Default
+			};
 		}
 
 		public void AddSelectedIndex(int index){

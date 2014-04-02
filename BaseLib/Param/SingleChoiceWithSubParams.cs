@@ -16,7 +16,7 @@ namespace BaseLib.Param{
 		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
 		public float totalWidth = 1000F;
 		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
-		public SingleChoiceWithSubParams(string name) : this(name, 0) {}
+		public SingleChoiceWithSubParams(string name) : this(name, 0) { }
 
 		public SingleChoiceWithSubParams(string name, int value) : base(name){
 			Value = value;
@@ -26,6 +26,7 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
+
 		public int Value2{
 			get{
 				SetValueFromControl();
@@ -60,11 +61,9 @@ namespace BaseLib.Param{
 				return false;
 			}
 		}
-		public string SelectedValue { get { return Value < 0 || Value >= Values.Count ? null : Values[Value]; } }
 
-		public override Parameters GetSubParameters(){
-			return SubParams[Value];
-		}
+		public string SelectedValue { get { return Value < 0 || Value >= Values.Count ? null : Values[Value]; } }
+		public override Parameters GetSubParameters() { return SubParams[Value]; }
 
 		public override void Clear(){
 			Value = 0;
@@ -101,7 +100,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override FrameworkElement Control{
+		protected override UIElement Control{
 			get{
 				ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
 				for (int i = 0; i < panels.Length; i++){
@@ -140,6 +139,7 @@ namespace BaseLib.Param{
 				return tlp;
 			}
 		}
+
 		public override float Height{
 			get{
 				float max = 0;
@@ -151,8 +151,13 @@ namespace BaseLib.Param{
 		}
 
 		public override object Clone(){
-			SingleChoiceWithSubParams s = new SingleChoiceWithSubParams(Name, Value)
-			{Help = Help, Visible = Visible, Values = Values, Default = Default, SubParams = new Parameters[SubParams.Count]};
+			SingleChoiceWithSubParams s = new SingleChoiceWithSubParams(Name, Value){
+				Help = Help,
+				Visible = Visible,
+				Values = Values,
+				Default = Default,
+				SubParams = new Parameters[SubParams.Count]
+			};
 			for (int i = 0; i < SubParams.Count; i++){
 				s.SubParams[i] = (Parameters) SubParams[i].Clone();
 			}

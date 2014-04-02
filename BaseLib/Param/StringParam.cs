@@ -7,7 +7,7 @@ namespace BaseLib.Param{
 	public class StringParam : Parameter{
 		public string Value { get; set; }
 		public string Default { get; private set; }
-		public StringParam(string name) : this(name, "") {}
+		public StringParam(string name) : this(name, "") { }
 
 		public StringParam(string name, string value) : base(name){
 			Value = value;
@@ -15,6 +15,7 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value; } set { Value = value; } }
+
 		public string Value2{
 			get{
 				SetValueFromControl();
@@ -22,14 +23,8 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return !Value.Equals(Default); } }
 
 		public override void SetValueFromControl(){
@@ -39,21 +34,15 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			TextBox tb = (TextBox)control;
+			TextBox tb = (TextBox) control;
 			tb.Text = Value;
 		}
 
-		public override void Clear(){
-			Value = "";
-		}
-
-		protected override FrameworkElement Control { get { return new TextBox { Text = Value }; } }
-
-		public override object Clone(){
-			return new StringParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
+		public override void Clear() { Value = ""; }
+		protected override UIElement Control { get { return new TextBox{Text = Value}; } }
+		public override object Clone() { return new StringParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

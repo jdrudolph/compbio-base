@@ -9,7 +9,7 @@ namespace BaseLib.Param{
 	public class MultiStringParam : Parameter{
 		public string[] Value { get; set; }
 		public string[] Default { get; private set; }
-		public MultiStringParam(string name) : this(name, new string[0]) {}
+		public MultiStringParam(string name) : this(name, new string[0]) { }
 
 		public MultiStringParam(string name, string[] value) : base(name){
 			Value = value;
@@ -26,6 +26,7 @@ namespace BaseLib.Param{
 				Value = value.Split(',');
 			}
 		}
+
 		public string[] Value2{
 			get{
 				SetValueFromControl();
@@ -33,14 +34,8 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
 
 		public override void SetValueFromControl(){
@@ -57,9 +52,7 @@ namespace BaseLib.Param{
 			Value = result.ToArray();
 		}
 
-		public override void Clear(){
-			Value = new string[0];
-		}
+		public override void Clear() { Value = new string[0]; }
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
@@ -69,12 +62,8 @@ namespace BaseLib.Param{
 			tb.Text = StringUtils.Concat("\n", Value);
 		}
 
-		protected override FrameworkElement Control { get { return new TextBox{Text = StringUtils.Concat("\n", Value)}; } }
-
-		public override object Clone(){
-			return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
-
+		protected override UIElement Control { get { return new TextBox{Text = StringUtils.Concat("\n", Value)}; } }
+		public override object Clone() { return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 		public override float Height { get { return 150f; } }
 	}
 }

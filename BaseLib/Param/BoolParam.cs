@@ -8,7 +8,7 @@ namespace BaseLib.Param{
 	public class BoolParam : Parameter{
 		public bool Value { get; set; }
 		public bool Default { get; private set; }
-		public BoolParam(string name) : this(name, false) {}
+		public BoolParam(string name) : this(name, false) { }
 
 		public BoolParam(string name, bool value) : base(name){
 			Value = value;
@@ -21,16 +21,10 @@ namespace BaseLib.Param{
 				return Value;
 			}
 		}
+
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = bool.Parse(value); } }
-
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return Value != Default; } }
 
 		public override void SetValueFromControl(){
@@ -46,14 +40,8 @@ namespace BaseLib.Param{
 			cb.IsChecked = Value;
 		}
 
-		public override void Clear(){
-			Value = false;
-		}
-
-		protected override FrameworkElement Control { get { return new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center}; } }
-
-		public override object Clone(){
-			return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
+		public override void Clear() { Value = false; }
+		protected override UIElement Control { get { return new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center}; } }
+		public override object Clone() { return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

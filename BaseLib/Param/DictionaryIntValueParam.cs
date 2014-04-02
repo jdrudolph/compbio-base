@@ -11,6 +11,7 @@ namespace BaseLib.Param{
 		public Dictionary<string, int> Value { get; set; }
 		public Dictionary<string, int> Default { get; private set; }
 		public int DefaultValue { get; set; }
+
 		public string[] Keys{
 			get { return keys; }
 			set{
@@ -29,6 +30,7 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return StringUtils.ToString(Value); } set { Value = DictionaryFromString(value); } }
+
 		public Dictionary<string, int> Value2{
 			get{
 				SetValueFromControl();
@@ -45,14 +47,8 @@ namespace BaseLib.Param{
 			return result;
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return Value != Default; } }
 
 		public override void SetValueFromControl(){
@@ -68,14 +64,8 @@ namespace BaseLib.Param{
 			tb.Value = Value;
 		}
 
-		public override void Clear(){
-			Value = new Dictionary<string, int>();
-		}
-
-		protected override FrameworkElement Control { get { return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; } }
-
-		public override object Clone(){
-			return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};
-		}
+		public override void Clear() { Value = new Dictionary<string, int>(); }
+		protected override UIElement Control { get { return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; } }
+		public override object Clone() { return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

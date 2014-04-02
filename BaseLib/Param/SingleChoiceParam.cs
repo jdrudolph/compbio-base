@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,7 +10,7 @@ namespace BaseLib.Param{
 		public int Value { get; set; }
 		public int Default { get; private set; }
 		public IList<string> Values { get; set; }
-		public SingleChoiceParam(string name) : this(name, 0) {}
+		public SingleChoiceParam(string name) : this(name, 0) { }
 
 		public SingleChoiceParam(string name, int value) : base(name){
 			Value = value;
@@ -20,6 +19,7 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
+
 		public int Value2{
 			get{
 				SetValueFromControl();
@@ -27,15 +27,10 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return Value != Default; } }
+
 		public string SelectedValue{
 			get{
 				if (Value < 0 || Value >= Values.Count){
@@ -53,9 +48,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void Clear(){
-			Value = 0;
-		}
+		public override void Clear() { Value = 0; }
 
 		public override void SetValueFromControl(){
 			ComboBox cb = (ComboBox) control;
@@ -92,7 +85,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override FrameworkElement Control{
+		protected override UIElement Control{
 			get{
 				//TODO
 				ComboBox cb = new ComboBox();
@@ -112,8 +105,6 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override object Clone(){
-			return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
-		}
+		public override object Clone() { return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default}; }
 	}
 }

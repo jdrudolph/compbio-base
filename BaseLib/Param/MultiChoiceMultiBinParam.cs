@@ -11,7 +11,7 @@ namespace BaseLib.Param{
 		public int[][] Default { get; private set; }
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
-		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]) {}
+		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]) { }
 
 		public MultiChoiceMultiBinParam(string name, int[][] value) : base(name){
 			Value = value;
@@ -38,6 +38,7 @@ namespace BaseLib.Param{
 				}
 			}
 		}
+
 		public int[][] Value2{
 			get{
 				SetValueFromControl();
@@ -45,15 +46,10 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return !ArrayUtils.EqualArraysOfArrays(Value, Default); } }
+
 		public string[][] SelectedValues{
 			get{
 				string[][] result = new string[Value.Length][];
@@ -63,6 +59,7 @@ namespace BaseLib.Param{
 				return result;
 			}
 		}
+
 		public string[][] SelectedValues2{
 			get{
 				SetValueFromControl();
@@ -71,24 +68,22 @@ namespace BaseLib.Param{
 		}
 
 		public override void SetValueFromControl(){
-			MultiListSelectorControl ls = (MultiListSelectorControl)control;
+			MultiListSelectorControl ls = (MultiListSelectorControl) control;
 			int[][] val = ls.SelectedIndices;
 			Value = val;
 		}
 
-		public override void Clear(){
-			Value = new int[0][];
-		}
+		public override void Clear() { Value = new int[0][]; }
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			MultiListSelectorControl ls = (MultiListSelectorControl)control;
+			MultiListSelectorControl ls = (MultiListSelectorControl) control;
 			ls.SelectedIndices = Value;
 		}
 
-		protected override FrameworkElement Control {
+		protected override UIElement Control{
 			get{
 				MultiListSelectorControl ls = new MultiListSelectorControl();
 				ls.Init(Values, Bins);
@@ -96,10 +91,8 @@ namespace BaseLib.Param{
 				return ls;
 			}
 		}
-		public override float Height { get { return 310f; } }
 
-		public override object Clone(){
-			return new MultiChoiceMultiBinParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
-		}
+		public override float Height { get { return 310f; } }
+		public override object Clone() { return new MultiChoiceMultiBinParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default}; }
 	}
 }

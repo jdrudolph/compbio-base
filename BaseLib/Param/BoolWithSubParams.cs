@@ -15,7 +15,7 @@ namespace BaseLib.Param{
 		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
 		public float totalWidth = 1000F;
 		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
-		public BoolWithSubParams(string name) : this(name, false) {}
+		public BoolWithSubParams(string name) : this(name, false) { }
 
 		public BoolWithSubParams(string name, bool value) : base(name){
 			Value = value;
@@ -25,6 +25,7 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = bool.Parse(value); } }
+
 		public bool Value2{
 			get{
 				SetValueFromControl();
@@ -53,13 +54,11 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override Parameters GetSubParameters(){
-			return Value ? SubParamsTrue : SubParamsFalse;
-		}
+		public override Parameters GetSubParameters() { return Value ? SubParamsTrue : SubParamsFalse; }
 
 		public override void SetValueFromControl(){
-			Grid tbl = (Grid)control;
-			CheckBox cb = (CheckBox)WpfUtils.GetGridChild(tbl, 0, 0);
+			Grid tbl = (Grid) control;
+			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(tbl, 0, 0);
 			Value = cb.IsChecked != null && cb.IsChecked.Value;
 			SubParamsFalse.SetValuesFromControl();
 			SubParamsTrue.SetValuesFromControl();
@@ -89,7 +88,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override FrameworkElement Control{
+		protected override UIElement Control{
 			get{
 				ParameterPanel panelFalse = new ParameterPanel();
 				ParameterPanel panelTrue = new ParameterPanel();
@@ -101,7 +100,7 @@ namespace BaseLib.Param{
 				cb.VerticalAlignment = VerticalAlignment.Center;
 				Grid tlp = new Grid();
 				tlp.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(100, GridUnitType.Star)});
-				tlp.RowDefinitions.Add(new RowDefinition { Height = new GridLength(paramHeight, GridUnitType.Pixel) });
+				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(paramHeight, GridUnitType.Pixel)});
 				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
 				Grid.SetRow(cb, 0);
 				tlp.Children.Add(cb);
@@ -111,23 +110,27 @@ namespace BaseLib.Param{
 				tlp.Children.Add(panelFalse);
 				Grid.SetRow(panelTrue, 1);
 				tlp.Children.Add(panelTrue);
-				cb.Checked += (sender, e) => {
+				cb.Checked += (sender, e) =>{
 					panelFalse.Visibility = cb.IsChecked != null && !cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
 					panelTrue.Visibility = cb.IsChecked != null && cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
 				};
-				cb.Unchecked += (sender, e) => {
+				cb.Unchecked += (sender, e) =>{
 					panelFalse.Visibility = cb.IsChecked != null && !cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
 					panelTrue.Visibility = cb.IsChecked != null && cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
 				};
 				return tlp;
 			}
 		}
+
 		public override float Height { get { return 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height); } }
 
 		public override object Clone(){
 			return new BoolWithSubParams(Name, Value){
-				Help = Help, Visible = Visible, SubParamsFalse = (Parameters) SubParamsFalse.Clone(),
-				SubParamsTrue = (Parameters) SubParamsTrue.Clone(), Default = Default
+				Help = Help,
+				Visible = Visible,
+				SubParamsFalse = (Parameters) SubParamsFalse.Clone(),
+				SubParamsTrue = (Parameters) SubParamsTrue.Clone(),
+				Default = Default
 			};
 		}
 	}

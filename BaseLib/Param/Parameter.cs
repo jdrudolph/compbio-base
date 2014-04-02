@@ -7,12 +7,14 @@ namespace BaseLib.Param{
 	[Serializable]
 	public abstract class Parameter : ICloneable{
 		public const int paramHeight = 23;
+
 		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
+
 		public string Name { get; private set; }
 		public string Help { get; set; }
 		public bool Visible { get; set; }
-		[NonSerialized] protected FrameworkElement control;
+		[NonSerialized] protected UIElement control;
 
 		protected Parameter(string name){
 			Name = name;
@@ -35,10 +37,10 @@ namespace BaseLib.Param{
 		public abstract void Clear();
 		public abstract bool IsModified { get; }
 		public virtual bool IsDropTarget { get { return false; } }
-		public virtual void Drop(string x) {}
-		protected abstract FrameworkElement Control { get; }
+		public virtual void Drop(string x) { }
+		protected abstract UIElement Control { get; }
 
-		public FrameworkElement GetControl(){
+		public UIElement GetControl(){
 			control = Control;
 			return control;
 		}

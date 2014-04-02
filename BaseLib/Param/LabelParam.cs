@@ -7,7 +7,7 @@ namespace BaseLib.Param{
 	public class LabelParam : Parameter{
 		public string Value { get; set; }
 		public string Default { get; private set; }
-		public LabelParam(string name) : this(name, "") {}
+		public LabelParam(string name) : this(name, "") { }
 
 		public LabelParam(string name, string value) : base(name){
 			Value = value;
@@ -15,6 +15,7 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value; } set { Value = value; } }
+
 		public string Value2{
 			get{
 				SetValueFromControl();
@@ -22,14 +23,8 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue(){
-			Value = Default;
-		}
-
-		public override void ResetDefault(){
-			Default = Value;
-		}
-
+		public override void ResetValue() { Value = Default; }
+		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return false; } }
 
 		public override void SetValueFromControl(){
@@ -38,21 +33,15 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null) {
+			if (control == null){
 				return;
 			}
-			Label tb = (Label)control;
+			Label tb = (Label) control;
 			tb.Content = Value;
 		}
 
-		public override void Clear(){
-			Value = "";
-		}
-
-		protected override FrameworkElement Control { get { return new Label { Content = Value }; } }
-
-		public override object Clone(){
-			return new LabelParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
+		public override void Clear() { Value = ""; }
+		protected override UIElement Control { get { return new Label{Content = Value}; } }
+		public override object Clone() { return new LabelParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

@@ -161,6 +161,10 @@ namespace BaseLib.Parse.Uniprot{
 		public static DbReferenceType mycoClap = new DbReferenceType("mycoclap");
 		public static DbReferenceType geneWiki = new DbReferenceType("genewiki");
 		public static DbReferenceType uniCarbKb = new DbReferenceType("unicarbkb");
+		public static DbReferenceType bioGrid = new DbReferenceType("biogrid");
+		public static DbReferenceType treeFam = new DbReferenceType("treefam");
+		public static DbReferenceType pro = new DbReferenceType("pro");
+		public static DbReferenceType guideToPharmacology = new DbReferenceType("guidetopharmacology");
 		public static string[] allDbReferenceTypeStrings;
 		public static DbReferenceType[] allDbReferenceTypes = CreateDbReferenceTypeList();
 
@@ -179,7 +183,7 @@ namespace BaseLib.Parse.Uniprot{
 				pathwayInteractionDb, twoDBaseEcoli, ogp, maizeGdb, conoServer, disProt, aarhusGhent2Dpage, euPathDb, phci2Dpage,
 				compluyeast2Dpage, reBase, arachnoServer, euHcvDb, pmma2Dpage, pptaseDb, ratHeart2Dpage, anu2Dpage, ruleBase, saas,
 				pirsr, pirnr, genpept, evolutionaryTrace, uniPathway, genomeRnai, paxDb, signaLink, hamapRule, chiTars, chEmbl,
-				sabioRk, mycoClap, geneWiki, uniCarbKb
+				sabioRk, mycoClap, geneWiki, uniCarbKb, bioGrid, treeFam, pro, guideToPharmacology
 			};
 			allDbReferenceTypeStrings = new string[ft.Count];
 			allDbReferenceTypeStrings = new string[ft.Count];
