@@ -1,13 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 
 namespace BaseLib.Param{
 	/// <summary>
 	/// Interaction logic for ParameterWindow.xaml
 	/// </summary>
-	public partial class ParameterWindow : Window{
+	public partial class ParameterWindow{
+		[DllImport("user32.dll")] private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+		[DllImport("user32.dll")] private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+		private const int gwlStyle = -16;
+		private const int wsMinimizebox = 0x20000;
+
+		private void WindowSourceInitialized(object sender, EventArgs e){
+			var hwnd = new WindowInteropHelper((Window) sender).Handle;
+			var value = GetWindowLong(hwnd, gwlStyle);
+			SetWindowLong(hwnd, gwlStyle, (int) (value & ~wsMinimizebox));
+		}
+
 		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
 			IList<string> helpSuppls){
 			InitializeComponent();
@@ -66,7 +80,7 @@ namespace BaseLib.Param{
 		}
 
 		private void OnKeyDownHandler(object sender, KeyEventArgs e){
-			if (e.Key == Key.Return) {
+			if (e.Key == Key.Return){
 				DialogResult = true;
 				ParameterPanel1.SetParameters();
 				Close();

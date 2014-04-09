@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using BaseLib.Util;
 
 namespace BaseLib.Parse.Uniprot{
+	[Serializable]
 	public class UniprotFeature{
 		public string FeatureId { get; set; }
 		public string FeatureDescription { get; set; }
@@ -57,8 +59,12 @@ namespace BaseLib.Parse.Uniprot{
 
 		public override string ToString(){
 			List<string> x = new List<string>{
-				Convert1(FeatureId), Convert1(FeatureDescription), Convert1(FeatureStatus), Convert1(FeatureBegin),
-				Convert1(FeatureEnd), Convert1(originals.Count > 0 ? originals[0] : "")
+				Convert1(FeatureId),
+				Convert1(FeatureDescription),
+				Convert1(FeatureStatus),
+				Convert1(FeatureBegin),
+				Convert1(FeatureEnd),
+				Convert1(originals.Count > 0 ? originals[0] : "")
 			};
 			foreach (string s in variations){
 				x.Add(Convert1(s));
@@ -123,12 +129,7 @@ namespace BaseLib.Parse.Uniprot{
 			FeatureEnd = featureEnd1;
 		}
 
-		public void AddFeatureVariation(string variation){
-			variations.Add(variation);
-		}
-
-		public void AddFeatureOriginal(string original){
-			originals.Add(original);
-		}
+		public void AddFeatureVariation(string variation) { variations.Add(variation); }
+		public void AddFeatureOriginal(string original) { originals.Add(original); }
 	}
 }

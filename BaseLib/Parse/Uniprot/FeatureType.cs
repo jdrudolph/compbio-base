@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BaseLib.Util;
 
 namespace BaseLib.Parse.Uniprot{
+	[Serializable]
 	public class FeatureType : IComparable<FeatureType>{
 		public static FeatureType chain = new FeatureType("chain");
 		public static FeatureType compositionallyBiasedRegion = new FeatureType("compositionally biased region");
@@ -48,15 +49,48 @@ namespace BaseLib.Parse.Uniprot{
 
 		private static FeatureType[] CreateFeatureTypeList(){
 			List<FeatureType> ft = new List<FeatureType>{
-				chain, compositionallyBiasedRegion, signalPeptide, glycosylationSite, site, modifiedResidue, transmembraneRegion,
-				sequenceConflict, activeSite, topologicalDomain, domain, regionOfInterest, disulfideBond, sequenceVariant, repeat,
-				propeptide, initiatorMethionine, bindingSite, shortSequenceMotif, metalIonBindingSite, transitPeptide,
-				nucleotidePhosphateBindingRegion, spliceVariant, lipidMoietyBindingRegion, nonTerminalResidue, mutagenesisSite,
-				helix, strand, turn, coiledCoilRegion, dnaBindingRegion, peptide, zincFingerRegion, calciumBindingRegion, crossLink,
-				unsureResidue, nonConsecutiveResidues, intramembraneRegion, nonStandardAminoAcid
+				chain,
+				compositionallyBiasedRegion,
+				signalPeptide,
+				glycosylationSite,
+				site,
+				modifiedResidue,
+				transmembraneRegion,
+				sequenceConflict,
+				activeSite,
+				topologicalDomain,
+				domain,
+				regionOfInterest,
+				disulfideBond,
+				sequenceVariant,
+				repeat,
+				propeptide,
+				initiatorMethionine,
+				bindingSite,
+				shortSequenceMotif,
+				metalIonBindingSite,
+				transitPeptide,
+				nucleotidePhosphateBindingRegion,
+				spliceVariant,
+				lipidMoietyBindingRegion,
+				nonTerminalResidue,
+				mutagenesisSite,
+				helix,
+				strand,
+				turn,
+				coiledCoilRegion,
+				dnaBindingRegion,
+				peptide,
+				zincFingerRegion,
+				calciumBindingRegion,
+				crossLink,
+				unsureResidue,
+				nonConsecutiveResidues,
+				intramembraneRegion,
+				nonStandardAminoAcid
 			};
 			allFeatureTypeStrings = new string[ft.Count];
-			for(int i = 0; i < allFeatureTypeStrings.Length; i++){
+			for (int i = 0; i < allFeatureTypeStrings.Length; i++){
 				allFeatureTypeStrings[i] = ft[i].UniprotName;
 			}
 			int[] o = ArrayUtils.Order(allFeatureTypeStrings);
@@ -80,14 +114,8 @@ namespace BaseLib.Parse.Uniprot{
 
 		public string UniprotName { get; set; }
 		public int Index { get; set; }
-
-		public FeatureType(string uniprotName){
-			UniprotName = uniprotName;
-		}
-
-		public int CompareTo(FeatureType other){
-			return Index.CompareTo(other.Index);
-		}
+		public FeatureType(string uniprotName) { UniprotName = uniprotName; }
+		public int CompareTo(FeatureType other) { return Index.CompareTo(other.Index); }
 
 		public override bool Equals(object obj){
 			if (ReferenceEquals(null, obj)){
@@ -109,8 +137,6 @@ namespace BaseLib.Parse.Uniprot{
 			return other.Index == Index;
 		}
 
-		public override int GetHashCode(){
-			return Index;
-		}
+		public override int GetHashCode() { return Index; }
 	}
 }

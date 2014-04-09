@@ -49,8 +49,8 @@ namespace BaseLib.Parse.Uniprot{
 		private readonly Dictionary<FeatureType, long> featureCounts = new Dictionary<FeatureType, long>();
 		private string gnameType;
 		private bool inDbRef;
-		string dbReferenceType;
-		string dbReferenceId;
+		private string dbReferenceType;
+		private string dbReferenceId;
 
 		public UniprotParser(string swissprotFileName, string tremblFileName, bool includeTrembl, HandleUniprotEntry handle){
 			if (swissprotFileName != null){

@@ -5,21 +5,10 @@ using BaseLib.Util;
 
 namespace BaseLib.Parse{
 	public static class TabSep{
-		public static string[] GetColumn(string columnName, string filename, char separator){
-			return GetColumn(columnName, filename, 0, separator);
-		}
-
-		public static string[] GetColumn(string columnName, string filename, int nskip, char separator){
-			return GetColumns(new[]{columnName}, filename, nskip, separator)[0];
-		}
-
-		public static double[][] GetDoubleColumns(string[] columnNames, string filename, char separator){
-			return GetDoubleColumns(columnNames, filename, 0, separator);
-		}
-
-		public static double[][] GetDoubleColumns(string[] columnNames, string filename, int nskip, char separator){
-			return GetDoubleColumns(columnNames, filename, double.NaN, nskip, separator);
-		}
+		public static string[] GetColumn(string columnName, string filename, char separator) { return GetColumn(columnName, filename, 0, separator); }
+		public static string[] GetColumn(string columnName, string filename, int nskip, char separator) { return GetColumns(new[]{columnName}, filename, nskip, separator)[0]; }
+		public static double[][] GetDoubleColumns(string[] columnNames, string filename, char separator) { return GetDoubleColumns(columnNames, filename, 0, separator); }
+		public static double[][] GetDoubleColumns(string[] columnNames, string filename, int nskip, char separator) { return GetDoubleColumns(columnNames, filename, double.NaN, nskip, separator); }
 
 		public static double[][] GetDoubleColumns(string[] columnNames, string filename, double defaultValue, int nskip,
 			char separator){
@@ -35,13 +24,8 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static double[] GetDoubleColumn(string columnName, string filename, char separator){
-			return GetDoubleColumn(columnName, filename, double.NaN, 0, separator);
-		}
-
-		public static double[] GetDoubleColumn(string columnName, string filename, int nskip, char separator){
-			return GetDoubleColumn(columnName, filename, double.NaN, nskip, separator);
-		}
+		public static double[] GetDoubleColumn(string columnName, string filename, char separator) { return GetDoubleColumn(columnName, filename, double.NaN, 0, separator); }
+		public static double[] GetDoubleColumn(string columnName, string filename, int nskip, char separator) { return GetDoubleColumn(columnName, filename, double.NaN, nskip, separator); }
 
 		public static double[] GetDoubleColumn(string columnName, string filename, double defaultValue, int nskip,
 			char separator){
@@ -54,9 +38,7 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static float[][] GetFloatColumns(string[] columnNames, string filename, int nskip, char separator){
-			return GetFloatColumns(columnNames, filename, float.NaN, nskip, separator);
-		}
+		public static float[][] GetFloatColumns(string[] columnNames, string filename, int nskip, char separator) { return GetFloatColumns(columnNames, filename, float.NaN, nskip, separator); }
 
 		public static float[][] GetFloatColumns(string[] columnNames, string filename, float defaultValue, int nskip,
 			char separator){
@@ -85,13 +67,8 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static float[] GetFloatColumn(string columnName, string filename, int nskip, char separator){
-			return GetFloatColumn(columnName, filename, float.NaN, nskip, separator);
-		}
-
-		public static float[] GetFloatColumn(string columnName, string filename, char separator){
-			return GetFloatColumn(columnName, filename, float.NaN, 0, separator);
-		}
+		public static float[] GetFloatColumn(string columnName, string filename, int nskip, char separator) { return GetFloatColumn(columnName, filename, float.NaN, nskip, separator); }
+		public static float[] GetFloatColumn(string columnName, string filename, char separator) { return GetFloatColumn(columnName, filename, float.NaN, 0, separator); }
 
 		public static float[] GetFloatColumn(string columnName, string filename, float defaultValue, int nskip, char separator){
 			string[] x = GetColumn(columnName, filename, nskip, separator);
@@ -103,9 +80,7 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static int[] GetIntColumn(string columnName, string filename, char separator){
-			return GetIntColumn(columnName, filename, -1, 0, separator);
-		}
+		public static int[] GetIntColumn(string columnName, string filename, char separator) { return GetIntColumn(columnName, filename, -1, 0, separator); }
 
 		public static int[] GetIntColumn(string columnName, string filename, int defaultValue, int nskip, char separator){
 			string[] x = GetColumn(columnName, filename, nskip, separator);
@@ -117,9 +92,7 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static string[][] GetColumns(string[] columnNames, string filename, int nskip, char separator){
-			return GetColumns(columnNames, filename, nskip, null, null, separator);
-		}
+		public static string[][] GetColumns(string[] columnNames, string filename, int nskip, char separator) { return GetColumns(columnNames, filename, nskip, null, null, separator); }
 
 		public static string[][] GetColumns(string[] columnNames, string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, char separator){
@@ -179,13 +152,8 @@ namespace BaseLib.Parse{
 			return result;
 		}
 
-		public static bool HasColumn(string columnName, string filename, char separator){
-			return HasColumn(columnName, filename, 0, separator);
-		}
-
-		public static bool HasColumn(string columnName, string filename, int nskip, char separator){
-			return HasColumn(columnName, filename, nskip, null, null, separator);
-		}
+		public static bool HasColumn(string columnName, string filename, char separator) { return HasColumn(columnName, filename, 0, separator); }
+		public static bool HasColumn(string columnName, string filename, int nskip, char separator) { return HasColumn(columnName, filename, nskip, null, null, separator); }
 
 		public static bool HasColumn(string columnName, string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, char separator){
@@ -239,9 +207,7 @@ namespace BaseLib.Parse{
 		}
 
 		public static string[] GetColumnIfContains(string columnName, string controlColumn, string controlValue,
-			string filename, bool inverse, int nskip, char separator){
-			return GetColumnsIfContains(new[]{columnName}, controlColumn, controlValue, filename, inverse, nskip, separator)[0];
-		}
+			string filename, bool inverse, int nskip, char separator) { return GetColumnsIfContains(new[]{columnName}, controlColumn, controlValue, filename, inverse, nskip, separator)[0]; }
 
 		public static double[] GetDoubleColumnIfContains(string columnName, string controlColumn, string controlValue,
 			string filename, bool inverse, int nskip, char separator){
@@ -254,18 +220,11 @@ namespace BaseLib.Parse{
 			return d;
 		}
 
-		public static string[] GetColumnNames(string filename, int nskip, char separator){
-			return GetColumnNames(filename, nskip, null, null, null, separator);
-		}
-
-		public static string[] GetColumnNames(string filename, char separator){
-			return GetColumnNames(filename, 0, null, null, null, separator);
-		}
+		public static string[] GetColumnNames(string filename, int nskip, char separator) { return GetColumnNames(filename, nskip, null, null, null, separator); }
+		public static string[] GetColumnNames(string filename, char separator) { return GetColumnNames(filename, 0, null, null, null, separator); }
 
 		public static string[] GetColumnNames(string filename, HashSet<string> commentPrefix,
-			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator){
-			return GetColumnNames(filename, 0, commentPrefix, commentPrefixExceptions, annotationRows, separator);
-		}
+			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator) { return GetColumnNames(filename, 0, commentPrefix, commentPrefixExceptions, annotationRows, separator); }
 
 		public static string[] GetColumnNames(string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator){
@@ -332,33 +291,28 @@ namespace BaseLib.Parse{
 			return null;
 		}
 
-		public static int GetRowCount(string filename){
-			return GetRowCount(filename, 0);
-		}
-
-		public static int GetRowCount(string filename, int nskip){
-			return GetRowCount(filename, nskip, null, null);
-		}
+		public static int GetRowCount(string filename) { return GetRowCount(filename, 0); }
+		public static int GetRowCount(string filename, int nskip) { return GetRowCount(filename, nskip, null, null); }
 
 		public static int GetRowCount(string filename, int nskip, HashSet<string> commentPrefix,
-			HashSet<string> commentPrefixExceptions) {
+			HashSet<string> commentPrefixExceptions){
 			StreamReader reader = new StreamReader(filename);
-			int count = GetRowCount(reader,nskip,commentPrefix, commentPrefixExceptions);
+			int count = GetRowCount(reader, nskip, commentPrefix, commentPrefixExceptions);
 			reader.Close();
 			return count;
 		}
 
 		public static int GetRowCount(StreamReader reader, int nskip, HashSet<string> commentPrefix,
-			HashSet<string> commentPrefixExceptions) {
+			HashSet<string> commentPrefixExceptions){
 			reader.ReadLine();
-			for (int i = 0; i < nskip; i++) {
+			for (int i = 0; i < nskip; i++){
 				reader.ReadLine();
 			}
 			int count = 0;
 			string line;
-			while ((line = reader.ReadLine()) != null) {
-				if (commentPrefix != null) {
-					while (IsCommentLine(line, commentPrefix, commentPrefixExceptions)) {
+			while ((line = reader.ReadLine()) != null){
+				if (commentPrefix != null){
+					while (IsCommentLine(line, commentPrefix, commentPrefixExceptions)){
 						line = reader.ReadLine();
 					}
 				}
@@ -366,6 +320,26 @@ namespace BaseLib.Parse{
 			}
 			reader.Close();
 			return count;
+		}
+
+		public static void Write(string filename, string[] columnNames, string[][] columns){
+			if (columnNames == null || columnNames.Length == 0){
+				return;
+			}
+			StreamWriter writer = new StreamWriter(filename);
+			writer.Write(columnNames[0]);
+			for (int i = 1; i < columnNames.Length; i++){
+				writer.Write("\t" + columnNames[i]);
+			}
+			writer.WriteLine();
+			for (int i = 0; i < columns[0].Length; i++){
+				writer.Write(columns[0][i]);
+				for (int j = 1; j < columnNames.Length; j++){
+					writer.Write("\t" + columns[j][i]);
+				}
+				writer.WriteLine();
+			}
+			writer.Close();
 		}
 	}
 }
