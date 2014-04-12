@@ -17,9 +17,9 @@ namespace BaseLib.Param{
 		private const int wsMinimizebox = 0x20000;
 
 		private void WindowSourceInitialized(object sender, EventArgs e){
-			var hwnd = new WindowInteropHelper((Window) sender).Handle;
-			var value = GetWindowLong(hwnd, gwlStyle);
-			SetWindowLong(hwnd, gwlStyle, (int) (value & ~wsMinimizebox));
+			IntPtr hwnd = new WindowInteropHelper((Window) sender).Handle;
+			int value = GetWindowLong(hwnd, gwlStyle);
+			SetWindowLong(hwnd, gwlStyle, value & ~wsMinimizebox);
 		}
 
 		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
