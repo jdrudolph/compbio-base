@@ -272,10 +272,10 @@ namespace BaseLib.Forms.Scatter{
 		public void SetLabelOptions(string[] s, Action<int> labelTypeChange1){
 			labelTypeComboBox.Visible = true;
 			labelTypeComboBox.Items.AddRange(s);
-			labelTypeChange = labelTypeChange1;
 			if (labelTypeComboBox.Items.Count > 0){
 				labelTypeComboBox.SelectedIndex = 0;
 			}
+			labelTypeChange = labelTypeChange1;
 		}
 
 		internal ScatterPlotLabelMode GetLabelMode(){

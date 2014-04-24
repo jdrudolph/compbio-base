@@ -90,11 +90,9 @@ namespace BaseLib.Forms.Scatter{
 			Action
 				<IGraphics, int, int, Func<double, int, int>, Func<double, int, int>, Func<int, int, double>, Func<int, int, double>
 					> drawFunctions;
-		internal ScatterPlot ScatterPlot { set { scatterPlot = value; } }
 
-		protected internal override void OnResize(EventArgs e, int width, int height){
-			NeedRecalcValues(width, height);
-		}
+		internal ScatterPlot ScatterPlot { set { scatterPlot = value; } }
+		protected internal override void OnResize(EventArgs e, int width, int height) { NeedRecalcValues(width, height); }
 
 		internal ScatterPlotPlaneView(){
 			SelectionColor = Color.Red;
@@ -143,9 +141,7 @@ namespace BaseLib.Forms.Scatter{
 			Invalidate();
 		}
 
-		protected bool IsInitialized(){
-			return scatterPlot != null;
-		}
+		protected bool IsInitialized() { return scatterPlot != null; }
 
 		internal void InvalidateData(){
 			values.Clear();
@@ -164,7 +160,7 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		internal bool ValuesNeedRecalc(){
-			if (scatterPlot != null && scatterPlot.IsEmpty) {
+			if (scatterPlot != null && scatterPlot.IsEmpty){
 				return false;
 			}
 			return scatterPlot != null && values.Count == 0;
@@ -181,7 +177,7 @@ namespace BaseLib.Forms.Scatter{
 			if (paintBackground && IsInitialized() && !IsDragging()){
 				g.DrawString("Loading...", Font, foreBrush, width/2 - 20, height/2 - 10);
 			}
-			if (scatterPlot == null) {
+			if (scatterPlot == null){
 				return;
 			}
 			if (width != prevWidth || height != prevHeight){
@@ -224,7 +220,7 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		protected void PaintOnGraphicsVector(IGraphics g, int width, int height){
-			if (scatterPlot == null) {
+			if (scatterPlot == null){
 				return;
 			}
 			if (!area.IsEmpty){
@@ -291,7 +287,7 @@ namespace BaseLib.Forms.Scatter{
 			// labels
 			ScatterPlotLabelMode labelMode = scatterPlot.GetLabelMode();
 			bool cutLabels = scatterPlot.CutLabels;
-			if (labelMode == ScatterPlotLabelMode.All && scatterPlot.HasLabels) {
+			if (labelMode == ScatterPlotLabelMode.All && scatterPlot.HasLabels){
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				for (;;){
 					double[] x;
@@ -305,7 +301,7 @@ namespace BaseLib.Forms.Scatter{
 					}
 					SymbolProperties gx = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
 					for (int i = 0; i < x.Length; i++){
-						if (labelMode == ScatterPlotLabelMode.All || scatterPlot.IsSelected(i)) {
+						if (labelMode == ScatterPlotLabelMode.All || scatterPlot.IsSelected(i)){
 							int ix = ModelToViewX(x[i], width);
 							int iy = ModelToViewY(y[i], height);
 							Color c;
@@ -331,9 +327,9 @@ namespace BaseLib.Forms.Scatter{
 				}
 				scatterPlot.Reset();
 			}
-			if (labelMode == ScatterPlotLabelMode.Selected && scatterPlot.HasLabels) {
+			if (labelMode == ScatterPlotLabelMode.Selected && scatterPlot.HasLabels){
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
-				foreach (int s in scatterPlot.Selection) {
+				foreach (int s in scatterPlot.Selection){
 					double[] w = scatterPlot.GetDataAt(s);
 					string label = scatterPlot.GetLabelAt(s);
 					double x = w[0];
@@ -445,13 +441,13 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		protected void PaintOnGraphicsBitmap(IGraphics g, int width, int height){
-			if (backBuffer == null || scatterPlot == null) {
+			if (backBuffer == null || scatterPlot == null){
 				return;
 			}
 			UnsafeBitmap copyBackBuffer = new UnsafeBitmap(backBuffer);
 			copyBackBuffer.LockBitmap();
 			// selected data-points
-			foreach (int s in scatterPlot.Selection) {
+			foreach (int s in scatterPlot.Selection){
 				double[] w = scatterPlot.GetDataAt(s);
 				if (w.Length > 0){
 					double x = w[0];
@@ -471,7 +467,7 @@ namespace BaseLib.Forms.Scatter{
 			// labels
 			ScatterPlotLabelMode labelMode = scatterPlot.GetLabelMode();
 			bool cutLabels = scatterPlot.CutLabels;
-			if (labelMode == ScatterPlotLabelMode.All && scatterPlot.HasLabels) {
+			if (labelMode == ScatterPlotLabelMode.All && scatterPlot.HasLabels){
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
 				for (;;){
 					double[] x;
@@ -489,7 +485,7 @@ namespace BaseLib.Forms.Scatter{
 					}
 					SymbolProperties gx = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
 					for (int i = 0; i < x.Length; i++){
-						if (labelMode == ScatterPlotLabelMode.All || scatterPlot.IsSelected(i)) {
+						if (labelMode == ScatterPlotLabelMode.All || scatterPlot.IsSelected(i)){
 							int ix = ModelToViewX(x[i], width);
 							int iy = ModelToViewY(y[i], height);
 							Color c;
@@ -515,10 +511,10 @@ namespace BaseLib.Forms.Scatter{
 				}
 				scatterPlot.Reset();
 			}
-			if (labelMode == ScatterPlotLabelMode.Selected && scatterPlot.HasLabels) {
+			if (labelMode == ScatterPlotLabelMode.Selected && scatterPlot.HasLabels){
 				Brush br = new SolidBrush(SelectionColor);
 				Font font = new Font("Arial", scatterPlot.FontSize, scatterPlot.FontStyle);
-				foreach (int s in scatterPlot.Selection) {
+				foreach (int s in scatterPlot.Selection){
 					double[] w = scatterPlot.GetDataAt(s);
 					string label = scatterPlot.GetLabelAt(s);
 					double x = w[0];
@@ -563,11 +559,11 @@ namespace BaseLib.Forms.Scatter{
 					if (double.IsNaN(xc[j]) || double.IsNaN(yc[j]) || double.IsInfinity(xc[j]) || double.IsInfinity(yc[j])){
 						continue;
 					}
-                    if (!double.IsNaN(xc[j]) && !double.IsNaN(yc[j])){
-                        int xi1 = ModelToViewX(xc[j], width);
-                        int yi1 = ModelToViewY(yc[j], height);
-                        ps.Add(new Point(xi1, yi1));
-                    }
+					if (!double.IsNaN(xc[j]) && !double.IsNaN(yc[j])){
+						int xi1 = ModelToViewX(xc[j], width);
+						int yi1 = ModelToViewY(yc[j], height);
+						ps.Add(new Point(xi1, yi1));
+					}
 				}
 				if (lp.LineWidth > 0){
 					g.DrawLines(linePen, ps.ToArray());
@@ -642,7 +638,7 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		internal void Select(int x1, int x2, int y1, int y2, bool add, int width, int height){
-			if (scatterPlot != null) {
+			if (scatterPlot != null){
 				double mx1 = ViewToModelX(x1, width);
 				double mx2 = ViewToModelX(x2, width);
 				double my1 = ViewToModelY(y1, height);
@@ -652,7 +648,7 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		internal void SelectAt(int x, int y, bool add, int width, int height){
-			if (scatterPlot != null) {
+			if (scatterPlot != null){
 				scatterPlot.Select(ViewToModelX(x - 2, width), ViewToModelX(x + 2, width), ViewToModelY(y + 2, height),
 					ViewToModelY(y - 2, height), add, true);
 			}
@@ -662,7 +658,7 @@ namespace BaseLib.Forms.Scatter{
 			if (width < 0 || height < 0){
 				return;
 			}
-			if (scatterPlot != null) {
+			if (scatterPlot != null){
 				InvalidateData();
 				for (;;){
 					double[] x;
@@ -681,54 +677,58 @@ namespace BaseLib.Forms.Scatter{
 						double min;
 						double max;
 						ArrayUtils.MinMax(z, out min, out max);
-						if (double.IsNaN(scatterPlot.ColorMax) || max > scatterPlot.ColorMax) {
+						if (double.IsNaN(scatterPlot.ColorMax) || max > scatterPlot.ColorMax){
 							scatterPlot.ColorMax = max;
 						}
-						if (double.IsNaN(scatterPlot.ColorMin) || min < scatterPlot.ColorMin) {
+						if (double.IsNaN(scatterPlot.ColorMin) || min < scatterPlot.ColorMin){
 							scatterPlot.ColorMin = min;
 						}
 					} else{
 						zValues = null;
 					}
-					SymbolProperties prop = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
-					GridData vals;
-					double[,] zVals = null;
-					lock (locker2){
-						if (values.ContainsKey(prop)){
-							try{
-								vals = values[prop];
-							} catch (Exception){
-								break;
-							}
-						} else{
-							vals = new GridData(0, new bool[width,height]);
-							values.Add(prop, vals);
-						}
-					}
-					if (zValues != null){
-						lock (locker){
-							if (zValues.ContainsKey(prop)) {
-								try {
-									zVals = zValues[prop];
-								} catch (Exception) {
+					try{
+						SymbolProperties prop = GetPointProperties != null ? GetPointProperties(index) : defaultSymbol;
+						GridData vals;
+						double[,] zVals = null;
+						lock (locker2){
+							if (values.ContainsKey(prop)){
+								try{
+									vals = values[prop];
+								} catch (Exception){
 									break;
 								}
-							} else {
-								zVals = new double[width, height];
-								zValues.Add(prop, zVals);
+							} else{
+								vals = new GridData(0, new bool[width,height]);
+								values.Add(prop, vals);
 							}
 						}
-					}
-					for (int i = 0; i < x.Length; i++){
-						int ix = ModelToViewX(x[i], width);
-						int iy = ModelToViewY(y[i], height);
-						if (ix >= 0 && iy >= 0 && ix < vals.Data.GetLength(0) && iy < vals.Data.GetLength(1)){
-							vals.Data[ix, iy] = true;
-							vals.Count++;
-							if (zVals != null && z != null){
-								zVals[ix, iy] = z[i];
+						if (zValues != null){
+							lock (locker){
+								if (zValues.ContainsKey(prop)){
+									try{
+										zVals = zValues[prop];
+									} catch (Exception){
+										break;
+									}
+								} else{
+									zVals = new double[width,height];
+									zValues.Add(prop, zVals);
+								}
 							}
 						}
+						for (int i = 0; i < x.Length; i++){
+							int ix = ModelToViewX(x[i], width);
+							int iy = ModelToViewY(y[i], height);
+							if (ix >= 0 && iy >= 0 && ix < vals.Data.GetLength(0) && iy < vals.Data.GetLength(1)){
+								vals.Data[ix, iy] = true;
+								vals.Count++;
+								if (zVals != null && z != null){
+									zVals[ix, iy] = z[i];
+								}
+							}
+						}
+					} catch (Exception){
+						return;
 					}
 				}
 				scatterPlot.Reset();
@@ -768,30 +768,30 @@ namespace BaseLib.Forms.Scatter{
 				}
 				for (int i = 0; i < width; i++){
 					for (int j = 0; j < height; j++){
-						if (vals[i, j] && backBuffer != null){
-							Color color;
-							if (zvals != null && !double.IsNaN(zvals[i, j]) && colorScale != null){
-								color = colorScale.GetColor(zvals[i, j]);
-							} else{
-								color = g.Color;
+						try{
+							if (vals[i, j] && backBuffer != null){
+								Color color;
+								if (zvals != null && !double.IsNaN(zvals[i, j]) && colorScale != null){
+									color = colorScale.GetColor(zvals[i, j]);
+								} else{
+									color = g.Color;
+								}
+								SymbolType symbolType = SymbolType.allSymbols[g.Type];
+								int symbolSize = g.Size;
+								if (symbolSize > 0){
+									int[] pathX;
+									int[] pathY;
+									symbolType.GetPath(symbolSize, out pathX, out pathY);
+									backBuffer.DrawPath(color, i, j, pathX, pathY);
+								}
 							}
-							SymbolType symbolType = SymbolType.allSymbols[g.Type];
-							int symbolSize = g.Size;
-							if (symbolSize > 0){
-								int[] pathX;
-								int[] pathY;
-								symbolType.GetPath(symbolSize, out pathX, out pathY);
-								backBuffer.DrawPath(color, i, j, pathX, pathY);
-							}
-						}
+						} catch (Exception){}
 					}
 				}
 			}
 		}
 
-		internal void SetStatusLabel(ToolStripStatusLabel statusLabel1){
-			statusLabel = statusLabel1;
-		}
+		internal void SetStatusLabel(ToolStripStatusLabel statusLabel1) { statusLabel = statusLabel1; }
 
 		internal double ZoomXMin{
 			get { return zoomXMin; }
@@ -801,6 +801,7 @@ namespace BaseLib.Forms.Scatter{
 				InvalidateData();
 			}
 		}
+
 		internal double ZoomXMax{
 			get { return zoomXMax; }
 			set{
@@ -809,6 +810,7 @@ namespace BaseLib.Forms.Scatter{
 				InvalidateData();
 			}
 		}
+
 		internal double ZoomYMin{
 			get { return zoomYMin; }
 			set{
@@ -817,6 +819,7 @@ namespace BaseLib.Forms.Scatter{
 				InvalidateData();
 			}
 		}
+
 		internal double ZoomYMax{
 			get { return zoomYMax; }
 			set{
@@ -826,31 +829,22 @@ namespace BaseLib.Forms.Scatter{
 			}
 		}
 
-		protected int ModelToViewX(double m, int width){
-			return (int) Math.Round((m - ZoomXMin)/(ZoomXMax - ZoomXMin)*width);
-		}
+		protected int ModelToViewX(double m, int width) { return (int) Math.Round((m - ZoomXMin)/(ZoomXMax - ZoomXMin)*width); }
 
 		protected int ModelToViewY(double t, int height){
 			int y = (int) Math.Round((t - ZoomYMin)/(ZoomYMax - ZoomYMin)*height);
 			return height - y - 1;
 		}
 
-		internal double ViewToModelX(int x, int width){
-			return ZoomXMin + x*(ZoomXMax - ZoomXMin)/width;
-		}
+		internal double ViewToModelX(int x, int width) { return ZoomXMin + x*(ZoomXMax - ZoomXMin)/width; }
 
 		private double ViewToModelY(int y, int height){
 			y = height - 1 - y;
 			return (ZoomYMin + y*(ZoomYMax - ZoomYMin)/height);
 		}
 
-		private bool IsDragging(){
-			return indicatorX1 != -1 || indicatorX2 != -1;
-		}
-
-		private bool HasMoved(){
-			return indicatorX1 != indicatorX2 || indicatorY1 != indicatorY2;
-		}
+		private bool IsDragging() { return indicatorX1 != -1 || indicatorX2 != -1; }
+		private bool HasMoved() { return indicatorX1 != indicatorX2 || indicatorY1 != indicatorY2; }
 
 		private void RecalcValues(int width, int height){
 			if (recalcValuesThread != null){

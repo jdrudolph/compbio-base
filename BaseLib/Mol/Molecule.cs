@@ -268,7 +268,7 @@ namespace BaseLib.Mol{
 
 		public double[][] GetIsotopeSpectrum(double resolution, int charge){
 			double m = MonoIsotopicMass;
-			double sigma = charge*m/resolution*0.5/Math.Sqrt(2*Math.Log(2));
+			double sigma = Math.Abs(charge) * m / resolution * 0.5 / Math.Sqrt(2 * Math.Log(2));
 			double[][] x = GetIsotopeSpectrum(sigma, 12, 0.0001);
 			double dm = charge > 0 ? -massElectron : massElectron;
 			for (int i = 0; i < x[0].Length; i++){

@@ -3,6 +3,7 @@ using System.IO;
 using BaseLib.Util;
 
 namespace BaseLib.Num{
+	[Serializable]
 	public class CubicSpline{
 		public readonly double[] x;
 		public double[] Y { get; private set; }

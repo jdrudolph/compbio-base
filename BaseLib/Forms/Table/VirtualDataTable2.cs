@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace BaseLib.Forms.Table{
 	[Serializable]
-	public class VirtualDataTable2 : TableModelImpl, ITable {
+	public class VirtualDataTable2 : TableModelImpl, ITable{
 		public Func<int, object[]> GetRowData { private get; set; }
 		private int rowInUse = -1;
 		private object[] rowDataInUse;
@@ -45,9 +45,7 @@ namespace BaseLib.Forms.Table{
 			persistentColInds.Sort();
 		}
 
-		public DataRow2 NewRow(){
-			return new DataRow2(columnNames.Count, nameMapping);
-		}
+		public DataRow2 NewRow() { return new DataRow2(columnNames.Count, nameMapping); }
 
 		public void FillPersistentData(){
 			for (int i = 0; i < rowCount; i++){
@@ -86,8 +84,8 @@ namespace BaseLib.Forms.Table{
 
 		private object[] GetRowDataImpl(int row){
 			object[] result = GetRowData(row);
-			if (persistentColInds != null) {
-				for (int i = 0; i < persistentColInds.Count; i++) {
+			if (persistentColInds != null){
+				for (int i = 0; i < persistentColInds.Count; i++){
 					result[persistentColInds[i]] = persistentTable.GetEntry(row, i);
 				}
 			}
