@@ -776,7 +776,7 @@ namespace BaseLib.Util{
 		}
 
 		/// <summary>
-		/// For the sake of simplicity do all sorting tasks in the project always and ever with this method.
+		/// For the sake of simplicity do all sorting tasks always and ever with this method.
 		/// </summary>
 		/// <typeparam name="T">The array type has to inherit IComparable in order to have a 
 		/// criterion to sort on.</typeparam>
@@ -1138,6 +1138,35 @@ namespace BaseLib.Util{
 				result[i] = doubles[i];
 			}
 			return result;
+		}
+
+		/// <summary>
+		/// In case the item is not in the array or occurs only once the conventional binary search output index 
+		/// is returned in <code>minInd</code> and <code>maxInd</code>. If the item occurs more than once, 
+		/// <code>minInd</code> and <code>maxInd</code> indicate the 
+		/// inclusive index interval for which the item occurs in the <code>array</code>.
+		/// </summary>
+		/// <typeparam name="T">Needs to be <code>IComparable</code></typeparam>
+		/// <param name="array">Sorted array, potentially with ties</param>
+		/// <param name="value">Value to be searched for.</param>
+		/// <param name="minInd">Outputs the minimum array index where <code>value</code> is found.</param>
+		/// <param name="maxInd">Outputs the inclusive maximum array index where <code>value</code> is found.</param>
+		public static void BinarySearchWithTies<T>(T[] array, T value, out int minInd, out int maxInd)
+			where T : IComparable<T>{
+			int ind = Array.BinarySearch(array, value);
+			if (ind < 0){
+				minInd = ind;
+				maxInd = ind;
+				return;
+			}
+			minInd = ind;
+			while (minInd > 0 && array[minInd - 1].Equals(array[ind])){
+				minInd--;
+			}
+			maxInd = ind;
+			while (maxInd < array.Length - 1 && array[maxInd + 1].Equals(array[ind])){
+				maxInd++;
+			}
 		}
 
 		public static int FloorIndex<T>(T[] array, T value) where T : IComparable<T>{
@@ -1948,7 +1977,7 @@ namespace BaseLib.Util{
 			return cov;
 		}
 
-		public static int[] GetTopN(IList<double> vals, int n){
+		public static int[] GetTopN<T>(IList<T> vals, int n) where T : IComparable<T>{
 			if (vals.Count <= n){
 				return ConsecutiveInts(vals.Count);
 			}
