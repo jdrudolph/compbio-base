@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using BaseLib.Util;
 
 namespace BaseLib.Param{
 	public partial class ParameterGroupPanel : UserControl{
@@ -50,7 +51,7 @@ namespace BaseLib.Param{
 				VerticalAlignment = VerticalAlignment.Top
 			};
 			if (p.Help != null){
-				txt1.ToolTip = p.Help;
+				txt1.ToolTip = StringUtils.ReturnAtWhitespace(p.Help);
 			}
 			Grid.SetColumn(txt1, 0);
 			Grid.SetRow(txt1, i);

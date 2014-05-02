@@ -610,6 +610,10 @@ namespace BaseLib.Util{
 			return (negative ? "-" : "") + Repeat('0', len - ndigits) + n;
 		}
 
+		public static string ReturnAtWhitespace(string s) { return ReturnAtWhitespace(s, 80); }
+
+		public static string ReturnAtWhitespace(string s, int len) { return Concat("\n", SplitLinesAtWhitespace(s, len)); }
+
 		public static string[] SplitLinesAtWhitespace(string s, int len){
 			List<string> result = new List<string>();
 			StringBuilder line = new StringBuilder();

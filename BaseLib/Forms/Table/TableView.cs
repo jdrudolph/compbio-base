@@ -123,6 +123,8 @@ namespace BaseLib.Forms.Table{
 			ResizeRedraw = true;
 			InitContextMenu();
 			filterToolStripMenuItem.Visible = false;
+			tagsControlToolStripMenuItem.Visible = false;
+			tagsToolStripMenuItem.Visible = false;
 		}
 
 		public bool HasFilter{
