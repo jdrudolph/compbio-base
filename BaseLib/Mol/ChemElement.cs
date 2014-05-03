@@ -203,6 +203,8 @@ namespace BaseLib.Mol{
 					ChemElementType.Semimetal),
 				new ChemElement(17, "Cl", "Chlorine", new[]{34.96885271, 36.9659026}, new[]{75.78, 24.22}, 35.453,
 					ChemElementType.Halogen),
+				new ChemElement(17, "Clx", "Chlorine", new[]{34.96885271, 36.9659026}, new[]{0.0, 100.0}, 36.9659026,
+					ChemElementType.Halogen, "", true),
 				new ChemElement(18, "Ar", "Argon", new[]{35.967545106, 37.9627324, 39.9623831225}, new[]{0.3365, 0.0632, 99.6003},
 					39.948, ChemElementType.NobleGas),
 				new ChemElement(19, "K", "Potassium", new[]{38.9637069, 39.96399867, 40.96182597}, new[]{93.2581, 0.0117, 6.7302},
@@ -221,6 +223,10 @@ namespace BaseLib.Mol{
 				new ChemElement(25, "Mn", "", new[]{54.9380451}, new[]{100.0}, 54.938045, ChemElementType.TransitionMetal),
 				new ChemElement(26, "Fe", "", new[]{53.9396148, 55.9349421, 56.9353987, 57.9332805},
 					new[]{5.845, 91.754, 2.119, 0.282}, 55.845, ChemElementType.TransitionMetal),
+				new ChemElement(26, "Fex", "", new[]{53.9396148, 55.9349421}, new[]{0.0, 100.0}, 55.9349421,
+					ChemElementType.TransitionMetal, "", true),
+				new ChemElement(26, "Fey", "", new[]{53.9396148, 56.9353987}, new[]{0.0, 100.0}, 56.9353987,
+					ChemElementType.TransitionMetal, "", true),
 				new ChemElement(28, "Ni", "", new[]{57.9353479, 59.9307906, 60.9310604, 61.9283488, 63.9279696},
 					new[]{68.0769, 26.2231, 1.1399, 3.6345, 0.9256}, 58.6934, ChemElementType.TransitionMetal),
 				new ChemElement(27, "Co", "Cobalt", new[]{58.9331950}, new[]{100.0}, 58.933195, ChemElementType.TransitionMetal),
@@ -389,6 +395,10 @@ namespace BaseLib.Mol{
 			}
 			if (label.Equals("T")){
 				ce.NaturalVersion = GetElementIndexByName("H", chemElements);
+				return;
+			}
+			if (label.Equals("Fey")){
+				ce.NaturalVersion = GetElementIndexByName("Fe", chemElements);
 				return;
 			}
 			if (!label.EndsWith("x")){
