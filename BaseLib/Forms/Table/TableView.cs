@@ -68,7 +68,6 @@ namespace BaseLib.Forms.Table{
 		private ToolStripMenuItem perseusPropertiesMenuItem;
 		private int[] columnWidthSums;
 		private int[] columnWidthSumsOld;
-		private ITableModel origModel;
 		private ITableModel model;
 		private static readonly Font defaultFont = new Font("Arial", 9);
 		private Font textFont = defaultFont;
@@ -107,13 +106,14 @@ namespace BaseLib.Forms.Table{
 				sortable = value;
 			}
 		}
+
 		private FindForm findForm;
 		private FilterForm filterForm;
 		private int origColumnHeaderHeight = 40;
 		private const int maxColHeaderStringSplits = 3;
 		private bool hasFilter;
 		private bool sortable;
-		public TableView() : this("") {}
+		public TableView() : this("") { }
 
 		public TableView(string name){
 			Sortable = true;
@@ -134,7 +134,9 @@ namespace BaseLib.Forms.Table{
 				filterToolStripMenuItem.Visible = hasFilter;
 			}
 		}
+
 		private bool hasShowInPerseus;
+
 		public bool HasShowInPerseus{
 			get { return hasShowInPerseus; }
 			set{
@@ -267,7 +269,9 @@ namespace BaseLib.Forms.Table{
 				multiSelect = value;
 			}
 		}
+
 		public bool HasHelp { get { return hasHelp; } set { hasHelp = value; } }
+
 		public override sealed int ColumnHeaderHeight{
 			set{
 				origColumnHeaderHeight = value;
@@ -315,17 +319,9 @@ namespace BaseLib.Forms.Table{
 			return (inds[ind] - visRow)*rowHeight;
 		}
 
-		public void SetSelectedRow(int row){
-			SetSelectedRows(new[]{row}, false, true);
-		}
-
-		public void SetSelectedRow(int row, bool add, bool fire){
-			SetSelectedRows(new[]{row}, add, fire);
-		}
-
-		public void SetSelectedRows(IList<int> rows){
-			SetSelectedRows(rows, false, true);
-		}
+		public void SetSelectedRow(int row) { SetSelectedRows(new[]{row}, false, true); }
+		public void SetSelectedRow(int row, bool add, bool fire) { SetSelectedRows(new[]{row}, add, fire); }
+		public void SetSelectedRows(IList<int> rows) { SetSelectedRows(rows, false, true); }
 
 		public void SetSelectedRows(IList<int> rows, bool add, bool fire){
 			if (!add || modelRowSel == null){
@@ -345,9 +341,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSelectedRowAndMove(int row){
-			SetSelectedRowsAndMove(new[]{row});
-		}
+		public void SetSelectedRowAndMove(int row) { SetSelectedRowsAndMove(new[]{row}); }
 
 		public void SetSelectedRowsAndMove(IList<int> rows){
 			modelRowSel = new bool[RowCount];
@@ -414,9 +408,7 @@ namespace BaseLib.Forms.Table{
 			return result.ToArray();
 		}
 
-		public void AddContextMenuItem(ToolStripItem item){
-			contextMenuStrip.Items.Add(item);
-		}
+		public void AddContextMenuItem(ToolStripItem item) { contextMenuStrip.Items.Add(item); }
 
 		public ITableModel TableModel{
 			get { return model; }
@@ -437,12 +429,12 @@ namespace BaseLib.Forms.Table{
 				for (int i = 1; i < model.ColumnCount; i++){
 					columnWidthSums[i] = columnWidthSums[i - 1] + model.GetColumnWidth(i);
 				}
-				origModel = model;
 				if (model.AnnotationRowsCount > 0){
 					base.ColumnHeaderHeight = origColumnHeaderHeight + model.AnnotationRowsCount*rowHeight;
 				}
 			}
 		}
+
 		public override sealed int TotalWidth{
 			get{
 				if (model == null){
@@ -458,6 +450,7 @@ namespace BaseLib.Forms.Table{
 				return columnWidthSums[ind] + 5;
 			}
 		}
+
 		public override sealed int TotalHeight { get { return model == null ? 0 : rowHeight*model.RowCount + 5; } }
 		public override sealed int DeltaX { get { return 40; } }
 		public override sealed int DeltaY { get { return rowHeight; } }
@@ -651,9 +644,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public int GetModelIndex(int rowIndView){
-			return order[rowIndView];
-		}
+		public int GetModelIndex(int rowIndView) { return order[rowIndView]; }
 
 		public void ClearSelection(){
 			if (modelRowSel == null){
@@ -694,9 +685,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSetectedIndex(int index){
-			SetSetectedIndex(index, this);
-		}
+		public void SetSetectedIndex(int index) { SetSetectedIndex(index, this); }
 
 		public void SetectAll(){
 			CheckSizes();
@@ -730,9 +719,7 @@ namespace BaseLib.Forms.Table{
 			return model == null ? null : model.GetEntry(order[row], col);
 		}
 
-		private void FindToolStripMenuItemClick(object sender, EventArgs e){
-			Find();
-		}
+		private void FindToolStripMenuItemClick(object sender, EventArgs e) { Find(); }
 
 		private void SelectAllToolStripMenuItemClick(object sender, EventArgs e){
 			SelectAll();
@@ -744,21 +731,10 @@ namespace BaseLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private void FontsToolStripMenuItemClick(object sender, EventArgs e){
-			ChangeFonts();
-		}
-
-		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e){
-			MonospaceFont();
-		}
-
-		private void DefaultToolStripMenuItemClick(object sender, EventArgs e){
-			DefaultFont1();
-		}
-
-		private void FilterToolStripMenuItemClick(object sender, EventArgs e){
-			Filter();
-		}
+		private void FontsToolStripMenuItemClick(object sender, EventArgs e) { ChangeFonts(); }
+		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e) { MonospaceFont(); }
+		private void DefaultToolStripMenuItemClick(object sender, EventArgs e) { DefaultFont1(); }
+		private void FilterToolStripMenuItemClick(object sender, EventArgs e) { Filter(); }
 
 		private void Filter(){
 			if (model == null){
@@ -851,9 +827,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e){
-			BringSelectionToTop();
-		}
+		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e) { BringSelectionToTop(); }
 
 		private void CopySelectedRowsToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
@@ -883,8 +857,8 @@ namespace BaseLib.Forms.Table{
 			CopyColumnSelectedRows();
 		}
 
-		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e) {}
-		private void TagsToolStripMenuItemClick(object sender, EventArgs e) {}
+		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e) { }
+		private void TagsToolStripMenuItemClick(object sender, EventArgs e) { }
 
 		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
@@ -972,9 +946,7 @@ namespace BaseLib.Forms.Table{
 			g.DrawRectangle(p, x1 + 3, y1 + 4, w, w);
 		}
 
-		private void RenderCellString(IGraphics g, bool selected, object o, int width, int x1, int y1){
-			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3, y1 + 4);
-		}
+		private void RenderCellString(IGraphics g, bool selected, object o, int width, int x1, int y1) { g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3, y1 + 4); }
 
 		private static string GetStringValue(IGraphics g, object o, int width, Font font){
 			if (o is double){
@@ -1258,6 +1230,25 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
+		protected internal override void OnMouseDraggedColumnHeaderView(BasicMouseEventArgs e){
+			if (!Enabled){
+				return;
+			}
+			if (columnWidthSumsOld == null || columnWidthSums == null){
+				return;
+			}
+			if (resizeCol != -1){
+				int mind = resizeCol == 0
+					? 6 - columnWidthSumsOld[0]
+					: columnWidthSumsOld[resizeCol - 1] - columnWidthSumsOld[resizeCol] + 6;
+				deltaDragX = Math.Max(mind, e.X - colDragX);
+				for (int i = resizeCol; i < columnWidthSums.Length; i++){
+					columnWidthSums[i] = columnWidthSumsOld[i] + deltaDragX;
+				}
+				Invalidate(true);
+			}
+		}
+
 		protected internal override sealed void OnPaintMainView(IGraphics g, int x, int y, int width, int height){
 			if (model == null){
 				return;
@@ -1330,9 +1321,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		protected internal override void OnMouseHoverMainView(EventArgs e){
-			HandleToolTip(true);
-		}
+		protected internal override void OnMouseHoverMainView(EventArgs e) { HandleToolTip(true); }
 
 		private void HandleToolTip(bool hover){
 			if (currentX < 0 || currentY < 0 || currentRow < 0 || currentCol < 0 || model == null || currentRow >= model.RowCount ||
@@ -1410,10 +1399,10 @@ namespace BaseLib.Forms.Table{
 			int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
 			if (ind >= 0){
 				if (Math.Abs(columnWidthSums[ind] - x1) < 5){
-					System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.VSplit;
+					Cursor.Current = Cursors.VSplit;
 					resizeCol = ind;
 				} else{
-					System.Windows.Forms.Cursor.Current = System.Windows.Forms.Cursors.Default;
+					Cursor.Current = Cursors.Default;
 					resizeCol = -1;
 				}
 			}
@@ -1535,21 +1524,6 @@ namespace BaseLib.Forms.Table{
 				return;
 			}
 			Invalidate(true);
-		}
-
-		protected internal override void OnMouseDraggedColumnHeaderView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			if (resizeCol != -1){
-				int mind = resizeCol == 0
-					? 6 - columnWidthSumsOld[0] : columnWidthSumsOld[resizeCol - 1] - columnWidthSumsOld[resizeCol] + 6;
-				deltaDragX = Math.Max(mind, e.X - colDragX);
-				for (int i = resizeCol; i < columnWidthSums.Length; i++){
-					columnWidthSums[i] = columnWidthSumsOld[i] + deltaDragX;
-				}
-				Invalidate(true);
-			}
 		}
 
 		protected override void Dispose(bool disposing){

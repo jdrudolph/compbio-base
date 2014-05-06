@@ -187,6 +187,8 @@ namespace BaseLib.Mol{
 					ChemElementType.Nonmetal),
 				new ChemElement(8, "Ox", "Oxygen", new[]{15.9949146221, 17.9991604}, new[]{0.0, 100.0}, 17.9991604,
 					ChemElementType.Nonmetal, "", true),
+				new ChemElement(8, "Oy", "Oxygen", new[]{15.9949146221, 16.9991315}, new[]{0.0, 100.0}, 16.9991315,
+					ChemElementType.Nonmetal, "", true),
 				new ChemElement(9, "F", "Fluorine", new[]{18.99840320}, new[]{100.0}, 18.9984032, ChemElementType.Halogen),
 				new ChemElement(10, "Ne", "Neon", new[]{19.9924401754, 20.99384668, 21.991385114}, new[]{90.48, 0.27, 9.25}, 20.1797,
 					ChemElementType.NobleGas),
@@ -198,6 +200,8 @@ namespace BaseLib.Mol{
 				new ChemElement(16, "S", "", new[]{31.97207069, 32.9714585, 33.96786683, 35.96708088},
 					new[]{94.93, 0.76, 4.29, 0.02}, 32.065, ChemElementType.Nonmetal),
 				new ChemElement(16, "Sx", "", new[]{31.97207069, 33.96786683}, new[]{0.0, 100.0}, 33.96786683,
+					ChemElementType.Nonmetal, "", true),
+				new ChemElement(16, "Sy", "", new[]{31.97207069, 32.9714585}, new[]{0.0, 100.0}, 32.9714585,
 					ChemElementType.Nonmetal, "", true),
 				new ChemElement(14, "Si", "", new[]{27.9769265325, 28.976494700, 29.97377017}, new[]{92.223, 4.685, 3.092}, 28.0855,
 					ChemElementType.Semimetal),
@@ -399,6 +403,14 @@ namespace BaseLib.Mol{
 			}
 			if (label.Equals("Fey")){
 				ce.NaturalVersion = GetElementIndexByName("Fe", chemElements);
+				return;
+			}
+			if (label.Equals("Oy")){
+				ce.NaturalVersion = GetElementIndexByName("O", chemElements);
+				return;
+			}
+			if (label.Equals("Sy")){
+				ce.NaturalVersion = GetElementIndexByName("S", chemElements);
 				return;
 			}
 			if (!label.EndsWith("x")){
