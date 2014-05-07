@@ -941,7 +941,7 @@ namespace NumPluginSvm.Svm{
             double sy = double.NaN;
             if (kf.UsesSquares){
                 sx = x.Dot(x);
-                sy = y.Dot(x);
+                sy = y.Dot(y);
             }
             return kf.Evaluate(x, y, sx, sy);
         }
