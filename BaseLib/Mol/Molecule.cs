@@ -88,7 +88,7 @@ namespace BaseLib.Mol{
 				if (AtomCount[i] > 0){
 					int count = AtomCount[i];
 					string ac = (count != 1 || oneForSingleAtoms) ? "" + count : "";
-					result.Append(ChemElement.Elements[AtomType[i]].Symbol + ac);
+					result.Append(ChemElements.Elements[AtomType[i]].Symbol + ac);
 				}
 			}
 			return result.ToString();
@@ -100,7 +100,7 @@ namespace BaseLib.Mol{
 				for (int i = 0; i < AtomType.Length; i++){
 					int count = AtomCount[i];
 					int type = AtomType[i];
-					int aw = ChemElement.Elements[type].GetNominalMass();
+					int aw = ChemElements.Elements[type].GetNominalMass();
 					nm += count*aw;
 				}
 				return nm;
@@ -135,8 +135,8 @@ namespace BaseLib.Mol{
 			for (int i = 0; i < AtomType.Length; i++){
 				int count = AtomCount[i];
 				int type = AtomType[i];
-				double mim = ChemElement.Elements[type].MonoIsotopicMass;
-				double aw = ChemElement.Elements[type].AtomicWeight;
+				double mim = ChemElements.Elements[type].MonoIsotopicMass;
+				double aw = ChemElements.Elements[type].AtomicWeight;
 				MonoIsotopicMass += count*mim;
 				MolecularWeight += count*aw;
 			}
@@ -157,7 +157,7 @@ namespace BaseLib.Mol{
 				factor = int.Parse(formula.Substring(0, index));
 				formula = formula.Substring(index);
 			}
-			int[] counts = new int[ChemElement.Elements.Length];
+			int[] counts = new int[ChemElements.Elements.Length];
 			while (formula.Length > 0){
 				formula = ProcessFirst(formula, counts);
 			}
@@ -173,8 +173,8 @@ namespace BaseLib.Mol{
 		}
 
 		private static string ProcessFirst(string formula, IList<int> counts){
-			for (int i = ChemElement.Elements.Length - 1; i >= 0; i--){
-				string symbol = ChemElement.Elements[i].Symbol;
+			for (int i = ChemElements.Elements.Length - 1; i >= 0; i--){
+				string symbol = ChemElements.Elements[i].Symbol;
 				if (formula.StartsWith(symbol)){
 					return Calc(formula, counts, symbol, i);
 				}
@@ -205,7 +205,7 @@ namespace BaseLib.Mol{
 		public bool IsIsotopicLabel{
 			get{
 				foreach (int t in AtomType){
-					if (ChemElement.Elements[t].IsIsotopicLabel){
+					if (ChemElements.Elements[t].IsIsotopicLabel){
 						return true;
 					}
 				}
@@ -219,7 +219,7 @@ namespace BaseLib.Mol{
 					w.Add(AtomType[i], AtomCount[i]);
 				}
 				foreach (int t in AtomType){
-					ChemElement el = ChemElement.Elements[t];
+					ChemElement el = ChemElements.Elements[t];
 					if (el.IsIsotopicLabel){
 						int c = w[t];
 						w.Remove(t);
@@ -257,10 +257,10 @@ namespace BaseLib.Mol{
 			if (AtomType.Length == 0){
 				return new[]{new double[]{0}, new double[]{1}};
 			}
-			ChemElement element = ChemElement.Elements[AtomType[0]];
+			ChemElement element = ChemElements.Elements[AtomType[0]];
 			double[][] distrib = element.GetIsotopeDistribution(AtomCount[0]);
 			for (int i = 1; i < AtomType.Length; i++){
-				element = ChemElement.Elements[AtomType[i]];
+				element = ChemElements.Elements[AtomType[i]];
 				distrib = Convolute(distrib, element.GetIsotopeDistribution(AtomCount[i]), massPrecision, 1e-6);
 			}
 			return distrib;
@@ -363,11 +363,11 @@ namespace BaseLib.Mol{
 		}
 
 		public static Tuple<Molecule, Molecule> GetDifferences(Molecule molecule1, Molecule molecule2){
-			int[] counts1 = new int[ChemElement.Elements.Length];
+			int[] counts1 = new int[ChemElements.Elements.Length];
 			for (int j = 0; j < molecule1.AtomType.Length; j++){
 				counts1[molecule1.AtomType[j]] = molecule1.AtomCount[j];
 			}
-			int[] counts2 = new int[ChemElement.Elements.Length];
+			int[] counts2 = new int[ChemElements.Elements.Length];
 			for (int j = 0; j < molecule2.AtomType.Length; j++){
 				counts2[molecule2.AtomType[j]] = molecule2.AtomCount[j];
 			}
@@ -406,7 +406,7 @@ namespace BaseLib.Mol{
 		}
 
 		public static Molecule Subtract(Molecule molecule1, Molecule molecule2){
-			int[] counts = new int[ChemElement.Elements.Length];
+			int[] counts = new int[ChemElements.Elements.Length];
 			for (int j = 0; j < molecule1.AtomType.Length; j++){
 				counts[molecule1.AtomType[j]] += molecule1.AtomCount[j];
 			}
@@ -433,7 +433,7 @@ namespace BaseLib.Mol{
 		}
 
 		public static Molecule Sum(IList<Molecule> molecules, IList<int> n){
-			int[] counts = new int[ChemElement.Elements.Length];
+			int[] counts = new int[ChemElements.Elements.Length];
 			for (int i = 0; i < molecules.Count; i++){
 				Molecule mol = molecules[i];
 				for (int j = 0; j < mol.AtomType.Length; j++){
@@ -452,16 +452,16 @@ namespace BaseLib.Mol{
 		}
 
 		public static Molecule Max(Molecule x, Molecule y){
-			int[] counts1 = new int[ChemElement.Elements.Length];
+			int[] counts1 = new int[ChemElements.Elements.Length];
 			for (int j = 0; j < x.AtomType.Length; j++){
 				counts1[x.AtomType[j]] = x.AtomCount[j];
 			}
-			int[] counts2 = new int[ChemElement.Elements.Length];
+			int[] counts2 = new int[ChemElements.Elements.Length];
 			for (int j = 0; j < y.AtomType.Length; j++){
 				counts2[y.AtomType[j]] = y.AtomCount[j];
 			}
-			int[] counts = new int[ChemElement.Elements.Length];
-			for (int i = 0; i < ChemElement.Elements.Length; i++){
+			int[] counts = new int[ChemElements.Elements.Length];
+			for (int i = 0; i < ChemElements.Elements.Length; i++){
 				counts[i] = Math.Max(counts1[i], counts2[i]);
 			}
 			int[] types = new int[counts.Length];
@@ -477,7 +477,7 @@ namespace BaseLib.Mol{
 
 		public bool ContainsOnly(string[] elems){
 			HashSet<int> types = new HashSet<int>();
-			string[] symbols = ChemElement.GetSymbols();
+			string[] symbols = ChemElements.GetSymbols();
 			foreach (string elem in elems){
 				int ind = ArrayUtils.IndexOf(symbols, elem);
 				if (ind < 0){
@@ -494,7 +494,7 @@ namespace BaseLib.Mol{
 		}
 
 		public int CountAtoms(string elem){
-			Dictionary<string, int> d = ChemElement.ElementIndex;
+			Dictionary<string, int> d = ChemElements.ElementIndex;
 			if (!d.ContainsKey(elem)){
 				return 0;
 			}

@@ -66,6 +66,7 @@ namespace BaseLib.Forms.Axis{
 
 		private double VisibleMin { get { return ZoomType == AxisZoomType.Zoom ? ZoomMin : TotalMin; } }
 		private double VisibleMax { get { return ZoomType == AxisZoomType.Zoom ? ZoomMax : TotalMax; } }
+
 		public double ZeroPoint{
 			get { return zeroPoint; }
 			set{
@@ -73,6 +74,7 @@ namespace BaseLib.Forms.Axis{
 				Invalidate();
 			}
 		}
+
 		private int Sign { get { return Reverse ? -1 : 1; } }
 
 		internal float GetMinIndicator(int length){
@@ -96,17 +98,9 @@ namespace BaseLib.Forms.Axis{
 			return (ModelToView(ZoomMax, length) - ModelToView(ZoomMin, length))*(Reverse ? -1 : 1);
 		}
 
-		public int GetLength(int width, int height){
-			return IsHorizontal() ? width : height;
-		}
-
-		internal bool IsHorizontal(){
-			return Positioning == AxisPositioning.Top || Positioning == AxisPositioning.Bottom;
-		}
-
-		private float ModelToView(double val, int width, int height){
-			return ModelToView(val, GetLength(width, height));
-		}
+		public int GetLength(int width, int height) { return IsHorizontal() ? width : height; }
+		internal bool IsHorizontal() { return Positioning == AxisPositioning.Top || Positioning == AxisPositioning.Bottom; }
+		private float ModelToView(double val, int width, int height) { return ModelToView(val, GetLength(width, height)); }
 
 		private float ModelToView(double val, int length){
 			float x = (float) Math.Round((val - VisibleMin)/(VisibleMax - VisibleMin)*length);
@@ -123,9 +117,7 @@ namespace BaseLib.Forms.Axis{
 			return VisibleMin + x*(VisibleMax - VisibleMin)/length;
 		}
 
-		internal double ViewToModel(float x, int width, int height){
-			return ViewToModel(x, GetLength(width, height));
-		}
+		internal double ViewToModel(float x, int width, int height) { return ViewToModel(x, GetLength(width, height)); }
 
 		private void PaintIndicator(IGraphics g, int width, int height){
 			Brush indicatorBrush = new SolidBrush(IndicatorColor);
@@ -210,9 +202,7 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		protected internal override void OnPaint(IGraphics g, int width, int height){
-			OnPaint(g, 0, 0, width, height);
-		}
+		protected internal override void OnPaint(IGraphics g, int width, int height) { OnPaint(g, 0, 0, width, height); }
 
 		public void OnPaint(IGraphics g, int xm, int ym, int width, int height){
 			if (!Visible){
@@ -313,7 +303,7 @@ namespace BaseLib.Forms.Axis{
 					if (y < 0){
 						y = 0;
 					}
-					g.DrawString(label, font, brush, -ym + x, xm + y-2);
+					g.DrawString(label, font, brush, -ym + x, xm + y - 2);
 					g.RotateTransform(90);
 					break;
 				case AxisPositioning.Bottom:
@@ -395,8 +385,8 @@ namespace BaseLib.Forms.Axis{
 						ZoomMin = TotalMax - delta;
 						ZoomMax = TotalMax;
 					} else{
-						ZoomMin = Math.Max(min, TotalMin);
-						ZoomMax = Math.Min(max, TotalMax);
+						ZoomMin = min;
+						ZoomMax = max;
 					}
 					FireZoomChanged();
 				}
@@ -449,9 +439,7 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		internal bool IsFullZoom(){
-			return ZoomMin == TotalMin && ZoomMax == TotalMax;
-		}
+		internal bool IsFullZoom() { return ZoomMin == TotalMin && ZoomMax == TotalMax; }
 
 		private string GetTicLabel(double ticval, int decade, double max){
 			if (IsLogarithmic){
@@ -460,13 +448,8 @@ namespace BaseLib.Forms.Axis{
 			return NumUtils.RoundSignificantDigits2(ticval/Math.Pow(10.0, decade), 7, max/Math.Pow(10.0, decade));
 		}
 
-		private static string ToSuperscript(int round){
-			return "e" + round;
-		}
-
-		public double[][] GetTics(int width, int height){
-			return GetTics(GetLength(width, height));
-		}
+		private static string ToSuperscript(int round) { return "e" + round; }
+		public double[][] GetTics(int width, int height) { return GetTics(GetLength(width, height)); }
 
 		public double[][] GetTics(int length){
 			float minMajorTics = (float) length/spacePerNumber;
@@ -567,9 +550,7 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		internal bool IsValid(){
-			return !double.IsNaN(TotalMin) && !double.IsNaN(TotalMax) && VisibleMax != 0;
-		}
+		internal bool IsValid() { return !double.IsNaN(TotalMin) && !double.IsNaN(TotalMax) && VisibleMax != 0; }
 
 		internal void FireZoomChanged(){
 			if (OnZoomChange != null){
@@ -577,17 +558,8 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		public void ZoomIn(int length){
-			SetZoomFromView(length/3, length*2/3, length);
-		}
-
-		public void ZoomOut(int length){
-			SetZoomFromView(-length/3, length*4/3, length);
-		}
-
-		public void FullZoom(){
-			SetZoom(TotalMin, TotalMax);
-		}
+		public void ZoomIn(int length) { SetZoomFromView(length/3, length*2/3, length); }
+		public void ZoomOut(int length) { SetZoomFromView(-length/3, length*4/3, length); }
 
 		public void MoveDown(int length){
 			int min = -length/3;
@@ -728,6 +700,13 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
+		public void FullZoom(){
+			ZoomMin = TotalMin;
+			ZoomMax = TotalMax;
+			FireZoomChanged();
+			Invalidate();
+		}
+
 		protected internal override void OnMouseDoubleClick(BasicMouseEventArgs e){
 			if (!Visible){
 				return;
@@ -741,14 +720,11 @@ namespace BaseLib.Forms.Axis{
 				}
 				switch (MouseMode){
 					case AxisMouseMode.Zoom:
-						ZoomMin = TotalMin;
-						ZoomMax = TotalMax;
-						FireZoomChanged();
-						Invalidate();
+						FullZoom();
 						break;
 				}
 			} else{
-				ZeroPoint = Double.NaN;
+				ZeroPoint = double.NaN;
 			}
 		}
 	}

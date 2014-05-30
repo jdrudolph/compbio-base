@@ -51,7 +51,6 @@ namespace BaseLib.Forms.Table{
 		private ToolStripMenuItem fontsToolStripMenuItem;
 		private ToolStripMenuItem monospaceToolStripMenuItem;
 		private ToolStripMenuItem defaultToolStripMenuItem;
-		private ToolStripMenuItem filterToolStripMenuItem;
 		private ToolStripMenuItem invertSelectionToolStripMenuItem;
 		private ToolStripMenuItem selectionTopToolStripMenuItem;
 		private ToolStripMenuItem copySelectedRowsToolStripMenuItem;
@@ -108,10 +107,8 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private FindForm findForm;
-		private FilterForm filterForm;
 		private int origColumnHeaderHeight = 40;
 		private const int maxColHeaderStringSplits = 3;
-		private bool hasFilter;
 		private bool sortable;
 		public TableView() : this("") { }
 
@@ -122,17 +119,8 @@ namespace BaseLib.Forms.Table{
 			Name = name;
 			ResizeRedraw = true;
 			InitContextMenu();
-			filterToolStripMenuItem.Visible = false;
 			tagsControlToolStripMenuItem.Visible = false;
 			tagsToolStripMenuItem.Visible = false;
-		}
-
-		public bool HasFilter{
-			get { return hasFilter; }
-			set{
-				hasFilter = value;
-				filterToolStripMenuItem.Visible = hasFilter;
-			}
 		}
 
 		private bool hasShowInPerseus;
@@ -156,7 +144,6 @@ namespace BaseLib.Forms.Table{
 			fontsToolStripMenuItem = new ToolStripMenuItem();
 			monospaceToolStripMenuItem = new ToolStripMenuItem();
 			defaultToolStripMenuItem = new ToolStripMenuItem();
-			filterToolStripMenuItem = new ToolStripMenuItem();
 			invertSelectionToolStripMenuItem = new ToolStripMenuItem();
 			selectionTopToolStripMenuItem = new ToolStripMenuItem();
 			copySelectedRowsToolStripMenuItem = new ToolStripMenuItem();
@@ -176,12 +163,11 @@ namespace BaseLib.Forms.Table{
 			perseusPropertiesMenuItem.Visible = false;
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
 				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem
-				, selectionTopToolStripMenuItem, filterToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
-				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
-				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem,
-				copyColumnSelectionToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(),
-				tagsToolStripMenuItem, tagsControlToolStripMenuItem, perseusToolStripSeparator, showAllInPerseusMenuItem,
-				showSelectedInPerseusMenuItem, perseusPropertiesMenuItem
+				, selectionTopToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem, monospaceToolStripMenuItem,
+				defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem, copySelectedRowsToolStripMenuItem,
+				copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem, copyColumnSelectionToolStripMenuItem,
+				pasteSelectionToolStripMenuItem, new ToolStripSeparator(), tagsToolStripMenuItem, tagsControlToolStripMenuItem,
+				perseusToolStripSeparator, showAllInPerseusMenuItem, showSelectedInPerseusMenuItem, perseusPropertiesMenuItem
 			});
 			contextMenuStrip.Size = new Size(210, 142);
 			findToolStripMenuItem.Size = new Size(209, 22);
@@ -202,9 +188,6 @@ namespace BaseLib.Forms.Table{
 			defaultToolStripMenuItem.Size = new Size(209, 22);
 			defaultToolStripMenuItem.Text = "Default font";
 			defaultToolStripMenuItem.Click += DefaultToolStripMenuItemClick;
-			filterToolStripMenuItem.Size = new Size(209, 22);
-			filterToolStripMenuItem.Text = "Filter...";
-			filterToolStripMenuItem.Click += FilterToolStripMenuItemClick;
 			invertSelectionToolStripMenuItem.Size = new Size(209, 22);
 			invertSelectionToolStripMenuItem.Text = "Invert selection";
 			invertSelectionToolStripMenuItem.Click += InvertSelectionToolStripMenuItemClick;
@@ -734,23 +717,6 @@ namespace BaseLib.Forms.Table{
 		private void FontsToolStripMenuItemClick(object sender, EventArgs e) { ChangeFonts(); }
 		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e) { MonospaceFont(); }
 		private void DefaultToolStripMenuItemClick(object sender, EventArgs e) { DefaultFont1(); }
-		private void FilterToolStripMenuItemClick(object sender, EventArgs e) { Filter(); }
-
-		private void Filter(){
-			if (model == null){
-				return;
-			}
-			if (filterForm == null){
-				filterForm = new FilterForm(this){TopMost = true};
-			}
-			filterForm.Visible = false;
-			if (filterForm.WindowState == FormWindowState.Minimized){
-				filterForm.WindowState = FormWindowState.Normal;
-			}
-			filterForm.BringToFront();
-			filterForm.Focus();
-			filterForm.Show(this);
-		}
 
 		private void Find(){
 			if (model == null){
@@ -857,7 +823,105 @@ namespace BaseLib.Forms.Table{
 			CopyColumnSelectedRows();
 		}
 
-		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e) { }
+		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e){
+			string text = Clipboard.GetText();
+			if (string.IsNullOrEmpty(text)){
+				MessageBox.Show("Clipboard is empty.");
+				return;
+			}
+			string[] lines = text.Split(new[]{'\r', '\n'});
+			for (int i = 0; i < lines.Length; i++){
+				lines[i] = lines[i].Trim();
+			}
+			int ncols = StringUtils.AllIndicesOf(lines[0], "\t").Length + 1;
+			if (ncols > 3){
+				MessageBox.Show("At most three selection columns are allowed.");
+				return;
+			}
+			string[][] colData;
+			if (ncols == 1){
+				colData = new[]{lines};
+			} else{
+				colData = new string[ncols][];
+				for (int i = 0; i < colData.Length; i++){
+					colData[i] = new string[lines.Length];
+				}
+				for (int i = 0; i < lines.Length; i++){
+					string[] w = lines[i].Split('\t');
+					for (int j = 0; j < ncols; j++){
+						colData[j][i] = j < w.Length ? w[j] : "";
+					}
+				}
+			}
+			PasteSelectionWindow psw = new PasteSelectionWindow(ncols, GetColumnNames());
+			psw.ShowDialog();
+			if (!psw.Ok){
+				return;
+			}
+			int[] colInds = psw.GetSelectedIndices();
+			HashSet<string>[] colSets = new HashSet<string>[ncols];
+			for (int i = 0; i < ncols; i++){
+				colSets[i] = ToSet(colData[i]);
+			}
+			List<int> sel = new List<int>();
+			for (int i = 0; i < TableModel.RowCount; i++){
+				bool[] matches = new bool[ncols];
+				for (int j = 0; j < ncols; j++){
+					object value = TableModel.GetEntry(i, colInds[j]);
+					matches[j] = Matches(value, colSets[j]);
+				}
+				bool match = ArrayUtils.And(matches);
+				if (match){
+					sel.Add(i);
+				}
+			}
+			SetSelectedRows(sel);
+			Invalidate(true);
+		}
+
+		private bool Matches(object value, HashSet<string> colSet){
+			if (value == null || value is DBNull){
+				return false;
+			}
+			string s = value.ToString();
+			if (string.IsNullOrEmpty(s)){
+				return false;
+			}
+			string[] q = s.Split(';');
+			foreach (string p in q){
+				if (colSet.Contains(p)){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		private static HashSet<string> ToSet(IEnumerable<string> strings){
+			HashSet<string> result = new HashSet<string>();
+			foreach (string s in strings){
+				if (string.IsNullOrEmpty(s)){
+					continue;
+				}
+				string t = s.Trim();
+				if (string.IsNullOrEmpty(t)){
+					continue;
+				}
+				string[] q = s.Split(';');
+				foreach (string p in q){
+					result.Add(p);
+				}
+			}
+			return result;
+		}
+
+		private string[] GetColumnNames(){
+			string[] result = new string[TableModel.ColumnCount];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = TableModel.GetColumnName(i);
+			}
+			return result;
+		}
+
 		private void TagsToolStripMenuItemClick(object sender, EventArgs e) { }
 
 		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
@@ -1189,10 +1253,10 @@ namespace BaseLib.Forms.Table{
 						selectStart = row;
 					}
 					Invalidate(true);
-					if (SelectionChanged != null){
-						SelectionChanged(this, new EventArgs());
-					}
-				} catch (Exception){}
+				} catch (Exception ex){}
+				if (SelectionChanged != null){
+					SelectionChanged(this, new EventArgs());
+				}
 			}
 		}
 
@@ -1531,10 +1595,6 @@ namespace BaseLib.Forms.Table{
 			if (findForm != null){
 				findForm.Close();
 				findForm.Dispose();
-			}
-			if (filterForm != null){
-				filterForm.Close();
-				filterForm.Dispose();
 			}
 		}
 

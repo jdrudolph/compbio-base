@@ -190,16 +190,13 @@
       <DependentUpon>MultiListSelectorSubSelection.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Table\ColumnType.cs" />
+    <Compile Include="Forms\Table\PasteSelectionWindow.xaml.cs">
+      <DependentUpon>PasteSelectionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Table\VirtualDataTable2.cs" />
     <Compile Include="Forms\Table\DataAnnotationRow.cs" />
     <Compile Include="Forms\Table\DataRow2.cs" />
     <Compile Include="Forms\Table\DataTable2.cs" />
-    <Compile Include="Forms\Table\FilterForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forms\Table\FilterForm.Designer.cs">
-      <DependentUpon>FilterForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Table\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -246,6 +243,7 @@
     <Compile Include="Mol\AminoAcid.cs" />
     <Compile Include="Mol\AminoAcids.cs" />
     <Compile Include="Mol\ChemElement.cs" />
+    <Compile Include="Mol\ChemElements.cs" />
     <Compile Include="Mol\ChemElementType.cs" />
     <Compile Include="Mol\Molecule.cs" />
     <Compile Include="Num\Api\ClassificationModel.cs" />
@@ -451,10 +449,6 @@
       <DependentUpon>MultiListSelectorSubSelection.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Table\FilterForm.resx">
-      <DependentUpon>FilterForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\FindForm.resx">
       <DependentUpon>FindForm.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -563,6 +557,10 @@
     <Resource Include="Resources\Y.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Forms\Table\PasteSelectionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Forms\Table\TagsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

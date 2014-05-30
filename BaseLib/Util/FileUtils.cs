@@ -16,7 +16,7 @@ namespace BaseLib.Util{
 	/// </summary>
 	public static class FileUtils{
 		public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
-		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta|Fasta file (*.fa)|*.fa|Fasta file (*.fas)|*.fas";
+		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;.*fa";
 		public static string executableFile = Application.ExecutablePath;
 		public static string executablePath = Path.GetDirectoryName(executableFile);
 		private static readonly Random random = new Random();
