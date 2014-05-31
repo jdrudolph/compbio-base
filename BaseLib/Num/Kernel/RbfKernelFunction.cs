@@ -35,7 +35,7 @@ namespace BaseLib.Num.Kernel{
             return new RbfKernelFunction(Sigma);
         }
         public string Description { get { return ""; } }
-        public float DisplayOrder { get { return 0; } }
+		public float DisplayRank { get { return 0; } }
         public bool IsActive { get { return true; } }
         public Bitmap DisplayImage { get { return null; } }
     }

@@ -5,7 +5,7 @@ namespace BaseLib.Api{
         /// <summary>
         /// This number controls the order in which items are displayed e.g. in drop down menus.
         /// </summary>
-        float DisplayOrder { get; }
+        float DisplayRank { get; }
 
         /// <summary>
         /// If false is returned, the item will not be available.

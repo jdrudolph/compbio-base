@@ -834,8 +834,8 @@ namespace BaseLib.Forms.Table{
 				lines[i] = lines[i].Trim();
 			}
 			int ncols = StringUtils.AllIndicesOf(lines[0], "\t").Length + 1;
-			if (ncols > 3){
-				MessageBox.Show("At most three selection columns are allowed.");
+			if (ncols > 2){
+				MessageBox.Show("At most two selection columns are allowed.");
 				return;
 			}
 			string[][] colData;
@@ -859,27 +859,126 @@ namespace BaseLib.Forms.Table{
 				return;
 			}
 			int[] colInds = psw.GetSelectedIndices();
-			HashSet<string>[] colSets = new HashSet<string>[ncols];
-			for (int i = 0; i < ncols; i++){
-				colSets[i] = ToSet(colData[i]);
-			}
-			List<int> sel = new List<int>();
-			for (int i = 0; i < TableModel.RowCount; i++){
-				bool[] matches = new bool[ncols];
-				for (int j = 0; j < ncols; j++){
-					object value = TableModel.GetEntry(i, colInds[j]);
-					matches[j] = Matches(value, colSets[j]);
-				}
-				bool match = ArrayUtils.And(matches);
-				if (match){
-					sel.Add(i);
-				}
-			}
+			int[] sel = GetSelection(ncols, colData, colInds);
 			SetSelectedRows(sel);
 			Invalidate(true);
 		}
 
-		private bool Matches(object value, HashSet<string> colSet){
+		private int[] GetSelection(int ncols, string[][] colData, IList<int> colInds){
+			switch (ncols){
+				case 1:
+					return GetSelection1(colData[0], colInds[0]);
+				case 2:
+					return GetSelection2(colData, colInds);
+				default:
+					throw new Exception("Never get here");
+			}
+		}
+
+		private int[] GetSelection2(IList<string[]> colData, IList<int> colInds){
+			HashSet<Tuple<string, string>> x = GetValues2(colData);
+			List<int> sel = new List<int>();
+			for (int i = 0; i < TableModel.RowCount; i++){
+				object value1 = TableModel.GetEntry(i, colInds[0]);
+				object value2 = TableModel.GetEntry(i, colInds[1]);
+				bool match = Matches2(value1, value2, x);
+				if (match){
+					sel.Add(i);
+				}
+			}
+			return sel.ToArray();
+		}
+
+		private int[] GetSelection1(IEnumerable<string> colData, int colInd){
+			HashSet<string> x = GetValues1(colData);
+			List<int> sel = new List<int>();
+			for (int i = 0; i < TableModel.RowCount; i++){
+				object value = TableModel.GetEntry(i, colInd);
+				bool match = Matches1(value, x);
+				if (match){
+					sel.Add(i);
+				}
+			}
+			return sel.ToArray();
+		}
+
+		private static HashSet<Tuple<string, string>> GetValues2(IList<string[]> colData){
+			HashSet<Tuple<string, string>> x = new HashSet<Tuple<string, string>>();
+			for (int i = 0; i < colData[0].Length; i++){
+				string s1 = colData[0][i];
+				string s2 = colData[1][i];
+				if (s1 == null || s2 == null){
+					continue;
+				}
+				s1 = s1.Trim();
+				s2 = s2.Trim();
+				if (string.IsNullOrEmpty(s1) || string.IsNullOrEmpty(s2)){
+					continue;
+				}
+				string[] q1 = s1.Split(';');
+				string[] q2 = s2.Split(';');
+				foreach (string r1 in q1){
+					string t1 = r1.Trim();
+					if (string.IsNullOrEmpty(t1)){
+						continue;
+					}
+					foreach (string r2 in q2){
+						string t2 = r2.Trim();
+						if (string.IsNullOrEmpty(t2)){
+							continue;
+						}
+						x.Add(new Tuple<string, string>(t1, t2));
+					}
+				}
+			}
+			return x;
+		}
+
+		private static HashSet<string> GetValues1(IEnumerable<string> colData){
+			HashSet<string> x = new HashSet<string>();
+			foreach (string s in colData){
+				if (s == null){
+					continue;
+				}
+				string t = s.Trim();
+				if (string.IsNullOrEmpty(t)){
+					continue;
+				}
+				string[] q = t.Split(';');
+				foreach (string s1 in q){
+					string s2 = s1.Trim();
+					if (!string.IsNullOrEmpty(s2)){
+						x.Add(s2);
+					}
+				}
+			}
+			return x;
+		}
+
+		private static bool Matches2(object value1, object value2, ICollection<Tuple<string, string>> colSet){
+			if (value1 == null || value1 is DBNull || value2 == null || value2 is DBNull){
+				return false;
+			}
+			string s1 = value1.ToString();
+			string s2 = value2.ToString();
+			if (string.IsNullOrEmpty(s1) || string.IsNullOrEmpty(s2)){
+				return false;
+			}
+			string[] q1 = s1.Split(';');
+			string[] q2 = s2.Split(';');
+			foreach (string p1 in q1){
+				string r1 = p1.Trim();
+				foreach (string p2 in q2){
+					string r2 = p2.Trim();
+					if (colSet.Contains(new Tuple<string, string>(r1, r2))){
+						return true;
+					}
+				}
+			}
+			return false;
+		}
+
+		private static bool Matches1(object value, ICollection<string> colSet){
 			if (value == null || value is DBNull){
 				return false;
 			}
@@ -889,29 +988,12 @@ namespace BaseLib.Forms.Table{
 			}
 			string[] q = s.Split(';');
 			foreach (string p in q){
-				if (colSet.Contains(p)){
+				string r = p.Trim();
+				if (colSet.Contains(r)){
 					return true;
 				}
 			}
 			return false;
-		}
-
-		private static HashSet<string> ToSet(IEnumerable<string> strings){
-			HashSet<string> result = new HashSet<string>();
-			foreach (string s in strings){
-				if (string.IsNullOrEmpty(s)){
-					continue;
-				}
-				string t = s.Trim();
-				if (string.IsNullOrEmpty(t)){
-					continue;
-				}
-				string[] q = s.Split(';');
-				foreach (string p in q){
-					result.Add(p);
-				}
-			}
-			return result;
 		}
 
 		private string[] GetColumnNames(){
