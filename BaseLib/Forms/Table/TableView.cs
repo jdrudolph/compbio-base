@@ -163,10 +163,10 @@ namespace BaseLib.Forms.Table{
 			perseusPropertiesMenuItem.Visible = false;
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
 				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem
-				, selectionTopToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem, monospaceToolStripMenuItem,
-				defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem, copySelectedRowsToolStripMenuItem,
-				copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem, copyColumnSelectionToolStripMenuItem,
-				pasteSelectionToolStripMenuItem, new ToolStripSeparator(), tagsToolStripMenuItem, tagsControlToolStripMenuItem,
+				, selectionTopToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
+				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
+				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem,
+				copyColumnSelectionToolStripMenuItem, new ToolStripSeparator(), tagsToolStripMenuItem, tagsControlToolStripMenuItem,
 				perseusToolStripSeparator, showAllInPerseusMenuItem, showSelectedInPerseusMenuItem, perseusPropertiesMenuItem
 			});
 			contextMenuStrip.Size = new Size(210, 142);
