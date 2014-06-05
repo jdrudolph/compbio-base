@@ -13,11 +13,11 @@ namespace BaseLib.Param{
 			Collapsible = true;
 		}
 
-		public void Init(Parameters parameters1){
-			Init(parameters1, 250F, 1050);
+		public float Init(Parameters parameters1){
+			return Init(parameters1, 250F, 1050);
 		}
 
-		public void Init(Parameters parameters1, float paramNameWidth, int totalWidth){
+		public float Init(Parameters parameters1, float paramNameWidth, int totalWidth){
 			Parameters = parameters1;
 			int nrows = Parameters.GroupCount;
 			parameterGroupPanels = new ParameterGroupPanel[nrows];
@@ -41,7 +41,8 @@ namespace BaseLib.Param{
 			Content = tableLayoutPanel;
 			Name = "ParameterPanel";
 			Width = totalWidth;
-			Height = (int) totalHeight;
+			Height = totalHeight;
+			return totalHeight;
 		}
 
 		public void SetParameters(){

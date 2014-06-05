@@ -26,7 +26,7 @@ namespace BaseLib.Param{
 			IList<string> helpSuppls){
 			InitializeComponent();
 			OkButton.Focus();
-			ParameterPanel1.Init(parameters);
+			Height = ParameterPanel1.Init(parameters) + 65;
 			HelpPanel.Children.Clear();
 			List<string> titles = new List<string>();
 			List<string> description = new List<string>();
