@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using BaseLib.Util;
 
 namespace BaseLib.Param{
 	/// <summary>
@@ -59,7 +60,7 @@ namespace BaseLib.Param{
 			for (int i = 0; i < titles.Count; i++){
 				TextBlock tb = new TextBlock{Text = titles[i]};
 				if (description[i] != null){
-					tb.ToolTip = new ToolTip{Content = description[i]};
+					tb.ToolTip = new ToolTip{Content = StringUtils.Concat("\n", StringUtils.Wrap(description[i], 75))};
 				}
 				Grid.SetColumn(tb, i + 1);
 				g.Children.Add(tb);
