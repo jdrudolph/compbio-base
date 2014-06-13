@@ -233,7 +233,7 @@ namespace BaseLib.Forms.Axis{
 					decade = 0;
 				}
 				if (decade != 0 && !IsLogarithmic){
-					label += " [10" + ToSuperscript(decade) + ']';
+					label += " [1" + ToSuperscript(decade) + ']';
 				}
 				tics = GetTics(GetLength(width, height));
 				if (tics == null){
