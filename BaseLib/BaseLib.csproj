@@ -245,8 +245,15 @@
     <Compile Include="Mol\ChemElement.cs" />
     <Compile Include="Mol\ChemElements.cs" />
     <Compile Include="Mol\ChemElementType.cs" />
+    <Compile Include="Mol\CrossLinker.cs" />
+    <Compile Include="Mol\DiagnosticPeak.cs" />
     <Compile Include="Mol\Enzyme.cs" />
+    <Compile Include="Mol\ModificationPosition.cs" />
+    <Compile Include="Mol\ModificationSiteType.cs" />
+    <Compile Include="Mol\ModificationType.cs" />
     <Compile Include="Mol\Molecule.cs" />
+    <Compile Include="Mol\NeutralLoss.cs" />
+    <Compile Include="Mol\NewTerminusType.cs" />
     <Compile Include="Mol\SequenceDatabase.cs" />
     <Compile Include="Mol\StorableItem.cs" />
     <Compile Include="Num\Api\ClassificationModel.cs" />
