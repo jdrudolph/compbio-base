@@ -248,7 +248,9 @@
     <Compile Include="Mol\CrossLinker.cs" />
     <Compile Include="Mol\DiagnosticPeak.cs" />
     <Compile Include="Mol\Enzyme.cs" />
+    <Compile Include="Mol\Modification.cs" />
     <Compile Include="Mol\ModificationPosition.cs" />
+    <Compile Include="Mol\ModificationSite.cs" />
     <Compile Include="Mol\ModificationSiteType.cs" />
     <Compile Include="Mol\ModificationType.cs" />
     <Compile Include="Mol\Molecule.cs" />
