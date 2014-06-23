@@ -245,7 +245,10 @@
     <Compile Include="Mol\ChemElement.cs" />
     <Compile Include="Mol\ChemElements.cs" />
     <Compile Include="Mol\ChemElementType.cs" />
+    <Compile Include="Mol\Enzyme.cs" />
     <Compile Include="Mol\Molecule.cs" />
+    <Compile Include="Mol\SequenceDatabase.cs" />
+    <Compile Include="Mol\StorableItem.cs" />
     <Compile Include="Num\Api\ClassificationModel.cs" />
     <Compile Include="Num\Api\IClassificationFeatureRankingMethod.cs" />
     <Compile Include="Num\Api\IClassificationMethod.cs" />
