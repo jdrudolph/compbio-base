@@ -1,7 +1,6 @@
 using System.Xml.Serialization;
-using BaseLib.Mol;
 
-namespace MsLib.Mol{
+namespace BaseLib.Mol{
 	public class ModificationSite{
 		[XmlAttribute("site")]
 		public string Site { get { return "" + Aa; } set { Aa = value[0]; } }
