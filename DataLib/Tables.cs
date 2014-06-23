@@ -5,7 +5,7 @@ using System.Linq;
 using BaseLib.Mol;
 using BaseLib.Util;
 
-namespace MsLib.Mol{
+namespace DataLib{
 	public class Tables{
 		private static readonly object lockMods = new object();
 		private static Dictionary<string, SequenceDatabase> databases;
@@ -18,6 +18,7 @@ namespace MsLib.Mol{
 		public static Dictionary<string, SequenceDatabase> Databases { get { return databases ?? (databases = ReadDatabases()); } }
 		public static Dictionary<string, Enzyme> Enzymes { get { return enzymes ?? (enzymes = ReadProteases()); } }
 		public static Dictionary<string, CrossLinker> CrossLinkers { get { return crossLinkers ?? (crossLinkers = ReadCrossLinks()); } }
+
 		public static Dictionary<string, Modification> Modifications{
 			get{
 				lock (lockMods){
@@ -29,6 +30,7 @@ namespace MsLib.Mol{
 				}
 			}
 		}
+
 		public static Dictionary<string, Modification> LabelModifications{
 			get{
 				lock (lockMods){
@@ -39,6 +41,7 @@ namespace MsLib.Mol{
 				}
 			}
 		}
+
 		public static Dictionary<string, Modification> IsobaricLabelModifications{
 			get{
 				lock (lockMods){
@@ -49,6 +52,7 @@ namespace MsLib.Mol{
 				}
 			}
 		}
+
 		public static Modification[] ModificationList{
 			get{
 				lock (lockMods){
@@ -154,9 +158,7 @@ namespace MsLib.Mol{
 			return result;
 		}
 
-		public static Enzyme ToEnzyme(string enz){
-			return enz.ToLower().Equals("unspecific") ? null : Enzymes[enz];
-		}
+		public static Enzyme ToEnzyme(string enz) { return enz.ToLower().Equals("unspecific") ? null : Enzymes[enz]; }
 
 		public static Dictionary<string, Modification> ReadModifications(out Modification[] modList,
 			out Dictionary<string, Modification> labelMods, out Dictionary<string, Modification> isobaricLabelMods){
@@ -332,13 +334,8 @@ namespace MsLib.Mol{
 			return parseRules;
 		}
 
-		public static void ClearEnzymes(){
-			enzymes = null;
-		}
-
-		public static void ClearDatabases(){
-			databases = null;
-		}
+		public static void ClearEnzymes() { enzymes = null; }
+		public static void ClearDatabases() { databases = null; }
 
 		public static Modification[] FromStrings(string[] mods){
 			Modification[] result = new Modification[mods.Length];
