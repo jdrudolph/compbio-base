@@ -11,6 +11,7 @@ namespace BaseLib.Mol{
 		public static readonly double massElectron = 5.4857990943e-4;
 		public static readonly double massC = CalcMonoMass("C");
 		public static readonly double massH = CalcMonoMass("H");
+		public static readonly double massD = CalcMonoMass("Hx");
 		public static readonly double massN = CalcMonoMass("N");
 		public static readonly double massO = CalcMonoMass("O");
 		public static readonly double massP = CalcMonoMass("P");
