@@ -1,4 +1,4 @@
-namespace MsLib.Mol{
+namespace BaseLib.Mol{
 	public enum ModificationPosition {
 		anywhere,
 		proteinNterm,

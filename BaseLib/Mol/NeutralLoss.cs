@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Xml.Serialization;
-using BaseLib.Mol;
 
-namespace MsLib.Search{
+namespace BaseLib.Mol{
 	[Serializable, XmlRoot(ElementName = "neutralloss", IsNullable = false)]
 	public class NeutralLoss{
 		private string name;

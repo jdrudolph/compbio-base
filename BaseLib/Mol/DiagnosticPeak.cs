@@ -1,7 +1,6 @@
 ﻿using System.IO;
-using BaseLib.Mol;
 
-namespace MsLib.Search{
+namespace BaseLib.Mol{
 	public class DiagnosticPeak{
 		private string name;
 		private string shortname;
