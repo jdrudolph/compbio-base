@@ -1,7 +1,6 @@
 using System;
-using BaseLib.Mol;
 
-namespace MsLib.Mol{
+namespace BaseLib.Mol{
 	[Serializable, System.Diagnostics.DebuggerStepThrough, System.ComponentModel.DesignerCategory("code"),
 	 System.Xml.Serialization.XmlType("database")]
 	public class SequenceDatabase : StorableItem{

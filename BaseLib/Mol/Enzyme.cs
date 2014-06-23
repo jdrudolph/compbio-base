@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using BaseLib.Mol;
 using BaseLib.Util;
 
-namespace MsLib.Mol{
+namespace BaseLib.Mol{
 	public class Enzyme : StorableItem{
 		private HashSet<string> specificity;
 		[XmlArray("specificity")]
