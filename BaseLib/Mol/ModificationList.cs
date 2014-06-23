@@ -1,6 +1,4 @@
-using BaseLib.Mol;
-
-namespace MsLib.Mol{
+namespace BaseLib.Mol{
 	[System.SerializableAttribute]
 	[System.Diagnostics.DebuggerStepThroughAttribute]
 	[System.ComponentModel.DesignerCategoryAttribute("code")]
