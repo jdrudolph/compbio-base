@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseLib", "BaseLib\BaseLib.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumPluginSvm", "NumPluginSvm\NumPluginSvm.csproj", "{90457924-4447-43F4-A4A6-6B54D8C09F51}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLib", "DataLib\DataLib.csproj", "{0DE7DA4B-AF25-44D1-A119-ED5D5802CA56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{90457924-4447-43F4-A4A6-6B54D8C09F51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90457924-4447-43F4-A4A6-6B54D8C09F51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90457924-4447-43F4-A4A6-6B54D8C09F51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DE7DA4B-AF25-44D1-A119-ED5D5802CA56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DE7DA4B-AF25-44D1-A119-ED5D5802CA56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DE7DA4B-AF25-44D1-A119-ED5D5802CA56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DE7DA4B-AF25-44D1-A119-ED5D5802CA56}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
