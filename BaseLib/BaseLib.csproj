@@ -374,6 +374,7 @@
     <Compile Include="Symbol\SymbolTypeTriangle.cs" />
     <Compile Include="Util\ArrayUtils.cs" />
     <Compile Include="Util\ComparableList.cs" />
+    <Compile Include="Util\GlobalConstants.cs" />
     <Compile Include="Util\DocumentType.cs" />
     <Compile Include="Util\FileUtils.cs" />
     <Compile Include="Util\GenericWorkDispatcher.cs" />
