@@ -2,10 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using BaseLib.Mol;
 using BaseLib.Util;
 
-namespace DataLib{
+namespace BaseLib.Mol{
 	public class Tables{
 		private static readonly object lockMods = new object();
 		private static Dictionary<string, SequenceDatabase> databases;

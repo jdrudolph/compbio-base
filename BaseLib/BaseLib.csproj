@@ -263,6 +263,7 @@
     <Compile Include="Mol\SequenceDatabase.cs" />
     <Compile Include="Mol\SequenceDatabaseList.cs" />
     <Compile Include="Mol\StorableItem.cs" />
+    <Compile Include="Mol\Tables.cs" />
     <Compile Include="Num\Api\ClassificationModel.cs" />
     <Compile Include="Num\Api\IClassificationFeatureRankingMethod.cs" />
     <Compile Include="Num\Api\IClassificationMethod.cs" />
