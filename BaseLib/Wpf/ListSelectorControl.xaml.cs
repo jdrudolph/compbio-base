@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using BaseLib.Forms.Select;
 using BaseLib.Util;
 
@@ -10,7 +11,7 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for ListSelectorControl.xaml
 	/// </summary>
-	public partial class ListSelectorControl : System.Windows.Controls.UserControl{
+	public partial class ListSelectorControl{
 		public event EventHandler SelectionChanged;
 		private Thread downThread;
 		private Thread upThread;
@@ -63,11 +64,11 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public System.Windows.Controls.ItemCollection Items { get { return AllListBox.Items; } }
-		public System.Windows.Controls.ItemCollection SelectedItems { get { return SelectedListBox.Items; } }
+		public ItemCollection Items { get { return AllListBox.Items; } }
+		public ItemCollection SelectedItems { get { return SelectedListBox.Items; } }
 		public string[] SelectedStrings{
 			get{
-				System.Windows.Controls.ItemCollection sel = SelectedItems;
+				ItemCollection sel = SelectedItems;
 				string[] result = new string[sel.Count];
 				for (int i = 0; i < result.Length; i++){
 					result[i] = sel[i].ToString();
@@ -77,7 +78,7 @@ namespace BaseLib.Wpf{
 		}
 		public int[] SelectedIndices{
 			get{
-				System.Windows.Controls.ItemCollection selItems = SelectedItems;
+				ItemCollection selItems = SelectedItems;
 				int[] result = new int[selItems.Count];
 				for (int i = 0; i < result.Length; i++){
 					result[i] = GetIndexOf(selItems[i]);
@@ -96,7 +97,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private int GetIndexOf(object o){
-			System.Windows.Controls.ItemCollection items = Items;
+			ItemCollection items = Items;
 			for (int i = 0; i < items.Count; i++){
 				if (items[i].Equals(o)){
 					return i;
@@ -133,7 +134,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		private static int[] GetSelectedIndices(System.Windows.Controls.ListBox box){
+		private static int[] GetSelectedIndices(ListBox box){
 			int[] result = new int[box.SelectedItems.Count];
 			for (int i = 0; i < result.Length; i++){
 				result[i] = box.Items.IndexOf(box.SelectedItems[i]);
