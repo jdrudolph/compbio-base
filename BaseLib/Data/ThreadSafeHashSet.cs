@@ -110,8 +110,9 @@ namespace BaseLib.Data{
 		}
 
 		public bool Contains(T item){
-			bool contains = hashSet.Contains(item);
-			return contains;
+			lock (locker){
+				return hashSet.Contains(item);
+			}
 		}
 
 		public void CopyTo(T[] array, int arrayIndex){

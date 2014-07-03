@@ -59,6 +59,7 @@ namespace BaseLib.Param{
 			g.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(50, GridUnitType.Star)});
 			for (int i = 0; i < titles.Count; i++){
 				TextBlock tb = new TextBlock{Text = titles[i]};
+				ToolTipService.SetShowDuration(tb, 400000);
 				if (description[i] != null){
 					tb.ToolTip = new ToolTip{Content = StringUtils.Concat("\n", StringUtils.Wrap(description[i], 75))};
 				}

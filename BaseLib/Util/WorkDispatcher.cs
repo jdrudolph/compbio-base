@@ -15,7 +15,6 @@ namespace BaseLib.Util{
 		protected Process[] externalProcesses;
 		protected Stack<int> toBeProcessed;
 		protected readonly string infoFolder;
-		protected readonly Random random = new Random();
 
 		protected WorkDispatcher(int nThreads, int nTasks, string infoFolder){
 			this.nThreads = Math.Min(nThreads, nTasks);

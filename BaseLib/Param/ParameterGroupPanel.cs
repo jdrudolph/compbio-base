@@ -50,6 +50,7 @@ namespace BaseLib.Param{
 				FontWeight = FontWeights.Regular,
 				VerticalAlignment = VerticalAlignment.Top
 			};
+			ToolTipService.SetShowDuration(txt1, 400000);
 			if (p.Help != null){
 				txt1.ToolTip = StringUtils.ReturnAtWhitespace(p.Help);
 			}

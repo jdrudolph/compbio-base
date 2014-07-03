@@ -64,6 +64,7 @@
     <Compile Include="Data\NeighbourList.cs" />
     <Compile Include="Data\ThreadSafeArray.cs" />
     <Compile Include="Data\ThreadSafeCache.cs" />
+    <Compile Include="Data\ThreadSafeDictionary.cs" />
     <Compile Include="Data\ThreadSafeHashSet.cs" />
     <Compile Include="Forms\Axis\AxisMouseMode.cs" />
     <Compile Include="Forms\Axis\AxisPositioning.cs" />

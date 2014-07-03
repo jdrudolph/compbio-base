@@ -32,7 +32,7 @@ namespace BaseLib.Forms.Scatter{
 			this.boldButton = new System.Windows.Forms.ToolStripButton();
 			this.labelTypeComboBox = new System.Windows.Forms.ToolStripComboBox();
 			this.labelEditComboBox = new System.Windows.Forms.ToolStripComboBox();
-			this.scatterPlotViewer = new ScatterPlotViewer();
+			this.scatterPlotViewer = new BaseLib.Forms.Scatter.ScatterPlotViewer();
 			this.toolStrip.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -106,13 +106,15 @@ namespace BaseLib.Forms.Scatter{
 			this.labelEditComboBox.ToolTipText = "Truncate labels";
 			this.labelEditComboBox.Click += new System.EventHandler(this.LabelEditComboBoxClick);
 			// 
-			// planeViewer
+			// scatterPlotViewer
 			// 
 			this.scatterPlotViewer.BackColor = System.Drawing.Color.White;
 			this.scatterPlotViewer.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.scatterPlotViewer.FillColor = System.Drawing.Color.White;
 			this.scatterPlotViewer.FullAxesVisible = false;
 			this.scatterPlotViewer.HasSelectButton = true;
+			this.scatterPlotViewer.Icon = null;
+			this.scatterPlotViewer.LabelFont = new System.Drawing.Font("Arial Unicode MS", 9F);
 			this.scatterPlotViewer.LineColor = System.Drawing.Color.Black;
 			this.scatterPlotViewer.LineWidth = 0.5F;
 			this.scatterPlotViewer.Location = new System.Drawing.Point(0, 25);
@@ -122,6 +124,7 @@ namespace BaseLib.Forms.Scatter{
 			this.scatterPlotViewer.MinorTickLength = 3;
 			this.scatterPlotViewer.MinorTickLineWidth = 1F;
 			this.scatterPlotViewer.Name = "scatterPlotViewer";
+			this.scatterPlotViewer.NumbersFont = new System.Drawing.Font("Arial", 8F);
 			this.scatterPlotViewer.Size = new System.Drawing.Size(554, 346);
 			this.scatterPlotViewer.TabIndex = 1;
 			this.scatterPlotViewer.XLabel = "x";
