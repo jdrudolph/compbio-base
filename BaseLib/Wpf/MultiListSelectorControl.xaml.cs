@@ -90,8 +90,6 @@ namespace BaseLib.Wpf{
 				Grid.SetColumn(subSelection[i], 0);
 				tableLayoutPanel2.Children.Add(subSelection[i]);
 			}
-			//tableLayoutPanel2.Width = 240;
-			//tableLayoutPanel2.Height = 379;
 			Grid.SetRow(tableLayoutPanel2, 0);
 			Grid.SetColumn(tableLayoutPanel2, 1);
 			tableLayoutPanel1.Children.Add(tableLayoutPanel2);

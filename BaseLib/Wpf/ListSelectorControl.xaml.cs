@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using BaseLib.Forms.Select;
 using BaseLib.Util;
 
@@ -28,22 +29,22 @@ namespace BaseLib.Wpf{
 
 		public bool Repeats { get { return repeats; } set { repeats = value; } }
 
-		private void DownButtonMouseUp(object sender, System.Windows.Input.MouseEventArgs e){
+		private void DownButtonMouseUp(object sender, MouseEventArgs e){
 			downThread.Abort();
 			downThread = null;
 		}
 
-		private void UpButtonMouseUp(object sender, System.Windows.Input.MouseEventArgs e){
+		private void UpButtonMouseUp(object sender, MouseEventArgs e){
 			upThread.Abort();
 			upThread = null;
 		}
 
-		private void DownButtonMouseDown(object sender, System.Windows.Input.MouseEventArgs e){
+		private void DownButtonMouseDown(object sender, MouseEventArgs e){
 			downThread = new Thread(WalkDown);
 			downThread.Start();
 		}
 
-		private void UpButtonMouseDown(object sender, System.Windows.Input.MouseEventArgs e){
+		private void UpButtonMouseDown(object sender, MouseEventArgs e){
 			upThread = new Thread(WalkUp);
 			upThread.Start();
 		}

@@ -10,7 +10,7 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for MultiListSelectorSubSelectionControl.xaml
 	/// </summary>
-	public partial class MultiListSelectorSubSelectionControl : UserControl{
+	public partial class MultiListSelectorSubSelectionControl{
 		private Thread downThread;
 		private Thread upThread;
 		internal MultiListSelectorControl MultiListSelectorControl { get; set; }
@@ -56,7 +56,7 @@ namespace BaseLib.Wpf{
 				SelectedListBox.Items.Add(item);
 			}
 			foreach (int i in selection){
-				SelectedListBox.SelectedIndex = i;
+				SelectedListBox.SelectedItems.Add(items[i]);
 			}
 		}
 
