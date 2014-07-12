@@ -566,7 +566,9 @@ namespace BaseLib.Forms.Scatter{
 					}
 				}
 				if (lp.LineWidth > 0){
-					g.DrawLines(linePen, ps.ToArray());
+					try{
+						g.DrawLines(linePen, ps.ToArray());
+					} catch (Exception){}
 				}
 				SymbolType symbolType = SymbolType.allSymbols[lp.SymbolType];
 				int symbolSize = lp.SymbolSize;
