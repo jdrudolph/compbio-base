@@ -430,6 +430,26 @@ namespace BaseLib.Mol{
 			}
 			return Sum(molecules, n);
 		}
+		
+		//TODO: can probably be optimized. (not necessary to produce the full counts arrays.)
+		public bool Contains(Molecule other){
+			int[] counts = ToCountArray();
+			int[] otherCounts = other.ToCountArray();
+			for (int i = 0; i < counts.Length; i++){
+				if (otherCounts[i] > counts[i]){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		private int[] ToCountArray(){
+			int[] counts = new int[ChemElements.Elements.Length];
+			for (int j = 0; j < AtomType.Length; j++){
+				counts[AtomType[j]] += AtomCount[j];
+			}
+			return counts;
+		}
 
 		public static Molecule Sum(IList<Molecule> molecules, IList<int> n){
 			int[] counts = new int[ChemElements.Elements.Length];

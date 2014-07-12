@@ -288,7 +288,7 @@ namespace BaseLib.Forms.Scatter{
 				case 2:
 					return ScatterPlotLabelMode.All;
 				default:
-					throw new Exception("Never get here.");
+					throw new IndexOutOfRangeException("Never get here.");
 			}
 		}
 

@@ -53,11 +53,16 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public object GetEntry(int row, string colname){
-			return GetEntry(row, GetColumnIndex(colname));
+			int colInd = GetColumnIndex(colname);
+			return colInd < 0 ? null : GetEntry(row, colInd);
 		}
 
 		public void SetEntry(int row, string colname, object value){
-			SetEntry(row, GetColumnIndex(colname), value);
+			int colInd = GetColumnIndex(colname);
+			if (colInd < 0){
+				return;
+			}
+			SetEntry(row, colInd, value);
 		}
 
 		public abstract int RowCount { get; }

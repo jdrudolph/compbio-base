@@ -23,7 +23,7 @@ namespace BaseLib.Wpf{
 			UpButton.MouseUp += UpButtonMouseUp;
 		}
 
-		public string Text { set { titleBlock.Text = value; } }
+		public string Text { set { TitleBlock.Text = value; } }
 		internal ItemCollection SelectedItems { get { return SelectedListBox.Items; } }
 		internal string[] SelectedStrings{
 			get{

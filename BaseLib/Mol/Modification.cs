@@ -150,7 +150,7 @@ namespace BaseLib.Mol{
 				for (int i = 0; i < modification.AaCount; i++){
 					char c = modification.GetAaAt(i);
 					if (result.ContainsKey(c)){
-						throw new Exception("Conflicting modifications.");
+						throw new ArgumentException("Conflicting modifications.");
 					}
 					result.Add(c, modification.Index);
 				}

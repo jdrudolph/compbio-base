@@ -871,7 +871,7 @@ namespace BaseLib.Forms.Table{
 				case 2:
 					return GetSelection2(colData, colInds);
 				default:
-					throw new Exception("Never get here");
+					throw new ArgumentException("Never get here");
 			}
 		}
 

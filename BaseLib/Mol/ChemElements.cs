@@ -44,8 +44,6 @@ namespace BaseLib.Mol{
 					ChemElementType.Nonmetal, "1333-74-0"),
 				new ChemElement(1, "Hx", "Deuterium", new[]{1.0078250321, 2.014101778}, new[]{0.0, 100.0}, 2.014101778,
 					ChemElementType.Nonmetal, "", true),
-				new ChemElement(1, "D", "Deuterium", new[]{1.0078250321, 2.014101778}, new[]{0.0, 100.0}, 2.014101778,
-					ChemElementType.Nonmetal, "", true),
 				new ChemElement(1, "T", "Tritium", new[]{1.0078250321, 2.014101778, 3.0160492777}, new[]{0.0, 0.0, 100.0},
 					3.0160492777, ChemElementType.Nonmetal, "", true),
 				new ChemElement(2, "He", "Helium", new[]{3.0160293191, 4.00260325415}, new[]{0.000134, 99.999866}, 4.002602,

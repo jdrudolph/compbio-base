@@ -100,7 +100,7 @@ namespace BaseLib.Forms.Select{
 					return i;
 				}
 			}
-			throw new Exception("Never get here.");
+			throw new IndexOutOfRangeException("Never get here.");
 		}
 
 		public void SetSelected(int index, bool value){

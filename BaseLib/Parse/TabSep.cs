@@ -117,7 +117,7 @@ namespace BaseLib.Parse{
 					}
 				}
 				if (colIndices[i] == -1){
-					throw new Exception("Column " + columnNames[i] + " does not exist.");
+					throw new ArgumentException("Column " + columnNames[i] + " does not exist.");
 				}
 			}
 			List<string[]> x = new List<string[]>();

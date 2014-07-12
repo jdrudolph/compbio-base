@@ -76,7 +76,7 @@ namespace BaseLib.Forms.Table{
 			if (columns == null){
 				int index = baseModel.GetColumnIndex(columnName);
 				if (index == -1){
-					throw new Exception(string.Format("Could not find column name {0} in table {1}", columnName, Name));
+					throw new ArgumentException(string.Format("Could not find column name {0} in table {1}", columnName, Name));
 				}
 				return index;
 			}
@@ -85,7 +85,7 @@ namespace BaseLib.Forms.Table{
 					return i;
 				}
 			}
-			throw new Exception(string.Format("Could not find column name {0} in table {1}", columnName, Name));
+			throw new ArgumentException(string.Format("Could not find column name {0} in table {1}", columnName, Name));
 		}
 	}
 }
