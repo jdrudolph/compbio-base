@@ -26,14 +26,13 @@ namespace BaseLib.Util{
 		/// </summary>
 		/// <param name="path">File to read from.</param>
 		/// <returns>The <code>BinaryReader</code>.</returns>
-		public static BinaryReader GetBinaryReader(string path){
-			return new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read));
-		}
+		public static BinaryReader GetBinaryReader(string path) { return new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)); }
 
 		public static StreamReader GetReader(string filename){
 			Stream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
 			Stream stream = filename.ToLower().EndsWith(".gz")
-				? new GZipStream(fileStream, CompressionMode.Decompress) : fileStream;
+				? new GZipStream(fileStream, CompressionMode.Decompress)
+				: fileStream;
 			return new StreamReader(stream);
 		}
 
@@ -42,9 +41,7 @@ namespace BaseLib.Util{
 		/// </summary>
 		/// <param name="name">Name of the resource to read from.</param>
 		/// <returns>The <code>StreamReader</code>.</returns>
-		public static StreamReader GetResourceTextReader(string name){
-			return new StreamReader(GetResourceStream(name));
-		}
+		public static StreamReader GetResourceTextReader(string name) { return new StreamReader(GetResourceStream(name)); }
 
 		/// <summary>
 		/// Creates a <code>Stream</code> reading from the given text resource within this assembly.
@@ -348,7 +345,8 @@ namespace BaseLib.Util{
 				try{
 					File.Delete(file);
 				} catch (IOException){
-					Console.WriteLine(MethodBase.GetCurrentMethod().ReflectedType.Name, "The process cannot delete the file " + file + ".");
+					Console.WriteLine(MethodBase.GetCurrentMethod().ReflectedType.Name,
+						"The process cannot delete the file " + file + ".");
 					Thread.Sleep(1000);
 				}
 			}
@@ -360,21 +358,11 @@ namespace BaseLib.Util{
 		/// </summary>
 		/// <param name="path">File to write to.</param>
 		/// <returns>The <code>BinaryWriter</code>.</returns>
-		public static BinaryWriter GetBinaryWriter(string path){
-			return new BinaryWriter(new FileStream(path, FileMode.Create, FileAccess.Write));
-		}
+		public static BinaryWriter GetBinaryWriter(string path) { return new BinaryWriter(new FileStream(path, FileMode.Create, FileAccess.Write)); }
 
-		public static string GetConfigPath(){
-			return Path.Combine(Path.GetDirectoryName(executableFile), "conf");
-		}
-
-		public static string GetContaminantFilePath(){
-			return Path.Combine(GetConfigPath(), "contaminants.fasta");
-		}
-
-		public static string GetContaminantParseRule(){
-			return ">([^ ]*)";
-		}
+		public static string GetConfigPath() { return Path.Combine(Path.GetDirectoryName(executableFile), "conf"); }
+		public static string GetContaminantFilePath() { return Path.Combine(GetConfigPath(), "contaminants.fasta"); }
+		public static string GetContaminantParseRule() { return ">([^ ]*)"; }
 
 		/// <summary>
 		/// Tests whether the directory corresponding to the given path is writable.
@@ -434,7 +422,7 @@ namespace BaseLib.Util{
 				filename = filePath;
 			}
 			if (filename.Contains(".") && !withExt){
-				filename = filename.Substring(0, filename.LastIndexOf("."));
+				filename = filename.Substring(0, filename.LastIndexOf(".", StringComparison.InvariantCulture));
 			}
 			return filename;
 		}
@@ -446,9 +434,11 @@ namespace BaseLib.Util{
 		/// <returns>The path to the filename.</returns>
 		public static string GetPath(string filePath){
 			if (filePath.Contains("/")){
-				return filePath.Substring(0, filePath.LastIndexOf("/"));
+				return filePath.Substring(0, filePath.LastIndexOf("/", StringComparison.InvariantCulture));
 			}
-			return filePath.Contains("\\") ? filePath.Substring(0, filePath.LastIndexOf("\\")) : "";
+			return filePath.Contains("\\")
+				? filePath.Substring(0, filePath.LastIndexOf("\\", StringComparison.InvariantCulture))
+				: "";
 		}
 
 		public static string GetRandomFilename(){
@@ -511,11 +501,20 @@ namespace BaseLib.Util{
 			return Convert.ToBase64String(v);
 		}
 
-		public static void CopyFolder(string sourceFolder, string destFolder, bool recursive, bool replace){
+		public static void CopyFolder(string sourceFolder, string destFolder, bool replace){
 			if (!Directory.Exists(destFolder)){
 				DirectoryInfo info = Directory.CreateDirectory(destFolder);
 				if (!info.Exists){
 					throw new Exception("Could not create folder " + destFolder);
+				}
+			} else{
+				DirectoryInfo sourceInfo = new DirectoryInfo(sourceFolder);
+				DirectoryInfo destInfo = new DirectoryInfo(destFolder);
+				if (!sourceInfo.Name.Equals(destInfo.Name)){
+					destFolder = destFolder + "\\" + sourceInfo.Name;
+				}
+				if (!Directory.Exists(destFolder)){
+					Directory.CreateDirectory(destFolder);
 				}
 			}
 			string[] files = Directory.GetFiles(sourceFolder);
@@ -526,7 +525,7 @@ namespace BaseLib.Util{
 			string[] folders = Directory.GetDirectories(sourceFolder);
 			foreach (string folder in folders){
 				string dest = Path.Combine(destFolder, Path.GetFileName(folder));
-				CopyFolder(folder, dest, recursive, replace);
+				CopyFolder(folder, dest, replace);
 			}
 		}
 
@@ -540,9 +539,7 @@ namespace BaseLib.Util{
 			info.MoveTo(destFilePath);
 		}
 
-		public static void Copy(string filePath, string destFolder){
-			Copy(filePath, destFolder, false);
-		}
+		public static void Copy(string filePath, string destFolder) { Copy(filePath, destFolder, false); }
 
 		public static void Copy(string filePath, string destFolder, bool overwrite){
 			string name = Path.GetFileName(filePath);
