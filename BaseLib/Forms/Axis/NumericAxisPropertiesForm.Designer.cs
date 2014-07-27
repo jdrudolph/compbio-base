@@ -23,7 +23,6 @@
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NumericAxisPropertiesForm));
 			this.okButton = new System.Windows.Forms.Button();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
@@ -37,7 +36,7 @@
 			// okButton
 			// 
 			this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.okButton.Location = new System.Drawing.Point(96, 108);
+			this.okButton.Location = new System.Drawing.Point(124, 108);
 			this.okButton.Name = "okButton";
 			this.okButton.Size = new System.Drawing.Size(75, 23);
 			this.okButton.TabIndex = 0;
@@ -77,26 +76,30 @@
 			// 
 			// minValueTextBox
 			// 
+			this.minValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.minValueTextBox.Location = new System.Drawing.Point(71, 39);
 			this.minValueTextBox.Name = "minValueTextBox";
-			this.minValueTextBox.Size = new System.Drawing.Size(100, 20);
+			this.minValueTextBox.Size = new System.Drawing.Size(128, 20);
 			this.minValueTextBox.TabIndex = 4;
-			this.minValueTextBox.Text = resources.GetString("minValueTextBox.Text");
 			// 
 			// maxValueTextBox
 			// 
+			this.maxValueTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.maxValueTextBox.Location = new System.Drawing.Point(71, 65);
 			this.maxValueTextBox.Name = "maxValueTextBox";
-			this.maxValueTextBox.Size = new System.Drawing.Size(100, 20);
+			this.maxValueTextBox.Size = new System.Drawing.Size(128, 20);
 			this.maxValueTextBox.TabIndex = 5;
 			// 
 			// titleTextBox
 			// 
+			this.titleTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.titleTextBox.Location = new System.Drawing.Point(71, 12);
 			this.titleTextBox.Name = "titleTextBox";
-			this.titleTextBox.Size = new System.Drawing.Size(100, 20);
+			this.titleTextBox.Size = new System.Drawing.Size(128, 20);
 			this.titleTextBox.TabIndex = 6;
-			this.titleTextBox.Text = resources.GetString("titleTextBox.Text");
 			// 
 			// label3
 			// 
@@ -113,7 +116,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cancelButton;
-			this.ClientSize = new System.Drawing.Size(183, 143);
+			this.ClientSize = new System.Drawing.Size(211, 143);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.titleTextBox);
 			this.Controls.Add(this.maxValueTextBox);

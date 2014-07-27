@@ -339,15 +339,19 @@ namespace BaseLib.Util{
 			while ((Directory.GetDirectories(path)).Length > 0){
 				Thread.Sleep(1000);
 			}
+			string[] files1 = Directory.GetFiles(path);
+			foreach (string f in files1){
+				try{
+					File.Delete(f);
+				} catch (IOException){}
+			}
 			string[] files;
 			while ((files = Directory.GetFiles(path)).Length > 0){
 				string file = files.First();
 				try{
 					File.Delete(file);
 				} catch (IOException){
-					Console.WriteLine(MethodBase.GetCurrentMethod().ReflectedType.Name,
-						"The process cannot delete the file " + file + ".");
-					Thread.Sleep(1000);
+					Thread.Sleep(100);
 				}
 			}
 			Directory.Delete(path);
