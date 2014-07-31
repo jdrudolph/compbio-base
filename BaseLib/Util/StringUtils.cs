@@ -611,7 +611,6 @@ namespace BaseLib.Util{
 		}
 
 		public static string ReturnAtWhitespace(string s) { return ReturnAtWhitespace(s, 80); }
-
 		public static string ReturnAtWhitespace(string s, int len) { return Concat("\n", SplitLinesAtWhitespace(s, len)); }
 
 		public static string[] SplitLinesAtWhitespace(string s, int len){
@@ -636,6 +635,56 @@ namespace BaseLib.Util{
 				result.Add(line.ToString());
 			}
 			return result.ToArray();
+		}
+
+		public static string[] RemoveCommonSubstrings(string[] files){
+			if (files.Length < 2){
+				return files;
+			}
+			int prefixLen = GetCommonPrefixLength(files);
+			string[] result = new string[files.Length];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = prefixLen > 0 ? files[i].Substring(prefixLen) : files[i];
+			}
+			int suffixLen = GetCommonSuffixLength(result);
+			if (suffixLen > 0){
+				for (int i = 0; i < result.Length; i++){
+					result[i] = result[i].Substring(0, result[i].Length - suffixLen);
+				}
+			}
+			return result;
+		}
+
+		private static int GetCommonSuffixLength(IList<string> files){
+			string[] x = new string[files.Count];
+			for (int i = 0; i < files.Count; i++){
+				char[] c = files[i].ToCharArray();
+				Array.Reverse(c);
+				x[i] = new string(c);
+			}
+			return GetCommonPrefixLength(x);
+		}
+
+		private static int GetCommonPrefixLength(IList<string> files){
+			string prefix = files[0];
+			for (int i = 1; i < files.Count; i++){
+				string file = files[i];
+				int index = -1;
+				for (int j = 0; j < Math.Min(prefix.Length, files[i].Length); j++){
+					if (prefix[j] != file[j]){
+						index = j;
+						break;
+					}
+				}
+				if (index >= 0){
+					prefix = prefix.Substring(0, index);
+				} else{
+					if (file.Length < prefix.Length){
+						prefix = prefix.Substring(0, file.Length);
+					}
+				}
+			}
+			return prefix.Length;
 		}
 	}
 }

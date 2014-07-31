@@ -646,6 +646,9 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public void SelectAll(){
+			if (!MultiSelect){
+				return;
+			}
 			if (modelRowSel == null){
 				return;
 			}
