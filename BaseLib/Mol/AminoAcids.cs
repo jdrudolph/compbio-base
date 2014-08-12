@@ -145,7 +145,7 @@ namespace BaseLib.Mol{
 		public static char[] GetSingleLetters(AminoAcid[] aas){
 			char[] result = new char[aas.Length];
 			for (int i = 0; i < aas.Length; i++){
-				result[i] = aas[i].letter;
+				result[i] = aas[i].Letter;
 			}
 			return result;
 		}
@@ -178,8 +178,8 @@ namespace BaseLib.Mol{
 		private static Dictionary<string, char> InitCodonToAa(){
 			Dictionary<string, char> result = new Dictionary<string, char>();
 			foreach (AminoAcid aa in aminoAcids){
-				foreach (string codon in aa.codons){
-					result.Add(codon, aa.letter);
+				foreach (string codon in aa.Codons){
+					result.Add(codon, aa.Letter);
 				}
 			}
 			result.Add("TAG", '*');
@@ -207,7 +207,7 @@ namespace BaseLib.Mol{
 		private static Dictionary<char, double> InitOccurences(){
 			Dictionary<char, double> result = new Dictionary<char, double>();
 			foreach (AminoAcid aa in aminoAcids){
-				result.Add(aa.Letter, aa.occurence);
+				result.Add(aa.Letter, aa.Occurence);
 			}
 			result.Add('X', 1);
 			return result;
@@ -225,7 +225,7 @@ namespace BaseLib.Mol{
 			StringBuilder result = new StringBuilder();
 			foreach (AminoAcid t in aminoAcids){
 				if (!onlyStandard || t.isStandard){
-					result.Append(t.letter);
+					result.Append(t.Letter);
 				}
 			}
 			return result.ToString();

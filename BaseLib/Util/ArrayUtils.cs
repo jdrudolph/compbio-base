@@ -334,6 +334,18 @@ namespace BaseLib.Util{
 			return x[ind];
 		}
 
+		public static double MostFrequentValue(IList<float> data){
+			int n = data.Count;
+			if (n <= 3){
+				return Median(data);
+			}
+			double[] x;
+			double[] y;
+			Histogram(data, out x, out y, false, false);
+			int ind = MaxInd(y);
+			return x[ind];
+		}
+
 		public static int MaxInd(IList<double> x){
 			int n = x.Count;
 			double max = double.MinValue;
@@ -592,6 +604,28 @@ namespace BaseLib.Util{
 			Histogram(data, out x, out y, normalized, cumulative, h);
 		}
 
+		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative){
+			data = Remove(data, float.NaN);
+			int n = data.Count;
+			if (n == 0){
+				x = new double[0];
+				y = new double[0];
+				return;
+			}
+			if (n == 1){
+				x = new double[]{data[0]};
+				y = new double[]{1};
+				return;
+			}
+			double sdev = StandardDeviation(data);
+			double iqr = InterQuartileRange(data);
+			double h = 1.06*Math.Min(sdev, iqr/1.34)/Math.Pow(n, 0.2);
+			if (h == 0){
+				h = 1;
+			}
+			Histogram(data, out x, out y, normalized, cumulative, h);
+		}
+
 		public static double StandardDeviation(IList<double> x) { return Math.Sqrt(Variance(x)); }
 		public static double StandardDeviation(IList<float> x) { return Math.Sqrt(Variance(x)); }
 		public static double StandardDeviation(float[,] x) { return Math.Sqrt(Variance(x)); }
@@ -709,7 +743,57 @@ namespace BaseLib.Util{
 			}
 		}
 
+		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative,
+			double h, double min, double max){
+			int n = data.Count;
+			double span = max - min;
+			int nbins = (int) Math.Max(Math.Round(span/h), 1);
+			x = new double[nbins];
+			double binsize = span/nbins;
+			for (int i = 0; i < nbins; i++){
+				x[i] = min + binsize*(i + 0.5);
+			}
+			y = new double[nbins];
+			try{
+				foreach (int index in data.Select(d => (int) Math.Floor((d - min)/binsize))){
+					if (index < 0 || index >= y.Length){
+						continue;
+					}
+					if (normalized){
+						y[index] += 1.0/binsize/n;
+					} else{
+						y[index]++;
+					}
+				}
+			} catch (Exception ex){
+				Console.WriteLine(ex);
+			}
+			if (cumulative){
+				for (int i = 1; i < y.Length; i++){
+					y[i] += y[i - 1];
+				}
+				for (int i = 0; i < y.Length; i++){
+					y[i] *= binsize;
+				}
+			}
+		}
+
 		public static void Histogram(IList<double> data, out double[] x, out double[] y, bool normalized, bool cumulative,
+			double h){
+			double min;
+			double max;
+			MinMax(data, out min, out max);
+			if (min == max){
+				Histogram(data, out x, out y, normalized, cumulative, 0.1, min - 0.05, max + 0.05);
+			}
+			double span = max - min;
+			int nbins = (int) Math.Max(Math.Round(span/h), 1);
+			min -= span/2.0/nbins;
+			max += span/2.0/nbins;
+			Histogram(data, out x, out y, normalized, cumulative, h, min, max);
+		}
+
+		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative,
 			double h){
 			double min;
 			double max;
@@ -1873,6 +1957,7 @@ namespace BaseLib.Util{
 		}
 
 		public static double InterQuartileRange(IList<double> vals) { return Quantile(vals, 0.75) - Quantile(vals, 0.25); }
+		public static double InterQuartileRange(IList<float> vals) { return Quantile(vals, 0.75f) - Quantile(vals, 0.25f); }
 		public static double FirstQuartile(IList<double> vals) { return Quantile(vals, 0.25); }
 		public static double ThirdQuartile(IList<double> vals) { return Quantile(vals, 0.75); }
 

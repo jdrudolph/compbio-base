@@ -62,7 +62,7 @@ namespace BaseLib.Param{
 			tb.Text = StringUtils.Concat("\n", Value);
 		}
 
-		protected override UIElement Control { get { return new TextBox{Text = StringUtils.Concat("\n", Value)}; } }
+		protected override UIElement Control { get { return new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true}; } }
 		public override object Clone() { return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 		public override float Height { get { return 150f; } }
 	}
