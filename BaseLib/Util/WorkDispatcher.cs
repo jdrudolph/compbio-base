@@ -101,8 +101,8 @@ namespace BaseLib.Util{
 			}
 		}
 
-		protected virtual string GetName(int taskIndex){
-			return GetMessagePrefix() + " (" + IntString(taskIndex + 1, nTasks) + "/" + nTasks + ")";
+		private string GetName(int taskIndex){
+			return GetFilename() + " (" + IntString(taskIndex + 1, nTasks) + "/" + nTasks + ")";
 		}
 
 		private static string IntString(int x, int n){
