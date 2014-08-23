@@ -782,12 +782,6 @@
   <ItemGroup>
     <None Include="Resources\arrowCorner.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BaseLibS\BaseLibS.csproj">
-      <Project>{8995abd1-d794-4438-b7a3-8a0dc287c4e0}</Project>
-      <Name>BaseLibS</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
