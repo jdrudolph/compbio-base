@@ -67,6 +67,7 @@ namespace BaseLib.Wpf{
 
 		public ItemCollection Items { get { return AllListBox.Items; } }
 		public ItemCollection SelectedItems { get { return SelectedListBox.Items; } }
+
 		public string[] SelectedStrings{
 			get{
 				ItemCollection sel = SelectedItems;
@@ -77,6 +78,7 @@ namespace BaseLib.Wpf{
 				return result;
 			}
 		}
+
 		public int[] SelectedIndices{
 			get{
 				ItemCollection selItems = SelectedItems;
@@ -186,52 +188,28 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		//protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {
-		//	switch (keyData) {
-		//		case Keys.Control | Keys.A:
-		//			System.Windows.Controls.Control c = GetChildAtPoint(System.Windows.Forms.Cursor.Position);
-		//			if (c != null) {
-		//				if (c.Equals(allListBox)) {
-		//					SelectAll(allListBox);
-		//				} else if (c.Equals(selectedListBox)) {
-		//					SelectAll(selectedListBox);
-		//				}
-		//			}
-		//			Invalidate(true);
-		//			break;
-		//	}
-		//	return base.ProcessCmdKey(ref msg, keyData);
-		//}
-		private static void SelectAll(System.Windows.Forms.ListBox p0){
-			for (int i = 0; i < p0.Items.Count; i++){
-				p0.SetSelected(i, true);
+		private static void SelectAll(ListBox p0) { p0.SelectAll(); }
+
+		public void SetDefaultSelectors(List<string> defaultSelectionNames1, List<string[]> defaultSelections1){
+			if (defaultSelectionNames1.Count > 0){
+				DefaultButtonPanel.Height = 23;
+			}
+			for (int i = 0; i < defaultSelectionNames1.Count; i++){
+				Button b = new Button{Content = defaultSelectionNames1[i], Width = 80, Height = 23};
+				DefaultButtonPanel.Children.Add(b);
+				int i1 = i;
+				b.Click += (sender, e) => SelectItems(defaultSelections1[i1]);
 			}
 		}
 
-		public void SetDefaultSelectors(List<string> defaultSelectionNames1, List<string[]> defaultSelections1){
-			//TODO
-			//if (defaultSelectionNames1.Count > 0) {
-			//	tableLayoutPanel2.RowStyles[1] = new RowStyle(SizeType.Absolute, 30F);
-			//}
-			//for (int i = 0; i < defaultSelectionNames1.Count; i++) {
-			//	System.Windows.Controls.Button b = new System.Windows.Controls.Button {
-			//		Text = defaultSelectionNames1[i], Size = new System.Drawing.Size(80, 23), Location = new System.Drawing.Point(5 + i * 83, 1),
-			//		UseVisualStyleBackColor = true
-			//	};
-			//	defaultButtonPanel.Controls.Add(b);
-			//	int i1 = i;
-			//	b.Click += (sender, e) => SelectItems(defaultSelections1[i1]);
-			//}
-		}
-
-		private void SelectItems(string[] defaultSelection){
+		private void SelectItems(IEnumerable<string> defaultSelection){
 			SelectedListBox.Items.Clear();
 			foreach (string s in defaultSelection){
 				SelectedListBox.Items.Add(s);
 			}
 		}
 
-		public void Connect(int connectionId, object target) {}
+		public void Connect(int connectionId, object target) { }
 
 		private void Select_OnClick(object sender, RoutedEventArgs e){
 			foreach (object o in AllListBox.SelectedItems){
@@ -351,6 +329,22 @@ namespace BaseLib.Wpf{
 			int[] order = ArrayUtils.Concat(unselectedIndices, selectedIndices);
 			int[] selection = ArrayUtils.ConsecutiveInts(n - selectedIndices.Length, n);
 			SetOrder(order, selection);
+		}
+
+		private void ListSelectorControl_OnLoaded(object sender, RoutedEventArgs e){
+			KeyDown += (o, e1) =>{
+				if (e1.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control){
+					var p = System.Windows.Forms.Control.MousePosition;
+					IInputElement c = InputHitTest(new Point(p.X, p.Y));
+					if (c != null){
+						if (c.Equals(AllListBox)){
+							SelectAll(AllListBox);
+						} else if (c.Equals(SelectedListBox)){
+							SelectAll(SelectedListBox);
+						}
+					}
+				}
+			};
 		}
 	}
 }

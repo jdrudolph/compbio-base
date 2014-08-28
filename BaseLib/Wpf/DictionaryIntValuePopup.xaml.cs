@@ -6,10 +6,8 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for DictionaryIntValuePopup.xaml
 	/// </summary>
-	public partial class DictionaryIntValuePopup : Window{
-		public DictionaryIntValuePopup(){
-			InitializeComponent();
-		}
+	public partial class DictionaryIntValuePopup{
+		public DictionaryIntValuePopup() { InitializeComponent(); }
 
 		internal void SetData(Dictionary<string, int> v, string[] keys, int d){
 			Parameter[] p = new Parameter[keys.Length];
@@ -28,9 +26,7 @@ namespace BaseLib.Wpf{
 			return result;
 		}
 
-		private void CancelButton_OnClick(object sender, RoutedEventArgs e){
-			Close();
-		}
+		private void CancelButton_OnClick(object sender, RoutedEventArgs e) { Close(); }
 
 		private void OkButton_OnClick(object sender, RoutedEventArgs e){
 			DialogResult = true;

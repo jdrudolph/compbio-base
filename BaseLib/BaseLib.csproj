@@ -375,8 +375,6 @@
     <Compile Include="Util\FileUtils.cs" />
     <Compile Include="Util\GenericWorkDispatcher.cs" />
     <Compile Include="Util\LockFile.cs" />
-    <Compile Include="Util\Logger.cs" />
-    <Compile Include="Util\LogLevel.cs" />
     <Compile Include="Util\StringUtils.cs" />
     <Compile Include="Util\ThreadDistributor.cs" />
     <Compile Include="Util\WorkDispatcher.cs" />
@@ -781,6 +779,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrowCorner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\monitors.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

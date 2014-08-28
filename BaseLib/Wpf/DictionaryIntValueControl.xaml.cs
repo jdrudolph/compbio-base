@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 using BaseLib.Util;
 
 namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for DictionaryIntValueControl.xaml
 	/// </summary>
-	public partial class DictionaryIntValueControl : UserControl{
+	public partial class DictionaryIntValueControl{
 		public DictionaryIntValueControl(){
 			InitializeComponent();
 		}

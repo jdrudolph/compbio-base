@@ -4,38 +4,45 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:BaseLib.Wpf"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="500">
+             d:DesignHeight="300" d:DesignWidth="500" Loaded="ListSelectorControl_OnLoaded">
     <Grid>
-       <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="25"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="25"></ColumnDefinition>
-        </Grid.ColumnDefinitions>
-        <ListBox Grid.Column="0" x:Name="AllListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True"></ListBox>
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="23"/>
-                <RowDefinition Height="23"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="&gt;" ToolTip="Select" Click="Select_OnClick"></Button>
-            <Button Grid.Row="1" Content="&lt;" ToolTip="Deselect" Click="Deselect_OnClick"></Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="25"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="25"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0" x:Name="AllListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True"></ListBox>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Content="&gt;" ToolTip="Select" Click="Select_OnClick"></Button>
+                <Button Grid.Row="1" Content="&lt;" ToolTip="Deselect" Click="Deselect_OnClick"></Button>
+            </Grid>
+            <ListBox Grid.Column="2" x:Name="SelectedListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True"></ListBox>
+            <Grid Grid.Column="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="23"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0" Content="t" ToolTip="Top" Click="TopButtonClick" x:Name="TopButton"></Button>
+                <Button Grid.Row="1" Content="u" ToolTip="Up" Click="UpButtonClick" x:Name="UpButton"></Button>
+                <Button Grid.Row="2" Content="d" ToolTip="Down" Click="DownButtonClick" x:Name="DownButton"></Button>
+                <Button Grid.Row="3" Content="b" ToolTip="Bottom" Click="BottomButtonClick" x:Name="BottomButton"></Button>
+            </Grid>
         </Grid>
-        <ListBox Grid.Column="2" x:Name="SelectedListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True"></ListBox>
-        <Grid Grid.Column="3">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="23"/>
-                <RowDefinition Height="23"/>
-                <RowDefinition Height="23"/>
-                <RowDefinition Height="23"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Button Grid.Row="0" Content="t" ToolTip="Top" Click="TopButtonClick" x:Name="TopButton"></Button>
-            <Button Grid.Row="1" Content="u" ToolTip="Up" Click="UpButtonClick" x:Name="UpButton"></Button>
-            <Button Grid.Row="2" Content="d" ToolTip="Down" Click="DownButtonClick" x:Name="DownButton"></Button>
-            <Button Grid.Row="3" Content="b" ToolTip="Bottom" Click="BottomButtonClick" x:Name="BottomButton"></Button>
-        </Grid>
-
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" x:Name="DefaultButtonPanel">
+        </StackPanel>
     </Grid>
 </UserControl>
