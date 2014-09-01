@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using BaseLib.Api;
 
 namespace BaseLib.Util{
 	/// <summary>
@@ -640,6 +641,65 @@ namespace BaseLib.Util{
 		public static bool IsNet45OrNewer(){
 			// Class "ReflectionContext" exists from .NET 4.5 onwards.
 			return Type.GetType("System.Reflection.ReflectionContext", false) != null;
+		}
+
+		public static T[] GetPlugins<T>(string[] filenames, bool onlyActive) where T : INamedListItem{
+			IEnumerable<string> pluginFiles = GetPluginFiles(filenames);
+			List<T> result = new List<T>();
+			foreach (string pluginFile in pluginFiles){
+				string n = pluginFile.Substring(pluginFile.LastIndexOf("\\", StringComparison.InvariantCulture) + 1,
+					pluginFile.IndexOf(".dll", StringComparison.InvariantCulture) -
+						pluginFile.LastIndexOf("\\", StringComparison.InvariantCulture) - 1);
+				Assembly ass = Assembly.Load(n);
+				Type[] types;
+				try{
+					types = ass.GetTypes();
+				} catch (Exception){
+					continue;
+				}
+				foreach (Type t in types){
+					try{
+						object o = Activator.CreateInstance(t);
+						if (o is T){
+							T x = (T) o;
+							if (!onlyActive ||x.IsActive){
+								result.Add(x);
+							}
+						}
+					} catch (Exception){}
+				}
+			}
+			return Sort(result.ToArray());
+		}
+
+		public static T[] GetPluginsOfType<T>(IList<INamedListItem> plugins){
+			List<T> result = new List<T>();
+			foreach (INamedListItem t in plugins){
+				if (t is T){
+					result.Add((T) t);
+				}
+			}
+			return result.ToArray();
+		}
+
+		private static IEnumerable<string> GetPluginFiles(IEnumerable<string> filenames){
+			List<string> result = new List<string>();
+			foreach (string filename in filenames){
+				string[] pluginFiles = Directory.GetFiles(executablePath, filename);
+				foreach (string pluginFile in pluginFiles){
+					result.Add(pluginFile);
+				}
+			}
+			return result;
+		}
+
+		private static T[] Sort<T>(IList<T> w) where T : INamedListItem{
+			float[] q = new float[w.Count];
+			for (int i = 0; i < w.Count; i++){
+				q[i] = w[i].DisplayRank;
+			}
+			int[] o = ArrayUtils.Order(q);
+			return ArrayUtils.SubArray(w, o);
 		}
 	}
 }

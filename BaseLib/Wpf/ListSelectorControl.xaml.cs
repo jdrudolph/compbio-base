@@ -331,20 +331,26 @@ namespace BaseLib.Wpf{
 			SetOrder(order, selection);
 		}
 
-		private void ListSelectorControl_OnLoaded(object sender, RoutedEventArgs e){
-			KeyDown += (o, e1) =>{
-				if (e1.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control){
-					var p = System.Windows.Forms.Control.MousePosition;
-					IInputElement c = InputHitTest(new Point(p.X, p.Y));
-					if (c != null){
-						if (c.Equals(AllListBox)){
-							SelectAll(AllListBox);
-						} else if (c.Equals(SelectedListBox)){
-							SelectAll(SelectedListBox);
-						}
+		protected override void OnKeyDown(KeyEventArgs e){
+			if (e.Key == Key.X && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control){
+				//var p = System.Windows.Forms.Control.MousePosition;
+				//var p = Mouse.GetPosition(Application.Current.MainWindow);
+				var p = Mouse.GetPosition(this);
+				IInputElement c = InputHitTest(new Point(p.X, p.Y));
+				if (c != null){
+					if (c.Equals(AllListBox)){
+						SelectAll(AllListBox);
+					} else if (c.Equals(SelectedListBox)){
+						SelectAll(SelectedListBox);
 					}
 				}
-			};
+			}
+			base.OnKeyDown(e);
+		}
+
+		private void ListSelectorControl_OnLoaded(object sender, RoutedEventArgs e){
+			//KeyDown += (o, e1) =>{
+			//};
 		}
 	}
 }

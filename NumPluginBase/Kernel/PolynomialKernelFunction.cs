@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Drawing;
 using BaseLib.Num.Api;
 using BaseLib.Num.Vector;
 using BaseLib.Param;
 
-namespace BaseLib.Num.Kernel{
+namespace NumPluginBase.Kernel{
 	[Serializable]
 	public class PolynomialKernelFunction : IKernelFunction{
 		public int Degree { get; set; }
@@ -38,7 +37,8 @@ namespace BaseLib.Num.Kernel{
 		public object Clone() { return new PolynomialKernelFunction(Degree, Gamma, Coef); }
 
 		private static double Powi(double base1, int times){
-			double tmp = base1, ret = 1.0;
+			double tmp = base1;
+			double ret = 1.0;
 			for (int t = times; t > 0; t /= 2){
 				if (t%2 == 1){
 					ret *= tmp;
@@ -51,6 +51,5 @@ namespace BaseLib.Num.Kernel{
 		public string Description { get { return ""; } }
 		public float DisplayRank { get { return 0; } }
 		public bool IsActive { get { return true; } }
-		public Bitmap DisplayImage { get { return null; } }
 	}
 }

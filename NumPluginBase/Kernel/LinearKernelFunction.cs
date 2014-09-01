@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Drawing;
 using BaseLib.Num.Api;
 using BaseLib.Num.Vector;
 using BaseLib.Param;
 
-namespace BaseLib.Num.Kernel{
+namespace NumPluginBase.Kernel{
     [Serializable]
     public class LinearKernelFunction : IKernelFunction{
         public bool UsesSquares{
@@ -30,6 +29,5 @@ namespace BaseLib.Num.Kernel{
         public string Description { get { return ""; } }
 		public float DisplayRank { get { return 0; } }
         public bool IsActive { get { return true; } }
-        public Bitmap DisplayImage { get { return null; } }
     }
 }

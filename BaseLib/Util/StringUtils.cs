@@ -223,6 +223,9 @@ namespace BaseLib.Util{
 		/// <param name="maxLength"></param>
 		/// <returns></returns>
 		public static string[] Wrap(string text, int maxLength){
+			if (text == null){
+				return new string[0];
+			}
 			string[] words = text.Split(' ');
 			int currentLineLength = 0;
 			ArrayList lines = new ArrayList(text.Length/maxLength);

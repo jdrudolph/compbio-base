@@ -1,6 +1,6 @@
 ﻿using System;
 using BaseLib.Num.Api;
-using BaseLib.Num.Kernel;
+using NumPluginBase.Kernel;
 
 namespace NumPluginSvm.Svm{
     [Serializable]
