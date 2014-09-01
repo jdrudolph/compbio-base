@@ -1,8 +1,9 @@
 ﻿using BaseLib.Num.Api;
 using BaseLib.Param;
+using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;
 
-namespace Utils.Num.Regression{
+namespace NumPluginSvm{
     public class SvmRegression : IRegressionMethod{
         public RegressionModel Train(float[][] x, float[] y, Parameters param, int nthreads){
             SingleChoiceWithSubParams kernelParam = param.GetSingleChoiceWithSubParams("Kernel");

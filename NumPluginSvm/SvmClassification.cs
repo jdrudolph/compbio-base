@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using BaseLib.Num.Api;
 using BaseLib.Param;
 using BaseLib.Util;
 using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;
 
-namespace Utils.Num.Classification{
+namespace NumPluginSvm{
     public class SvmClassification : IClassificationMethod{
         public ClassificationModel Train(float[][] x, int[][] y, int ngroups, Parameters param, int nthreads){
             string err = CheckInput(x, y, ngroups);
@@ -79,6 +78,5 @@ namespace Utils.Num.Classification{
         public string Description { get { return ""; } }
         public float DisplayRank { get { return 0; } }
         public bool IsActive { get { return true; } }
-        public Bitmap DisplayImage { get { return null; } }
     }
 }

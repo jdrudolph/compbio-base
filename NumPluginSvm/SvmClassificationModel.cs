@@ -3,7 +3,7 @@ using BaseLib.Num.Api;
 using BaseLib.Num.Vector;
 using NumPluginSvm.Svm;
 
-namespace Utils.Num.Classification{
+namespace NumPluginSvm{
 	[Serializable]
 	public class SvmClassificationModel : ClassificationModel{
 		private readonly SvmModel[] models;

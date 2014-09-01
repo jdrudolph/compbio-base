@@ -2,9 +2,9 @@
 using BaseLib.Param;
 using BaseLib.Util;
 
-namespace Utils.Num{
+namespace NumPluginBase.Kernel{
 	public static class KernelFunctions{
-		private static readonly string[] pluginNames = new[] { "PLUGINNUM*.DLL" };
+		private static readonly string[] pluginNames = new[] { "NUMPLUGIN*.DLL" };
 		private static readonly IKernelFunction[] allKernelFunctions = InitKernels();
 		private static IKernelFunction[] InitKernels(){
 			return FileUtils.GetPlugins<IKernelFunction>(pluginNames, true);

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using BaseLib.Num.Api;
 using BaseLib.Util;
-using Utils.Num.Classification;
+using NumPluginBase.Classification;
 
-namespace Utils.Num.Regression{
+namespace NumPluginBase.Regression{
 	[Serializable]
 	public class KnnRegressionModel : RegressionModel{
 		private readonly float[][] x;

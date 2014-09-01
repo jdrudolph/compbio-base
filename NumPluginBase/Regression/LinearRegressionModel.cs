@@ -1,4 +1,4 @@
-﻿namespace Utils.Num.Regression {
+﻿namespace NumPluginBase.Regression {
 	public class LinearRegressionModel {
 	}
 }
