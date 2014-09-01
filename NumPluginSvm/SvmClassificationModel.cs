@@ -1,5 +1,5 @@
 ﻿using System;
-using BaseLib.Num.Api;
+using BaseLib.Api;
 using BaseLib.Num.Vector;
 using NumPluginSvm.Svm;
 

@@ -1,7 +1,6 @@
-﻿using BaseLib.Api;
-using BaseLib.Param;
+﻿using BaseLib.Param;
 
-namespace BaseLib.Num.Api{
+namespace BaseLib.Api{
     public interface IClassificationMethod : INamedListItem{
         ClassificationModel Train(float[][] x, int[][] y, int ngroups, Parameters param, int nthreads);
         Parameters Parameters { get; }

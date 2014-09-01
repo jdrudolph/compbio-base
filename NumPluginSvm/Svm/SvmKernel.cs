@@ -1,4 +1,4 @@
-﻿using BaseLib.Num.Api;
+﻿using BaseLib.Api;
 using BaseLib.Num.Vector;
 
 namespace NumPluginSvm.Svm{

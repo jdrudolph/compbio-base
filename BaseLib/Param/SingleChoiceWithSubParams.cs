@@ -120,23 +120,24 @@ namespace BaseLib.Param{
 						cb.SelectedIndex = Value;
 					}
 				}
-				Grid tlp = new Grid();
-				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(paramHeight, GridUnitType.Pixel)});
-				tlp.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
+				Grid grid = new Grid();
+				grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(paramHeight, GridUnitType.Pixel)});
+				grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
 				Grid.SetRow(cb, 0);
-				tlp.Children.Add(cb);
+				grid.Children.Add(cb);
 				for (int i = 0; i < panels.Length; i++){
 					panels[i].Visibility = (i == Value) ? Visibility.Visible : Visibility.Hidden;
+					panels[i].VerticalAlignment = VerticalAlignment.Top;
 					Grid.SetRow(panels[i], 1);
-					tlp.Children.Add(panels[i]);
+					grid.Children.Add(panels[i]);
 				}
 				cb.SelectionChanged += (sender, e) =>{
 					for (int i = 0; i < panels.Length; i++){
 						panels[i].Visibility = (i == cb.SelectedIndex) ? Visibility.Visible : Visibility.Hidden;
 					}
 				};
-				tlp.Width = totalWidth;
-				return tlp;
+				grid.Width = totalWidth;
+				return grid;
 			}
 		}
 

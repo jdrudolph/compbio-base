@@ -4,7 +4,7 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using BaseLib.Util;
 
-namespace BaseLib.Num.Api{
+namespace BaseLib.Api{
 	[Serializable]
 	public abstract class ClassificationModel{
 		public abstract float[] PredictStrength(float[] x);

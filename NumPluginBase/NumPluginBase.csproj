@@ -53,10 +53,6 @@
     <Compile Include="Regression\LinearRegressionModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BaseLibS\BaseLibS.csproj">
-      <Project>{9214e8c0-3031-4114-b166-18adc4cfa93a}</Project>
-      <Name>BaseLibS</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BaseLib\BaseLib.csproj">
       <Project>{e18d8469-f79d-4e28-a6f7-6dea53300175}</Project>
       <Name>BaseLib</Name>

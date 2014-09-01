@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Num.Api{
+﻿namespace BaseLib.Api{
     public interface IGroupDataProvider{
         string[] CategoryNames { get; }
         int[][] GetGroupData(int ind, out int ngroups);

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseLib.Num.Api{
+namespace BaseLib.Api{
 	[Serializable]
 	public abstract class RegressionModel{
 		public abstract float Predict(float[] x);

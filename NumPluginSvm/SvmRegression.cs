@@ -1,4 +1,4 @@
-﻿using BaseLib.Num.Api;
+﻿using BaseLib.Api;
 using BaseLib.Param;
 using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;

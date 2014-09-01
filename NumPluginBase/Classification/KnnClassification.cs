@@ -1,4 +1,4 @@
-﻿using BaseLib.Num.Api;
+﻿using BaseLib.Api;
 using BaseLib.Param;
 
 namespace NumPluginBase.Classification{
