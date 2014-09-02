@@ -7,14 +7,8 @@ namespace NumPluginBase.Distance{
 	[Serializable]
 	public class MaximumDistance : IDistance{
 		public Parameters Parameters { set { } get { return new Parameters(); } }
-		public double Get(float[] x, float[] y)
-		{
-			return Calc(x, y);
-		}
-
-		public double Get(double[] x, double[] y){
-			return Calc(x, y);
-		}
+		public double Get(float[] x, float[] y) { return Calc(x, y); }
+		public double Get(double[] x, double[] y) { return Calc(x, y); }
 
 		public double Get(float[,] data1, float[,] data2, int index1, int index2, MatrixAccess access){
 			if (access == MatrixAccess.Rows){
@@ -112,10 +106,7 @@ namespace NumPluginBase.Distance{
 			return max == double.MinValue ? double.NaN : max;
 		}
 
-		public object Clone(){
-			return new MaximumDistance();
-		}
-
+		public object Clone() { return new MaximumDistance(); }
 		public string Name { get { return "Maximum"; } }
 		public string Description { get { return ""; } }
 		public float DisplayRank { get { return 2; } }

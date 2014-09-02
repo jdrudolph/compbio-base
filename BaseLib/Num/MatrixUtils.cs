@@ -1,6 +1,6 @@
 using System;
 
-namespace Utils.Num{
+namespace BaseLib.Num{
 	/// <summary>
 	/// A collection of primitive operation on matrices.
 	/// </summary>

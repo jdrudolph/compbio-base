@@ -1,9 +1,8 @@
 using System;
-using BaseLib.Api;
 using BaseLib.Num;
 using BaseLib.Param;
 
-namespace Utils.Num.Distance{
+namespace BaseLib.Api{
 	/// <summary>
 	/// Ancestor class of all distances. Distances are needed e.g. for hierarchical clustering
 	/// or k-nearest neoghbour classification. 
