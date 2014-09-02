@@ -3,7 +3,7 @@ using BaseLib.Api;
 using BaseLib.Num;
 using NumPluginBase.Distance;
 
-namespace Utils.Num.Classification{
+namespace NumPluginBase.Classification{
 	[Serializable]
 	public class FisherLdaClassificationModel : ClassificationModel{
 		private readonly float[,] projection;
