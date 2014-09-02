@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BaseLib.Api;
 using BaseLib.Num;
 using BaseLib.Param;
@@ -7,8 +8,8 @@ namespace NumPluginBase.Distance{
 	[Serializable]
 	public class L1Distance : IDistance{
 		public Parameters Parameters { set { } get { return new Parameters(); } }
-		public double Get(float[] x, float[] y) { return Calc(x, y); }
-		public double Get(double[] x, double[] y) { return Calc(x, y); }
+		public double Get(IList<float> x, IList<float> y) { return Calc(x, y); }
+		public double Get(IList<double> x, IList<double> y) { return Calc(x, y); }
 
 		public double Get(float[,] data1, float[,] data2, int index1, int index2, MatrixAccess access){
 			if (access == MatrixAccess.Rows){
@@ -78,8 +79,8 @@ namespace NumPluginBase.Distance{
 			}
 		}
 
-		public static double Calc(double[] x, double[] y){
-			int n = x.Length;
+		public static double Calc(IList<double> x, IList<double> y){
+			int n = x.Count;
 			int c = 0;
 			double sum = 0;
 			for (int i = 0; i < n; i++){
@@ -95,8 +96,8 @@ namespace NumPluginBase.Distance{
 			return sum/c*n;
 		}
 
-		public static double Calc(float[] x, float[] y){
-			int n = x.Length;
+		public static double Calc(IList<float> x, IList<float> y){
+			int n = x.Count;
 			int c = 0;
 			double sum = 0;
 			for (int i = 0; i < n; i++){

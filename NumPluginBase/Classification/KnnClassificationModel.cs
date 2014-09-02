@@ -10,30 +10,32 @@ namespace NumPluginBase.Classification{
 		private readonly int[][] y;
 		private readonly int ngroups;
 		private readonly int k;
+		private readonly IDistance distance;
 
-		public KnnClassificationModel(float[][] x, int[][] y, int ngroups, int k){
+		public KnnClassificationModel(float[][] x, int[][] y, int ngroups, int k, IDistance distance){
 			this.x = x;
 			this.y = y;
 			this.ngroups = ngroups;
 			this.k = k;
+			this.distance = distance;
 		}
 
 		public override float[] PredictStrength(float[] xTest){
-			int[] inds = GetNeighborInds(x, xTest, k);
+			int[] inds = GetNeighborInds(x, xTest, k, distance);
 			float[] result = new float[ngroups];
 			foreach (int ind in inds){
 				foreach (int i in y[ind]){
 					result[i]++;
 				}
 			}
-			for (int i = 0; i < ngroups; i++) {
+			for (int i = 0; i < ngroups; i++){
 				result[i] /= k;
 			}
 			return result;
 		}
 
-		public static int[] GetNeighborInds(IList<float[]> x, float[] xTest, int k){
-			double[] d = CalcDistances(x, xTest);
+		public static int[] GetNeighborInds(IList<float[]> x, float[] xTest, int k, IDistance distance){
+			double[] d = CalcDistances(x, xTest, distance);
 			int[] o = ArrayUtils.Order(d);
 			List<int> result = new List<int>();
 			for (int i = 0; i < d.Length; i++){
@@ -47,27 +49,12 @@ namespace NumPluginBase.Classification{
 			return result.ToArray();
 		}
 
-		private static double[] CalcDistances(IList<float[]> x, IList<float> xTest){
+		private static double[] CalcDistances(IList<float[]> x, IList<float> xTest, IDistance distance){
 			double[] result = new double[x.Count];
 			for (int i = 0; i < x.Count; i++){
-				result[i] = CalcDistance(x[i], xTest);
+				result[i] = distance.Get(x[i], xTest);
 			}
 			return result;
-		}
-
-		private static double CalcDistance(IList<float> x1, IList<float> x2){
-			int n = x1.Count;
-			double sum = 0;
-			int c = 0;
-			for (int i = 0; i < n; i++){
-				double d = x1[i] - x2[i];
-				if (double.IsNaN(d)){
-					continue;
-				}
-				sum += d*d;
-				c++;
-			}
-			return c == 0 ? double.NaN : Math.Sqrt(sum/c*n);
 		}
 	}
 }

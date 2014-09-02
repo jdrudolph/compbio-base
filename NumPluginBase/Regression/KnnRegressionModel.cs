@@ -10,8 +10,9 @@ namespace NumPluginBase.Regression{
 		private readonly float[][] x;
 		private readonly float[] y;
 		private readonly int k;
+		private readonly IDistance distance;
 
-		public KnnRegressionModel(IList<float[]> x, IList<float> y, int k) {
+		public KnnRegressionModel(IList<float[]> x, IList<float> y, int k, IDistance distance) {
 			List<int> v = new List<int>();
 			for (int i = 0; i < y.Count; i++){
 				if (!double.IsNaN(y[i]) && !double.IsInfinity(y[i])){
@@ -21,10 +22,11 @@ namespace NumPluginBase.Regression{
 			this.x = ArrayUtils.SubArray(x, v);
 			this.y = ArrayUtils.SubArray(y, v);
 			this.k = k;
+			this.distance = distance;
 		}
 
 		public override float Predict(float[] xTest) {
-			int[] inds = KnnClassificationModel.GetNeighborInds(x, xTest, k);
+			int[] inds = KnnClassificationModel.GetNeighborInds(x, xTest, k, distance);
 			float result = 0;
 			foreach (int ind in inds){
 				result += y[ind];
