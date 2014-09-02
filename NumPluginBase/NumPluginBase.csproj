@@ -41,6 +41,11 @@
   <ItemGroup>
     <Compile Include="Classification\KnnClassification.cs" />
     <Compile Include="Classification\KnnClassificationModel.cs" />
+    <Compile Include="Distance\EuclideanDistance.cs" />
+    <Compile Include="Distance\L1Distance.cs" />
+    <Compile Include="Distance\MaximumDistance.cs" />
+    <Compile Include="Distance\PearsonCorrelationDistance.cs" />
+    <Compile Include="Distance\SpearmanCorrelationDistance.cs" />
     <Compile Include="Kernel\KernelFunctions.cs" />
     <Compile Include="Kernel\LinearKernelFunction.cs" />
     <Compile Include="Kernel\PolynomialKernelFunction.cs" />
