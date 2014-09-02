@@ -4,13 +4,12 @@ using BaseLib.Api;
 using BaseLib.Param;
 using BaseLib.Util;
 
-namespace Utils.Num.Regression{
+namespace NumPluginBase.Regression{
 	public static class RegressionMethods{
-		private static readonly string[] pluginNames = new[]{"NUMPLUGIN*.DLL"};
 		private static readonly IRegressionMethod[] allMethods = InitRegressionMethod();
 
 		private static IRegressionMethod[] InitRegressionMethod(){
-			return FileUtils.GetPlugins<IRegressionMethod>(pluginNames, true);
+			return FileUtils.GetPlugins<IRegressionMethod>(NumPluginUtils.pluginNames, true);
 		}
 
 		public static string[] GetAllNames(){

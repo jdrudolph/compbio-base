@@ -2,10 +2,12 @@
 using System.Linq;
 using BaseLib.Api;
 using BaseLib.Param;
+using BaseLib.Util;
 
-namespace Utils.Num.Classification{
+namespace NumPluginBase.ClassificationRank{
 	public static class ClassificationFeatureRankingMethods{
-		private static readonly IClassificationFeatureRankingMethod[] allMethods = new IClassificationFeatureRankingMethod[]{};
+		private static readonly IClassificationFeatureRankingMethod[] allMethods = InitRankingMethods();
+		private static IClassificationFeatureRankingMethod[] InitRankingMethods() { return FileUtils.GetPlugins<IClassificationFeatureRankingMethod>(NumPluginUtils.pluginNames, true); }
 
 		public static string[] GetAllNames(){
 			string[] result = new string[allMethods.Length];
@@ -23,9 +25,7 @@ namespace Utils.Num.Classification{
 			return result;
 		}
 
-		public static IClassificationFeatureRankingMethod Get(int index){
-			return allMethods[index];
-		}
+		public static IClassificationFeatureRankingMethod Get(int index) { return allMethods[index]; }
 
 		public static IClassificationFeatureRankingMethod GetByName(string name){
 			foreach (IClassificationFeatureRankingMethod method in allMethods.Where(method => method.Name.Equals(name))){

@@ -1,92 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using BaseLib.Api;
 using BaseLib.Param;
 using BaseLib.Util;
 using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;
 
-namespace Utils.Num.Classification{
-    public class LinearSvmFeatureRanking : IClassificationFeatureRankingMethod{
-        public Parameters GetParameters(IGroupDataProvider data){
-            return new Parameters(new Parameter[]{new DoubleParam("C", 100)});
-        }
+namespace NumPluginSvm{
+	public class LinearSvmFeatureRanking : IClassificationFeatureRankingMethod{
+		public Parameters GetParameters(IGroupDataProvider data) { return new Parameters(new Parameter[]{new DoubleParam("C", 100)}); }
+		public string Name { get { return "SVM"; } }
+		public string Description { get { return ""; } }
+		public float DisplayRank { get { return 0; } }
+		public bool IsActive { get { return true; } }
 
-        public string Name { get { return "SVM"; } }
-        public string Description { get { return ""; } }
-        public float DisplayRank { get { return 0; } }
-        public bool IsActive { get { return true; } }
-        public Bitmap DisplayImage { get { return null; } }
+		public int[] Rank(float[][] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
+			SvmParameter sp = new SvmParameter{
+				kernelFunction = new LinearKernelFunction(),
+				svmType = SvmType.CSvc,
+				c = param.GetDoubleParam("C").Value
+			};
+			bool[] invert;
+			SvmProblem[] problems = CreateProblems(x, y, ngroups, out invert);
+			int[][] rankedSets = new int[problems.Length][];
+			for (int i = 0; i < problems.Length; ++i){
+				rankedSets[i] = RankBinary(problems[i], sp);
+			}
+			return CombineRankedFeaturesLists(rankedSets);
+		}
 
-        public int[] Rank(float[][] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
-            SvmParameter sp = new SvmParameter{
-                kernelFunction = new LinearKernelFunction(),
-                svmType = SvmType.CSvc,
-                c = param.GetDoubleParam("C").Value
-            };
-            bool[] invert;
-            SvmProblem[] problems = CreateProblems(x, y, ngroups, out invert);
-            int[][] rankedSets = new int[problems.Length][];
-            for (int i = 0; i < problems.Length; ++i){
-                rankedSets[i] = RankBinary(problems[i], sp);
-            }
-            return CombineRankedFeaturesLists(rankedSets);
-        }
+		private static int[] RankBinary(SvmProblem prob, SvmParameter param){
+			int nfeatures = prob.x[0].Length;
+			double[] criteria = ComputeRankingCriteria(SvmMain.SvmTrain(prob, param).ComputeBinaryClassifierWeights(nfeatures));
+			int[] order = ArrayUtils.Order(criteria);
+			Array.Reverse(order);
+			return order;
+		}
 
-        private static int[] RankBinary(SvmProblem prob, SvmParameter param){
-            int nfeatures = prob.x[0].Length;
-            double[] criteria =
-                ComputeRankingCriteria(SvmMain.SvmTrain(prob, param).ComputeBinaryClassifierWeights(nfeatures));
-            int[] order = ArrayUtils.Order(criteria);
-            Array.Reverse(order);
-            return order;
-        }
+		private static double[] ComputeRankingCriteria(IList<double> weights){
+			double[] rankCriteria = new double[weights.Count];
+			for (int i = 0; i < weights.Count; i++){
+				rankCriteria[i] = weights[i]*weights[i];
+			}
+			return rankCriteria;
+		}
 
-        private static double[] ComputeRankingCriteria(IList<double> weights){
-            double[] rankCriteria = new double[weights.Count];
-            for (int i = 0; i < weights.Count; i++){
-                rankCriteria[i] = weights[i]*weights[i];
-            }
-            return rankCriteria;
-        }
+		private static int[] CombineRankedFeaturesLists(IList<int[]> featuresLists){
+			List<int> ranked = new List<int>();
+			for (int j = 0; j < featuresLists[0].Length; ++j){
+				foreach (int[] t in featuresLists){
+					if (!ranked.Contains(t[j])){
+						ranked.Add(t[j]);
+					}
+				}
+			}
+			return ranked.ToArray();
+		}
 
-        private static int[] CombineRankedFeaturesLists(IList<int[]> featuresLists){
-            List<int> ranked = new List<int>();
-            for (int j = 0; j < featuresLists[0].Length; ++j){
-                foreach (int[] t in featuresLists){
-                    if (!ranked.Contains(t[j])){
-                        ranked.Add(t[j]);
-                    }
-                }
-            }
-            return ranked.ToArray();
-        }
+		private static SvmProblem[] CreateProblems(IList<float[]> x, IList<int[]> y, int ngroups, out bool[] invert){
+			if (ngroups == 2){
+				invert = new bool[1];
+				return new[]{CreateProblem(x, y, 0, out invert[0])};
+			}
+			SvmProblem[] result = new SvmProblem[ngroups];
+			invert = new bool[ngroups];
+			for (int i = 0; i < ngroups; i++){
+				result[i] = CreateProblem(x, y, i, out invert[i]);
+			}
+			return result;
+		}
 
-        private static SvmProblem[] CreateProblems(IList<float[]> x, IList<int[]> y, int ngroups, out bool[] invert){
-            if (ngroups == 2){
-                invert = new bool[1];
-                return new[]{CreateProblem(x, y, 0, out invert[0])};
-            }
-            SvmProblem[] result = new SvmProblem[ngroups];
-            invert = new bool[ngroups];
-            for (int i = 0; i < ngroups; i++){
-                result[i] = CreateProblem(x, y, i, out invert[i]);
-            }
-            return result;
-        }
-
-        private static SvmProblem CreateProblem(IList<float[]> x, IList<int[]> y, int index, out bool invert){
-            float[] y1 = new float[y.Count];
-            for (int i = 0; i < y.Count; i++){
-                if (Array.BinarySearch(y[i], index) >= 0){
-                    y1[i] = 1;
-                } else{
-                    y1[i] = 0;
-                }
-            }
-            invert = Array.BinarySearch(y[0], index) < 0;
-            return new SvmProblem(x, y1);
-        }
-    }
+		private static SvmProblem CreateProblem(IList<float[]> x, IList<int[]> y, int index, out bool invert){
+			float[] y1 = new float[y.Count];
+			for (int i = 0; i < y.Count; i++){
+				if (Array.BinarySearch(y[i], index) >= 0){
+					y1[i] = 1;
+				} else{
+					y1[i] = 0;
+				}
+			}
+			invert = Array.BinarySearch(y[0], index) < 0;
+			return new SvmProblem(x, y1);
+		}
+	}
 }

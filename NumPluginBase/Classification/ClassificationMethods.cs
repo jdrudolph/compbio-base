@@ -4,13 +4,12 @@ using BaseLib.Api;
 using BaseLib.Param;
 using BaseLib.Util;
 
-namespace Utils.Num.Classification{
+namespace NumPluginBase.Classification{
 	public static class ClassificationMethods{
-		private static readonly string[] pluginNames = new[]{"NUMPLUGIN*.DLL"};
 		private static readonly IClassificationMethod[] allMethods = InitClassificationMethod();
 
 		private static IClassificationMethod[] InitClassificationMethod(){
-			return FileUtils.GetPlugins<IClassificationMethod>(pluginNames, true);
+			return FileUtils.GetPlugins<IClassificationMethod>(NumPluginUtils.pluginNames, true);
 		}
 
 		public static string[] GetAllNames(){
