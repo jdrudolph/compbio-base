@@ -139,7 +139,7 @@ namespace NumPluginBase.Distance{
 		public object Clone() { return new PearsonCorrelationDistance(); }
 		public string Name { get { return "Pearson correlation"; } }
 		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 3; } }
+		public float DisplayRank { get { return 4; } }
 		public bool IsActive { get { return true; } }
 	}
 }

@@ -94,7 +94,7 @@ namespace NumPluginBase.Distance{
 		public object Clone() { return new SpearmanCorrelationDistance(); }
 		public string Name { get { return "Spearman correlation"; } }
 		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 4; } }
+		public float DisplayRank { get { return 5; } }
 		public bool IsActive { get { return true; } }
 	}
 }

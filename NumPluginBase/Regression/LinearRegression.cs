@@ -10,7 +10,7 @@ namespace NumPluginBase.Regression{
         public Parameters Parameters { get { return new Parameters(); } }
         public string Name { get { return "Linear regression"; } }
         public string Description { get { return ""; } }
-        public float DisplayRank { get { return 0; } }
+        public float DisplayRank { get { return 1; } }
         public bool IsActive { get { return true; } }
 	}
 }

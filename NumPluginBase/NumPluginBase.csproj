@@ -43,6 +43,8 @@
     <Compile Include="Classification\FisherLdaClassificationModel.cs" />
     <Compile Include="Classification\KnnClassification.cs" />
     <Compile Include="Classification\KnnClassificationModel.cs" />
+    <Compile Include="Distance\LpDistance.cs" />
+    <Compile Include="Distance\Distances.cs" />
     <Compile Include="Distance\EuclideanDistance.cs" />
     <Compile Include="Distance\L1Distance.cs" />
     <Compile Include="Distance\MaximumDistance.cs" />

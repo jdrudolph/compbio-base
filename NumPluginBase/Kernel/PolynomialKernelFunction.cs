@@ -49,7 +49,7 @@ namespace NumPluginBase.Kernel{
 		}
 
 		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 0; } }
+		public float DisplayRank { get { return 2; } }
 		public bool IsActive { get { return true; } }
 	}
 }
