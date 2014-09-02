@@ -4,9 +4,8 @@ using BaseLib.Util;
 
 namespace NumPluginBase.Distance{
 	public static class Distances{
-		private static readonly string[] pluginNames = new[]{"NUMPLUGIN*.DLL"};
 		private static readonly IDistance[] allDistances = InitDistances();
-		private static IDistance[] InitDistances() { return FileUtils.GetPlugins<IDistance>(pluginNames, true); }
+		private static IDistance[] InitDistances() { return FileUtils.GetPlugins<IDistance>(NumPluginUtils.pluginNames, true); }
 
 		public static string[] GetAllNames(){
 			string[] result = new string[allDistances.Length];

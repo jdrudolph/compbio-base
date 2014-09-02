@@ -39,6 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassificationRank\ClassificationFeatureRankingMethods.cs" />
+    <Compile Include="ClassificationRank\GolubFeatureRanking.cs" />
+    <Compile Include="Classification\ClassificationMethods.cs" />
     <Compile Include="Classification\FisherLdaClassification.cs" />
     <Compile Include="Classification\FisherLdaClassificationModel.cs" />
     <Compile Include="Classification\KnnClassification.cs" />
@@ -55,11 +58,16 @@
     <Compile Include="Kernel\PolynomialKernelFunction.cs" />
     <Compile Include="Kernel\RbfKernelFunction.cs" />
     <Compile Include="Kernel\SigmoidKernelFunction.cs" />
+    <Compile Include="NumPluginUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegressionRank\CorrelationFeatureRanking.cs" />
+    <Compile Include="RegressionRank\RankCorrelationFeatureRanking.cs" />
+    <Compile Include="RegressionRank\RegressionFeatureRankingMethods.cs" />
     <Compile Include="Regression\KnnRegression.cs" />
     <Compile Include="Regression\KnnRegressionModel.cs" />
     <Compile Include="Regression\LinearRegression.cs" />
     <Compile Include="Regression\LinearRegressionModel.cs" />
+    <Compile Include="Regression\RegressionMethods.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseLib\BaseLib.csproj">
