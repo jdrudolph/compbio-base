@@ -15,9 +15,7 @@ namespace BaseLib.Num{
 		/// <param name="nItems">Number of items to be distributed into the classes.</param>
 		/// <param name="nClasses">Number of classes</param>
 		/// <returns></returns>
-		public static int[][] GetPartitions(int nItems, int nClasses){
-			return GetPartitions(nItems, nClasses, null, null);
-		}
+		public static int[][] GetPartitions(int nItems, int nClasses) { return GetPartitions(nItems, nClasses, null, null); }
 
 		/// <summary>
 		/// Creates all partitions of exactly <code>nItems</code> items into <code>nClasses</code> classes. 
@@ -55,9 +53,7 @@ namespace BaseLib.Num{
 			}
 		}
 
-		public static double Multinomial(int n, int[] partition){
-			return Math.Exp(LnMultinomial(n, partition));
-		}
+		public static double Multinomial(int n, int[] partition) { return Math.Exp(LnMultinomial(n, partition)); }
 
 		public static double LnMultinomial(int a, int[] bs){
 			double result = Gammln(a + 1);
@@ -124,7 +120,7 @@ namespace BaseLib.Num{
 		private class TmpPartition{
 			public List<int> partition;
 			public int remainder;
-			private TmpPartition() {}
+			private TmpPartition() { }
 
 			internal TmpPartition(int n){
 				remainder = n;
@@ -259,9 +255,7 @@ namespace BaseLib.Num{
 			return s.Substring(0, end);
 		}
 
-		public static string ShiftOld(long l, int m){
-			return "" + l/Math.Pow(10, m);
-		}
+		public static string ShiftOld(long l, int m) { return "" + l/Math.Pow(10, m); }
 
 		public static void GetValidPairs(float[] x, float[] y, out float[] x1, out float[] y1){
 			List<float> x2 = new List<float>();
@@ -883,10 +877,10 @@ namespace BaseLib.Num{
 			return result;
 		}
 
-        /// <param name="m">Symmetrical input matrix.</param>
-        /// <param name="evec">The matrix of eigenvectors. The second index iterates through the different eigenvectors.</param>
-        /// <returns>Vector of eigenvalues in no particular order.</returns>
-        public static double[] DiagonalizeSymmMatrix(double[,] m, out double[,] evec){
+		/// <param name="m">Symmetrical input matrix.</param>
+		/// <param name="evec">The matrix of eigenvectors. The second index iterates through the different eigenvectors.</param>
+		/// <returns>Vector of eigenvalues in no particular order.</returns>
+		public static double[] DiagonalizeSymmMatrix(double[,] m, out double[,] evec){
 			double[] d;
 			double[] e;
 			evec = (double[,]) m.Clone();
@@ -1064,18 +1058,14 @@ namespace BaseLib.Num{
 		/// <summary>
 		/// Returns the error function erf(x)
 		/// </summary>
-		public static double Erff(double x){
-			return x < 0.0 ? -Gammp(0.5, x*x) : Gammp(0.5, x*x);
-		}
+		public static double Erff(double x) { return x < 0.0 ? -Gammp(0.5, x*x) : Gammp(0.5, x*x); }
 
 		/// <summary>
 		/// Returns the complementary error function erfc(x) = 1 - erf(x)
 		/// </summary>
 		/// <param name="x"></param>
 		/// <returns></returns>
-		public static double Erffc(double x){
-			return x < 0.0 ? 1.0 + Gammp(0.5, x*x) : Gammq(0.5, x*x);
-		}
+		public static double Erffc(double x) { return x < 0.0 ? 1.0 + Gammp(0.5, x*x) : Gammq(0.5, x*x); }
 
 		/// <summary>
 		/// Returns the incomplete gamma function P(a,x)
@@ -1176,10 +1166,7 @@ namespace BaseLib.Num{
 			throw new Exception("a too large, ITMAX too small in routine gser");
 		}
 
-		public static double Bico(long n, long k){
-			return Math.Round(Math.Exp(Factln(n) - Factln(k) - Factln(n - k)));
-		}
-
+		public static double Bico(long n, long k) { return Math.Round(Math.Exp(Factln(n) - Factln(k) - Factln(n - k))); }
 		private static readonly double[] aaa = new double[15001];
 
 		public static double Factln(long n){
@@ -1237,9 +1224,7 @@ namespace BaseLib.Num{
 			return false;
 		}
 
-		public static double[] MovingBoxPlot(double[] values, double[] controlValues, int nbins){
-			return MovingBoxPlot(values, controlValues, nbins, TestSide.Both);
-		}
+		public static double[] MovingBoxPlot(double[] values, double[] controlValues, int nbins) { return MovingBoxPlot(values, controlValues, nbins, TestSide.Both); }
 
 		public static double[] MovingBoxPlot(double[] values, double[] controlValues, int nbins, TestSide type){
 			double[] lowerQuart;
@@ -1343,6 +1328,55 @@ namespace BaseLib.Num{
 			} catch (Exception){
 				return 1;
 			}
+		}
+
+		public static double[,] InvertSymmMatrix(double[,] m){
+			int n = m.GetLength(0);
+			double[,] v;
+			double[] e = NumUtils.DiagonalizeSymmMatrix(m, out v);
+			for (int i = 0; i < n; i++){
+				e[i] = 1.0/e[i];
+			}
+			double[,] result = new double[n,n];
+			for (int i = 0; i < n; i++){
+				for (int j = 0; j < n; j++){
+					for (int k = 0; k < n; k++){
+						result[i, j] += v[i, k]*e[k]*v[j, k];
+					}
+				}
+			}
+			return result;
+		}
+
+		public static double[] GeneralizedEigenproblem(double[,] b, double[,] w, out double[,] x){
+			int n = b.GetLength(0);
+			double[,] winv = InvertSymmMatrix(w);
+			double[,] v;
+			double[] e = DiagonalizeSymmMatrix(b, out v);
+			double[,] sqrtB = new double[n,n];
+			for (int i = 0; i < n; i++){
+				for (int j = 0; j < n; j++){
+					for (int k = 0; k < n; k++){
+						if (e[k] > 1e-7){
+							sqrtB[i, j] += v[i, k]*Math.Sqrt(e[k])*v[j, k];
+						}
+					}
+				}
+			}
+			double[,] sqrtBinv = new double[n,n];
+			for (int i = 0; i < n; i++){
+				for (int j = 0; j < n; j++){
+					for (int k = 0; k < n; k++){
+						if (e[k] > 1e-7){
+							sqrtBinv[i, j] += v[i, k]*1.0/Math.Sqrt(e[k])*v[j, k];
+						}
+					}
+				}
+			}
+			double[,] q = MatrixUtils.MatrixTimesMatrix(MatrixUtils.MatrixTimesMatrix(sqrtB, winv), sqrtB);
+			double[] f = DiagonalizeSymmMatrix(q, out x);
+			x = MatrixUtils.MatrixTimesMatrix(sqrtBinv, x);
+			return f;
 		}
 	}
 }

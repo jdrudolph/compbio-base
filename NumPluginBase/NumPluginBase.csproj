@@ -39,6 +39,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classification\FisherLdaClassification.cs" />
+    <Compile Include="Classification\FisherLdaClassificationModel.cs" />
     <Compile Include="Classification\KnnClassification.cs" />
     <Compile Include="Classification\KnnClassificationModel.cs" />
     <Compile Include="Distance\EuclideanDistance.cs" />
