@@ -1381,7 +1381,7 @@ namespace BaseLib.Num{
 		}
 
         /// <summary>
-        /// Returns the sample ranks of the values in a array. Ties (i.e., equal values) are handled in "average" way.
+        /// Returns the sample ranks of the values in a array. Ties (i.e., equal values) are handled . in "average" way.
         /// </summary>
         /// <param name="x">Numeric List object</param>
         /// <param name="sumDuplicates">Arrays of number elements in each ties group. Important for test correction</param>
