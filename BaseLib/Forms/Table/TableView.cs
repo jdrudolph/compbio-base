@@ -1338,7 +1338,7 @@ namespace BaseLib.Forms.Table{
 						selectStart = row;
 					}
 					Invalidate(true);
-				} catch (Exception ex){}
+				} catch (Exception){}
 				if (SelectionChanged != null){
 					SelectionChanged(this, new EventArgs());
 				}

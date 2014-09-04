@@ -13,7 +13,6 @@ namespace BaseLib.Mol{
 		private char[] sitesArray;
 		private ModificationType modificationType = ModificationType.standard;
 		private NewTerminusType newTerminusType = NewTerminusType.none;
-		private bool multiModification;
 		[XmlAttribute("reporterCorrectionM2")]
 		public double ReporterCorrectionM2 { get; set; }
 		[XmlAttribute("reporterCorrectionM1")]
@@ -64,11 +63,6 @@ namespace BaseLib.Mol{
 			}
 			get { return sites; }
 		}
-		/// <summary>
-		/// Indicates whether this modification should be used in the multi-modification search.
-		/// </summary>
-		[XmlAttribute("multi_modification")]
-		public bool MultiModification { get { return multiModification; } set { multiModification = value; } }
 		/// <summary>
 		/// Determines if this is a standard modification, a label or an isobaric label
 		/// </summary>
