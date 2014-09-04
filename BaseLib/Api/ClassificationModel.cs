@@ -5,8 +5,17 @@ using System.Runtime.Serialization.Formatters.Binary;
 using BaseLib.Util;
 
 namespace BaseLib.Api{
+	/// <summary>
+	/// Class storing the information resulting from the training process of a classification algorithm.
+	/// Each classifier will have its own implementation of <code>ClassificationModel</code>.
+	/// </summary>
 	[Serializable]
 	public abstract class ClassificationModel{
+		/// <summary>
+		/// Class prediction for a single instance.
+		/// </summary>
+		/// <param name="x">Test instance</param>
+		/// <returns>Prediction strength for the different classes. The one with the biggest value is the assigned class.</returns>
 		public abstract float[] PredictStrength(float[] x);
 
 		public int PredictClass(float[] x){
