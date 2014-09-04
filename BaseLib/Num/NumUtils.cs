@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using BaseLib.Data;
 using BaseLib.Num.Test;
 using BaseLib.Util;
@@ -1378,5 +1379,36 @@ namespace BaseLib.Num{
 			x = MatrixUtils.MatrixTimesMatrix(sqrtBinv, x);
 			return f;
 		}
+
+        /// <summary>
+        /// Returns the sample ranks of the values in a array. Ties (i.e., equal values) are handled in "average" way.
+        /// </summary>
+        /// <param name="x">Numeric List object</param>
+        /// <param name="sumDuplicates">Arrays of number elements in each ties group. Important for test correction</param>
+        /// <returns>Rank array</returns>
+        private static double[] Rank(List<double> x, out List<int> sumDuplicates) {
+            sumDuplicates = new List<int>();
+            var xx = x.Select((a, b) => new KeyValuePair<double, int>(a, b)).OrderBy(a => a.Key).ToList();
+            var xSortedIndex = xx.Select(a => a.Value).ToArray();
+            var xSorted = xx.Select(a => a.Key).ToArray();
+            var n = xSorted.Length;
+            var result = new double[n];
+            int duplicates = 0, sumRank = 0, i, j;
+            for (i = 0; i < n; i++) {
+                sumRank += i;
+                duplicates++;
+                if ((i == n - 1) || (xSorted[i] != xSorted[i + 1])) {
+                    for (j = i - duplicates + 1; j < i + 1; j++)
+                        result[xSortedIndex[j]] = 1 + sumRank * 1.0 / duplicates;
+                    if (duplicates > 1) {
+                        sumDuplicates.Add(duplicates);
+                    }
+                    duplicates = 0;
+                    sumRank = 0;
+                }
+            }
+
+            return result;
+        }
 	}
 }
