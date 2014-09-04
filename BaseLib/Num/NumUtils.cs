@@ -20,7 +20,7 @@ namespace BaseLib.Num{
 		/// <summary>
 		/// Creates all partitions of exactly <code>nItems</code> items into <code>nClasses</code> classes. 
 		/// </summary>
-		/// <param name="nItems">Number of items to be distributed into the classes.</param>
+		/// <param name="nItems">Number of items to be distributed into the classes</param>
 		/// <param name="nClasses">Number of classes</param>
 		/// <param name="validPartition">Here you can add a criterion for the partition to be valid.</param>
 		/// <param name="task">If <code>task != null</code> this action will be performed on all valid partitions. 
