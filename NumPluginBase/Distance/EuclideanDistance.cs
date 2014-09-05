@@ -103,8 +103,20 @@ namespace NumPluginBase.Distance{
 			return c == 0 ? double.NaN : Math.Sqrt(sum/c*n);
 		}
 
+		//TODO
 		public static double Calc(BaseVector x, BaseVector y){
-			throw new NotImplementedException();
+			int n = x.Length;
+			double sum = 0;
+			int c = 0;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
+					continue;
+				}
+				sum += d*d;
+				c++;
+			}
+			return c == 0 ? double.NaN : Math.Sqrt(sum/c*n);
 		}
 
 		public object Clone() { return new EuclideanDistance(); }

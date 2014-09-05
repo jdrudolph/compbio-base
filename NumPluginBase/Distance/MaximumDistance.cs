@@ -11,7 +11,7 @@ namespace NumPluginBase.Distance{
 		public Parameters Parameters { set { } get { return new Parameters(); } }
 		public double Get(IList<float> x, IList<float> y) { return Calc(x, y); }
 		public double Get(IList<double> x, IList<double> y) { return Calc(x, y); }
-		public double Get(BaseVector x, BaseVector y) { throw new System.NotImplementedException(); }
+		public double Get(BaseVector x, BaseVector y) { return Calc(x, y); }
 
 		public double Get(float[,] data1, float[,] data2, int index1, int index2, MatrixAccess access){
 			if (access == MatrixAccess.Rows){
@@ -91,6 +91,23 @@ namespace NumPluginBase.Distance{
 				}
 			}
 			return max == float.MinValue ? double.NaN : max;
+		}
+
+		//TODO
+		public static double Calc(BaseVector x, BaseVector y){
+			int n = x.Length;
+			double max = double.MinValue;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d) || double.IsInfinity(d)){
+					continue;
+				}
+				double dist = Math.Abs(d);
+				if (dist > max){
+					max = dist;
+				}
+			}
+			return max == double.MinValue ? double.NaN : max;
 		}
 
 		public static double Calc(IList<double> x, IList<double> y){

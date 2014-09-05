@@ -11,7 +11,7 @@ namespace NumPluginBase.Distance{
 		public Parameters Parameters { set { } get { return new Parameters(); } }
 		public double Get(IList<float> x, IList<float> y) { return Calc(x, y); }
 		public double Get(IList<double> x, IList<double> y) { return Calc(x, y); }
-		public double Get(BaseVector x, BaseVector y) { throw new System.NotImplementedException(); }
+		public double Get(BaseVector x, BaseVector y) { return Calc(x, y); }
 		//TODO
 		public double Get(float[,] data1, float[,] data2, int index1, int index2, MatrixAccess access){
 			if (access == MatrixAccess.Rows){
@@ -56,6 +56,47 @@ namespace NumPluginBase.Distance{
 				}
 				return Get(x, y);
 			}
+		}
+
+		//TODO
+		public static double Calc(BaseVector x, BaseVector y){
+			int n = x.Length;
+			double mx = 0;
+			double my = 0;
+			int c = 0;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
+					continue;
+				}
+				mx += x[i];
+				my += y[i];
+				c++;
+			}
+			if (c < 3){
+				return double.NaN;
+			}
+			mx /= c;
+			my /= c;
+			double sx = 0;
+			double sy = 0;
+			double sxy = 0;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
+					continue;
+				}
+				double wx = x[i] - mx;
+				double wy = y[i] - my;
+				sx += wx*wx;
+				sy += wy*wy;
+				sxy += wx*wy;
+			}
+			sx /= c;
+			sy /= c;
+			sxy /= c;
+			double corr = sxy/Math.Sqrt(sx*sy);
+			return 1 - corr;
 		}
 
 		public static double Calc(IList<double> x, IList<double> y){

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BaseLib.Num;
+using BaseLib.Num.Vector;
 
 namespace BaseLib.Util{
 	public static class ArrayUtils{
@@ -881,10 +882,62 @@ namespace BaseLib.Util{
 		}
 
 		/// <summary>
+		/// For the sake of simplicity do all sorting tasks always and ever with this method.
+		/// </summary>
+		/// <typeparam name="T">The array type has to inherit IComparable in order to have a 
+		/// criterion to sort on.</typeparam>
+		/// <param name="x">The input data to be sorted.</param>
+		/// <returns>An array of indices such that if x is accessed with those indices the values are in 
+		/// ascending (or to be more precise, non-decending) order.</returns>
+		public static int[] Order(BaseVector x){
+			if (x == null){
+				return null;
+			}
+			int[] order = ConsecutiveInts(x.Length);
+			const int low = 0;
+			int high = order.Length - 1;
+			int[] dummy = new int[order.Length];
+			Array.Copy(order, dummy, order.Length);
+			SortImpl(x, order, dummy, low, high);
+			return order;
+		}
+
+		/// <summary>
 		/// Private class that implements the sorting algorithm.
 		/// </summary>
 		private static void SortImpl<T>(IList<T> data, int[] orderDest, int[] orderSrc, int low, int high)
 			where T : IComparable<T>{
+			if (low >= high){
+				return;
+			}
+			int mid = low + ((high - low) >> 1);
+			SortImpl(data, orderSrc, orderDest, low, mid);
+			SortImpl(data, orderSrc, orderDest, mid + 1, high);
+			if (data[orderSrc[mid]].CompareTo(data[orderSrc[mid + 1]]) <= 0){
+				Array.Copy(orderSrc, low, orderDest, low, high - low + 1);
+				return;
+			}
+			if (data[orderSrc[low]].CompareTo(data[orderSrc[high]]) > 0){
+				int m = (high - low)%2 == 0 ? mid : mid + 1;
+				Array.Copy(orderSrc, low, orderDest, m, mid - low + 1);
+				Array.Copy(orderSrc, mid + 1, orderDest, low, high - mid);
+				return;
+			}
+			int tLow = low;
+			int tHigh = mid + 1;
+			for (int i = low; i <= high; i++){
+				if ((tLow <= mid) && ((tHigh > high) || (data[orderSrc[tLow]]).CompareTo(data[orderSrc[tHigh]]) <= 0)){
+					orderDest[i] = orderSrc[tLow++];
+				} else{
+					orderDest[i] = orderSrc[tHigh++];
+				}
+			}
+		}
+
+		/// <summary>
+		/// Private class that implements the sorting algorithm.
+		/// </summary>
+		private static void SortImpl(BaseVector data, int[] orderDest, int[] orderSrc, int low, int high){
 			if (low >= high){
 				return;
 			}
@@ -966,6 +1019,39 @@ namespace BaseLib.Util{
 					T value = data[index[i]];
 					int j = i + 1;
 					while (j < n && data[index[j]].Equals(value)){
+						j++;
+					}
+					int m = j - i;
+					double v1 = rank[index[i]] + (m - 1)/2.0;
+					for (j = i; j < i + m; j++){
+						rank[index[j]] = v1;
+					}
+					i += m;
+				}
+			}
+			return rank;
+		}
+
+		public static double[] Rank(BaseVector data) { return Rank(data, true); }
+
+		/// <summary>
+		/// Calculates the rank of the given data. The lowest rank value is 0.
+		/// The input array type must inherit IComparable.
+		/// </summary>
+		public static double[] Rank(BaseVector data, bool tieCorrection){
+			int n = data.Length;
+			double[] rank = new double[n];
+			int[] index = Order(data);
+			for (int j = 0; j < n; j++){
+				rank[index[j]] = j;
+			}
+			/* Fix for equal ranks */
+			if (tieCorrection){
+				int i = 0;
+				while (i < n){
+					double value = data[index[i]];
+					int j = i + 1;
+					while (j < n && data[index[j]] == value){
 						j++;
 					}
 					int m = j - i;
