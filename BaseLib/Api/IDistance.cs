@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BaseLib.Num;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 
 namespace BaseLib.Api{
@@ -26,6 +27,14 @@ namespace BaseLib.Api{
 		/// <param name="y">The second vector.</param>
 		/// <returns></returns>
 		double Get(IList<double> x, IList<double> y);
+
+		/// <summary>
+		/// Calculates the distance between two vectors. The two vectors must have the same length.
+		/// </summary>
+		/// <param name="x">The first vector.</param>
+		/// <param name="y">The second vector.</param>
+		/// <returns></returns>
+		double Get(BaseVector x, BaseVector y);
 
 		/// <summary>
 		/// This method returns the distance between two row or column vectors in two matrices.

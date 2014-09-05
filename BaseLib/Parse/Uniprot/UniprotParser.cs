@@ -12,7 +12,7 @@ namespace BaseLib.Parse.Uniprot{
 	public class UniprotParser{
 		private readonly string swissprotFileName;
 		private readonly string tremblFileName;
-		private int entryCount;
+		//private int entryCount;
 		private UniprotEntry entry;
 		private StringBuilder sequence;
 		private StringBuilder keyword;
@@ -40,7 +40,7 @@ namespace BaseLib.Parse.Uniprot{
 		private string featureStatus;
 		private string featureId;
 		private bool inFeature;
-		private bool inFeatureLocation;
+		//private bool inFeatureLocation;
 		private string featureBegin;
 		private string featureEnd;
 		private bool inOrganism;
@@ -98,7 +98,7 @@ namespace BaseLib.Parse.Uniprot{
 		private void StartElement(IEquatable<string> qName, IDictionary<string, string> attrs){
 			if (inFeature){
 				if (qName.Equals("location")){
-					inFeatureLocation = true;
+					//inFeatureLocation = true;
 				} else if (qName.Equals("position")){
 					string position = attrs["position"];
 					featureBegin = position;
@@ -213,7 +213,7 @@ namespace BaseLib.Parse.Uniprot{
 				entry.UniprotNames = unames.ToArray();
 				entry.IsTrembl = isTrembl;
 				handle(entry);
-				entryCount++;
+				//entryCount++;
 			} else if (qName.Equals("dbReference")){
 				inDbRef = false;
 			} else if (qName.Equals("accession")){
@@ -221,7 +221,7 @@ namespace BaseLib.Parse.Uniprot{
 				accession = null;
 			} else if (qName.Equals("location")){
 				if (inFeature){
-					inFeatureLocation = false;
+					//inFeatureLocation = false;
 					entry.AddFeatureLocation(featureBegin, featureEnd);
 				}
 			} else if (qName.Equals("variation")){

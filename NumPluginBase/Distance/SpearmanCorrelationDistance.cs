@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BaseLib.Api;
 using BaseLib.Num;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using BaseLib.Util;
 
@@ -9,6 +10,7 @@ namespace NumPluginBase.Distance{
 		public Parameters Parameters { set { } get { return new Parameters(); } }
 		public double Get(IList<float> x, IList<float> y) { return Calc(x, y); }
 		public double Get(IList<double> x, IList<double> y) { return Calc(x, y); }
+		public double Get(BaseVector x, BaseVector y) { throw new System.NotImplementedException(); }
 		//TODO
 		public double Get(float[,] data1, float[,] data2, int index1, int index2, MatrixAccess access){
 			if (access == MatrixAccess.Rows){
