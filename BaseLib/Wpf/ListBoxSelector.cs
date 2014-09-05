@@ -16,9 +16,11 @@ namespace BaseLib.Wpf{
 		/// <summary>Identifies the IsEnabled attached property.</summary>
 		public static readonly DependencyProperty enabledProperty = DependencyProperty.RegisterAttached("Enabled",
 			typeof (bool), typeof (ListBoxSelector), new UIPropertyMetadata(false, IsEnabledChangedCallback));
+
 		// This stores the ListBoxSelector for each ListBox so we can unregister it.
 		private static readonly Dictionary<ListBox, ListBoxSelector> attachedControls =
 			new Dictionary<ListBox, ListBoxSelector>();
+
 		private readonly ListBox listBox;
 		private ScrollContentPresenter scrollContent;
 		private SelectionAdorner selectionRect;
@@ -47,9 +49,7 @@ namespace BaseLib.Wpf{
 		/// <returns>
 		/// true if items can be selected by a selection rectangle; otherwise, false.
 		/// </returns>
-		public static bool GetEnabled(DependencyObject obj){
-			return (bool) obj.GetValue(enabledProperty);
-		}
+		public static bool GetEnabled(DependencyObject obj) { return (bool) obj.GetValue(enabledProperty); }
 
 		/// <summary>
 		/// Sets the value of the IsEnabled attached property that indicates
@@ -57,9 +57,7 @@ namespace BaseLib.Wpf{
 		/// </summary>
 		/// <param name="obj">Object on which to set the property.</param>
 		/// <param name="value">Value to set.</param>
-		public static void SetEnabled(DependencyObject obj, bool value){
-			obj.SetValue(enabledProperty, value);
-		}
+		public static void SetEnabled(DependencyObject obj, bool value) { obj.SetValue(enabledProperty, value); }
 
 		private static void IsEnabledChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e){
 			ListBox listBox = d as ListBox;
@@ -102,67 +100,67 @@ namespace BaseLib.Wpf{
 		}
 
 		private bool Register(){
-			this.scrollContent = FindChild<ScrollContentPresenter>(this.listBox);
-			if (this.scrollContent != null){
-				this.autoScroller = new AutoScroller(this.listBox);
-				this.autoScroller.OffsetChanged += this.OnOffsetChanged;
-				this.selectionRect = new SelectionAdorner(this.scrollContent);
-				this.scrollContent.AdornerLayer.Add(this.selectionRect);
-				this.selector = new ItemsControlSelector(this.listBox);
+			scrollContent = FindChild<ScrollContentPresenter>(listBox);
+			if (scrollContent != null){
+				autoScroller = new AutoScroller(listBox);
+				autoScroller.OffsetChanged += OnOffsetChanged;
+				selectionRect = new SelectionAdorner(scrollContent);
+				scrollContent.AdornerLayer.Add(selectionRect);
+				selector = new ItemsControlSelector(listBox);
 				// The ListBox intercepts the regular MouseLeftButtonDown event
 				// to do its selection processing, so we need to handle the
 				// PreviewMouseLeftButtonDown. The scroll content won't receive
 				// the message if we click on a blank area so use the ListBox.
-				this.listBox.PreviewMouseLeftButtonDown += this.OnPreviewMouseLeftButtonDown;
-				this.listBox.MouseLeftButtonUp += this.OnMouseLeftButtonUp;
-				this.listBox.MouseMove += this.OnMouseMove;
+				listBox.PreviewMouseLeftButtonDown += OnPreviewMouseLeftButtonDown;
+				listBox.MouseLeftButtonUp += OnMouseLeftButtonUp;
+				listBox.MouseMove += OnMouseMove;
 			}
 			// Return success if we found the ScrollContentPresenter
-			return (this.scrollContent != null);
+			return (scrollContent != null);
 		}
 
 		private void UnRegister(){
-			this.StopSelection();
+			StopSelection();
 			// Remove all the event handlers so this instance can be reclaimed by the GC.
-			this.listBox.PreviewMouseLeftButtonDown -= this.OnPreviewMouseLeftButtonDown;
-			this.listBox.MouseLeftButtonUp -= this.OnMouseLeftButtonUp;
-			this.listBox.MouseMove -= this.OnMouseMove;
-			this.autoScroller.UnRegister();
+			listBox.PreviewMouseLeftButtonDown -= OnPreviewMouseLeftButtonDown;
+			listBox.MouseLeftButtonUp -= OnMouseLeftButtonUp;
+			listBox.MouseMove -= OnMouseMove;
+			autoScroller.UnRegister();
 		}
 
 		private void OnListBoxLoaded(object sender, EventArgs e){
-			if (this.Register()){
-				this.listBox.Loaded -= this.OnListBoxLoaded;
+			if (Register()){
+				listBox.Loaded -= OnListBoxLoaded;
 			}
 		}
 
 		private void OnOffsetChanged(object sender, OffsetChangedEventArgs e){
-			this.selector.Scroll(e.HorizontalChange, e.VerticalChange);
-			this.UpdateSelection();
+			selector.Scroll(e.HorizontalChange, e.VerticalChange);
+			UpdateSelection();
 		}
 
 		private void OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e){
-			if (this.mouseCaptured){
-				this.mouseCaptured = false;
-				this.scrollContent.ReleaseMouseCapture();
-				this.StopSelection();
+			if (mouseCaptured){
+				mouseCaptured = false;
+				scrollContent.ReleaseMouseCapture();
+				StopSelection();
 			}
 		}
 
 		private void OnMouseMove(object sender, MouseEventArgs e){
-			if (this.mouseCaptured){
+			if (mouseCaptured){
 				// Get the position relative to the content of the ScrollViewer.
-				this.end = e.GetPosition(this.scrollContent);
-				this.autoScroller.Update(this.end);
-				this.UpdateSelection();
+				end = e.GetPosition(scrollContent);
+				autoScroller.Update(end);
+				UpdateSelection();
 			}
 		}
 
 		private void OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e){
 			// Check that the mouse is inside the scroll content (could be on the
 			// scroll bars for example).
-			Point mouse = e.GetPosition(this.scrollContent);
-			if ((mouse.X >= 0) && (mouse.X < this.scrollContent.ActualWidth) && (mouse.Y >= 0) &&
+			Point mouse = e.GetPosition(scrollContent);
+			if ((mouse.X >= 0) && (mouse.X < scrollContent.ActualWidth) && (mouse.Y >= 0) &&
 				(mouse.Y < scrollContent.ActualHeight)){
 				mouseCaptured = TryCaptureMouse(e);
 				if (mouseCaptured){
@@ -174,16 +172,18 @@ namespace BaseLib.Wpf{
 		private bool TryCaptureMouse(MouseEventArgs e){
 			Point position = e.GetPosition(scrollContent);
 			// Check if there is anything under the mouse.
-			UIElement element = this.scrollContent.InputHitTest(position) as UIElement;
+			UIElement element = scrollContent.InputHitTest(position) as UIElement;
 			if (element != null){
 				// Simulate a mouse click by sending it the MouseButtonDown
 				// event based on the data we received.
-				MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left, e.StylusDevice)
-				{RoutedEvent = Mouse.MouseDownEvent, Source = e.Source};
+				MouseButtonEventArgs args = new MouseButtonEventArgs(e.MouseDevice, e.Timestamp, MouseButton.Left, e.StylusDevice){
+					RoutedEvent = Mouse.MouseDownEvent,
+					Source = e.Source
+				};
 				element.RaiseEvent(args);
 				// The ListBox will try to capture the mouse unless something
 				// else captures it.
-				if (Mouse.Captured != listBox){
+				if (!Equals(Mouse.Captured, listBox)){
 					return false; // Something else wanted the mouse, let it keep it.
 				}
 			}
@@ -266,6 +266,7 @@ namespace BaseLib.Wpf{
 
 			/// <summary>Occurs when the scroll offset has changed.</summary>
 			public event EventHandler<OffsetChangedEventArgs> OffsetChanged;
+
 			/// <summary>
 			/// Gets or sets a value indicating whether the auto-scroller is enabled
 			/// or not.
@@ -287,16 +288,12 @@ namespace BaseLib.Wpf{
 			/// </summary>
 			/// <param name="point">The point to translate.</param>
 			/// <returns>A new point offset by the current scroll amount.</returns>
-			public Point TranslatePoint(Point point){
-				return new Point(point.X - offset.X, point.Y - offset.Y);
-			}
+			public Point TranslatePoint(Point point) { return new Point(point.X - offset.X, point.Y - offset.Y); }
 
 			/// <summary>
 			/// Removes all the event handlers registered on the control.
 			/// </summary>
-			public void UnRegister(){
-				scrollViewer.ScrollChanged -= OnScrollChanged;
-			}
+			public void UnRegister() { scrollViewer.ScrollChanged -= OnScrollChanged; }
 
 			/// <summary>
 			/// Updates the location of the mouse and automatically scrolls if required.
@@ -408,18 +405,14 @@ namespace BaseLib.Wpf{
 			/// <summary>
 			/// Resets the cached information, allowing a new selection to begin.
 			/// </summary>
-			public void Reset(){
-				previousArea = new Rect();
-			}
+			public void Reset() { previousArea = new Rect(); }
 
 			/// <summary>
 			/// Scrolls the selection area by the specified amount.
 			/// </summary>
 			/// <param name="x">The horizontal scroll amount.</param>
 			/// <param name="y">The vertical scroll amount.</param>
-			public void Scroll(double x, double y){
-				previousArea.Offset(-x, -y);
-			}
+			public void Scroll(double x, double y) { previousArea.Offset(-x, -y); }
 
 			/// <summary>
 			/// Updates the controls selection based on the specified area.
@@ -467,6 +460,7 @@ namespace BaseLib.Wpf{
 
 			/// <summary>Gets the change in horizontal scroll position.</summary>
 			public double HorizontalChange { get { return horizontal; } }
+
 			/// <summary>Gets the change in vertical scroll position.</summary>
 			public double VerticalChange { get { return vertical; } }
 		}

@@ -1,10 +1,11 @@
 ﻿using BaseLib.Api;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using NumPluginBase.Distance;
 
 namespace NumPluginBase.Regression{
 	public class KnnRegression : IRegressionMethod{
-		public RegressionModel Train(float[][] x, float[] y, Parameters param, int ntheads){
+		public RegressionModel Train(BaseVector[] x, float[] y, Parameters param, int ntheads){
 			int k = param.GetIntParam("Number of neighbours").Value;
 			IDistance distance = Distances.GetDistanceFunction(param);
 			return new KnnRegressionModel(x, y, k, distance);

@@ -1,25 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using BaseLib.Util;
 
 namespace BaseLib.Num.Vector{
 	[Serializable]
 	public class DoubleArrayVector : BaseVector{
 		internal readonly double[] values;
-
-		public DoubleArrayVector(double[] values){
-			this.values = values;
-		}
-
+		public DoubleArrayVector(double[] values) { this.values = values; }
 		public override int Length { get { return values.Length; } }
 
 		public override BaseVector Copy(){
 			float[] newValues = new float[Length];
 			Array.Copy(values, newValues, Length);
 			return new FloatArrayVector(newValues);
-		}
-
-		public override BaseVector Extract(int[] indices){
-			return new DoubleArrayVector(ArrayUtils.SubArray(values, indices));
 		}
 
 		public override double this[int i] { get { return values[i]; } }
@@ -43,6 +36,8 @@ namespace BaseLib.Num.Vector{
 			}
 			return SumSquaredDiffs(this, (DoubleArrayVector) y);
 		}
+
+		public override BaseVector SubArray(IList<int> inds) { return new DoubleArrayVector(ArrayUtils.SubArray(values, inds)); }
 
 		internal static double Dot(DoubleArrayVector x, DoubleArrayVector y){
 			double sum = 0;

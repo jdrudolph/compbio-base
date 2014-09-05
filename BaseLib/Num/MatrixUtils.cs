@@ -1,4 +1,5 @@
 using System;
+using BaseLib.Num.Vector;
 
 namespace BaseLib.Num{
 	/// <summary>
@@ -132,6 +133,16 @@ namespace BaseLib.Num{
 			return result;
 		}
 
+		public static double[] VectorTimesMatrix(BaseVector a, double[,] b){
+			double[] result = new double[b.GetLength(1)];
+			for (int i = 0; i < result.Length; i++){
+				for (int k = 0; k < a.Length; k++){
+					result[i] += a[k]*b[k, i];
+				}
+			}
+			return result;
+		}
+
 		public static float[] VectorTimesMatrix(float[] a, float[,] b){
 			float[] result = new float[b.GetLength(1)];
 			for (int i = 0; i < result.Length; i++){
@@ -150,9 +161,7 @@ namespace BaseLib.Num{
 			return result;
 		}
 
-		public static bool IsSquare(double[,] matrix){
-			return matrix.GetLength(0) == matrix.GetLength(1);
-		}
+		public static bool IsSquare(double[,] matrix) { return matrix.GetLength(0) == matrix.GetLength(1); }
 
 		public static void SetColumn(double[,] matrix, double[] values, int column){
 			int n = matrix.GetLength(0);

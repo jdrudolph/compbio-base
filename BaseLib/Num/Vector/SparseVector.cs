@@ -38,17 +38,17 @@ namespace BaseLib.Num.Vector{
 			return new SparseVector(newIndices, newValues, length);
 		}
 
-		public override BaseVector Extract(int[] inds){
+		public override BaseVector SubArray(IList<int> inds){
 			List<int> newIndices = new List<int>();
 			List<float> newValues = new List<float>();
-			for (int i = 0; i < inds.Length; i++){
+			for (int i = 0; i < inds.Count; i++){
 				int x = Array.BinarySearch(indices, inds[i]);
 				if (x >= 0){
 					newIndices.Add(i);
 					newValues.Add(values[x]);
 				}
 			}
-			return new SparseVector(newIndices.ToArray(), newValues.ToArray(), inds.Length);
+			return new SparseVector(newIndices.ToArray(), newValues.ToArray(), inds.Count);
 		}
 
 		public override double this[int i]{

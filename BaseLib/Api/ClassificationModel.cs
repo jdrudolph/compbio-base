@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using BaseLib.Num.Vector;
 using BaseLib.Util;
 
 namespace BaseLib.Api{
@@ -16,14 +17,14 @@ namespace BaseLib.Api{
 		/// </summary>
 		/// <param name="x">Test instance</param>
 		/// <returns>Prediction strength for the different classes. The one with the biggest value is the assigned class.</returns>
-		public abstract float[] PredictStrength(float[] x);
+		public abstract float[] PredictStrength(BaseVector x);
 
-		public int PredictClass(float[] x){
+		public int PredictClass(BaseVector x){
 			float[] w = PredictStrength(x);
 			return ArrayUtils.MaxInd(w);
 		}
 
-		public int[] PredictClasses(float[] x){
+		public int[] PredictClasses(BaseVector x){
 			float[] w = PredictStrength(x);
 			List<int> result = new List<int>();
 			for (int i = 0; i < w.Length; i++){

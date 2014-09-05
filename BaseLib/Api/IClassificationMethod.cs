@@ -1,4 +1,5 @@
-﻿using BaseLib.Param;
+﻿using BaseLib.Num.Vector;
+using BaseLib.Param;
 
 namespace BaseLib.Api{
 	public interface IClassificationMethod : INamedListItem{
@@ -15,7 +16,7 @@ namespace BaseLib.Api{
 		/// of the classification algorithm.</param>
 		/// <param name="nthreads">Number of threads the algorithm can use in case it supports parallelization.</param>
 		/// <returns></returns>
-		ClassificationModel Train(float[][] x, int[][] y, int ngroups, Parameters param, int nthreads);
+		ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads);
 
 		/// <summary>
 		/// Gets the <code>Parameters</code> object which is to be filled with the user-defined values.

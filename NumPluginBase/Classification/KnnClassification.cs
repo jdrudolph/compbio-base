@@ -1,10 +1,11 @@
 ﻿using BaseLib.Api;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using NumPluginBase.Distance;
 
 namespace NumPluginBase.Classification{
 	public class KnnClassification : IClassificationMethod{
-		public ClassificationModel Train(float[][] x, int[][] y, int ngroups, Parameters param, int nthreads){
+		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads){
 			int k = param.GetIntParam("Number of neighbours").Value;
 			IDistance distance = Distances.GetDistanceFunction(param);
 			return new KnnClassificationModel(x, y, ngroups, k, distance);

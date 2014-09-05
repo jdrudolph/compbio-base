@@ -14,12 +14,11 @@ namespace NumPluginSvm{
 			this.invert = invert;
 		}
 
-		public override float[] PredictStrength(float[] x) {
-			FloatArrayVector x1 = new FloatArrayVector(x);
+		public override float[] PredictStrength(BaseVector x){
 			if (models.Length == 1){
 				float[] result = new float[2];
 				double[] decVal = new double[1];
-				SvmMain.SvmPredictValues(models[0], x1, decVal);
+				SvmMain.SvmPredictValues(models[0], x, decVal);
 				result[0] = invert[0] ? -(float)decVal[0] : (float)decVal[0];
 				result[1] = -result[0];
 				return result;
@@ -27,7 +26,7 @@ namespace NumPluginSvm{
 			float[] result1 = new float[models.Length];
 			for (int i = 0; i < result1.Length; i++){
 				double[] decVal = new double[1];
-				SvmMain.SvmPredictValues(models[i], x1, decVal);
+				SvmMain.SvmPredictValues(models[i], x, decVal);
 				result1[i] = invert[i] ? -(float)decVal[0] : (float)decVal[0];
 			}
 			return result1;

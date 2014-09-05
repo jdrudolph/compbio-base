@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLib.Api;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using BaseLib.Util;
 using NumPluginBase.Kernel;
@@ -8,7 +9,7 @@ using NumPluginSvm.Svm;
 
 namespace NumPluginSvm{
 	public class SvmClassification : IClassificationMethod{
-		public ClassificationModel Train(float[][] x, int[][] y, int ngroups, Parameters param, int nthreads){
+		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads){
 			string err = CheckInput(x, y, ngroups);
 			if (err != null){
 				throw new Exception(err);
@@ -28,7 +29,7 @@ namespace NumPluginSvm{
 			return new SvmClassificationModel(models, invert);
 		}
 
-		internal static string CheckInput(float[][] x, int[][] y, int ngroups){
+		internal static string CheckInput(BaseVector[] x, int[][] y, int ngroups){
 			if (ngroups < 2){
 				return "Number of groups has to be at least two.";
 			}
@@ -47,7 +48,7 @@ namespace NumPluginSvm{
 			return null;
 		}
 
-		private static SvmProblem[] CreateProblems(IList<float[]> x, IList<int[]> y, int ngroups, out bool[] invert){
+		private static SvmProblem[] CreateProblems(IList<BaseVector> x, IList<int[]> y, int ngroups, out bool[] invert){
 			if (ngroups == 2){
 				invert = new bool[1];
 				return new[]{CreateProblem(x, y, 0, out invert[0])};
@@ -60,7 +61,7 @@ namespace NumPluginSvm{
 			return result;
 		}
 
-		private static SvmProblem CreateProblem(IList<float[]> x, IList<int[]> y, int index, out bool invert){
+		private static SvmProblem CreateProblem(IList<BaseVector> x, IList<int[]> y, int index, out bool invert){
 			float[] y1 = new float[y.Count];
 			for (int i = 0; i < y.Count; i++){
 				if (Array.BinarySearch(y[i], index) >= 0){

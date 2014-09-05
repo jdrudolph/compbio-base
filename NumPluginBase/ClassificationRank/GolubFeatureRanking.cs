@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLib.Api;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using BaseLib.Util;
 
 namespace NumPluginBase.ClassificationRank{
 	public class GolubFeatureRanking : IClassificationFeatureRankingMethod{
-		public int[] Rank(float[][] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
+		public int[] Rank(BaseVector[] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
 			int nfeatures = x[0].Length;
 			int[][] yy = RearrangeGroups(y, ngroups);
 			double[][] score = new double[ngroups][];

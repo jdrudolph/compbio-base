@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLib.Api;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using BaseLib.Util;
 
 namespace NumPluginBase.RegressionRank{
 	public class CorrelationFeatureRanking : IRegressionFeatureRankingMethod{
-		public int[] Rank(float[][] x, float[] y, Parameters param, IGroupDataProvider data, int nthreads){
+		public int[] Rank(BaseVector[] x, float[] y, Parameters param, IGroupDataProvider data, int nthreads){
 			int nfeatures = x[0].Length;
 			double[] s = new double[nfeatures];
 			for (int i = 0; i < nfeatures; i++){
 				float[] xx = new float[x.Length];
 				for (int j = 0; j < xx.Length; j++){
-					xx[j] = x[j][i];
+					xx[j] = (float)x[j][i];
 				}
 				s[i] = CalcScore(xx, y);
 			}

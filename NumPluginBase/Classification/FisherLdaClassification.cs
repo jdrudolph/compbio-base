@@ -1,16 +1,18 @@
 ﻿using BaseLib.Api;
 using BaseLib.Num;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using BaseLib.Util;
 
 namespace NumPluginBase.Classification{
 	public class FisherLdaClassification : IClassificationMethod{
-		public ClassificationModel Train(float[][] x, int[][] y, int ngroups, Parameters param, int nthreads){
+		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads)
+		{
 			int n = x.Length;
 			int p = x[0].Length;
 			int[] groupCounts = new int[ngroups];
 			int totalCount = 0;
-			float[,] groupMeans = new float[ngroups,p];
+			double[,] groupMeans = new double[ngroups,p];
 			double[] totalMean = new double[p];
 			for (int i = 0; i < n; i++){
 				int groupIndex = y[i][0];
@@ -54,15 +56,15 @@ namespace NumPluginBase.Classification{
 				indices[i] = order[order.Length - 1 - i];
 			}
 			e = ArrayUtils.SubArray(e, indices);
-			float[,] projection = ExtractColumns(x1, indices);
-			float[][] projectedGroupMeans = MatrixTimesMatrix(groupMeans, projection);
+			double[,] projection = ExtractColumns(x1, indices);
+			double[][] projectedGroupMeans = MatrixTimesMatrix(groupMeans, projection);
 			return new FisherLdaClassificationModel(projection, projectedGroupMeans, ngroups);
 		}
 
-		public static float[,] ExtractColumns(double[,] x, int[] indices){
+		public static double[,] ExtractColumns(double[,] x, int[] indices){
 			int n = x.GetLength(0);
 			int ncol = indices.Length;
-			float[,] result = new float[n,ncol];
+			double[,] result = new double[n, ncol];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < ncol; j++){
 					result[i, j] = (float) x[i, indices[j]];

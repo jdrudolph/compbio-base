@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BaseLib.Util;
 
 namespace BaseLib.Num.Vector{
@@ -16,10 +17,6 @@ namespace BaseLib.Num.Vector{
 			float[] newValues = new float[Length];
 			Array.Copy(values, newValues, Length);
 			return new FloatArrayVector(newValues);
-		}
-
-		public override BaseVector Extract(int[] indices) {
-			return new FloatArrayVector(ArrayUtils.SubArray(values, indices));
 		}
 
 		public override double this[int i] { get { return values[i]; } }
@@ -43,6 +40,8 @@ namespace BaseLib.Num.Vector{
 			}
 			return SumSquaredDiffs(this, (FloatArrayVector)y);
 		}
+
+		public override BaseVector SubArray(IList<int> inds) { return new FloatArrayVector(ArrayUtils.SubArray(values, inds)); }
 
 		internal static double Dot(FloatArrayVector x, FloatArrayVector y) {
 			double sum = 0;

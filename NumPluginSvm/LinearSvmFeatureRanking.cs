@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLib.Api;
+using BaseLib.Num.Vector;
 using BaseLib.Param;
 using BaseLib.Util;
 using NumPluginBase.Kernel;
@@ -14,7 +15,7 @@ namespace NumPluginSvm{
 		public float DisplayRank { get { return 0; } }
 		public bool IsActive { get { return true; } }
 
-		public int[] Rank(float[][] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
+		public int[] Rank(BaseVector[] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = new LinearKernelFunction(),
 				svmType = SvmType.CSvc,
@@ -57,7 +58,7 @@ namespace NumPluginSvm{
 			return ranked.ToArray();
 		}
 
-		private static SvmProblem[] CreateProblems(IList<float[]> x, IList<int[]> y, int ngroups, out bool[] invert){
+		private static SvmProblem[] CreateProblems(IList<BaseVector> x, IList<int[]> y, int ngroups, out bool[] invert){
 			if (ngroups == 2){
 				invert = new bool[1];
 				return new[]{CreateProblem(x, y, 0, out invert[0])};
@@ -70,7 +71,7 @@ namespace NumPluginSvm{
 			return result;
 		}
 
-		private static SvmProblem CreateProblem(IList<float[]> x, IList<int[]> y, int index, out bool invert){
+		private static SvmProblem CreateProblem(IList<BaseVector> x, IList<int[]> y, int index, out bool invert){
 			float[] y1 = new float[y.Count];
 			for (int i = 0; i < y.Count; i++){
 				if (Array.BinarySearch(y[i], index) >= 0){
