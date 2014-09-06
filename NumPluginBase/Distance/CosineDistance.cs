@@ -1,14 +1,13 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using BaseLib.Api;
 using BaseLib.Num;
 using BaseLib.Num.Vector;
 using BaseLib.Param;
-using BaseLib.Util;
 
 namespace NumPluginBase.Distance{
 	[Serializable]
-	public class SpearmanCorrelationDistance : IDistance{
+	public class CosineDistance : IDistance{
 		public Parameters Parameters { set { } get { return new Parameters(); } }
 		public double Get(IList<float> x, IList<float> y) { return Calc(x, y); }
 		public double Get(IList<double> x, IList<double> y) { return Calc(x, y); }
@@ -59,64 +58,113 @@ namespace NumPluginBase.Distance{
 			}
 		}
 
-		public static double Calc(IList<double> x, IList<double> y){
-			int n = x.Count;
-			List<int> valids = new List<int>();
-			for (int i = 0; i < n; i++){
-				double xx = x[i];
-				double yy = y[i];
-				if (double.IsNaN(xx) || double.IsNaN(yy) || double.IsInfinity(xx) || double.IsInfinity(yy)){
-					continue;
-				}
-				valids.Add(i);
-			}
-			if (valids.Count < 3){
-				return double.NaN;
-			}
-			return PearsonCorrelationDistance.Calc(ArrayUtils.Rank(ArrayUtils.SubArray(x, valids)),
-				ArrayUtils.Rank(ArrayUtils.SubArray(y, valids)));
-		}
-
 		//TODO
 		public static double Calc(BaseVector x, BaseVector y){
 			int n = x.Length;
-			List<int> valids = new List<int>();
+			int c = 0;
 			for (int i = 0; i < n; i++){
-				double xx = x[i];
-				double yy = y[i];
-				if (double.IsNaN(xx) || double.IsNaN(yy) || double.IsInfinity(xx) || double.IsInfinity(yy)){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
 					continue;
 				}
-				valids.Add(i);
+				c++;
 			}
-			if (valids.Count < 3){
+			if (c < 3){
 				return double.NaN;
 			}
-			return PearsonCorrelationDistance.Calc(ArrayUtils.Rank(x.SubArray(valids)), ArrayUtils.Rank(y.SubArray(valids)));
+			double sx = 0;
+			double sy = 0;
+			double sxy = 0;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
+					continue;
+				}
+				double wx = x[i];
+				double wy = y[i];
+				sx += wx*wx;
+				sy += wy*wy;
+				sxy += wx*wy;
+			}
+			sx /= c;
+			sy /= c;
+			sxy /= c;
+			double corr = sxy/Math.Sqrt(sx*sy);
+			return 1 - corr;
+		}
+
+		public static double Calc(IList<double> x, IList<double> y){
+			int n = x.Count;
+			int c = 0;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
+					continue;
+				}
+				c++;
+			}
+			if (c < 3){
+				return double.NaN;
+			}
+			double sx = 0;
+			double sy = 0;
+			double sxy = 0;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
+					continue;
+				}
+				double wx = x[i];
+				double wy = y[i];
+				sx += wx*wx;
+				sy += wy*wy;
+				sxy += wx*wy;
+			}
+			sx /= c;
+			sy /= c;
+			sxy /= c;
+			double corr = sxy/Math.Sqrt(sx*sy);
+			return 1 - corr;
 		}
 
 		public static double Calc(IList<float> x, IList<float> y){
 			int n = x.Count;
-			List<int> valids = new List<int>();
+			int c = 0;
 			for (int i = 0; i < n; i++){
-				double xx = x[i];
-				double yy = y[i];
-				if (double.IsNaN(xx) || double.IsNaN(yy) || double.IsInfinity(xx) || double.IsInfinity(yy)){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
 					continue;
 				}
-				valids.Add(i);
+				c++;
 			}
-			if (valids.Count < 3){
+			if (c < 3){
 				return double.NaN;
 			}
-			return PearsonCorrelationDistance.Calc(ArrayUtils.RankF(ArrayUtils.SubArray(x, valids)),
-				ArrayUtils.RankF(ArrayUtils.SubArray(y, valids)));
+			double sx = 0;
+			double sy = 0;
+			double sxy = 0;
+			for (int i = 0; i < n; i++){
+				double d = x[i] - y[i];
+				if (double.IsNaN(d)){
+					continue;
+				}
+				double wx = x[i];
+				double wy = y[i];
+				sx += wx*wx;
+				sy += wy*wy;
+				sxy += wx*wy;
+			}
+			sx /= c;
+			sy /= c;
+			sxy /= c;
+			double corr = sxy/Math.Sqrt(sx*sy);
+			return 1 - corr;
 		}
 
-		public object Clone() { return new SpearmanCorrelationDistance(); }
-		public string Name { get { return "Spearman correlation"; } }
+		public object Clone() { return new PearsonCorrelationDistance(); }
+		public string Name { get { return "Pearson correlation"; } }
 		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 5; } }
+		public float DisplayRank { get { return 6; } }
 		public bool IsActive { get { return true; } }
 	}
 }

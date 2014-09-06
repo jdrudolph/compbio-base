@@ -157,7 +157,7 @@ namespace BaseLib.Wpf{
 				SelectedListBox.Items.Add(item);
 			}
 			foreach (int i in selection){
-				SelectedListBox.SelectedIndex = i;
+				SelectedListBox.SelectedItems.Add(items[i]);
 			}
 		}
 
