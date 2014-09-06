@@ -133,8 +133,8 @@ namespace NumPluginBase.Distance{
 			return sum/c*n;
 		}
 
-		public object Clone() { return new L1Distance(); }
-		public string Name { get { return "L1"; } }
+		public object Clone() { return new CanberraDistance(); }
+		public string Name { get { return "Canberra"; } }
 		public string Description { get { return ""; } }
 		public float DisplayRank { get { return 7; } }
 		public bool IsActive { get { return true; } }

@@ -161,8 +161,8 @@ namespace NumPluginBase.Distance{
 			return 1 - corr;
 		}
 
-		public object Clone() { return new PearsonCorrelationDistance(); }
-		public string Name { get { return "Pearson correlation"; } }
+		public object Clone() { return new CosineDistance(); }
+		public string Name { get { return "Cosine"; } }
 		public string Description { get { return ""; } }
 		public float DisplayRank { get { return 6; } }
 		public bool IsActive { get { return true; } }
