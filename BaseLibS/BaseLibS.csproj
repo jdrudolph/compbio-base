@@ -73,8 +73,12 @@
     <Compile Include="Util\ComparableList.cs" />
     <Compile Include="Util\DocumentType.cs" />
     <Compile Include="Util\FileUtils.cs" />
+    <Compile Include="Util\GlobalConstants.cs" />
     <Compile Include="Util\LockFile.cs" />
     <Compile Include="Util\StringUtils.cs" />
+    <Compile Include="Util\ThreadDistributor.cs" />
+    <Compile Include="Util\WorkDispatcher.cs" />
+    <Compile Include="Util\XmlSerialization.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

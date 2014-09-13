@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Util{
+﻿namespace BaseLibS.Util{
 	public static class GlobalConstants{
 		/// <summary>
 		/// Prefix used for reverse protein sequences.

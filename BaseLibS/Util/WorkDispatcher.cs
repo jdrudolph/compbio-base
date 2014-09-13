@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace BaseLib.Util{
+namespace BaseLibS.Util{
 	public abstract class WorkDispatcher{
 		protected HashSet<int> currentIndices = new HashSet<int>();
 		protected readonly int nThreads;

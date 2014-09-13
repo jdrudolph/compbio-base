@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace BaseLib.Util{
+namespace BaseLibS.Util{
 	public class ThreadDistributor{
 		protected readonly int nThreads;
 		protected readonly int nTasks;

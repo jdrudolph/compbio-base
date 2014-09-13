@@ -329,13 +329,9 @@
     <Compile Include="Symbol\SymbolTypeSquare.cs" />
     <Compile Include="Symbol\SymbolTypeStar.cs" />
     <Compile Include="Symbol\SymbolTypeTriangle.cs" />
-    <Compile Include="Util\GlobalConstants.cs" />
-    <Compile Include="Util\FileUtils2.cs" />
     <Compile Include="Util\GenericWorkDispatcher.cs" />
+    <Compile Include="Util\FileUtils2.cs" />
     <Compile Include="Util\StringUtils2.cs" />
-    <Compile Include="Util\ThreadDistributor.cs" />
-    <Compile Include="Util\WorkDispatcher.cs" />
-    <Compile Include="Util\XmlSerialization.cs" />
     <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
       <DependentUpon>CheckedListBoxControl.xaml</DependentUpon>
     </Compile>

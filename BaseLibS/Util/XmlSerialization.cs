@@ -4,7 +4,7 @@ using System.Text;
 using System.Xml;
 using System.Xml.Serialization;
 
-namespace BaseLib.Util{
+namespace BaseLibS.Util{
 	public static class XmlSerialization{
 		/// <summary>
 		/// Method to convert a custom Object to XML string
