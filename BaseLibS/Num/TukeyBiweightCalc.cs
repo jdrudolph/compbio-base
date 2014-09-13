@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace BaseLib.Num{
+namespace BaseLibS.Num{
 	public static class TukeyBiweightCalc{
 		private const double c = 5.0;
 		private const double epsilon = 0.0001;
 
-		internal static double TukeyBiweight(IList<double> x) {
+		public static double TukeyBiweight(IList<double> x) {
 			int length = x.Count;
 			double median;
 			double[] buffer = new double[length];
@@ -41,7 +41,7 @@ namespace BaseLib.Num{
 			return (sum/sumw);
 		}
 
-		internal static double TukeyBiweightSe(IList<double> x, double bw) {
+		public static double TukeyBiweightSe(IList<double> x, double bw) {
 			int length = x.Count;
 			double median;
 			double[] buffer = new double[length];

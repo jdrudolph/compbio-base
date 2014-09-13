@@ -285,7 +285,6 @@
     <Compile Include="Num\Test\SpearmanCorrelationTest.cs" />
     <Compile Include="Num\Test\TestSide.cs" />
     <Compile Include="Num\Test\TestTruncation.cs" />
-    <Compile Include="Num\TukeyBiweightCalc.cs" />
     <Compile Include="Num\Vector\BaseVector.cs" />
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
@@ -782,7 +781,12 @@
   <ItemGroup>
     <None Include="Resources\monitors.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BaseLibS\BaseLibS.csproj">
+      <Project>{1744226e-9eec-4e1c-a231-96743695240f}</Project>
+      <Name>BaseLibS</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

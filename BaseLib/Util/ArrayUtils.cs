@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BaseLib.Num;
 using BaseLib.Num.Vector;
+using BaseLibS.Num;
 
 namespace BaseLib.Util{
 	public static class ArrayUtils{
@@ -884,8 +884,6 @@ namespace BaseLib.Util{
 		/// <summary>
 		/// For the sake of simplicity do all sorting tasks always and ever with this method.
 		/// </summary>
-		/// <typeparam name="T">The array type has to inherit IComparable in order to have a 
-		/// criterion to sort on.</typeparam>
 		/// <param name="x">The input data to be sorted.</param>
 		/// <returns>An array of indices such that if x is accessed with those indices the values are in 
 		/// ascending (or to be more precise, non-decending) order.</returns>
