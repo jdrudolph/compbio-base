@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Select{
 	public partial class MultiListSelector : UserControl{

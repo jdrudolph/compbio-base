@@ -2,9 +2,9 @@
 using System.Drawing;
 using System.Globalization;
 using System.Text;
-using BaseLib.Num;
 using BaseLib.Properties;
-using BaseLib.Util;
+using BaseLibS.Num;
+using BaseLibS.Util;
 
 namespace BaseLib.Mol{
 	public static class AminoAcids{

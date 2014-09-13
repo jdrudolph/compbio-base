@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BaseLib.Num.Vector;
+using BaseLibS.Num.Vector;
 
 namespace NumPluginSvm.Svm{
 	public class SvmProblem{

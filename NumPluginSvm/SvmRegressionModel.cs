@@ -1,6 +1,6 @@
 ﻿using System;
 using BaseLib.Api;
-using BaseLib.Num.Vector;
+using BaseLibS.Num.Vector;
 using NumPluginSvm.Svm;
 
 namespace NumPluginSvm{

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
-using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Mol{
 	public class Enzyme : StorableItem{

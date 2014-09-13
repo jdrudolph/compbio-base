@@ -1,5 +1,5 @@
 ﻿using System;
-using BaseLib.Num.Vector;
+using BaseLibS.Num.Vector;
 
 namespace BaseLib.Api{
 	[Serializable]

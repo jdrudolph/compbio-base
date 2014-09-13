@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using BaseLib.Num;
-using BaseLib.Util;
+using BaseLibS.Num;
+using BaseLibS.Util;
 
 namespace BaseLib.Mol{
 	public class ChemElement{

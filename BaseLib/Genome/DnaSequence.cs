@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using BaseLib.Mol;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Genome{
 	public class DnaSequence{

@@ -9,7 +9,7 @@ namespace NumPluginBase.Classification{
 		private static readonly IClassificationMethod[] allMethods = InitClassificationMethod();
 
 		private static IClassificationMethod[] InitClassificationMethod(){
-			return FileUtils.GetPlugins<IClassificationMethod>(NumPluginUtils.pluginNames, true);
+			return FileUtils2.GetPlugins<IClassificationMethod>(NumPluginUtils.pluginNames, true);
 		}
 
 		public static string[] GetAllNames(){

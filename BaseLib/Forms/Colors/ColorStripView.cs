@@ -6,6 +6,7 @@ using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Colors{
 	public enum Arrows{

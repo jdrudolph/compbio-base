@@ -4,8 +4,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
-using BaseLib.Num;
-using BaseLib.Util;
+using BaseLibS.Num;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Axis{
 	public delegate void ZoomChangeHandler(object sender, double min, double max);

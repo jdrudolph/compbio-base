@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
-using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Select{
 	public partial class ListSelector : UserControl{

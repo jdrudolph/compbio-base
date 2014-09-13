@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Genome{
 	public class DnaFastaParser{

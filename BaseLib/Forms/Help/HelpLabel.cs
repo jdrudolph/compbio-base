@@ -4,6 +4,7 @@ using System.Text;
 using System.Windows.Forms;
 using BaseLib.Properties;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Help{
 	public partial class HelpLabel : Control{

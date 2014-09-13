@@ -1,13 +1,12 @@
 ﻿using BaseLib.Api;
-using BaseLib.Num;
-using BaseLib.Num.Vector;
 using BaseLib.Param;
-using BaseLib.Util;
+using BaseLibS.Num;
+using BaseLibS.Num.Vector;
+using BaseLibS.Util;
 
 namespace NumPluginBase.Classification{
 	public class FisherLdaClassification : IClassificationMethod{
-		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads)
-		{
+		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads){
 			int n = x.Length;
 			int p = x[0].Length;
 			int[] groupCounts = new int[ngroups];
@@ -64,7 +63,7 @@ namespace NumPluginBase.Classification{
 		public static double[,] ExtractColumns(double[,] x, int[] indices){
 			int n = x.GetLength(0);
 			int ncol = indices.Length;
-			double[,] result = new double[n, ncol];
+			double[,] result = new double[n,ncol];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < ncol; j++){
 					result[i, j] = (float) x[i, indices[j]];

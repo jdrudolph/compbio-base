@@ -1,5 +1,5 @@
-﻿using BaseLib.Num.Vector;
-using BaseLib.Param;
+﻿using BaseLib.Param;
+using BaseLibS.Num.Vector;
 
 namespace BaseLib.Api{
     public interface IRegressionFeatureRankingMethod: INamedListItem{

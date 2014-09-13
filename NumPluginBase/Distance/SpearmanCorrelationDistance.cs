@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLib.Api;
-using BaseLib.Num;
-using BaseLib.Num.Vector;
 using BaseLib.Param;
-using BaseLib.Util;
+using BaseLibS.Num;
+using BaseLibS.Num.Vector;
+using BaseLibS.Util;
 
 namespace NumPluginBase.Distance{
 	[Serializable]

@@ -9,7 +9,7 @@ namespace NumPluginBase.Regression{
 		private static readonly IRegressionMethod[] allMethods = InitRegressionMethod();
 
 		private static IRegressionMethod[] InitRegressionMethod(){
-			return FileUtils.GetPlugins<IRegressionMethod>(NumPluginUtils.pluginNames, true);
+			return FileUtils2.GetPlugins<IRegressionMethod>(NumPluginUtils.pluginNames, true);
 		}
 
 		public static string[] GetAllNames(){

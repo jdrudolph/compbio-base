@@ -1,7 +1,7 @@
 ﻿using System;
 using BaseLib.Api;
-using BaseLib.Num;
-using BaseLib.Num.Vector;
+using BaseLibS.Num;
+using BaseLibS.Num.Vector;
 using NumPluginBase.Distance;
 
 namespace NumPluginBase.Classification{

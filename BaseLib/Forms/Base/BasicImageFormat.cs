@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing.Imaging;
 using BaseLib.Graphic;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Base{
 	public sealed class BasicImageFormat{

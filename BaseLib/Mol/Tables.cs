@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Mol{
 	public class Tables{
@@ -187,7 +188,7 @@ namespace BaseLib.Mol{
 		}
 
 		public static Modification[] ReadModificationList(){
-			string filename = Path.Combine(FileUtils.GetConfigPath(), "modifications.xml");
+			string filename = Path.Combine(FileUtils2.GetConfigPath(), "modifications.xml");
 			if (!File.Exists(filename)){
 				return new Modification[0];
 			}
@@ -211,7 +212,7 @@ namespace BaseLib.Mol{
 		}
 
 		public static CrossLinker[] ReadCrossLinkList(){
-			string filename = Path.Combine(FileUtils.GetConfigPath(), "crosslinks.xml");
+			string filename = Path.Combine(FileUtils2.GetConfigPath(), "crosslinks.xml");
 			if (!File.Exists(filename)){
 				return new CrossLinker[0];
 			}
@@ -233,7 +234,7 @@ namespace BaseLib.Mol{
 
 		public static List<Enzyme> ReadProteaseList(){
 			List<Enzyme> proteases = new List<Enzyme>();
-			string filename = Path.Combine(FileUtils.GetConfigPath(), "enzymes.xml");
+			string filename = Path.Combine(FileUtils2.GetConfigPath(), "enzymes.xml");
 			if (!File.Exists(filename)){
 				return proteases;
 			}
@@ -260,7 +261,7 @@ namespace BaseLib.Mol{
 
 		public static SequenceDatabase[] ReadDatabaseList(){
 			List<SequenceDatabase> dbs = new List<SequenceDatabase>();
-			string filename = Path.Combine(FileUtils.GetConfigPath(), "databases.xml");
+			string filename = Path.Combine(FileUtils2.GetConfigPath(), "databases.xml");
 			if (!File.Exists(filename)){
 				return dbs.ToArray();
 			}

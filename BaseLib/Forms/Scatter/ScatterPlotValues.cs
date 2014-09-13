@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Scatter{
 	public class ScatterPlotValues{

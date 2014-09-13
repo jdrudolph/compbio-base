@@ -30,22 +30,57 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Data\Cache.cs" />
+    <Compile Include="Data\CacheElem.cs" />
+    <Compile Include="Data\EquatableArray.cs" />
+    <Compile Include="Data\ICache.cs" />
+    <Compile Include="Data\IndexedBitMatrix.cs" />
+    <Compile Include="Data\NeighbourList.cs" />
+    <Compile Include="Data\ThreadSafeArray.cs" />
+    <Compile Include="Data\ThreadSafeCache.cs" />
+    <Compile Include="Data\ThreadSafeDictionary.cs" />
+    <Compile Include="Data\ThreadSafeHashSet.cs" />
+    <Compile Include="Num\Bootstrap.cs" />
+    <Compile Include="Num\Combination.cs" />
+    <Compile Include="Num\CorrelationType.cs" />
+    <Compile Include="Num\CubicSpline.cs" />
+    <Compile Include="Num\DensityEstimation.cs" />
+    <Compile Include="Num\LinearInterpolator.cs" />
+    <Compile Include="Num\MatrixAccess.cs" />
+    <Compile Include="Num\MatrixUtils.cs" />
+    <Compile Include="Num\NumRecipes.cs" />
+    <Compile Include="Num\NumUtils.cs" />
+    <Compile Include="Num\Random2.cs" />
+    <Compile Include="Num\Test\FisherExactTest.cs" />
+    <Compile Include="Num\Test\PearsonCorrelationTest.cs" />
+    <Compile Include="Num\Test\SpearmanCorrelationTest.cs" />
+    <Compile Include="Num\Test\TestSide.cs" />
+    <Compile Include="Num\Test\TestTruncation.cs" />
+    <Compile Include="Num\TukeyBiweightCalc.cs" />
+    <Compile Include="Num\Vector\BaseVector.cs" />
+    <Compile Include="Num\Vector\DoubleArrayVector.cs" />
+    <Compile Include="Num\Vector\FloatArrayVector.cs" />
+    <Compile Include="Num\Vector\SparseVector.cs" />
+    <Compile Include="Parse\TabSep.cs" />
+    <Compile Include="Parse\Uniprot\DbReferenceType.cs" />
+    <Compile Include="Parse\Uniprot\FeatureType.cs" />
+    <Compile Include="Parse\Uniprot\UniprotDbReference.cs" />
+    <Compile Include="Parse\Uniprot\UniprotEntry.cs" />
+    <Compile Include="Parse\Uniprot\UniprotFeature.cs" />
+    <Compile Include="Parse\Uniprot\UniprotParser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\ArrayUtils.cs" />
+    <Compile Include="Util\ComparableList.cs" />
+    <Compile Include="Util\DocumentType.cs" />
+    <Compile Include="Util\FileUtils.cs" />
+    <Compile Include="Util\LockFile.cs" />
+    <Compile Include="Util\StringUtils.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Num\MatrixAccess.cs" />
-    <Compile Include="Num\TukeyBiweightCalc.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Util\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

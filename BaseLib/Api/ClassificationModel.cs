@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using BaseLib.Num.Vector;
 using BaseLib.Util;
+using BaseLibS.Num.Vector;
+using BaseLibS.Util;
 
 namespace BaseLib.Api{
 	/// <summary>

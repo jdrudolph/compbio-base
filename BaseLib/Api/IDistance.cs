@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using BaseLib.Num;
-using BaseLib.Num.Vector;
 using BaseLib.Param;
+using BaseLibS.Num;
+using BaseLibS.Num.Vector;
 
 namespace BaseLib.Api{
 	/// <summary>

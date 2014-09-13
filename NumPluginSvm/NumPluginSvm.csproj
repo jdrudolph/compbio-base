@@ -53,6 +53,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <ProjectReference Include="..\BaseLibS\BaseLibS.csproj">
+      <Project>{1744226E-9EEC-4E1C-A231-96743695240F}</Project>
+      <Name>BaseLibS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BaseLib\BaseLib.csproj">
       <Project>{E18D8469-F79D-4E28-A6F7-6DEA53300175}</Project>
       <Name>BaseLib</Name>

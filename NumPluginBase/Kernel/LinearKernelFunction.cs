@@ -1,7 +1,7 @@
 ﻿using System;
 using BaseLib.Api;
-using BaseLib.Num.Vector;
 using BaseLib.Param;
+using BaseLibS.Num.Vector;
 
 namespace NumPluginBase.Kernel{
 	[Serializable]

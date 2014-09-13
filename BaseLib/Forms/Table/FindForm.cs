@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
 	internal partial class FindForm : Form{

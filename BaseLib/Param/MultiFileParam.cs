@@ -2,6 +2,7 @@
 using System.Windows;
 using BaseLib.Util;
 using BaseLib.Wpf;
+using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
