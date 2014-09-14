@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
-using System.Globalization;
 using System.Text;
-using BaseLib.Properties;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
@@ -118,11 +115,6 @@ namespace BaseLib.Mol{
 			}
 			m.Add(new Molecule("H2O"));
 			return Molecule.Sum(m);
-		}
-
-		public static Image GetImage(AminoAcid aa){
-			object resource = Resources.ResourceManager.GetObject(aa.Letter.ToString(CultureInfo.InvariantCulture));
-			return resource is Image ? (Image) resource : null;
 		}
 
 		public static AminoAcid[] FromLetters(char[] c){
