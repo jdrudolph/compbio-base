@@ -1,23 +1,13 @@
-﻿using BaseLibS.Util;
-
-namespace BaseLib.Util{
+﻿namespace BaseLibS.Util{
 	public abstract class GenericWorkDispatcher : WorkDispatcher{
 		protected readonly bool externalCalculations;
 
 		protected GenericWorkDispatcher(int nThreads, int nTasks, string infoFolder, bool externalCalculations)
-			: base(nThreads, nTasks, infoFolder){
-			this.externalCalculations = externalCalculations;
-		}
+			: base(nThreads, nTasks, infoFolder) { this.externalCalculations = externalCalculations; }
 
-		protected override sealed string GetCommandFilename(){
-			return "\"" + FileUtils2.executablePath + "\\" + Executable64Bit + "\"";
-		}
-
+		protected override sealed string GetCommandFilename() { return "\"" + FileUtils.executablePath + "\\" + Executable64Bit + "\""; }
 		protected abstract string Executable64Bit { get; }
-
-		protected override sealed bool ExternalCalculation(){
-			return externalCalculations;
-		}
+		protected override sealed bool ExternalCalculation() { return externalCalculations; }
 
 		protected override sealed string GetCommandArguments(int taskIndex){
 			object[] o = GetArguments(taskIndex);
@@ -29,13 +19,8 @@ namespace BaseLib.Util{
 			return StringUtils.Concat(" ", args);
 		}
 
-		protected override sealed void InternalCalculation(int taskIndex){
-			Calculation(GetStringArgs(taskIndex));
-		}
-
-		public override sealed string GetMessagePrefix(){
-			return MessagePrefix + " ";
-		}
+		protected override sealed void InternalCalculation(int taskIndex) { Calculation(GetStringArgs(taskIndex)); }
+		public override sealed string GetMessagePrefix() { return MessagePrefix + " "; }
 
 		private string[] GetStringArgs(int taskIndex){
 			object[] o = GetArguments(taskIndex);

@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using BaseLib.Forms.Colors;
 using BaseLib.Graphic;
 using BaseLib.Symbol;
-using BaseLib.Util;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Scatter{

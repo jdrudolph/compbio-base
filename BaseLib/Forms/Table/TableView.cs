@@ -10,7 +10,6 @@ using BaseLib.Forms.Scroll;
 using BaseLib.Graphic;
 using BaseLib.Properties;
 using BaseLib.Symbol;
-using BaseLib.Util;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
@@ -1106,7 +1105,7 @@ namespace BaseLib.Forms.Table{
 				}
 			}
 			string s = "" + o;
-			return StringUtils2.GetStringValue(g, s, width, font);
+			return GraphUtils.GetStringValue(g, s, width, font);
 		}
 
 		private void CheckSizes(){
@@ -1126,7 +1125,7 @@ namespace BaseLib.Forms.Table{
 
 		private string[] GetStringHeader(IGraphics g, int col, int width, Font font){
 			string s = model.GetColumnName(col);
-			string[] q = StringUtils2.WrapString(g, s, width, font);
+			string[] q = GraphUtils.WrapString(g, s, width, font);
 			if (q.Length > maxColHeaderStringSplits){
 				Array.Resize(ref q, maxColHeaderStringSplits);
 			}

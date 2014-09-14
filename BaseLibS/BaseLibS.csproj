@@ -30,6 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Api\INamedItem.cs" />
+    <Compile Include="Api\INamedListItem.cs" />
     <Compile Include="Data\Cache.cs" />
     <Compile Include="Data\CacheElem.cs" />
     <Compile Include="Data\EquatableArray.cs" />
@@ -73,6 +75,7 @@
     <Compile Include="Util\ComparableList.cs" />
     <Compile Include="Util\DocumentType.cs" />
     <Compile Include="Util\FileUtils.cs" />
+    <Compile Include="Util\GenericWorkDispatcher.cs" />
     <Compile Include="Util\GlobalConstants.cs" />
     <Compile Include="Util\LockFile.cs" />
     <Compile Include="Util\StringUtils.cs" />

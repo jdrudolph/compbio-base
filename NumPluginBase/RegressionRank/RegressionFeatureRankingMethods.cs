@@ -2,12 +2,12 @@
 using System.Linq;
 using BaseLib.Api;
 using BaseLib.Param;
-using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace NumPluginBase.RegressionRank{
 	public static class RegressionFeatureRankingMethods{
 		private static readonly IRegressionFeatureRankingMethod[] allMethods = InitRankingMethods();
-		private static IRegressionFeatureRankingMethod[] InitRankingMethods() { return FileUtils2.GetPlugins<IRegressionFeatureRankingMethod>(NumPluginUtils.pluginNames, true); }
+		private static IRegressionFeatureRankingMethod[] InitRankingMethods() { return FileUtils.GetPlugins<IRegressionFeatureRankingMethod>(NumPluginUtils.pluginNames, true); }
 
 		public static string[] GetAllNames(){
 			string[] result = new string[allMethods.Length];

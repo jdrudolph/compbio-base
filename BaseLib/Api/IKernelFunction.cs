@@ -1,5 +1,6 @@
 ﻿using System;
 using BaseLib.Param;
+using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 
 namespace BaseLib.Api{

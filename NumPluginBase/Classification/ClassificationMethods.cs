@@ -2,14 +2,14 @@
 using System.Linq;
 using BaseLib.Api;
 using BaseLib.Param;
-using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace NumPluginBase.Classification{
 	public static class ClassificationMethods{
 		private static readonly IClassificationMethod[] allMethods = InitClassificationMethod();
 
 		private static IClassificationMethod[] InitClassificationMethod(){
-			return FileUtils2.GetPlugins<IClassificationMethod>(NumPluginUtils.pluginNames, true);
+			return FileUtils.GetPlugins<IClassificationMethod>(NumPluginUtils.pluginNames, true);
 		}
 
 		public static string[] GetAllNames(){

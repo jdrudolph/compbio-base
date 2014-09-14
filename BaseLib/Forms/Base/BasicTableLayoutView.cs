@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Graphic;
-using BaseLib.Util;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Base{

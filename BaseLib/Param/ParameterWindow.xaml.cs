@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
-using BaseLib.Util;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{

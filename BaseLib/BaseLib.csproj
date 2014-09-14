@@ -55,8 +55,6 @@
     <Compile Include="Api\IDistance.cs" />
     <Compile Include="Api\IGroupDataProvider.cs" />
     <Compile Include="Api\IKernelFunction.cs" />
-    <Compile Include="Api\INamedItem.cs" />
-    <Compile Include="Api\INamedListItem.cs" />
     <Compile Include="Api\IRegressionFeatureRankingMethod.cs" />
     <Compile Include="Api\IRegressionMethod.cs" />
     <Compile Include="Api\RegressionModel.cs" />
@@ -329,9 +327,7 @@
     <Compile Include="Symbol\SymbolTypeSquare.cs" />
     <Compile Include="Symbol\SymbolTypeStar.cs" />
     <Compile Include="Symbol\SymbolTypeTriangle.cs" />
-    <Compile Include="Util\GenericWorkDispatcher.cs" />
-    <Compile Include="Util\FileUtils2.cs" />
-    <Compile Include="Util\StringUtils2.cs" />
+    <Compile Include="Graphic\GraphUtils.cs" />
     <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
       <DependentUpon>CheckedListBoxControl.xaml</DependentUpon>
     </Compile>

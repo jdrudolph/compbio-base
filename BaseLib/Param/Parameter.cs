@@ -40,7 +40,7 @@ namespace BaseLib.Param{
 		public virtual void Drop(string x) { }
 		protected abstract UIElement Control { get; }
 
-		public UIElement GetControl(){
+		internal UIElement GetControl(){
 			control = Control;
 			return control;
 		}

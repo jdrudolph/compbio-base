@@ -1,12 +1,12 @@
 ﻿using BaseLib.Api;
 using BaseLib.Param;
-using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace NumPluginBase.Kernel{
 	public static class KernelFunctions{
 		private static readonly IKernelFunction[] allKernelFunctions = InitKernels();
 		private static IKernelFunction[] InitKernels(){
-			return FileUtils2.GetPlugins<IKernelFunction>(NumPluginUtils.pluginNames, true);
+			return FileUtils.GetPlugins<IKernelFunction>(NumPluginUtils.pluginNames, true);
 		}
 
 		public static string[] GetAllNames(){

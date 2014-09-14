@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using BaseLib.Mol;
-using BaseLib.Util;
 using BaseLibS.Util;
 
 namespace BaseLib.Genome{

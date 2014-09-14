@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
-using BaseLib.Graphic;
 using BaseLibS.Util;
 
-namespace BaseLib.Util{
-	public static class StringUtils2{
+namespace BaseLib.Graphic{
+	public static class GraphUtils{
 		public static string[] WrapString(IGraphics g, string s, int width, Font font){
 			if (width < 20){
 				return new[]{s};

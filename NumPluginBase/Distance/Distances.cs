@@ -1,11 +1,11 @@
 ﻿using BaseLib.Api;
 using BaseLib.Param;
-using BaseLib.Util;
+using BaseLibS.Util;
 
 namespace NumPluginBase.Distance{
 	public static class Distances{
 		private static readonly IDistance[] allDistances = InitDistances();
-		private static IDistance[] InitDistances() { return FileUtils2.GetPlugins<IDistance>(NumPluginUtils.pluginNames, true); }
+		private static IDistance[] InitDistances() { return FileUtils.GetPlugins<IDistance>(NumPluginUtils.pluginNames, true); }
 		public static SingleChoiceWithSubParams GetDistanceParameters() { return new SingleChoiceWithSubParams("Distance"){Values = GetAllNames(), SubParams = GetAllParameters(), Value = 0}; }
 
 		public static IDistance GetDistanceFunction(Parameters param){

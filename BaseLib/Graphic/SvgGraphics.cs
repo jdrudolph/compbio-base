@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
-using BaseLib.Util;
 using BaseLibS.Util;
 
 namespace BaseLib.Graphic{
