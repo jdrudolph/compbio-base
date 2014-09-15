@@ -1,4 +1,4 @@
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public enum ModificationSiteType {
 		aa,
 		nterm,

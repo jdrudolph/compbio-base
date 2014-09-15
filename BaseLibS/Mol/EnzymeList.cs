@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Mol {
+﻿namespace BaseLibS.Mol {
 	[System.SerializableAttribute, System.Diagnostics.DebuggerStepThroughAttribute,
 	 System.ComponentModel.DesignerCategoryAttribute("code"),
 	 System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true),

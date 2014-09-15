@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public static class ChemElements{
 		private static ChemElement[] elements;
 		public static ChemElement[] Elements { get { return elements ?? (elements = InitElements()); } }

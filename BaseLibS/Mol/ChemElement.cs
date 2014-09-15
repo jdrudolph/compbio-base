@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class ChemElement{
 		public int Z { get; private set; }
 		public string Name { get; private set; }

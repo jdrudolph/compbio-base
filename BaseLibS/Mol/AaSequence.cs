@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text;
 
-namespace BaseLib.Mol {
+namespace BaseLibS.Mol {
 	public class AaSequence : IComparable, IDisposable {
 		public const int aasPerLong = 12;
 		private const int basis = 32;

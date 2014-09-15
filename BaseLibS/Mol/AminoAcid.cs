@@ -1,4 +1,4 @@
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class AminoAcid : Molecule{
 		internal readonly bool isStandard;
 		public string Abbreviation { get; private set; }

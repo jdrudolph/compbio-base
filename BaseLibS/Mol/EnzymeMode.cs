@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Mol {
+﻿namespace BaseLibS.Mol {
     /// <summary>
     /// One of Specific, SemispecificFreeNterm, SemispecificFreeCterm, Semispecific, or Unspecific.
     /// </summary>

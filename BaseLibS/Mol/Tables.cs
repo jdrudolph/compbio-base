@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using BaseLibS.Util;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class Tables{
 		private static readonly object lockMods = new object();
 		private static Dictionary<string, SequenceDatabase> databases;

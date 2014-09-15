@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using BaseLibS.Util;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class Molecule{
 		public static readonly decimal massProtonM = 1.0072764666m;
 		public static readonly double massProton = 1.0072764666;

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using BaseLib.Mol;
+using BaseLibS.Mol;
 using BaseLibS.Util;
 
 namespace BaseLib.Genome{

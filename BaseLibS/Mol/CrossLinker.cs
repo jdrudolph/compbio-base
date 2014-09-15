@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class CrossLinker : StorableItem{
 		private string specificity;
 		private string composition;

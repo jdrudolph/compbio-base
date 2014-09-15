@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Serialization;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class Modification : StorableItem{
 		private double deltaMass = double.NaN;
 		private string composition;

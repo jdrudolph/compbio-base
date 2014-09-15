@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using BaseLibS.Api;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class StorableItem : INamedItem{
 		[XmlIgnore]
 		public ushort Index { get; set; }

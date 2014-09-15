@@ -3,7 +3,7 @@ using System.Text;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public static class AminoAcids{
 		public static readonly double massNormalCTerminus = Molecule.massO + Molecule.massH;
 		public static readonly double massNormalNTerminus = Molecule.massH;

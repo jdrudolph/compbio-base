@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace BaseLib.Mol{
+namespace BaseLibS.Mol{
 	public class DiagnosticPeak{
 		private string name;
 		private string shortname;
