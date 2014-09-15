@@ -221,9 +221,6 @@
       <DependentUpon>TagsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Table\VirtualDataTable.cs" />
-    <Compile Include="Genome\DnaFastaParser.cs" />
-    <Compile Include="Genome\DnaSequence.cs" />
-    <Compile Include="Genome\GeneticCode.cs" />
     <Compile Include="Graphic\BitmapGraphics.cs" />
     <Compile Include="Graphic\CGraphics.cs" />
     <Compile Include="Graphic\ColorConstants.cs" />

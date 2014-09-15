@@ -5,7 +5,7 @@ using System.Text;
 using BaseLibS.Mol;
 using BaseLibS.Util;
 
-namespace BaseLib.Genome{
+namespace BaseLibS.Genome{
 	public class DnaSequence{
 		private static readonly char[] symbols = "ACGT".ToCharArray();
 		private static readonly Dictionary<char, char> complement = InitComplement();

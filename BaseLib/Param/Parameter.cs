@@ -22,11 +22,6 @@ namespace BaseLib.Param{
 			Visible = true;
 		}
 
-		public Parameter SetValFromCtrl(){
-			SetValueFromControl();
-			return this;
-		}
-
 		public virtual string[] Markup { get { return new[]{"<parameter" + " name=\"" + Name + "\" value=\"" + StringValue + "\"></parameter>"}; } }
 		public abstract string StringValue { get; set; }
 		public abstract void ResetValue();

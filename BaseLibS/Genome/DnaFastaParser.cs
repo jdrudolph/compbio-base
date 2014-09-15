@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using BaseLibS.Util;
 
-namespace BaseLib.Genome{
+namespace BaseLibS.Genome{
 	public class DnaFastaParser{
 		private readonly string filename;
 		private readonly Action<string, DnaSequence> process;

@@ -42,6 +42,9 @@
     <Compile Include="Data\ThreadSafeCache.cs" />
     <Compile Include="Data\ThreadSafeDictionary.cs" />
     <Compile Include="Data\ThreadSafeHashSet.cs" />
+    <Compile Include="Genome\DnaFastaParser.cs" />
+    <Compile Include="Genome\DnaSequence.cs" />
+    <Compile Include="Genome\GeneticCode.cs" />
     <Compile Include="Mol\AaSequence.cs" />
     <Compile Include="Mol\AminoAcid.cs" />
     <Compile Include="Mol\AminoAcids.cs" />
