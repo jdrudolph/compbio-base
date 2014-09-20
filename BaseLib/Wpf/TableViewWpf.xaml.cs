@@ -17,12 +17,21 @@ namespace BaseLib.Wpf{
 				if (SelectionChanged != null){
 					SelectionChanged(sender, args);
 				}
+				long c = tableView.SelectedCount;
+				SelectedTextBlock.Text = c > 0 ? "" + c + " selected" : "";
 			};
 			MainPanel.Child = tableView;
 			KeyDown += (sender, args) => tableView.Focus();
 		}
 
-		public ITableModel TableModel { get { return tableView.TableModel; } set { tableView.TableModel = value; } }
+		public ITableModel TableModel{
+			get { return tableView.TableModel; }
+			set{
+				tableView.TableModel = value;
+				ItemsTextBlock.Text = value != null ? "" + value.RowCount + " items" : "";
+			}
+		}
+
 		public bool MultiSelect { get { return tableView.MultiSelect; } set { tableView.MultiSelect = value; } }
 		public bool Sortable { get { return tableView.Sortable; } set { tableView.Sortable = value; } }
 		public int RowCount { get { return tableView.RowCount; } }

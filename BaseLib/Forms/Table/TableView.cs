@@ -660,6 +660,20 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
+		public long SelectedCount{
+			get{
+				if (modelRowSel == null){
+					return 0;
+				}
+				long count = 0;
+				foreach (bool b in modelRowSel){
+					if (b){
+						count++;
+					}
+				}
+				return count;
+			}
+		}
 		public void SetSetectedViewIndex(int index){
 			CheckSizes();
 			if (!multiSelect){
@@ -713,7 +727,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private void ClearSelectionToolStripMenuItemClick(object sender, EventArgs e){
-			ClearSelection();
+			ClearSelectionFire();
 			Invalidate(true);
 		}
 
