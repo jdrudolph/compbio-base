@@ -64,6 +64,13 @@ namespace BaseLib.Param{
 				return;
 			}
 			ComboBox cb = (ComboBox) control;
+			if (cb != null && Value >= 0 && Value < Values.Count){
+				cb.SelectedIndex = Value;
+			}
+		}
+
+		public void UpdateControlFromValue2(){
+			ComboBox cb = (ComboBox) control;
 			if (cb != null && Values != null){
 				cb.Items.Clear();
 				foreach (string value in Values){
