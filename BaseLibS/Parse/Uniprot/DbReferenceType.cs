@@ -165,6 +165,12 @@ namespace BaseLibS.Parse.Uniprot{
 		public static DbReferenceType treeFam = new DbReferenceType("treefam");
 		public static DbReferenceType pro = new DbReferenceType("pro");
 		public static DbReferenceType guideToPharmacology = new DbReferenceType("guidetopharmacology");
+		public static DbReferenceType uniProtKb = new DbReferenceType("uniprotkb");
+		public static DbReferenceType ccds = new DbReferenceType("ccds");
+		public static DbReferenceType maxqb = new DbReferenceType("maxqb");
+		public static DbReferenceType prositeProrule = new DbReferenceType("prosite-prorule");
+		public static DbReferenceType geneReviews = new DbReferenceType("genereviews");
+		public static DbReferenceType proteomes = new DbReferenceType("proteomes");
 		public static string[] allDbReferenceTypeStrings;
 		public static DbReferenceType[] allDbReferenceTypes = CreateDbReferenceTypeList();
 
@@ -329,7 +335,13 @@ namespace BaseLibS.Parse.Uniprot{
 				bioGrid,
 				treeFam,
 				pro,
-				guideToPharmacology
+				guideToPharmacology,
+				uniProtKb,
+				ccds,
+				maxqb,
+				prositeProrule,
+				geneReviews,
+				proteomes
 			};
 			allDbReferenceTypeStrings = new string[ft.Count];
 			allDbReferenceTypeStrings = new string[ft.Count];

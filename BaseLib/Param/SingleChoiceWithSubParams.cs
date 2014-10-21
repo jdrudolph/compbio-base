@@ -63,7 +63,7 @@ namespace BaseLib.Param{
 		}
 
 		public string SelectedValue { get { return Value < 0 || Value >= Values.Count ? null : Values[Value]; } }
-		public override Parameters GetSubParameters() { return SubParams[Value]; }
+		public override Parameters GetSubParameters() { return Value < 0 || Value >= Values.Count ? null : SubParams[Value]; }
 
 		public override void Clear(){
 			Value = 0;

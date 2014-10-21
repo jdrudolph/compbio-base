@@ -12,15 +12,12 @@ namespace BaseLibS.Parse.Uniprot{
 		private readonly List<string> taxonomyIds = new List<string>();
 		private readonly List<string> hostTaxonomyIds = new List<string>();
 		private readonly List<string> keywords = new List<string>();
-
-		public FeatureType[] GetAllFeatureTypes(){
-			return ArrayUtils.GetKeys(features);
-		}
-
+		public FeatureType[] GetAllFeatureTypes() { return ArrayUtils.GetKeys(features); }
 		public string[] Accessions { get; set; }
 		public string[] ProteinFullNames { get; set; }
 		public string[] ProteinShortNames { get; set; }
 		public string[] ProteinEcNumbers { get; set; }
+
 		public string[] ProteinNames{
 			get{
 				if (ProteinFullNames.Length > 0){
@@ -32,6 +29,7 @@ namespace BaseLibS.Parse.Uniprot{
 				return ProteinEcNumbers.Length > 0 ? ProteinEcNumbers : new string[0];
 			}
 		}
+
 		public Tuple<string, string>[] GeneNamesAndTypes { get; set; } //(name, type)
 		public string[] GeneNames{
 			get{
@@ -42,6 +40,7 @@ namespace BaseLibS.Parse.Uniprot{
 				return result;
 			}
 		}
+
 		public string GeneName{
 			get{
 				string[] names = new string[GeneNamesAndTypes.Length];
@@ -60,6 +59,7 @@ namespace BaseLibS.Parse.Uniprot{
 				return ind >= 0 ? names[ind] : "";
 			}
 		}
+
 		public string[] GeneNameTypes{
 			get{
 				string[] result = new string[GeneNamesAndTypes.Length];
@@ -69,13 +69,16 @@ namespace BaseLibS.Parse.Uniprot{
 				return result;
 			}
 		}
+
 		public string[] OrganismNames { get; set; }
 		public string[] UniprotNames { get; set; }
 		public bool IsTrembl { get; set; }
+
 		private static readonly DbReferenceType[] ensemblTypes = new[]{
 			DbReferenceType.ensembl, DbReferenceType.ensemblBacteria, DbReferenceType.ensemblFungi,
 			DbReferenceType.ensemblMetazoa, DbReferenceType.ensemblPlants, DbReferenceType.ensemblProtists
 		};
+
 		public string[] Ensp{
 			get{
 				List<string> result = new List<string>();
@@ -87,6 +90,7 @@ namespace BaseLibS.Parse.Uniprot{
 				return result.ToArray();
 			}
 		}
+
 		public string[] Ensg{
 			get{
 				List<string> result = new List<string>();
@@ -98,7 +102,9 @@ namespace BaseLibS.Parse.Uniprot{
 				return result.ToArray();
 			}
 		}
+
 		public string[] Enst { get { return Get(ensemblTypes); } }
+
 		public string[] Keywords{
 			get{
 				string[] kw = keywords.ToArray();
@@ -120,9 +126,7 @@ namespace BaseLibS.Parse.Uniprot{
 			return false;
 		}
 
-		public string[] Get(DbReferenceType key){
-			return !dbEntries.ContainsKey(key) ? new string[0] : ArrayUtils.GetKeys(dbEntries[key]);
-		}
+		public string[] Get(DbReferenceType key) { return !dbEntries.ContainsKey(key) ? new string[0] : ArrayUtils.GetKeys(dbEntries[key]); }
 
 		public string[] Get(DbReferenceType[] keys){
 			List<string> result = new List<string>();
@@ -140,9 +144,7 @@ namespace BaseLibS.Parse.Uniprot{
 			return result.ToArray();
 		}
 
-		public UniprotDbReference[] GetDbEntries(DbReferenceType key){
-			return !dbEntries.ContainsKey(key) ? new UniprotDbReference[0] : ArrayUtils.GetValues(dbEntries[key]);
-		}
+		public UniprotDbReference[] GetDbEntries(DbReferenceType key) { return !dbEntries.ContainsKey(key) ? new UniprotDbReference[0] : ArrayUtils.GetValues(dbEntries[key]); }
 
 		public string[] GetNames(DbReferenceType key){
 			if (!dbEntries.ContainsKey(key)){
@@ -186,17 +188,9 @@ namespace BaseLibS.Parse.Uniprot{
 			features[key].Add(currentFeature);
 		}
 
-		public void AddFeatureLocation(string featureBegin, string featureEnd){
-			currentFeature.AddFeatureLocation(featureBegin, featureEnd);
-		}
-
-		public void AddFeatureVariation(string s){
-			currentFeature.AddFeatureVariation(s);
-		}
-
-		public void AddFeatureOriginal(string s){
-			currentFeature.AddFeatureOriginal(s);
-		}
+		public void AddFeatureLocation(string featureBegin, string featureEnd) { currentFeature.AddFeatureLocation(featureBegin, featureEnd); }
+		public void AddFeatureVariation(string s) { currentFeature.AddFeatureVariation(s); }
+		public void AddFeatureOriginal(string s) { currentFeature.AddFeatureOriginal(s); }
 
 		public int GetFeatureCount(FeatureType type){
 			if (features == null){
@@ -212,16 +206,8 @@ namespace BaseLibS.Parse.Uniprot{
 			return features.ContainsKey(type) ? features[type] : new List<UniprotFeature>();
 		}
 
-		public void AddTaxonomyId(string id){
-			taxonomyIds.Add(id);
-		}
-
-		public void AddHostTaxonomyId(string id){
-			hostTaxonomyIds.Add(id);
-		}
-
-		public void AddKeyword(string kw){
-			keywords.Add(kw);
-		}
+		public void AddTaxonomyId(string id) { taxonomyIds.Add(id); }
+		public void AddHostTaxonomyId(string id) { hostTaxonomyIds.Add(id); }
+		public void AddKeyword(string kw) { keywords.Add(kw); }
 	}
 }
