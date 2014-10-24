@@ -103,7 +103,28 @@ namespace BaseLibS.Parse.Uniprot{
 			}
 		}
 
-		public string[] Enst { get { return Get(ensemblTypes); } }
+		public string[] Enst { get { return FilterEnst(Get(ensemblTypes)); } }
+
+		private static string[] FilterEnst(IEnumerable<string> x){
+			List<string> result = new List<string>();
+			foreach (string s in x){
+				if (IsEnst(s)){
+					result.Add(s);
+				}
+			}
+			return result.ToArray();
+		}
+
+		private static bool IsEnst(string s){
+			if (!s.StartsWith("ENS")){
+				return true;
+			}
+			int ind = s.IndexOf('0');
+			if (ind < 1){
+				return true;
+			}
+			return s[ind - 1] == 'T';
+		}
 
 		public string[] Keywords{
 			get{
