@@ -56,5 +56,6 @@ namespace BaseLib.Wpf{
 		public bool ModelRowIsSelected(int row) { return tableView.ModelRowIsSelected(row); }
 		public void ClearSelection() { tableView.ClearSelection(); }
 		public void SetSetectedIndex(int index) { tableView.SetSetectedIndex(index); }
+		public void SetSetectedIndex(int index, object sender) { tableView.SetSetectedIndex(index, sender); }
 	}
 }
