@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using BaseLib.Forms.Table;
 
 namespace BaseLib.Wpf{
@@ -57,5 +58,6 @@ namespace BaseLib.Wpf{
 		public void ClearSelection() { tableView.ClearSelection(); }
 		public void SetSetectedIndex(int index) { tableView.SetSetectedIndex(index); }
 		public void SetSetectedIndex(int index, object sender) { tableView.SetSetectedIndex(index, sender); }
+		public void AddContextMenuItem(ToolStripItem item) { tableView.AddContextMenuItem(item); }
 	}
 }

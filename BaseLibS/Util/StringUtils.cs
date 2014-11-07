@@ -334,7 +334,7 @@ namespace BaseLibS.Util{
 
 		public static string Replace(string x, string[] oldChar, string newChar){
 			if (string.IsNullOrEmpty(x)){
-				return null;
+				return x;
 			}
 			string result = x;
 			foreach (string t in oldChar){
@@ -343,6 +343,21 @@ namespace BaseLibS.Util{
 				}
 			}
 			return result;
+		}
+
+		public static string Replace(string x, string oldWord, string newWord){
+			if (string.IsNullOrEmpty(x)){
+				return x;
+			}
+			int ind = x.IndexOf(oldWord, StringComparison.InvariantCulture);
+			if (ind < 0){
+				return x;
+			}
+			StringBuilder result = new StringBuilder();
+			result.Append(x.Substring(0, ind));
+			result.Append(newWord);
+			result.Append(x.Substring(ind + oldWord.Length));
+			return result.ToString();
 		}
 
 		public static int OccurenceCount(string s, char c){
