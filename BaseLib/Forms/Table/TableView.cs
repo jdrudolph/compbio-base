@@ -110,6 +110,8 @@ namespace BaseLib.Forms.Table{
 		private int origColumnHeaderHeight = 40;
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
+
+		public Action<string> SetCellText { get; set; }
 		public TableView() : this("") { }
 
 		public TableView(string name){
@@ -1355,6 +1357,21 @@ namespace BaseLib.Forms.Table{
 				} catch (Exception){}
 				if (SelectionChanged != null){
 					SelectionChanged(this, new EventArgs());
+				}
+				if (SetCellText != null){
+					int row = (VisibleY + e.Y) / rowHeight;
+					if (model == null || row >= model.RowCount || row < 0)
+					{
+						return;
+					}
+					if (columnWidthSums == null)
+					{
+						return;
+					}
+					int x1 = VisibleX + e.X;
+					int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+					int ox = order[row];
+					SetCellText("" + TableModel.GetEntry(ox, ind));
 				}
 			}
 		}

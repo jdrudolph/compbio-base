@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Forms;
 using BaseLib.Forms.Table;
 
@@ -33,6 +35,25 @@ namespace BaseLib.Wpf{
 			}
 		}
 
+		public void SwitchOnTextBox(){
+			tableView.SetCellText = s => AuxTextBox.Text = s;
+			MainGrid.RowDefinitions.Clear();
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(5)});
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(30)});
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(17)});
+		}
+
+		public void SwitchOffTextBox(){
+			AuxTextBox.Text = "";
+			tableView.SetCellText = null;
+			MainGrid.RowDefinitions.Clear();
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(0)});
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(0)});
+			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(17)});
+		}
+
 		public bool MultiSelect { get { return tableView.MultiSelect; } set { tableView.MultiSelect = value; } }
 		public bool Sortable { get { return tableView.Sortable; } set { tableView.Sortable = value; } }
 		public int RowCount { get { return tableView.RowCount; } }
@@ -59,5 +80,16 @@ namespace BaseLib.Wpf{
 		public void SetSetectedIndex(int index) { tableView.SetSetectedIndex(index); }
 		public void SetSetectedIndex(int index, object sender) { tableView.SetSetectedIndex(index, sender); }
 		public void AddContextMenuItem(ToolStripItem item) { tableView.AddContextMenuItem(item); }
+
+		private void TextButton_OnClick(object sender, RoutedEventArgs e){
+			if (textBoxVisible){
+				SwitchOffTextBox();
+			} else{
+				SwitchOnTextBox();
+			}
+			textBoxVisible = !textBoxVisible;
+		}
+
+		private bool textBoxVisible;
 	}
 }
