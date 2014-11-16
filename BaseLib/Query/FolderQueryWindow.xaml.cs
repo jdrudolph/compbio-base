@@ -6,11 +6,23 @@ namespace BaseLib.Query{
 	/// Interaction logic for StringQueryWindow.xaml
 	/// </summary>
 	public partial class FolderQueryWindow{
+		private bool hasRecursiveBox;
+		public FolderQueryWindow() : this("") { }
+
 		public FolderQueryWindow(string value){
 			InitializeComponent();
 			TextBox.Text = value;
 			TextBox.SelectAll();
 			TextBox.Focus();
+		}
+
+		public bool HasRecursiveBox{
+			get { return hasRecursiveBox; }
+			set{
+				hasRecursiveBox = value;
+				RecursiveCheckBox.Width = value ? 90 : 0;
+				RecursiveCheckBox.Margin = new Thickness(value ? 2 : 0);
+			}
 		}
 
 		public string Value { get { return TextBox.Text; } }
