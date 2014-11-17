@@ -8,6 +8,9 @@ namespace BaseLibS.Genome{
 		private readonly Action<string, DnaSequence> process;
 
 		public DnaFastaParser(string filename, Action<string, DnaSequence> process){
+			if (string.IsNullOrEmpty(filename)){
+				throw new ArgumentException("Filename cannot be null or empty.");
+			}
 			this.filename = filename;
 			this.process = process;
 		}
