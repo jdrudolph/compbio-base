@@ -269,6 +269,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Query\SymbolTypeQueryWindow.xaml.cs">
+      <DependentUpon>SymbolTypeQueryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Query\FolderQueryWindow.xaml.cs">
       <DependentUpon>FolderQueryWindow.xaml</DependentUpon>
     </Compile>
@@ -502,6 +505,10 @@
     <Page Include="Param\ParameterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Query\SymbolTypeQueryWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Query\FolderQueryWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
