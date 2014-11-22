@@ -21,7 +21,9 @@ namespace BaseLib.Wpf{
 					SelectionChanged(sender, args);
 				}
 				long c = tableView.SelectedCount;
+				long t = tableView.RowCount;
 				SelectedTextBlock.Text = c > 0 ? "" + c + " selected" : "";
+				ItemsTextBlock.Text = "" + t + " items";
 			};
 			MainPanel.Child = tableView;
 			KeyDown += (sender, args) => tableView.Focus();
