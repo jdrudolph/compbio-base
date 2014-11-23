@@ -91,6 +91,7 @@
     <Compile Include="Forms\Base\IPrintable.cs" />
     <Compile Include="Forms\Base\Printing.cs" />
     <Compile Include="Forms\Base\UnsafeBitmap.cs" />
+    <Compile Include="Forms\Chars.cs" />
     <Compile Include="Forms\Colors\ColorScale.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -716,6 +717,234 @@
       <Project>{1744226e-9eec-4e1c-a231-96743695240f}</Project>
       <Name>BaseLibS</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_a.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_asterisk.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_b.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_backslash.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_c.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_colon.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_d.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_e.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_equal.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_exclamation.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_f.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_fullstop.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_g.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_h.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_hash.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_i.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_j.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_k.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_l.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_m.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_minus.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_n.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_o.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_p.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_percent.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_plus.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_q.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_question.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_r.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_s.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_slash.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_t.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_tilde.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_u.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_underscore.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_v.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_w.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_x.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_y.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char_z.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char0.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char1.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char2.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char3.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char4.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char5.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char6.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char7.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char8.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\char9.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chara.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charb.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charc.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chard.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chare.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charf.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charg.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charh.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chari.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charj.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chark.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charl.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charm.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charn.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charo.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charp.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charq.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charr.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chars.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chart.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charu.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charv.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charw.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charx.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\chary.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\charz.bmp" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
