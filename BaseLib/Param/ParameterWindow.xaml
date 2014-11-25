@@ -21,7 +21,7 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0" Width="50" HorizontalAlignment="Left" x:Name="CancelButton" Click="CancelButtonClick">Cancel</Button>
             <DockPanel Grid.Column="1" VerticalAlignment="Center" x:Name="HelpPanel"></DockPanel>
-            <Button Grid.Column="2" Width="26" HorizontalAlignment="Right" x:Name="HelpButton" Click="HelpButtonClick" Background="Transparent">
+            <Button Grid.Column="2" Width="26" HorizontalAlignment="Right" x:Name="HelpButton" Click="HelpButtonClick" Background="Transparent" ToolTip="Help">
                 <Image x:Name="H1"></Image>
             </Button>
             <Button Grid.Column="3" Width="50" HorizontalAlignment="Right" x:Name="OkButton" Click="OkButtonClick">OK</Button>
