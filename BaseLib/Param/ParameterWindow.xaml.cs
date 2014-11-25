@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using BaseLib.Wpf;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
@@ -16,16 +17,19 @@ namespace BaseLib.Param{
 		[DllImport("user32.dll")] private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
 		private const int gwlStyle = -16;
 		private const int wsMinimizebox = 0x20000;
-
-		private void WindowSourceInitialized(object sender, EventArgs e){
-			IntPtr hwnd = new WindowInteropHelper((Window) sender).Handle;
-			int value = GetWindowLong(hwnd, gwlStyle);
-			SetWindowLong(hwnd, gwlStyle, value & ~wsMinimizebox);
-		}
+		private readonly Action helpAction;
 
 		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
-			IList<string> helpSuppls){
+			IList<string> helpSuppls) : this(parameters, title, helpDescription, helpOutput, helpSuppls, null) { }
+
+		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
+			IList<string> helpSuppls, Action helpAction){
 			InitializeComponent();
+			this.helpAction = helpAction;
+			if (helpAction == null){
+				HelpButton.Width = 0;
+			}
+			H1.Source = WpfUtils.GetHelpBitmap();
 			OkButton.Focus();
 			Height = ParameterPanel1.Init(parameters) + 65;
 			HelpPanel.Children.Clear();
@@ -70,6 +74,12 @@ namespace BaseLib.Param{
 			Title = title;
 		}
 
+		private void WindowSourceInitialized(object sender, EventArgs e){
+			IntPtr hwnd = new WindowInteropHelper((Window) sender).Handle;
+			int value = GetWindowLong(hwnd, gwlStyle);
+			SetWindowLong(hwnd, gwlStyle, value & ~wsMinimizebox);
+		}
+
 		private void OkButtonClick(object sender, RoutedEventArgs e){
 			DialogResult = true;
 			ParameterPanel1.SetParameters();
@@ -86,6 +96,12 @@ namespace BaseLib.Param{
 				DialogResult = true;
 				ParameterPanel1.SetParameters();
 				Close();
+			}
+		}
+
+		private void HelpButtonClick(object sender, RoutedEventArgs e){
+			if (helpAction != null){
+				helpAction();
 			}
 		}
 	}
