@@ -6,7 +6,16 @@ namespace NumPluginBase.Distance{
 	public static class Distances{
 		private static readonly IDistance[] allDistances = InitDistances();
 		private static IDistance[] InitDistances() { return FileUtils.GetPlugins<IDistance>(NumPluginUtils.pluginNames, true); }
-		public static SingleChoiceWithSubParams GetDistanceParameters() { return new SingleChoiceWithSubParams("Distance"){Values = GetAllNames(), SubParams = GetAllParameters(), Value = 0}; }
+		public static SingleChoiceWithSubParams GetDistanceParameters() { return GetDistanceParameters(""); }
+
+		public static SingleChoiceWithSubParams GetDistanceParameters(string help){
+			return new SingleChoiceWithSubParams("Distance"){
+				Values = GetAllNames(),
+				SubParams = GetAllParameters(),
+				Value = 0,
+				Help = help
+			};
+		}
 
 		public static IDistance GetDistanceFunction(Parameters param){
 			SingleChoiceWithSubParams distParam = param.GetSingleChoiceWithSubParams("Distance");
