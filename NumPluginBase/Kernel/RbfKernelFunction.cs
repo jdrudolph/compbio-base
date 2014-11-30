@@ -11,7 +11,7 @@ namespace NumPluginBase.Kernel{
 		public RbfKernelFunction(double sigma) { Sigma = sigma; }
 		public bool UsesSquares { get { return true; } }
 		public string Name { get { return "RBF"; } }
-		public Parameters Parameters { get { return new Parameters(new DoubleParam("Sigma", Sigma)); } set { Sigma = value.GetDoubleParam("Sigma").Value; } }
+		public Parameters Parameters { get { return new Parameters(new DoubleParam("Sigma", Sigma){Help = "Standard deviation parameter."}); } set { Sigma = value.GetDoubleParam("Sigma").Value; } }
 		public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej) { return Math.Exp(-(xSquarei + xSquarej - 2*xi.Dot(xj))/2.0/xi.Length/Sigma/Sigma); }
 		public object Clone() { return new RbfKernelFunction(Sigma); }
 		public string Description { get { return ""; } }

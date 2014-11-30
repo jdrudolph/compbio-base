@@ -9,6 +9,13 @@ using NumPluginSvm.Svm;
 
 namespace NumPluginSvm{
 	public class SvmClassification : IClassificationMethod{
+		public const string cHelp =
+			"The C parameter tells the SVM optimization how much you want to avoid misclassifying each training example. " +
+				"For large values of C, the optimization will choose a smaller-margin hyperplane if that hyperplane does a " +
+				"better job of getting all the training points classified correctly. Conversely, a very small value of C will " +
+				"cause the optimizer to look for a larger-margin separating hyperplane, even if that hyperplane misclassifies " +
+				"more points.";
+
 		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads){
 			string err = CheckInput(x, y, ngroups);
 			if (err != null){
@@ -74,7 +81,7 @@ namespace NumPluginSvm{
 			return new SvmProblem(x, y1);
 		}
 
-		public Parameters Parameters { get { return new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10)}); } }
+		public Parameters Parameters { get { return new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10){Help = cHelp}}); } }
 		public string Name { get { return "Support vector machine"; } }
 		public string Description { get { return ""; } }
 		public float DisplayRank { get { return 0; } }

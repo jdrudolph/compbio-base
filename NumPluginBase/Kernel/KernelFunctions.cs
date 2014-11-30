@@ -5,9 +5,7 @@ using BaseLibS.Util;
 namespace NumPluginBase.Kernel{
 	public static class KernelFunctions{
 		private static readonly IKernelFunction[] allKernelFunctions = InitKernels();
-		private static IKernelFunction[] InitKernels(){
-			return FileUtils.GetPlugins<IKernelFunction>(NumPluginUtils.pluginNames, true);
-		}
+		private static IKernelFunction[] InitKernels() { return FileUtils.GetPlugins<IKernelFunction>(NumPluginUtils.pluginNames, true); }
 
 		public static string[] GetAllNames(){
 			string[] result = new string[allKernelFunctions.Length];
@@ -26,7 +24,12 @@ namespace NumPluginBase.Kernel{
 		}
 
 		public static SingleChoiceWithSubParams GetKernelParameters(){
-			return new SingleChoiceWithSubParams("Kernel"){Values = GetAllNames(), SubParams = GetAllParameters(), Value = 0};
+			return new SingleChoiceWithSubParams("Kernel"){
+				Values = GetAllNames(),
+				SubParams = GetAllParameters(),
+				Value = 0,
+				Help = "The kernel function defines the scalar product between two features in the kernel-induced feature space."
+			};
 		}
 
 		public static IKernelFunction GetKernelFunction(int index, Parameters param){
