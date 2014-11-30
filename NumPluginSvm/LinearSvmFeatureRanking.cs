@@ -9,7 +9,7 @@ using NumPluginSvm.Svm;
 
 namespace NumPluginSvm{
 	public class LinearSvmFeatureRanking : IClassificationFeatureRankingMethod{
-		public Parameters GetParameters(IGroupDataProvider data) { return new Parameters(new Parameter[]{new DoubleParam("C", 100)}); }
+		public Parameters GetParameters(IGroupDataProvider data) { return new Parameters(new Parameter[]{new DoubleParam("C", 100){Help = SvmClassification.cHelp}}); }
 		public string Name { get { return "SVM"; } }
 		public string Description { get { return ""; } }
 		public float DisplayRank { get { return 0; } }

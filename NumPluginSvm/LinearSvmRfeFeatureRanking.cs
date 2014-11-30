@@ -9,7 +9,16 @@ using NumPluginSvm.Svm;
 
 namespace NumPluginSvm{
 	public class LinearSvmRfeFeatureRanking : IClassificationFeatureRankingMethod{
-		public Parameters GetParameters(IGroupDataProvider data) { return new Parameters(new Parameter[]{new DoubleParam("C", 100), new DoubleParam("Reduction factor", 1.414)}); }
+		public Parameters GetParameters(IGroupDataProvider data){
+			return
+				new Parameters(new Parameter[]{
+					new DoubleParam("C", 100){Help = SvmClassification.cHelp},
+					new DoubleParam("Reduction factor", 1.414){
+						Help = "The feature set will be recursively reduced in size by this factor."
+					}
+				});
+		}
+
 		public string Name { get { return "RFE-SVM"; } }
 		public string Description { get { return ""; } }
 		public float DisplayRank { get { return 0; } }
