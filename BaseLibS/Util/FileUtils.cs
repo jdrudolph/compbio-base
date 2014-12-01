@@ -472,6 +472,10 @@ namespace BaseLibS.Util{
 			return Type.GetType("System.Reflection.ReflectionContext", false) != null;
 		}
 
+		public static string BasicChecks(){
+			return !IsNet45OrNewer() ? ".NET 4.5 framework is not installed." : null;
+		}
+
 		public static void Write(IList<double> x, BinaryWriter writer){
 			writer.Write(x.Count);
 			foreach (double t in x){
