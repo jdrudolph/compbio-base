@@ -32,5 +32,6 @@ namespace BaseLib.Wpf{
 		public static BitmapSource GetMinusBitmap() { return LoadBitmap(Properties.Resources.minus_icon); }
 		public static BitmapSource GetPlusBitmap() { return LoadBitmap(Properties.Resources.plus_icon); }
 		public static BitmapSource GetArrowCornerBitmap() { return LoadBitmap(Properties.Resources.arrowCorner); }
+		public static BitmapSource GetRotateBitmap() { return LoadBitmap(Properties.Resources.rotate); }
 	}
 }
