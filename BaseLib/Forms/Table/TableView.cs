@@ -110,7 +110,6 @@ namespace BaseLib.Forms.Table{
 		private int origColumnHeaderHeight = 40;
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
-
 		public Action<string> SetCellText { get; set; }
 		public TableView() : this("") { }
 
@@ -448,7 +447,11 @@ namespace BaseLib.Forms.Table{
 			if (row < 0 || order == null || row >= order.Length){
 				return false;
 			}
-			return modelRowSel[order[row]];
+			try{
+				return modelRowSel[order[row]];
+			} catch (IndexOutOfRangeException){
+				return false;
+			}
 		}
 
 		public bool ModelRowIsSelected(int row){
@@ -458,7 +461,11 @@ namespace BaseLib.Forms.Table{
 			if (row < 0 || row >= modelRowSel.Length){
 				return false;
 			}
-			return modelRowSel[row];
+			try{
+				return modelRowSel[row];
+			} catch (IndexOutOfRangeException){
+				return false;
+			}
 		}
 
 		protected internal override sealed void OnPaintRowHeaderView(IGraphics g, int y, int height){
@@ -676,6 +683,7 @@ namespace BaseLib.Forms.Table{
 				return count;
 			}
 		}
+
 		public void SetSetectedViewIndex(int index){
 			CheckSizes();
 			if (!multiSelect){
@@ -1359,13 +1367,11 @@ namespace BaseLib.Forms.Table{
 					SelectionChanged(this, new EventArgs());
 				}
 				if (SetCellText != null){
-					int row = (VisibleY + e.Y) / rowHeight;
-					if (model == null || row >= model.RowCount || row < 0)
-					{
+					int row = (VisibleY + e.Y)/rowHeight;
+					if (model == null || row >= model.RowCount || row < 0){
 						return;
 					}
-					if (columnWidthSums == null)
-					{
+					if (columnWidthSums == null){
 						return;
 					}
 					int x1 = VisibleX + e.X;
