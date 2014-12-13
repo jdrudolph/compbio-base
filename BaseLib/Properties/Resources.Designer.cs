@@ -22,7 +22,7 @@ namespace BaseLib.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace BaseLib.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("BaseLib.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace BaseLib.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _new {
+        public static System.Drawing.Bitmap _new {
             get {
                 object obj = ResourceManager.GetObject("_new", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -73,7 +73,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap A1 {
+        public static System.Drawing.Bitmap A1 {
             get {
                 object obj = ResourceManager.GetObject("A1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -83,7 +83,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrowCorner {
+        public static System.Drawing.Bitmap arrowCorner {
             get {
                 object obj = ResourceManager.GetObject("arrowCorner", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -93,7 +93,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrowDown1 {
+        public static System.Drawing.Bitmap arrowDown1 {
             get {
                 object obj = ResourceManager.GetObject("arrowDown1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -103,7 +103,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap arrowUp1 {
+        public static System.Drawing.Bitmap arrowUp1 {
             get {
                 object obj = ResourceManager.GetObject("arrowUp1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -113,7 +113,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap C1 {
+        public static System.Drawing.Bitmap C1 {
             get {
                 object obj = ResourceManager.GetObject("C1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -123,7 +123,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_a {
+        public static System.Drawing.Bitmap char_a {
             get {
                 object obj = ResourceManager.GetObject("char_a", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -133,7 +133,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_asterisk {
+        public static System.Drawing.Bitmap char_asterisk {
             get {
                 object obj = ResourceManager.GetObject("char_asterisk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -143,7 +143,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_b {
+        public static System.Drawing.Bitmap char_b {
             get {
                 object obj = ResourceManager.GetObject("char_b", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -153,7 +153,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_backslash {
+        public static System.Drawing.Bitmap char_backslash {
             get {
                 object obj = ResourceManager.GetObject("char_backslash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -163,7 +163,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_c {
+        public static System.Drawing.Bitmap char_c {
             get {
                 object obj = ResourceManager.GetObject("char_c", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -173,7 +173,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_colon {
+        public static System.Drawing.Bitmap char_colon {
             get {
                 object obj = ResourceManager.GetObject("char_colon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -183,7 +183,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_d {
+        public static System.Drawing.Bitmap char_d {
             get {
                 object obj = ResourceManager.GetObject("char_d", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -193,7 +193,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_e {
+        public static System.Drawing.Bitmap char_e {
             get {
                 object obj = ResourceManager.GetObject("char_e", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -203,7 +203,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_equal {
+        public static System.Drawing.Bitmap char_equal {
             get {
                 object obj = ResourceManager.GetObject("char_equal", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -213,7 +213,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_exclamation {
+        public static System.Drawing.Bitmap char_exclamation {
             get {
                 object obj = ResourceManager.GetObject("char_exclamation", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -223,7 +223,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_f {
+        public static System.Drawing.Bitmap char_f {
             get {
                 object obj = ResourceManager.GetObject("char_f", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -233,7 +233,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_fullstop {
+        public static System.Drawing.Bitmap char_fullstop {
             get {
                 object obj = ResourceManager.GetObject("char_fullstop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -243,7 +243,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_g {
+        public static System.Drawing.Bitmap char_g {
             get {
                 object obj = ResourceManager.GetObject("char_g", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -253,7 +253,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_h {
+        public static System.Drawing.Bitmap char_h {
             get {
                 object obj = ResourceManager.GetObject("char_h", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -263,7 +263,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_hash {
+        public static System.Drawing.Bitmap char_hash {
             get {
                 object obj = ResourceManager.GetObject("char_hash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -273,7 +273,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_i {
+        public static System.Drawing.Bitmap char_i {
             get {
                 object obj = ResourceManager.GetObject("char_i", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -283,7 +283,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_j {
+        public static System.Drawing.Bitmap char_j {
             get {
                 object obj = ResourceManager.GetObject("char_j", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -293,7 +293,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_k {
+        public static System.Drawing.Bitmap char_k {
             get {
                 object obj = ResourceManager.GetObject("char_k", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -303,7 +303,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_l {
+        public static System.Drawing.Bitmap char_l {
             get {
                 object obj = ResourceManager.GetObject("char_l", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -313,7 +313,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_m {
+        public static System.Drawing.Bitmap char_m {
             get {
                 object obj = ResourceManager.GetObject("char_m", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -323,7 +323,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_minus {
+        public static System.Drawing.Bitmap char_minus {
             get {
                 object obj = ResourceManager.GetObject("char_minus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -333,7 +333,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_n {
+        public static System.Drawing.Bitmap char_n {
             get {
                 object obj = ResourceManager.GetObject("char_n", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -343,7 +343,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_o {
+        public static System.Drawing.Bitmap char_o {
             get {
                 object obj = ResourceManager.GetObject("char_o", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -353,7 +353,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_p {
+        public static System.Drawing.Bitmap char_p {
             get {
                 object obj = ResourceManager.GetObject("char_p", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -363,7 +363,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_percent {
+        public static System.Drawing.Bitmap char_percent {
             get {
                 object obj = ResourceManager.GetObject("char_percent", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -373,7 +373,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_plus {
+        public static System.Drawing.Bitmap char_plus {
             get {
                 object obj = ResourceManager.GetObject("char_plus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -383,7 +383,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_q {
+        public static System.Drawing.Bitmap char_q {
             get {
                 object obj = ResourceManager.GetObject("char_q", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -393,7 +393,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_question {
+        public static System.Drawing.Bitmap char_question {
             get {
                 object obj = ResourceManager.GetObject("char_question", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -403,7 +403,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_r {
+        public static System.Drawing.Bitmap char_r {
             get {
                 object obj = ResourceManager.GetObject("char_r", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -413,7 +413,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_s {
+        public static System.Drawing.Bitmap char_s {
             get {
                 object obj = ResourceManager.GetObject("char_s", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -423,7 +423,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_slash {
+        public static System.Drawing.Bitmap char_slash {
             get {
                 object obj = ResourceManager.GetObject("char_slash", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -433,7 +433,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_t {
+        public static System.Drawing.Bitmap char_t {
             get {
                 object obj = ResourceManager.GetObject("char_t", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -443,7 +443,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_tilde {
+        public static System.Drawing.Bitmap char_tilde {
             get {
                 object obj = ResourceManager.GetObject("char_tilde", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -453,7 +453,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_u {
+        public static System.Drawing.Bitmap char_u {
             get {
                 object obj = ResourceManager.GetObject("char_u", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -463,7 +463,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_underscore {
+        public static System.Drawing.Bitmap char_underscore {
             get {
                 object obj = ResourceManager.GetObject("char_underscore", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -473,7 +473,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_v {
+        public static System.Drawing.Bitmap char_v {
             get {
                 object obj = ResourceManager.GetObject("char_v", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -483,7 +483,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_w {
+        public static System.Drawing.Bitmap char_w {
             get {
                 object obj = ResourceManager.GetObject("char_w", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -493,7 +493,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_x {
+        public static System.Drawing.Bitmap char_x {
             get {
                 object obj = ResourceManager.GetObject("char_x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -503,7 +503,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_y {
+        public static System.Drawing.Bitmap char_y {
             get {
                 object obj = ResourceManager.GetObject("char_y", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -513,7 +513,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char_z {
+        public static System.Drawing.Bitmap char_z {
             get {
                 object obj = ResourceManager.GetObject("char_z", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -523,7 +523,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char0 {
+        public static System.Drawing.Bitmap char0 {
             get {
                 object obj = ResourceManager.GetObject("char0", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -533,7 +533,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char1 {
+        public static System.Drawing.Bitmap char1 {
             get {
                 object obj = ResourceManager.GetObject("char1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -543,7 +543,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char2 {
+        public static System.Drawing.Bitmap char2 {
             get {
                 object obj = ResourceManager.GetObject("char2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -553,7 +553,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char3 {
+        public static System.Drawing.Bitmap char3 {
             get {
                 object obj = ResourceManager.GetObject("char3", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -563,7 +563,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char4 {
+        public static System.Drawing.Bitmap char4 {
             get {
                 object obj = ResourceManager.GetObject("char4", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -573,7 +573,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char5 {
+        public static System.Drawing.Bitmap char5 {
             get {
                 object obj = ResourceManager.GetObject("char5", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -583,7 +583,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char6 {
+        public static System.Drawing.Bitmap char6 {
             get {
                 object obj = ResourceManager.GetObject("char6", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -593,7 +593,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char7 {
+        public static System.Drawing.Bitmap char7 {
             get {
                 object obj = ResourceManager.GetObject("char7", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -603,7 +603,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char8 {
+        public static System.Drawing.Bitmap char8 {
             get {
                 object obj = ResourceManager.GetObject("char8", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -613,7 +613,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap char9 {
+        public static System.Drawing.Bitmap char9 {
             get {
                 object obj = ResourceManager.GetObject("char9", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -623,7 +623,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charA {
+        public static System.Drawing.Bitmap charA {
             get {
                 object obj = ResourceManager.GetObject("charA", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -633,7 +633,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charB {
+        public static System.Drawing.Bitmap charB {
             get {
                 object obj = ResourceManager.GetObject("charB", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -643,7 +643,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charC {
+        public static System.Drawing.Bitmap charC {
             get {
                 object obj = ResourceManager.GetObject("charC", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -653,7 +653,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charD {
+        public static System.Drawing.Bitmap charD {
             get {
                 object obj = ResourceManager.GetObject("charD", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -663,7 +663,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charE {
+        public static System.Drawing.Bitmap charE {
             get {
                 object obj = ResourceManager.GetObject("charE", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -673,7 +673,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charF {
+        public static System.Drawing.Bitmap charF {
             get {
                 object obj = ResourceManager.GetObject("charF", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -683,7 +683,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charG {
+        public static System.Drawing.Bitmap charG {
             get {
                 object obj = ResourceManager.GetObject("charG", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -693,7 +693,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charH {
+        public static System.Drawing.Bitmap charH {
             get {
                 object obj = ResourceManager.GetObject("charH", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -703,7 +703,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charI {
+        public static System.Drawing.Bitmap charI {
             get {
                 object obj = ResourceManager.GetObject("charI", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -713,7 +713,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charJ {
+        public static System.Drawing.Bitmap charJ {
             get {
                 object obj = ResourceManager.GetObject("charJ", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -723,7 +723,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charK {
+        public static System.Drawing.Bitmap charK {
             get {
                 object obj = ResourceManager.GetObject("charK", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -733,7 +733,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charL {
+        public static System.Drawing.Bitmap charL {
             get {
                 object obj = ResourceManager.GetObject("charL", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -743,7 +743,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charM {
+        public static System.Drawing.Bitmap charM {
             get {
                 object obj = ResourceManager.GetObject("charM", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -753,7 +753,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charN {
+        public static System.Drawing.Bitmap charN {
             get {
                 object obj = ResourceManager.GetObject("charN", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -763,7 +763,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charO {
+        public static System.Drawing.Bitmap charO {
             get {
                 object obj = ResourceManager.GetObject("charO", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -773,7 +773,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charP {
+        public static System.Drawing.Bitmap charP {
             get {
                 object obj = ResourceManager.GetObject("charP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -783,7 +783,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charQ {
+        public static System.Drawing.Bitmap charQ {
             get {
                 object obj = ResourceManager.GetObject("charQ", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -793,7 +793,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charR {
+        public static System.Drawing.Bitmap charR {
             get {
                 object obj = ResourceManager.GetObject("charR", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -803,7 +803,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charS {
+        public static System.Drawing.Bitmap charS {
             get {
                 object obj = ResourceManager.GetObject("charS", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -813,7 +813,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charT {
+        public static System.Drawing.Bitmap charT {
             get {
                 object obj = ResourceManager.GetObject("charT", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -823,7 +823,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charU {
+        public static System.Drawing.Bitmap charU {
             get {
                 object obj = ResourceManager.GetObject("charU", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -833,7 +833,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charV {
+        public static System.Drawing.Bitmap charV {
             get {
                 object obj = ResourceManager.GetObject("charV", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -843,7 +843,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charW {
+        public static System.Drawing.Bitmap charW {
             get {
                 object obj = ResourceManager.GetObject("charW", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -853,7 +853,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charX {
+        public static System.Drawing.Bitmap charX {
             get {
                 object obj = ResourceManager.GetObject("charX", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -863,7 +863,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charY {
+        public static System.Drawing.Bitmap charY {
             get {
                 object obj = ResourceManager.GetObject("charY", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -873,7 +873,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap charZ {
+        public static System.Drawing.Bitmap charZ {
             get {
                 object obj = ResourceManager.GetObject("charZ", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -883,7 +883,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap D1 {
+        public static System.Drawing.Bitmap D1 {
             get {
                 object obj = ResourceManager.GetObject("D1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -893,7 +893,17 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap E1 {
+        public static System.Drawing.Bitmap dice {
+            get {
+                object obj = ResourceManager.GetObject("dice", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap E1 {
             get {
                 object obj = ResourceManager.GetObject("E1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -903,7 +913,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap exit {
+        public static System.Drawing.Bitmap exit {
             get {
                 object obj = ResourceManager.GetObject("exit", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -913,7 +923,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap F1 {
+        public static System.Drawing.Bitmap F1 {
             get {
                 object obj = ResourceManager.GetObject("F1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -923,7 +933,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap G1 {
+        public static System.Drawing.Bitmap G1 {
             get {
                 object obj = ResourceManager.GetObject("G1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -933,7 +943,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap H1 {
+        public static System.Drawing.Bitmap H1 {
             get {
                 object obj = ResourceManager.GetObject("H1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -943,7 +953,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap help {
+        public static System.Drawing.Bitmap help {
             get {
                 object obj = ResourceManager.GetObject("help", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -953,7 +963,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap I1 {
+        public static System.Drawing.Bitmap I1 {
             get {
                 object obj = ResourceManager.GetObject("I1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -963,7 +973,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap info {
+        public static System.Drawing.Bitmap info {
             get {
                 object obj = ResourceManager.GetObject("info", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -973,7 +983,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap K1 {
+        public static System.Drawing.Bitmap K1 {
             get {
                 object obj = ResourceManager.GetObject("K1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -983,7 +993,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap L1 {
+        public static System.Drawing.Bitmap L1 {
             get {
                 object obj = ResourceManager.GetObject("L1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -993,7 +1003,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap M1 {
+        public static System.Drawing.Bitmap M1 {
             get {
                 object obj = ResourceManager.GetObject("M1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1003,7 +1013,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap merge {
+        public static System.Drawing.Bitmap merge {
             get {
                 object obj = ResourceManager.GetObject("merge", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1013,7 +1023,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minMaxRibbon {
+        public static System.Drawing.Bitmap minMaxRibbon {
             get {
                 object obj = ResourceManager.GetObject("minMaxRibbon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1023,7 +1033,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minus_icon {
+        public static System.Drawing.Bitmap minus_icon {
             get {
                 object obj = ResourceManager.GetObject("minus_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1033,7 +1043,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap minus1 {
+        public static System.Drawing.Bitmap minus1 {
             get {
                 object obj = ResourceManager.GetObject("minus1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1043,7 +1053,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap monitors {
+        public static System.Drawing.Bitmap monitors {
             get {
                 object obj = ResourceManager.GetObject("monitors", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1053,7 +1063,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap N1 {
+        public static System.Drawing.Bitmap N1 {
             get {
                 object obj = ResourceManager.GetObject("N1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1063,7 +1073,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open {
+        public static System.Drawing.Bitmap open {
             get {
                 object obj = ResourceManager.GetObject("open", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1073,7 +1083,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap open_in_new_window {
+        public static System.Drawing.Bitmap open_in_new_window {
             get {
                 object obj = ResourceManager.GetObject("open_in_new_window", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1083,7 +1093,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap P1 {
+        public static System.Drawing.Bitmap P1 {
             get {
                 object obj = ResourceManager.GetObject("P1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1093,7 +1103,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf {
+        public static System.Drawing.Bitmap pdf {
             get {
                 object obj = ResourceManager.GetObject("pdf", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1103,7 +1113,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap plus_icon {
+        public static System.Drawing.Bitmap plus_icon {
             get {
                 object obj = ResourceManager.GetObject("plus_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1113,7 +1123,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap plus1 {
+        public static System.Drawing.Bitmap plus1 {
             get {
                 object obj = ResourceManager.GetObject("plus1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1123,7 +1133,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Q1 {
+        public static System.Drawing.Bitmap Q1 {
             get {
                 object obj = ResourceManager.GetObject("Q1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1133,7 +1143,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap question11 {
+        public static System.Drawing.Bitmap question11 {
             get {
                 object obj = ResourceManager.GetObject("question11", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1143,7 +1153,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap question12 {
+        public static System.Drawing.Bitmap question12 {
             get {
                 object obj = ResourceManager.GetObject("question12", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1153,7 +1163,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap question2 {
+        public static System.Drawing.Bitmap question2 {
             get {
                 object obj = ResourceManager.GetObject("question2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1163,7 +1173,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap R1 {
+        public static System.Drawing.Bitmap R1 {
             get {
                 object obj = ResourceManager.GetObject("R1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1173,7 +1183,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap rotate {
+        public static System.Drawing.Bitmap rotate {
             get {
                 object obj = ResourceManager.GetObject("rotate", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1183,7 +1193,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap S1 {
+        public static System.Drawing.Bitmap S1 {
             get {
                 object obj = ResourceManager.GetObject("S1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1193,7 +1203,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save {
+        public static System.Drawing.Bitmap save {
             get {
                 object obj = ResourceManager.GetObject("save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1203,7 +1213,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap save_as {
+        public static System.Drawing.Bitmap save_as {
             get {
                 object obj = ResourceManager.GetObject("save_as", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1213,7 +1223,27 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap T1 {
+        public static System.Drawing.Bitmap save2 {
+            get {
+                object obj = ResourceManager.GetObject("save2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap sheep {
+            get {
+                object obj = ResourceManager.GetObject("sheep", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap T1 {
             get {
                 object obj = ResourceManager.GetObject("T1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1223,7 +1253,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap tools {
+        public static System.Drawing.Bitmap tools {
             get {
                 object obj = ResourceManager.GetObject("tools", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1233,7 +1263,17 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap V1 {
+        public static System.Drawing.Bitmap upload64 {
+            get {
+                object obj = ResourceManager.GetObject("upload64", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap V1 {
             get {
                 object obj = ResourceManager.GetObject("V1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1243,7 +1283,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap W1 {
+        public static System.Drawing.Bitmap W1 {
             get {
                 object obj = ResourceManager.GetObject("W1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
@@ -1253,7 +1293,7 @@ namespace BaseLib.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Y1 {
+        public static System.Drawing.Bitmap Y1 {
             get {
                 object obj = ResourceManager.GetObject("Y1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));

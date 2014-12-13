@@ -123,19 +123,13 @@ namespace BaseLib.Forms.Table{
 					return "T";
 				case ColumnType.DashStyle:
 					return "C";
-				case ColumnType.Expression:
-					return "E";
 				case ColumnType.Integer:
 					return "N";
 				case ColumnType.MultiInteger:
 					return "M";
 				case ColumnType.MultiNumeric:
 					return "M";
-				case ColumnType.MultiNumericLog:
-					return "M";
 				case ColumnType.Numeric:
-					return "N";
-				case ColumnType.NumericLog:
 					return "N";
 				case ColumnType.Text:
 					return "T";

@@ -144,7 +144,7 @@ namespace BaseLib.Forms.Table{
 
 		private bool IsNumeric(int ind){
 			ColumnType c = columnTypes[ind];
-			return c == ColumnType.Expression || c == ColumnType.Integer || c == ColumnType.Numeric || c == ColumnType.NumericLog;
+			return c == ColumnType.Integer || c == ColumnType.Numeric;
 		}
 	}
 }

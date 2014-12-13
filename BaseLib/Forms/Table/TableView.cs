@@ -604,20 +604,14 @@ namespace BaseLib.Forms.Table{
 			//mainViewToolTip.Hide(this);
 		}
 
-		public static bool IsLogarithmic(ColumnType columnType){
-			return columnType == ColumnType.NumericLog || columnType == ColumnType.MultiNumericLog ||
-				columnType == ColumnType.Expression;
-		}
-
 		public static bool IsMulti(ColumnType columnType){
-			return columnType == ColumnType.MultiNumeric || columnType == ColumnType.MultiNumericLog ||
+			return columnType == ColumnType.MultiNumeric ||
 				columnType == ColumnType.MultiInteger;
 		}
 
 		public static bool IsNumeric(ColumnType columnType){
-			return columnType == ColumnType.NumericLog || columnType == ColumnType.Expression || columnType == ColumnType.Numeric ||
-				columnType == ColumnType.Integer || columnType == ColumnType.MultiInteger || columnType == ColumnType.MultiNumeric ||
-				columnType == ColumnType.MultiNumericLog;
+			return columnType == ColumnType.Numeric ||
+				columnType == ColumnType.Integer || columnType == ColumnType.MultiInteger || columnType == ColumnType.MultiNumeric;
 		}
 
 		public void ScrollToRow(int row){
@@ -1183,9 +1177,7 @@ namespace BaseLib.Forms.Table{
 				case ColumnType.Integer:
 					order = SortInt();
 					break;
-				case ColumnType.NumericLog:
 				case ColumnType.Numeric:
-				case ColumnType.Expression:
 					order = SortDouble();
 					break;
 				default:
