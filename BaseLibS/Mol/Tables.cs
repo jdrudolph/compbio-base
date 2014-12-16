@@ -253,6 +253,9 @@ namespace BaseLibS.Mol{
 			SequenceDatabase[] dbx = ReadDatabaseList();
 			foreach (SequenceDatabase db in dbx){
 				db.Filename = db.Filename.Trim();
+				if (dbs.ContainsKey(db.Filename)){
+					dbs.Remove(db.Filename);
+				}
 				dbs.Add(db.Filename, db);
 			}
 			return dbs;
