@@ -51,7 +51,7 @@ namespace BaseLib.Param{
 				VerticalAlignment = VerticalAlignment.Top
 			};
 			ToolTipService.SetShowDuration(txt1, 400000);
-			if (p.Help != null){
+			if (!string.IsNullOrEmpty(p.Help)){
 				txt1.ToolTip = StringUtils.ReturnAtWhitespace(p.Help);
 			}
 			Grid.SetColumn(txt1, 0);
