@@ -4,7 +4,7 @@ using System.Windows.Controls;
 namespace BaseLib.Param{
 	public class ParameterPanel : UserControl{
 		public Parameters Parameters { get; private set; }
-		private Grid tableLayoutPanel;
+		private Grid grid;
 		public bool Collapsible { get; set; }
 		public bool CollapsedDefault { get; set; }
 		private ParameterGroupPanel[] parameterGroupPanels;
@@ -21,24 +21,24 @@ namespace BaseLib.Param{
 			Parameters = parameters1;
 			int nrows = Parameters.GroupCount;
 			parameterGroupPanels = new ParameterGroupPanel[nrows];
-			tableLayoutPanel = new Grid();
-			tableLayoutPanel.ColumnDefinitions.Clear();
-			tableLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition());
-			tableLayoutPanel.Name = "tableLayoutPanel";
-			tableLayoutPanel.RowDefinitions.Clear();
+			grid = new Grid();
+			grid.ColumnDefinitions.Clear();
+			grid.ColumnDefinitions.Add(new ColumnDefinition());
+			grid.Name = "tableLayoutPanel";
+			grid.RowDefinitions.Clear();
 			float totalHeight = 0;
 			for (int i = 0; i < nrows; i++){
 				float h = parameters1.GetGroup(i).Height + 26;
-				tableLayoutPanel.RowDefinitions.Add(new RowDefinition{Height = new GridLength(h, GridUnitType.Pixel)});
+				grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(h, GridUnitType.Pixel)});
 				totalHeight += h + 6;
 			}
-			tableLayoutPanel.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
-			tableLayoutPanel.Width = totalWidth;
-			tableLayoutPanel.Height = (int) totalHeight;
+			grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
+			grid.Width = totalWidth;
+			grid.Height = (int) totalHeight;
 			for (int i = 0; i < nrows; i++){
 				AddParameterGroup(parameters1.GetGroup(i), i, paramNameWidth, totalWidth);
 			}
-			Content = tableLayoutPanel;
+			Content = grid;
 			Name = "ParameterPanel";
 			Width = totalWidth;
 			Height = totalHeight;
@@ -59,12 +59,12 @@ namespace BaseLib.Param{
 			if (p.Name == null){
 				Grid.SetColumn(pgp, 0);
 				Grid.SetRow(pgp, i);
-				tableLayoutPanel.Children.Add(pgp);
+				grid.Children.Add(pgp);
 			} else{
 				GroupBox gb = new GroupBox{Header = p.Name, Margin = new Thickness(3), Padding = new Thickness(3), Content = pgp};
 				Grid.SetColumn(gb, 0);
 				Grid.SetRow(gb, i);
-				tableLayoutPanel.Children.Add(gb);
+				grid.Children.Add(gb);
 			}
 		}
 
