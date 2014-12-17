@@ -1,35 +1,36 @@
 using System.Windows;
 using System.Windows.Controls;
+using BaseLib.Wpf;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	public partial class ParameterGroupPanel : UserControl{
 		public ParameterGroup ParameterGroup { get; private set; }
-		private Grid tableLayoutPanel;
+		private Grid grid;
 		public void Init(ParameterGroup parameters1) { Init(parameters1, 200F, 1050); }
 
 		public void Init(ParameterGroup parameters1, float paramNameWidth, int totalWidth){
 			ParameterGroup = parameters1;
 			int nrows = ParameterGroup.Count;
-			tableLayoutPanel = new Grid{
+			grid = new Grid{
 				HorizontalAlignment = HorizontalAlignment.Left,
 				VerticalAlignment = VerticalAlignment.Top
 			};
-			tableLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition{
+			grid.ColumnDefinitions.Add(new ColumnDefinition{
 				Width = new GridLength(paramNameWidth, GridUnitType.Pixel)
 			});
-			tableLayoutPanel.ColumnDefinitions.Add(new ColumnDefinition{
+			grid.ColumnDefinitions.Add(new ColumnDefinition{
 				Width = new GridLength(totalWidth - paramNameWidth, GridUnitType.Pixel)
 			});
-			tableLayoutPanel.Margin = new Thickness(0);
+			grid.Margin = new Thickness(0);
 			for (int i = 0; i < nrows; i++){
 				float h = ParameterGroup[i].Visible ? ParameterGroup[i].Height : 0;
-				tableLayoutPanel.RowDefinitions.Add(new RowDefinition{Height = new GridLength(h, GridUnitType.Pixel)});
+				grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(h, GridUnitType.Pixel)});
 			}
 			for (int i = 0; i < nrows; i++){
 				AddParameter(ParameterGroup[i], i);
 			}
-			AddChild(tableLayoutPanel);
+			AddChild(grid);
 			Name = "ParameterPanel";
 			Margin = new Thickness(0, 3, 0, 3);
 			VerticalAlignment = VerticalAlignment.Top;
@@ -59,11 +60,18 @@ namespace BaseLib.Param{
 			UIElement c = p.GetControl() ?? new Control();
 			Grid.SetColumn(c, 1);
 			Grid.SetRow(c, i);
-			tableLayoutPanel.Children.Add(txt1);
-			tableLayoutPanel.Children.Add(c);
+			grid.Children.Add(txt1);
+			grid.Children.Add(c);
+		}
+		public void RegisterScrollViewer(ScrollViewer scrollViewer){
+			foreach (var child in grid.Children){
+				if (child is IScrollRegistrationTarget){
+					((IScrollRegistrationTarget)child).RegisterScrollViewer(scrollViewer);
+				}
+			}
 		}
 
-		public void Enable() { tableLayoutPanel.IsEnabled = true; }
-		public void Disable() { tableLayoutPanel.IsEnabled = false; }
+		public void Enable() { grid.IsEnabled = true; }
+		public void Disable() { grid.IsEnabled = false; }
 	}
 }

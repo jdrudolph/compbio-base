@@ -68,6 +68,12 @@ namespace BaseLib.Param{
 			}
 		}
 
+		public void RegisterScrollViewer(ScrollViewer scrollViewer){
+			foreach (ParameterGroupPanel panel in parameterGroupPanels){
+				panel.RegisterScrollViewer(scrollViewer);
+			}
+		}
+
 		public void Disable(){
 			foreach (ParameterGroupPanel parameterGroupPanel in parameterGroupPanels){
 				parameterGroupPanel.Disable();

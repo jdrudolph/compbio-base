@@ -92,6 +92,7 @@ namespace BaseLib.Wpf{
 			textBoxVisible = !textBoxVisible;
 		}
 
+		public void RegisterScrollViewer(ScrollViewer scrollViewer) { MainPanel.RegisterScrollViewer(scrollViewer); }
 		private bool textBoxVisible;
 	}
 }
