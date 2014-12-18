@@ -85,23 +85,21 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override UIElement Control{
-			get{
-				ComboBox cb = new ComboBox();
-				cb.SelectionChanged += (sender, e) =>{
-					SetValueFromControl();
-					ValueHasChanged();
-				};
-				if (Values != null){
-					foreach (string value in Values){
-						cb.Items.Add(value);
-					}
-					if (Value >= 0 && Value < Values.Count){
-						cb.SelectedIndex = Value;
-					}
+		protected override UIElement CreateControl(){
+			ComboBox cb = new ComboBox();
+			cb.SelectionChanged += (sender, e) =>{
+				SetValueFromControl();
+				ValueHasChanged();
+			};
+			if (Values != null){
+				foreach (string value in Values){
+					cb.Items.Add(value);
 				}
-				return cb;
+				if (Value >= 0 && Value < Values.Count){
+					cb.SelectedIndex = Value;
+				}
 			}
+			return cb;
 		}
 
 		public override object Clone() { return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default}; }

@@ -41,7 +41,7 @@ namespace BaseLib.Param{
 		}
 
 		public override void Clear() { Value = false; }
-		protected override UIElement Control { get { return new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center}; } }
+		protected override UIElement CreateControl() { return new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center}; }
 		public override object Clone() { return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

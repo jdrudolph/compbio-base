@@ -47,7 +47,7 @@ namespace BaseLib.Param{
 		}
 
 		public override void Clear() { Value = ""; }
-		protected override UIElement Control { get { return new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save}; } }
+		protected override UIElement CreateControl() { return new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save}; }
 
 		public override object Clone(){
 			return new FileParam(Name, Value){

@@ -83,13 +83,11 @@ namespace BaseLib.Param{
 			ls.SelectedIndices = Value;
 		}
 
-		protected override UIElement Control{
-			get{
-				MultiListSelectorControl ls = new MultiListSelectorControl();
-				ls.Init(Values, Bins);
-				ls.SelectedIndices = Value;
-				return ls;
-			}
+		protected override UIElement CreateControl(){
+			MultiListSelectorControl ls = new MultiListSelectorControl();
+			ls.Init(Values, Bins);
+			ls.SelectedIndices = Value;
+			return ls;
 		}
 
 		public override float Height { get { return 310f; } }

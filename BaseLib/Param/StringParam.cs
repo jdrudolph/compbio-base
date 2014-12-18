@@ -42,7 +42,7 @@ namespace BaseLib.Param{
 		}
 
 		public override void Clear() { Value = ""; }
-		protected override UIElement Control { get { return new TextBox{Text = Value}; } }
+		protected override UIElement CreateControl() { return new TextBox{Text = Value}; }
 		public override object Clone() { return new StringParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

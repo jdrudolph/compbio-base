@@ -65,7 +65,7 @@ namespace BaseLib.Param{
 		}
 
 		public override void Clear() { Value = new Dictionary<string, int>(); }
-		protected override UIElement Control { get { return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; } }
+		protected override UIElement CreateControl() {  return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; }
 		public override object Clone() { return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

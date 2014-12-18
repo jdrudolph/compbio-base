@@ -41,7 +41,7 @@ namespace BaseLib.Param{
 		}
 
 		public override void Clear() { Value = ""; }
-		protected override UIElement Control { get { return new Label{Content = Value}; } }
+		protected override UIElement CreateControl() { return new Label{Content = Value}; }
 		public override object Clone() { return new LabelParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

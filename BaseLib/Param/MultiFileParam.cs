@@ -55,7 +55,7 @@ namespace BaseLib.Param{
 			lfp.Filenames = Value;
 		}
 
-		protected override UIElement Control { get { return new MultiFileParameterControl{Filter = Filter, Filenames = Value}; } }
+		protected override UIElement CreateControl() {  return new MultiFileParameterControl{Filter = Filter, Filenames = Value}; }
 		public override object Clone() { return new MultiFileParam(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default}; }
 		public override float Height { get { return 120; } }
 	}

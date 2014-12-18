@@ -43,11 +43,9 @@ namespace BaseLib.Param{
 
 		public override void Clear() { Value = ""; }
 
-		protected override UIElement Control{
-			get{
-				FolderParameterControl tb = new FolderParameterControl{Text = Value};
-				return tb;
-			}
+		protected override UIElement CreateControl(){
+			FolderParameterControl tb = new FolderParameterControl{Text = Value};
+			return tb;
 		}
 
 		public override object Clone() { return new FolderParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }

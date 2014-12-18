@@ -72,17 +72,15 @@ namespace BaseLib.Param{
 			ls.SelectedIndices = Value;
 		}
 
-		protected override UIElement Control{
-			get{
-				ListSelectorControl ls = new ListSelectorControl{HasMoveButtons = true};
-				foreach (string value in Values){
-					ls.Items.Add(value);
-				}
-				ls.Repeats = Repeats;
-				ls.SelectedIndices = Value;
-				ls.SetDefaultSelectors(defaultSelectionNames, defaultSelections);
-				return ls;
+		protected override UIElement CreateControl(){
+			ListSelectorControl ls = new ListSelectorControl{HasMoveButtons = true};
+			foreach (string value in Values){
+				ls.Items.Add(value);
 			}
+			ls.Repeats = Repeats;
+			ls.SelectedIndices = Value;
+			ls.SetDefaultSelectors(defaultSelectionNames, defaultSelections);
+			return ls;
 		}
 
 		public override float Height { get { return 160f; } }

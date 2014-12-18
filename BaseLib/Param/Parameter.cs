@@ -34,11 +34,10 @@ namespace BaseLib.Param{
 		public virtual void Drop(string x) { }
 		public virtual float Height { get { return paramHeight; } }
 		public virtual string[] Markup { get { return new[]{"<parameter" + " name=\"" + Name + "\" value=\"" + StringValue + "\"></parameter>"}; } }
-		protected abstract UIElement Control { get; }
+		protected abstract UIElement CreateControl();
 
 		internal UIElement GetControl(){
-			control = Control;
-			return control;
+			return control = CreateControl();
 		}
 
 		protected void ValueHasChanged(){

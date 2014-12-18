@@ -46,15 +46,13 @@ namespace BaseLib.Param{
 
 		public override void Clear() { Value = 0; }
 
-		protected override UIElement Control{
-			get{
-				TextBox tb = new TextBox{Text = "" + Value};
-				tb.TextChanged += (sender, e) =>{
-					SetValueFromControl();
-					ValueHasChanged();
-				};
-				return tb;
-			}
+		protected override UIElement CreateControl(){
+			TextBox tb = new TextBox{Text = "" + Value};
+			tb.TextChanged += (sender, e) =>{
+				SetValueFromControl();
+				ValueHasChanged();
+			};
+			return tb;
 		}
 
 		public override object Clone() { return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }

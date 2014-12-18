@@ -100,45 +100,43 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override UIElement Control{
-			get{
-				ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
-				for (int i = 0; i < panels.Length; i++){
-					panels[i] = new ParameterPanel();
-					panels[i].Init(SubParams[i], ParamNameWidth, (int) TotalWidth);
-				}
-				ComboBox cb = new ComboBox();
-				cb.SelectionChanged += (sender, e) =>{
-					SetValueFromControl();
-					ValueHasChanged();
-				};
-				if (Values != null){
-					foreach (string value in Values){
-						cb.Items.Add(value);
-					}
-					if (Value >= 0 && Value < Values.Count){
-						cb.SelectedIndex = Value;
-					}
-				}
-				Grid grid = new Grid();
-				grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(paramHeight, GridUnitType.Pixel)});
-				grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
-				Grid.SetRow(cb, 0);
-				grid.Children.Add(cb);
-				for (int i = 0; i < panels.Length; i++){
-					panels[i].Visibility = (i == Value) ? Visibility.Visible : Visibility.Hidden;
-					panels[i].VerticalAlignment = VerticalAlignment.Top;
-					Grid.SetRow(panels[i], 1);
-					grid.Children.Add(panels[i]);
-				}
-				cb.SelectionChanged += (sender, e) =>{
-					for (int i = 0; i < panels.Length; i++){
-						panels[i].Visibility = (i == cb.SelectedIndex) ? Visibility.Visible : Visibility.Hidden;
-					}
-				};
-				grid.Width = totalWidth;
-				return grid;
+		protected override UIElement CreateControl(){
+			ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
+			for (int i = 0; i < panels.Length; i++){
+				panels[i] = new ParameterPanel();
+				panels[i].Init(SubParams[i], ParamNameWidth, (int) TotalWidth);
 			}
+			ComboBox cb = new ComboBox();
+			cb.SelectionChanged += (sender, e) =>{
+				SetValueFromControl();
+				ValueHasChanged();
+			};
+			if (Values != null){
+				foreach (string value in Values){
+					cb.Items.Add(value);
+				}
+				if (Value >= 0 && Value < Values.Count){
+					cb.SelectedIndex = Value;
+				}
+			}
+			Grid grid = new Grid();
+			grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(paramHeight, GridUnitType.Pixel)});
+			grid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
+			Grid.SetRow(cb, 0);
+			grid.Children.Add(cb);
+			for (int i = 0; i < panels.Length; i++){
+				panels[i].Visibility = (i == Value) ? Visibility.Visible : Visibility.Hidden;
+				panels[i].VerticalAlignment = VerticalAlignment.Top;
+				Grid.SetRow(panels[i], 1);
+				grid.Children.Add(panels[i]);
+			}
+			cb.SelectionChanged += (sender, e) =>{
+				for (int i = 0; i < panels.Length; i++){
+					panels[i].Visibility = (i == cb.SelectedIndex) ? Visibility.Visible : Visibility.Hidden;
+				}
+			};
+			grid.Width = totalWidth;
+			return grid;
 		}
 
 		public override float Height{
