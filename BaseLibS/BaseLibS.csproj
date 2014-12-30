@@ -30,8 +30,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Api\ClassificationModel.cs" />
+    <Compile Include="Api\IClassificationFeatureRankingMethod.cs" />
+    <Compile Include="Api\IClassificationMethod.cs" />
+    <Compile Include="Api\IDistance.cs" />
+    <Compile Include="Api\IGroupDataProvider.cs" />
+    <Compile Include="Api\IKernelFunction.cs" />
     <Compile Include="Api\INamedItem.cs" />
     <Compile Include="Api\INamedListItem.cs" />
+    <Compile Include="Api\IRegressionFeatureRankingMethod.cs" />
+    <Compile Include="Api\IRegressionMethod.cs" />
+    <Compile Include="Api\RegressionModel.cs" />
     <Compile Include="Data\Cache.cs" />
     <Compile Include="Data\CacheElem.cs" />
     <Compile Include="Data\EquatableArray.cs" />

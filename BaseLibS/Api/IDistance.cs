@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using BaseLib.Param;
-using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
-namespace BaseLib.Api{
+namespace BaseLibS.Api{
 	/// <summary>
 	/// Ancestor class of all distances. Distances are needed e.g. for hierarchical clustering
 	/// or k-nearest neoghbour classification. 

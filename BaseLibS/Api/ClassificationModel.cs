@@ -5,7 +5,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using BaseLibS.Num.Vector;
 using BaseLibS.Util;
 
-namespace BaseLib.Api{
+namespace BaseLibS.Api{
 	/// <summary>
 	/// Class storing the information resulting from the training process of a classification algorithm.
 	/// Each classifier will have its own implementation of <code>ClassificationModel</code>.

@@ -1,9 +1,7 @@
-﻿using BaseLib.Param;
-using BaseLibS.Api;
-using BaseLibS.Num.Vector;
+﻿using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
-namespace BaseLib.Api{
+namespace BaseLibS.Api{
 	public interface IClassificationMethod : INamedListItem{
 		/// <summary>
 		/// Create a classification model based on the given training data x with group assignments in y.

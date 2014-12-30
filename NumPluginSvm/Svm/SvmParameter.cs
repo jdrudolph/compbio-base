@@ -1,5 +1,5 @@
 ﻿using System;
-using BaseLib.Api;
+using BaseLibS.Api;
 using NumPluginBase.Kernel;
 
 namespace NumPluginSvm.Svm{

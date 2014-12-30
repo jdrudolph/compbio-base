@@ -49,15 +49,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\ClassificationModel.cs" />
-    <Compile Include="Api\IClassificationFeatureRankingMethod.cs" />
-    <Compile Include="Api\IClassificationMethod.cs" />
-    <Compile Include="Api\IDistance.cs" />
-    <Compile Include="Api\IGroupDataProvider.cs" />
-    <Compile Include="Api\IKernelFunction.cs" />
-    <Compile Include="Api\IRegressionFeatureRankingMethod.cs" />
-    <Compile Include="Api\IRegressionMethod.cs" />
-    <Compile Include="Api\RegressionModel.cs" />
     <Compile Include="Forms\Axis\AxisMouseMode.cs" />
     <Compile Include="Forms\Axis\AxisPositioning.cs" />
     <Compile Include="Forms\Axis\AxisZoomType.cs" />
@@ -958,6 +949,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Save-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Api\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
