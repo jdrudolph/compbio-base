@@ -25,29 +25,28 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue{
-			get { return StringUtils.Concat(",", Value); }
+			get { return StringUtils.Concat(";", ArrayUtils.SubArray(Values, Value)); }
 			set{
 				if (value.Trim().Length == 0){
 					Value = new int[0];
 					return;
 				}
-				string[] q = value.Trim().Split(',');
+				string[] q = value.Trim().Split(';');
 				Value = new int[q.Length];
 				for (int i = 0; i < Value.Length; i++){
-					Value[i] = int.Parse(q[i]);
+					Value[i] = Values.IndexOf(q[i]);
 				}
 			}
 		}
 
 		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
-		public string[] SelectedValues { get { return ArrayUtils.SubArray(Values, Value); } }
 
-		public string[] SelectedValues2{
-			get{
-				SetValueFromControl();
-				return SelectedValues;
-			}
-		}
+		//public string[] SelectedValues2{
+		//	get{
+		//		SetValueFromControl();
+		//		return SelectedValues;
+		//	}
+		//}
 
 		public override void SetValueFromControl() { Value = control.SelectedIndices; }
 		public override void Clear() { Value = new int[0]; }
