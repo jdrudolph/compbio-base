@@ -247,11 +247,9 @@
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Param\ParameterPanel.cs" />
-    <Compile Include="Param\Parameters.cs" />
     <Compile Include="Param\ParameterWindow.xaml.cs">
       <DependentUpon>ParameterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Param\ParameterWithSubParams.cs" />
     <Compile Include="Param\SingleChoiceParam.cs" />
     <Compile Include="Param\SingleChoiceWithSubParams.cs" />
     <Compile Include="Param\StringParam.cs" />

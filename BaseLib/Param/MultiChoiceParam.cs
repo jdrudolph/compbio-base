@@ -36,18 +36,22 @@ namespace BaseLib.Param{
 				for (int i = 0; i < Value.Length; i++){
 					Value[i] = Values.IndexOf(q[i]);
 				}
+				Value = Filter(Value);
 			}
 		}
 
+		private static int[] Filter(IEnumerable<int> value){
+			List<int> result = new List<int>();
+			foreach (int i in value){
+				if (i >= 0){
+					result.Add(i);
+				}
+			}
+			result.Sort();
+			return result.ToArray();
+		}
+
 		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
-
-		//public string[] SelectedValues2{
-		//	get{
-		//		SetValueFromControl();
-		//		return SelectedValues;
-		//	}
-		//}
-
 		public override void SetValueFromControl() { Value = control.SelectedIndices; }
 		public override void Clear() { Value = new int[0]; }
 

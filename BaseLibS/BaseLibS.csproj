@@ -93,6 +93,8 @@
     <Compile Include="Num\Vector\SparseVector.cs" />
     <Compile Include="Param\Parameter.cs" />
     <Compile Include="Param\ParameterGroup.cs" />
+    <Compile Include="Param\Parameters.cs" />
+    <Compile Include="Param\ParameterWithSubParams.cs" />
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Parse\Uniprot\DbReferenceType.cs" />
     <Compile Include="Parse\Uniprot\FeatureType.cs" />

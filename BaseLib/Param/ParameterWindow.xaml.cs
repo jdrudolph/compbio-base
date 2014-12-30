@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using BaseLib.Wpf;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{

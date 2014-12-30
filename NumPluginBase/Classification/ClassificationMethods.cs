@@ -2,6 +2,7 @@
 using System.Linq;
 using BaseLib.Api;
 using BaseLib.Param;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace NumPluginBase.Classification{

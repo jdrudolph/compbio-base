@@ -2,6 +2,7 @@
 using BaseLib.Param;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace NumPluginBase.Classification{

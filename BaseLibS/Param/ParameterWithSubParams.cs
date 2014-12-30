@@ -1,7 +1,6 @@
 ﻿using System;
-using BaseLibS.Param;
 
-namespace BaseLib.Param{
+namespace BaseLibS.Param{
 	public interface IParameterWithSubParams{
 		Parameters GetSubParameters();
 		float ParamNameWidth { get; set; }

@@ -1,6 +1,7 @@
 ﻿using BaseLib.Api;
 using BaseLib.Param;
 using BaseLibS.Num.Vector;
+using BaseLibS.Param;
 
 namespace NumPluginBase.Regression{
 	public class LinearRegression : IRegressionMethod{

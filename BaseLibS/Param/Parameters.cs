@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using BaseLibS.Param;
 
-namespace BaseLib.Param{
+namespace BaseLibS.Param{
 	[Serializable]
 	public class Parameters : ICloneable{
 		private readonly List<ParameterGroup> paramGroups = new List<ParameterGroup>();
@@ -82,7 +81,6 @@ namespace BaseLib.Param{
 		public Parameter<T> GetParam<T>(string name) { return (Parameter<T>) GetParam(name); }
 		public ParameterWithSubParams<T> GetParamWithSubParams<T>(string name) { return (ParameterWithSubParams<T>) GetParam(name); }
 		public int GroupCount { get { return paramGroups.Count; } }
-		public MultiChoiceParam GetMultiChoiceParam(string name) { return (MultiChoiceParam) GetParam(name); }
 
 		public Parameter GetParam(string name){
 			foreach (ParameterGroup parameterGroup in paramGroups){
