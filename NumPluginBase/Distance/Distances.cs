@@ -18,7 +18,7 @@ namespace NumPluginBase.Distance{
 		}
 
 		public static IDistance GetDistanceFunction(Parameters param){
-			SingleChoiceWithSubParams distParam = param.GetSingleChoiceWithSubParams("Distance");
+			ParameterWithSubParams<int> distParam = param.GetParamWithSubParams<int>("Distance");
 			return GetDistanceFunction(distParam.Value, distParam.GetSubParameters());
 		}
 

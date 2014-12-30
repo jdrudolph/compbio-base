@@ -22,7 +22,7 @@ namespace NumPluginSvm{
 			if (err != null){
 				throw new Exception(err);
 			}
-			SingleChoiceWithSubParams kernelParam = param.GetSingleChoiceWithSubParams("Kernel");
+			ParameterWithSubParams<int> kernelParam = param.GetParamWithSubParams<int>("Kernel");
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = KernelFunctions.GetKernelFunction(kernelParam.Value, kernelParam.GetSubParameters()),
 				svmType = SvmType.CSvc,

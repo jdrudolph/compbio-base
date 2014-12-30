@@ -8,7 +8,7 @@ using NumPluginSvm.Svm;
 namespace NumPluginSvm{
 	public class SvmRegression : IRegressionMethod{
 		public RegressionModel Train(BaseVector[] x, float[] y, Parameters param, int nthreads){
-			SingleChoiceWithSubParams kernelParam = param.GetSingleChoiceWithSubParams("Kernel");
+			ParameterWithSubParams<int> kernelParam = param.GetParamWithSubParams<int>("Kernel");
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = KernelFunctions.GetKernelFunction(kernelParam.Value, kernelParam.GetSubParameters()),
 				svmType = SvmType.EpsilonSvr,

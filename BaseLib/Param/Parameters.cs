@@ -82,8 +82,6 @@ namespace BaseLib.Param{
 		public Parameter<T> GetParam<T>(string name) { return (Parameter<T>) GetParam(name); }
 		public ParameterWithSubParams<T> GetParamWithSubParams<T>(string name) { return (ParameterWithSubParams<T>) GetParam(name); }
 		public int GroupCount { get { return paramGroups.Count; } }
-		public SingleChoiceWithSubParams GetSingleChoiceWithSubParams(string name) { return (SingleChoiceWithSubParams) GetParam(name); }
-		public BoolWithSubParams GetBoolWithSubParams(string name) { return (BoolWithSubParams) GetParam(name); }
 		public MultiChoiceParam GetMultiChoiceParam(string name) { return (MultiChoiceParam) GetParam(name); }
 
 		public Parameter GetParam(string name){
