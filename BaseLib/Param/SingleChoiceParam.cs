@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Controls;
 using BaseLibS.Param;
 
@@ -17,9 +16,7 @@ namespace BaseLib.Param{
 			Values = new[]{""};
 		}
 
-		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
-
-		public string SelectedValue{
+		public override string StringValue{
 			get{
 				if (Value < 0 || Value >= Values.Count){
 					return null;
