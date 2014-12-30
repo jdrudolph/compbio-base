@@ -21,6 +21,90 @@ namespace BaseLibS.Util{
 		public static string GetContaminantFilePath() { return Path.Combine(GetConfigPath(), "contaminants.fasta"); }
 		public static string GetContaminantParseRule() { return ">([^ ]*)"; }
 
+		public static string[] GetAllFilesWithSuffix(string folder, string[] suffixes, bool recursive){
+			if (string.IsNullOrEmpty(folder)){
+				return new string[0];
+			}
+			if (!Directory.Exists(folder)){
+				return new string[0];
+			}
+			if (recursive){
+				HashSet<string> result = new HashSet<string>();
+				AddFilesWithSuffix(folder, suffixes, result);
+				return ArrayUtils.ToArray(result);
+			} else{
+				HashSet<string> result = new HashSet<string>();
+				foreach (string path in Directory.GetFiles(folder)){
+					if (ValidPath(path, suffixes)){
+						result.Add(path);
+					}
+				}
+				return ArrayUtils.ToArray(result);
+			}
+		}
+
+		private static void AddFilesWithSuffix(string folder, string[] suffixes, HashSet<string> result){
+			foreach (string path in Directory.GetFiles(folder)){
+				if (ValidPath(path, suffixes)){
+					result.Add(path);
+				}
+			}
+			foreach (string dir in Directory.GetDirectories(folder)){
+				AddFilesWithSuffix(dir, suffixes, result);
+			}
+		}
+
+		private static bool ValidPath(string path, IEnumerable<string> suffixes){
+			foreach (string suffix in suffixes){
+				if (path.EndsWith(suffix.ToUpper())){
+					return true;
+				}
+				if (path.EndsWith(suffix.ToLower())){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static string[] GetAllSuffixesInFolder(string folder, bool recursive){
+			if (string.IsNullOrEmpty(folder)){
+				return new string[0];
+			}
+			if (!Directory.Exists(folder)){
+				return new string[0];
+			}
+			if (recursive){
+				HashSet<string> result = new HashSet<string>();
+				AddSuffixes(folder, result);
+				return ArrayUtils.ToArray(result);
+			} else{
+				HashSet<string> result = new HashSet<string>();
+				foreach (string path in Directory.GetFiles(folder)){
+					if (!path.Contains('.')){
+						continue;
+					}
+					int ind = path.LastIndexOf('.');
+					string suffix = path.Substring(ind);
+					result.Add(suffix);
+				}
+				return ArrayUtils.ToArray(result);
+			}
+		}
+
+		private static void AddSuffixes(string folder, HashSet<string> result){
+			foreach (string file in Directory.GetFiles(folder)){
+				if (!file.Contains('.')){
+					continue;
+				}
+				int ind = file.LastIndexOf('.');
+				string suffix = file.Substring(ind);
+				result.Add(suffix);
+			}
+			foreach (string dir in Directory.GetDirectories(folder)){
+				AddSuffixes(dir, result);
+			}
+		}
+
 		public static T[] GetPlugins<T>(string[] filenames, bool onlyActive) where T : INamedListItem{
 			IEnumerable<string> pluginFiles = GetPluginFiles(filenames);
 			List<T> result = new List<T>();
@@ -472,9 +556,7 @@ namespace BaseLibS.Util{
 			return Type.GetType("System.Reflection.ReflectionContext", false) != null;
 		}
 
-		public static string BasicChecks(){
-			return !IsNet45OrNewer() ? ".NET 4.5 framework is not installed." : null;
-		}
+		public static string BasicChecks() { return !IsNet45OrNewer() ? ".NET 4.5 framework is not installed." : null; }
 
 		public static void Write(IList<double> x, BinaryWriter writer){
 			writer.Write(x.Count);

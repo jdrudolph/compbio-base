@@ -242,8 +242,6 @@
     <Compile Include="Param\MultiChoiceParam.cs" />
     <Compile Include="Param\MultiFileParam.cs" />
     <Compile Include="Param\MultiStringParam.cs" />
-    <Compile Include="Param\Parameter.cs" />
-    <Compile Include="Param\ParameterGroup.cs" />
     <Compile Include="Param\ParameterGroupPanel.cs" />
     <Compile Include="Param\ParameterGroupPanel.Designer.cs">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>

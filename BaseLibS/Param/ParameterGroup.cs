@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace BaseLib.Param{
+namespace BaseLibS.Param{
 	[Serializable]
 	public class ParameterGroup : ICloneable{
 		private readonly IList<Parameter> parameters = new List<Parameter>();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]

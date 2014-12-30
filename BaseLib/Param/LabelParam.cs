@@ -1,12 +1,13 @@
 ﻿using System;
-using System.Windows;
 using System.Windows.Controls;
+using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
 	public class LabelParam : Parameter{
 		public string Value { get; set; }
 		public string Default { get; private set; }
+		[NonSerialized] private Label control;
 		public LabelParam(string name) : this(name, "") { }
 
 		public LabelParam(string name, string value) : base(name){
@@ -26,22 +27,22 @@ namespace BaseLib.Param{
 		public override void ResetValue() { Value = Default; }
 		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return false; } }
-
-		public override void SetValueFromControl(){
-			Label tb = (Label) control;
-			Value = tb.Content.ToString();
-		}
+		public override void SetValueFromControl() { Value = control.Content.ToString(); }
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			Label tb = (Label) control;
-			tb.Content = Value;
+			control.Content = Value;
 		}
 
 		public override void Clear() { Value = ""; }
-		protected override UIElement CreateControl() { return new Label{Content = Value}; }
+
+		public override object CreateControl(){
+			control = new Label{Content = Value};
+			return control;
+		}
+
 		public override object Clone() { return new LabelParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

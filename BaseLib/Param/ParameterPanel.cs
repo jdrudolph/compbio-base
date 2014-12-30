@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	public class ParameterPanel : UserControl{

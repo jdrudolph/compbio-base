@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Wpf;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
@@ -57,7 +58,7 @@ namespace BaseLib.Param{
 			}
 			Grid.SetColumn(txt1, 0);
 			Grid.SetRow(txt1, i);
-			UIElement c = p.GetControl() ?? new Control();
+			UIElement c = (UIElement)p.CreateControl() ?? new Control();
 			Grid.SetColumn(c, 1);
 			Grid.SetRow(c, i);
 			grid.Children.Add(txt1);

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using BaseLib.Wpf;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
@@ -11,6 +11,7 @@ namespace BaseLib.Param{
 		public int[][] Default { get; private set; }
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
+		[NonSerialized] private MultiListSelectorControl control;
 		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]) { }
 
 		public MultiChoiceMultiBinParam(string name, int[][] value) : base(name){
@@ -67,27 +68,22 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void SetValueFromControl(){
-			MultiListSelectorControl ls = (MultiListSelectorControl) control;
-			int[][] val = ls.SelectedIndices;
-			Value = val;
-		}
-
+		public override void SetValueFromControl() { Value = control.SelectedIndices; }
 		public override void Clear() { Value = new int[0][]; }
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			MultiListSelectorControl ls = (MultiListSelectorControl) control;
-			ls.SelectedIndices = Value;
+			control.SelectedIndices = Value;
 		}
 
-		protected override UIElement CreateControl(){
+		public override object CreateControl(){
 			MultiListSelectorControl ls = new MultiListSelectorControl();
 			ls.Init(Values, Bins);
 			ls.SelectedIndices = Value;
-			return ls;
+			control = ls;
+			return control;
 		}
 
 		public override float Height { get { return 310f; } }

@@ -7,22 +7,12 @@ namespace BaseLibS.Mol{
 		public const int aasPerLong = 12;
 		private const int basis = 32;
 		private const int basis4 = 32*32*32*32;
-		private static string aas;
+		private static char[] aas;
+		private static int indexOfX;
 		private static string[] q;
 		private ulong[] sequence;
 		private readonly int len;
 		private int hash;
-
-		public AaSequence(BinaryReader reader){
-			len = reader.ReadInt32();
-			int n = reader.ReadInt32();
-			sequence = new ulong[n];
-			for (int i = 0; i < sequence.Length; i++){
-				sequence[i] = reader.ReadUInt64();
-			}
-		}
-
-		public AaSequence() { }
 
 		public AaSequence(string seq){
 			len = seq.Length;
@@ -38,6 +28,15 @@ namespace BaseLibS.Mol{
 			}
 		}
 
+		public AaSequence(BinaryReader reader){
+			len = reader.ReadInt32();
+			int n = reader.ReadInt32();
+			sequence = new ulong[n];
+			for (int i = 0; i < sequence.Length; i++){
+				sequence[i] = reader.ReadUInt64();
+			}
+		}
+
 		public int GetNumLongs(){
 			int a = len/aasPerLong;
 			int b = len%aasPerLong;
@@ -45,13 +44,14 @@ namespace BaseLibS.Mol{
 		}
 
 		private static ulong Encode(string seq){
+			seq = seq.ToUpper();
 			ulong result = 0;
 			int n = seq.Length;
 			for (int i = 0; i < n; i++){
 				char c = seq[n - 1 - i];
-				int x = AminoAcids.SingleLetterAas.IndexOf(c);
-				if (x == -1){
-					x = 20;
+				int x = Array.BinarySearch(aas, c);
+				if (x < 0){
+					x = indexOfX;
 				}
 				result = (result << 5) + (ulong) x;
 			}
@@ -60,14 +60,17 @@ namespace BaseLibS.Mol{
 
 		private static void Prepare(){
 			q = new string[basis4];
-			aas = AminoAcids.SingleLetterAas + "X";
-			for (int i1 = 0; i1 < 21; i1++){
+			aas = (AminoAcids.SingleLetterAas + "X").ToCharArray();
+			Array.Sort(aas);
+			indexOfX = new string(aas).IndexOf('X');
+			int l = aas.Length;
+			for (int i1 = 0; i1 < l; i1++){
 				int q1 = i1;
-				for (int i2 = 0; i2 < 21; i2++){
+				for (int i2 = 0; i2 < l; i2++){
 					int q2 = i2 << 5;
-					for (int i3 = 0; i3 < 21; i3++){
+					for (int i3 = 0; i3 < l; i3++){
 						int q3 = i3 << 10;
-						for (int i4 = 0; i4 < 21; i4++){
+						for (int i4 = 0; i4 < l; i4++){
 							int q4 = i4 << 15;
 							char[] s = new char[4];
 							s[0] = aas[i1];

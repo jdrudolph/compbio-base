@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Controls;
+using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
@@ -10,6 +10,7 @@ namespace BaseLib.Param{
 		public int Value { get; set; }
 		public int Default { get; private set; }
 		public IList<string> Values { get; set; }
+		[NonSerialized] private ComboBox control;
 		public SingleChoiceParam(string name) : this(name, 0) { }
 
 		public SingleChoiceParam(string name, int value) : base(name){
@@ -51,11 +52,10 @@ namespace BaseLib.Param{
 		public override void Clear() { Value = 0; }
 
 		public override void SetValueFromControl(){
-			ComboBox cb = (ComboBox) control;
-			if (cb == null){
+			if (control == null){
 				return;
 			}
-			int val = cb.SelectedIndex;
+			int val = control.SelectedIndex;
 			Value = val;
 		}
 
@@ -63,29 +63,27 @@ namespace BaseLib.Param{
 			if (control == null){
 				return;
 			}
-			ComboBox cb = (ComboBox) control;
-			if (cb != null && Value >= 0 && Value < Values.Count){
-				cb.SelectedIndex = Value;
+			if (control != null && Value >= 0 && Value < Values.Count){
+				control.SelectedIndex = Value;
 			}
 		}
 
 		public void UpdateControlFromValue2(){
-			ComboBox cb = (ComboBox) control;
-			if (cb != null && Values != null){
-				cb.Items.Clear();
+			if (control != null && Values != null){
+				control.Items.Clear();
 				foreach (string value in Values){
-					cb.Items.Add(value);
+					control.Items.Add(value);
 				}
 				if (Value >= 0 && Value < Values.Count){
-					cb.SelectedIndex = Value;
+					control.SelectedIndex = Value;
 				}
 			}
-			if (cb != null && Value >= 0 && Value < Values.Count){
-				cb.SelectedIndex = Value;
+			if (control != null && Value >= 0 && Value < Values.Count){
+				control.SelectedIndex = Value;
 			}
 		}
 
-		protected override UIElement CreateControl(){
+		public override object CreateControl(){
 			ComboBox cb = new ComboBox();
 			cb.SelectionChanged += (sender, e) =>{
 				SetValueFromControl();
@@ -99,7 +97,8 @@ namespace BaseLib.Param{
 					cb.SelectedIndex = Value;
 				}
 			}
-			return cb;
+			control = cb;
+			return control;
 		}
 
 		public override object Clone() { return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default}; }

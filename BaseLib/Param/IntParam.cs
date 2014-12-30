@@ -1,13 +1,14 @@
 using System;
 using System.Globalization;
-using System.Windows;
 using System.Windows.Controls;
+using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
 	public class IntParam : Parameter{
 		public int Value { get; set; }
 		public int Default { get; private set; }
+		[NonSerialized] private TextBox control;
 
 		public IntParam(string name, int value) : base(name){
 			Value = value;
@@ -28,9 +29,8 @@ namespace BaseLib.Param{
 		public override bool IsModified { get { return Value != Default; } }
 
 		public override void SetValueFromControl(){
-			TextBox tb = (TextBox) control;
 			int val;
-			bool s = int.TryParse(tb.Text, out val);
+			bool s = int.TryParse(control.Text, out val);
 			if (s){
 				Value = val;
 			}
@@ -40,19 +40,19 @@ namespace BaseLib.Param{
 			if (control == null){
 				return;
 			}
-			TextBox tb = (TextBox) control;
-			tb.Text = "" + Value;
+			control.Text = "" + Value;
 		}
 
 		public override void Clear() { Value = 0; }
 
-		protected override UIElement CreateControl(){
+		public override object CreateControl(){
 			TextBox tb = new TextBox{Text = "" + Value};
 			tb.TextChanged += (sender, e) =>{
 				SetValueFromControl();
 				ValueHasChanged();
 			};
-			return tb;
+			control = tb;
+			return control;
 		}
 
 		public override object Clone() { return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }

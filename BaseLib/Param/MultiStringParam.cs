@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using System.Windows.Controls;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
@@ -9,6 +9,7 @@ namespace BaseLib.Param{
 	public class MultiStringParam : Parameter{
 		public string[] Value { get; set; }
 		public string[] Default { get; private set; }
+		[NonSerialized] private TextBox control;
 		public MultiStringParam(string name) : this(name, new string[0]) { }
 
 		public MultiStringParam(string name, string[] value) : base(name){
@@ -39,8 +40,7 @@ namespace BaseLib.Param{
 		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
 
 		public override void SetValueFromControl(){
-			TextBox tb = (TextBox) control;
-			string text = tb.Text;
+			string text = control.Text;
 			string[] b = text.Split('\n');
 			List<string> result = new List<string>();
 			foreach (string x in b){
@@ -58,11 +58,14 @@ namespace BaseLib.Param{
 			if (control == null){
 				return;
 			}
-			TextBox tb = (TextBox) control;
-			tb.Text = StringUtils.Concat("\n", Value);
+			control.Text = StringUtils.Concat("\n", Value);
 		}
 
-		protected override UIElement CreateControl() { return new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true}; }
+		public override object CreateControl(){
+			control = new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true};
+			return control;
+		}
+
 		public override object Clone() { return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
 		public override float Height { get { return 150f; } }
 	}

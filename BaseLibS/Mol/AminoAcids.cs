@@ -81,6 +81,11 @@ namespace BaseLibS.Mol{
 		public static readonly AminoAcid selenocysteine = new AminoAcid("C3H5NOSe", "Selenocysteine", "Sec", 'U', 0.0,
 			new[]{"TGA"}, "", false, 0.0);
 
+		public static readonly AminoAcid pyrrolysine = new AminoAcid("C12H19N3O2", "Pyrrolysine", "Pyl", 'O', 0.0,
+			new[]{"TAG"}, "", false, 0.0);
+
+		public static readonly AminoAcid gap = new AminoAcid("", "Gap", "Gap", '_', 0.0, new string[0], "", false, 0.0);
+
 		public static readonly AminoAcid[] aminoAcids = new[]{
 			alanine, arginine, asparagine, asparticAcid, cysteine, glutamine, glutamicAcid, glycine, histidine, isoleucine,
 			leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine, selenocysteine

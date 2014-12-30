@@ -1,6 +1,6 @@
 using System;
-using System.Windows;
 using BaseLib.Wpf;
+using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
@@ -10,6 +10,7 @@ namespace BaseLib.Param{
 		public bool Save { get; set; }
 		public string Value { get; set; }
 		public string Default { get; private set; }
+		[NonSerialized] private FileParameterControl control;
 		public FileParam(string name) : this(name, "") { }
 
 		public FileParam(string name, string value) : base(name){
@@ -31,23 +32,21 @@ namespace BaseLib.Param{
 		public override void ResetValue() { Value = Default; }
 		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return !Value.Equals(Default); } }
-
-		public override void SetValueFromControl(){
-			FileParameterControl tb = (FileParameterControl) control;
-			string val = tb.Text;
-			Value = val;
-		}
+		public override void SetValueFromControl() { Value = control.Text; }
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			FileParameterControl lfp = (FileParameterControl) control;
-			lfp.Text = Value;
+			control.Text = Value;
 		}
 
 		public override void Clear() { Value = ""; }
-		protected override UIElement CreateControl() { return new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save}; }
+
+		public override object CreateControl(){
+			control = new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save};
+			return control;
+		}
 
 		public override object Clone(){
 			return new FileParam(Name, Value){

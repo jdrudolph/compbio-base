@@ -15,6 +15,7 @@ namespace BaseLib.Param{
 		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
 		public float totalWidth = 1000F;
 		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
+		[NonSerialized] private Grid control;
 		public BoolWithSubParams(string name) : this(name, false) { }
 
 		public BoolWithSubParams(string name, bool value) : base(name){
@@ -57,8 +58,7 @@ namespace BaseLib.Param{
 		public override Parameters GetSubParameters() { return Value ? SubParamsTrue : SubParamsFalse; }
 
 		public override void SetValueFromControl(){
-			Grid tbl = (Grid) control;
-			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(tbl, 0, 0);
+			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(control, 0, 0);
 			Value = cb.IsChecked != null && cb.IsChecked.Value;
 			SubParamsFalse.SetValuesFromControl();
 			SubParamsTrue.SetValuesFromControl();
@@ -74,8 +74,7 @@ namespace BaseLib.Param{
 			if (control == null){
 				return;
 			}
-			Grid tlp = (Grid) control;
-			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(tlp, 0, 0);
+			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(control, 0, 0);
 			if (cb == null){
 				return;
 			}
@@ -88,7 +87,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override UIElement CreateControl(){
+		public override object CreateControl(){
 			ParameterPanel panelFalse = new ParameterPanel();
 			ParameterPanel panelTrue = new ParameterPanel();
 			panelFalse.Init(SubParamsFalse, ParamNameWidth, (int) (TotalWidth));
@@ -117,7 +116,8 @@ namespace BaseLib.Param{
 				panelFalse.Visibility = cb.IsChecked != null && !cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
 				panelTrue.Visibility = cb.IsChecked != null && cb.IsChecked.Value ? Visibility.Visible : Visibility.Hidden;
 			};
-			return tlp;
+			control = tlp;
+			return control;
 		}
 
 		public override float Height { get { return 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height); } }

@@ -1,7 +1,6 @@
 using System;
-using System.Windows;
 
-namespace BaseLib.Param{
+namespace BaseLibS.Param{
 	public delegate void ValueChangedHandler();
 
 	[Serializable]
@@ -11,7 +10,7 @@ namespace BaseLib.Param{
 		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
 
-		[NonSerialized] protected UIElement control;
+		//[NonSerialized] private UIElement control;
 		public string Name { get; private set; }
 		public string Help { get; set; }
 		public bool Visible { get; set; }
@@ -34,11 +33,7 @@ namespace BaseLib.Param{
 		public virtual void Drop(string x) { }
 		public virtual float Height { get { return paramHeight; } }
 		public virtual string[] Markup { get { return new[]{"<parameter" + " name=\"" + Name + "\" value=\"" + StringValue + "\"></parameter>"}; } }
-		protected abstract UIElement CreateControl();
-
-		internal UIElement GetControl(){
-			return control = CreateControl();
-		}
+		public abstract object CreateControl();
 
 		protected void ValueHasChanged(){
 			if (ValueChanged != null){

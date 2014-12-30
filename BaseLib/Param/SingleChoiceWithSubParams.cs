@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Wpf;
+using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
@@ -16,6 +17,7 @@ namespace BaseLib.Param{
 		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
 		public float totalWidth = 1000F;
 		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
+		[NonSerialized] private Grid control;
 		public SingleChoiceWithSubParams(string name) : this(name, 0) { }
 
 		public SingleChoiceWithSubParams(string name, int value) : base(name){
@@ -73,11 +75,10 @@ namespace BaseLib.Param{
 		}
 
 		public override void SetValueFromControl(){
-			Grid tbl = (Grid) control;
-			if (tbl == null){
+			if (control == null){
 				return;
 			}
-			ComboBox cb = (ComboBox) WpfUtils.GetGridChild(tbl, 0, 0);
+			ComboBox cb = (ComboBox) WpfUtils.GetGridChild(control, 0, 0);
 			if (cb != null){
 				Value = cb.SelectedIndex;
 			}
@@ -90,8 +91,7 @@ namespace BaseLib.Param{
 			if (control == null){
 				return;
 			}
-			Grid tlp = (Grid) control;
-			ComboBox cb = (ComboBox) WpfUtils.GetGridChild(tlp, 0, 0);
+			ComboBox cb = (ComboBox) WpfUtils.GetGridChild(control, 0, 0);
 			if (Value >= 0 && Value < Values.Count){
 				cb.SelectedIndex = Value;
 			}
@@ -100,7 +100,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		protected override UIElement CreateControl(){
+		public override object CreateControl(){
 			ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
 			for (int i = 0; i < panels.Length; i++){
 				panels[i] = new ParameterPanel();
@@ -136,7 +136,8 @@ namespace BaseLib.Param{
 				}
 			};
 			grid.Width = totalWidth;
-			return grid;
+			control = grid;
+			return control;
 		}
 
 		public override float Height{

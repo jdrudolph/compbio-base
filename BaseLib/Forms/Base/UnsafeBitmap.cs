@@ -65,6 +65,16 @@ namespace BaseLib.Forms.Base{
 			return returnValue;
 		}
 
+		public void MirrorY(){
+			for (int i = 0; i < bitmapWidth; i++){
+				for (int j = 0; j < bitmapHeight/2; j++){
+					PixelData p = GetPixel(i, j);
+					SetPixel(i, j, GetPixel(i, bitmapHeight - 1 - j));
+					SetPixel(i, bitmapHeight - 1 - j, p);
+				}
+			}
+		}
+
 		public void SetPixel(int x, int y, Color c){
 			PixelData pd = new PixelData{red = c.R, green = c.G, blue = c.B};
 			SetPixel(x, y, pd);
@@ -75,6 +85,17 @@ namespace BaseLib.Forms.Base{
 				PixelData* pixel = PixelAt(x, y);
 				*pixel = colour;
 			}
+		}
+
+		public UnsafeBitmap Transpose(){
+			UnsafeBitmap result = new UnsafeBitmap(bitmapHeight, bitmapWidth);
+			result.LockBitmap();
+			for (int i = 0; i < bitmapWidth; i++){
+				for (int j = 0; j < bitmapHeight; j++){
+					result.SetPixel(j, i, GetPixel(i, j));
+				}
+			}
+			return result;
 		}
 
 		private bool Valid(int x, int y){
@@ -90,9 +111,7 @@ namespace BaseLib.Forms.Base{
 			pBase = null;
 		}
 
-		public PixelData* PixelAt(int x, int y){
-			return (PixelData*) (pBase + y*width + x*sizeof (PixelData));
-		}
+		public PixelData* PixelAt(int x, int y) { return (PixelData*) (pBase + y*width + x*sizeof (PixelData)); }
 
 		public void DrawPath(Color c, int x, int y, int[] xpath, int[] ypath){
 			PixelData pd = new PixelData{red = c.R, green = c.G, blue = c.B};
@@ -127,17 +146,9 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		public void DrawLine(Color c, int x1, int y1, int x2, int y2, bool dots){
-			DrawLine(c, x1, y1, x2, y2, dots, 1);
-		}
-
-		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots){
-			DrawLine(c, x1, y1, x2, y2, dots, 1);
-		}
-
-		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots, int width1){
-			DrawLine(c, (int) x1, (int) y1, (int) x2, (int) y2, dots, width1);
-		}
+		public void DrawLine(Color c, int x1, int y1, int x2, int y2, bool dots) { DrawLine(c, x1, y1, x2, y2, dots, 1); }
+		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots) { DrawLine(c, x1, y1, x2, y2, dots, 1); }
+		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots, int width1) { DrawLine(c, (int) x1, (int) y1, (int) x2, (int) y2, dots, width1); }
 
 		public void DrawLine(Color c, int x1, int y1, int x2, int y2, bool dots, int width1){
 			PixelData pd = new PixelData{red = c.R, green = c.G, blue = c.B};
@@ -195,12 +206,7 @@ namespace BaseLib.Forms.Base{
 			return result;
 		}
 
-		public void DrawString(string s, Font f, Brush b, int x, int y){
-			graphics.DrawString(s, f, b, x, y);
-		}
-
-		public SizeF MeasureString(string s, Font f){
-			return graphics.MeasureString(s, f);
-		}
+		public void DrawString(string s, Font f, Brush b, int x, int y) { graphics.DrawString(s, f, b, x, y); }
+		public SizeF MeasureString(string s, Font f) { return graphics.MeasureString(s, f); }
 	}
 }

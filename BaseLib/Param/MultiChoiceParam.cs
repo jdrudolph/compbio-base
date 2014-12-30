@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Windows;
 using BaseLib.Wpf;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
@@ -13,6 +13,7 @@ namespace BaseLib.Param{
 		public IList<string> Values { get; set; }
 		private readonly List<string> defaultSelectionNames = new List<string>();
 		private readonly List<string[]> defaultSelections = new List<string[]>();
+		[NonSerialized] private ListSelectorControl control;
 		public MultiChoiceParam(string name) : this(name, new int[0]) { }
 
 		public MultiChoiceParam(string name, int[] value) : base(name){
@@ -56,31 +57,25 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void SetValueFromControl(){
-			ListSelectorControl ls = (ListSelectorControl) control;
-			int[] val = ls.SelectedIndices;
-			Value = val;
-		}
-
+		public override void SetValueFromControl() { Value = control.SelectedIndices; }
 		public override void Clear() { Value = new int[0]; }
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			ListSelectorControl ls = (ListSelectorControl) control;
-			ls.SelectedIndices = Value;
+			control.SelectedIndices = Value;
 		}
 
-		protected override UIElement CreateControl(){
-			ListSelectorControl ls = new ListSelectorControl{HasMoveButtons = true};
+		public override object CreateControl(){
+			control = new ListSelectorControl{HasMoveButtons = true};
 			foreach (string value in Values){
-				ls.Items.Add(value);
+				control.Items.Add(value);
 			}
-			ls.Repeats = Repeats;
-			ls.SelectedIndices = Value;
-			ls.SetDefaultSelectors(defaultSelectionNames, defaultSelections);
-			return ls;
+			control.Repeats = Repeats;
+			control.SelectedIndices = Value;
+			control.SetDefaultSelectors(defaultSelectionNames, defaultSelections);
+			return control;
 		}
 
 		public override float Height { get { return 160f; } }

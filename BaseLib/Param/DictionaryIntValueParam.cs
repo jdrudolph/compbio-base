@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
 using BaseLib.Wpf;
+using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
@@ -11,14 +11,14 @@ namespace BaseLib.Param{
 		public Dictionary<string, int> Value { get; set; }
 		public Dictionary<string, int> Default { get; private set; }
 		public int DefaultValue { get; set; }
+		[NonSerialized] private DictionaryIntValueControl control;
 
 		public string[] Keys{
 			get { return keys; }
 			set{
 				keys = value;
 				if (control != null){
-					DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
-					tb.Keys = keys;
+					control.Keys = keys;
 				}
 			}
 		}
@@ -50,22 +50,22 @@ namespace BaseLib.Param{
 		public override void ResetValue() { Value = Default; }
 		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return Value != Default; } }
-
-		public override void SetValueFromControl(){
-			DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
-			Value = tb.Value;
-		}
+		public override void SetValueFromControl() { Value = control.Value; }
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			DictionaryIntValueControl tb = (DictionaryIntValueControl) control;
-			tb.Value = Value;
+			control.Value = Value;
 		}
 
 		public override void Clear() { Value = new Dictionary<string, int>(); }
-		protected override UIElement CreateControl() {  return new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; }
+
+		public override object CreateControl(){
+			control = new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue};
+			return control;
+		}
+
 		public override object Clone() { return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

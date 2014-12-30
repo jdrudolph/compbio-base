@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using BaseLib.Param;
+using BaseLibS.Param;
 
 namespace BaseLib.Wpf{
 	/// <summary>

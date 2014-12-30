@@ -1,6 +1,7 @@
 ﻿using BaseLib.Api;
 using BaseLib.Param;
 using BaseLibS.Num.Vector;
+using BaseLibS.Param;
 using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;
 
