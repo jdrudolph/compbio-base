@@ -80,7 +80,7 @@ namespace BaseLib.Param{
 		}
 
 		public int GroupCount { get { return paramGroups.Count; } }
-		public BoolParam GetBoolParam(string name) { return (BoolParam) GetParam(name); }
+		public Parameter<bool> GetBoolParam(string name) { return (Parameter<bool>)GetParam(name); }
 		public SingleChoiceParam GetSingleChoiceParam(string name) { return (SingleChoiceParam) GetParam(name); }
 		public SingleChoiceWithSubParams GetSingleChoiceWithSubParams(string name) { return (SingleChoiceWithSubParams) GetParam(name); }
 		public BoolWithSubParams GetBoolWithSubParams(string name) { return (BoolWithSubParams) GetParam(name); }
