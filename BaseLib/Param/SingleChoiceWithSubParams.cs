@@ -8,19 +8,15 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class SingleChoiceWithSubParams : ParameterWithSubParams{
-		public int Value { get; set; }
-		public int Default { get; private set; }
+	public class SingleChoiceWithSubParams : ParameterWithSubParams<int>{
 		public IList<string> Values { get; set; }
 		public IList<Parameters> SubParams { get; set; }
-		public float paramNameWidth = 250F;
-		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
-		public float totalWidth = 1000F;
-		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
 		[NonSerialized] private Grid control;
 		public SingleChoiceWithSubParams(string name) : this(name, 0) { }
 
 		public SingleChoiceWithSubParams(string name, int value) : base(name){
+			TotalWidth = 1000F;
+			ParamNameWidth = 250F;
 			Value = value;
 			Default = value;
 			Values = new[]{""};
@@ -29,21 +25,14 @@ namespace BaseLib.Param{
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
 
-		public int Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
-		public override void ResetValue(){
+		public override void ResetSubParamValues(){
 			Value = Default;
 			foreach (Parameters p in SubParams){
 				p.ResetValues();
 			}
 		}
 
-		public override void ResetDefault(){
+		public override void ResetSubParamDefaults(){
 			Default = Value;
 			foreach (Parameters p in SubParams){
 				p.ResetDefaults();
@@ -135,7 +124,7 @@ namespace BaseLib.Param{
 					panels[i].Visibility = (i == cb.SelectedIndex) ? Visibility.Visible : Visibility.Hidden;
 				}
 			};
-			grid.Width = totalWidth;
+			grid.Width = TotalWidth;
 			control = grid;
 			return control;
 		}

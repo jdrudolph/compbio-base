@@ -4,9 +4,7 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class LabelParam : Parameter{
-		public string Value { get; set; }
-		public string Default { get; private set; }
+	public class LabelParam : Parameter<string>{
 		[NonSerialized] private Label control;
 		public LabelParam(string name) : this(name, "") { }
 
@@ -16,17 +14,6 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value; } set { Value = value; } }
-
-		public string Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return false; } }
 		public override void SetValueFromControl() { Value = control.Content.ToString(); }
 
 		public override void UpdateControlFromValue(){
@@ -39,8 +26,7 @@ namespace BaseLib.Param{
 		public override void Clear() { Value = ""; }
 
 		public override object CreateControl(){
-			control = new Label{Content = Value};
-			return control;
+			return control = new Label{Content = Value};
 		}
 
 		public override object Clone() { return new LabelParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }

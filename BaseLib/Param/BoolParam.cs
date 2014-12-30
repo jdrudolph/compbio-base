@@ -6,9 +6,7 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class BoolParam : Parameter{
-		public bool Value { get; set; }
-		public bool Default { get; private set; }
+	public class BoolParam : Parameter<bool>{
 		[NonSerialized] private CheckBox control;
 		public BoolParam(string name) : this(name, false) { }
 
@@ -17,17 +15,7 @@ namespace BaseLib.Param{
 			Default = value;
 		}
 
-		public bool Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = bool.Parse(value); } }
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return Value != Default; } }
 		public override void SetValueFromControl() { Value = control.IsChecked != null && control.IsChecked.Value; }
 
 		public override void UpdateControlFromValue(){
@@ -40,8 +28,7 @@ namespace BaseLib.Param{
 		public override void Clear() { Value = false; }
 
 		public override object CreateControl(){
-			control = new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center};
-			return control;
+			return control = new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center};
 		}
 
 		public override object Clone() { return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }

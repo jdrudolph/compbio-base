@@ -6,19 +6,15 @@ using BaseLib.Wpf;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class BoolWithSubParams : ParameterWithSubParams{
-		public bool Value { get; set; }
-		public bool Default { get; private set; }
+	public class BoolWithSubParams : ParameterWithSubParams<bool>{
 		public Parameters SubParamsFalse { get; set; }
 		public Parameters SubParamsTrue { get; set; }
-		public float paramNameWidth = 250F;
-		public float ParamNameWidth { get { return paramNameWidth; } set { paramNameWidth = value; } }
-		public float totalWidth = 1000F;
-		public float TotalWidth { get { return totalWidth; } set { totalWidth = value; } }
 		[NonSerialized] private Grid control;
 		public BoolWithSubParams(string name) : this(name, false) { }
 
 		public BoolWithSubParams(string name, bool value) : base(name){
+			TotalWidth = 1000F;
+			ParamNameWidth = 250F;
 			Value = value;
 			Default = value;
 			SubParamsFalse = new Parameters();
@@ -27,21 +23,14 @@ namespace BaseLib.Param{
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = bool.Parse(value); } }
 
-		public bool Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
-		public override void ResetValue(){
-			Value = Default;
+		public override void ResetSubParamValues(){
 			SubParamsTrue.ResetValues();
 			SubParamsFalse.ResetValues();
 		}
 
-		public override void ResetDefault(){
-			Default = Value;
+
+
+		public override void ResetSubParamDefaults(){
 			SubParamsTrue.ResetDefaults();
 			SubParamsFalse.ResetDefaults();
 		}

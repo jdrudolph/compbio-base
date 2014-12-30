@@ -6,10 +6,8 @@ using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class DictionaryIntValueParam : Parameter{
+	public class DictionaryIntValueParam : Parameter<Dictionary<string, int>>{
 		private string[] keys;
-		public Dictionary<string, int> Value { get; set; }
-		public Dictionary<string, int> Default { get; private set; }
 		public int DefaultValue { get; set; }
 		[NonSerialized] private DictionaryIntValueControl control;
 
@@ -25,18 +23,14 @@ namespace BaseLib.Param{
 
 		public DictionaryIntValueParam(string name, Dictionary<string, int> value, string[] keys) : base(name){
 			Value = value;
-			Default = value;
+			Default = new Dictionary<string, int>();
+			foreach (KeyValuePair<string, int> pair in value){
+				Default.Add(pair.Key, pair.Value);
+			}
 			this.keys = keys;
 		}
 
 		public override string StringValue { get { return StringUtils.ToString(Value); } set { Value = DictionaryFromString(value); } }
-
-		public Dictionary<string, int> Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
 
 		public static Dictionary<string, int> DictionaryFromString(string s){
 			Dictionary<string, int> result = new Dictionary<string, int>();
@@ -47,9 +41,23 @@ namespace BaseLib.Param{
 			return result;
 		}
 
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return Value != Default; } }
+		public override bool IsModified{
+			get{
+				if (Value.Count != Default.Count){
+					return true;
+				}
+				foreach (string k in Value.Keys){
+					if (!Default.ContainsKey(k)){
+						return true;
+					}
+					if (Default[k] != Value[k]){
+						return true;
+					}
+				}
+				return false;
+			}
+		}
+
 		public override void SetValueFromControl() { Value = control.Value; }
 
 		public override void UpdateControlFromValue(){
@@ -60,12 +68,7 @@ namespace BaseLib.Param{
 		}
 
 		public override void Clear() { Value = new Dictionary<string, int>(); }
-
-		public override object CreateControl(){
-			control = new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue};
-			return control;
-		}
-
+		public override object CreateControl() { return control = new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue}; }
 		public override object Clone() { return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default}; }
 	}
 }

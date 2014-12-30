@@ -6,9 +6,7 @@ using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class MultiChoiceMultiBinParam : Parameter{
-		public int[][] Value { get; set; }
-		public int[][] Default { get; private set; }
+	public class MultiChoiceMultiBinParam : Parameter<int[][]>{
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
 		[NonSerialized] private MultiListSelectorControl control;
@@ -16,7 +14,13 @@ namespace BaseLib.Param{
 
 		public MultiChoiceMultiBinParam(string name, int[][] value) : base(name){
 			Value = value;
-			Default = value;
+			Default = new int[value.Length][];
+			for (int i = 0; i < value.Length; i++){
+				Default[i] = new int[value[i].Length];
+				for (int j = 0; j < value[i].Length; j++){
+					Default[i][j] = value[i][j];
+				}
+			}
 			Values = new string[0];
 			Bins = new string[0];
 		}
@@ -40,17 +44,6 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public int[][] Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return !ArrayUtils.EqualArraysOfArrays(Value, Default); } }
-
 		public string[][] SelectedValues{
 			get{
 				string[][] result = new string[Value.Length][];
@@ -68,6 +61,7 @@ namespace BaseLib.Param{
 			}
 		}
 
+		public override bool IsModified { get { return !ArrayUtils.EqualArraysOfArrays(Value, Default); } }
 		public override void SetValueFromControl() { Value = control.SelectedIndices; }
 		public override void Clear() { Value = new int[0][]; }
 
@@ -79,10 +73,9 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			MultiListSelectorControl ls = new MultiListSelectorControl();
-			ls.Init(Values, Bins);
-			ls.SelectedIndices = Value;
-			control = ls;
+			control = new MultiListSelectorControl();
+			control.Init(Values, Bins);
+			control.SelectedIndices = Value;
 			return control;
 		}
 

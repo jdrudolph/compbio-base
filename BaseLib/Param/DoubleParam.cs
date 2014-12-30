@@ -5,9 +5,7 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class DoubleParam : Parameter{
-		public double Value { get; set; }
-		public double Default { get; private set; }
+	public class DoubleParam : Parameter<double>{
 		[NonSerialized] private TextBox control;
 
 		public DoubleParam(string name, double value) : base(name){
@@ -15,17 +13,7 @@ namespace BaseLib.Param{
 			Default = value;
 		}
 
-		public double Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = double.Parse(value); } }
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return Value != Default; } }
 
 		public override void SetValueFromControl(){
 			double val;
@@ -44,12 +32,11 @@ namespace BaseLib.Param{
 		public override void Clear() { Value = 0; }
 
 		public override object CreateControl(){
-			TextBox tb = new TextBox{Text = "" + Value};
-			tb.TextChanged += (sender, e) =>{
+			control = new TextBox{Text = "" + Value};
+			control.TextChanged += (sender, e) =>{
 				SetValueFromControl();
 				ValueHasChanged();
 			};
-			control = tb;
 			return control;
 		}
 

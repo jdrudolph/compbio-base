@@ -5,24 +5,18 @@ using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class MultiFileParam : Parameter{
+	public class MultiFileParam : Parameter<string[]>{
 		public string Filter { get; set; }
-		public string[] Value { get; set; }
-		public string[] Default { get; private set; }
 		[NonSerialized] private MultiFileParameterControl control;
 		public MultiFileParam(string name) : this(name, new string[0]) { }
 
 		public MultiFileParam(string name, string[] value) : base(name){
 			Value = value;
-			Default = value;
-			Filter = null;
-		}
-
-		public string[] Value2{
-			get{
-				SetValueFromControl();
-				return Value;
+			Default = new string[Value.Length];
+			for (int i = 0; i < Value.Length; i++){
+				Default[i] = Value[i];
 			}
+			Filter = null;
 		}
 
 		public override string StringValue{
@@ -36,9 +30,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
+		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Default, Value); } }
 		public override void SetValueFromControl() { Value = control.Filenames; }
 		public override void Clear() { Value = new string[0]; }
 
@@ -49,11 +41,7 @@ namespace BaseLib.Param{
 			control.Filenames = Value;
 		}
 
-		public override object CreateControl(){
-			control = new MultiFileParameterControl{Filter = Filter, Filenames = Value};
-			return control;
-		}
-
+		public override object CreateControl() { return control = new MultiFileParameterControl{Filter = Filter, Filenames = Value}; }
 		public override object Clone() { return new MultiFileParam(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default}; }
 		public override float Height { get { return 120; } }
 	}

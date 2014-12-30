@@ -4,9 +4,7 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class FolderParam : Parameter{
-		public string Value { get; set; }
-		public string Default { get; private set; }
+	public class FolderParam : Parameter<string>{
 		[NonSerialized] private FolderParameterControl control;
 		public FolderParam(string name) : this(name, "") { }
 
@@ -17,16 +15,6 @@ namespace BaseLib.Param{
 
 		public override string StringValue { get { return Value; } set { Value = value; } }
 
-		public string Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return !Value.Equals(Default); } }
 		public override void SetValueFromControl() { Value = control.Text; }
 
 		public override void UpdateControlFromValue(){
@@ -39,8 +27,7 @@ namespace BaseLib.Param{
 		public override void Clear() { Value = ""; }
 
 		public override object CreateControl(){
-			control = new FolderParameterControl{Text = Value};
-			return control;
+			return control = new FolderParameterControl{Text = Value};
 		}
 
 		public override object Clone() { return new FolderParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }

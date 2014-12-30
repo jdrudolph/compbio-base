@@ -6,10 +6,8 @@ using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class MultiChoiceParam : Parameter{
+	public class MultiChoiceParam : Parameter<int[]>{
 		public bool Repeats { get; set; }
-		public int[] Value { get; set; }
-		public int[] Default { get; private set; }
 		public IList<string> Values { get; set; }
 		private readonly List<string> defaultSelectionNames = new List<string>();
 		private readonly List<string[]> defaultSelections = new List<string[]>();
@@ -18,7 +16,10 @@ namespace BaseLib.Param{
 
 		public MultiChoiceParam(string name, int[] value) : base(name){
 			Value = value;
-			Default = value;
+			Default = new int[Value.Length];
+			for (int i = 0; i < Value.Length; i++){
+				Default[i] = Value[i];
+			}
 			Values = new string[0];
 			Repeats = false;
 		}
@@ -38,15 +39,6 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public int[] Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
 		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
 		public string[] SelectedValues { get { return ArrayUtils.SubArray(Values, Value); } }
 

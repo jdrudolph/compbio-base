@@ -6,18 +6,11 @@ namespace BaseLib.Param{
 	[Serializable]
 	public class Parameters : ICloneable{
 		private readonly List<ParameterGroup> paramGroups = new List<ParameterGroup>();
-
-		public Parameters(IList<Parameter> param, string name){
-			AddParameterGroup(param, name, false);
-		}
-
-		public Parameters(Parameter param) : this(new[]{param}) {}
-		public Parameters(IList<Parameter> param) : this(param, null) {}
-		public Parameters() {}
-
-		public Parameters GetSubGroupAt(int index){
-			return new Parameters(paramGroups[index].ParameterList);
-		}
+		public Parameters(IList<Parameter> param, string name) { AddParameterGroup(param, name, false); }
+		public Parameters(Parameter param) : this(new[]{param}) { }
+		public Parameters(IList<Parameter> param) : this(param, null) { }
+		public Parameters() { }
+		public Parameters GetSubGroupAt(int index) { return new Parameters(paramGroups[index].ParameterList); }
 
 		public Parameter[] GetAllParameters(){
 			List<Parameter> result = new List<Parameter>();
@@ -27,9 +20,9 @@ namespace BaseLib.Param{
 			return result.ToArray();
 		}
 
-		public string[] GetAllGroupHeadings() {
+		public string[] GetAllGroupHeadings(){
 			List<string> result = new List<string>();
-			foreach (ParameterGroup pg in paramGroups) {
+			foreach (ParameterGroup pg in paramGroups){
 				result.Add(pg.Name);
 			}
 			return result.ToArray();
@@ -44,6 +37,7 @@ namespace BaseLib.Param{
 				return result.ToArray();
 			}
 		}
+
 		public bool IsModified{
 			get{
 				foreach (ParameterGroup parameterGroup in paramGroups){
@@ -55,9 +49,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public void AddParameterGroup(IList<Parameter> param, string name, bool collapsed){
-			paramGroups.Add(new ParameterGroup(param, name, collapsed));
-		}
+		public void AddParameterGroup(IList<Parameter> param, string name, bool collapsed) { paramGroups.Add(new ParameterGroup(param, name, collapsed)); }
 
 		public object Clone(){
 			Parameters newParam = new Parameters();
@@ -76,6 +68,7 @@ namespace BaseLib.Param{
 				return c;
 			}
 		}
+
 		public float Height{
 			get{
 				float h = 0;
@@ -85,63 +78,22 @@ namespace BaseLib.Param{
 				return h;
 			}
 		}
+
 		public int GroupCount { get { return paramGroups.Count; } }
-
-		public BoolParam GetBoolParam(string name){
-			return (BoolParam) GetParam(name);
-		}
-
-		public SingleChoiceParam GetSingleChoiceParam(string name){
-			return (SingleChoiceParam) GetParam(name);
-		}
-
-		public SingleChoiceWithSubParams GetSingleChoiceWithSubParams(string name){
-			return (SingleChoiceWithSubParams) GetParam(name);
-		}
-
-		public BoolWithSubParams GetBoolWithSubParams(string name){
-			return (BoolWithSubParams) GetParam(name);
-		}
-
-		public StringParam GetStringParam(string name){
-			return (StringParam) GetParam(name);
-		}
-
-		public LabelParam GetLabelParam(string name){
-			return (LabelParam) GetParam(name);
-		}
-
-		public MultiStringParam GetMultiStringParam(string name){
-			return (MultiStringParam) GetParam(name);
-		}
-
-		public MultiChoiceParam GetMultiChoiceParam(string name){
-			return (MultiChoiceParam) GetParam(name);
-		}
-
-		public IntParam GetIntParam(string name){
-			return (IntParam) GetParam(name);
-		}
-
-		public DoubleParam GetDoubleParam(string name){
-			return (DoubleParam) GetParam(name);
-		}
-
-		public FileParam GetFileParam(string name){
-			return (FileParam) GetParam(name);
-		}
-
-		public MultiFileParam GetMultiFileParam(string name){
-			return (MultiFileParam) GetParam(name);
-		}
-
-		public FolderParam GetFolderParam(string name){
-			return (FolderParam) GetParam(name);
-		}
-
-		public MultiChoiceMultiBinParam GetMultiChoiceMultiBinParam(string name){
-			return (MultiChoiceMultiBinParam) GetParam(name);
-		}
+		public BoolParam GetBoolParam(string name) { return (BoolParam) GetParam(name); }
+		public SingleChoiceParam GetSingleChoiceParam(string name) { return (SingleChoiceParam) GetParam(name); }
+		public SingleChoiceWithSubParams GetSingleChoiceWithSubParams(string name) { return (SingleChoiceWithSubParams) GetParam(name); }
+		public BoolWithSubParams GetBoolWithSubParams(string name) { return (BoolWithSubParams) GetParam(name); }
+		public StringParam GetStringParam(string name) { return (StringParam) GetParam(name); }
+		public LabelParam GetLabelParam(string name) { return (LabelParam) GetParam(name); }
+		public MultiStringParam GetMultiStringParam(string name) { return (MultiStringParam) GetParam(name); }
+		public MultiChoiceParam GetMultiChoiceParam(string name) { return (MultiChoiceParam) GetParam(name); }
+		public IntParam GetIntParam(string name) { return (IntParam) GetParam(name); }
+		public DoubleParam GetDoubleParam(string name) { return (DoubleParam) GetParam(name); }
+		public FileParam GetFileParam(string name) { return (FileParam) GetParam(name); }
+		public MultiFileParam GetMultiFileParam(string name) { return (MultiFileParam) GetParam(name); }
+		public FolderParam GetFolderParam(string name) { return (FolderParam) GetParam(name); }
+		public MultiChoiceMultiBinParam GetMultiChoiceMultiBinParam(string name) { return (MultiChoiceMultiBinParam) GetParam(name); }
 
 		public Parameter GetParam(string name){
 			foreach (ParameterGroup parameterGroup in paramGroups){
@@ -153,11 +105,11 @@ namespace BaseLib.Param{
 			throw new Exception("Parameter does not exist: " + name);
 		}
 
-		public Parameter[] GetDropTargets() {
+		public Parameter[] GetDropTargets(){
 			List<Parameter> result = new List<Parameter>();
-			foreach (ParameterGroup parameterGroup in paramGroups) {
-				foreach (Parameter p in parameterGroup.ParameterList) {
-					if (p.IsDropTarget) {
+			foreach (ParameterGroup parameterGroup in paramGroups){
+				foreach (Parameter p in parameterGroup.ParameterList){
+					if (p.IsDropTarget){
 						result.Add(p);
 					}
 				}
@@ -165,19 +117,19 @@ namespace BaseLib.Param{
 			return result.ToArray();
 		}
 
-		public void SetSizes(int paramNameWidth, int totalWidth) {
-			foreach (ParameterGroup parameterGroup in paramGroups) {
-				foreach (Parameter p in parameterGroup.ParameterList) {
-					if (p is SingleChoiceWithSubParams){
-						SingleChoiceWithSubParams q = (SingleChoiceWithSubParams) p;
-						q.paramNameWidth = paramNameWidth;
-						q.totalWidth = totalWidth;
+		public void SetSizes(int paramNameWidth, int totalWidth){
+			foreach (ParameterGroup parameterGroup in paramGroups){
+				foreach (Parameter p in parameterGroup.ParameterList){
+					if (p is IParameterWithSubParams){
+						IParameterWithSubParams q = (IParameterWithSubParams)p;
+						q.ParamNameWidth = paramNameWidth;
+						q.TotalWidth = totalWidth;
 					}
 				}
 			}
 		}
 
-		public Parameter GetParamNoException(string name) {
+		public Parameter GetParamNoException(string name){
 			foreach (ParameterGroup parameterGroup in paramGroups){
 				Parameter p = parameterGroup.GetParam(name);
 				if (p != null){
@@ -193,9 +145,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public ParameterGroup GetGroup(int i){
-			return paramGroups[i];
-		}
+		public ParameterGroup GetGroup(int i) { return paramGroups[i]; }
 
 		public void SetValuesFromControl(){
 			foreach (ParameterGroup parameterGroup in paramGroups){
@@ -221,20 +171,18 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public Parameter FindParameter(string paramName){
-			return FindParameter(paramName, this);
-		}
+		public Parameter FindParameter(string paramName) { return FindParameter(paramName, this); }
 
-		private static Parameter FindParameter(string paramName, Parameters parameters) {
+		private static Parameter FindParameter(string paramName, Parameters parameters){
 			Parameter p = parameters.GetParamNoException(paramName);
-			if (p != null) {
+			if (p != null){
 				return p;
 			}
-			foreach (Parameter px in parameters.GetAllParameters()) {
-				if (px is ParameterWithSubParams) {
-					Parameters ps = ((ParameterWithSubParams)px).GetSubParameters();
+			foreach (Parameter px in parameters.GetAllParameters()){
+				if (px is IParameterWithSubParams){
+					Parameters ps = ((IParameterWithSubParams) px).GetSubParameters();
 					Parameter pq = FindParameter(paramName, ps);
-					if (pq != null) {
+					if (pq != null){
 						return pq;
 					}
 				}

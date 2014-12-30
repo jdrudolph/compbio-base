@@ -6,9 +6,7 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class SingleChoiceParam : Parameter{
-		public int Value { get; set; }
-		public int Default { get; private set; }
+	public class SingleChoiceParam : Parameter<int>{
 		public IList<string> Values { get; set; }
 		[NonSerialized] private ComboBox control;
 		public SingleChoiceParam(string name) : this(name, 0) { }
@@ -20,17 +18,6 @@ namespace BaseLib.Param{
 		}
 
 		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
-
-		public int Value2{
-			get{
-				SetValueFromControl();
-				return Value;
-			}
-		}
-
-		public override void ResetValue() { Value = Default; }
-		public override void ResetDefault() { Default = Value; }
-		public override bool IsModified { get { return Value != Default; } }
 
 		public string SelectedValue{
 			get{
