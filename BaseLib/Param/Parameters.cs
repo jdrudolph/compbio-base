@@ -86,12 +86,12 @@ namespace BaseLib.Param{
 		public BoolWithSubParams GetBoolWithSubParams(string name) { return (BoolWithSubParams) GetParam(name); }
 		public Parameter<string> GetStringParam(string name) { return (Parameter<string>)GetParam(name); }
 		public Parameter<string> GetLabelParam(string name) { return (Parameter<string>)GetParam(name); }
-		public MultiStringParam GetMultiStringParam(string name) { return (MultiStringParam) GetParam(name); }
+		public Parameter<string[]> GetMultiStringParam(string name) { return (Parameter<string[]>)GetParam(name); }
 		public MultiChoiceParam GetMultiChoiceParam(string name) { return (MultiChoiceParam) GetParam(name); }
 		public Parameter<int> GetIntParam(string name) { return (Parameter<int>)GetParam(name); }
 		public Parameter<double> GetDoubleParam(string name) { return (Parameter<double>)GetParam(name); }
 		public Parameter<string> GetFileParam(string name) { return (Parameter<string>)GetParam(name); }
-		public MultiFileParam GetMultiFileParam(string name) { return (MultiFileParam) GetParam(name); }
+		public Parameter<string[]> GetMultiFileParam(string name) { return (Parameter<string[]>)GetParam(name); }
 		public Parameter<string> GetFolderParam(string name) { return (Parameter<string>)GetParam(name); }
 		public MultiChoiceMultiBinParam GetMultiChoiceMultiBinParam(string name) { return (MultiChoiceMultiBinParam) GetParam(name); }
 
