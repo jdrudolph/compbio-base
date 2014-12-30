@@ -84,13 +84,13 @@ namespace BaseLib.Param{
 		public SingleChoiceParam GetSingleChoiceParam(string name) { return (SingleChoiceParam) GetParam(name); }
 		public SingleChoiceWithSubParams GetSingleChoiceWithSubParams(string name) { return (SingleChoiceWithSubParams) GetParam(name); }
 		public BoolWithSubParams GetBoolWithSubParams(string name) { return (BoolWithSubParams) GetParam(name); }
-		public StringParam GetStringParam(string name) { return (StringParam) GetParam(name); }
-		public LabelParam GetLabelParam(string name) { return (LabelParam) GetParam(name); }
+		public Parameter<string> GetStringParam(string name) { return (Parameter<string>)GetParam(name); }
+		public Parameter<string> GetLabelParam(string name) { return (Parameter<string>)GetParam(name); }
 		public MultiStringParam GetMultiStringParam(string name) { return (MultiStringParam) GetParam(name); }
 		public MultiChoiceParam GetMultiChoiceParam(string name) { return (MultiChoiceParam) GetParam(name); }
 		public IntParam GetIntParam(string name) { return (IntParam) GetParam(name); }
 		public DoubleParam GetDoubleParam(string name) { return (DoubleParam) GetParam(name); }
-		public FileParam GetFileParam(string name) { return (FileParam) GetParam(name); }
+		public Parameter<string> GetFileParam(string name) { return (Parameter<string>)GetParam(name); }
 		public MultiFileParam GetMultiFileParam(string name) { return (MultiFileParam) GetParam(name); }
 		public FolderParam GetFolderParam(string name) { return (FolderParam) GetParam(name); }
 		public MultiChoiceMultiBinParam GetMultiChoiceMultiBinParam(string name) { return (MultiChoiceMultiBinParam) GetParam(name); }
