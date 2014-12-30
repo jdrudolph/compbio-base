@@ -20,7 +20,7 @@ namespace NumPluginSvm{
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = new LinearKernelFunction(),
 				svmType = SvmType.CSvc,
-				c = param.GetDoubleParam("C").Value
+				c = param.GetParam<double>("C").Value
 			};
 			bool[] invert;
 			SvmProblem[] problems = CreateProblems(x, y, ngroups, out invert);

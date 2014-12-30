@@ -33,9 +33,9 @@ namespace NumPluginBase.Kernel{
 					});
 			}
 			set{
-				Degree = value.GetIntParam("Degree").Value;
-				Gamma = value.GetDoubleParam("Gamma").Value;
-				Offset = value.GetDoubleParam("Offset").Value;
+				Degree = value.GetParam<int>("Degree").Value;
+				Gamma = value.GetParam<double>("Gamma").Value;
+				Offset = value.GetParam<double>("Offset").Value;
 			}
 		}
 

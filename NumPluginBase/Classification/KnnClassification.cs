@@ -7,7 +7,7 @@ using NumPluginBase.Distance;
 namespace NumPluginBase.Classification{
 	public class KnnClassification : IClassificationMethod{
 		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads){
-			int k = param.GetIntParam("Number of neighbours").Value;
+			int k = param.GetParam<int>("Number of neighbours").Value;
 			IDistance distance = Distances.GetDistanceFunction(param);
 			return new KnnClassificationModel(x, y, ngroups, k, distance);
 		}

@@ -12,7 +12,7 @@ namespace NumPluginSvm{
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = KernelFunctions.GetKernelFunction(kernelParam.Value, kernelParam.GetSubParameters()),
 				svmType = SvmType.EpsilonSvr,
-				c = param.GetDoubleParam("C").Value
+				c = param.GetParam<double>("C").Value
 			};
 			SvmModel model = SvmMain.SvmTrain(new SvmProblem(x, y), sp);
 			return new SvmRegressionModel(model);

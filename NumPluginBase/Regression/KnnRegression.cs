@@ -7,7 +7,7 @@ using NumPluginBase.Distance;
 namespace NumPluginBase.Regression{
 	public class KnnRegression : IRegressionMethod{
 		public RegressionModel Train(BaseVector[] x, float[] y, Parameters param, int ntheads){
-			int k = param.GetIntParam("Number of neighbours").Value;
+			int k = param.GetParam<int>("Number of neighbours").Value;
 			IDistance distance = Distances.GetDistanceFunction(param);
 			return new KnnRegressionModel(x, y, k, distance);
 		}

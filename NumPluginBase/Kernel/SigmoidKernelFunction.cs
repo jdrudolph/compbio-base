@@ -28,8 +28,8 @@ namespace NumPluginBase.Kernel{
 					});
 			}
 			set{
-				Gamma = value.GetDoubleParam("Gamma").Value;
-				Offset = value.GetDoubleParam("Offset").Value;
+				Gamma = value.GetParam<double>("Gamma").Value;
+				Offset = value.GetParam<double>("Offset").Value;
 			}
 		}
 

@@ -29,9 +29,9 @@ namespace NumPluginSvm{
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = new LinearKernelFunction(),
 				svmType = SvmType.CSvc,
-				c = param.GetDoubleParam("C").Value
+				c = param.GetParam<double>("C").Value
 			};
-			double redfactor = param.GetDoubleParam("Reduction factor").Value;
+			double redfactor = param.GetParam<double>("Reduction factor").Value;
 			bool[] invert;
 			SvmProblem[] problems = CreateProblems(x, y, ngroups, out invert);
 			int[][] rankedSets = new int[problems.Length][];

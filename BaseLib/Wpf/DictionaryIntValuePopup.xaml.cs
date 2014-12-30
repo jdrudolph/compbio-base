@@ -21,7 +21,7 @@ namespace BaseLib.Wpf{
 		internal Dictionary<string, int> GetData(string[] keys){
 			Dictionary<string, int> result = new Dictionary<string, int>();
 			foreach (string key in keys){
-				int y = ParameterPanel.Parameters.GetIntParam(key).Value;
+				int y = ParameterPanel.Parameters.GetParam<int>(key).Value;
 				result.Add(key, y);
 			}
 			return result;

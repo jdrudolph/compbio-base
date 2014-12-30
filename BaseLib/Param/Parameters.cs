@@ -79,21 +79,12 @@ namespace BaseLib.Param{
 			}
 		}
 
+		public Parameter<T> GetParam<T>(string name) { return (Parameter<T>) GetParam(name); }
+		public ParameterWithSubParams<T> GetParamWithSubParams<T>(string name) { return (ParameterWithSubParams<T>) GetParam(name); }
 		public int GroupCount { get { return paramGroups.Count; } }
-		public Parameter<bool> GetBoolParam(string name) { return (Parameter<bool>)GetParam(name); }
-		public Parameter<int> GetSingleChoiceParam(string name) { return (Parameter<int>)GetParam(name); }
 		public SingleChoiceWithSubParams GetSingleChoiceWithSubParams(string name) { return (SingleChoiceWithSubParams) GetParam(name); }
 		public BoolWithSubParams GetBoolWithSubParams(string name) { return (BoolWithSubParams) GetParam(name); }
-		public Parameter<string> GetStringParam(string name) { return (Parameter<string>)GetParam(name); }
-		public Parameter<string> GetLabelParam(string name) { return (Parameter<string>)GetParam(name); }
-		public Parameter<string[]> GetMultiStringParam(string name) { return (Parameter<string[]>)GetParam(name); }
 		public MultiChoiceParam GetMultiChoiceParam(string name) { return (MultiChoiceParam) GetParam(name); }
-		public Parameter<int> GetIntParam(string name) { return (Parameter<int>)GetParam(name); }
-		public Parameter<double> GetDoubleParam(string name) { return (Parameter<double>)GetParam(name); }
-		public Parameter<string> GetFileParam(string name) { return (Parameter<string>)GetParam(name); }
-		public Parameter<string[]> GetMultiFileParam(string name) { return (Parameter<string[]>)GetParam(name); }
-		public Parameter<string> GetFolderParam(string name) { return (Parameter<string>)GetParam(name); }
-		public MultiChoiceMultiBinParam GetMultiChoiceMultiBinParam(string name) { return (MultiChoiceMultiBinParam) GetParam(name); }
 
 		public Parameter GetParam(string name){
 			foreach (ParameterGroup parameterGroup in paramGroups){
@@ -121,7 +112,7 @@ namespace BaseLib.Param{
 			foreach (ParameterGroup parameterGroup in paramGroups){
 				foreach (Parameter p in parameterGroup.ParameterList){
 					if (p is IParameterWithSubParams){
-						IParameterWithSubParams q = (IParameterWithSubParams)p;
+						IParameterWithSubParams q = (IParameterWithSubParams) p;
 						q.ParamNameWidth = paramNameWidth;
 						q.TotalWidth = totalWidth;
 					}
