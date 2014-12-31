@@ -24,6 +24,7 @@ namespace BaseLibS.Param{
 		public abstract void UpdateControlFromValue();
 		public abstract object CreateControl();
 		public virtual void Drop(string x) { }
+
 		public abstract string StringValue { get; set; }
 		public abstract void ResetValue();
 		public abstract void ResetDefault();

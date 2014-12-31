@@ -37,70 +37,12 @@ namespace BaseLibS.Mol{
 			}
 		}
 
+		public int Length { get { return len; } }
+
 		public int GetNumLongs(){
 			int a = len/aasPerLong;
 			int b = len%aasPerLong;
 			return (b == 0) ? a : a + 1;
-		}
-
-		private static ulong Encode(string seq){
-			seq = seq.ToUpper();
-			ulong result = 0;
-			int n = seq.Length;
-			for (int i = 0; i < n; i++){
-				char c = seq[n - 1 - i];
-				int x = Array.BinarySearch(aas, c);
-				if (x < 0){
-					x = indexOfX;
-				}
-				result = (result << 5) + (ulong) x;
-			}
-			return result;
-		}
-
-		private static void Prepare(){
-			q = new string[basis4];
-			aas = (AminoAcids.SingleLetterAas + "X").ToCharArray();
-			Array.Sort(aas);
-			indexOfX = new string(aas).IndexOf('X');
-			int l = aas.Length;
-			for (int i1 = 0; i1 < l; i1++){
-				int q1 = i1;
-				for (int i2 = 0; i2 < l; i2++){
-					int q2 = i2 << 5;
-					for (int i3 = 0; i3 < l; i3++){
-						int q3 = i3 << 10;
-						for (int i4 = 0; i4 < l; i4++){
-							int q4 = i4 << 15;
-							char[] s = new char[4];
-							s[0] = aas[i1];
-							s[1] = aas[i2];
-							s[2] = aas[i3];
-							s[3] = aas[i4];
-							int n = q1 + q2 + q3 + q4;
-							q[n] = new string(s);
-						}
-					}
-				}
-			}
-		}
-
-		private static void Decode(StringBuilder b, ulong a, int n){
-			if (aas == null){
-				Prepare();
-			}
-			int bins = n/4;
-			for (int i = 0; i < bins; i++){
-				int x = (int) (a%basis4);
-				a = a >> 20;
-				b.Append(q[x]);
-			}
-			n -= bins*4;
-			for (int i = 0; i < n; i++){
-				int x = (int) (a%basis);
-				a = a >> 5;
-				b.Append(aas[x]);
-			}
 		}
 
 		public override string ToString(){
@@ -181,5 +123,65 @@ namespace BaseLibS.Mol{
 		}
 
 		public void Dispose() { sequence = null; }
+
+		private static ulong Encode(string seq){
+			seq = seq.ToUpper();
+			ulong result = 0;
+			int n = seq.Length;
+			for (int i = 0; i < n; i++){
+				char c = seq[n - 1 - i];
+				int x = Array.BinarySearch(aas, c);
+				if (x < 0){
+					x = indexOfX;
+				}
+				result = (result << 5) + (ulong) x;
+			}
+			return result;
+		}
+
+		private static void Prepare(){
+			q = new string[basis4];
+			aas = (AminoAcids.SingleLetterAas + "X").ToCharArray();
+			Array.Sort(aas);
+			indexOfX = new string(aas).IndexOf('X');
+			int l = aas.Length;
+			for (int i1 = 0; i1 < l; i1++){
+				int q1 = i1;
+				for (int i2 = 0; i2 < l; i2++){
+					int q2 = i2 << 5;
+					for (int i3 = 0; i3 < l; i3++){
+						int q3 = i3 << 10;
+						for (int i4 = 0; i4 < l; i4++){
+							int q4 = i4 << 15;
+							char[] s = new char[4];
+							s[0] = aas[i1];
+							s[1] = aas[i2];
+							s[2] = aas[i3];
+							s[3] = aas[i4];
+							int n = q1 + q2 + q3 + q4;
+							q[n] = new string(s);
+						}
+					}
+				}
+			}
+		}
+
+		private static void Decode(StringBuilder b, ulong a, int n){
+			if (aas == null){
+				Prepare();
+			}
+			int bins = n/4;
+			for (int i = 0; i < bins; i++){
+				int x = (int) (a%basis4);
+				a = a >> 20;
+				b.Append(q[x]);
+			}
+			n -= bins*4;
+			for (int i = 0; i < n; i++){
+				int x = (int) (a%basis);
+				a = a >> 5;
+				b.Append(aas[x]);
+			}
+		}
 	}
 }
