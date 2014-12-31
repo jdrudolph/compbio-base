@@ -125,6 +125,9 @@ namespace BaseLibS.Mol{
 		public void Dispose() { sequence = null; }
 
 		private static ulong Encode(string seq){
+			if (aas == null){
+				Prepare();
+			}
 			seq = seq.ToUpper();
 			ulong result = 0;
 			int n = seq.Length;
