@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using BaseLibS.Util;
 
-namespace BaseLib.Parse{
+namespace BaseLibS.Parse{
 	public static class TabSep{
 		public static string[] GetColumn(string columnName, string filename, char separator) { return GetColumn(columnName, filename, 0, separator); }
 		public static string[] GetColumn(string columnName, string filename, int nskip, char separator) { return GetColumns(new[]{columnName}, filename, nskip, separator)[0]; }
