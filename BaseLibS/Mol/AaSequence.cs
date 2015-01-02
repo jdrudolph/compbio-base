@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 
 namespace BaseLibS.Mol{
-	public class AaSequence : IComparable, IDisposable{
+	public class AaSequence : IComparable, IDisposable, ICloneable{
 		public const int aasPerLong = 12;
 		private const int basis = 32;
 		private const int basis4 = 32*32*32*32;
@@ -11,7 +11,7 @@ namespace BaseLibS.Mol{
 		private static int indexOfX;
 		private static string[] q;
 		private ulong[] sequence;
-		private readonly int len;
+		private int len;
 		private int hash;
 
 		public AaSequence(string seq){
@@ -36,6 +36,8 @@ namespace BaseLibS.Mol{
 				sequence[i] = reader.ReadUInt64();
 			}
 		}
+
+		private	AaSequence(){}
 
 		public int Length { get { return len; } }
 
@@ -67,6 +69,10 @@ namespace BaseLibS.Mol{
 				hash = h;
 			}
 			return h;
+		}
+
+		public object Clone() { 
+			return new AaSequence{sequence = sequence, len = len, hash = hash};
 		}
 
 		public override bool Equals(object obj){
@@ -124,24 +130,6 @@ namespace BaseLibS.Mol{
 
 		public void Dispose() { sequence = null; }
 
-		private static ulong Encode(string seq){
-			if (aas == null){
-				Prepare();
-			}
-			seq = seq.ToUpper();
-			ulong result = 0;
-			int n = seq.Length;
-			for (int i = 0; i < n; i++){
-				char c = seq[n - 1 - i];
-				int x = Array.BinarySearch(aas, c);
-				if (x < 0){
-					x = indexOfX;
-				}
-				result = (result << 5) + (ulong) x;
-			}
-			return result;
-		}
-
 		private static void Prepare(){
 			q = new string[basis4];
 			aas = (AminoAcids.SingleLetterAas + "X").ToCharArray();
@@ -167,6 +155,24 @@ namespace BaseLibS.Mol{
 					}
 				}
 			}
+		}
+
+		private static ulong Encode(string seq){
+			if (aas == null){
+				Prepare();
+			}
+			seq = seq.ToUpper();
+			ulong result = 0;
+			int n = seq.Length;
+			for (int i = 0; i < n; i++){
+				char c = seq[n - 1 - i];
+				int x = Array.BinarySearch(aas, c);
+				if (x < 0){
+					x = indexOfX;
+				}
+				result = (result << 5) + (ulong) x;
+			}
+			return result;
 		}
 
 		private static void Decode(StringBuilder b, ulong a, int n){

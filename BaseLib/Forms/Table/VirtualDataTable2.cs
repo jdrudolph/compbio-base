@@ -68,6 +68,9 @@ namespace BaseLib.Forms.Table{
 				rowDataInUse = GetRowDataImpl(row);
 				rowInUse = row;
 			}
+			if (rowDataInUse == null){
+				return null;
+			}
 			return col >= rowDataInUse.Length ? null : rowDataInUse[col];
 		}
 
@@ -83,6 +86,9 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private object[] GetRowDataImpl(int row){
+			if (GetRowData == null){
+				return null;
+			}
 			object[] result = GetRowData(row);
 			if (persistentColInds != null){
 				for (int i = 0; i < persistentColInds.Count; i++){

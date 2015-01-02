@@ -1834,7 +1834,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static T[,] Transpose<T>(T[,] x){
-			var result = new T[x.GetLength(1),x.GetLength(0)];
+			T[,] result = new T[x.GetLength(1),x.GetLength(0)];
 			for (int i = 0; i < x.GetLength(0); i++){
 				for (int j = 0; j < x.GetLength(1); j++){
 					result[j, i] = x[i, j];
