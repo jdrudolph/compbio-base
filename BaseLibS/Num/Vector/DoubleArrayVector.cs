@@ -39,6 +39,12 @@ namespace BaseLibS.Num.Vector{
 
 		public override BaseVector SubArray(IList<int> inds) { return new DoubleArrayVector(ArrayUtils.SubArray(values, inds)); }
 
+		public override IEnumerator<double> GetEnumerator(){
+			foreach (double foo in values){
+				yield return foo;
+			}
+		}
+
 		internal static double Dot(DoubleArrayVector x, DoubleArrayVector y){
 			double sum = 0;
 			for (int i = 0; i < x.Length; i++){
@@ -54,6 +60,15 @@ namespace BaseLibS.Num.Vector{
 				sum += d*d;
 			}
 			return sum;
+		}
+
+		public override bool ContainsNaNOrInfinity(){
+			foreach (double value in values){
+				if (double.IsNaN(value) || double.IsInfinity(value)){
+					return true;
+				}
+			}
+			return false;
 		}
 	}
 }

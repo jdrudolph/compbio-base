@@ -51,6 +51,17 @@ namespace BaseLibS.Num.Vector{
 			return new SparseVector(newIndices.ToArray(), newValues.ToArray(), inds.Count);
 		}
 
+		public override IEnumerator<double> GetEnumerator() { throw new NotImplementedException(); }
+
+		public override bool ContainsNaNOrInfinity(){
+			foreach (float value in values){
+				if (float.IsNaN(value) || float.IsInfinity(value)){
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public override double this[int i]{
 			get{
 				int ind = Array.BinarySearch(indices, i);
