@@ -99,6 +99,7 @@
     <Compile Include="Num\Test\TestTruncation.cs" />
     <Compile Include="Num\TukeyBiweightCalc.cs" />
     <Compile Include="Api\BaseVector.cs" />
+    <Compile Include="Num\Vector\BoolArrayVector.cs" />
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
     <Compile Include="Num\Vector\SparseFloatVector.cs" />

@@ -25,9 +25,6 @@ namespace BaseLibS.Num.Vector{
 			if (y is DoubleArrayVector){
 				return Dot(this, (DoubleArrayVector) y);
 			}
-			if (y is BoolArrayVector){
-				return BoolArrayVector.Dot((BoolArrayVector) y, this);
-			}
 			return Dot(this, (FloatArrayVector) y);
 		}
 
@@ -37,9 +34,6 @@ namespace BaseLibS.Num.Vector{
 			}
 			if (y is DoubleArrayVector){
 				return SumSquaredDiffs(this, (DoubleArrayVector) y);
-			}
-			if (y is BoolArrayVector){
-				return BoolArrayVector.SumSquaredDiffs((BoolArrayVector) y, this);
 			}
 			return SumSquaredDiffs(this, (FloatArrayVector) y);
 		}
