@@ -1,6 +1,6 @@
 ﻿using BaseLibS.Num.Vector;
 
-namespace PerseusApi.Matrix{
+namespace BaseLibS.Api{
 	public interface IMatrixIndexer{
 		void Init(int nrows, int ncols);
 		int RowCount { get; }
