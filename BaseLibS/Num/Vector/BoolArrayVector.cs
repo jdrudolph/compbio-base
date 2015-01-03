@@ -5,27 +5,33 @@ using BaseLibS.Util;
 
 namespace BaseLibS.Num.Vector{
 	[Serializable]
-	public class FloatArrayVector : BaseVector{
-		internal readonly float[] values;
-		public FloatArrayVector(float[] values) { this.values = values; }
+	public class BoolArrayVector : BaseVector{
+		internal readonly bool[] values;
+		public BoolArrayVector(bool[] values) { this.values = values; }
 		public override int Length { get { return values.Length; } }
 
 		public override BaseVector Copy(){
-			float[] newValues = new float[Length];
+			bool[] newValues = new bool[Length];
 			Array.Copy(values, newValues, Length);
-			return new FloatArrayVector(newValues);
+			return new BoolArrayVector(newValues);
 		}
 
-		public override double this[int i] { get { return values[i]; } }
+		public override double this[int i] { get { return values[i] ? 1 : 0; } }
 
 		public override double Dot(BaseVector y){
 			if (y is SparseFloatVector){
 				return SparseFloatVector.Dot(this, (SparseFloatVector) y);
 			}
+			if (y is SparseBoolVector){
+				return SparseBoolVector.Dot(this, (SparseBoolVector) y);
+			}
 			if (y is DoubleArrayVector){
 				return Dot(this, (DoubleArrayVector) y);
 			}
-			return Dot(this, (FloatArrayVector) y);
+			if (y is FloatArrayVector){
+				return Dot(this, (FloatArrayVector) y);
+			}
+			return Dot(this, (BoolArrayVector) y);
 		}
 
 		public override double SumSquaredDiffs(BaseVector y){
@@ -35,38 +41,55 @@ namespace BaseLibS.Num.Vector{
 			if (y is DoubleArrayVector){
 				return SumSquaredDiffs(this, (DoubleArrayVector) y);
 			}
-			return SumSquaredDiffs(this, (FloatArrayVector) y);
+			if (y is FloatArrayVector){
+				return SumSquaredDiffs(this, (FloatArrayVector) y);
+			}
+			return SumSquaredDiffs(this, (BoolArrayVector) y);
 		}
 
-		public override BaseVector SubArray(IList<int> inds) { return new FloatArrayVector(ArrayUtils.SubArray(values, inds)); }
+		public override BaseVector SubArray(IList<int> inds) { return new BoolArrayVector(ArrayUtils.SubArray(values, inds)); }
 
 		public override IEnumerator<double> GetEnumerator(){
-			foreach (float foo in values){
-				yield return foo;
+			foreach (bool foo in values){
+				yield return foo ? 1 : 0;
 			}
 		}
 
-		internal static double Dot(FloatArrayVector x, FloatArrayVector y){
+		internal static double Dot(BoolArrayVector x, BoolArrayVector y){
 			double sum = 0;
 			for (int i = 0; i < x.Length; i++){
-				sum += x.values[i]*y.values[i];
-			}
-			return sum;
-		}
-
-		internal static double Dot(FloatArrayVector x, DoubleArrayVector y){
-			double sum = 0;
-			for (int i = 0; i < x.Length; i++){
-				sum += x.values[i]*y.values[i];
+				if (x.values[i] && y.values[i])
+					sum ++;
 			}
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(FloatArrayVector x, FloatArrayVector y){
+		internal static double Dot(BoolArrayVector x, DoubleArrayVector y){
 			double sum = 0;
 			for (int i = 0; i < x.Length; i++){
-				double d = x.values[i] - y.values[i];
-				sum += d*d;
+				if (x.values[i]){
+					sum += y.values[i];
+				}
+			}
+			return sum;
+		}
+
+		internal static double Dot(BoolArrayVector x, FloatArrayVector y){
+			double sum = 0;
+			for (int i = 0; i < x.Length; i++){
+				if (x.values[i]){
+					sum += y.values[i];
+				}
+			}
+			return sum;
+		}
+
+		internal static double SumSquaredDiffs(BoolArrayVector x, BoolArrayVector y){
+			double sum = 0;
+			for (int i = 0; i < x.Length; i++){
+				if (x.values[i] != y.values[i]){
+					sum ++;
+				}
 			}
 			return sum;
 		}
@@ -80,13 +103,30 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		public override bool ContainsNaNOrInfinity(){
-			foreach (float value in values){
-				if (float.IsNaN(value) || float.IsInfinity(value)){
-					return true;
+		internal static double SumSquaredDiffs(BoolArrayVector x, DoubleArrayVector y){
+			double sum = 0;
+			for (int i = 0; i < x.Length; i++){
+				double d = y.values[i];
+				if (x.values[i]){
+					d -= 1;
 				}
+				sum += d*d;
 			}
-			return false;
+			return sum;
 		}
+
+		internal static double SumSquaredDiffs(BoolArrayVector x, FloatArrayVector y){
+			double sum = 0;
+			for (int i = 0; i < x.Length; i++){
+				double d = y.values[i];
+				if (x.values[i]){
+					d -= 1;
+				}
+				sum += d*d;
+			}
+			return sum;
+		}
+
+		public override bool ContainsNaNOrInfinity() { return false; }
 	}
 }

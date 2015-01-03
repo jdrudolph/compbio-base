@@ -4,39 +4,30 @@ using BaseLibS.Api;
 
 namespace BaseLibS.Num.Vector{
 	[Serializable]
-	public class SparseFloatVector : BaseVector{
+	public class SparseBoolVector : BaseVector{
 		/// <summary>
 		/// Indices of nonzero elements. Indices are sorted.
 		/// </summary>
-		internal readonly int[] indices;
-
-		/// <summary>
-		/// Values at the positions specified by the <code>indices</code> array.
-		/// </summary>
-		internal readonly float[] values;
+		private readonly int[] indices;
 
 		/// <summary>
 		/// Total length of the vector.
 		/// </summary>
 		private readonly int length;
 
-		public SparseFloatVector(IList<float> values){
+		public SparseBoolVector(IList<bool> values){
 			List<int> newIndices = new List<int>();
-			List<float> newValues = new List<float>();
 			for (int i = 0; i < values.Count; i++){
-				if (values[i] != 0){
-					newValues.Add(values[i]);
+				if (values[i]){
 					newIndices.Add(i);
 				}
 			}
 			indices = newIndices.ToArray();
-			this.values = newValues.ToArray();
 			length = values.Count;
 		}
 
-		public SparseFloatVector(int[] indices, float[] values, int length){
+		public SparseBoolVector(int[] indices, int length){
 			this.indices = indices;
-			this.values = values;
 			this.length = length;
 		}
 
@@ -45,22 +36,18 @@ namespace BaseLibS.Num.Vector{
 		public override BaseVector Copy(){
 			int[] newIndices = new int[indices.Length];
 			Array.Copy(indices, newIndices, indices.Length);
-			float[] newValues = new float[values.Length];
-			Array.Copy(values, newValues, values.Length);
-			return new SparseFloatVector(newIndices, newValues, length);
+			return new SparseBoolVector(newIndices, length);
 		}
 
 		public override BaseVector SubArray(IList<int> inds){
 			List<int> newIndices = new List<int>();
-			List<float> newValues = new List<float>();
 			for (int i = 0; i < inds.Count; i++){
 				int x = Array.BinarySearch(indices, inds[i]);
 				if (x >= 0){
 					newIndices.Add(i);
-					newValues.Add(values[x]);
 				}
 			}
-			return new SparseFloatVector(newIndices.ToArray(), newValues.ToArray(), inds.Count);
+			return new SparseBoolVector(newIndices.ToArray(), inds.Count);
 		}
 
 		public override IEnumerator<double> GetEnumerator() { throw new NotImplementedException(); }
@@ -69,13 +56,13 @@ namespace BaseLibS.Num.Vector{
 		public override double this[int i]{
 			get{
 				int ind = Array.BinarySearch(indices, i);
-				return ind < 0 ? 0 : values[ind];
+				return ind < 0 ? 0 : 1;
 			}
 		}
 
 		public override double Dot(BaseVector y){
 			if (y is SparseBoolVector){
-				return SparseBoolVector.Dot((SparseBoolVector) y, this);
+				return Dot((SparseBoolVector) y, this);
 			}
 			if (y is FloatArrayVector){
 				return Dot((FloatArrayVector) y, this);
@@ -90,6 +77,9 @@ namespace BaseLibS.Num.Vector{
 		}
 
 		public override double SumSquaredDiffs(BaseVector y){
+			if (y is SparseBoolVector){
+				return SumSquaredDiffs((SparseBoolVector) y, this);
+			}
 			if (y is FloatArrayVector){
 				return SumSquaredDiffs((FloatArrayVector) y, this);
 			}
@@ -102,7 +92,7 @@ namespace BaseLibS.Num.Vector{
 			return SumSquaredDiffs(this, (SparseFloatVector) y);
 		}
 
-		internal static double Dot(SparseFloatVector x, SparseFloatVector y){
+		internal static double Dot(SparseBoolVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.indices.Length;
 			int ylen = y.indices.Length;
@@ -110,7 +100,9 @@ namespace BaseLibS.Num.Vector{
 			int j = 0;
 			while (i < xlen && j < ylen){
 				if (x.indices[i] == y.indices[j]){
-					sum += x.values[i++]*y.values[j++];
+					i++;
+					j++;
+					sum += 1;
 				} else{
 					if (x.indices[i] > y.indices[j]){
 						++j;
@@ -122,7 +114,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double Dot(FloatArrayVector x, SparseFloatVector y){
+		internal static double Dot(FloatArrayVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.indices.Length;
@@ -130,7 +122,8 @@ namespace BaseLibS.Num.Vector{
 			int j = 0;
 			while (i < xlen && j < ylen){
 				if (i == y.indices[j]){
-					sum += x.values[i++]*y.values[j++];
+					j++;
+					sum += x.values[i++];
 				} else{
 					if (i > y.indices[j]){
 						++j;
@@ -142,7 +135,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double Dot(BoolArrayVector x, SparseFloatVector y){
+		internal static double Dot(BoolArrayVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.indices.Length;
@@ -151,7 +144,7 @@ namespace BaseLibS.Num.Vector{
 			while (i < xlen && j < ylen){
 				if (i == y.indices[j]){
 					if (x.values[i]){
-						sum += y.values[j];
+						sum++;
 					}
 					i++;
 					j++;
@@ -166,7 +159,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double Dot(DoubleArrayVector x, SparseFloatVector y){
+		internal static double Dot(DoubleArrayVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.indices.Length;
@@ -174,7 +167,8 @@ namespace BaseLibS.Num.Vector{
 			int j = 0;
 			while (i < xlen && j < ylen){
 				if (i == y.indices[j]){
-					sum += x.values[i++]*y.values[j++];
+					j++;
+					sum += x.values[i++];
 				} else{
 					if (i > y.indices[j]){
 						++j;

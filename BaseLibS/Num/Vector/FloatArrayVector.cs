@@ -22,6 +22,9 @@ namespace BaseLibS.Num.Vector{
 			if (y is SparseFloatVector){
 				return SparseFloatVector.Dot(this, (SparseFloatVector) y);
 			}
+			if (y is SparseBoolVector){
+				return SparseBoolVector.Dot(this, (SparseBoolVector) y);
+			}
 			if (y is DoubleArrayVector){
 				return Dot(this, (DoubleArrayVector) y);
 			}
