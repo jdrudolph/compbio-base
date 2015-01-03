@@ -92,6 +92,27 @@ namespace BaseLibS.Num.Vector{
 			return SumSquaredDiffs(this, (SparseFloatVector) y);
 		}
 
+		internal static double Dot(SparseBoolVector x, SparseFloatVector y){
+			double sum = 0;
+			int xlen = x.indices.Length;
+			int ylen = y.indices.Length;
+			int i = 0;
+			int j = 0;
+			while (i < xlen && j < ylen){
+				if (x.indices[i] == y.indices[j]){
+					sum += y.values[j++];
+					i++;
+				} else{
+					if (x.indices[i] > y.indices[j]){
+						++j;
+					} else{
+						++i;
+					}
+				}
+			}
+			return sum;
+		}
+
 		internal static double Dot(SparseBoolVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.indices.Length;
@@ -180,7 +201,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(SparseFloatVector x, SparseFloatVector y){
+		internal static double SumSquaredDiffs(SparseBoolVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.indices.Length;
 			int ylen = y.indices.Length;
@@ -188,28 +209,28 @@ namespace BaseLibS.Num.Vector{
 			int j = 0;
 			while (i < xlen && j < ylen){
 				if (x.indices[i] == y.indices[j]){
-					double d = x.values[i++] - y.values[j++];
-					sum += d*d;
+					i++;
+					j++;
 				} else if (x.indices[i] > y.indices[j]){
-					sum += y.values[j]*y.values[j];
-					++j;
+					sum++;
+					j++;
 				} else{
-					sum += x.values[i]*x.values[i];
-					++i;
+					sum++;
+					i++;
 				}
 			}
 			while (i < xlen){
-				sum += x.values[i]*x.values[i];
-				++i;
+				sum ++;
+				i++;
 			}
 			while (j < ylen){
-				sum += y.values[j]*y.values[j];
-				++j;
+				sum++;
+				j++;
 			}
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(FloatArrayVector x, SparseFloatVector y){
+		internal static double SumSquaredDiffs(FloatArrayVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.indices.Length;
@@ -217,10 +238,11 @@ namespace BaseLibS.Num.Vector{
 			int j = 0;
 			while (i < xlen && j < ylen){
 				if (i == y.indices[j]){
-					double d = x.values[i++] - y.values[j++];
+					double d = x.values[i++] - 1;
+					j++;
 					sum += d*d;
 				} else if (i > y.indices[j]){
-					sum += y.values[j]*y.values[j];
+					sum += 1;
 					++j;
 				} else{
 					sum += x.values[i]*x.values[i];
@@ -232,13 +254,13 @@ namespace BaseLibS.Num.Vector{
 				++i;
 			}
 			while (j < ylen){
-				sum += y.values[j]*y.values[j];
+				sum += 1;
 				++j;
 			}
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(DoubleArrayVector x, SparseFloatVector y){
+		internal static double SumSquaredDiffs(DoubleArrayVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.indices.Length;
@@ -246,10 +268,11 @@ namespace BaseLibS.Num.Vector{
 			int j = 0;
 			while (i < xlen && j < ylen){
 				if (i == y.indices[j]){
-					double d = x.values[i++] - y.values[j++];
+					double d = x.values[i++] - 1;
+					j++;
 					sum += d*d;
 				} else if (i > y.indices[j]){
-					sum += y.values[j]*y.values[j];
+					sum += 1;
 					++j;
 				} else{
 					sum += x.values[i]*x.values[i];
@@ -261,13 +284,13 @@ namespace BaseLibS.Num.Vector{
 				++i;
 			}
 			while (j < ylen){
-				sum += y.values[j]*y.values[j];
+				sum += 1;
 				++j;
 			}
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(BoolArrayVector x, SparseFloatVector y){
+		internal static double SumSquaredDiffs(BoolArrayVector x, SparseBoolVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.indices.Length;
@@ -275,13 +298,14 @@ namespace BaseLibS.Num.Vector{
 			int j = 0;
 			while (i < xlen && j < ylen){
 				if (i == y.indices[j]){
-					double d = y.values[j++];
+					double d = 1;
+					j++;
 					if (x.values[i++]){
 						d -= 1;
 					}
 					sum += d*d;
 				} else if (i > y.indices[j]){
-					sum += y.values[j]*y.values[j];
+					sum += 1;
 					++j;
 				} else{
 					if (x.values[i]){
@@ -294,6 +318,36 @@ namespace BaseLibS.Num.Vector{
 				if (x.values[i]){
 					sum += 1;
 				}
+				++i;
+			}
+			while (j < ylen){
+				sum += 1;
+				++j;
+			}
+			return sum;
+		}
+
+		internal static double SumSquaredDiffs(SparseBoolVector x, SparseFloatVector y){
+			double sum = 0;
+			int xlen = x.indices.Length;
+			int ylen = y.indices.Length;
+			int i = 0;
+			int j = 0;
+			while (i < xlen && j < ylen){
+				if (x.indices[i] == y.indices[j]){
+					double d = 1 - y.values[j++];
+					i++;
+					sum += d*d;
+				} else if (x.indices[i] > y.indices[j]){
+					sum += y.values[j]*y.values[j];
+					++j;
+				} else{
+					sum += 1;
+					++i;
+				}
+			}
+			while (i < xlen){
+				sum += 1;
 				++i;
 			}
 			while (j < ylen){
