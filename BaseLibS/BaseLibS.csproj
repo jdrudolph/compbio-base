@@ -98,10 +98,10 @@
     <Compile Include="Num\Test\TestSide.cs" />
     <Compile Include="Num\Test\TestTruncation.cs" />
     <Compile Include="Num\TukeyBiweightCalc.cs" />
-    <Compile Include="Num\Vector\BaseVector.cs" />
+    <Compile Include="Api\BaseVector.cs" />
     <Compile Include="Num\Vector\DoubleArrayVector.cs" />
     <Compile Include="Num\Vector\FloatArrayVector.cs" />
-    <Compile Include="Num\Vector\SparseVector.cs" />
+    <Compile Include="Num\Vector\SparseFloatVector.cs" />
     <Compile Include="Param\Parameter.cs" />
     <Compile Include="Param\ParameterGroup.cs" />
     <Compile Include="Param\Parameters.cs" />

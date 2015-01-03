@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BaseLibS.Api;
 using BaseLibS.Util;
 
 namespace BaseLibS.Num.Vector{
@@ -18,8 +19,8 @@ namespace BaseLibS.Num.Vector{
 		public override double this[int i] { get { return values[i]; } }
 
 		public override double Dot(BaseVector y){
-			if (y is SparseVector){
-				return SparseVector.Dot(this, (SparseVector) y);
+			if (y is SparseFloatVector){
+				return SparseFloatVector.Dot(this, (SparseFloatVector) y);
 			}
 			if (y is DoubleArrayVector){
 				return Dot(this, (DoubleArrayVector) y);
@@ -28,8 +29,8 @@ namespace BaseLibS.Num.Vector{
 		}
 
 		public override double SumSquaredDiffs(BaseVector y){
-			if (y is SparseVector){
-				return SparseVector.SumSquaredDiffs(this, (SparseVector) y);
+			if (y is SparseFloatVector){
+				return SparseFloatVector.SumSquaredDiffs(this, (SparseFloatVector) y);
 			}
 			if (y is DoubleArrayVector){
 				return SumSquaredDiffs(this, (DoubleArrayVector) y);

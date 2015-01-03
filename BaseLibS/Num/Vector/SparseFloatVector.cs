@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using BaseLibS.Api;
 
 namespace BaseLibS.Num.Vector{
 	[Serializable]
-	public class SparseVector : BaseVector{
+	public class SparseFloatVector : BaseVector{
 		internal readonly int[] indices;
 		internal readonly float[] values;
 		internal readonly int length;
 
-		public SparseVector(IList<float> values){
+		public SparseFloatVector(IList<float> values){
 			List<int> newIndices = new List<int>();
 			List<float> newValues = new List<float>();
 			for (int i = 0; i < values.Count; i++){
@@ -22,7 +23,7 @@ namespace BaseLibS.Num.Vector{
 			length = values.Count;
 		}
 
-		public SparseVector(int[] indices, float[] values, int length){
+		public SparseFloatVector(int[] indices, float[] values, int length){
 			this.indices = indices;
 			this.values = values;
 			this.length = length;
@@ -35,7 +36,7 @@ namespace BaseLibS.Num.Vector{
 			Array.Copy(indices, newIndices, indices.Length);
 			float[] newValues = new float[values.Length];
 			Array.Copy(values, newValues, values.Length);
-			return new SparseVector(newIndices, newValues, length);
+			return new SparseFloatVector(newIndices, newValues, length);
 		}
 
 		public override BaseVector SubArray(IList<int> inds){
@@ -48,7 +49,7 @@ namespace BaseLibS.Num.Vector{
 					newValues.Add(values[x]);
 				}
 			}
-			return new SparseVector(newIndices.ToArray(), newValues.ToArray(), inds.Count);
+			return new SparseFloatVector(newIndices.ToArray(), newValues.ToArray(), inds.Count);
 		}
 
 		public override IEnumerator<double> GetEnumerator() { throw new NotImplementedException(); }
@@ -76,7 +77,7 @@ namespace BaseLibS.Num.Vector{
 			if (y is DoubleArrayVector){
 				return Dot((DoubleArrayVector) y, this);
 			}
-			return Dot(this, (SparseVector) y);
+			return Dot(this, (SparseFloatVector) y);
 		}
 
 		public override double SumSquaredDiffs(BaseVector y){
@@ -86,10 +87,10 @@ namespace BaseLibS.Num.Vector{
 			if (y is DoubleArrayVector){
 				return SumSquaredDiffs((DoubleArrayVector) y, this);
 			}
-			return SumSquaredDiffs(this, (SparseVector) y);
+			return SumSquaredDiffs(this, (SparseFloatVector) y);
 		}
 
-		internal static double Dot(SparseVector x, SparseVector y){
+		internal static double Dot(SparseFloatVector x, SparseFloatVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.Length;
@@ -109,7 +110,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double Dot(FloatArrayVector x, SparseVector y){
+		internal static double Dot(FloatArrayVector x, SparseFloatVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.Length;
@@ -129,7 +130,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double Dot(DoubleArrayVector x, SparseVector y){
+		internal static double Dot(DoubleArrayVector x, SparseFloatVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.Length;
@@ -149,7 +150,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(SparseVector x, SparseVector y){
+		internal static double SumSquaredDiffs(SparseFloatVector x, SparseFloatVector y){
 			double sum = 0;
 			int xlen = x.length;
 			int ylen = y.length;
@@ -178,7 +179,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(FloatArrayVector x, SparseVector y){
+		internal static double SumSquaredDiffs(FloatArrayVector x, SparseFloatVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.Length;
@@ -207,7 +208,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		internal static double SumSquaredDiffs(DoubleArrayVector x, SparseVector y){
+		internal static double SumSquaredDiffs(DoubleArrayVector x, SparseFloatVector y){
 			double sum = 0;
 			int xlen = x.Length;
 			int ylen = y.Length;

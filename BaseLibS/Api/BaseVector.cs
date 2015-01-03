@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BaseLibS.Num.Vector{
+namespace BaseLibS.Api{
 	[Serializable]
 	public abstract class BaseVector : ICloneable, IEnumerable<double>{
 		public abstract double Dot(BaseVector svmVector);
