@@ -1,6 +1,5 @@
 ﻿using System;
 using BaseLibS.Api;
-using BaseLibS.Num.Vector;
 
 namespace NumPluginSvm.Svm{
 	[Serializable]

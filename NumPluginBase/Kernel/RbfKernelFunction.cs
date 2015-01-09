@@ -1,7 +1,6 @@
 ﻿using System;
 using BaseLib.Param;
 using BaseLibS.Api;
-using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
 namespace NumPluginBase.Kernel{

@@ -1,7 +1,5 @@
-﻿using BaseLib.Param;
-using BaseLibS.Api;
+﻿using BaseLibS.Api;
 using BaseLibS.Num;
-using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 using BaseLibS.Util;
 

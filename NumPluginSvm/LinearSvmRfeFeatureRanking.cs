@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BaseLib.Param;
 using BaseLibS.Api;
-using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 using BaseLibS.Util;
 using NumPluginBase.Kernel;
