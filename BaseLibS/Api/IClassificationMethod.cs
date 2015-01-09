@@ -1,5 +1,4 @@
-﻿using BaseLibS.Num.Vector;
-using BaseLibS.Param;
+﻿using BaseLibS.Param;
 
 namespace BaseLibS.Api{
 	public interface IClassificationMethod : INamedListItem{

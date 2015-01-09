@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using BaseLibS.Num.Vector;
 using BaseLibS.Util;
 
 namespace BaseLibS.Api{

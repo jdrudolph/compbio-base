@@ -1,6 +1,4 @@
-﻿using BaseLibS.Num.Vector;
-
-namespace BaseLibS.Api{
+﻿namespace BaseLibS.Api{
 	public interface IMatrixIndexer{
 		void Init(int nrows, int ncols);
 		int RowCount { get; }
