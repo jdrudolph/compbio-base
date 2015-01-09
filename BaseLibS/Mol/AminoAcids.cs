@@ -95,6 +95,8 @@ namespace BaseLibS.Mol{
 		private static Dictionary<char, double> aaOccurences;
 		private static Dictionary<char, double> aaWeights;
 		private static Dictionary<string, char> codonToAa;
+		private static Dictionary<char, string[]> aaToCodons;
+		private static Dictionary<string, char[]> codonMutatesToAa;
 		private static string singleLetterAas;
 		private static string standardSingleLetterAas;
 		private static Dictionary<char, AminoAcid> letterToAa;
@@ -102,9 +104,59 @@ namespace BaseLibS.Mol{
 		public static Dictionary<char, double> AaOccurences { get { return aaOccurences ?? (aaOccurences = InitOccurences()); } }
 		public static Dictionary<char, double> AaWeights { get { return aaWeights ?? (aaWeights = InitWeights()); } }
 		public static Dictionary<string, char> CodonToAa { get { return codonToAa ?? (codonToAa = InitCodonToAa()); } }
+		public static Dictionary<char, string[]> AaToCodons { get { return aaToCodons ?? (aaToCodons = InitAaToCodons()); } }
 		public static string SingleLetterAas { get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(false)); } }
 		public static string StandardSingleLetterAas { get { return standardSingleLetterAas ?? (standardSingleLetterAas = ExtractSingleLetterAa(true)); } }
 		public static Dictionary<char, AminoAcid> LetterToAa { get { return letterToAa ?? (letterToAa = InitLetter2Aa()); } }
+		public static Dictionary<string, char[]> CodonMutatesToAa { get { return codonMutatesToAa ?? (codonMutatesToAa = InitCodonMutatesToAa()); } }
+
+		private static Dictionary<char, string[]> InitAaToCodons(){
+			Dictionary<char, string[]> result = new Dictionary<char, string[]>();
+			foreach (AminoAcid acid in aminoAcids){
+				if (!acid.isStandard){
+					continue;
+				}
+				result.Add(acid.Letter, acid.Codons);
+			}
+			result.Add('*', new[]{"TAG", "TGA", "TAA"});
+			return result;
+		}
+
+		private static Dictionary<string, char[]> InitCodonMutatesToAa(){
+			Dictionary<string, char[]> result = new Dictionary<string, char[]>();
+			const string bases = "ACGT";
+			Dictionary<string, char> cToAa = CodonToAa;
+			foreach (char b1 in bases){
+				foreach (char b2 in bases){
+					foreach (char b3 in bases){
+						string codon = "" + b1 + b2 + b3;
+						char aa = cToAa[codon];
+						HashSet<char> mutatesTo = new HashSet<char>();
+						for (int pos = 0; pos < 3; pos++){
+							foreach (char b in bases){
+								if (b == codon[pos]){
+									continue;
+								}
+								string mutated = Mutate(codon, pos, b);
+								char mutatedAa = cToAa[mutated];
+								if (aa == mutatedAa){
+									continue;
+								}
+								mutatesTo.Add(mutatedAa);
+							}
+						}
+						result.Add(codon, ArrayUtils.ToArray(mutatesTo));
+					}
+				}
+			}
+			return result;
+		}
+
+		private static string Mutate(string codon, int pos, char c){
+			char[] x = codon.ToCharArray();
+			x[pos] = c;
+			return new string(x);
+		}
 
 		public static bool ValidSequence(string sequence){
 			foreach (char x in sequence){
