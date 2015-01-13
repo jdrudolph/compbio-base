@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BaseLibS.Api;
 using BaseLibS.Num;
-using BaseLibS.Num.Vector;
 
 namespace BaseLibS.Util{
 	public static class ArrayUtils{

@@ -88,13 +88,14 @@ namespace BaseLibS.Mol{
 
 		public static readonly AminoAcid[] aminoAcids = new[]{
 			alanine, arginine, asparagine, asparticAcid, cysteine, glutamine, glutamicAcid, glycine, histidine, isoleucine,
-			leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine, selenocysteine
+			leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine, selenocysteine, pyrrolysine
 		};
 
 		private static double[] aaMonoMasses;
 		private static Dictionary<char, double> aaOccurences;
 		private static Dictionary<char, double> aaWeights;
 		private static Dictionary<string, char> codonToAa;
+		private static Dictionary<string, byte> codonToInd;
 		private static Dictionary<char, string[]> aaToCodons;
 		private static Dictionary<string, char[]> codonMutatesToAa;
 		private static string singleLetterAas;
@@ -104,6 +105,7 @@ namespace BaseLibS.Mol{
 		public static Dictionary<char, double> AaOccurences { get { return aaOccurences ?? (aaOccurences = InitOccurences()); } }
 		public static Dictionary<char, double> AaWeights { get { return aaWeights ?? (aaWeights = InitWeights()); } }
 		public static Dictionary<string, char> CodonToAa { get { return codonToAa ?? (codonToAa = InitCodonToAa()); } }
+		public static Dictionary<string, byte> CodonToInd { get { return codonToInd ?? (codonToInd = InitCodonToInd()); } }
 		public static Dictionary<char, string[]> AaToCodons { get { return aaToCodons ?? (aaToCodons = InitAaToCodons()); } }
 		public static string SingleLetterAas { get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(false)); } }
 		public static string StandardSingleLetterAas { get { return standardSingleLetterAas ?? (standardSingleLetterAas = ExtractSingleLetterAa(true)); } }
@@ -206,10 +208,8 @@ namespace BaseLibS.Mol{
 		}
 
 		public static AminoAcid FromLetter(char c){
-			foreach (AminoAcid t in aminoAcids){
-				if (t.Letter == c){
-					return t;
-				}
+			if (LetterToAa.ContainsKey(c)){
+				return LetterToAa[c];
 			}
 			return null;
 		}
@@ -268,6 +268,28 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
+		private static Dictionary<string, byte> InitCodonToInd(){
+			Dictionary<string, byte> result = new Dictionary<string, byte>{{"TAG", 0}, {"TGA", 0}, {"TAA", 0}};
+			foreach (AminoAcid aa in aminoAcids){
+				for (int i = 0; i < aa.Codons.Length; i++){
+					string codon = aa.Codons[i];
+					if (!result.ContainsKey(codon)){
+						result.Add(codon, (byte) i);
+					}
+				}
+			}
+			string[] keys = ArrayUtils.GetKeys(result);
+			foreach (string key in keys){
+				if (key.Contains("T")){
+					string k = key.Replace('T', 'U');
+					if (!result.ContainsKey(k)){
+						result.Add(k, result[key]);
+					}
+				}
+			}
+			return result;
+		}
+
 		private static double[] InitMasses(){
 			double[] result = new double[128];
 			foreach (AminoAcid aa in aminoAcids){
@@ -298,6 +320,9 @@ namespace BaseLibS.Mol{
 		private static string ExtractSingleLetterAa(bool onlyStandard){
 			StringBuilder result = new StringBuilder();
 			foreach (AminoAcid t in aminoAcids){
+				if (t.Equals(gap)){
+					continue;
+				}
 				if (!onlyStandard || t.isStandard){
 					result.Append(t.Letter);
 				}
