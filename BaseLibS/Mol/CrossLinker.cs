@@ -2,32 +2,48 @@
 
 namespace BaseLibS.Mol{
 	public class CrossLinker : StorableItem{
-		private string specificity;
-		private string composition;
-		private double mass = double.NaN;
-		/// <summary>
-		/// Description or fullname of Modification
-		/// </summary>
-		[XmlAttribute("total_composition")]
-		public string Composition { get { return composition; } set { composition = value; } }
+		private double saturated = double.NaN;
+		private double unsaturated = double.NaN;
+
+		[XmlAttribute("saturated_composition")]
+		public string SaturatedComposition { get; set; }
+
+		[XmlAttribute("unsaturated_composition")]
+		public string UnsaturatedComposition { get; set; }
+
 		[XmlIgnore]
-		public double Mass{
+		public double SaturatedMass{
 			get{
-				if (double.IsNaN(mass)){
-					mass = ChemElements.GetMassFromComposition(composition);
+				if (double.IsNaN(saturated)){
+					saturated = ChemElements.GetMassFromComposition(SaturatedComposition);
 				}
-				return mass;
+				return saturated;
 			}
-			set { mass = value; }
 		}
+
+		[XmlIgnore]
+		public double UnsaturatedMass{
+			get{
+				if (double.IsNaN(unsaturated)){
+					unsaturated = ChemElements.GetMassFromComposition(UnsaturatedComposition);
+				}
+				return unsaturated;
+			}
+		}
+
 		[XmlAttribute("specificity")]
-		public string Specificity { get { return specificity; } set { specificity = value; } }
+		public string Specificity { get; set; }
 
+		public override bool Equals(object obj){
+			if (this == obj){
+				return true;
+			}
+			if (obj is Modification){
+				return (((Modification) obj).Name != Name);
+			}
+			return false;
+		}
 
-		[XmlArray("modification_names")]
-		public string[] ModificationNames { get; set; }
-
-		[XmlArray("modification_composition")]
-		public string[] ModificationCompositions { get; set; }
+		public override int GetHashCode() { return Name.GetHashCode(); }
 	}
 }

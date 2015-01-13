@@ -22,7 +22,7 @@ namespace BaseLibS.Mol{
 		[XmlAttribute("reporterCorrectionP2")]
 		public double ReporterCorrectionP2 { get; set; }
 		/// <summary>
-		/// Monoisotopic Mass of Modification (Composition)
+		/// Monoisotopic mass of modification
 		/// </summary>
 		[XmlAttribute("delta_mass"), XmlIgnore]
 		public double DeltaMass{
@@ -35,7 +35,7 @@ namespace BaseLibS.Mol{
 			set { deltaMass = value; }
 		}
 		/// <summary>
-		/// Composition of Modification
+		/// Composition of modification
 		/// </summary>
 		[XmlAttribute("composition")]
 		public string Composition { get { return composition; } set { composition = value; } }
