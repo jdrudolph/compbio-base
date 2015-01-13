@@ -86,6 +86,11 @@ namespace BaseLibS.Mol{
 			return !Databases.ContainsKey(s) ? ">([^ ]*)" : Databases[s].SearchExpression;
 		}
 
+		public static string GetMutationParseRule(string path){
+			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
+			return !Databases.ContainsKey(s) ? "" : Databases[s].MutationParseRule;
+		}
+
 		public static string GetTaxonomyId(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			return !Databases.ContainsKey(s) ? "" : Databases[s].Taxid;
@@ -324,6 +329,14 @@ namespace BaseLibS.Mol{
 			string[] parseRules = new string[fastaFiles.Length];
 			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetParseRule(fastaFiles[j]);
+			}
+			return parseRules;
+		}
+
+		public static string[] GetMutationParseRules(string[] fastaFiles){
+			string[] parseRules = new string[fastaFiles.Length];
+			for (int j = 0; j < parseRules.Length; j++){
+				parseRules[j] = GetMutationParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}

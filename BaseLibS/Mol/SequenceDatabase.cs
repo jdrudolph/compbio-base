@@ -9,6 +9,13 @@ namespace BaseLibS.Mol{
 		/// obtain the accession number.
 		/// </summary>
 		private string searchExpression;
+
+		/// <summary>
+		/// Regular expression which describes how to parse the fasta sequence header to 
+		/// obtain the string containing definition of mutations.
+		/// </summary>
+		private string mutationParseRule;
+
 		/// <summary>
 		/// The filename of this database e.g. as known by Andromeda.
 		/// </summary>
@@ -17,7 +24,7 @@ namespace BaseLibS.Mol{
 		/// <summary>
 		/// Default Constructor for Serialization. 
 		/// </summary>
-		public SequenceDatabase() {}
+		public SequenceDatabase() { }
 
 		public SequenceDatabase(string filename, string searchExpression){
 			this.filename = filename;
@@ -29,12 +36,20 @@ namespace BaseLibS.Mol{
 		/// </summary>
 		[System.Xml.Serialization.XmlAttribute("filename")]
 		public string Filename { get { return filename; } set { filename = value; } }
+
 		/// <summary>
 		/// Regular expression which describes how to parse the fasta sequence header to 
 		/// obtain the accession number.
 		/// </summary>
 		[System.Xml.Serialization.XmlAttribute("search_expression")]
 		public string SearchExpression { get { return searchExpression; } set { searchExpression = value; } }
+
+		/// <summary>
+		/// Regular expression which describes how to parse the fasta sequence header to 
+		/// obtain the string containing definition of mutations.
+		/// </summary>
+		[System.Xml.Serialization.XmlAttribute("mutation_parse_rule")]
+		public string MutationParseRule { get { return mutationParseRule; } set { mutationParseRule = value; } }
 
 		/// <summary>
 		/// The human readable species of this database which should be NCBI entry's name
