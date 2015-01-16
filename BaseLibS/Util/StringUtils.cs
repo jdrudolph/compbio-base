@@ -611,14 +611,14 @@ namespace BaseLibS.Util{
 			return result.ToArray();
 		}
 
-		public static string[] RemoveCommonSubstrings(string[] files){
-			if (files.Length < 2){
-				return files;
+		public static string[] RemoveCommonSubstrings(string[] s){
+			if (s.Length < 2){
+				return s;
 			}
-			int prefixLen = GetCommonPrefixLength(files);
-			string[] result = new string[files.Length];
+			int prefixLen = GetCommonPrefixLength(s);
+			string[] result = new string[s.Length];
 			for (int i = 0; i < result.Length; i++){
-				result[i] = prefixLen > 0 ? files[i].Substring(prefixLen) : files[i];
+				result[i] = prefixLen > 0 ? s[i].Substring(prefixLen) : s[i];
 			}
 			int suffixLen = GetCommonSuffixLength(result);
 			if (suffixLen > 0){
@@ -629,22 +629,22 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		private static int GetCommonSuffixLength(IList<string> files){
-			string[] x = new string[files.Count];
-			for (int i = 0; i < files.Count; i++){
-				char[] c = files[i].ToCharArray();
+		public static int GetCommonSuffixLength(IList<string> s){
+			string[] x = new string[s.Count];
+			for (int i = 0; i < s.Count; i++){
+				char[] c = s[i].ToCharArray();
 				Array.Reverse(c);
 				x[i] = new string(c);
 			}
 			return GetCommonPrefixLength(x);
 		}
 
-		private static int GetCommonPrefixLength(IList<string> files){
-			string prefix = files[0];
-			for (int i = 1; i < files.Count; i++){
-				string file = files[i];
+		public static int GetCommonPrefixLength(IList<string> s){
+			string prefix = s[0];
+			for (int i = 1; i < s.Count; i++){
+				string file = s[i];
 				int index = -1;
-				for (int j = 0; j < Math.Min(prefix.Length, files[i].Length); j++){
+				for (int j = 0; j < Math.Min(prefix.Length, s[i].Length); j++){
 					if (prefix[j] != file[j]){
 						index = j;
 						break;
