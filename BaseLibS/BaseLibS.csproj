@@ -77,6 +77,8 @@
     <Compile Include="Mol\Molecule.cs" />
     <Compile Include="Mol\NeutralLoss.cs" />
     <Compile Include="Mol\NewTerminusType.cs" />
+    <Compile Include="Mol\PeptideModificationCounts.cs" />
+    <Compile Include="Mol\PeptideModificationState.cs" />
     <Compile Include="Mol\SequenceDatabase.cs" />
     <Compile Include="Mol\SequenceDatabaseList.cs" />
     <Compile Include="Mol\StorableItem.cs" />

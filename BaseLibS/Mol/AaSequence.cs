@@ -10,26 +10,31 @@ namespace BaseLibS.Mol{
 		private static char[] aas;
 		private static int indexOfX;
 		private static string[] q;
+
+		static AaSequence(){
+			Prepare();
+		}
+
 		private ulong[] sequence;
-		private int len;
+		public int Length { get; private set; }
 		private int hash;
 
 		public AaSequence(string seq){
-			len = seq.Length;
-			int a = len/aasPerLong;
-			int b = len%aasPerLong;
+			Length = seq.Length;
+			int a = Length/aasPerLong;
+			int b = Length%aasPerLong;
 			int n = (b == 0) ? a : a + 1;
 			sequence = new ulong[n];
 			for (int i = 0; i < a; i++){
 				sequence[i] = Encode(seq.Substring(aasPerLong*i, aasPerLong));
 			}
 			if (b > 0){
-				sequence[a] = Encode(seq.Substring(aasPerLong*a, len - aasPerLong*a));
+				sequence[a] = Encode(seq.Substring(aasPerLong*a, Length - aasPerLong*a));
 			}
 		}
 
 		public AaSequence(BinaryReader reader){
-			len = reader.ReadInt32();
+			Length = reader.ReadInt32();
 			int n = reader.ReadInt32();
 			sequence = new ulong[n];
 			for (int i = 0; i < sequence.Length; i++){
@@ -39,11 +44,9 @@ namespace BaseLibS.Mol{
 
 		private	AaSequence(){}
 
-		public int Length { get { return len; } }
-
 		public int GetNumLongs(){
-			int a = len/aasPerLong;
-			int b = len%aasPerLong;
+			int a = Length/aasPerLong;
+			int b = Length%aasPerLong;
 			return (b == 0) ? a : a + 1;
 		}
 
@@ -55,7 +58,7 @@ namespace BaseLibS.Mol{
 			for (int i = 0; i < sequence.Length - 1; i++){
 				Decode(b, sequence[i], aasPerLong);
 			}
-			int l = len - (sequence.Length - 1)*aasPerLong;
+			int l = Length - (sequence.Length - 1)*aasPerLong;
 			Decode(b, sequence[sequence.Length - 1], l);
 			return b.ToString();
 		}
@@ -72,7 +75,7 @@ namespace BaseLibS.Mol{
 		}
 
 		public object Clone() { 
-			return new AaSequence{sequence = sequence, len = len, hash = hash};
+			return new AaSequence{sequence = sequence, Length = Length, hash = hash};
 		}
 
 		public override bool Equals(object obj){
@@ -81,7 +84,7 @@ namespace BaseLibS.Mol{
 			}
 			if (obj is AaSequence){
 				AaSequence other = (AaSequence) obj;
-				if (other.len != len){
+				if (other.Length != Length){
 					return false;
 				}
 				for (int i = 0; i < sequence.Length; i++){
@@ -95,7 +98,7 @@ namespace BaseLibS.Mol{
 		}
 
 		public void Write(BinaryWriter writer){
-			writer.Write(len);
+			writer.Write(Length);
 			writer.Write(sequence.Length);
 			foreach (ulong u in sequence){
 				writer.Write(u);
@@ -119,8 +122,8 @@ namespace BaseLibS.Mol{
 				}
 				return 1;
 			}
-			if (len != other.len){
-				if (len < other.len){
+			if (Length != other.Length){
+				if (Length < other.Length){
 					return -1;
 				}
 				return 1;

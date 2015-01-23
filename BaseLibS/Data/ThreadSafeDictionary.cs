@@ -10,7 +10,9 @@ namespace BaseLibS.Data{
 
 		public void Add(Tk key, Tv value){
 			lock (locker){
-				hashSet.Add(key, value);
+				if (!hashSet.ContainsKey(key)){
+					hashSet.Add(key, value);
+				}
 			}
 		}
 
@@ -25,6 +27,20 @@ namespace BaseLibS.Data{
 		public bool ContainsKey(Tk key){
 			lock (locker){
 				return hashSet.ContainsKey(key);
+			}
+		}
+
+		public bool TryGetValue(Tk key, out Tv value){
+			lock (locker){
+				return hashSet.TryGetValue(key, out value);
+			}
+		}
+
+		public Dictionary<Tk, Tv>.KeyCollection Keys{
+			get{
+				lock (locker){
+					return hashSet.Keys;
+				}
 			}
 		}
 

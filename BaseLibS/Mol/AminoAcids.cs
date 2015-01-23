@@ -88,7 +88,8 @@ namespace BaseLibS.Mol{
 
 		public static readonly AminoAcid[] aminoAcids = new[]{
 			alanine, arginine, asparagine, asparticAcid, cysteine, glutamine, glutamicAcid, glycine, histidine, isoleucine,
-			leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine, selenocysteine, pyrrolysine
+			leucine, lysine, methionine, phenylalanine, proline, serine, threonine, tryptophan, tyrosine, valine, selenocysteine,
+			pyrrolysine
 		};
 
 		private static double[] aaMonoMasses;
@@ -179,12 +180,28 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
+		public static double CalcMonoisotopicMass(string sequence, Modification[] modifications, bool isProteinNterm,
+			bool isProteinCterm){
+			double m = CalcMonoisotopicMass(sequence);
+			m += GetFixedModificationMass(sequence, modifications, isProteinNterm, isProteinCterm);
+			return m;
+		}
+
 		public static double CalcMonoisotopicMass(string sequence){
 			double result = massNormalCTerminus + massNormalNTerminus;
 			foreach (char aa in sequence){
 				result += AaMonoMasses[aa];
 			}
 			return result;
+		}
+
+		public static double GetFixedModificationMass(string sequence, Modification[] modifications, bool isProteinNterm,
+			bool isProteinCterm){
+			PeptideModificationState fixedModifications = new PeptideModificationState(sequence.Length);
+			double monoisotopicMass = 0;
+			monoisotopicMass += fixedModifications.ApplyFixedModifications(modifications, sequence, isProteinNterm,
+				isProteinCterm);
+			return monoisotopicMass;
 		}
 
 		public static Molecule GetPeptideMolecule(string aaseq){
