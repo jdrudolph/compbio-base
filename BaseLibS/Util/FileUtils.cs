@@ -13,7 +13,7 @@ using BaseLibS.Api;
 namespace BaseLibS.Util{
 	public static class FileUtils{
 		public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
-		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.fa";
+		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa";
 		private static readonly Random random = new Random();
 		public static string executableFile = Assembly.GetEntryAssembly().Location;
 		public static string executablePath = Path.GetDirectoryName(executableFile);
