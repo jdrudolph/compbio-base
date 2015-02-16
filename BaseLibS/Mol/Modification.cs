@@ -182,7 +182,8 @@ namespace BaseLibS.Mol{
 
 		public bool IsIsotopicLabel{
 			get{
-				if (modificationType == ModificationType.IsobaricLabel || modificationType == ModificationType.Standard){
+				if (modificationType == ModificationType.IsobaricLabel || modificationType == ModificationType.Standard || modificationType == ModificationType.AaSubstitution)
+				{
 					return false;
 				}
 				Tuple<Molecule, Molecule> x = Molecule.GetDifferences(new Molecule(), new Molecule(GetFormula()));

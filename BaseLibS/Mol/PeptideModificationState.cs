@@ -40,6 +40,7 @@ namespace BaseLibS.Mol{
 		}
 
 		public int Length { get { return Modifications.Length; } }
+
 		public int Count{
 			get{
 				int c = 0;
@@ -57,22 +58,26 @@ namespace BaseLibS.Mol{
 				return c;
 			}
 		}
+
 		public int CountNonlabel{
 			get{
 				int c = 0;
 				if (NTermModification != ushort.MaxValue){
-					if (Tables.ModificationList[NTermModification].ModificationType == ModificationType.Standard){
+					if (Tables.ModificationList[NTermModification].ModificationType == ModificationType.Standard ||
+						Tables.ModificationList[NTermModification].ModificationType == ModificationType.AaSubstitution){
 						c++;
 					}
 				}
 				if (CTermModification != ushort.MaxValue){
-					if (Tables.ModificationList[CTermModification].ModificationType == ModificationType.Standard){
+					if (Tables.ModificationList[CTermModification].ModificationType == ModificationType.Standard ||
+						Tables.ModificationList[CTermModification].ModificationType == ModificationType.AaSubstitution){
 						c++;
 					}
 				}
 				foreach (ushort m in Modifications){
 					if (m != ushort.MaxValue){
-						if (Tables.ModificationList[m].ModificationType == ModificationType.Standard){
+						if (Tables.ModificationList[m].ModificationType == ModificationType.Standard ||
+							Tables.ModificationList[m].ModificationType == ModificationType.AaSubstitution){
 							c++;
 						}
 					}
@@ -84,19 +89,22 @@ namespace BaseLibS.Mol{
 		public Dictionary<Tuple<ushort, char>, int> CountNonlabels(string sequence){
 			Dictionary<Tuple<ushort, char>, int> counts = new Dictionary<Tuple<ushort, char>, int>();
 			if (NTermModification != ushort.MaxValue){
-				if (Tables.ModificationList[NTermModification].ModificationType == ModificationType.Standard){
+				if (Tables.ModificationList[NTermModification].ModificationType == ModificationType.Standard ||
+					Tables.ModificationList[NTermModification].ModificationType == ModificationType.AaSubstitution){
 					AddMod(counts, NTermModification, '-');
 				}
 			}
 			if (CTermModification != ushort.MaxValue){
-				if (Tables.ModificationList[CTermModification].ModificationType == ModificationType.Standard){
+				if (Tables.ModificationList[CTermModification].ModificationType == ModificationType.Standard ||
+					Tables.ModificationList[CTermModification].ModificationType == ModificationType.AaSubstitution){
 					AddMod(counts, CTermModification, '-');
 				}
 			}
 			for (int i = 0; i < Modifications.Length; i++){
 				ushort m = Modifications[i];
 				if (m != ushort.MaxValue){
-					if (Tables.ModificationList[m].ModificationType == ModificationType.Standard){
+					if (Tables.ModificationList[m].ModificationType == ModificationType.Standard ||
+						Tables.ModificationList[m].ModificationType == ModificationType.AaSubstitution){
 						AddMod(counts, m, sequence[i]);
 					}
 				}
@@ -113,13 +121,8 @@ namespace BaseLibS.Mol{
 			}
 		}
 
-		public ushort GetModificationAt(int index){
-			return index >= Modifications.Length ? ushort.MaxValue : Modifications[index];
-		}
-
-		public void SetModificationAt(int index, ushort value){
-			Modifications[index] = value;
-		}
+		public ushort GetModificationAt(int index) { return index >= Modifications.Length ? ushort.MaxValue : Modifications[index]; }
+		public void SetModificationAt(int index, ushort value) { Modifications[index] = value; }
 
 		public static PeptideModificationState Read(BinaryReader reader){
 			PeptideModificationState result = new PeptideModificationState{
@@ -163,9 +166,7 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public PeptideModificationCounts ProjectToCounts(){
-			return ProjectToCounts(Modifications, NTermModification, CTermModification);
-		}
+		public PeptideModificationCounts ProjectToCounts() { return ProjectToCounts(Modifications, NTermModification, CTermModification); }
 
 		private static PeptideModificationCounts ProjectToCounts(IEnumerable<ushort> modifications, ushort nTermModification,
 			ushort cTermModification){
@@ -323,16 +324,20 @@ namespace BaseLibS.Mol{
 		public PeptideModificationState GetTrueModifications(){
 			PeptideModificationState result = GetFreshCopy(Length);
 			if (NTermModification != ushort.MaxValue &&
-				Tables.ModificationList[NTermModification].ModificationType == ModificationType.Standard){
+				(Tables.ModificationList[NTermModification].ModificationType == ModificationType.Standard ||
+					Tables.ModificationList[NTermModification].ModificationType == ModificationType.AaSubstitution)){
 				result.NTermModification = NTermModification;
 			}
 			if (CTermModification != ushort.MaxValue &&
-				Tables.ModificationList[CTermModification].ModificationType == ModificationType.Standard){
+				(Tables.ModificationList[CTermModification].ModificationType == ModificationType.Standard ||
+					Tables.ModificationList[CTermModification].ModificationType == ModificationType.AaSubstitution)){
 				result.CTermModification = CTermModification;
 			}
 			for (int i = 0; i < Length; i++){
 				ushort m = GetModificationAt(i);
-				if (m == ushort.MaxValue || Tables.ModificationList[m].ModificationType != ModificationType.Standard){
+				if (m == ushort.MaxValue ||
+					(Tables.ModificationList[m].ModificationType != ModificationType.Standard &&
+						Tables.ModificationList[m].ModificationType != ModificationType.AaSubstitution)){
 					result.SetModificationAt(i, ushort.MaxValue);
 				} else{
 					result.SetModificationAt(i, GetModificationAt(i));
@@ -344,16 +349,19 @@ namespace BaseLibS.Mol{
 		public PeptideModificationState GetLabelModifications(ushort[] fixedMods, string sequence){
 			PeptideModificationState result = GetFreshCopy(Length);
 			if (NTermModification != ushort.MaxValue &&
-				Tables.ModificationList[NTermModification].ModificationType != ModificationType.Standard){
+				Tables.ModificationList[NTermModification].ModificationType != ModificationType.Standard &&
+				Tables.ModificationList[NTermModification].ModificationType != ModificationType.AaSubstitution){
 				result.NTermModification = NTermModification;
 			}
 			if (CTermModification != ushort.MaxValue &&
-				Tables.ModificationList[CTermModification].ModificationType != ModificationType.Standard){
+				Tables.ModificationList[CTermModification].ModificationType != ModificationType.Standard &&
+				Tables.ModificationList[CTermModification].ModificationType != ModificationType.AaSubstitution){
 				result.CTermModification = CTermModification;
 			}
 			for (int i = 0; i < Length; i++){
 				ushort m = GetModificationAt(i);
-				if (m != ushort.MaxValue && Tables.ModificationList[m].ModificationType != ModificationType.Standard){
+				if (m != ushort.MaxValue && Tables.ModificationList[m].ModificationType != ModificationType.Standard &&
+					Tables.ModificationList[m].ModificationType != ModificationType.AaSubstitution){
 					result.SetModificationAt(i, m);
 				} else{
 					result.SetModificationAt(i, ushort.MaxValue);
@@ -361,7 +369,7 @@ namespace BaseLibS.Mol{
 			}
 			foreach (ushort fixMod in fixedMods){
 				Modification mod = Tables.ModificationList[fixMod];
-				if (mod.ModificationType != ModificationType.Standard){
+				if (mod.ModificationType != ModificationType.Standard && mod.ModificationType != ModificationType.AaSubstitution){
 					if (mod.IsInternal){
 						for (int j = 0; j < mod.AaCount; j++){
 							char c = mod.GetAaAt(j);
@@ -402,16 +410,19 @@ namespace BaseLibS.Mol{
 		public PeptideModificationState RemoveLabelModifications(){
 			PeptideModificationState result = Clone();
 			if (NTermModification != ushort.MaxValue &&
-				Tables.ModificationList[NTermModification].ModificationType != ModificationType.Standard){
+				Tables.ModificationList[NTermModification].ModificationType != ModificationType.Standard &&
+				Tables.ModificationList[NTermModification].ModificationType != ModificationType.AaSubstitution){
 				result.NTermModification = ushort.MaxValue;
 			}
 			if (CTermModification != ushort.MaxValue &&
-				Tables.ModificationList[CTermModification].ModificationType != ModificationType.Standard){
+				Tables.ModificationList[CTermModification].ModificationType != ModificationType.Standard &&
+				Tables.ModificationList[CTermModification].ModificationType != ModificationType.AaSubstitution){
 				result.CTermModification = ushort.MaxValue;
 			}
 			for (int i = 0; i < Modifications.Length; i++){
 				if (Modifications[i] != ushort.MaxValue &&
-					Tables.ModificationList[Modifications[i]].ModificationType != ModificationType.Standard){
+					Tables.ModificationList[Modifications[i]].ModificationType != ModificationType.Standard &&
+					Tables.ModificationList[Modifications[i]].ModificationType != ModificationType.AaSubstitution){
 					result.Modifications[i] = ushort.MaxValue;
 				}
 			}
@@ -445,9 +456,7 @@ namespace BaseLibS.Mol{
 			return sb.ToString();
 		}
 
-		public string UshortToString(ushort u){
-			return u == ushort.MaxValue ? "A" : u.ToString(CultureInfo.InvariantCulture);
-		}
+		public string UshortToString(ushort u) { return u == ushort.MaxValue ? "A" : u.ToString(CultureInfo.InvariantCulture); }
 
 		public static PeptideModificationState FillFixedModifications(string sequence, IDictionary<char, ushort> fmods){
 			PeptideModificationState result = new PeptideModificationState(sequence.Length);

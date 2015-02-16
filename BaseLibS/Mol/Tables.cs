@@ -144,14 +144,19 @@ namespace BaseLibS.Mol{
 		}
 
 		public static string[] GetNonlabelModifications(){
-			List<string> result = new List<string>();
+			List<string> result1 = new List<string>();
+			List<string> result2 = new List<string>();
 			foreach (string m in ArrayUtils.GetKeys(Modifications)){
 				if (Modifications[m].ModificationType == ModificationType.Standard){
-					result.Add(m);
+					result1.Add(m);
+				}
+				if (Modifications[m].ModificationType == ModificationType.AaSubstitution){
+					result2.Add(m);
 				}
 			}
-			result.Sort();
-			return result.ToArray();
+			result1.Sort();
+			result2.Sort();
+			return ArrayUtils.Concat(result1, result2);
 		}
 
 		public static Enzyme[] ToEnzymes(string[] enz){
