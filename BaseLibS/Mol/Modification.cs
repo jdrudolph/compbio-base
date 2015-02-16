@@ -11,7 +11,7 @@ namespace BaseLibS.Mol{
 		private ModificationSite[] sites = new ModificationSite[0];
 		private Dictionary<char, ModificationSite> sitesMap;
 		private char[] sitesArray;
-		private ModificationType modificationType = ModificationType.standard;
+		private ModificationType modificationType = ModificationType.Standard;
 		private NewTerminusType newTerminusType = NewTerminusType.none;
 		[XmlAttribute("reporterCorrectionM2")]
 		public double ReporterCorrectionM2 { get; set; }
@@ -182,7 +182,7 @@ namespace BaseLibS.Mol{
 
 		public bool IsIsotopicLabel{
 			get{
-				if (modificationType == ModificationType.isobaricLabel || modificationType == ModificationType.standard){
+				if (modificationType == ModificationType.IsobaricLabel || modificationType == ModificationType.Standard){
 					return false;
 				}
 				Tuple<Molecule, Molecule> x = Molecule.GetDifferences(new Molecule(), new Molecule(GetFormula()));

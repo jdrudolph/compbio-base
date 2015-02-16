@@ -9,10 +9,16 @@ namespace BaseLibS.Util{
 		protected readonly int nTasks;
 		protected Thread[] allWorkThreads;
 		protected Stack<int> toBeProcessed;
-		private readonly Action<int> calculation;
+		private readonly Action<int, int> calculation;
 		private readonly object locker = new object();
 
 		public ThreadDistributor(int nThreads, int nTasks, Action<int> calculation){
+			this.nThreads = Math.Min(nThreads, nTasks);
+			this.nTasks = nTasks;
+			this.calculation = (itask, ithread) => calculation(itask);
+		}
+
+		public ThreadDistributor(int nThreads, int nTasks, Action<int, int> calculation){
 			this.nThreads = Math.Min(nThreads, nTasks);
 			this.nTasks = nTasks;
 			this.calculation = calculation;
@@ -34,14 +40,14 @@ namespace BaseLibS.Util{
 			allWorkThreads = new Thread[nThreads];
 			for (int i = 0; i < nThreads; i++){
 				allWorkThreads[i] = new Thread(Work);
-				allWorkThreads[i].Start();
+				allWorkThreads[i].Start(i);
 			}
 			for (int i = 0; i < nThreads; i++){
 				allWorkThreads[i].Join();
 			}
 		}
 
-		private void Work(){
+		private void Work(object ithread){
 			while (true){
 				int x;
 				lock (locker){
@@ -50,7 +56,7 @@ namespace BaseLibS.Util{
 					}
 					x = toBeProcessed.Pop();
 				}
-				calculation(x);
+				calculation(x, (int) ithread);
 			}
 		}
 	}

@@ -146,7 +146,7 @@ namespace BaseLibS.Mol{
 		public static string[] GetNonlabelModifications(){
 			List<string> result = new List<string>();
 			foreach (string m in ArrayUtils.GetKeys(Modifications)){
-				if (Modifications[m].ModificationType == ModificationType.standard){
+				if (Modifications[m].ModificationType == ModificationType.Standard){
 					result.Add(m);
 				}
 			}
@@ -180,10 +180,10 @@ namespace BaseLibS.Mol{
 					if (!result.ContainsKey(mod.Name)){
 						result.Add(mod.Name, mod);
 					}
-					if (mod.ModificationType == ModificationType.label && !labelMods.ContainsKey(mod.Name)){
+					if (mod.ModificationType == ModificationType.Label && !labelMods.ContainsKey(mod.Name)){
 						labelMods.Add(mod.Name, mod);
 					}
-					if (mod.ModificationType == ModificationType.isobaricLabel && !isobaricLabelMods.ContainsKey(mod.Name)){
+					if (mod.ModificationType == ModificationType.IsobaricLabel && !isobaricLabelMods.ContainsKey(mod.Name)){
 						isobaricLabelMods.Add(mod.Name, mod);
 					}
 				}

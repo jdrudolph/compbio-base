@@ -1,7 +1,8 @@
 ﻿namespace BaseLibS.Mol {
 	public enum ModificationType {
-		standard,
-		label,
-		isobaricLabel
+		Standard,
+		Label,
+		IsobaricLabel,
+		AaSubstitution
 	}
 }
