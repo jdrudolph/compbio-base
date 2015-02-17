@@ -4746,8 +4746,8 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Amidated (Protein N-term)" description="Amidation" create_date="2015-02-16T21:54:02.8382094+01:00" last_modified_date="2015-02-16T21:55:04.4971217+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H N O(-1)">
-      <position>proteinNterm</position>
+   <modification title="Amidated (Protein C-term)" description="Amidation" create_date="2015-02-16T21:54:02.8382094+01:00" last_modified_date="2015-02-16T21:55:04.4971217+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H N O(-1)">
+      <position>proteinCterm</position>
       <modification_site site="-">
          <neutralloss_collection />
          <diagnostic_collection />
@@ -4755,7 +4755,7 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Sulfo (STYC)" description="O-Sulfonation" create_date="2015-02-16T21:55:31.7678586+01:00" last_modified_date="2015-02-16T22:01:05.897043+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="S">
+   <modification title="Sulfo (STY)" description="O-Sulfonation" create_date="2015-02-16T21:55:31.7678586+01:00" last_modified_date="2015-02-16T22:01:05.897043+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="S">
       <position>anywhere</position>
       <modification_site site="S">
          <neutralloss_collection />
@@ -4766,10 +4766,6 @@
          <diagnostic_collection />
       </modification_site>
       <modification_site site="Y">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="C">
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
