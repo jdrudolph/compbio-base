@@ -47,7 +47,6 @@ namespace BaseLib.Param{
 					result.Add(i);
 				}
 			}
-			result.Sort();
 			return result.ToArray();
 		}
 
