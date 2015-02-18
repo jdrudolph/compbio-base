@@ -3,6 +3,7 @@
 		Standard,
 		Label,
 		IsobaricLabel,
-		AaSubstitution
+		AaSubstitution,
+		Glycan
 	}
 }

@@ -13,14 +13,19 @@ namespace BaseLibS.Mol{
 		private char[] sitesArray;
 		private ModificationType modificationType = ModificationType.Standard;
 		private NewTerminusType newTerminusType = NewTerminusType.none;
+
 		[XmlAttribute("reporterCorrectionM2")]
 		public double ReporterCorrectionM2 { get; set; }
+
 		[XmlAttribute("reporterCorrectionM1")]
 		public double ReporterCorrectionM1 { get; set; }
+
 		[XmlAttribute("reporterCorrectionP1")]
 		public double ReporterCorrectionP1 { get; set; }
+
 		[XmlAttribute("reporterCorrectionP2")]
 		public double ReporterCorrectionP2 { get; set; }
+
 		/// <summary>
 		/// Monoisotopic mass of modification
 		/// </summary>
@@ -34,21 +39,25 @@ namespace BaseLibS.Mol{
 			}
 			set { deltaMass = value; }
 		}
+
 		/// <summary>
 		/// Composition of modification
 		/// </summary>
 		[XmlAttribute("composition")]
 		public string Composition { get { return composition; } set { composition = value; } }
-        /// <summary>
-        /// Equivalent Unimod id
-        /// </summary>
-        [XmlAttribute("unimod")]
-        public string Unimod { get; set; }
+
+		/// <summary>
+		/// Equivalent Unimod id
+		/// </summary>
+		[XmlAttribute("unimod")]
+		public string Unimod { get; set; }
+
 		/// <summary>
 		/// Position of Modification
 		/// </summary>
 		[XmlElement("position", typeof (ModificationPosition))]
 		public ModificationPosition Position { get { return position; } set { position = value; } }
+
 		/// <summary>
 		/// Sites of Modification
 		/// </summary>
@@ -63,41 +72,46 @@ namespace BaseLibS.Mol{
 			}
 			get { return sites; }
 		}
+
 		/// <summary>
 		/// Determines if this is a standard modification, a label or an isobaric label
 		/// </summary>
 		[XmlElement("type", typeof (ModificationType))]
 		public ModificationType ModificationType { get { return modificationType; } set { modificationType = value; } }
+
 		[XmlElement("terminus_type", typeof (NewTerminusType))]
 		public NewTerminusType NewTerminusType { get { return newTerminusType; } set { newTerminusType = value; } }
+
 		public int AaCount { get { return sites.Length; } }
 		public string Abbreviation { get { return Name.Substring(0, 2).ToLower(); } }
 		public bool IsPhosphorylation { get { return Math.Abs(deltaMass - 79.96633) < 0.0001; } }
+
 		public bool IsInternal{
 			get{
 				return position == ModificationPosition.anywhere || position == ModificationPosition.notNterm ||
 					position == ModificationPosition.notCterm || position == ModificationPosition.notTerm;
 			}
 		}
+
 		public bool IsNterminal { get { return position == ModificationPosition.anyNterm || position == ModificationPosition.proteinNterm; } }
 		public bool IsCterminal { get { return position == ModificationPosition.anyCterm || position == ModificationPosition.proteinCterm; } }
+
 		public bool IsNterminalStep{
 			get{
 				return position == ModificationPosition.anyNterm || position == ModificationPosition.proteinNterm ||
 					position == ModificationPosition.anywhere || position == ModificationPosition.notCterm;
 			}
 		}
+
 		public bool IsCterminalStep{
 			get{
 				return position == ModificationPosition.anyCterm || position == ModificationPosition.proteinCterm ||
 					position == ModificationPosition.anywhere || position == ModificationPosition.notNterm;
 			}
 		}
-		public bool IsProteinTerminal { get { return position == ModificationPosition.proteinNterm || position == ModificationPosition.proteinCterm; } }
 
-		public ModificationSite GetSite(char aa){
-			return sitesMap[aa];
-		}
+		public bool IsProteinTerminal { get { return position == ModificationPosition.proteinNterm || position == ModificationPosition.proteinCterm; } }
+		public ModificationSite GetSite(char aa) { return sitesMap[aa]; }
 
 		public override bool Equals(object obj){
 			if (this == obj){
@@ -109,9 +123,7 @@ namespace BaseLibS.Mol{
 			return false;
 		}
 
-		public override int GetHashCode(){
-			return Name.GetHashCode();
-		}
+		public override int GetHashCode() { return Name.GetHashCode(); }
 
 		public bool HasAa(char aa){
 			foreach (ModificationSite x in sites){
@@ -122,9 +134,7 @@ namespace BaseLibS.Mol{
 			return false;
 		}
 
-		public char GetAaAt(int j){
-			return sites[j].Aa;
-		}
+		public char GetAaAt(int j) { return sites[j].Aa; }
 
 		public static string[] ToStrings(Modification[] mods){
 			string[] result = new string[mods.Length];
@@ -134,9 +144,7 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public override string ToString(){
-			return Name;
-		}
+		public override string ToString() { return Name; }
 
 		public static Dictionary<char, ushort> ToDictionary(Modification[] modifications){
 			Dictionary<char, ushort> result = new Dictionary<char, ushort>();
@@ -182,8 +190,7 @@ namespace BaseLibS.Mol{
 
 		public bool IsIsotopicLabel{
 			get{
-				if (modificationType == ModificationType.IsobaricLabel || modificationType == ModificationType.Standard || modificationType == ModificationType.AaSubstitution)
-				{
+				if (modificationType == ModificationType.IsobaricLabel || IsStandardVarMod(modificationType)){
 					return false;
 				}
 				Tuple<Molecule, Molecule> x = Molecule.GetDifferences(new Molecule(), new Molecule(GetFormula()));
@@ -197,6 +204,16 @@ namespace BaseLibS.Mol{
 				Tuple<Molecule, Molecule> d = Molecule.GetDifferences(d1, d2);
 				return d.Item1.IsEmpty && d.Item2.IsEmpty;
 			}
+		}
+
+		public static bool IsStandardVarMod(ModificationType type){
+			switch (type){
+				case ModificationType.Standard:
+				case ModificationType.AaSubstitution:
+				case ModificationType.Glycan:
+					return true;
+			}
+			return false;
 		}
 	}
 }

@@ -205,7 +205,7 @@
             <diagnostic name="OHexNAc" shortname="H13 C8 N O5" composition="H(13) C(8) N O(5)" />
          </diagnostic_collection>
       </modification_site>
-      <type>Standard</type>
+      <type>Glycan</type>
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="DimethLys0" description="Lysine dimethyl light" create_date="2010-09-10T22:58:36.5625+02:00" last_modified_date="2010-09-10T23:01:25.234375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(4) C(2)">
@@ -4782,7 +4782,7 @@
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <type>Standard</type>
+      <type>Glycan</type>
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="Hex (K)" description="Hexose" create_date="2015-02-16T22:45:12.1604134+01:00" last_modified_date="2015-02-16T22:46:21.8243075+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(10) O(5) C(6)">
@@ -4791,7 +4791,7 @@
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <type>Standard</type>
+      <type>Glycan</type>
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="Hex(5) HexNAc(4) NeuAc(2) (N)" description="Hex(5) HexNAc(4) NeuAc(2)" create_date="2015-02-16T22:52:21.1019099+01:00" last_modified_date="2015-02-16T23:00:11.3822014+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(84) H(136) O(61) N(6)">
@@ -4800,7 +4800,7 @@
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <type>Standard</type>
+      <type>Glycan</type>
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="Hex(5) HexNAc(4) NeuAc(2) Sodium (N)" description="Hex(5) HexNAc(4) NeuAc(2) Sodium" create_date="2015-02-16T22:59:10.3543539+01:00" last_modified_date="2015-02-16T23:01:58.033344+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(84) H(135) O(61) N(6) Na">
@@ -4809,7 +4809,7 @@
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <type>Standard</type>
+      <type>Glycan</type>
       <terminus_type>none</terminus_type>
    </modification>
 </modifications>
