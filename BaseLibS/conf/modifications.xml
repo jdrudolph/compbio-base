@@ -187,7 +187,7 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="OHexNAc" description="OHexNAc" create_date="2010-08-30T11:16:56.4953002+02:00" last_modified_date="2010-08-30T11:18:07.2093037+02:00" user="neuhause" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(13) C(8) N O(5)">
+   <modification title="HexNAc (ST)" description="OHexNAc" create_date="2010-08-30T11:16:56.4953002+02:00" last_modified_date="2010-08-30T11:18:07.2093037+02:00" user="neuhause" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(13) C(8) N O(5)">
       <position>anywhere</position>
       <modification_site site="T">
          <neutralloss_collection>
@@ -4772,7 +4772,7 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Hex(1)HexNAc(1)" description="Hex(1)HexNAc(1) " create_date="2015-02-16T22:26:37.261909+01:00" last_modified_date="2015-02-16T22:42:25.0111438+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(14) H(23) O(10) N">
+   <modification title="Hex(1)HexNAc(1) (ST)" description="Hex(1)HexNAc(1) " create_date="2015-02-16T22:26:37.261909+01:00" last_modified_date="2015-02-16T22:42:25.0111438+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(14) H(23) O(10) N">
       <position>anywhere</position>
       <modification_site site="S">
          <neutralloss_collection />
