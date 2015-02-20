@@ -106,7 +106,7 @@ namespace BaseLibS.Mol{
 			return counts;
 		}
 
-		private static void AddMod(Dictionary<Tuple<ushort, char>, int> counts, ushort mod, char aa){
+		private static void AddMod(IDictionary<Tuple<ushort, char>, int> counts, ushort mod, char aa){
 			Tuple<ushort, char> key = new Tuple<ushort, char>(mod, aa);
 			if (!counts.ContainsKey(key)){
 				counts.Add(key, 1);
