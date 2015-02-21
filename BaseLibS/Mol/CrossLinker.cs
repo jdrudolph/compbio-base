@@ -4,6 +4,7 @@ namespace BaseLibS.Mol{
 	public class CrossLinker : StorableItem{
 		private double saturated = double.NaN;
 		private double unsaturated = double.NaN;
+		private ModificationPosition position = ModificationPosition.anywhere;
 
 		[XmlAttribute("saturated_composition")]
 		public string SaturatedComposition { get; set; }
@@ -33,6 +34,15 @@ namespace BaseLibS.Mol{
 
 		[XmlAttribute("specificity")]
 		public string Specificity { get; set; }
+
+		[XmlAttribute("proteinNterm")]
+		public bool ProteinNterm { get; set; }
+
+		[XmlAttribute("proteinCterm")]
+		public bool ProteinCterm { get; set; }
+
+		[XmlElement("position", typeof (ModificationPosition))]
+		public ModificationPosition Position { get { return position; } set { position = value; } }
 
 		public override bool Equals(object obj){
 			if (this == obj){

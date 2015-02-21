@@ -4590,51 +4590,6 @@
       <type>Label</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="DSSO alkene fragment" description="DSSO alkene fragment" create_date="2012-08-10T12:26:00.3194449+02:00" last_modified_date="2012-08-10T12:27:14.4819751+02:00" user="H. Schiller and R.A. Scheltema" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(3) O H(2)">
-      <position>notCterm</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="DSSO sulfenic acid fragment" description="DSSO sulfenic acid fragment" create_date="2012-08-10T12:29:02.012964+02:00" last_modified_date="2012-08-10T12:30:19.2954997+02:00" user="H. Schiller and R.A. Scheltema" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(3) O(2) S H(4)">
-      <position>notCterm</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="DSSO unsaturated thiol fragment" description="DSSO unsaturated thiol fragment" create_date="2012-08-10T13:27:39.5371444+02:00" last_modified_date="2012-08-10T13:29:27.458134+02:00" user="H. Schiller and R.A. Scheltema" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(3) O H(2) S">
-      <position>notCterm</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="DSSO monolink" description="DSSO half hydrolyzed" create_date="2012-08-13T10:56:54.9894003+02:00" last_modified_date="2012-08-13T11:06:50.3002337+02:00" user="H. Schiller and R.A. Scheltema" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(6) O(4) H(8) S">
-      <position>notCterm</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="DSSO" description="DSSO complete linker" create_date="2012-11-17T18:25:05.23221+01:00" last_modified_date="2012-11-17T18:26:29.852759+01:00" user="H. Schiller and R.A. Scheltema" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(6) H(6) S O(3)">
-      <position>anywhere</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
    <modification title="Hydroxyproline" description="4-hydroxyproline" create_date="2014-05-06T14:24:08.7808168+02:00" last_modified_date="2014-05-06T14:44:05.2693498+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(5) H(9) N">
       <position>anywhere</position>
       <modification_site site="P">

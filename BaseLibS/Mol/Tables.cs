@@ -361,6 +361,7 @@ namespace BaseLibS.Mol{
 
 		public static void ClearEnzymes() { enzymes = null; }
 		public static void ClearDatabases() { databases = null; }
+		public static void ClearCrosslinks() { crossLinkers = null; }
 
 		public static Modification[] FromStrings(string[] mods){
 			Modification[] result = new Modification[mods.Length];
