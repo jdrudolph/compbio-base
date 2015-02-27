@@ -2087,7 +2087,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static T[,] ExtractRows<T>(T[,] values, IList<int> rows){
-			var result = new T[rows.Count,values.GetLength(1)];
+			T[,] result = new T[rows.Count,values.GetLength(1)];
 			for (int i = 0; i < rows.Count; i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					result[i, j] = values[rows[i], j];
@@ -2097,7 +2097,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static T[,] ExtractColumns<T>(T[,] values, IList<int> cols){
-			var result = new T[values.GetLength(0),cols.Count];
+			T[,] result = new T[values.GetLength(0),cols.Count];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < cols.Count; j++){
 					result[i, j] = values[i, cols[j]];
@@ -2107,7 +2107,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static T[,,] ExtractDim0<T>(T[,,] values, IList<int> inds){
-			var result = new T[inds.Count,values.GetLength(1),values.GetLength(2)];
+			T[,,] result = new T[inds.Count,values.GetLength(1),values.GetLength(2)];
 			for (int i = 0; i < inds.Count; i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					for (int k = 0; k < values.GetLength(2); k++){
@@ -2119,7 +2119,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static T[,,] ExtractDim1<T>(T[,,] values, IList<int> inds){
-			var result = new T[values.GetLength(0),inds.Count,values.GetLength(2)];
+			T[,,] result = new T[values.GetLength(0),inds.Count,values.GetLength(2)];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < inds.Count; j++){
 					for (int k = 0; k < values.GetLength(2); k++){
@@ -2131,11 +2131,67 @@ namespace BaseLibS.Util{
 		}
 
 		public static T[,,] ExtractDim2<T>(T[,,] values, IList<int> inds){
-			var result = new T[values.GetLength(0),values.GetLength(1),inds.Count];
+			T[,,] result = new T[values.GetLength(0),values.GetLength(1),inds.Count];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					for (int k = 0; k < inds.Count; k++){
 						result[i, j, k] = values[i, j, inds[k]];
+					}
+				}
+			}
+			return result;
+		}
+
+		public static T[,,,] ExtractDim0<T>(T[,,,] values, IList<int> inds){
+			T[,,,] result = new T[inds.Count,values.GetLength(1),values.GetLength(2),values.GetLength(3)];
+			for (int i = 0; i < inds.Count; i++){
+				for (int j = 0; j < values.GetLength(1); j++){
+					for (int k = 0; k < values.GetLength(2); k++){
+						for (int l = 0; l < values.GetLength(3); l++){
+							result[i, j, k, l] = values[inds[i], j, k, l];
+						}
+					}
+				}
+			}
+			return result;
+		}
+
+		public static T[,,,] ExtractDim1<T>(T[,,,] values, IList<int> inds){
+			T[,,,] result = new T[values.GetLength(0),inds.Count,values.GetLength(2),values.GetLength(3)];
+			for (int i = 0; i < values.GetLength(0); i++){
+				for (int j = 0; j < inds.Count; j++){
+					for (int k = 0; k < values.GetLength(2); k++){
+						for (int l = 0; l < values.GetLength(3); l++){
+							result[i, j, k, l] = values[i, inds[j], k, l];
+						}
+					}
+				}
+			}
+			return result;
+		}
+
+		public static T[,,,] ExtractDim2<T>(T[,,,] values, IList<int> inds){
+			T[,,,] result = new T[values.GetLength(0),values.GetLength(1),inds.Count,values.GetLength(3)];
+			for (int i = 0; i < values.GetLength(0); i++){
+				for (int j = 0; j < values.GetLength(1); j++){
+					for (int k = 0; k < inds.Count; k++){
+						for (int l = 0; l < values.GetLength(3); l++){
+							result[i, j, k, l] = values[i, j, inds[k], l];
+						}
+					}
+				}
+			}
+			return result;
+		}
+
+		public static T[,,,] ExtractDim3<T>(T[,,,] values, IList<int> inds){
+			T[,,,] result = new T[values.GetLength(0),values.GetLength(1),values.GetLength(2),inds.Count];
+			for (int i = 0; i < values.GetLength(0); i++){
+				for (int j = 0; j < values.GetLength(1); j++){
+					for (int k = 0; k < values.GetLength(2); k++){
+						for (int l = 0; l < inds.Count; l++){
+							result[i, j, k, l] = values[i, j, k, inds[l]];
+						}
 					}
 				}
 			}

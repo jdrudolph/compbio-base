@@ -41,5 +41,5 @@
    <database create_date="0001-01-01T00:00:00" last_modified_date="0001-01-01T00:00:00" user="cox" filename="ups1_ups2_NEW.fasta" search_expression="&gt;([^\|]*)" mutation_parse_rule="" species="" taxid="" source="" />
    <database create_date="0001-01-01T00:00:00" last_modified_date="0001-01-01T00:00:00" user="cox" filename="contaminants.fasta" search_expression="&gt;([^ ]*)" mutation_parse_rule="" species="" taxid="" source="Contaminants" />
    <database create_date="2015-01-17T00:15:32.7584974+01:00" last_modified_date="2015-01-17T00:18:25.1551838+01:00" user="cox" filename="EL1.protein.exom.fa" search_expression="&gt;([^ ]*)" mutation_parse_rule="&gt;[^\s]+\s[^\s]+\s+(.+)" species="Homo sapiens" taxid="9606" source="" />
-   <database create_date="2015-02-02T09:30:07.3990594+01:00" last_modified_date="2015-02-02T09:31:35.927011+01:00" user="cox" filename="HeLa.protein.fa" search_expression="&gt;([^\s]*)" mutation_parse_rule="&gt;[^\s]+\s([^\s]+)" species="Homo sapiens" taxid="9606" source="" />
+   <database create_date="2015-02-02T09:30:07.3990594+01:00" last_modified_date="2015-02-02T09:31:35.927011+01:00" user="cox" filename="HeLa.fa" search_expression="&gt;([^\s]*)" mutation_parse_rule="&gt;[^\s]+\s([^\s]+)" species="Homo sapiens" taxid="9606" source="" />
 </databases>

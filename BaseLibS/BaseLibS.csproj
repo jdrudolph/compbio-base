@@ -137,6 +137,7 @@
   <ItemGroup>
     <Content Include="conf\crosslinks.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="conf\databases.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
