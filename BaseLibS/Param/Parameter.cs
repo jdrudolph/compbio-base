@@ -42,7 +42,8 @@ namespace BaseLibS.Param{
 		}
 	}
 
-	public abstract class Parameter<T> : Parameter{
+	[Serializable]
+	public abstract class Parameter<T> : Parameter {
 		protected Parameter(string name) : base(name) { }
 		public T Value { get; set; }
 		public T Default { get; protected set; }
