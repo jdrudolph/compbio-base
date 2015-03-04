@@ -1,72 +1,53 @@
-using System;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Mol{
-	[Serializable, System.Diagnostics.DebuggerStepThrough, System.ComponentModel.DesignerCategory("code"),
-	 System.Xml.Serialization.XmlType("database")]
 	public class SequenceDatabase : StorableItem{
-		/// <summary>
-		/// Regular expression which describes how to parse the fasta sequence header to 
-		/// obtain the accession number.
-		/// </summary>
-		private string searchExpression;
-
-		/// <summary>
-		/// Regular expression which describes how to parse the fasta sequence header to 
-		/// obtain the string containing definition of mutations.
-		/// </summary>
-		private string mutationParseRule;
-
-		/// <summary>
-		/// The filename of this database e.g. as known by Andromeda.
-		/// </summary>
-		private string filename;
-
 		/// <summary>
 		/// Default Constructor for Serialization. 
 		/// </summary>
 		public SequenceDatabase() { }
 
 		public SequenceDatabase(string filename, string searchExpression){
-			this.filename = filename;
-			this.searchExpression = searchExpression;
+			Filename = filename;
+			SearchExpression = searchExpression;
 		}
 
 		/// <summary>
 		/// The filename of this database e.g. as known by Andromeda.
 		/// </summary>
-		[System.Xml.Serialization.XmlAttribute("filename")]
-		public string Filename { get { return filename; } set { filename = value; } }
+		[XmlAttribute("filename")]
+		public string Filename { get; set; }
 
 		/// <summary>
 		/// Regular expression which describes how to parse the fasta sequence header to 
 		/// obtain the accession number.
 		/// </summary>
-		[System.Xml.Serialization.XmlAttribute("search_expression")]
-		public string SearchExpression { get { return searchExpression; } set { searchExpression = value; } }
+		[XmlAttribute("search_expression")]
+		public string SearchExpression { get; set; }
 
 		/// <summary>
 		/// Regular expression which describes how to parse the fasta sequence header to 
 		/// obtain the string containing definition of mutations.
 		/// </summary>
-		[System.Xml.Serialization.XmlAttribute("mutation_parse_rule")]
-		public string MutationParseRule { get { return mutationParseRule; } set { mutationParseRule = value; } }
+		[XmlAttribute("mutation_parse_rule")]
+		public string MutationParseRule { get; set; }
 
 		/// <summary>
 		/// The human readable species of this database which should be NCBI entry's name
 		/// </summary>
-		[System.Xml.Serialization.XmlAttribute("species")]
+		[XmlAttribute("species")]
 		public string Species { get; set; }
 
 		/// <summary>
 		/// The NCBI/NEWT taxonomy id for the species of this database
 		/// </summary>
-		[System.Xml.Serialization.XmlAttribute("taxid")]
+		[XmlAttribute("taxid")]
 		public string Taxid { get; set; }
 
 		/// <summary>
 		/// The human readable species of this database which should be NCBI entry's name
 		/// </summary>
-		[System.Xml.Serialization.XmlAttribute("source")]
+		[XmlAttribute("source")]
 		public string Source { get; set; }
 	}
 }

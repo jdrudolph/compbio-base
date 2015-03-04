@@ -9,7 +9,7 @@ using System.Threading;
 namespace BaseLibS.Util{
 	public abstract class WorkDispatcher{
 		protected HashSet<int> currentIndices = new HashSet<int>();
-		protected readonly int nThreads;
+		public int nThreads;
 		public int nTasks;
 		protected Thread[] allWorkThreads;
 		protected Process[] externalProcesses;

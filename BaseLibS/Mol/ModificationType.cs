@@ -4,6 +4,7 @@
 		Label,
 		IsobaricLabel,
 		AaSubstitution,
-		Glycan
+		Glycan,
+		CleavedCrosslink
 	}
 }
