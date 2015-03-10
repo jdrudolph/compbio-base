@@ -12,6 +12,9 @@ namespace BaseLibS.Mol{
 		[XmlAttribute("unsaturated_composition")]
 		public string UnsaturatedComposition { get; set; }
 
+		[XmlArray("cleavageModifications")]
+		public string[] CleavageModifications { get; set; }
+
 		[XmlIgnore]
 		public double SaturatedMass{
 			get{

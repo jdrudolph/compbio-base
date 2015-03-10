@@ -211,6 +211,7 @@ namespace BaseLibS.Mol{
 				case ModificationType.Standard:
 				case ModificationType.AaSubstitution:
 				case ModificationType.Glycan:
+				case ModificationType.CleavedCrosslink:
 					return true;
 			}
 			return false;
