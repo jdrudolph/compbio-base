@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -51,8 +52,13 @@ namespace BaseLibS.Parse.Uniprot{
 		private bool inDbRef;
 		private string dbReferenceType;
 		private string dbReferenceId;
+        private int numIsoforms;
+        private Dictionary<string, List<string>> isoformToENST;
+        private StringBuilder molecule;
+        private bool resolveIsoforms;
 
-		public UniprotParser(string swissprotFileName, string tremblFileName, bool includeTrembl, HandleUniprotEntry handle){
+		public UniprotParser(string swissprotFileName, string tremblFileName, bool includeTrembl, HandleUniprotEntry handle, bool resolveIsos){
+		    resolveIsoforms = resolveIsos;
 			if (swissprotFileName != null){
 				this.swissprotFileName = swissprotFileName;
 			}
@@ -150,12 +156,16 @@ namespace BaseLibS.Parse.Uniprot{
 				onames = new List<string>();
 				unames = new List<string>();
 				level = 0;
+                numIsoforms = 0;
+                isoformToENST = new Dictionary<string, List<string>>();
 			} else if (qName.Equals("dbReference")){
 				inDbRef = true;
 				dbReferenceType = attrs["type"];
 				dbReferenceId = attrs["id"];
 				entry.AddDbEntry(dbReferenceType, dbReferenceId);
-			} else if (qName.Equals("property")){
+            } else if (qName.Equals("molecule") && dbReferenceType.Equals("Ensembl")){
+                molecule = new StringBuilder();
+            } else if (qName.Equals("property")){
 				if (inDbRef){
 					entry.AddDbEntryProperty(dbReferenceType, dbReferenceId, attrs["type"], attrs["value"]);
 				}
@@ -193,7 +203,10 @@ namespace BaseLibS.Parse.Uniprot{
 				gnameType = attrs["type"];
 			} else if (qName.Equals("name") && level == 1){
 				uname = new StringBuilder();
-			}
+            } else if (qName.Equals("isoform")){
+                if (inDbRef)
+                    ++numIsoforms;
+            }
 		}
 
 		private void EndElement(IEquatable<string> qName, HandleUniprotEntry handle, bool isTrembl){
@@ -203,7 +216,14 @@ namespace BaseLibS.Parse.Uniprot{
 			} else if (qName.Equals("keyword")) {
 				entry.AddKeyword(StringUtils.RemoveWhitespace(keyword.ToString()));
 				keyword = null;
-			} else if (qName.Equals("entry")) {
+            } else if (qName.Equals("molecule") && dbReferenceType.Equals("Ensembl")){
+                string mol = molecule.ToString().Trim();
+                entry.AddDbEntryProperty(dbReferenceType, dbReferenceId, "isoform ID", mol);
+                if (!isoformToENST.ContainsKey(mol))
+                    isoformToENST.Add(mol, new List<string>());
+                isoformToENST[mol].Add(dbReferenceId);
+                molecule = null;
+            } else if (qName.Equals("entry")){
 				entry.Accessions = accessions.ToArray();
 				entry.ProteinFullNames = proteinFullNames.ToArray();
 				entry.ProteinShortNames = proteinShortNames.ToArray();
@@ -212,8 +232,16 @@ namespace BaseLibS.Parse.Uniprot{
 				entry.OrganismNames = onames.ToArray();
 				entry.UniprotNames = unames.ToArray();
 				entry.IsTrembl = isTrembl;
-				handle(entry);
-				//entryCount++;
+                if (resolveIsoforms){
+                    if (numIsoforms > 1 && isoformToENST.Count > 1){
+                        List<UniprotEntry> isoEntries = entry.ResolveIsoforms(isoformToENST);
+                        foreach (UniprotEntry e in isoEntries){
+                            handle(e);
+                        }
+                    } else
+                        handle(entry);
+                } else 
+				    handle(entry);
 			} else if (qName.Equals("dbReference")){
 				inDbRef = false;
 			} else if (qName.Equals("accession")){
@@ -314,6 +342,9 @@ namespace BaseLibS.Parse.Uniprot{
 			if (variation != null){
 				variation.Append(buf, offset, len);
 			}
+		    if (molecule != null){
+		        molecule.Append(buf, offset, len);
+		    }
 		}
 	}
 }

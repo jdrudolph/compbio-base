@@ -126,6 +126,18 @@ namespace BaseLibS.Parse.Uniprot{
 			return s[ind - 1] == 'T';
 		}
 
+        public string[] IsoformID{
+            get {
+                List<string> result = new List<string>();
+                UniprotDbReference[] refs = GetDbEntries(ensemblTypes);
+                foreach (UniprotDbReference ref1 in refs){
+                    string[] w = ref1.GetPropertyValues("isoform ID");
+                    result.AddRange(w);
+                }
+                return result.ToArray();
+            }
+        }
+
 		public string[] Keywords{
 			get{
 				string[] kw = keywords.ToArray();
@@ -209,6 +221,15 @@ namespace BaseLibS.Parse.Uniprot{
 			features[key].Add(currentFeature);
 		}
 
+        public void AddFeatures(FeatureType featureType, List<UniprotFeature> uniprotFeatures){
+            if (features == null){
+                features = new Dictionary<FeatureType, List<UniprotFeature>>();
+            }
+            if (!features.ContainsKey(featureType)){
+                features.Add(featureType, uniprotFeatures);
+            }
+        }
+
 		public void AddFeatureLocation(string featureBegin, string featureEnd) { currentFeature.AddFeatureLocation(featureBegin, featureEnd); }
 		public void AddFeatureVariation(string s) { currentFeature.AddFeatureVariation(s); }
 		public void AddFeatureOriginal(string s) { currentFeature.AddFeatureOriginal(s); }
@@ -230,5 +251,61 @@ namespace BaseLibS.Parse.Uniprot{
 		public void AddTaxonomyId(string id) { taxonomyIds.Add(id); }
 		public void AddHostTaxonomyId(string id) { hostTaxonomyIds.Add(id); }
 		public void AddKeyword(string kw) { keywords.Add(kw); }
+
+        public List<UniprotEntry> ResolveIsoforms(Dictionary<string, List<string>> isoformToENSEMBL){
+            DbReferenceType dbRefType = DbReferenceType.ensembl;
+            List<UniprotEntry> isoforms = new List<UniprotEntry>();
+            foreach (var isofToEnsembl in isoformToENSEMBL){
+                UniprotEntry modEntry = CopyEntry();
+                modEntry.dbEntries.Remove(dbRefType);
+                Dictionary<string, UniprotDbReference> enstToData = new Dictionary<string, UniprotDbReference>();
+                foreach (var enst in isofToEnsembl.Value){
+                    enstToData.Add(enst, dbEntries[dbRefType][enst]);
+                }
+                modEntry.dbEntries.Add(dbRefType, enstToData);
+                isoforms.Add(modEntry);
+            }
+            return isoforms;
+        }
+
+        private UniprotEntry CopyEntry(){
+            UniprotEntry newEntry = new UniprotEntry();
+            DbReferenceType[] dbRefTypes = new DbReferenceType[dbEntries.Keys.Count];
+            dbEntries.Keys.CopyTo(dbRefTypes, 0);
+            foreach (DbReferenceType refType in dbRefTypes){
+                string[] dbRefIDs = Get(refType);
+                foreach (string id in dbRefIDs){
+                    newEntry.AddDbEntry(refType.UniprotName, id);
+                    foreach (KeyValuePair<string, List<string>> property in dbEntries[refType][id].properties){
+                        foreach (var propertyValue in property.Value){
+                            newEntry.AddDbEntryProperty(refType.UniprotName, id, property.Key, propertyValue);
+                        }
+                    }
+                }
+            }
+            if (features != null){
+                foreach (FeatureType type in GetAllFeatureTypes()){
+                    newEntry.AddFeatures(type, GetFeatures(type));
+                }
+            }
+            foreach (string kword in Keywords){
+                newEntry.AddKeyword(kword);
+            }
+            newEntry.ProteinFullNames = ProteinFullNames;
+            newEntry.ProteinShortNames = ProteinShortNames;
+            newEntry.ProteinEcNumbers = ProteinEcNumbers;
+            newEntry.Accessions = Accessions;
+            newEntry.GeneNamesAndTypes = GeneNamesAndTypes;
+            newEntry.OrganismNames = OrganismNames;
+            newEntry.UniprotNames = UniprotNames;
+            newEntry.Sequence = Sequence;
+            foreach (string taxId in taxonomyIds){
+                newEntry.AddTaxonomyId(taxId);
+            }
+            foreach (string hostTaxId in hostTaxonomyIds){
+                newEntry.AddHostTaxonomyId(hostTaxId);
+            }
+            return newEntry;
+        }
 	}
 }

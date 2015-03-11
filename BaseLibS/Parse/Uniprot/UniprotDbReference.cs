@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace BaseLibS.Parse.Uniprot{
 	[Serializable]
 	public class UniprotDbReference{
-		private readonly Dictionary<string, List<string>> properties = new Dictionary<string, List<string>>();
+		public readonly Dictionary<string, List<string>> properties = new Dictionary<string, List<string>>();
 
 		public void AddProperty(string type, string value){
 			if (!properties.ContainsKey(type)){
