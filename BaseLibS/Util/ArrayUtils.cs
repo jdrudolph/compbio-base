@@ -523,13 +523,14 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static T[] UniqueValuesPreserveOrder<T>(IList<T[]> array){
+		public static T[] UniqueValuesPreserveOrder<T>(IList<T> array){
 			HashSet<T> taken = new HashSet<T>();
 			List<T> result = new List<T>();
-			foreach (T ty in from tx in array from ty in tx where !taken.Contains(ty) select ty){
-				taken.Add(ty);
-				result.Add(ty);
-			}
+			foreach (T ty in array)
+					if (!taken.Contains(ty)){
+						taken.Add(ty);
+						result.Add(ty);
+					}
 			return result.ToArray();
 		}
 
