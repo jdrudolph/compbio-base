@@ -210,7 +210,7 @@ namespace BaseLibS.Mol{
 		public char[] GetSiteArraySorted() {
 			if (sitesArraySorted == null) {
 				sitesArraySorted = new char[sites.Length];
-				for (int i = 0; i < sitesArray.Length; i++) {
+				for (int i = 0; i < sitesArraySorted.Length; i++) {
 					sitesArraySorted[i] = sites[i].Aa;
 				}
 				Array.Sort(sitesArraySorted);
