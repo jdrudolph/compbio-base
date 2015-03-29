@@ -83,38 +83,6 @@ namespace BaseLibS.Mol{
 			}
 		}
 
-		public Dictionary<Tuple<ushort, char>, int> CountNonlabels(string sequence){
-			Dictionary<Tuple<ushort, char>, int> counts = new Dictionary<Tuple<ushort, char>, int>();
-			if (NTermModification != ushort.MaxValue){
-				if (Modification.IsStandardVarMod(Tables.ModificationList[NTermModification].ModificationType)){
-					AddMod(counts, NTermModification, '-');
-				}
-			}
-			if (CTermModification != ushort.MaxValue){
-				if (Modification.IsStandardVarMod(Tables.ModificationList[CTermModification].ModificationType)){
-					AddMod(counts, CTermModification, '-');
-				}
-			}
-			for (int i = 0; i < Modifications.Length; i++){
-				ushort m = Modifications[i];
-				if (m != ushort.MaxValue){
-					if (Modification.IsStandardVarMod(Tables.ModificationList[m].ModificationType)){
-						AddMod(counts, m, sequence[i]);
-					}
-				}
-			}
-			return counts;
-		}
-
-		private static void AddMod(IDictionary<Tuple<ushort, char>, int> counts, ushort mod, char aa){
-			Tuple<ushort, char> key = new Tuple<ushort, char>(mod, aa);
-			if (!counts.ContainsKey(key)){
-				counts.Add(key, 1);
-			} else{
-				counts[key]++;
-			}
-		}
-
 		public ushort GetModificationAt(int index) { return index >= Modifications.Length ? ushort.MaxValue : Modifications[index]; }
 		public void SetModificationAt(int index, ushort value) { Modifications[index] = value; }
 

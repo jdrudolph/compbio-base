@@ -116,7 +116,9 @@ namespace BaseLibS.Util{
 			return ind;
 		}
 
-		public static double Range(IList<double> x) { return Max(x) - Min(x); }
+		public static double Range(IList<double> x){
+			return Max(x) - Min(x);
+		}
 
 		/// <summary>
 		///     Determines the biggest number in the input array.
@@ -371,7 +373,9 @@ namespace BaseLibS.Util{
 			return 0.5f*(x[o[n/2 - 1]] + x[o[n/2]]);
 		}
 
-		public static double TukeyBiweight(IList<double> x) { return TukeyBiweightCalc.TukeyBiweight(x); }
+		public static double TukeyBiweight(IList<double> x){
+			return TukeyBiweightCalc.TukeyBiweight(x);
+		}
 
 		public static double TukeyBiweightSe(IList<double> x){
 			double result = TukeyBiweightCalc.TukeyBiweight(x);
@@ -526,11 +530,26 @@ namespace BaseLibS.Util{
 		public static T[] UniqueValuesPreserveOrder<T>(IList<T> array){
 			HashSet<T> taken = new HashSet<T>();
 			List<T> result = new List<T>();
-			foreach (T ty in array)
+			foreach (T ty in array){
+				if (!taken.Contains(ty)){
+					taken.Add(ty);
+					result.Add(ty);
+				}
+			}
+			return result.ToArray();
+		}
+
+		public static T[] UniqueValuesPreserveOrder<T>(IList<T[]> array){
+			HashSet<T> taken = new HashSet<T>();
+			List<T> result = new List<T>();
+			foreach (T[] tx in array){
+				foreach (T ty in tx){
 					if (!taken.Contains(ty)){
 						taken.Add(ty);
 						result.Add(ty);
 					}
+				}
+			}
 			return result.ToArray();
 		}
 
@@ -568,7 +587,9 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static int[] ConsecutiveInts(int to) { return ConsecutiveInts(0, to); }
+		public static int[] ConsecutiveInts(int to){
+			return ConsecutiveInts(0, to);
+		}
 
 		/// <summary>
 		///     Create a list of consecutive integers.
@@ -715,11 +736,25 @@ namespace BaseLibS.Util{
 			Histogram(data, out x, out y, normalized, cumulative, h);
 		}
 
-		public static double StandardDeviation(IList<double> x) { return Math.Sqrt(Variance(x)); }
-		public static double StandardDeviation(IList<float> x) { return Math.Sqrt(Variance(x)); }
-		public static double StandardDeviation(IList<int> x) { return Math.Sqrt(Variance(x)); }
-		public static double StandardDeviation(float[,] x) { return Math.Sqrt(Variance(x)); }
-		public static double StandardDeviation(IMatrixIndexer x) { return Math.Sqrt(Variance(x)); }
+		public static double StandardDeviation(IList<double> x){
+			return Math.Sqrt(Variance(x));
+		}
+
+		public static double StandardDeviation(IList<float> x){
+			return Math.Sqrt(Variance(x));
+		}
+
+		public static double StandardDeviation(IList<int> x){
+			return Math.Sqrt(Variance(x));
+		}
+
+		public static double StandardDeviation(float[,] x){
+			return Math.Sqrt(Variance(x));
+		}
+
+		public static double StandardDeviation(IMatrixIndexer x){
+			return Math.Sqrt(Variance(x));
+		}
 
 		public static double Variance(IList<double> x){
 			if (x.Count < 2){
@@ -1114,7 +1149,9 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static double[] Rank<T>(IList<T> data) where T : IComparable<T> { return Rank(data, true); }
+		public static double[] Rank<T>(IList<T> data) where T : IComparable<T>{
+			return Rank(data, true);
+		}
 
 		/// <summary>
 		///     Calculates the rank of the given data. The lowest rank value is 0.
@@ -1147,7 +1184,9 @@ namespace BaseLibS.Util{
 			return rank;
 		}
 
-		public static double[] Rank(BaseVector data) { return Rank(data, true); }
+		public static double[] Rank(BaseVector data){
+			return Rank(data, true);
+		}
 
 		/// <summary>
 		///     Calculates the rank of the given data. The lowest rank value is 0.
@@ -1180,7 +1219,9 @@ namespace BaseLibS.Util{
 			return rank;
 		}
 
-		public static float[] RankF<T>(IList<T> data) where T : IComparable<T> { return RankF(data, true); }
+		public static float[] RankF<T>(IList<T> data) where T : IComparable<T>{
+			return RankF(data, true);
+		}
 
 		/// <summary>
 		///     Calculates the rank of the given data. The lowest rank value is 0.
@@ -1246,7 +1287,9 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static double MeanAndStddev(IList<double> vals, out double stddev) { return MeanAndStddev(vals, out stddev, false); }
+		public static double MeanAndStddev(IList<double> vals, out double stddev){
+			return MeanAndStddev(vals, out stddev, false);
+		}
 
 		public static double MeanAndStddev(IList<double> vals, out double stddev, bool useMedian){
 			double mean = 0;
@@ -1282,14 +1325,18 @@ namespace BaseLibS.Util{
 			return mean;
 		}
 
-		public static double MeanAndStddev(IList<float> vals, out double stddev) { return MeanAndStddev(vals, out stddev, false); }
+		public static double MeanAndStddev(IList<float> vals, out double stddev){
+			return MeanAndStddev(vals, out stddev, false);
+		}
 
 		public static double MeanAndStddev(IList<float> vals, out double stddev, bool useMedian){
 			int validCount;
 			return MeanAndStddev(vals, out stddev, out validCount, useMedian);
 		}
 
-		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount) { return MeanAndStddev(vals, out stddev, out validCount, false); }
+		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount){
+			return MeanAndStddev(vals, out stddev, out validCount, false);
+		}
 
 		public static double MeanAndStddev(IList<float> vals, out double stddev, out int validCount, bool useMedian){
 			double mean = 0;
@@ -2199,7 +2246,9 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static float[] Zscore(IList<float> vals) { return Zscore(vals, false); }
+		public static float[] Zscore(IList<float> vals){
+			return Zscore(vals, false);
+		}
 
 		public static float[] Zscore(IList<float> vals, bool useMedian){
 			int validCount;
@@ -2218,10 +2267,21 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static double InterQuartileRange(IList<double> vals) { return Quantile(vals, 0.75) - Quantile(vals, 0.25); }
-		public static double InterQuartileRange(IList<float> vals) { return Quantile(vals, 0.75f) - Quantile(vals, 0.25f); }
-		public static double FirstQuartile(IList<double> vals) { return Quantile(vals, 0.25); }
-		public static double ThirdQuartile(IList<double> vals) { return Quantile(vals, 0.75); }
+		public static double InterQuartileRange(IList<double> vals){
+			return Quantile(vals, 0.75) - Quantile(vals, 0.25);
+		}
+
+		public static double InterQuartileRange(IList<float> vals){
+			return Quantile(vals, 0.75f) - Quantile(vals, 0.25f);
+		}
+
+		public static double FirstQuartile(IList<double> vals){
+			return Quantile(vals, 0.25);
+		}
+
+		public static double ThirdQuartile(IList<double> vals){
+			return Quantile(vals, 0.75);
+		}
 
 		public static double Skewness(IList<double> vals){
 			int n = vals.Count;
@@ -2254,7 +2314,9 @@ namespace BaseLibS.Util{
 			return num/denom;
 		}
 
-		public static double CoefficientOfVariation(IList<double> x) { return StandardDeviation(x)/Mean(x); }
+		public static double CoefficientOfVariation(IList<double> x){
+			return StandardDeviation(x)/Mean(x);
+		}
 
 		public static double MeanAbsoluteDeviation(IList<double> x){
 			double median = Median(x);
