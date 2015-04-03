@@ -43,13 +43,19 @@ namespace BaseLib.Forms.Scatter{
 				zvals = value;
 			}
 		}
-		public bool HasLabels { get { return Labels != null; } }
+
+		public bool HasLabels{
+			get { return Labels != null; }
+		}
 
 		public string GetLabelAt(int index){
 			return Labels[index];
 		}
 
-		public bool IsEmpty { get { return XValues == null || XValues.Length == 0; } }
+		public bool IsEmpty{
+			get { return XValues == null || XValues.Length == 0; }
+		}
+
 		public int[] Selection{
 			get { return selection; }
 			set{
@@ -59,6 +65,9 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		public void Select(double x1, double x2, double y1, double y2, bool add, bool toggle){
+			if (XValues == null){
+				return;
+			}
 			if (toggle){
 				HashSet<int> sel = add ? new HashSet<int>(Selection) : new HashSet<int>();
 				for (int i = 0; i < XValues.Length; i++){
@@ -94,10 +103,10 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		public void AddPoint(double x, double y){
-			if (XValues == null) {
+			if (XValues == null){
 				XValues = new ScatterPlotValues(new List<double>());
 			}
-			if (YValues == null) {
+			if (YValues == null){
 				YValues = new ScatterPlotValues(new List<double>());
 			}
 			XValues.AddValue(x);
@@ -106,13 +115,13 @@ namespace BaseLib.Forms.Scatter{
 		}
 
 		public void AddPoint(double x, double y, double z){
-			if (XValues == null) {
+			if (XValues == null){
 				XValues = new ScatterPlotValues(new List<double>());
 			}
-			if (YValues == null) {
+			if (YValues == null){
 				YValues = new ScatterPlotValues(new List<double>());
 			}
-			if (ColorValues == null) {
+			if (ColorValues == null){
 				ColorValues = new ScatterPlotValues(new List<double>());
 			}
 			XValues.AddValue(x);
@@ -121,28 +130,28 @@ namespace BaseLib.Forms.Scatter{
 			Adjust(x, y);
 		}
 
-		private void Adjust(double x, double y) {
-			if (XValues.Length < 30) {
+		private void Adjust(double x, double y){
+			if (XValues.Length < 30){
 				CalcRanges();
 				scatterPlotViewer.UpdateView();
 			} else{
 				bool changed = false;
-				if (x < scatterPlotViewer.XMin) {
+				if (x < scatterPlotViewer.XMin){
 					double delta = scatterPlotViewer.XMax - x;
-					scatterPlotViewer.XMin -= delta / 3;
+					scatterPlotViewer.XMin -= delta/3;
 					changed = true;
-				} else if (x > scatterPlotViewer.XMax) {
+				} else if (x > scatterPlotViewer.XMax){
 					double delta = x - scatterPlotViewer.XMin;
-					scatterPlotViewer.XMax += delta / 3;
+					scatterPlotViewer.XMax += delta/3;
 					changed = true;
 				}
-				if (y < scatterPlotViewer.YMin) {
+				if (y < scatterPlotViewer.YMin){
 					double delta = scatterPlotViewer.YMax - y;
-					scatterPlotViewer.YMin -= delta / 3;
+					scatterPlotViewer.YMin -= delta/3;
 					changed = true;
-				} else if (y > scatterPlotViewer.YMax) {
+				} else if (y > scatterPlotViewer.YMax){
 					double delta = y - scatterPlotViewer.YMin;
-					scatterPlotViewer.YMax += delta / 3;
+					scatterPlotViewer.YMax += delta/3;
 					changed = true;
 				}
 				if (changed){
@@ -158,7 +167,8 @@ namespace BaseLib.Forms.Scatter{
 				return new double[0];
 			}
 			return XValues.Length == YValues.Length
-				? new[]{XValues.SingleValues[index], YValues.SingleValues[index]} : new double[]{};
+						? new[]{XValues.SingleValues[index], YValues.SingleValues[index]}
+						: new double[]{};
 		}
 
 		public void Reset(){
@@ -243,24 +253,53 @@ namespace BaseLib.Forms.Scatter{
 			}
 		}
 
-		public Icon Icon { set { scatterPlotViewer.Icon = value; } }
-		public Func<int, SymbolProperties> GetPointProperties { set { ScatterPlotPlane.GetPointProperties = value; } }
-		internal ScatterPlotPlaneView ScatterPlotPlane { get { return scatterPlotViewer.ScatterPlotPlane; } }
-		public Func<int, PolygonProperties> GetPolygonProperties { set { ScatterPlotPlane.GetPolygonProperties = value; } }
-		public Func<int, PolygonData> GetPolygon { set { ScatterPlotPlane.GetPolygon = value; } }
-		public Func<int> GetPolygonCount { set { ScatterPlotPlane.GetPolygonCount = value; } }
-		public ColorScale ColorScale { set { ScatterPlotPlane.ColorScale = value; } }
+		public Icon Icon{
+			set { scatterPlotViewer.Icon = value; }
+		}
+
+		public Func<int, SymbolProperties> GetPointProperties{
+			set { ScatterPlotPlane.GetPointProperties = value; }
+		}
+
+		internal ScatterPlotPlaneView ScatterPlotPlane{
+			get { return scatterPlotViewer.ScatterPlotPlane; }
+		}
+
+		public Func<int, PolygonProperties> GetPolygonProperties{
+			set { ScatterPlotPlane.GetPolygonProperties = value; }
+		}
+
+		public Func<int, PolygonData> GetPolygon{
+			set { ScatterPlotPlane.GetPolygon = value; }
+		}
+
+		public Func<int> GetPolygonCount{
+			set { ScatterPlotPlane.GetPolygonCount = value; }
+		}
+
+		public ColorScale ColorScale{
+			set { ScatterPlotPlane.ColorScale = value; }
+		}
+
 		public
 			Action
 				<IGraphics, int, int, Func<double, int, int>, Func<double, int, int>, Func<int, int, double>, Func<int, int, double>
-					> DrawFunctions { set { ScatterPlotPlane.drawFunctions = value; } }
+					> DrawFunctions{
+			set { ScatterPlotPlane.drawFunctions = value; }
+		}
 
 		public void AddToolStripItem(ToolStripItem item){
 			toolStrip.Items.Add(item);
 		}
 
-		public int FontSize { get { return int.Parse(fontSizeTextBox.Text); } }
-		public FontStyle FontStyle { get { return boldButton.Checked ? FontStyle.Bold : FontStyle.Regular; } }
+		public int FontSize{
+			get { return int.Parse(fontSizeTextBox.Text); }
+		}
+
+		public FontStyle FontStyle{
+			get { return boldButton.Checked ? FontStyle.Bold : FontStyle.Regular; }
+		}
+
 		public bool MenuStripVisible{
 			get { return menuStripVisible; }
 			set{
@@ -355,12 +394,33 @@ namespace BaseLib.Forms.Scatter{
 			SetRange(xmin, xmax, ymin, ymax);
 		}
 
-		public bool HasSelectButton { get { return scatterPlotViewer.HasSelectButton; } set { scatterPlotViewer.HasSelectButton = value; } }
-		public string XLabel { get { return scatterPlotViewer.XLabel; } set { scatterPlotViewer.XLabel = value; } }
-		public string YLabel { get { return scatterPlotViewer.YLabel; } set { scatterPlotViewer.YLabel = value; } }
-		public Color SelectionColor { set { ScatterPlotPlane.SelectionColor = value; } get { return ScatterPlotPlane.SelectionColor; } }
-		public bool CutLabels { get { return labelEditComboBox.SelectedIndex == 1; } }
-		public ScatterPlotViewer ScatterPlotViewer { get { return scatterPlotViewer; } }
+		public bool HasSelectButton{
+			get { return scatterPlotViewer.HasSelectButton; }
+			set { scatterPlotViewer.HasSelectButton = value; }
+		}
+
+		public string XLabel{
+			get { return scatterPlotViewer.XLabel; }
+			set { scatterPlotViewer.XLabel = value; }
+		}
+
+		public string YLabel{
+			get { return scatterPlotViewer.YLabel; }
+			set { scatterPlotViewer.YLabel = value; }
+		}
+
+		public Color SelectionColor{
+			set { ScatterPlotPlane.SelectionColor = value; }
+			get { return ScatterPlotPlane.SelectionColor; }
+		}
+
+		public bool CutLabels{
+			get { return labelEditComboBox.SelectedIndex == 1; }
+		}
+
+		public ScatterPlotViewer ScatterPlotViewer{
+			get { return scatterPlotViewer; }
+		}
 
 		public void SetRange(double xMin, double xMax, double yMin, double yMax){
 			scatterPlotViewer.YMin = yMin;
