@@ -3,7 +3,12 @@ using System.Drawing;
 using System.Windows.Forms;
 
 namespace BaseLib.Forms.Scatter{
-	public partial class PlanePropertiesForm : Form{
+	public enum GridType {
+		None,
+		Major,
+		All
+	}
+	public partial class PlanePropertiesForm : Form {
 		public PlanePropertiesForm(Color horizontalGridColor, Color verticalGridColor, GridType horizontalGrid,
 			GridType verticalGrid, int horizontalGridWidth, int verticalGridWidth, Color borderColor, Color backgroundColor,
 			Color axisColor, int majorTickLength, float majorTickLineWidth, int minorTickLength, float minorTickLineWidth,
