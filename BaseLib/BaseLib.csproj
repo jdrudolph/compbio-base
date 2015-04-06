@@ -111,7 +111,6 @@
     <Compile Include="Forms\Help\HelpLabel.Designer.cs">
       <DependentUpon>HelpLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Scatter\GridData.cs" />
     <Compile Include="Forms\Scatter\GridType.cs" />
     <Compile Include="Forms\Scatter\PlanePropertiesForm.cs">
       <SubType>Form</SubType>
