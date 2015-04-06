@@ -119,8 +119,6 @@
     <Compile Include="Forms\Scatter\PlanePropertiesForm.Designer.cs">
       <DependentUpon>PlanePropertiesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Scatter\PolygonData.cs" />
-    <Compile Include="Forms\Scatter\PolygonProperties.cs" />
     <Compile Include="Forms\Scatter\ScatterPlotPlaneView.cs" />
     <Compile Include="Forms\Scatter\ScatterPlotValues.cs" />
     <Compile Include="Forms\Scroll\CompoundScrollableControl.cs">
