@@ -10,6 +10,7 @@ using BaseLib.Forms.Scroll;
 using BaseLib.Graphic;
 using BaseLib.Properties;
 using BaseLib.Symbol;
+using BaseLib.Wpf;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
@@ -68,7 +69,7 @@ namespace BaseLib.Forms.Table{
 		private int[] columnWidthSums;
 		private int[] columnWidthSumsOld;
 		private ITableModel model;
-		private static readonly Font defaultFont = new Font("Arial", 9);
+		private static Font defaultFont = new Font("Arial", 9);
 		private Font textFont = defaultFont;
 		private readonly Font headerFont = defaultFont;
 		private Brush textBrush = Brushes.Black;
@@ -90,9 +91,28 @@ namespace BaseLib.Forms.Table{
 		private SortState sortState = SortState.Unsorted;
 		private int colDragX = -1;
 		private int deltaDragX;
+		private bool hasShowInPerseus;
+		private readonly float dpiScaleX;
+		private readonly float dpiScaleY;
 		//TODO
 		private readonly ToolTip columnViewToolTip = new ToolTip();
 		//private readonly ToolTip mainViewToolTip = new ToolTip();
+		public TableView(string name){
+			Sortable = true;
+			RowHeaderWidth = 70;
+			ColumnHeaderHeight = 26;
+			Name = name;
+			ResizeRedraw = true;
+			InitContextMenu();
+			tagsControlToolStripMenuItem.Visible = false;
+			tagsToolStripMenuItem.Visible = false;
+			dpiScaleX = WpfUtils.GetDpiScaleX();
+			dpiScaleY = WpfUtils.GetDpiScaleY();
+			defaultFont = new Font("Arial", 9/dpiScaleX);
+			textFont = defaultFont;
+			headerFont = defaultFont;
+		}
+
 		public bool Sortable{
 			get { return sortable; }
 			set{
@@ -111,20 +131,8 @@ namespace BaseLib.Forms.Table{
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }
-		public TableView() : this("") { }
+		public TableView() : this(""){}
 
-		public TableView(string name){
-			Sortable = true;
-			RowHeaderWidth = 70;
-			ColumnHeaderHeight = 26;
-			Name = name;
-			ResizeRedraw = true;
-			InitContextMenu();
-			tagsControlToolStripMenuItem.Visible = false;
-			tagsToolStripMenuItem.Visible = false;
-		}
-
-		private bool hasShowInPerseus;
 
 		public bool HasShowInPerseus{
 			get { return hasShowInPerseus; }
@@ -254,7 +262,10 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public bool HasHelp { get { return hasHelp; } set { hasHelp = value; } }
+		public bool HasHelp{
+			get { return hasHelp; }
+			set { hasHelp = value; }
+		}
 
 		public override sealed int ColumnHeaderHeight{
 			set{
@@ -303,9 +314,17 @@ namespace BaseLib.Forms.Table{
 			return (inds[ind] - visRow)*rowHeight;
 		}
 
-		public void SetSelectedRow(int row) { SetSelectedRows(new[]{row}, false, true); }
-		public void SetSelectedRow(int row, bool add, bool fire) { SetSelectedRows(new[]{row}, add, fire); }
-		public void SetSelectedRows(IList<int> rows) { SetSelectedRows(rows, false, true); }
+		public void SetSelectedRow(int row){
+			SetSelectedRows(new[]{row}, false, true);
+		}
+
+		public void SetSelectedRow(int row, bool add, bool fire){
+			SetSelectedRows(new[]{row}, add, fire);
+		}
+
+		public void SetSelectedRows(IList<int> rows){
+			SetSelectedRows(rows, false, true);
+		}
 
 		public void SetSelectedRows(IList<int> rows, bool add, bool fire){
 			if (!add || modelRowSel == null){
@@ -325,7 +344,9 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSelectedRowAndMove(int row) { SetSelectedRowsAndMove(new[]{row}); }
+		public void SetSelectedRowAndMove(int row){
+			SetSelectedRowsAndMove(new[]{row});
+		}
 
 		public void SetSelectedRowsAndMove(IList<int> rows){
 			modelRowSel = new bool[RowCount];
@@ -392,7 +413,9 @@ namespace BaseLib.Forms.Table{
 			return result.ToArray();
 		}
 
-		public void AddContextMenuItem(ToolStripItem item) { contextMenuStrip.Items.Add(item); }
+		public void AddContextMenuItem(ToolStripItem item){
+			contextMenuStrip.Items.Add(item);
+		}
 
 		public ITableModel TableModel{
 			get { return model; }
@@ -435,10 +458,21 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public override sealed int TotalHeight { get { return model == null ? 0 : rowHeight*model.RowCount + 5; } }
-		public override sealed int DeltaX { get { return 40; } }
-		public override sealed int DeltaY { get { return rowHeight; } }
-		public int RowCount { get { return model == null ? 0 : model.RowCount; } }
+		public override sealed int TotalHeight{
+			get { return model == null ? 0 : rowHeight*model.RowCount + 5; }
+		}
+
+		public override sealed int DeltaX{
+			get { return 40; }
+		}
+
+		public override sealed int DeltaY{
+			get { return rowHeight; }
+		}
+
+		public int RowCount{
+			get { return model == null ? 0 : model.RowCount; }
+		}
 
 		public bool ViewRowIsSelected(int row){
 			if (modelRowSel == null){
@@ -605,13 +639,12 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public static bool IsMulti(ColumnType columnType){
-			return columnType == ColumnType.MultiNumeric ||
-				columnType == ColumnType.MultiInteger;
+			return columnType == ColumnType.MultiNumeric || columnType == ColumnType.MultiInteger;
 		}
 
 		public static bool IsNumeric(ColumnType columnType){
-			return columnType == ColumnType.Numeric ||
-				columnType == ColumnType.Integer || columnType == ColumnType.MultiInteger || columnType == ColumnType.MultiNumeric;
+			return columnType == ColumnType.Numeric || columnType == ColumnType.Integer || columnType == ColumnType.MultiInteger ||
+					columnType == ColumnType.MultiNumeric;
 		}
 
 		public void ScrollToRow(int row){
@@ -630,7 +663,9 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public int GetModelIndex(int rowIndView) { return order[rowIndView]; }
+		public int GetModelIndex(int rowIndView){
+			return order[rowIndView];
+		}
 
 		public void ClearSelection(){
 			if (modelRowSel == null){
@@ -689,7 +724,9 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSetectedIndex(int index) { SetSetectedIndex(index, this); }
+		public void SetSetectedIndex(int index){
+			SetSetectedIndex(index, this);
+		}
 
 		public void SetectAll(){
 			CheckSizes();
@@ -723,7 +760,9 @@ namespace BaseLib.Forms.Table{
 			return model == null ? null : model.GetEntry(order[row], col);
 		}
 
-		private void FindToolStripMenuItemClick(object sender, EventArgs e) { Find(); }
+		private void FindToolStripMenuItemClick(object sender, EventArgs e){
+			Find();
+		}
 
 		private void SelectAllToolStripMenuItemClick(object sender, EventArgs e){
 			SelectAll();
@@ -735,9 +774,17 @@ namespace BaseLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private void FontsToolStripMenuItemClick(object sender, EventArgs e) { ChangeFonts(); }
-		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e) { MonospaceFont(); }
-		private void DefaultToolStripMenuItemClick(object sender, EventArgs e) { DefaultFont1(); }
+		private void FontsToolStripMenuItemClick(object sender, EventArgs e){
+			ChangeFonts();
+		}
+
+		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e){
+			MonospaceFont();
+		}
+
+		private void DefaultToolStripMenuItemClick(object sender, EventArgs e){
+			DefaultFont1();
+		}
 
 		private void Find(){
 			if (model == null){
@@ -814,7 +861,9 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e) { BringSelectionToTop(); }
+		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e){
+			BringSelectionToTop();
+		}
 
 		private void CopySelectedRowsToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
@@ -1025,7 +1074,7 @@ namespace BaseLib.Forms.Table{
 			return result;
 		}
 
-		private void TagsToolStripMenuItemClick(object sender, EventArgs e) { }
+		private void TagsToolStripMenuItemClick(object sender, EventArgs e){}
 
 		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
@@ -1113,7 +1162,9 @@ namespace BaseLib.Forms.Table{
 			g.DrawRectangle(p, x1 + 3, y1 + 4, w, w);
 		}
 
-		private void RenderCellString(IGraphics g, bool selected, object o, int width, int x1, int y1) { g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3, y1 + 4); }
+		private void RenderCellString(IGraphics g, bool selected, object o, int width, int x1, int y1){
+			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3, y1 + 4);
+		}
 
 		private static string GetStringValue(IGraphics g, object o, int width, Font font){
 			if (o is double){
@@ -1417,8 +1468,8 @@ namespace BaseLib.Forms.Table{
 			}
 			if (resizeCol != -1){
 				int mind = resizeCol == 0
-					? 6 - columnWidthSumsOld[0]
-					: columnWidthSumsOld[resizeCol - 1] - columnWidthSumsOld[resizeCol] + 6;
+								? 6 - columnWidthSumsOld[0]
+								: columnWidthSumsOld[resizeCol - 1] - columnWidthSumsOld[resizeCol] + 6;
 				deltaDragX = Math.Max(mind, e.X - colDragX);
 				for (int i = resizeCol; i < columnWidthSums.Length; i++){
 					columnWidthSums[i] = columnWidthSumsOld[i] + deltaDragX;
@@ -1499,7 +1550,9 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		protected internal override void OnMouseHoverMainView(EventArgs e) { HandleToolTip(true); }
+		protected internal override void OnMouseHoverMainView(EventArgs e){
+			HandleToolTip(true);
+		}
 
 		private void HandleToolTip(bool hover){
 			if (currentX < 0 || currentY < 0 || currentRow < 0 || currentCol < 0 || model == null || currentRow >= model.RowCount ||
