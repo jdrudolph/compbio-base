@@ -112,6 +112,7 @@
       <DependentUpon>HelpLabel.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Scatter\GridData.cs" />
+    <Compile Include="Forms\Scatter\GridType.cs" />
     <Compile Include="Forms\Scatter\PlanePropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,20 +121,8 @@
     </Compile>
     <Compile Include="Forms\Scatter\PolygonData.cs" />
     <Compile Include="Forms\Scatter\PolygonProperties.cs" />
-    <Compile Include="Forms\Scatter\ScatterPlot.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Scatter\ScatterPlot.Designer.cs">
-      <DependentUpon>ScatterPlot.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Scatter\ScatterPlotPlaneView.cs" />
     <Compile Include="Forms\Scatter\ScatterPlotValues.cs" />
-    <Compile Include="Forms\Scatter\ScatterPlotViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Scatter\ScatterPlotViewer.designer.cs">
-      <DependentUpon>ScatterPlotViewer.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Scroll\CompoundScrollableControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -356,13 +345,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Scatter\PlanePropertiesForm.resx">
       <DependentUpon>PlanePropertiesForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Scatter\ScatterPlot.resx">
-      <DependentUpon>ScatterPlot.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Scatter\ScatterPlotViewer.resx">
-      <DependentUpon>ScatterPlotViewer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Select\ListSelector.resx">
       <DependentUpon>ListSelector.cs</DependentUpon>
