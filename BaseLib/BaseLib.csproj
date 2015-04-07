@@ -99,6 +99,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Colors\ColorStripView.cs" />
+    <Compile Include="Forms\GridType.cs" />
     <Compile Include="Forms\Help\HelpCheckBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -111,10 +112,10 @@
     <Compile Include="Forms\Help\HelpLabel.Designer.cs">
       <DependentUpon>HelpLabel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Scatter\PlanePropertiesForm.cs">
+    <Compile Include="Forms\PlanePropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Scatter\PlanePropertiesForm.Designer.cs">
+    <Compile Include="Forms\PlanePropertiesForm.Designer.cs">
       <DependentUpon>PlanePropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Scroll\CompoundScrollableControl.cs">
@@ -337,7 +338,7 @@
       <DependentUpon>HelpLabel.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Scatter\PlanePropertiesForm.resx">
+    <EmbeddedResource Include="Forms\PlanePropertiesForm.resx">
       <DependentUpon>PlanePropertiesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Select\ListSelector.resx">
