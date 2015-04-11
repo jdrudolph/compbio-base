@@ -942,47 +942,20 @@ namespace BaseLibS.Util{
 
 		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative,
 			double h){
-			double min;
-			double max;
+			float min;
+			float max;
 			MinMax(data, out min, out max);
 			if (min == max){
 				Histogram(data, out x, out y, normalized, cumulative, 0.1, min - 0.05, max + 0.05);
 			}
-			double span = max - min;
+			float span = max - min;
 			int nbins = (int) Math.Max(Math.Round(span/h), 1);
-			min -= span/2.0/nbins;
-			max += span/2.0/nbins;
+			min -= span/2.0f/nbins;
+			max += span/2.0f/nbins;
 			Histogram(data, out x, out y, normalized, cumulative, h, min, max);
 		}
 
 		public static void MinMax(IList<double> x, out double min, out double max){
-			int n = x.Count;
-			if (n == 0){
-				min = Double.NaN;
-				max = Double.NaN;
-				return;
-			}
-			min = Double.MaxValue;
-			max = Double.MinValue;
-			for (int i = 0; i < n; i++){
-				double val = x[i];
-				if (Double.IsInfinity(val)){
-					continue;
-				}
-				if (val < min){
-					min = val;
-				}
-				if (val > max){
-					max = val;
-				}
-			}
-			if (min == Double.MaxValue){
-				min = Double.NaN;
-				max = Double.NaN;
-			}
-		}
-
-		public static void MinMax(IList<float> x, out double min, out double max){
 			int n = x.Count;
 			if (n == 0){
 				min = double.NaN;
@@ -990,9 +963,12 @@ namespace BaseLibS.Util{
 				return;
 			}
 			min = double.MaxValue;
-			max = -double.MaxValue;
+			max = double.MinValue;
 			for (int i = 0; i < n; i++){
 				double val = x[i];
+				if (double.IsInfinity(val)){
+					continue;
+				}
 				if (val < min){
 					min = val;
 				}
@@ -1003,6 +979,45 @@ namespace BaseLibS.Util{
 			if (min == double.MaxValue){
 				min = double.NaN;
 				max = double.NaN;
+			}
+		}
+
+		public static void MinMax(IList<float> x, out float min, out float max) {
+			int n = x.Count;
+			if (n == 0) {
+				min = float.NaN;
+				max = float.NaN;
+				return;
+			}
+			min = float.MaxValue;
+			max = float.MinValue;
+			for (int i = 0; i < n; i++) {
+				float val = x[i];
+				if (val < min) {
+					min = val;
+				}
+				if (val > max) {
+					max = val;
+				}
+			}
+			if (min == float.MaxValue) {
+				min = float.NaN;
+				max = float.NaN;
+			}
+		}
+
+		public static void MinMax(IList<int> x, out int min, out int max) {
+			int n = x.Count;
+			min = int.MaxValue;
+			max = int.MinValue;
+			for (int i = 0; i < n; i++) {
+				int val = x[i];
+				if (val < min) {
+					min = val;
+				}
+				if (val > max) {
+					max = val;
+				}
 			}
 		}
 

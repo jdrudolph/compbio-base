@@ -6,11 +6,13 @@ namespace BaseLib.Symbol{
 		public Color Color { get; set; }
 		public int Size { get; set; }
 		public int Type { get; set; }
+		public bool ShowLabel { get; set; }
 
-		public SymbolProperties(Color color, int size, int type){
+		public SymbolProperties(Color color, int size, int type, bool showLabel){
 			Color = color;
 			Size = size;
 			Type = type;
+			ShowLabel = showLabel;
 		}
 
 		public int CompareTo(SymbolProperties other){
@@ -53,7 +55,7 @@ namespace BaseLib.Symbol{
 			unchecked{
 				int result = Color.GetHashCode();
 				result = (result*397) ^ Size;
-				result = (result*397) ^ Type;
+				result = (result * 397) ^ Type;
 				return result;
 			}
 		}
