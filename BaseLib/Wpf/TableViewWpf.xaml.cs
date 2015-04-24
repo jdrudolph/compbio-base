@@ -79,8 +79,8 @@ namespace BaseLib.Wpf{
 		public void FireSelectionChange() { tableView.FireSelectionChange(); }
 		public bool ModelRowIsSelected(int row) { return tableView.ModelRowIsSelected(row); }
 		public void ClearSelection() { tableView.ClearSelection(); }
-		public void SetSetectedIndex(int index) { tableView.SetSetectedIndex(index); }
-		public void SetSetectedIndex(int index, object sender) { tableView.SetSetectedIndex(index, sender); }
+		public void SetSetectedIndex(int index) { tableView.SetSelectedIndex(index); }
+		public void SetSetectedIndex(int index, object sender) { tableView.SetSelectedIndex(index, sender); }
 		public void AddContextMenuItem(ToolStripItem item) { tableView.AddContextMenuItem(item); }
 
 		private void TextButton_OnClick(object sender, RoutedEventArgs e){

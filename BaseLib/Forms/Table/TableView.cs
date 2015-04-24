@@ -683,22 +683,19 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SelectAll(){
-			if (!MultiSelect){
+		public void SelectAll() {
+			if (!MultiSelect) {
 				return;
 			}
-			if (modelRowSel == null){
-				return;
+			CheckSizes();
+			bool[] x = new bool[RowCount];
+			for (int i = 0; i < x.Length; i++) {
+				x[i] = true;
 			}
-			for (int i = 0; i < modelRowSel.Length; i++){
-				modelRowSel[i] = true;
-			}
-			if (SelectionChanged != null){
-				SelectionChanged(this, new EventArgs());
-			}
+			SetSelection(x);
 		}
 
-		public long SelectedCount{
+		public long SelectedCount {
 			get{
 				if (modelRowSel == null){
 					return 0;
@@ -713,7 +710,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSetectedViewIndex(int index){
+		public void SetSelectedViewIndex(int index){
 			CheckSizes();
 			if (!multiSelect){
 				ClearSelection();
@@ -724,20 +721,11 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSetectedIndex(int index){
-			SetSetectedIndex(index, this);
+		public void SetSelectedIndex(int index){
+			SetSelectedIndex(index, this);
 		}
 
-		public void SetectAll(){
-			CheckSizes();
-			bool[] x = new bool[RowCount];
-			for (int i = 0; i < x.Length; i++){
-				x[i] = true;
-			}
-			SetSetection(x);
-		}
-
-		public void SetSetectedIndex(int index, object sender){
+		public void SetSelectedIndex(int index, object sender){
 			CheckSizes();
 			if (!multiSelect){
 				ClearSelection();
@@ -748,7 +736,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void SetSetection(bool[] s){
+		public void SetSelection(bool[] s){
 			modelRowSel = s;
 			if (SelectionChanged != null){
 				SelectionChanged(this, new EventArgs());
@@ -1786,7 +1774,7 @@ namespace BaseLib.Forms.Table{
 						if (keyData == Keys.Down){
 							modelRowSel[order[selection[selection.Length - 1]]] = false;
 						}
-						SetSetectedViewIndex(selection[selection.Length - 1] + 1);
+						SetSelectedViewIndex(selection[selection.Length - 1] + 1);
 						MoveDown(rowHeight);
 						Invalidate(true);
 					}
@@ -1799,7 +1787,7 @@ namespace BaseLib.Forms.Table{
 						if (keyData == Keys.Up){
 							modelRowSel[order[selection[0]]] = false;
 						}
-						SetSetectedViewIndex(selection[0] - 1);
+						SetSelectedViewIndex(selection[0] - 1);
 						MoveUp(rowHeight);
 						Invalidate(true);
 					}

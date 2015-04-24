@@ -50,7 +50,7 @@ namespace BaseLib.Forms.Table{
 			tableView.ClearSelection();
 			int[] rows = tableView1.GetSelectedRows();
 			foreach (int ind in rows.Select(row => (int)tableView1.GetEntry(row, 0) - 1)) {
-				tableView.SetSetectedIndex(ind);
+				tableView.SetSelectedIndex(ind);
 			}
 			if (rows.Length > 0) {
 				int ind0 = (int)tableView1.GetEntry(rows[0], 0) - 1;
@@ -181,7 +181,7 @@ namespace BaseLib.Forms.Table{
 				int[] matchingCols;
 				if (MatchRow(modelInd, colInds, matchCase, matchWholeWord, searchString, out matchingCols)){
 					tableView.ClearSelection();
-					tableView.SetSetectedViewIndex(searchRowIndView);
+					tableView.SetSelectedViewIndex(searchRowIndView);
 					tableView.ScrollToRow(searchRowIndView);
 					return;
 				}
@@ -197,7 +197,7 @@ namespace BaseLib.Forms.Table{
 				int[] matchingCols;
 				if (MatchRow(modelInd, colInds, matchCase, matchWholeWord, searchString, out matchingCols)){
 					tableView.ClearSelection();
-					tableView.SetSetectedViewIndex(searchRowIndView);
+					tableView.SetSelectedViewIndex(searchRowIndView);
 					tableView.ScrollToRow(searchRowIndView);
 					return;
 				}
