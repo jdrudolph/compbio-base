@@ -380,6 +380,9 @@ namespace BaseLibS.Mol{
 		public static void ClearCrosslinks() { crossLinkers = null; }
 
 		public static Modification[] FromStrings(string[] mods){
+			if (mods == null){
+				return new Modification[0];
+			}
 			Modification[] result = new Modification[mods.Length];
 			for (int i = 0; i < mods.Length; i++){
 				result[i] = Modifications[mods[i]];
