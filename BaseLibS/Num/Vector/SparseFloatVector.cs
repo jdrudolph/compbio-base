@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLibS.Api;
+using BaseLibS.Util;
 
 namespace BaseLibS.Num.Vector{
 	[Serializable]
@@ -8,12 +9,12 @@ namespace BaseLibS.Num.Vector{
 		/// <summary>
 		/// Indices of nonzero elements. Indices are sorted.
 		/// </summary>
-		internal readonly int[] indices;
+		internal int[] indices;
 
 		/// <summary>
 		/// Values at the positions specified by the <code>indices</code> array.
 		/// </summary>
-		internal readonly float[] values;
+		internal float[] values;
 
 		/// <summary>
 		/// Total length of the vector.
@@ -40,7 +41,9 @@ namespace BaseLibS.Num.Vector{
 			this.length = length;
 		}
 
-		public override int Length { get { return length; } }
+		public override int Length{
+			get { return length; }
+		}
 
 		public override BaseVector Copy(){
 			int[] newIndices = new int[indices.Length];
@@ -63,13 +66,41 @@ namespace BaseLibS.Num.Vector{
 			return new SparseFloatVector(newIndices.ToArray(), newValues.ToArray(), inds.Count);
 		}
 
-		public override IEnumerator<double> GetEnumerator() { throw new NotImplementedException(); }
-		public override bool ContainsNaNOrInfinity() { return false; }
+		public override IEnumerator<double> GetEnumerator(){
+			throw new NotImplementedException();
+		}
+
+		public override bool ContainsNaNOrInfinity(){
+			foreach (float value in values){
+				if (float.IsNaN(value) || float.IsInfinity(value)){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public override void Dispose(){
+			indices = null;
+			values = null;
+		}
 
 		public override double this[int i]{
 			get{
 				int ind = Array.BinarySearch(indices, i);
 				return ind < 0 ? 0 : values[ind];
+			}
+			set{
+				int ind = Array.BinarySearch(indices, i);
+				if (ind >= 0){
+					values[ind] = (float) value;
+				} else{
+					if (value == 0){
+						return;
+					}
+					int insertPos = -1 - ind;
+					values = ArrayUtils.Insert(values, (float) value, insertPos);
+					indices = ArrayUtils.Insert(indices, i, insertPos);
+				}
 			}
 		}
 

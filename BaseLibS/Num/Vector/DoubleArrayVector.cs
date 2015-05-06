@@ -6,7 +6,7 @@ using BaseLibS.Util;
 namespace BaseLibS.Num.Vector{
 	[Serializable]
 	public class DoubleArrayVector : BaseVector{
-		internal readonly double[] values;
+		internal double[] values;
 		public DoubleArrayVector(double[] values) { this.values = values; }
 		public override int Length { get { return values.Length; } }
 
@@ -16,7 +16,10 @@ namespace BaseLibS.Num.Vector{
 			return new FloatArrayVector(newValues);
 		}
 
-		public override double this[int i] { get { return values[i]; } }
+		public override double this[int i]{
+			get { return values[i]; }
+			set { values[i] = value; }
+		}
 
 		public override double Dot(BaseVector y){
 			if ((y is SparseFloatVector)){
@@ -79,6 +82,10 @@ namespace BaseLibS.Num.Vector{
 				}
 			}
 			return false;
+		}
+
+		public override void Dispose(){
+			values = null;
 		}
 	}
 }

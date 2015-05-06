@@ -6,9 +6,15 @@ using BaseLibS.Util;
 namespace BaseLibS.Num.Vector{
 	[Serializable]
 	public class FloatArrayVector : BaseVector{
-		internal readonly float[] values;
-		public FloatArrayVector(float[] values) { this.values = values; }
-		public override int Length { get { return values.Length; } }
+		internal float[] values;
+
+		public FloatArrayVector(float[] values){
+			this.values = values;
+		}
+
+		public override int Length{
+			get { return values.Length; }
+		}
 
 		public override BaseVector Copy(){
 			float[] newValues = new float[Length];
@@ -16,7 +22,10 @@ namespace BaseLibS.Num.Vector{
 			return new FloatArrayVector(newValues);
 		}
 
-		public override double this[int i] { get { return values[i]; } }
+		public override double this[int i]{
+			get { return values[i]; }
+			set { values[i] = (float) value; }
+		}
 
 		public override double Dot(BaseVector y){
 			if (y is SparseFloatVector){
@@ -47,7 +56,9 @@ namespace BaseLibS.Num.Vector{
 			return SumSquaredDiffs(this, (FloatArrayVector) y);
 		}
 
-		public override BaseVector SubArray(IList<int> inds) { return new FloatArrayVector(ArrayUtils.SubArray(values, inds)); }
+		public override BaseVector SubArray(IList<int> inds){
+			return new FloatArrayVector(ArrayUtils.SubArray(values, inds));
+		}
 
 		public override IEnumerator<double> GetEnumerator(){
 			foreach (float foo in values){
@@ -96,6 +107,10 @@ namespace BaseLibS.Num.Vector{
 				}
 			}
 			return false;
+		}
+
+		public override void Dispose(){
+			values = null;
 		}
 	}
 }

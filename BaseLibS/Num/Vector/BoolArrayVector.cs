@@ -6,9 +6,15 @@ using BaseLibS.Util;
 namespace BaseLibS.Num.Vector{
 	[Serializable]
 	public class BoolArrayVector : BaseVector{
-		internal readonly bool[] values;
-		public BoolArrayVector(bool[] values) { this.values = values; }
-		public override int Length { get { return values.Length; } }
+		internal bool[] values;
+
+		public BoolArrayVector(bool[] values){
+			this.values = values;
+		}
+
+		public override int Length{
+			get { return values.Length; }
+		}
 
 		public override BaseVector Copy(){
 			bool[] newValues = new bool[Length];
@@ -16,7 +22,15 @@ namespace BaseLibS.Num.Vector{
 			return new BoolArrayVector(newValues);
 		}
 
-		public override double this[int i] { get { return values[i] ? 1 : 0; } }
+		public override double this[int i]{
+			get { return values[i] ? 1 : 0; }
+			set{
+				if (value != 1 && value != 0){
+					throw new Exception("Illegal value.");
+				}
+				values[i] = value == 1;
+			}
+		}
 
 		public override double Dot(BaseVector y){
 			if (y is SparseFloatVector){
@@ -47,7 +61,9 @@ namespace BaseLibS.Num.Vector{
 			return SumSquaredDiffs(this, (BoolArrayVector) y);
 		}
 
-		public override BaseVector SubArray(IList<int> inds) { return new BoolArrayVector(ArrayUtils.SubArray(values, inds)); }
+		public override BaseVector SubArray(IList<int> inds){
+			return new BoolArrayVector(ArrayUtils.SubArray(values, inds));
+		}
 
 		public override IEnumerator<double> GetEnumerator(){
 			foreach (bool foo in values){
@@ -58,8 +74,7 @@ namespace BaseLibS.Num.Vector{
 		internal static double Dot(BoolArrayVector x, BoolArrayVector y){
 			double sum = 0;
 			for (int i = 0; i < x.Length; i++){
-				if (x.values[i] && y.values[i])
-					sum ++;
+				if (x.values[i] && y.values[i]) sum ++;
 			}
 			return sum;
 		}
@@ -127,6 +142,12 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		public override bool ContainsNaNOrInfinity() { return false; }
+		public override bool ContainsNaNOrInfinity(){
+			return false;
+		}
+
+		public override void Dispose(){
+			values = null;
+		}
 	}
 }

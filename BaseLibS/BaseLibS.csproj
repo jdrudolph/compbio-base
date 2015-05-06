@@ -91,6 +91,8 @@
     <Compile Include="Num\LinearInterpolator.cs" />
     <Compile Include="Num\MatrixAccess.cs" />
     <Compile Include="Num\MatrixUtils.cs" />
+    <Compile Include="Num\Matrix\MatrixIndexer.cs" />
+    <Compile Include="Num\Matrix\SparseColumnMatrixIndexer.cs" />
     <Compile Include="Num\NumRecipes.cs" />
     <Compile Include="Num\NumUtils.cs" />
     <Compile Include="Num\Random2.cs" />

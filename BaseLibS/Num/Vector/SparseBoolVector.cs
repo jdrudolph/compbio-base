@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLibS.Api;
+using BaseLibS.Util;
 
 namespace BaseLibS.Num.Vector{
 	[Serializable]
@@ -8,7 +9,7 @@ namespace BaseLibS.Num.Vector{
 		/// <summary>
 		/// Indices of nonzero elements. Indices are sorted.
 		/// </summary>
-		private readonly int[] indices;
+		private int[] indices;
 
 		/// <summary>
 		/// Total length of the vector.
@@ -31,7 +32,9 @@ namespace BaseLibS.Num.Vector{
 			this.length = length;
 		}
 
-		public override int Length { get { return length; } }
+		public override int Length{
+			get { return length; }
+		}
 
 		public override BaseVector Copy(){
 			int[] newIndices = new int[indices.Length];
@@ -50,13 +53,41 @@ namespace BaseLibS.Num.Vector{
 			return new SparseBoolVector(newIndices.ToArray(), inds.Count);
 		}
 
-		public override IEnumerator<double> GetEnumerator() { throw new NotImplementedException(); }
-		public override bool ContainsNaNOrInfinity() { return false; }
+		public override IEnumerator<double> GetEnumerator(){
+			throw new NotImplementedException();
+		}
+
+		public override bool ContainsNaNOrInfinity(){
+			return false;
+		}
+
+		public override void Dispose(){
+			indices = null;
+		}
 
 		public override double this[int i]{
 			get{
 				int ind = Array.BinarySearch(indices, i);
 				return ind < 0 ? 0 : 1;
+			}
+			set{
+				if (value != 1 && value != 0){
+					throw new Exception("Illegal value.");
+				}
+
+				int ind = Array.BinarySearch(indices, i);
+				if (ind >= 0){
+					if (value == 1){
+						return;
+					}
+					indices = ArrayUtils.Remove(indices, ind);
+				} else{
+					if (value == 0){
+						return;
+					}
+					int insertPos = -1 - ind;
+					indices = ArrayUtils.Insert(indices, i, insertPos);
+				}
 			}
 		}
 

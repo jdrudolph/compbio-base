@@ -1,5 +1,7 @@
-﻿namespace BaseLibS.Api{
-	public interface IMatrixIndexer{
+﻿using System;
+
+namespace BaseLibS.Api{
+	public interface IMatrixIndexer : ICloneable, IDisposable{
 		void Init(int nrows, int ncols);
 		int RowCount { get; }
 		int ColumnCount { get; }
