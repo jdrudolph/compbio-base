@@ -15,7 +15,6 @@ namespace BaseLibS.Api{
 		IMatrixIndexer ExtractColumns(int[] columns);
 		void ExtractColumnsInPlace(int[] columns);
 		IMatrixIndexer Transpose();
-		void TransposeInPlace();
 		bool ContainsNaNOrInfinity();
 	}
 }

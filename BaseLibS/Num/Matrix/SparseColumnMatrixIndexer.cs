@@ -8,6 +8,13 @@ namespace BaseLibS.Num.Matrix{
 		private SparseFloatVector[] vals;
 		private int nrows;
 
+		public SparseColumnMatrixIndexer(SparseFloatVector[] vals, int nrows){
+			this.vals = vals;
+			this.nrows = nrows;
+		}
+
+		private SparseColumnMatrixIndexer(){}
+
 		public void Init(int nrows1, int ncols){
 			nrows = nrows1;
 			vals = new SparseFloatVector[ncols];
@@ -82,20 +89,7 @@ namespace BaseLibS.Num.Matrix{
 		}
 
 		public IMatrixIndexer Transpose(){
-			SparseFloatVector[] x = new SparseFloatVector[nrows];
-			for (int i = 0; i < nrows; i++){
-				x[i] = (SparseFloatVector)GetRow(i);
-			}
-			return new SparseColumnMatrixIndexer{vals = x,nrows = vals.Length};
-		}
-
-		public void TransposeInPlace(){
-			SparseFloatVector[] x = new SparseFloatVector[nrows];
-			for (int i = 0; i < nrows; i++) {
-				x[i] = (SparseFloatVector)GetRow(i);
-			}
-			nrows = vals.Length;
-			vals = x;
+			return new SparseRowMatrixIndexer(vals, nrows);
 		}
 
 		public bool ContainsNaNOrInfinity(){
@@ -110,6 +104,7 @@ namespace BaseLibS.Num.Matrix{
 		public int RowCount{
 			get { return nrows; }
 		}
+
 		public int ColumnCount{
 			get { return vals.Length; }
 		}
