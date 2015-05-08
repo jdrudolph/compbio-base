@@ -3,7 +3,8 @@ using System.IO;
 using System.Text;
 
 namespace BaseLibS.Mol{
-	public class AaSequence : IComparable, IDisposable, ICloneable{
+	[Serializable]
+	public class AaSequence : IComparable, IDisposable, ICloneable {
 		public const int aasPerLong = 12;
 		private const int basis = 32;
 		private const int basis4 = 32*32*32*32;
