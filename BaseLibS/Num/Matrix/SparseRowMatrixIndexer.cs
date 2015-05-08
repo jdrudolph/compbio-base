@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 using BaseLibS.Util;
 
 namespace BaseLibS.Num.Matrix{
-	public class SparseRowMatrixIndexer : IMatrixIndexer{
+	[Serializable]
+	public class SparseRowMatrixIndexer : IMatrixIndexer {
 		private SparseFloatVector[] vals;
 		private int ncolumns;
 
