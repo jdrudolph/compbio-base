@@ -7,7 +7,7 @@ namespace BaseLibS.Num.Matrix{
 	[Serializable]
 	public class MatrixIndexer : IMatrixIndexer{
 		private float[,] vals;
-		public MatrixIndexer() {}
+		public MatrixIndexer(){}
 
 		public MatrixIndexer(float[,] vals){
 			this.vals = vals;
@@ -18,11 +18,13 @@ namespace BaseLibS.Num.Matrix{
 		}
 
 		public void TransposeInPlace(){
-			vals = ArrayUtils.Transpose(vals);
+			if (vals != null){
+				vals = ArrayUtils.Transpose(vals);
+			}
 		}
 
 		public IMatrixIndexer Transpose(){
-			return new MatrixIndexer(ArrayUtils.Transpose(vals));
+			return vals == null ? new MatrixIndexer() : new MatrixIndexer(ArrayUtils.Transpose(vals));
 		}
 
 		public void Set(float[,] value){
@@ -58,11 +60,15 @@ namespace BaseLibS.Num.Matrix{
 		}
 
 		public void ExtractRowsInPlace(int[] rows){
-			vals = ArrayUtils.ExtractRows(vals, rows);
+			if (vals != null){
+				vals = ArrayUtils.ExtractRows(vals, rows);
+			}
 		}
 
 		public void ExtractColumnsInPlace(int[] columns){
-			vals = ArrayUtils.ExtractColumns(vals, columns);
+			if (vals != null){
+				vals = ArrayUtils.ExtractColumns(vals, columns);
+			}
 		}
 
 		public bool ContainsNaNOrInfinity(){
@@ -76,8 +82,13 @@ namespace BaseLibS.Num.Matrix{
 			return false;
 		}
 
-		public int RowCount { get { return vals.GetLength(0); } }
-		public int ColumnCount { get { return vals.GetLength(1); } }
+		public int RowCount{
+			get { return vals.GetLength(0); }
+		}
+
+		public int ColumnCount{
+			get { return vals.GetLength(1); }
+		}
 
 		public float this[int i, int j]{
 			get { return !IsInitialized() ? float.NaN : vals[i, j]; }
