@@ -112,5 +112,18 @@ namespace BaseLibS.Num.Vector{
 		public override void Dispose(){
 			values = null;
 		}
+
+		public override bool IsNanOrInf(){
+			foreach (float value in values){
+				if (!float.IsNaN(value) && !float.IsInfinity(value)){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public override float[] Unpack(){
+			return values;
+		}
 	}
 }

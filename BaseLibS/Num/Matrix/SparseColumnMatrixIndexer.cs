@@ -67,26 +67,26 @@ namespace BaseLibS.Num.Matrix{
 			return vals != null;
 		}
 
-		public IMatrixIndexer ExtractRows(int[] rows){
+		public IMatrixIndexer ExtractRows(IList<int> rows) {
 			SparseFloatVector[] r = new SparseFloatVector[vals.Length];
 			for (int i = 0; i < vals.Length; i++){
 				r[i] = (SparseFloatVector) vals[i].SubArray(rows);
 			}
-			return new SparseColumnMatrixIndexer{vals = r, nrows = rows.Length};
+			return new SparseColumnMatrixIndexer{vals = r, nrows = rows.Count};
 		}
 
-		public void ExtractRowsInPlace(int[] rows){
+		public void ExtractRowsInPlace(IList<int> rows) {
 			for (int i = 0; i < vals.Length; i++){
 				vals[i] = (SparseFloatVector) vals[i].SubArray(rows);
 			}
-			nrows = rows.Length;
+			nrows = rows.Count;
 		}
 
-		public IMatrixIndexer ExtractColumns(int[] columns){
+		public IMatrixIndexer ExtractColumns(IList<int> columns) {
 			return new SparseColumnMatrixIndexer{vals = ArrayUtils.SubArray(vals, columns), nrows = nrows};
 		}
 
-		public void ExtractColumnsInPlace(int[] columns){
+		public void ExtractColumnsInPlace(IList<int> columns) {
 			vals = ArrayUtils.SubArray(vals, columns);
 		}
 
@@ -101,6 +101,20 @@ namespace BaseLibS.Num.Matrix{
 				}
 			}
 			return false;
+		}
+
+		public bool IsNanOrInfRow(int row){
+			for (int i = 0; i < ColumnCount; i++) {
+				float v = (float)vals[i][row];
+				if (!float.IsNaN(v) && !float.IsInfinity(v)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public bool IsNanOrInfColumn(int column){
+			return vals[column].IsNanOrInf();
 		}
 
 		public int RowCount{

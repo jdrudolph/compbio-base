@@ -1,12 +1,29 @@
 using System;
 using BaseLibS.Api;
-using BaseLibS.Num.Vector;
 
 namespace BaseLibS.Num{
 	/// <summary>
 	/// A collection of primitive operation on matrices.
 	/// </summary>
 	public static class MatrixUtils{
+		public static bool HasNaNOrInfRows(IMatrixIndexer m){
+			for (int i = 0; i < m.RowCount; i++){
+				if (m.IsNanOrInfRow(i)){
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public static bool HasNaNOrInfColumns(IMatrixIndexer m){
+			for (int i = 0; i < m.ColumnCount; i++){
+				if (m.IsNanOrInfColumn(i)){
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public static T[,] Transpose<T>(T[,] x){
 			int nrows = x.GetLength(0);
 			int ncols = x.GetLength(1);
@@ -162,7 +179,9 @@ namespace BaseLibS.Num{
 			return result;
 		}
 
-		public static bool IsSquare(double[,] matrix) { return matrix.GetLength(0) == matrix.GetLength(1); }
+		public static bool IsSquare(double[,] matrix){
+			return matrix.GetLength(0) == matrix.GetLength(1);
+		}
 
 		public static void SetColumn(double[,] matrix, double[] values, int column){
 			int n = matrix.GetLength(0);
@@ -313,7 +332,7 @@ namespace BaseLibS.Num{
 		public static bool HasNanOrInf(float[,] x){
 			for (int i = 0; i < x.GetLength(0); i++){
 				for (int j = 0; j < x.GetLength(1); j++){
-					if (float.IsNaN(x[i, j]) || float.IsInfinity(x[i, j])){
+					if (Single.IsNaN(x[i, j]) || Single.IsInfinity(x[i, j])){
 						return true;
 					}
 				}

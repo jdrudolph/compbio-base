@@ -65,6 +65,10 @@ namespace BaseLibS.Num.Vector{
 			indices = null;
 		}
 
+		public override bool IsNanOrInf(){
+			return false;
+		}
+
 		public override double this[int i]{
 			get{
 				int ind = Array.BinarySearch(indices, i);
@@ -386,6 +390,14 @@ namespace BaseLibS.Num.Vector{
 				++j;
 			}
 			return sum;
+		}
+
+		public override float[] Unpack() {
+			float[] result = new float[length];
+			foreach (int t in indices){
+				result[t] = 1;
+			}
+			return result;
 		}
 	}
 }

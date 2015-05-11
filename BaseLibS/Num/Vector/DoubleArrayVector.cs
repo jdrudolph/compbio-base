@@ -84,6 +84,19 @@ namespace BaseLibS.Num.Vector{
 			return false;
 		}
 
+		public override bool IsNanOrInf() {
+			foreach (double value in values) {
+				if (!double.IsNaN(value) && !double.IsInfinity(value)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public override float[] Unpack(){
+			return ArrayUtils.ToFloats(values);
+		}
+
 		public override void Dispose(){
 			values = null;
 		}

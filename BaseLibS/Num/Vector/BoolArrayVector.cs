@@ -149,5 +149,13 @@ namespace BaseLibS.Num.Vector{
 		public override void Dispose(){
 			values = null;
 		}
+
+		public override bool IsNanOrInf(){
+			return false;
+		}
+
+		public override float[] Unpack(){
+			return ArrayUtils.ToFloats(values);
+		}
 	}
 }

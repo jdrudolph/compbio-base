@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BaseLibS.Api{
 	public interface IMatrixIndexer : ICloneable, IDisposable{
@@ -10,11 +11,13 @@ namespace BaseLibS.Api{
 		BaseVector GetRow(int row);
 		BaseVector GetColumn(int col);
 		bool IsInitialized();
-		IMatrixIndexer ExtractRows(int[] rows);
-		void ExtractRowsInPlace(int[] rows);
-		IMatrixIndexer ExtractColumns(int[] columns);
-		void ExtractColumnsInPlace(int[] columns);
+		IMatrixIndexer ExtractRows(IList<int> rows);
+		void ExtractRowsInPlace(IList<int> rows);
+		IMatrixIndexer ExtractColumns(IList<int> columns);
+		void ExtractColumnsInPlace(IList<int> columns);
 		IMatrixIndexer Transpose();
 		bool ContainsNaNOrInfinity();
+		bool IsNanOrInfRow(int row);
+		bool IsNanOrInfColumn(int column);
 	}
 }

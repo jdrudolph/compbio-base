@@ -16,5 +16,7 @@ namespace BaseLibS.Api{
 		IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
 		public abstract bool ContainsNaNOrInfinity();
 		public abstract void Dispose();
+		public abstract bool IsNanOrInf();
+		public abstract float[] Unpack();
 	}
 }

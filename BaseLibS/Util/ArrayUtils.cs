@@ -982,40 +982,40 @@ namespace BaseLibS.Util{
 			}
 		}
 
-		public static void MinMax(IList<float> x, out float min, out float max) {
+		public static void MinMax(IList<float> x, out float min, out float max){
 			int n = x.Count;
-			if (n == 0) {
+			if (n == 0){
 				min = float.NaN;
 				max = float.NaN;
 				return;
 			}
 			min = float.MaxValue;
 			max = float.MinValue;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				float val = x[i];
-				if (val < min) {
+				if (val < min){
 					min = val;
 				}
-				if (val > max) {
+				if (val > max){
 					max = val;
 				}
 			}
-			if (min == float.MaxValue) {
+			if (min == float.MaxValue){
 				min = float.NaN;
 				max = float.NaN;
 			}
 		}
 
-		public static void MinMax(IList<int> x, out int min, out int max) {
+		public static void MinMax(IList<int> x, out int min, out int max){
 			int n = x.Count;
 			min = int.MaxValue;
 			max = int.MinValue;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				int val = x[i];
-				if (val < min) {
+				if (val < min){
 					min = val;
 				}
-				if (val > max) {
+				if (val > max){
 					max = val;
 				}
 			}
@@ -1483,6 +1483,14 @@ namespace BaseLibS.Util{
 			var result = new float[doubles.Count];
 			for (int i = 0; i < result.Length; i++){
 				result[i] = doubles[i];
+			}
+			return result;
+		}
+
+		public static float[] ToFloats(IList<bool> doubles){
+			var result = new float[doubles.Count];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = doubles[i] ? 1 : 0;
 			}
 			return result;
 		}

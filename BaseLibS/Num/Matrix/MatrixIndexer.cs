@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 using BaseLibS.Util;
@@ -51,21 +52,21 @@ namespace BaseLibS.Num.Matrix{
 			return vals != null;
 		}
 
-		public IMatrixIndexer ExtractRows(int[] rows){
+		public IMatrixIndexer ExtractRows(IList<int> rows) {
 			return new MatrixIndexer(ArrayUtils.ExtractRows(vals, rows));
 		}
 
-		public IMatrixIndexer ExtractColumns(int[] columns){
+		public IMatrixIndexer ExtractColumns(IList<int> columns) {
 			return new MatrixIndexer(ArrayUtils.ExtractColumns(vals, columns));
 		}
 
-		public void ExtractRowsInPlace(int[] rows){
+		public void ExtractRowsInPlace(IList<int> rows) {
 			if (vals != null){
 				vals = ArrayUtils.ExtractRows(vals, rows);
 			}
 		}
 
-		public void ExtractColumnsInPlace(int[] columns){
+		public void ExtractColumnsInPlace(IList<int> columns) {
 			if (vals != null){
 				vals = ArrayUtils.ExtractColumns(vals, columns);
 			}
@@ -81,6 +82,27 @@ namespace BaseLibS.Num.Matrix{
 			}
 			return false;
 		}
+
+		public bool IsNanOrInfRow(int row) {
+			for (int i = 0; i < ColumnCount; i++){
+				float v = vals[row, i];
+				if (!float.IsNaN(v) && !float.IsInfinity(v)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public bool IsNanOrInfColumn(int column) {
+			for (int i = 0; i < RowCount; i++){
+				float v = vals[i, column];
+				if (!float.IsNaN(v) && !float.IsInfinity(v)) {
+					return false;
+				}
+			}
+			return true;
+		}
+
 
 		public int RowCount{
 			get { return vals.GetLength(0); }

@@ -339,5 +339,25 @@ namespace BaseLibS.Num.Vector{
 			}
 			return sum;
 		}
+
+		public override bool IsNanOrInf(){
+			if (values.Length < length){
+				return false;
+			}
+			foreach (float value in values){
+				if (!float.IsNaN(value) && !float.IsInfinity(value)){
+					return false;
+				}
+			}
+			return true;
+		}
+
+		public override float[] Unpack(){
+			float[] result = new float[length];
+			for (int i = 0; i < values.Length; i++){
+				result[indices[i]] = values[i];
+			}
+			return result;
+		}
 	}
 }

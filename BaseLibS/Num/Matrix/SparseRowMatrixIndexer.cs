@@ -6,21 +6,21 @@ using BaseLibS.Util;
 
 namespace BaseLibS.Num.Matrix{
 	[Serializable]
-	public class SparseRowMatrixIndexer : IMatrixIndexer {
+	public class SparseRowMatrixIndexer : IMatrixIndexer{
 		private SparseFloatVector[] vals;
 		private int ncolumns;
 
-		public SparseRowMatrixIndexer(SparseFloatVector[] vals, int ncolumns) {
+		public SparseRowMatrixIndexer(SparseFloatVector[] vals, int ncolumns){
 			this.vals = vals;
 			this.ncolumns = ncolumns;
 		}
 
-		private SparseRowMatrixIndexer() { }
+		private SparseRowMatrixIndexer(){}
 
-		public void Init(int nrows, int ncolumns1) {
+		public void Init(int nrows, int ncolumns1){
 			ncolumns = ncolumns1;
 			vals = new SparseFloatVector[nrows];
-			for (int i = 0; i < nrows; i++) {
+			for (int i = 0; i < nrows; i++){
 				vals[i] = new SparseFloatVector(new int[0], new float[0], ncolumns);
 			}
 		}
@@ -52,9 +52,9 @@ namespace BaseLibS.Num.Matrix{
 		public BaseVector GetColumn(int col){
 			List<int> inds = new List<int>();
 			List<float> x = new List<float>();
-			for (int i = 0; i < vals.Length; i++) {
-				float w = (float)vals[i][col];
-				if (w == 0) {
+			for (int i = 0; i < vals.Length; i++){
+				float w = (float) vals[i][col];
+				if (w == 0){
 					continue;
 				}
 				inds.Add(i);
@@ -67,27 +67,27 @@ namespace BaseLibS.Num.Matrix{
 			return vals != null;
 		}
 
-		public IMatrixIndexer ExtractRows(int[] rows){
-			return new SparseRowMatrixIndexer { vals = ArrayUtils.SubArray(vals, rows), ncolumns = ncolumns };
+		public IMatrixIndexer ExtractRows(IList<int> rows){
+			return new SparseRowMatrixIndexer{vals = ArrayUtils.SubArray(vals, rows), ncolumns = ncolumns};
 		}
 
-		public void ExtractRowsInPlace(int[] rows){
+		public void ExtractRowsInPlace(IList<int> rows){
 			vals = ArrayUtils.SubArray(vals, rows);
 		}
 
-		public IMatrixIndexer ExtractColumns(int[] columns){
+		public IMatrixIndexer ExtractColumns(IList<int> columns){
 			SparseFloatVector[] r = new SparseFloatVector[vals.Length];
-			for (int i = 0; i < vals.Length; i++) {
-				r[i] = (SparseFloatVector)vals[i].SubArray(columns);
+			for (int i = 0; i < vals.Length; i++){
+				r[i] = (SparseFloatVector) vals[i].SubArray(columns);
 			}
-			return new SparseRowMatrixIndexer { vals = r, ncolumns = columns.Length };
+			return new SparseRowMatrixIndexer{vals = r, ncolumns = columns.Count};
 		}
 
-		public void ExtractColumnsInPlace(int[] columns){
-			for (int i = 0; i < vals.Length; i++) {
-				vals[i] = (SparseFloatVector)vals[i].SubArray(columns);
+		public void ExtractColumnsInPlace(IList<int> columns){
+			for (int i = 0; i < vals.Length; i++){
+				vals[i] = (SparseFloatVector) vals[i].SubArray(columns);
 			}
-			ncolumns = columns.Length;
+			ncolumns = columns.Count;
 		}
 
 		public IMatrixIndexer Transpose(){
@@ -103,6 +103,20 @@ namespace BaseLibS.Num.Matrix{
 			return false;
 		}
 
+		public bool IsNanOrInfRow(int row){
+			return vals[row].IsNanOrInf();
+		}
+
+		public bool IsNanOrInfColumn(int column){
+			for (int i = 0; i < RowCount; i++){
+				float v = (float) vals[i][column];
+				if (!float.IsNaN(v) && !float.IsInfinity(v)){
+					return false;
+				}
+			}
+			return true;
+		}
+
 		public int RowCount{
 			get { return vals.Length; }
 		}
@@ -112,7 +126,7 @@ namespace BaseLibS.Num.Matrix{
 		}
 
 		public float this[int i, int j]{
-			get { return (float)vals[i][j]; }
+			get { return (float) vals[i][j]; }
 			set { vals[i][j] = value; }
 		}
 
@@ -131,7 +145,7 @@ namespace BaseLibS.Num.Matrix{
 			for (int i = 0; i < v.Length; i++){
 				v[i] = (SparseFloatVector) vals[i].Clone();
 			}
-			return new SparseRowMatrixIndexer { vals = v, ncolumns = ncolumns };
+			return new SparseRowMatrixIndexer{vals = v, ncolumns = ncolumns};
 		}
 	}
 }
