@@ -75,7 +75,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		public override bool ContainsNaNOrInfinity(){
+		public override bool ContainsNaNOrInf(){
 			foreach (double value in values){
 				if (double.IsNaN(value) || double.IsInfinity(value)){
 					return true;

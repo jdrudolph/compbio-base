@@ -96,7 +96,7 @@ namespace BaseLibS.Num.Matrix{
 
 		public bool ContainsNaNOrInfinity(){
 			foreach (SparseFloatVector val in vals){
-				if (val.ContainsNaNOrInfinity()){
+				if (val.ContainsNaNOrInf()){
 					return true;
 				}
 			}

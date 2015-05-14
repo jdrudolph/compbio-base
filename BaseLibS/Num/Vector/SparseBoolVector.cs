@@ -7,7 +7,7 @@ namespace BaseLibS.Num.Vector{
 	[Serializable]
 	public class SparseBoolVector : BaseVector{
 		/// <summary>
-		/// Indices of nonzero elements. Indices are sorted.
+		/// Indices of elements with value 1. Values not covered by the indices are 0. Indices are sorted.
 		/// </summary>
 		private int[] indices;
 
@@ -57,7 +57,7 @@ namespace BaseLibS.Num.Vector{
 			throw new NotImplementedException();
 		}
 
-		public override bool ContainsNaNOrInfinity(){
+		public override bool ContainsNaNOrInf(){
 			return false;
 		}
 

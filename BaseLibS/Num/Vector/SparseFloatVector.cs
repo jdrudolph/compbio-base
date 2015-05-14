@@ -70,7 +70,7 @@ namespace BaseLibS.Num.Vector{
 			throw new NotImplementedException();
 		}
 
-		public override bool ContainsNaNOrInfinity(){
+		public override bool ContainsNaNOrInf(){
 			foreach (float value in values){
 				if (float.IsNaN(value) || float.IsInfinity(value)){
 					return true;

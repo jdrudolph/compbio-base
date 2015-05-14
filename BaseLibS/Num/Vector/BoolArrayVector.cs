@@ -6,6 +6,9 @@ using BaseLibS.Util;
 namespace BaseLibS.Num.Vector{
 	[Serializable]
 	public class BoolArrayVector : BaseVector{
+		/// <summary>
+		/// These boolean values are encoding 0 and 1 values.
+		/// </summary>
 		internal bool[] values;
 
 		public BoolArrayVector(bool[] values){
@@ -142,7 +145,7 @@ namespace BaseLibS.Num.Vector{
 			return sum;
 		}
 
-		public override bool ContainsNaNOrInfinity(){
+		public override bool ContainsNaNOrInf(){
 			return false;
 		}
 
