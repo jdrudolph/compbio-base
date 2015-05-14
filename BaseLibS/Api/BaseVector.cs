@@ -25,13 +25,19 @@ namespace BaseLibS.Api{
 		/// </summary>
 		public abstract double this[int index] { get; set; }
 
+		/// <summary>
+		/// Determines the sum of squared differences of this vector with another one passed as the argument. 
+		/// </summary>
 		public abstract double SumSquaredDiffs(BaseVector y1);
+
+		/// <summary>
+		/// Creates a new vector containing the elements that are indexed by the input array.
+		/// </summary>
 		public abstract BaseVector SubArray(IList<int> inds);
 
-		public object Clone(){
-			return Copy();
-		}
-
+		/// <summary>
+		/// Returns an enumerator that iterates through the collection.
+		/// </summary>
 		public abstract IEnumerator<double> GetEnumerator();
 
 		/// <summary>
@@ -44,11 +50,25 @@ namespace BaseLibS.Api{
 		/// </summary>
 		public abstract bool IsNanOrInf();
 
+		/// <summary>
+		/// Performs tasks associated with freeing, releasing, or resetting resources.
+		/// </summary>
 		public abstract void Dispose();
+
 		public abstract float[] Unpack();
 
+		/// <summary>
+		/// Returns an enumerator that iterates through the collection.
+		/// </summary>
 		IEnumerator IEnumerable.GetEnumerator(){
 			return GetEnumerator();
+		}
+
+		/// <summary>
+		/// Produces a deep copy of this vector.
+		/// </summary>
+		public object Clone(){
+			return Copy();
 		}
 	}
 }

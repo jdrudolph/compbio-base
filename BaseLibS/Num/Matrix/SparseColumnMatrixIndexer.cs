@@ -94,7 +94,7 @@ namespace BaseLibS.Num.Matrix{
 			return new SparseRowMatrixIndexer(vals, nrows);
 		}
 
-		public bool ContainsNaNOrInfinity(){
+		public bool ContainsNaNOrInf(){
 			foreach (SparseFloatVector val in vals){
 				if (val.ContainsNaNOrInf()){
 					return true;

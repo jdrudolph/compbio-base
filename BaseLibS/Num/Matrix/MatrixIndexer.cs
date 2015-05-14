@@ -72,7 +72,7 @@ namespace BaseLibS.Num.Matrix{
 			}
 		}
 
-		public bool ContainsNaNOrInfinity(){
+		public bool ContainsNaNOrInf(){
 			for (int i = 0; i < vals.GetLength(0); i++){
 				for (int j = 0; j < vals.GetLength(1); j++){
 					if (float.IsNaN(vals[i, j]) || float.IsInfinity(vals[i, j])){
