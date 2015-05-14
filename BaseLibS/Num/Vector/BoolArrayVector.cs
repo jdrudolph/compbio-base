@@ -156,9 +156,5 @@ namespace BaseLibS.Num.Vector{
 		public override bool IsNanOrInf(){
 			return false;
 		}
-
-		public override float[] Unpack(){
-			return ArrayUtils.ToFloats(values);
-		}
 	}
 }

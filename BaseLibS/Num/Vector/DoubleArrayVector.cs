@@ -93,10 +93,6 @@ namespace BaseLibS.Num.Vector{
 			return true;
 		}
 
-		public override float[] Unpack(){
-			return ArrayUtils.ToFloats(values);
-		}
-
 		public override void Dispose(){
 			values = null;
 		}

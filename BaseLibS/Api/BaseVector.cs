@@ -50,8 +50,6 @@ namespace BaseLibS.Api{
 		/// </summary>
 		public abstract void Dispose();
 
-		public abstract float[] Unpack();
-
 		/// <summary>
 		/// Returns an enumerator that iterates through the collection.
 		/// </summary>

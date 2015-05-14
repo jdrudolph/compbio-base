@@ -351,13 +351,5 @@ namespace BaseLibS.Num.Vector{
 			}
 			return true;
 		}
-
-		public override float[] Unpack(){
-			float[] result = new float[length];
-			for (int i = 0; i < values.Length; i++){
-				result[indices[i]] = values[i];
-			}
-			return result;
-		}
 	}
 }

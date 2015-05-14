@@ -391,13 +391,5 @@ namespace BaseLibS.Num.Vector{
 			}
 			return sum;
 		}
-
-		public override float[] Unpack() {
-			float[] result = new float[length];
-			foreach (int t in indices){
-				result[t] = 1;
-			}
-			return result;
-		}
 	}
 }

@@ -121,9 +121,5 @@ namespace BaseLibS.Num.Vector{
 			}
 			return true;
 		}
-
-		public override float[] Unpack(){
-			return values;
-		}
 	}
 }
