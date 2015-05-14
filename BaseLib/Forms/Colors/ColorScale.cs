@@ -47,7 +47,9 @@ namespace BaseLib.Forms.Colors{
 			FireColorChanged();
 		}
 
-		public ColorStrip ColorStrip { get { return colorStrip; } }
+		public ColorStrip ColorStrip{
+			get { return colorStrip; }
+		}
 
 		private void FireColorChanged(){
 			if (OnColorChange != null){
@@ -68,8 +70,16 @@ namespace BaseLib.Forms.Colors{
 			colorStrip.GetView().InitColors(colors, positions);
 		}
 
-		public AxisPositioning Positioning { get { return axis.GetView().Positioning; } set { axis.GetView().Positioning = value; } }
-		public bool Reverse { get { return axis.GetView().Reverse; } set { axis.GetView().Reverse = value; } }
+		public AxisPositioning Positioning{
+			get { return axis.GetView().Positioning; }
+			set { axis.GetView().Positioning = value; }
+		}
+
+		public bool Reverse{
+			get { return axis.GetView().Reverse; }
+			set { axis.GetView().Reverse = value; }
+		}
+
 		public bool IsLogarithmic{
 			get { return axis.GetView().IsLogarithmic; }
 			set{
@@ -89,6 +99,7 @@ namespace BaseLib.Forms.Colors{
 				FireColorChanged();
 			}
 		}
+
 		public double Min{
 			get { return IsLogarithmic ? Math.Exp(axis.GetView().ZoomMin) : axis.GetView().ZoomMin; }
 			set{
@@ -98,6 +109,7 @@ namespace BaseLib.Forms.Colors{
 				axis.Invalidate();
 			}
 		}
+
 		public double Max{
 			get { return IsLogarithmic ? Math.Exp(axis.GetView().ZoomMax) : axis.GetView().ZoomMax; }
 			set{
@@ -126,7 +138,7 @@ namespace BaseLib.Forms.Colors{
 			if (IsLogarithmic){
 				unscaledValue = Math.Log(unscaledValue);
 			}
-			return (unscaledValue - axis.GetView().ZoomMin) / (axis.GetView().ZoomMax - axis.GetView().ZoomMin);
+			return (unscaledValue - axis.GetView().ZoomMin)/(axis.GetView().ZoomMax - axis.GetView().ZoomMin);
 		}
 
 		public void WidenRange(double min, double max, bool fullZoom){

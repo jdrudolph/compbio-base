@@ -36,11 +36,6 @@ namespace BaseLibS.Api{
 		public abstract BaseVector SubArray(IList<int> inds);
 
 		/// <summary>
-		/// Returns an enumerator that iterates through the collection.
-		/// </summary>
-		public abstract IEnumerator<double> GetEnumerator();
-
-		/// <summary>
 		/// True if at least one entry is NaN or Infinity.
 		/// </summary>
 		public abstract bool ContainsNaNOrInf();
@@ -56,6 +51,12 @@ namespace BaseLibS.Api{
 		public abstract void Dispose();
 
 		public abstract float[] Unpack();
+
+		/// <summary>
+		/// Returns an enumerator that iterates through the collection.
+		/// </summary>
+		public abstract IEnumerator<double> GetEnumerator();
+
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the collection.

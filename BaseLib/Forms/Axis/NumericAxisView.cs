@@ -113,15 +113,15 @@ namespace BaseLib.Forms.Axis{
 			return IsHorizontal() ? width : height;
 		}
 
-		internal bool IsHorizontal(){
+		public bool IsHorizontal(){
 			return Positioning == AxisPositioning.Top || Positioning == AxisPositioning.Bottom;
 		}
 
-		private float ModelToView(double val, int width, int height){
+		public float ModelToView(double val, int width, int height){
 			return ModelToView(val, GetLength(width, height));
 		}
 
-		private float ModelToView(double val, int length){
+		public float ModelToView(double val, int length){
 			float x = (float) Math.Round((val - VisibleMin)/(VisibleMax - VisibleMin)*length);
 			if (Reverse){
 				x = length - 1 - x;
@@ -129,14 +129,14 @@ namespace BaseLib.Forms.Axis{
 			return x;
 		}
 
-		internal double ViewToModel(float x, int length){
+		public double ViewToModel(float x, int length){
 			if (Reverse){
 				x = length - 1 - x;
 			}
 			return VisibleMin + x*(VisibleMax - VisibleMin)/length;
 		}
 
-		internal double ViewToModel(float x, int width, int height){
+		public double ViewToModel(float x, int width, int height){
 			return ViewToModel(x, GetLength(width, height));
 		}
 
