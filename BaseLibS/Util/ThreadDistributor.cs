@@ -11,10 +11,10 @@ namespace BaseLibS.Util{
 		protected Stack<int> toBeProcessed;
 		private readonly Action<int, int> calculation;
 		private readonly object locker = new object();
-		private readonly Action<int, int> reportProgress;
+		private readonly Action<double> reportProgress;
 		private int tasksDone;
 
-		public ThreadDistributor(int nThreads, int nTasks, Action<int> calculation, Action<int, int> reportProgress)
+		public ThreadDistributor(int nThreads, int nTasks, Action<int> calculation, Action<double> reportProgress)
 			: this(nThreads, nTasks, (itask, ithread) => calculation(itask), reportProgress){}
 
 		public ThreadDistributor(int nThreads, int nTasks, Action<int> calculation)
@@ -23,7 +23,7 @@ namespace BaseLibS.Util{
 		public ThreadDistributor(int nThreads, int nTasks, Action<int, int> calculation)
 			: this(nThreads, nTasks, calculation, null){}
 
-		public ThreadDistributor(int nThreads, int nTasks, Action<int, int> calculation, Action<int, int> reportProgress){
+		public ThreadDistributor(int nThreads, int nTasks, Action<int, int> calculation, Action<double> reportProgress){
 			this.nThreads = Math.Min(nThreads, nTasks);
 			this.nTasks = nTasks;
 			this.calculation = calculation;
@@ -54,6 +54,9 @@ namespace BaseLibS.Util{
 		}
 
 		private void Work(object ithread){
+			if (reportProgress != null){
+				reportProgress(0);
+			}
 			while (true){
 				int x;
 				lock (locker){
@@ -66,7 +69,7 @@ namespace BaseLibS.Util{
 				lock (locker){
 					tasksDone++;
 					if (reportProgress != null){
-						reportProgress(tasksDone, nTasks);
+						reportProgress(tasksDone/(double) nTasks);
 					}
 				}
 			}

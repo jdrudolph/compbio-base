@@ -8,8 +8,8 @@ using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;
 
 namespace NumPluginSvm{
-	public class LinearSvmRfeFeatureRanking : IClassificationFeatureRankingMethod{
-		public Parameters GetParameters(IGroupDataProvider data){
+	public class LinearSvmRfeFeatureRanking : ClassificationFeatureRankingMethod{
+		public override Parameters GetParameters(IGroupDataProvider data){
 			return
 				new Parameters(new Parameter[]{
 					new DoubleParam("C", 100){Help = SvmClassification.cHelp},
@@ -19,12 +19,24 @@ namespace NumPluginSvm{
 				});
 		}
 
-		public string Name { get { return "RFE-SVM"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 0; } }
-		public bool IsActive { get { return true; } }
+		public override string Name{
+			get { return "RFE-SVM"; }
+		}
 
-		public int[] Rank(BaseVector[] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
+		public override string Description{
+			get { return ""; }
+		}
+
+		public override float DisplayRank{
+			get { return 0; }
+		}
+
+		public override bool IsActive{
+			get { return true; }
+		}
+
+		public override int[] Rank(BaseVector[] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data,
+			int nthreads, Action<double> reportProgress){
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = new LinearKernelFunction(),
 				svmType = SvmType.CSvc,

@@ -6,10 +6,10 @@ using BaseLibS.Util;
 
 namespace NumPluginBase.Classification{
 	public static class ClassificationMethods{
-		private static readonly IClassificationMethod[] allMethods = InitClassificationMethod();
+		private static readonly ClassificationMethod[] allMethods = InitClassificationMethod();
 
-		private static IClassificationMethod[] InitClassificationMethod(){
-			return FileUtils.GetPlugins<IClassificationMethod>(NumPluginUtils.pluginNames, true);
+		private static ClassificationMethod[] InitClassificationMethod(){
+			return FileUtils.GetPlugins<ClassificationMethod>(NumPluginUtils.pluginNames, true);
 		}
 
 		public static string[] GetAllNames(){
@@ -28,12 +28,12 @@ namespace NumPluginBase.Classification{
 			return result;
 		}
 
-		public static IClassificationMethod Get(int index){
+		public static ClassificationMethod Get(int index){
 			return allMethods[index];
 		}
 
-		public static IClassificationMethod GetByName(string name){
-			foreach (IClassificationMethod method in allMethods.Where(method => method.Name.Equals(name))){
+		public static ClassificationMethod GetByName(string name){
+			foreach (ClassificationMethod method in allMethods.Where(method => method.Name.Equals(name))){
 				return method;
 			}
 			throw new Exception("Unknown type: " + name);

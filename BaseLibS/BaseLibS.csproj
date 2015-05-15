@@ -32,8 +32,8 @@
   <ItemGroup>
     <Compile Include="Api\ClassificationModel.cs" />
     <Compile Include="Api\IBoolMatrixIndexer.cs" />
-    <Compile Include="Api\IClassificationFeatureRankingMethod.cs" />
-    <Compile Include="Api\IClassificationMethod.cs" />
+    <Compile Include="Api\ClassificationFeatureRankingMethod.cs" />
+    <Compile Include="Api\ClassificationMethod.cs" />
     <Compile Include="Api\IDistance.cs" />
     <Compile Include="Api\IGroupDataProvider.cs" />
     <Compile Include="Api\IKernelFunction.cs" />

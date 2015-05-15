@@ -8,7 +8,7 @@ using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;
 
 namespace NumPluginSvm{
-	public class SvmClassification : IClassificationMethod{
+	public class SvmClassification : ClassificationMethod{
 		public const string cHelp =
 			"The C parameter tells the SVM optimization how much you want to avoid misclassifying each training example. " +
 			"For large values of C, the optimization will choose a smaller-margin hyperplane if that hyperplane does a " +
@@ -16,7 +16,8 @@ namespace NumPluginSvm{
 			"cause the optimizer to look for a larger-margin separating hyperplane, even if that hyperplane misclassifies " +
 			"more points.";
 
-		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads){
+		public override ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads,
+			Action<double> reportProgress){
 			string err = CheckInput(x, y, ngroups);
 			if (err != null){
 				throw new Exception(err);
@@ -31,7 +32,11 @@ namespace NumPluginSvm{
 			SvmProblem[] problems = CreateProblems(x, y, ngroups, out invert);
 			SvmModel[] models = new SvmModel[problems.Length];
 			ThreadDistributor td = new ThreadDistributor(nthreads, models.Length,
-				i => { models[i] = SvmMain.SvmTrain(problems[i], sp); });
+				i => { models[i] = SvmMain.SvmTrain(problems[i], sp); }, fractionDone =>{
+					if (reportProgress != null){
+						reportProgress(fractionDone);
+					}
+				});
 			td.Start();
 			return new SvmClassificationModel(models, invert);
 		}
@@ -81,23 +86,23 @@ namespace NumPluginSvm{
 			return new SvmProblem(x, y1);
 		}
 
-		public Parameters Parameters{
+		public override Parameters Parameters{
 			get { return new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10){Help = cHelp}}); }
 		}
 
-		public string Name{
+		public override string Name{
 			get { return "Support vector machine"; }
 		}
 
-		public string Description{
+		public override string Description{
 			get { return ""; }
 		}
 
-		public float DisplayRank{
+		public override float DisplayRank{
 			get { return 0; }
 		}
 
-		public bool IsActive{
+		public override bool IsActive{
 			get { return true; }
 		}
 	}

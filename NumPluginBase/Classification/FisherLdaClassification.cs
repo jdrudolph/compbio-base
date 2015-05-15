@@ -1,11 +1,13 @@
-﻿using BaseLibS.Api;
+﻿using System;
+using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace NumPluginBase.Classification{
-	public class FisherLdaClassification : IClassificationMethod{
-		public ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads){
+	public class FisherLdaClassification : ClassificationMethod{
+		public override ClassificationModel Train(BaseVector[] x, int[][] y, int ngroups, Parameters param, int nthreads,
+			Action<double> reportProgress){
 			int n = x.Length;
 			int p = x[0].Length;
 			int[] groupCounts = new int[ngroups];
@@ -101,10 +103,24 @@ namespace NumPluginBase.Classification{
 			return result;
 		}
 
-		public Parameters Parameters { get { return new Parameters(); } }
-		public string Name { get { return "Fisher LDA"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 1; } }
-		public bool IsActive { get { return true; } }
+		public override Parameters Parameters{
+			get { return new Parameters(); }
+		}
+
+		public override string Name{
+			get { return "Fisher LDA"; }
+		}
+
+		public override string Description{
+			get { return ""; }
+		}
+
+		public override float DisplayRank{
+			get { return 1; }
+		}
+
+		public override bool IsActive{
+			get { return true; }
+		}
 	}
 }

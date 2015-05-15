@@ -5,8 +5,9 @@ using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace NumPluginBase.ClassificationRank{
-	public class GolubFeatureRanking : IClassificationFeatureRankingMethod{
-		public int[] Rank(BaseVector[] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data, int nthreads){
+	public class GolubFeatureRanking : ClassificationFeatureRankingMethod{
+		public override int[] Rank(BaseVector[] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data,
+			int nthreads, Action<double> reportProgress){
 			int nfeatures = x[0].Length;
 			int[][] yy = RearrangeGroups(y, ngroups);
 			double[][] score = new double[ngroups][];
@@ -95,10 +96,24 @@ namespace NumPluginBase.ClassificationRank{
 			return ranked.ToArray();
 		}
 
-		public Parameters GetParameters(IGroupDataProvider data) { return new Parameters(); }
-		public string Name { get { return "Golub"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 20; } }
-		public bool IsActive { get { return true; } }
+		public override Parameters GetParameters(IGroupDataProvider data){
+			return new Parameters();
+		}
+
+		public override string Name{
+			get { return "Golub"; }
+		}
+
+		public override string Description{
+			get { return ""; }
+		}
+
+		public override float DisplayRank{
+			get { return 20; }
+		}
+
+		public override bool IsActive{
+			get { return true; }
+		}
 	}
 }
