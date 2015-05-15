@@ -11,17 +11,23 @@ namespace BaseLibS.Util{
 		protected Stack<int> toBeProcessed;
 		private readonly Action<int, int> calculation;
 		private readonly object locker = new object();
+		private readonly Action<int, int> reportProgress;
+		private int tasksDone;
 
-		public ThreadDistributor(int nThreads, int nTasks, Action<int> calculation){
-			this.nThreads = Math.Min(nThreads, nTasks);
-			this.nTasks = nTasks;
-			this.calculation = (itask, ithread) => calculation(itask);
-		}
+		public ThreadDistributor(int nThreads, int nTasks, Action<int> calculation, Action<int, int> reportProgress)
+			: this(nThreads, nTasks, (itask, ithread) => calculation(itask), reportProgress){}
 
-		public ThreadDistributor(int nThreads, int nTasks, Action<int, int> calculation){
+		public ThreadDistributor(int nThreads, int nTasks, Action<int> calculation)
+			: this(nThreads, nTasks, (itask, ithread) => calculation(itask), null){}
+
+		public ThreadDistributor(int nThreads, int nTasks, Action<int, int> calculation)
+			: this(nThreads, nTasks, calculation, null){}
+
+		public ThreadDistributor(int nThreads, int nTasks, Action<int, int> calculation, Action<int, int> reportProgress){
 			this.nThreads = Math.Min(nThreads, nTasks);
 			this.nTasks = nTasks;
 			this.calculation = calculation;
+			this.reportProgress = reportProgress;
 		}
 
 		public void Abort(){
@@ -57,6 +63,12 @@ namespace BaseLibS.Util{
 					x = toBeProcessed.Pop();
 				}
 				calculation(x, (int) ithread);
+				lock (locker){
+					tasksDone++;
+					if (reportProgress != null){
+						reportProgress(tasksDone, nTasks);
+					}
+				}
 			}
 		}
 	}
