@@ -97,6 +97,7 @@ namespace BaseLib.Wpf{
 
 		public void RegisterScrollViewer(ScrollViewer scrollViewer) { MainPanel.RegisterScrollViewer(scrollViewer); }
 		public void UnregisterScrollViewer(ScrollViewer scrollViewer) { MainPanel.UnregisterScrollViewer(scrollViewer); }
+		public void ClearSelectionFire(){tableView.ClearSelectionFire();}
 		private bool textBoxVisible;
 	}
 }
