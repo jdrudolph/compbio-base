@@ -5,10 +5,21 @@ using BaseLibS.Util;
 
 namespace BaseLibS.Parse{
 	public static class TabSep{
-		public static string[] GetColumn(string columnName, string filename, char separator) { return GetColumn(columnName, filename, 0, separator); }
-		public static string[] GetColumn(string columnName, string filename, int nskip, char separator) { return GetColumns(new[]{columnName}, filename, nskip, separator)[0]; }
-		public static double[][] GetDoubleColumns(string[] columnNames, string filename, char separator) { return GetDoubleColumns(columnNames, filename, 0, separator); }
-		public static double[][] GetDoubleColumns(string[] columnNames, string filename, int nskip, char separator) { return GetDoubleColumns(columnNames, filename, double.NaN, nskip, separator); }
+		public static string[] GetColumn(string columnName, string filename, char separator){
+			return GetColumn(columnName, filename, 0, separator);
+		}
+
+		public static string[] GetColumn(string columnName, string filename, int nskip, char separator){
+			return GetColumns(new[]{columnName}, filename, nskip, separator)[0];
+		}
+
+		public static double[][] GetDoubleColumns(string[] columnNames, string filename, char separator){
+			return GetDoubleColumns(columnNames, filename, 0, separator);
+		}
+
+		public static double[][] GetDoubleColumns(string[] columnNames, string filename, int nskip, char separator){
+			return GetDoubleColumns(columnNames, filename, double.NaN, nskip, separator);
+		}
 
 		public static double[][] GetDoubleColumns(string[] columnNames, string filename, double defaultValue, int nskip,
 			char separator){
@@ -24,8 +35,13 @@ namespace BaseLibS.Parse{
 			return d;
 		}
 
-		public static double[] GetDoubleColumn(string columnName, string filename, char separator) { return GetDoubleColumn(columnName, filename, double.NaN, 0, separator); }
-		public static double[] GetDoubleColumn(string columnName, string filename, int nskip, char separator) { return GetDoubleColumn(columnName, filename, double.NaN, nskip, separator); }
+		public static double[] GetDoubleColumn(string columnName, string filename, char separator){
+			return GetDoubleColumn(columnName, filename, double.NaN, 0, separator);
+		}
+
+		public static double[] GetDoubleColumn(string columnName, string filename, int nskip, char separator){
+			return GetDoubleColumn(columnName, filename, double.NaN, nskip, separator);
+		}
 
 		public static double[] GetDoubleColumn(string columnName, string filename, double defaultValue, int nskip,
 			char separator){
@@ -38,7 +54,9 @@ namespace BaseLibS.Parse{
 			return d;
 		}
 
-		public static float[][] GetFloatColumns(string[] columnNames, string filename, int nskip, char separator) { return GetFloatColumns(columnNames, filename, float.NaN, nskip, separator); }
+		public static float[][] GetFloatColumns(string[] columnNames, string filename, int nskip, char separator){
+			return GetFloatColumns(columnNames, filename, float.NaN, nskip, separator);
+		}
 
 		public static float[][] GetFloatColumns(string[] columnNames, string filename, float defaultValue, int nskip,
 			char separator){
@@ -67,8 +85,13 @@ namespace BaseLibS.Parse{
 			return d;
 		}
 
-		public static float[] GetFloatColumn(string columnName, string filename, int nskip, char separator) { return GetFloatColumn(columnName, filename, float.NaN, nskip, separator); }
-		public static float[] GetFloatColumn(string columnName, string filename, char separator) { return GetFloatColumn(columnName, filename, float.NaN, 0, separator); }
+		public static float[] GetFloatColumn(string columnName, string filename, int nskip, char separator){
+			return GetFloatColumn(columnName, filename, float.NaN, nskip, separator);
+		}
+
+		public static float[] GetFloatColumn(string columnName, string filename, char separator){
+			return GetFloatColumn(columnName, filename, float.NaN, 0, separator);
+		}
 
 		public static float[] GetFloatColumn(string columnName, string filename, float defaultValue, int nskip, char separator){
 			string[] x = GetColumn(columnName, filename, nskip, separator);
@@ -80,7 +103,9 @@ namespace BaseLibS.Parse{
 			return d;
 		}
 
-		public static int[] GetIntColumn(string columnName, string filename, char separator) { return GetIntColumn(columnName, filename, -1, 0, separator); }
+		public static int[] GetIntColumn(string columnName, string filename, char separator){
+			return GetIntColumn(columnName, filename, -1, 0, separator);
+		}
 
 		public static int[] GetIntColumn(string columnName, string filename, int defaultValue, int nskip, char separator){
 			string[] x = GetColumn(columnName, filename, nskip, separator);
@@ -92,7 +117,9 @@ namespace BaseLibS.Parse{
 			return d;
 		}
 
-		public static string[][] GetColumns(string[] columnNames, string filename, int nskip, char separator) { return GetColumns(columnNames, filename, nskip, null, null, separator); }
+		public static string[][] GetColumns(string[] columnNames, string filename, int nskip, char separator){
+			return GetColumns(columnNames, filename, nskip, null, null, separator);
+		}
 
 		public static string[][] GetColumns(string[] columnNames, string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, char separator){
@@ -152,8 +179,13 @@ namespace BaseLibS.Parse{
 			return result;
 		}
 
-		public static bool HasColumn(string columnName, string filename, char separator) { return HasColumn(columnName, filename, 0, separator); }
-		public static bool HasColumn(string columnName, string filename, int nskip, char separator) { return HasColumn(columnName, filename, nskip, null, null, separator); }
+		public static bool HasColumn(string columnName, string filename, char separator){
+			return HasColumn(columnName, filename, 0, separator);
+		}
+
+		public static bool HasColumn(string columnName, string filename, int nskip, char separator){
+			return HasColumn(columnName, filename, nskip, null, null, separator);
+		}
 
 		public static bool HasColumn(string columnName, string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, char separator){
@@ -207,7 +239,9 @@ namespace BaseLibS.Parse{
 		}
 
 		public static string[] GetColumnIfContains(string columnName, string controlColumn, string controlValue,
-			string filename, bool inverse, int nskip, char separator) { return GetColumnsIfContains(new[]{columnName}, controlColumn, controlValue, filename, inverse, nskip, separator)[0]; }
+			string filename, bool inverse, int nskip, char separator){
+			return GetColumnsIfContains(new[]{columnName}, controlColumn, controlValue, filename, inverse, nskip, separator)[0];
+		}
 
 		public static double[] GetDoubleColumnIfContains(string columnName, string controlColumn, string controlValue,
 			string filename, bool inverse, int nskip, char separator){
@@ -220,11 +254,18 @@ namespace BaseLibS.Parse{
 			return d;
 		}
 
-		public static string[] GetColumnNames(string filename, int nskip, char separator) { return GetColumnNames(filename, nskip, null, null, null, separator); }
-		public static string[] GetColumnNames(string filename, char separator) { return GetColumnNames(filename, 0, null, null, null, separator); }
+		public static string[] GetColumnNames(string filename, int nskip, char separator){
+			return GetColumnNames(filename, nskip, null, null, null, separator);
+		}
+
+		public static string[] GetColumnNames(string filename, char separator){
+			return GetColumnNames(filename, 0, null, null, null, separator);
+		}
 
 		public static string[] GetColumnNames(string filename, HashSet<string> commentPrefix,
-			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator) { return GetColumnNames(filename, 0, commentPrefix, commentPrefixExceptions, annotationRows, separator); }
+			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator){
+			return GetColumnNames(filename, 0, commentPrefix, commentPrefixExceptions, annotationRows, separator);
+		}
 
 		public static string[] GetColumnNames(string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator){
@@ -291,8 +332,13 @@ namespace BaseLibS.Parse{
 			return null;
 		}
 
-		public static int GetRowCount(string filename) { return GetRowCount(filename, 0); }
-		public static int GetRowCount(string filename, int nskip) { return GetRowCount(filename, nskip, null, null); }
+		public static int GetRowCount(string filename){
+			return GetRowCount(filename, 0);
+		}
+
+		public static int GetRowCount(string filename, int nskip){
+			return GetRowCount(filename, nskip, null, null);
+		}
 
 		public static int GetRowCount(string filename, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions){
