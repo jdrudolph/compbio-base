@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using BaseLibS.Num;
 using BaseLibS.Util;
@@ -102,16 +103,46 @@ namespace BaseLibS.Mol{
 		private static string singleLetterAas;
 		private static string standardSingleLetterAas;
 		private static Dictionary<char, AminoAcid> letterToAa;
-		public static double[] AaMonoMasses { get { return aaMonoMasses ?? (aaMonoMasses = InitMasses()); } }
-		public static Dictionary<char, double> AaOccurences { get { return aaOccurences ?? (aaOccurences = InitOccurences()); } }
-		public static Dictionary<char, double> AaWeights { get { return aaWeights ?? (aaWeights = InitWeights()); } }
-		public static Dictionary<string, char> CodonToAa { get { return codonToAa ?? (codonToAa = InitCodonToAa()); } }
-		public static Dictionary<string, byte> CodonToInd { get { return codonToInd ?? (codonToInd = InitCodonToInd()); } }
-		public static Dictionary<char, string[]> AaToCodons { get { return aaToCodons ?? (aaToCodons = InitAaToCodons()); } }
-		public static string SingleLetterAas { get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(false)); } }
-		public static string StandardSingleLetterAas { get { return standardSingleLetterAas ?? (standardSingleLetterAas = ExtractSingleLetterAa(true)); } }
-		public static Dictionary<char, AminoAcid> LetterToAa { get { return letterToAa ?? (letterToAa = InitLetter2Aa()); } }
-		public static Dictionary<string, char[]> CodonMutatesToAa { get { return codonMutatesToAa ?? (codonMutatesToAa = InitCodonMutatesToAa()); } }
+
+		public static double[] AaMonoMasses{
+			get { return aaMonoMasses ?? (aaMonoMasses = InitMasses()); }
+		}
+
+		public static Dictionary<char, double> AaOccurences{
+			get { return aaOccurences ?? (aaOccurences = InitOccurences()); }
+		}
+
+		public static Dictionary<char, double> AaWeights{
+			get { return aaWeights ?? (aaWeights = InitWeights()); }
+		}
+
+		public static Dictionary<string, char> CodonToAa{
+			get { return codonToAa ?? (codonToAa = InitCodonToAa()); }
+		}
+
+		public static Dictionary<string, byte> CodonToInd{
+			get { return codonToInd ?? (codonToInd = InitCodonToInd()); }
+		}
+
+		public static Dictionary<char, string[]> AaToCodons{
+			get { return aaToCodons ?? (aaToCodons = InitAaToCodons()); }
+		}
+
+		public static string SingleLetterAas{
+			get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(false)); }
+		}
+
+		public static string StandardSingleLetterAas{
+			get { return standardSingleLetterAas ?? (standardSingleLetterAas = ExtractSingleLetterAa(true)); }
+		}
+
+		public static Dictionary<char, AminoAcid> LetterToAa{
+			get { return letterToAa ?? (letterToAa = InitLetter2Aa()); }
+		}
+
+		public static Dictionary<string, char[]> CodonMutatesToAa{
+			get { return codonMutatesToAa ?? (codonMutatesToAa = InitCodonMutatesToAa()); }
+		}
 
 		private static Dictionary<char, string[]> InitAaToCodons(){
 			Dictionary<char, string[]> result = new Dictionary<char, string[]>();
@@ -205,15 +236,26 @@ namespace BaseLibS.Mol{
 		}
 
 		public static Molecule GetPeptideMolecule(string aaseq){
-			List<Molecule> m = new List<Molecule>();
+			Dictionary<char, int> counts = new Dictionary<char, int>();
 			foreach (char c in aaseq){
 				if (!LetterToAa.ContainsKey(c)){
 					return null;
 				}
-				m.Add(LetterToAa[c]);
+				if (!counts.ContainsKey(c)){
+					counts.Add(c, 0);
+				}
+				counts[c]++;
 			}
-			m.Add(new Molecule("H2O"));
-			return Molecule.Sum(m);
+			char[] keys = counts.Keys.ToArray();
+			Molecule[] mol = new Molecule[keys.Length + 1];
+			int[] n = new int[keys.Length + 1];
+			for (int i = 0; i < keys.Length; i++){
+				mol[i] = letterToAa[keys[i]];
+				n[i] = counts[keys[i]];
+			}
+			mol[keys.Length] = new Molecule("H2O");
+			n[keys.Length] = 1;
+			return Molecule.Sum(mol, n);
 		}
 
 		public static AminoAcid[] FromLetters(char[] c){
@@ -430,7 +472,7 @@ namespace BaseLibS.Mol{
 		public List<int> partition;
 		public int remainder;
 		public double mass;
-		private TmpPartitionNew() { }
+		private TmpPartitionNew(){}
 
 		internal TmpPartitionNew(int n){
 			remainder = n;
