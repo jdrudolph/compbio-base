@@ -89,6 +89,9 @@ namespace BaseLib.Forms.Table{
 			if (GetRowData == null){
 				return null;
 			}
+			if (row < 0 || row >= rowCount){
+				return null;
+			}
 			object[] result = GetRowData(row);
 			if (persistentColInds != null){
 				for (int i = 0; i < persistentColInds.Count; i++){
