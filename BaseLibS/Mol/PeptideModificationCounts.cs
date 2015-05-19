@@ -28,6 +28,16 @@ namespace BaseLibS.Mol{
 			}
 		}
 
+		public Molecule GetMolecule(){
+			Molecule[] x = new Molecule[ModificationTypes.Length];
+			for (int i = 0; i < x.Length; i++){
+					Modification mod = Tables.ModificationList[ModificationTypes[i]];
+				;
+				x[i] = mod.GetMolecule();
+			}
+			return Molecule.Sum(x, ModificationCounts);
+		}
+
 		public double DeltaMass{
 			get{
 				double deltaMass = 0;

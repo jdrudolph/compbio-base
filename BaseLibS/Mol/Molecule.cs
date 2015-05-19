@@ -451,6 +451,10 @@ namespace BaseLibS.Mol{
 			return counts;
 		}
 
+		public static Molecule Sum(IList<Molecule> molecules, IList<ushort> n){
+			return Sum(molecules, ArrayUtils.ToInts(n));
+		}
+
 		public static Molecule Sum(IList<Molecule> molecules, IList<int> n){
 			int[] counts = new int[ChemElements.Elements.Length];
 			for (int i = 0; i < molecules.Count; i++){
@@ -462,7 +466,7 @@ namespace BaseLibS.Mol{
 			int[] types = new int[counts.Length];
 			int count = 0;
 			for (int i = 0; i < counts.Length; i++){
-				if (counts[i] > 0){
+				if (counts[i] != 0){
 					types[count++] = i;
 				}
 			}

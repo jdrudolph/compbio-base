@@ -264,5 +264,9 @@ namespace BaseLibS.Mol{
 			}
 			return false;
 		}
+
+		public Molecule GetMolecule(){
+			return new Molecule(GetFormula());
+		}
 	}
 }

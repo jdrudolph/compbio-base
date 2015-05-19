@@ -856,7 +856,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static void Histogram(IList<double> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-			double h, double min, double max){
+		                             double h, double min, double max){
 			int n = data.Count;
 			double span = max - min;
 			int nbins = (int) Math.Max(Math.Round(span/h), 1);
@@ -891,7 +891,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-			double h, double min, double max){
+		                             double h, double min, double max){
 			int n = data.Count;
 			double span = max - min;
 			int nbins = (int) Math.Max(Math.Round(span/h), 1);
@@ -926,7 +926,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static void Histogram(IList<double> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-			double h){
+		                             double h){
 			double min;
 			double max;
 			MinMax(data, out min, out max);
@@ -941,7 +941,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-			double h){
+		                             double h){
 			float min;
 			float max;
 			MinMax(data, out min, out max);
@@ -1475,6 +1475,14 @@ namespace BaseLibS.Util{
 			var result = new int[doubles.Count];
 			for (int i = 0; i < result.Length; i++){
 				result[i] = (int) Math.Round(doubles[i]);
+			}
+			return result;
+		}
+
+		public static int[] ToInts(IList<ushort> doubles){
+			var result = new int[doubles.Count];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = doubles[i];
 			}
 			return result;
 		}
