@@ -81,7 +81,25 @@ namespace BaseLibS.Mol{
 
 		public string GetEmpiricalFormula() { return GetEmpiricalFormula(true); }
 
-		public string GetEmpiricalFormula(bool oneForSingleAtoms){
+		public int GetOCount() {
+			int ind = ChemElements.IndexO;
+			int x = Array.BinarySearch(AtomType, ind);
+			return x < 0 ? 0 : AtomCount[x];
+		}
+
+		public int GetSCount() {
+			int ind = ChemElements.IndexS;
+			int x = Array.BinarySearch(AtomType, ind);
+			return x < 0 ? 0 : AtomCount[x];
+		}
+
+		public int GetHCount() {
+			int ind = ChemElements.IndexH;
+			int x = Array.BinarySearch(AtomType, ind);
+			return x < 0 ? 0 : AtomCount[x];
+		}
+
+		public string GetEmpiricalFormula(bool oneForSingleAtoms) {
 			StringBuilder result = new StringBuilder();
 			for (int i = 0; i < AtomType.Length; i++){
 				if (AtomCount[i] > 0){

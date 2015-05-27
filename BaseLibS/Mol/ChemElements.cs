@@ -6,7 +6,11 @@ using System.Text.RegularExpressions;
 namespace BaseLibS.Mol{
 	public static class ChemElements{
 		private static ChemElement[] elements;
-		public static ChemElement[] Elements { get { return elements ?? (elements = InitElements()); } }
+
+		public static ChemElement[] Elements{
+			get { return elements ?? (elements = InitElements()); }
+		}
+
 		private static Dictionary<string, ChemElement> elementDictionary;
 
 		public static Dictionary<string, ChemElement> ElementDictionary{
@@ -35,6 +39,39 @@ namespace BaseLibS.Mol{
 					elementIndex = elementIndex1;
 				}
 				return elementIndex;
+			}
+		}
+
+		private static int indexO = -1;
+
+		public static int IndexO{
+			get{
+				if (indexO == -1){
+					indexO = ElementIndex["O"];
+				}
+				return indexO;
+			}
+		}
+
+		private static int indexS = -1;
+
+		public static int IndexS{
+			get{
+				if (indexS == -1){
+					indexS = ElementIndex["S"];
+				}
+				return indexS;
+			}
+		}
+
+		private static int indexH = -1;
+
+		public static int IndexH{
+			get{
+				if (indexH == -1){
+					indexH = ElementIndex["H"];
+				}
+				return indexH;
 			}
 		}
 
