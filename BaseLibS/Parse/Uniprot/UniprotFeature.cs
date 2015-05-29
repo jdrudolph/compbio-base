@@ -38,8 +38,7 @@ namespace BaseLibS.Parse.Uniprot{
 			}
 		}
 
-		public UniprotFeature(string s){
-			string[] u = s.Split(',');
+		public UniprotFeature(string[] u) {
 			FeatureId = u[0];
 			FeatureDescription = u[1];
 			FeatureStatus = u[2];
