@@ -277,6 +277,7 @@ namespace BaseLibS.Parse{
 
 		public static string[] GetColumnNames(StreamReader reader, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions, Dictionary<string, string[]> annotationRows, char separator){
+			reader.BaseStream.Seek(0, SeekOrigin.Begin);
 			for (int i = 0; i < nskip; i++){
 				reader.ReadLine();
 			}
@@ -350,6 +351,7 @@ namespace BaseLibS.Parse{
 
 		public static int GetRowCount(StreamReader reader, int nskip, HashSet<string> commentPrefix,
 			HashSet<string> commentPrefixExceptions){
+			reader.BaseStream.Seek(0, SeekOrigin.Begin);
 			reader.ReadLine();
 			for (int i = 0; i < nskip; i++){
 				reader.ReadLine();
