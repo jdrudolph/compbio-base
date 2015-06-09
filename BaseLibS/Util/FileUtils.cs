@@ -172,11 +172,13 @@ namespace BaseLibS.Util{
 		public static BinaryReader GetBinaryReader(string path) { return new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)); }
 
 		public static StreamReader GetReader(string filename){
-			Stream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
-			Stream stream = filename.ToLower().EndsWith(".gz")
-				? new GZipStream(fileStream, CompressionMode.Decompress)
-				: fileStream;
-			return new StreamReader(stream);
+			bool gz = filename.ToLower().EndsWith(".gz");
+			if (gz){
+				Stream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
+				Stream stream = new GZipStream(fileStream, CompressionMode.Decompress);
+				return new StreamReader(stream);
+			}
+			return new StreamReader(filename);
 		}
 
 		/// <summary>
