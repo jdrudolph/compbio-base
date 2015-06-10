@@ -4785,4 +4785,41 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
+   <modification title="Sulfation (Y)" description="O-Sulfate" create_date="2015-06-10T10:12:49.8153314+02:00" last_modified_date="2015-06-10T10:15:47.4284903+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="S O(3)">
+      <position>anywhere</position>
+      <modification_site site="Y">
+         <neutralloss_collection>
+            <neutralloss name="Loss of 80" shortname="X" composition="S O(3)" />
+         </neutralloss_collection>
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Phospho (ST)" description="Phosphorylation" create_date="2015-06-10T10:16:19.7733403+02:00" last_modified_date="2015-06-10T10:16:43.4096923+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H O(3) P">
+      <position>anywhere</position>
+      <modification_site site="S">
+         <neutralloss_collection>
+            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
+         </neutralloss_collection>
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="T">
+         <neutralloss_collection>
+            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
+         </neutralloss_collection>
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Cys-Cys" description="Disulfide bridge" create_date="2015-06-10T10:17:21.5938763+02:00" last_modified_date="2015-06-10T10:30:27.6641159+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1)">
+      <position>anywhere</position>
+      <modification_site site="C">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
 </modifications>
