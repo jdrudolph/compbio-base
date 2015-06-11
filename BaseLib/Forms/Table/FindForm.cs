@@ -54,7 +54,7 @@ namespace BaseLib.Forms.Table{
 			}
 			if (rows.Length > 0) {
 				int ind0 = (int)tableView1.GetEntry(rows[0], 0) - 1;
-				tableView.ScrollToRow(ind0);
+				tableView.ScrollToRow(tableView.GetViewIndex(ind0));
 			}
 			tableView.Invalidate();
 		}

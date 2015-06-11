@@ -663,11 +663,15 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public int GetModelIndex(int rowIndView){
+		public int GetModelIndex(int rowIndView) {
 			return order[rowIndView];
 		}
 
-		public void ClearSelection(){
+		public int GetViewIndex(int rowIndModel) {
+			return inverseOrder[rowIndModel];
+		}
+
+		public void ClearSelection() {
 			if (modelRowSel == null){
 				return;
 			}
@@ -922,7 +926,7 @@ namespace BaseLib.Forms.Table{
 			Invalidate(true);
 		}
 
-		private int[] GetSelection(int ncols, string[][] colData, IList<int> colInds){
+		private int[] GetSelection(int ncols, IList<string[]> colData, IList<int> colInds){
 			switch (ncols){
 				case 1:
 					return GetSelection1(colData[0], colInds[0]);
