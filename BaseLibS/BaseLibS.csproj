@@ -102,6 +102,10 @@
     <Compile Include="Num\Test\SpearmanCorrelationTest.cs" />
     <Compile Include="Num\Test\TestSide.cs" />
     <Compile Include="Num\Test\TestTruncation.cs" />
+    <Compile Include="Num\Test\Univariate\NSamples\KruskalWallisTest.cs" />
+    <Compile Include="Num\Test\Univariate\NSamples\MultipleSamplesTest.cs" />
+    <Compile Include="Num\Test\Univariate\NSamples\OneWayAnovaTest.cs" />
+    <Compile Include="Num\Test\Univariate\UnivariateTest.cs" />
     <Compile Include="Num\TukeyBiweightCalc.cs" />
     <Compile Include="Api\BaseVector.cs" />
     <Compile Include="Num\Vector\BoolArrayVector.cs" />

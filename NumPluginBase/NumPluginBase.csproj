@@ -33,6 +33,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassificationRank\AnovaFeatureRanking.cs" />
     <Compile Include="ClassificationRank\ClassificationFeatureRankingMethods.cs" />
     <Compile Include="ClassificationRank\GolubFeatureRanking.cs" />
     <Compile Include="Classification\ClassificationMethods.cs" />
