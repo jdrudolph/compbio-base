@@ -5,6 +5,7 @@
 		IsobaricLabel,
 		AaSubstitution,
 		Glycan,
-		CleavedCrosslink
+		CleavedCrosslink,
+		NeuCode
 	}
 }

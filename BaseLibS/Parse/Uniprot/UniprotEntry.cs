@@ -193,6 +193,9 @@ namespace BaseLibS.Parse.Uniprot{
 
 		public void AddDbEntryProperty(string dbReferenceType, string dbReferenceId, string protertyType, string protertyValue){
 			DbReferenceType type = DbReferenceType.GetDbReferenceType(dbReferenceType);
+			if (type == null) {
+				return;
+			}
 			dbEntries[type][dbReferenceId].AddProperty(protertyType, protertyValue);
 		}
 
@@ -201,6 +204,9 @@ namespace BaseLibS.Parse.Uniprot{
 				dbEntries = new Dictionary<DbReferenceType, Dictionary<string, UniprotDbReference>>();
 			}
 			DbReferenceType type = DbReferenceType.GetDbReferenceType(dbReferenceType);
+			if (type == null){
+				return;
+			}
 			if (!dbEntries.ContainsKey(type)){
 				dbEntries.Add(type, new Dictionary<string, UniprotDbReference>());
 			}

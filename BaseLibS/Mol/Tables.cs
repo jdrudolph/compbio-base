@@ -13,10 +13,20 @@ namespace BaseLibS.Mol{
 		private static Dictionary<string, Modification> modifications;
 		private static Dictionary<string, Modification> labelModifications;
 		private static Dictionary<string, Modification> isobaricLabelModifications;
+		private static Dictionary<string, Modification> neucodeModifications;
 		private static Modification[] modificationList;
-		public static Dictionary<string, SequenceDatabase> Databases { get { return databases ?? (databases = ReadDatabases()); } }
-		public static Dictionary<string, Enzyme> Enzymes { get { return enzymes ?? (enzymes = ReadProteases()); } }
-		public static Dictionary<string, CrossLinker> CrossLinkers { get { return crossLinkers ?? (crossLinkers = ReadCrossLinks()); } }
+
+		public static Dictionary<string, SequenceDatabase> Databases{
+			get { return databases ?? (databases = ReadDatabases()); }
+		}
+
+		public static Dictionary<string, Enzyme> Enzymes{
+			get { return enzymes ?? (enzymes = ReadProteases()); }
+		}
+
+		public static Dictionary<string, CrossLinker> CrossLinkers{
+			get { return crossLinkers ?? (crossLinkers = ReadCrossLinks()); }
+		}
 
 		public static Dictionary<string, Modification> Modifications{
 			get{
@@ -25,27 +35,43 @@ namespace BaseLibS.Mol{
 						modifications = null;
 					}
 					return modifications ??
-						(modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications));
+							(modifications =
+							ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
+								out neucodeModifications));
 				}
 			}
 		}
 
-		public static Dictionary<string, Modification> LabelModifications{
-			get{
-				lock (lockMods){
-					if (labelModifications == null){
-						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications);
+		public static Dictionary<string, Modification> LabelModifications {
+			get {
+				lock (lockMods) {
+					if (labelModifications == null) {
+						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
+							out neucodeModifications);
 					}
 					return labelModifications;
 				}
 			}
 		}
 
-		public static Dictionary<string, Modification> IsobaricLabelModifications{
+		public static Dictionary<string, Modification> NeucodeModifications {
+			get {
+				lock (lockMods) {
+					if (neucodeModifications == null) {
+						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
+							out neucodeModifications);
+					}
+					return neucodeModifications;
+				}
+			}
+		}
+
+		public static Dictionary<string, Modification> IsobaricLabelModifications {
 			get{
 				lock (lockMods){
 					if (isobaricLabelModifications == null){
-						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications);
+						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
+							out neucodeModifications);
 					}
 					return isobaricLabelModifications;
 				}
@@ -56,7 +82,8 @@ namespace BaseLibS.Mol{
 			get{
 				lock (lockMods){
 					if (modificationList == null){
-						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications);
+						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
+							out neucodeModifications);
 					}
 					return modificationList;
 				}
@@ -137,13 +164,19 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public static string[] GetLabelModifications(){
+		public static string[] GetLabelModifications() {
 			string[] result = ArrayUtils.GetKeys(LabelModifications);
 			Array.Sort(result);
 			return result;
 		}
 
-		public static string[] GetNonlabelModifications(){
+		public static string[] GetNeucodeModifications() {
+			string[] result = ArrayUtils.GetKeys(NeucodeModifications);
+			Array.Sort(result);
+			return result;
+		}
+
+		public static string[] GetNonlabelModifications() {
 			List<string> result1 = new List<string>();
 			List<string> result2 = new List<string>();
 			List<string> result3 = new List<string>();
@@ -188,14 +221,18 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public static Enzyme ToEnzyme(string enz) { return enz.ToLower().Equals("unspecific") ? null : Enzymes[enz]; }
+		public static Enzyme ToEnzyme(string enz){
+			return enz.ToLower().Equals("unspecific") ? null : Enzymes[enz];
+		}
 
-		public static Dictionary<string, Modification> ReadModifications(out Modification[] modList,
-			out Dictionary<string, Modification> labelMods, out Dictionary<string, Modification> isobaricLabelMods){
+		private static Dictionary<string, Modification> ReadModifications(out Modification[] modList,
+			out Dictionary<string, Modification> labelMods, out Dictionary<string, Modification> isobaricLabelMods,
+			out Dictionary<string, Modification> neucodeLabelMods){
 			Dictionary<string, Modification> result = new Dictionary<string, Modification>();
 			modList = null;
 			labelMods = new Dictionary<string, Modification>();
 			isobaricLabelMods = new Dictionary<string, Modification>();
+			neucodeLabelMods = new Dictionary<string, Modification>();
 			Modification[] list = ReadModificationList();
 			if (list != null){
 				modList = list;
@@ -211,6 +248,9 @@ namespace BaseLibS.Mol{
 					}
 					if (mod.ModificationType == ModificationType.IsobaricLabel && !isobaricLabelMods.ContainsKey(mod.Name)){
 						isobaricLabelMods.Add(mod.Name, mod);
+					}
+					if (mod.ModificationType == ModificationType.NeuCode && !neucodeLabelMods.ContainsKey(mod.Name)){
+						neucodeLabelMods.Add(mod.Name, mod);
 					}
 				}
 			}
@@ -375,9 +415,17 @@ namespace BaseLibS.Mol{
 			return parseRules;
 		}
 
-		public static void ClearEnzymes() { enzymes = null; }
-		public static void ClearDatabases() { databases = null; }
-		public static void ClearCrosslinks() { crossLinkers = null; }
+		public static void ClearEnzymes(){
+			enzymes = null;
+		}
+
+		public static void ClearDatabases(){
+			databases = null;
+		}
+
+		public static void ClearCrosslinks(){
+			crossLinkers = null;
+		}
 
 		public static Modification[] FromStrings(string[] mods){
 			if (mods == null){

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using BaseLibS.Util;
 
 namespace BaseLibS.Parse.Uniprot{
@@ -171,6 +172,12 @@ namespace BaseLibS.Parse.Uniprot{
 		public static DbReferenceType prositeProrule = new DbReferenceType("prosite-prorule");
 		public static DbReferenceType geneReviews = new DbReferenceType("genereviews");
 		public static DbReferenceType proteomes = new DbReferenceType("proteomes");
+		public static DbReferenceType expressionAtlas = new DbReferenceType("expressionatlas");
+		public static DbReferenceType bioMuta = new DbReferenceType("biomuta");
+		public static DbReferenceType chEbi = new DbReferenceType("chebi");
+		public static DbReferenceType depod = new DbReferenceType("depod");
+		public static DbReferenceType moonProt = new DbReferenceType("moonprot");
+
 		public static string[] allDbReferenceTypeStrings;
 		public static DbReferenceType[] allDbReferenceTypes = CreateDbReferenceTypeList();
 
@@ -341,8 +348,14 @@ namespace BaseLibS.Parse.Uniprot{
 				maxqb,
 				prositeProrule,
 				geneReviews,
-				proteomes
+				proteomes,
+				expressionAtlas,
+				bioMuta,
+				chEbi,
+				depod,
+				moonProt
 			};
+
 			allDbReferenceTypeStrings = new string[ft.Count];
 			allDbReferenceTypeStrings = new string[ft.Count];
 			for (int i = 0; i < allDbReferenceTypeStrings.Length; i++){
@@ -362,7 +375,8 @@ namespace BaseLibS.Parse.Uniprot{
 			string q = s.ToLower();
 			int index = Array.BinarySearch(allDbReferenceTypeStrings, q);
 			if (index < 0){
-				throw new Exception("Unknown DbReference type: " + s);
+				MessageBox.Show("Unknown DbReference type: " + s);
+				return null;
 			}
 			return allDbReferenceTypes[index];
 		}
