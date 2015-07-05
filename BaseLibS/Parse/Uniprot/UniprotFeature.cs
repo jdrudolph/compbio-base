@@ -38,6 +38,22 @@ namespace BaseLibS.Parse.Uniprot{
 			}
 		}
 
+		public void Write(BinaryWriter writer) {
+			writer.Write(FeatureId);
+			writer.Write(FeatureDescription);
+			writer.Write(FeatureStatus);
+			writer.Write(FeatureBegin);
+			writer.Write(FeatureEnd);
+			writer.Write(originals.Count);
+			foreach (string t in originals) {
+				writer.Write(t);
+			}
+			writer.Write(variations.Count);
+			foreach (string t in variations) {
+				writer.Write(t);
+			}
+		}
+
 		public UniprotFeature(string[] u) {
 			FeatureId = u[0];
 			FeatureDescription = u[1];
@@ -69,22 +85,6 @@ namespace BaseLibS.Parse.Uniprot{
 				x.Add(Convert1(s));
 			}
 			return StringUtils.Concat(",", x);
-		}
-
-		public void Write(BinaryWriter writer){
-			writer.Write(FeatureId);
-			writer.Write(FeatureDescription);
-			writer.Write(FeatureStatus);
-			writer.Write(FeatureBegin);
-			writer.Write(FeatureEnd);
-			writer.Write(originals.Count);
-			foreach (string t in originals){
-				writer.Write(t);
-			}
-			writer.Write(variations.Count);
-			foreach (string t in variations){
-				writer.Write(t);
-			}
 		}
 
 		private static string Convert1(string s){
