@@ -1,7 +1,8 @@
 namespace BaseLibS.Num.Test.Univariate.NSamples{
 	public abstract class MultipleSamplesTest : UnivariateTest{
-		public static MultipleSamplesTest[] allTests = new MultipleSamplesTest[] 
-		{new OneWayAnovaTest(), new KruskalWallisTest()};
+		public static MultipleSamplesTest[] allTests = new MultipleSamplesTest[]{new OneWayAnovaTest()};
+											//, new KruskalWallisTest()
+
 		public static string[] allNames;
 
 		static MultipleSamplesTest(){
