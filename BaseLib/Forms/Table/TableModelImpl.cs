@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Windows;
+using BaseLibS.Table;
 
 namespace BaseLib.Forms.Table{
 	/// <summary>
@@ -97,11 +97,11 @@ namespace BaseLib.Forms.Table{
 			return GetAnnotationRowValue(index, GetColumnIndex(colname));
 		}
 
-		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility){
-			AddColumn(colName, width, columnType, description, visibility, null);
+		public void AddColumn(string colName, int width, ColumnType columnType, string description){
+			AddColumn(colName, width, columnType, description, null);
 		}
 
-		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility,
+		public void AddColumn(string colName, int width, ColumnType columnType, string description,
 			RenderTableCell renderer){
 			nameMapping.Add(colName, columnNames.Count);
 			columnNames.Add(colName);

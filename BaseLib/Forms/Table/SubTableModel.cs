@@ -1,4 +1,5 @@
 using System;
+using BaseLibS.Table;
 
 namespace BaseLib.Forms.Table{
 	public class SubTableModel : ITableModel{

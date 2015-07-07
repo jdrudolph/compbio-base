@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using BaseLibS.Table;
 
 namespace BaseLib.Forms.Table{
 	[Serializable]

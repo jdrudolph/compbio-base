@@ -158,13 +158,10 @@
     <Compile Include="Forms\Select\MultiListSelectorSubSelection.Designer.cs">
       <DependentUpon>MultiListSelectorSubSelection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\ColumnType.cs" />
     <Compile Include="Forms\Table\PasteSelectionWindow.xaml.cs">
       <DependentUpon>PasteSelectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Table\VirtualDataTable2.cs" />
-    <Compile Include="Forms\Table\DataAnnotationRow.cs" />
-    <Compile Include="Forms\Table\DataRow2.cs" />
     <Compile Include="Forms\Table\DataTable2.cs" />
     <Compile Include="Forms\Table\FindForm.cs">
       <SubType>Form</SubType>
@@ -172,8 +169,6 @@
     <Compile Include="Forms\Table\FindForm.Designer.cs">
       <DependentUpon>FindForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\IDataTable.cs" />
-    <Compile Include="Forms\Table\ITable.cs" />
     <Compile Include="Forms\Table\ITableModel.cs" />
     <Compile Include="Forms\Table\SelectColumnsForm.cs">
       <SubType>Form</SubType>
@@ -181,20 +176,10 @@
     <Compile Include="Forms\Table\SelectColumnsForm.Designer.cs">
       <DependentUpon>SelectColumnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\SortState.cs" />
     <Compile Include="Forms\Table\SubTableModel.cs" />
     <Compile Include="Forms\Table\TableModelImpl.cs" />
     <Compile Include="Forms\Table\TableView.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Table\TagsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Forms\Table\TagsControl.Designer.cs">
-      <DependentUpon>TagsControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forms\Table\TagsWindow.xaml.cs">
-      <DependentUpon>TagsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Table\VirtualDataTable.cs" />
     <Compile Include="Graphic\BitmapGraphics.cs" />
@@ -365,9 +350,6 @@
       <DependentUpon>TableView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Table\TagsControl.resx">
-      <DependentUpon>TagsControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Param\ParameterGroupPanel.resx">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -462,10 +444,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Forms\Table\PasteSelectionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Forms\Table\TagsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

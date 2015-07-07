@@ -1,5 +1,10 @@
+using BaseLib.Graphic;
+using BaseLibS.Table;
+
 namespace BaseLib.Forms.Table{
-	public interface ITableModel{
+	public delegate void RenderTableCell(IGraphics g, bool selected, object o, int width, int x1, int y1);
+
+	public interface ITableModel {
 		int RowCount { get; }
 		int ColumnCount { get; }
 		string Name { get; }

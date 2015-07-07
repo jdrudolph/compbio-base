@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using BaseLibS.Util;
 
 namespace BaseLibS.Parse.Uniprot{
@@ -375,8 +374,7 @@ namespace BaseLibS.Parse.Uniprot{
 			string q = s.ToLower();
 			int index = Array.BinarySearch(allDbReferenceTypeStrings, q);
 			if (index < 0){
-				MessageBox.Show("Unknown DbReference type: " + s);
-				return null;
+				throw new Exception("Unknown DbReference type: " + s);
 			}
 			return allDbReferenceTypes[index];
 		}

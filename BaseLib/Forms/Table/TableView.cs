@@ -11,11 +11,10 @@ using BaseLib.Graphic;
 using BaseLib.Properties;
 using BaseLib.Symbol;
 using BaseLib.Wpf;
+using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
-	public delegate void RenderTableCell(IGraphics g, bool selected, object o, int width, int x1, int y1);
-
 	public class TableView : CompoundScrollableControl{
 		private const int rowHeight = 22;
 		private static readonly Color gridColor = Color.FromArgb(172, 168, 153);

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Windows;
+using BaseLibS.Table;
 
 namespace BaseLib.Forms.Table{
 	[Serializable]
@@ -18,29 +18,29 @@ namespace BaseLib.Forms.Table{
 			this.rowCount = rowCount;
 		}
 
-		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility,
+		public void AddColumn(string colName, int width, ColumnType columnType, string description,
 			bool persistent){
-			AddColumn(colName, width, columnType, description, visibility);
+			AddColumn(colName, width, columnType, description);
 			if (persistent){
-				AddPersistentColumn(colName, width, columnType, description, visibility, null);
+				AddPersistentColumn(colName, width, columnType, description, null);
 			}
 		}
 
-		public void AddColumn(string colName, int width, ColumnType columnType, string description, Visibility visibility,
+		public void AddColumn(string colName, int width, ColumnType columnType, string description,
 			RenderTableCell renderer, bool persistent){
-			AddColumn(colName, width, columnType, description, visibility, renderer);
+			AddColumn(colName, width, columnType, description, renderer);
 			if (persistent){
-				AddPersistentColumn(colName, width, columnType, description, visibility, renderer);
+				AddPersistentColumn(colName, width, columnType, description, renderer);
 			}
 		}
 
 		private void AddPersistentColumn(string colName, int width, ColumnType columnType, string description,
-			Visibility visibility, RenderTableCell renderer){
+			RenderTableCell renderer){
 			if (persistentTable == null){
 				persistentTable = new DataTable2(Name, Description);
 				persistentColInds = new List<int>();
 			}
-			persistentTable.AddColumn(colName, width, columnType, description, visibility, renderer);
+			persistentTable.AddColumn(colName, width, columnType, description, renderer);
 			persistentColInds.Add(columnNames.Count - 1);
 			persistentColInds.Sort();
 		}

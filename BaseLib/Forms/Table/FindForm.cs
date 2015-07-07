@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Forms;
+using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
@@ -113,8 +113,8 @@ namespace BaseLib.Forms.Table{
 
 		private ITableModel CreateTable(IList<int> searchInds, IList<int[]> matchingCols){
 			DataTable2 table = new DataTable2("Search results", "Search results");
-			table.AddColumn("Row", 100, ColumnType.Integer, "", Visibility.Visible);
-			table.AddColumn("Columns", 80, ColumnType.Text, "", Visibility.Visible);
+			table.AddColumn("Row", 100, ColumnType.Integer, "");
+			table.AddColumn("Columns", 80, ColumnType.Text, "");
 			for (int index = 0; index < searchInds.Count; index++){
 				int searchInd = searchInds[index];
 				DataRow2 row = table.NewRow();
