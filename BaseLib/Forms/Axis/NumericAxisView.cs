@@ -698,9 +698,9 @@ namespace BaseLib.Forms.Axis{
 					double newMax = IsLogarithmic ? Math.Log(f.MaxValue) : f.MaxValue;
 					if (!double.IsNaN(newMin) && !double.IsNaN(newMax) && newMin < newMax){
 						ZoomMin = newMin;
-						TotalMin = Math.Min(TotalMin, ZoomMin);
 						ZoomMax = newMax;
-						TotalMax = Math.Max(TotalMax, ZoomMax);
+						TotalMin = newMin;
+						TotalMax = newMax;
 						FireZoomChanged();
 						Invalidate();
 					}

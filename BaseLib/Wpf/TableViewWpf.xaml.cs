@@ -37,6 +37,10 @@ namespace BaseLib.Wpf{
 			}
 		}
 
+		public void Select(){
+			tableView.Select();
+		}
+
 		public void SwitchOnTextBox(){
 			tableView.SetCellText = s => AuxTextBox.Text = s;
 			MainGrid.RowDefinitions.Clear();

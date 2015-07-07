@@ -8,7 +8,7 @@
             <RowDefinition Height="26"></RowDefinition>
         </Grid.RowDefinitions>
                 <Grid Background="#FFE5E5E5">
-                    <ScrollViewer>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                         <param:ParameterPanel x:Name="ParameterPanel1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
                     </ScrollViewer>
                 </Grid>
