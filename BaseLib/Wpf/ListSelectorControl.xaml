@@ -27,7 +27,11 @@
                 <Button Grid.Row="0" Content="&gt;" ToolTip="Select" Click="Select_OnClick"></Button>
                 <Button Grid.Row="1" Content="&lt;" ToolTip="Deselect" Click="Deselect_OnClick"></Button>
             </Grid>
-            <ListBox Grid.Column="2" x:Name="SelectedListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True"></ListBox>
+            <ListBox Grid.Column="2" x:Name="SelectedListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True">
+				<ListBox.CommandBindings>
+					<CommandBinding Command="{x:Static local:CommonCommands.selectAll}" Executed="CommandBinding_OnExecuted"/>
+				</ListBox.CommandBindings>
+			</ListBox>
             <Grid Grid.Column="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="23"/>

@@ -263,6 +263,7 @@
     <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
       <DependentUpon>CheckedListBoxControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\CommonCommands.cs" />
     <Compile Include="Wpf\DictionaryIntValueControl.xaml.cs">
       <DependentUpon>DictionaryIntValueControl.xaml</DependentUpon>
     </Compile>
