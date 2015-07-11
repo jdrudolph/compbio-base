@@ -15,7 +15,7 @@ using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
-	public class TableView : CompoundScrollableControl{
+	public class TableViewWf : CompoundScrollableControl{
 		private const int rowHeight = 22;
 		private static readonly Color gridColor = Color.FromArgb(172, 168, 153);
 		private static readonly Pen gridPen = new Pen(gridColor);
@@ -96,7 +96,7 @@ namespace BaseLib.Forms.Table{
 		//TODO
 		private readonly ToolTip columnViewToolTip = new ToolTip();
 		//private readonly ToolTip mainViewToolTip = new ToolTip();
-		public TableView(string name){
+		public TableViewWf(string name){
 			Sortable = true;
 			RowHeaderWidth = 70;
 			ColumnHeaderHeight = 26;
@@ -130,7 +130,7 @@ namespace BaseLib.Forms.Table{
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }
-		public TableView() : this(""){}
+		public TableViewWf() : this(""){}
 
 
 		public bool HasShowInPerseus{

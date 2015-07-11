@@ -43,7 +43,7 @@
 			this.matchCaseCheckBox = new System.Windows.Forms.CheckBox();
 			this.expressionTextBox = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.tableView1 = new TableView();
+			this.tableView1 = new TableViewWf();
 			this.statusStrip1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -298,7 +298,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button findAllButton;
 		private System.Windows.Forms.Button findNextButton;
-		private TableView tableView1;
+		private TableViewWf tableView1;
 		private System.Windows.Forms.CheckBox matchWholeWordCheckBox;
 		private System.Windows.Forms.ComboBox wildcardsComboBox;
 		private System.Windows.Forms.ComboBox lookInComboBox;

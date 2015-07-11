@@ -9,12 +9,12 @@ using BaseLibS.Util;
 namespace BaseLib.Forms.Table{
 	internal partial class FindForm : Form{
 		private const int expandedHeight = 700;
-		private readonly TableView tableView;
+		private readonly TableViewWf tableView;
 		private readonly ITableModel tableModel;
 		private int searchRowIndView = -1;
 		private int[] multipleColumns = new int[0];
 
-		public FindForm(TableView tableView){
+		public FindForm(TableViewWf tableView){
 			InitializeComponent();
 			this.tableView = tableView;
 			tableModel = tableView.TableModel;

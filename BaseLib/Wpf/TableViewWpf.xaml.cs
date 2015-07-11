@@ -11,11 +11,11 @@ namespace BaseLib.Wpf{
 	/// </summary>
 	public partial class TableViewWpf{
 		public event EventHandler SelectionChanged;
-		private readonly TableView tableView;
+		private readonly TableViewWf tableView;
 
 		public TableViewWpf(){
 			InitializeComponent();
-			tableView = new TableView();
+			tableView = new TableViewWf();
 			tableView.SelectionChanged += (sender, args) =>{
 				if (SelectionChanged != null){
 					SelectionChanged(sender, args);
