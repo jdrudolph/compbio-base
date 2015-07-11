@@ -300,8 +300,8 @@
       <DependentUpon>IntQueryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
-    <Compile Include="Wpf\TableViewWpf.xaml.cs">
-      <DependentUpon>TableViewWpf.xaml</DependentUpon>
+    <Compile Include="Wpf\TableView.xaml.cs">
+      <DependentUpon>TableView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\Axis\NumericAxisPropertiesForm.resx">
@@ -520,7 +520,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\TableViewWpf.xaml">
+    <Page Include="Wpf\TableView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

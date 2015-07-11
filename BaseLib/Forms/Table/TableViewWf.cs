@@ -15,7 +15,7 @@ using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
-	public class TableViewWf : CompoundScrollableControl{
+	internal class TableViewWf : CompoundScrollableControl{
 		private const int rowHeight = 22;
 		private static readonly Color gridColor = Color.FromArgb(172, 168, 153);
 		private static readonly Pen gridPen = new Pen(gridColor);
