@@ -3,16 +3,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 
 namespace BaseLib.Graphic{
-	[Flags]
-	public enum RectangleCorners{
-		None = 0,
-		TopLeft = 1,
-		TopRight = 2,
-		BottomLeft = 4,
-		BottomRight = 8,
-		All = TopLeft | TopRight | BottomLeft | BottomRight
-	}
-
 	/// <summary>
 	/// This interface provides the abstract basis for graphics routines for different devices (window, pdf,
 	/// etc). As such, graphics routines can be fully generalized and can be reused when exporting graphics
@@ -26,6 +16,7 @@ namespace BaseLib.Graphic{
 		/// 
 		/// </summary>
 		SmoothingMode SmoothingMode { get; set; }
+
 		void Dispose();
 
 		/// <summary>
@@ -100,8 +91,6 @@ namespace BaseLib.Graphic{
 		/// <param name="height">Height of the rectangle to draw.</param>
 		void DrawRectangle(Pen pen, float x, float y, float width, float height);
 
-		void DrawRectangle(Pen pen, float x, float y, float width, float height, float radius, RectangleCorners corners);
-
 		/// <summary>
 		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
 		/// </summary>
@@ -111,18 +100,6 @@ namespace BaseLib.Graphic{
 		/// <param name="width">Width of the rectangle to fill.</param>
 		/// <param name="height">Height of the rectangle to fill.</param>
 		void FillRectangle(Brush brush, float x, float y, float width, float height);
-
-		/// <summary>
-		/// Fills the interior of a rectangle with rounded corners specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="width">Width of the rectangle to fill.</param>
-		/// <param name="height">Height of the rectangle to fill.</param>
-		/// <param name="radius"></param>
-		/// <param name="corners"></param>
-		void FillRectangle(Brush brush, float x, float y, float width, float height, float radius, RectangleCorners corners);
 
 		void DrawPolygon(Pen pen, Point[] points);
 		void FillPolygon(Brush brush, Point[] points);

@@ -241,13 +241,6 @@ namespace BaseLib.Graphic{
 			rectList.Add(rect);
 		}
 
-		public void DrawRectangle(Pen pen, float x, float y, float w, float h, float radius, RectangleCorners corners) {
-			rectList.Add(new Rect{
-				X = x, Y = y, Width = w, Height = h, Fill = "none", Transform = Transform, Stroke = pen.Color.Name,
-				StrokeWidth = pen.Width, Rx = radius, Ry = radius
-			});
-		}
-
 		/// <summary>
 		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
 		/// </summary>
@@ -258,24 +251,6 @@ namespace BaseLib.Graphic{
 		/// <param name="height">Height of the rectangle to fill.</param>
 		public void FillRectangle(Brush brush, float x, float y, float width, float height){
 			rectList.Add(new Rect{X = x, Y = y, Width = width, Height = height, Fill = BrushColor(brush), Transform = Transform});
-		}
-
-		/// <summary>
-		/// Fills the interior of a rectangle with rounded corners specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="width">Width of the rectangle to fill.</param>
-		/// <param name="height">Height of the rectangle to fill.</param>
-		/// <param name="radius"></param>
-		/// <param name="corners"></param>
-		public void FillRectangle(Brush brush, float x, float y, float width, float height, float radius,
-			RectangleCorners corners){
-			rectList.Add(new Rect{
-				X = x, Y = y, Width = width, Height = height, Fill = BrushColor(brush), Transform = Transform, Rx = radius,
-				Ry = radius
-			});
 		}
 
 		public void DrawPolygon(Pen pen, Point[] points){

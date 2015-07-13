@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using BaseLibS.Num;
 using BaseLibS.Table;
 using BaseLibS.Util;
 

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BaseLibS.Num;
 
 namespace BaseLibS.Util{
 	public class ComparableList<T>{

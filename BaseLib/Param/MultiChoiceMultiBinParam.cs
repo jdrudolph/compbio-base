@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BaseLib.Wpf;
+using BaseLibS.Num;
 using BaseLibS.Param;
 using BaseLibS.Util;
 

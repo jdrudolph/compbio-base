@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using BaseLibS.Num;
 using BaseLibS.Util;
 
 namespace BaseLib.Wpf{

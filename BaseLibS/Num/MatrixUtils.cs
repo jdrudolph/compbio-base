@@ -332,12 +332,21 @@ namespace BaseLibS.Num{
 		public static bool HasNanOrInf(float[,] x){
 			for (int i = 0; i < x.GetLength(0); i++){
 				for (int j = 0; j < x.GetLength(1); j++){
-					if (Single.IsNaN(x[i, j]) || Single.IsInfinity(x[i, j])){
+					if (float.IsNaN(x[i, j]) || float.IsInfinity(x[i, j])){
 						return true;
 					}
 				}
 			}
 			return false;
+		}
+
+		public static double ColumnNorm2(double[,] x, int colInd){
+			int nrows = x.GetLength(0);
+			double sum = 0;
+			for (int i = 0; i < nrows; i++){
+				sum += x[i, colInd]*x[i, colInd];
+			}
+			return Math.Sqrt(sum);
 		}
 	}
 }

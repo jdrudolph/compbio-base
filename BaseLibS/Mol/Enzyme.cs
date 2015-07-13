@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using BaseLibS.Num;
 using BaseLibS.Util;
 
 namespace BaseLibS.Mol{

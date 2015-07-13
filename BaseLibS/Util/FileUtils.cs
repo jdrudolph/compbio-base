@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using BaseLibS.Api;
+using BaseLibS.Num;
 
 namespace BaseLibS.Util{
 	public static class FileUtils{

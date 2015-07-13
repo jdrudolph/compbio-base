@@ -146,12 +146,6 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawRectangle(Pen pen, float x, float y, float width, float height, float radius, RectangleCorners corners) {
-			SetPen(pen);
-			template.RoundRectangle(x, y, width, height, radius);
-			template.Stroke();
-		}
-
 		public void FillRectangle(Brush brush, float x, float y, float width, float height){
 			if (brush is SolidBrush){
 				if ((brush as SolidBrush).Color.IsEmpty){
@@ -160,24 +154,6 @@ namespace BaseLib.Graphic{
 			}
 			SetBrush(brush);
 			template.Rectangle(x, currentHeight - y, width, -height);
-			template.Fill();
-		}
-
-
-		/// <summary>
-		/// Fills the interior of a rectangle with rounded corners specified by a pair of coordinates, a width, and a height.
-		/// </summary>
-		/// <param name="brush">Brush that determines the characteristics of the fill.</param>
-		/// <param name="x">The x-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to fill.</param>
-		/// <param name="width">Width of the rectangle to fill.</param>
-		/// <param name="height">Height of the rectangle to fill.</param>
-		/// <param name="radius"></param>
-		/// <param name="corners"></param>
-		public void FillRectangle(Brush brush, float x, float y, float width, float height, float radius,
-			RectangleCorners corners){
-			SetBrush(brush);
-			template.RoundRectangle(x, y, width, height, radius);
 			template.Fill();
 		}
 

@@ -11,6 +11,7 @@ using BaseLib.Graphic;
 using BaseLib.Properties;
 using BaseLib.Symbol;
 using BaseLib.Wpf;
+using BaseLibS.Num;
 using BaseLibS.Table;
 using BaseLibS.Util;
 

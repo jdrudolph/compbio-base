@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using BaseLibS.Num;
 using BaseLibS.Util;
 
 namespace BaseLibS.Data{

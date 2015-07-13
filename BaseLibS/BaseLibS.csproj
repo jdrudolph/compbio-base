@@ -131,7 +131,7 @@
     <Compile Include="Table\IDataTable.cs" />
     <Compile Include="Table\ITable.cs" />
     <Compile Include="Table\SortState.cs" />
-    <Compile Include="Util\ArrayUtils.cs" />
+    <Compile Include="Num\ArrayUtils.cs" />
     <Compile Include="Util\ComparableList.cs" />
     <Compile Include="Util\DocumentType.cs" />
     <Compile Include="Util\FileUtils.cs" />

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using BaseLibS.Num;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Select{

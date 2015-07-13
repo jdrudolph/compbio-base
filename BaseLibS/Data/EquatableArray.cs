@@ -1,4 +1,5 @@
-﻿using BaseLibS.Util;
+﻿using BaseLibS.Num;
+using BaseLibS.Util;
 
 namespace BaseLibS.Data{
 	public class EquatableArray<T>{

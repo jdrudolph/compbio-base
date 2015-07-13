@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BaseLib.Param;
 using BaseLibS.Api;
+using BaseLibS.Num;
 using BaseLibS.Param;
 using BaseLibS.Util;
 using NumPluginBase.Kernel;
