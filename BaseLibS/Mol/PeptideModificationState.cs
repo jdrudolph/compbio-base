@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLibS.Mol{
 	public class PeptideModificationState{

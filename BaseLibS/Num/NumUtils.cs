@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Linq;
 using BaseLibS.Data;
 using BaseLibS.Num.Test;
-using BaseLibS.Util;
 
 namespace BaseLibS.Num{
 	public static class NumUtils{
