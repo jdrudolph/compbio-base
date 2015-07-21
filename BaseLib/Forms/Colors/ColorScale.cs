@@ -43,7 +43,10 @@ namespace BaseLib.Forms.Colors{
 			FireColorChanged();
 		}
 
+		public bool Locked { get; set; }
+
 		private void UpdateColor(object source, double min, double max){
+			Locked = true;
 			FireColorChanged();
 		}
 
