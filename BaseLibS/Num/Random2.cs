@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BaseLibS.Util;
 
 namespace BaseLibS.Num{
 	/// <summary>
@@ -34,14 +33,6 @@ namespace BaseLibS.Num{
 
 		public bool NextBoolean(double pTrue){
 			return NextDouble() < pTrue;
-		}
-
-		/// <summary>
-		/// Returns a random number uniformly distributed between -x and x;
-		/// </summary>
-		/// <returns></returns>
-		public double NextPm(double x) {
-			return NextRange(-x, x);
 		}
 
 		/// <summary>

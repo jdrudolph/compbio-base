@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLibS.Api;
-using BaseLibS.Util;
 
 namespace BaseLibS.Num.Vector{
 	[Serializable]

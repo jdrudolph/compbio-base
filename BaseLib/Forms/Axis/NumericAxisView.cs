@@ -5,7 +5,6 @@ using System.Drawing.Drawing2D;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLib.Forms.Axis{
 	public delegate void ZoomChangeHandler(object sender, double min, double max);
@@ -469,13 +468,13 @@ namespace BaseLib.Forms.Axis{
 		private string GetTicLabel(double ticval, int decade, double max){
 			if (IsLogarithmic){
 				int exp = (int) Math.Round(ticval/Math.Log(10.0));
-				if (exp == -1) {
+				if (exp == -1){
 					return "0.1";
 				}
-				if (exp == 0) {
+				if (exp == 0){
 					return "1";
 				}
-				if (exp == 1) {
+				if (exp == 1){
 					return "10";
 				}
 				return "1" + ToSuperscript(exp);

@@ -271,7 +271,7 @@ namespace BaseLibS.Num{
 			int ncols = matrix.GetLength(1);
 			double[,] inv = new double[nrows,ncols];
 			for (int i = 0; i < nrows; i++){
-				double[] ei = new double[nrows]; // assumed all values=0
+				double[] ei = new double[nrows];
 				ei[lu.pi[lu.pi[i]]] = 1;
 				double[,] col = SolveWith(matrix, ei, lu);
 				SetColumn(inv, ExtractColumn(col, 0), i);

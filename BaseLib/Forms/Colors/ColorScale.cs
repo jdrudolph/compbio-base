@@ -59,10 +59,10 @@ namespace BaseLib.Forms.Colors{
 
 		//TODO: why is this not visible?
 		public override string Text{
-			get { return axis.Text; }
+			get { return axis.GetView().Text; }
 			set{
-				axis.Text = value;
-				axis.Invalidate();
+				axis.GetView().Text = value;
+				axis.GetView().Invalidate();
 			}
 		}
 
@@ -184,7 +184,7 @@ namespace BaseLib.Forms.Colors{
 			get { return base.BackColor; }
 			set{
 				base.BackColor = value;
-				axis.BackColor = value;
+				axis.GetView().BackColor = value;
 			}
 		}
 	}

@@ -88,6 +88,8 @@
     <Compile Include="Num\CorrelationType.cs" />
     <Compile Include="Num\CubicSpline.cs" />
     <Compile Include="Num\DensityEstimation.cs" />
+    <Compile Include="Num\Distrib\Normal.cs" />
+    <Compile Include="Num\Func\Gamma.cs" />
     <Compile Include="Num\LinearInterpolator.cs" />
     <Compile Include="Num\MatrixAccess.cs" />
     <Compile Include="Num\MatrixUtils.cs" />
