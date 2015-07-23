@@ -4822,13 +4822,4 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Cleaved link" description="Cleaved link" create_date="2015-07-09T10:36:46.2461115+02:00" last_modified_date="2015-07-09T10:37:18.7347367+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(2) O">
-      <position>anywhere</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>CleavedCrosslink</type>
-      <terminus_type>none</terminus_type>
-   </modification>
 </modifications>
