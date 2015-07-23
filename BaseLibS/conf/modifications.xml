@@ -1063,7 +1063,29 @@
       <type>IsobaricLabel</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="TMT8plex-Nter127" description="N-terminal TMT8plex127" create_date="2011-04-16T12:42:12.828125+02:00" last_modified_date="2011-04-16T12:42:12.828125+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+   <modification title="TMT8plex-Nter126" description="N-terminal TMT8plex126" create_date="2011-04-16T12:37:41.25+02:00" last_modified_date="2011-04-16T12:41:28.359375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="126" shortname="126" composition="H(15) C(8) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Nter127N" description="N-terminal TMT8plex127N" create_date="2011-04-16T12:42:12.828125+02:00" last_modified_date="2011-04-16T12:42:12.828125+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="127" shortname="127" composition="H(15) C(8) Nx" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Nter127C" description="N-terminal TMT8plex127C" create_date="2011-04-16T12:42:12.828125+02:00" last_modified_date="2011-04-16T12:42:12.828125+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
       <position>anyNterm</position>
       <modification_site site="-">
          <neutralloss_collection />
@@ -1074,12 +1096,56 @@
       <type>IsobaricLabel</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="TMT8plex-Nter129" description="N-terminal TMT8plex129" create_date="2011-04-16T12:42:27.09375+02:00" last_modified_date="2011-04-16T12:42:27.09375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+   <modification title="TMT8plex-Nter128C" description="N-terminal TMT8plex128C" create_date="2011-04-16T12:42:21.3125+02:00" last_modified_date="2011-04-16T12:42:21.3125+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="128" shortname="128" composition="H(15) C(6) Cx(2) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Nter129N" description="N-terminal TMT8plex129N" create_date="2011-04-16T12:42:27.09375+02:00" last_modified_date="2011-04-16T12:42:27.09375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="129" shortname="129" composition="H(15) C(6) Cx(2) Nx" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Nter129C" description="N-terminal TMT8plex129C" create_date="2011-04-16T12:42:27.09375+02:00" last_modified_date="2011-04-16T12:42:27.09375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
       <position>anyNterm</position>
       <modification_site site="-">
          <neutralloss_collection />
          <diagnostic_collection>
             <diagnostic name="129" shortname="129" composition="H(15) C(5) Cx(3) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Nter130C" description="N-terminal TMT8plex130C" create_date="2011-04-16T12:42:39.890625+02:00" last_modified_date="2011-04-16T12:42:39.890625+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="130" shortname="130" composition="H(15) C(4) Cx(4) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Nter131" description="N-terminal TMT8plex131" create_date="2011-04-16T12:42:53.8125+02:00" last_modified_date="2011-04-16T12:42:53.8125+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="131" shortname="131" composition="H(15) C(4) Cx(4) Nx" />
          </diagnostic_collection>
       </modification_site>
       <type>IsobaricLabel</type>
@@ -1173,7 +1239,29 @@
       <type>IsobaricLabel</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="TMT8plex-Lys127" description="Lysine TMT8plex127" create_date="2011-04-16T12:45:51.234375+02:00" last_modified_date="2011-04-16T12:45:51.234375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+   <modification title="TMT8plex-Lys126" description="Lysine TMT8plex126" create_date="2011-04-16T12:45:47.796875+02:00" last_modified_date="2011-04-16T12:45:47.796875+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="126" shortname="126" composition="H(15) C(8) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Lys127N" description="Lysine TMT8plex127N" create_date="2011-04-16T12:45:51.234375+02:00" last_modified_date="2011-04-16T12:45:51.234375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="127" shortname="127" composition="H(15) C(8) Nx" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Lys127C" description="Lysine TMT8plex127C" create_date="2011-04-16T12:45:51.234375+02:00" last_modified_date="2011-04-16T12:45:51.234375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
       <position>anywhere</position>
       <modification_site site="K">
          <neutralloss_collection />
@@ -1184,12 +1272,56 @@
       <type>IsobaricLabel</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="TMT8plex-Lys129" description="Lysine TMT8plex129" create_date="2011-04-16T12:45:58.609375+02:00" last_modified_date="2011-04-16T12:45:58.609375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+   <modification title="TMT8plex-Lys128C" description="Lysine TMT8plex128C" create_date="2011-04-16T12:45:54.78125+02:00" last_modified_date="2011-04-16T12:45:54.78125+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="128" shortname="128" composition="H(15) C(6) Cx(2) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Lys129N" description="Lysine TMT8plex129N" create_date="2011-04-16T12:45:58.609375+02:00" last_modified_date="2011-04-16T12:45:58.609375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="129" shortname="129" composition="H(15) C(6) Cx(2) Nx" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Lys129C" description="Lysine TMT8plex129C" create_date="2011-04-16T12:45:58.609375+02:00" last_modified_date="2011-04-16T12:45:58.609375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
       <position>anywhere</position>
       <modification_site site="K">
          <neutralloss_collection />
          <diagnostic_collection>
             <diagnostic name="129" shortname="129" composition="H(15) C(5) Cx(3) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Lys130C" description="Lysine TMT8plex130C" create_date="2011-04-16T12:46:02.015625+02:00" last_modified_date="2011-04-16T12:46:02.015625+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="130" shortname="130" composition="H(15) C(4) Cx(4) N" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>IsobaricLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="TMT8plex-Lys131" description="Lysine TMT8plex131" create_date="2011-04-16T12:46:05.34375+02:00" last_modified_date="2011-04-16T12:46:05.34375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(20) C(8) Cx(4) N O(2) Nx">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection>
+            <diagnostic name="131" shortname="131" composition="H(15) C(4) Cx(4) Nx" />
          </diagnostic_collection>
       </modification_site>
       <type>IsobaricLabel</type>
