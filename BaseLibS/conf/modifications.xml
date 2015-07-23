@@ -62,51 +62,6 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Arg6" description="Arginine-13C6 (R-13C6)" create_date="2010-01-19T14:37:21.2757206+01:00" last_modified_date="2010-01-23T19:17:45.328125+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) C(-6)">
-      <position>anywhere</position>
-      <modification_site site="R">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Label</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Arg10" description="Arginine-13C615N4 (R-full)" create_date="2010-01-19T14:38:45.7906712+01:00" last_modified_date="2010-01-23T19:20:04+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) Nx(4) C(-6) N(-4)">
-      <position>anywhere</position>
-      <modification_site site="R">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Label</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Lys4" description="Lysine (D4)" create_date="2010-01-19T14:39:50.1480962+01:00" last_modified_date="2010-01-23T19:22:08.375+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Hx(4) H(-4)">
-      <position>anywhere</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Label</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Lys6" description="Lysine-13C6 (K-13C6)" create_date="2010-01-19T14:42:22.773705+01:00" last_modified_date="2010-01-23T19:25:07.34375+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) C(-6)">
-      <position>anywhere</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Label</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Lys8" description="Lysine-13C615N2 (K-full)" create_date="2010-01-19T14:44:14.7503042+01:00" last_modified_date="2010-01-23T19:25:47.796875+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) Nx(2) C(-6) N(-2)">
-      <position>anywhere</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Label</type>
-      <terminus_type>none</terminus_type>
-   </modification>
    <modification title="GlyGly (K)" description="Ubiquitination residue" create_date="2010-01-30T11:41:51.59375+01:00" last_modified_date="2010-01-30T11:59:58.203125+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(6) C(4) N(2) O(2)">
       <position>anywhere</position>
       <modification_site site="K">
@@ -187,25 +142,290 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="HexNAc (ST)" description="OHexNAc" create_date="2010-08-30T11:16:56.4953002+02:00" last_modified_date="2010-08-30T11:18:07.2093037+02:00" user="neuhause" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(13) C(8) N O(5)">
-      <position>anywhere</position>
-      <modification_site site="T">
-         <neutralloss_collection>
-            <neutralloss name="OHexNAc" shortname="H13 C8 N O5" composition="H(13) C(8) N O(5)" />
-         </neutralloss_collection>
+   <modification title="QQTGG (K)" description="SUMO-2/3 Q87R" create_date="2010-10-14T19:47:55.640625+02:00" last_modified_date="2010-10-14T20:27:12.234375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(29) C(18) N(7) O(8)">
+      <position>notCterm</position>
+      <modification_site site="K">
+         <neutralloss_collection />
          <diagnostic_collection>
-            <diagnostic name="OHexNAc" shortname="H14 C8 N O5" composition="H(14) C(8) N O(5)" />
+            <diagnostic name="b2-QQ" shortname="QQ" composition="H(16) C(10) N(4) O(4)" />
+            <diagnostic name="b3-QQT" shortname="QQT" composition="H(23) C(14) N(5) O(6)" />
+            <diagnostic name="b4-QQTG" shortname="QQTG" composition="H(26) C(16) N(6) O(7)" />
+            <diagnostic name="b5-QQTGG" shortname="QQTGG" composition="H(29) C(18) N(7) O(8)" />
+            <diagnostic name="b2-QQ-H2O" shortname="QQ-H2O" composition="H(14) C(10) N(4) O(3)" />
+            <diagnostic name="b3-QQT-H2O" shortname="QQT-H2O" composition="H(21) C(14) N(5) O(5)" />
+            <diagnostic name="b4-QQTG-H2O" shortname="QQTG-H2O" composition="H(24) C(16) N(6) O(6)" />
+            <diagnostic name="H(27) C(18) N(7) O(7)" shortname="H27 C18 N7 O7" composition="H(27) C(18) N(7) O(7)" />
          </diagnostic_collection>
       </modification_site>
+      <type>Standard</type>
+      <terminus_type>nterm</terminus_type>
+   </modification>
+   <modification title="Deamidation (N)" description="Deamidation (N)" create_date="2010-10-18T15:33:56.9880908+02:00" last_modified_date="2010-10-18T15:35:17.4054698+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1) N(-1) O">
+      <position>anywhere</position>
+      <modification_site site="N">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Deamidation 18O (N)" description="Deamidation 18O (N)" create_date="2010-10-18T15:35:58.7004582+02:00" last_modified_date="2010-10-18T15:36:28.0070832+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1) N(-1) Ox">
+      <position>anywhere</position>
+      <modification_site site="N">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Deamidation (NQ)" description="Deamidation (NQ)" create_date="2011-06-15T12:29:39.850292+02:00" last_modified_date="2011-06-15T12:29:39.850292+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1) N(-1) O">
+      <position>anywhere</position>
+      <modification_site site="N">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="Q">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Hydroxyproline" description="4-hydroxyproline" create_date="2014-05-06T14:24:08.7808168+02:00" last_modified_date="2014-05-06T14:44:05.2693498+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(5) H(9) N">
+      <position>anywhere</position>
+      <modification_site site="P">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Carbamyl (N-term)" description="Carbamylation" create_date="2015-02-16T18:11:01.3444967+01:00" last_modified_date="2015-02-16T18:12:37.2553536+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C H N O">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Delta:H(2)C(2) (N-term)" description="Acetaldehyde +26" create_date="2015-02-16T18:31:36.2649609+01:00" last_modified_date="2015-02-16T18:32:33.7134616+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(2) H(2)">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Dioxidation (MW)" description="Dioxidation" create_date="2015-02-16T18:47:00.9965348+01:00" last_modified_date="2015-02-16T18:47:56.3877921+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="O(2)">
+      <position>anywhere</position>
+      <modification_site site="M">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="W">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Trioxidation (C)" description="Trioxidation" create_date="2015-02-16T18:47:03.1371163+01:00" last_modified_date="2015-02-16T18:49:40.7257201+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="O(3)">
+      <position>anywhere</position>
+      <modification_site site="C">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Dethiomethyl (M)" description="Prompt loss of side chain from oxidized Met" create_date="2015-02-16T19:00:48.7784096+01:00" last_modified_date="2015-02-16T20:57:20.7443419+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-4) C(-1) S(-1)">
+      <position>anywhere</position>
+      <modification_site site="M">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Cation:Na (DE)" description="Sodium adduct" create_date="2015-02-16T20:54:06.1119974+01:00" last_modified_date="2015-02-16T20:57:43.9928189+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition=" H(-1) Na">
+      <position>anywhere</position>
+      <modification_site site="D">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="E">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Methyl (E)" description="Methylation" create_date="2015-02-16T20:55:56.2739838+01:00" last_modified_date="2015-02-16T20:56:23.1416934+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C H(2)">
+      <position>anywhere</position>
+      <modification_site site="E">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Dehydrated (ST)" description="Prompt loss of phosphate from phosphorylated residue" create_date="2015-02-16T21:39:06.0262512+01:00" last_modified_date="2015-02-16T21:40:25.1232759+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-2) O(-1)">
+      <position>anywhere</position>
+      <modification_site site="S">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="T">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Oxidation (P)" description="Oxidation" create_date="2015-02-16T21:42:09.532883+01:00" last_modified_date="2015-02-16T21:42:38.6247281+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="O">
+      <position>anywhere</position>
+      <modification_site site="P">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Dimethyl (K)" description="di-Methylation" create_date="2015-02-16T21:43:34.6392828+01:00" last_modified_date="2015-02-16T21:44:00.2369042+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(4) C(2)">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Amidated (Protein C-term)" description="Amidation of the protein C-terminus" create_date="2015-02-16T21:54:02.8382094+01:00" last_modified_date="2015-03-12T11:21:17.8287613+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H N O(-1)">
+      <position>proteinCterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Sulfo (STY)" description="O-Sulfonation" create_date="2015-02-16T21:55:31.7678586+01:00" last_modified_date="2015-02-16T22:01:05.897043+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="S">
+      <position>anywhere</position>
+      <modification_site site="S">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="T">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="Y">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Acetyl (N-term)" description="Acetylation of every peptide N-terminus" create_date="2015-03-12T11:19:38.9054558+01:00" last_modified_date="2015-03-12T11:20:19.9400726+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(2) H(2) O">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Amidated (C-term)" description="Amidation of every peptide C-terminus" create_date="2015-03-12T11:21:26.3803082+01:00" last_modified_date="2015-03-12T11:21:57.8773151+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H N O(-1)">
+      <position>proteinCterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Sulfation (Y)" description="O-Sulfate" create_date="2015-06-10T10:12:49.8153314+02:00" last_modified_date="2015-06-10T10:15:47.4284903+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="S O(3)">
+      <position>anywhere</position>
+      <modification_site site="Y">
+         <neutralloss_collection>
+            <neutralloss name="Loss of 80" shortname="X" composition="S O(3)" />
+         </neutralloss_collection>
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Phospho (ST)" description="Phosphorylation" create_date="2015-06-10T10:16:19.7733403+02:00" last_modified_date="2015-06-10T10:16:43.4096923+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H O(3) P">
+      <position>anywhere</position>
       <modification_site site="S">
          <neutralloss_collection>
-            <neutralloss name="OHexNAc" shortname="H13 C8 N O5" composition="H(13) C(8) N O(5)" />
+            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
          </neutralloss_collection>
-         <diagnostic_collection>
-            <diagnostic name="OHexNAc" shortname="H13 C8 N O5" composition="H(13) C(8) N O(5)" />
-         </diagnostic_collection>
+         <diagnostic_collection />
       </modification_site>
-      <type>Glycan</type>
+      <modification_site site="T">
+         <neutralloss_collection>
+            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
+         </neutralloss_collection>
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Cys-Cys" description="Disulfide bridge" create_date="2015-06-10T10:17:21.5938763+02:00" last_modified_date="2015-06-10T10:30:27.6641159+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1)">
+      <position>anywhere</position>
+      <modification_site site="C">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Standard</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Arg6" description="Arginine-13C6 (R-13C6)" create_date="2010-01-19T14:37:21.2757206+01:00" last_modified_date="2010-01-23T19:17:45.328125+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) C(-6)">
+      <position>anywhere</position>
+      <modification_site site="R">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Label</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Arg10" description="Arginine-13C615N4 (R-full)" create_date="2010-01-19T14:38:45.7906712+01:00" last_modified_date="2010-01-23T19:20:04+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) Nx(4) C(-6) N(-4)">
+      <position>anywhere</position>
+      <modification_site site="R">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Label</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lys4" description="Lysine (D4)" create_date="2010-01-19T14:39:50.1480962+01:00" last_modified_date="2010-01-23T19:22:08.375+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Hx(4) H(-4)">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Label</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lys6" description="Lysine-13C6 (K-13C6)" create_date="2010-01-19T14:42:22.773705+01:00" last_modified_date="2010-01-23T19:25:07.34375+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) C(-6)">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Label</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lys8" description="Lysine-13C615N2 (K-full)" create_date="2010-01-19T14:44:14.7503042+01:00" last_modified_date="2010-01-23T19:25:47.796875+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="Cx(6) Nx(2) C(-6) N(-2)">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Label</type>
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="DimethLys0" description="Lysine dimethyl light" create_date="2010-09-10T22:58:36.5625+02:00" last_modified_date="2010-09-10T23:01:25.234375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(4) C(2)">
@@ -451,40 +671,22 @@
       <type>Label</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="QQTGG (K)" description="SUMO-2/3 Q87R" create_date="2010-10-14T19:47:55.640625+02:00" last_modified_date="2010-10-14T20:27:12.234375+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(29) C(18) N(7) O(8)">
-      <position>notCterm</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection>
-            <diagnostic name="b2-QQ" shortname="QQ" composition="H(16) C(10) N(4) O(4)" />
-            <diagnostic name="b3-QQT" shortname="QQT" composition="H(23) C(14) N(5) O(6)" />
-            <diagnostic name="b4-QQTG" shortname="QQTG" composition="H(26) C(16) N(6) O(7)" />
-            <diagnostic name="b5-QQTGG" shortname="QQTGG" composition="H(29) C(18) N(7) O(8)" />
-            <diagnostic name="b2-QQ-H2O" shortname="QQ-H2O" composition="H(14) C(10) N(4) O(3)" />
-            <diagnostic name="b3-QQT-H2O" shortname="QQT-H2O" composition="H(21) C(14) N(5) O(5)" />
-            <diagnostic name="b4-QQTG-H2O" shortname="QQTG-H2O" composition="H(24) C(16) N(6) O(6)" />
-            <diagnostic name="H(27) C(18) N(7) O(7)" shortname="H27 C18 N7 O7" composition="H(27) C(18) N(7) O(7)" />
-         </diagnostic_collection>
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>nterm</terminus_type>
-   </modification>
-   <modification title="Deamidation (N)" description="Deamidation (N)" create_date="2010-10-18T15:33:56.9880908+02:00" last_modified_date="2010-10-18T15:35:17.4054698+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1) N(-1) O">
+   <modification title="Leu7" description="Leucine-13C6 15N1" create_date="2012-03-14T11:27:13.8771423+01:00" last_modified_date="2012-03-14T11:30:52.8703269+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(-6) Cx(6) N(-1) Nx">
       <position>anywhere</position>
-      <modification_site site="N">
+      <modification_site site="L">
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <type>Standard</type>
+      <type>Label</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Deamidation 18O (N)" description="Deamidation 18O (N)" create_date="2010-10-18T15:35:58.7004582+02:00" last_modified_date="2010-10-18T15:36:28.0070832+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1) N(-1) Ox">
+   <modification title="Ile7" description="Isoleucine-13C6 15N1" create_date="2012-06-11T21:21:24.4946343+02:00" last_modified_date="2012-06-11T21:21:24.4946343+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(-6) Cx(6) N(-1) Nx">
       <position>anywhere</position>
-      <modification_site site="N">
+      <modification_site site="I">
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <type>Standard</type>
+      <type>Label</type>
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="iTRAQ4plex-Nter114" description="N-terminal iTRAQ4plex114" create_date="2011-02-12T03:15:23.734375+01:00" last_modified_date="2011-02-12T03:17:37.34375+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="1" reporterCorrectionP1="5.9" reporterCorrectionP2="0.2" composition="H(12) C(5) Cx(2) N(2) Ox">
@@ -1081,17 +1283,65 @@
       <type>IsobaricLabel</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Deamidation (NQ)" description="Deamidation (NQ)" create_date="2011-06-15T12:29:39.850292+02:00" last_modified_date="2011-06-15T12:29:39.850292+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1) N(-1) O">
+   <modification title="HexNAc (ST)" description="OHexNAc" create_date="2010-08-30T11:16:56.4953002+02:00" last_modified_date="2010-08-30T11:18:07.2093037+02:00" user="neuhause" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(13) C(8) N O(5)">
+      <position>anywhere</position>
+      <modification_site site="T">
+         <neutralloss_collection>
+            <neutralloss name="OHexNAc" shortname="H13 C8 N O5" composition="H(13) C(8) N O(5)" />
+         </neutralloss_collection>
+         <diagnostic_collection>
+            <diagnostic name="OHexNAc" shortname="H14 C8 N O5" composition="H(14) C(8) N O(5)" />
+         </diagnostic_collection>
+      </modification_site>
+      <modification_site site="S">
+         <neutralloss_collection>
+            <neutralloss name="OHexNAc" shortname="H13 C8 N O5" composition="H(13) C(8) N O(5)" />
+         </neutralloss_collection>
+         <diagnostic_collection>
+            <diagnostic name="OHexNAc" shortname="H13 C8 N O5" composition="H(13) C(8) N O(5)" />
+         </diagnostic_collection>
+      </modification_site>
+      <type>Glycan</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Hex(1)HexNAc(1) (ST)" description="Hex(1)HexNAc(1) " create_date="2015-02-16T22:26:37.261909+01:00" last_modified_date="2015-02-16T22:42:25.0111438+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(14) H(23) O(10) N">
+      <position>anywhere</position>
+      <modification_site site="S">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <modification_site site="T">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Glycan</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Hex (K)" description="Hexose" create_date="2015-02-16T22:45:12.1604134+01:00" last_modified_date="2015-02-16T22:46:21.8243075+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(10) O(5) C(6)">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>Glycan</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Hex(5) HexNAc(4) NeuAc(2) (N)" description="Hex(5) HexNAc(4) NeuAc(2)" create_date="2015-02-16T22:52:21.1019099+01:00" last_modified_date="2015-02-16T23:00:11.3822014+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(84) H(136) O(61) N(6)">
       <position>anywhere</position>
       <modification_site site="N">
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <modification_site site="Q">
+      <type>Glycan</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Hex(5) HexNAc(4) NeuAc(2) Sodium (N)" description="Hex(5) HexNAc(4) NeuAc(2) Sodium" create_date="2015-02-16T22:59:10.3543539+01:00" last_modified_date="2015-02-16T23:01:58.033344+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(84) H(135) O(61) N(6) Na">
+      <position>anywhere</position>
+      <modification_site site="N">
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>
-      <type>Standard</type>
+      <type>Glycan</type>
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="Ala-&gt;Arg" description="Ala-&gt;Arg substitution" create_date="2012-02-02T20:41:00.6045899+01:00" last_modified_date="2012-02-02T20:45:58.150314+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(7) C(3) N(3)">
@@ -4570,256 +4820,6 @@
          <diagnostic_collection />
       </modification_site>
       <type>AaSubstitution</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Leu7" description="Leucine-13C6 15N1" create_date="2012-03-14T11:27:13.8771423+01:00" last_modified_date="2012-03-14T11:30:52.8703269+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(-6) Cx(6) N(-1) Nx">
-      <position>anywhere</position>
-      <modification_site site="L">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Label</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Ile7" description="Isoleucine-13C6 15N1" create_date="2012-06-11T21:21:24.4946343+02:00" last_modified_date="2012-06-11T21:21:24.4946343+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(-6) Cx(6) N(-1) Nx">
-      <position>anywhere</position>
-      <modification_site site="I">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Label</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Hydroxyproline" description="4-hydroxyproline" create_date="2014-05-06T14:24:08.7808168+02:00" last_modified_date="2014-05-06T14:44:05.2693498+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(5) H(9) N">
-      <position>anywhere</position>
-      <modification_site site="P">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Carbamyl (N-term)" description="Carbamylation" create_date="2015-02-16T18:11:01.3444967+01:00" last_modified_date="2015-02-16T18:12:37.2553536+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C H N O">
-      <position>anyNterm</position>
-      <modification_site site="-">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Delta:H(2)C(2) (N-term)" description="Acetaldehyde +26" create_date="2015-02-16T18:31:36.2649609+01:00" last_modified_date="2015-02-16T18:32:33.7134616+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(2) H(2)">
-      <position>anyNterm</position>
-      <modification_site site="-">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Dioxidation (MW)" description="Dioxidation" create_date="2015-02-16T18:47:00.9965348+01:00" last_modified_date="2015-02-16T18:47:56.3877921+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="O(2)">
-      <position>anywhere</position>
-      <modification_site site="M">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="W">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Trioxidation (C)" description="Trioxidation" create_date="2015-02-16T18:47:03.1371163+01:00" last_modified_date="2015-02-16T18:49:40.7257201+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="O(3)">
-      <position>anywhere</position>
-      <modification_site site="C">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Dethiomethyl (M)" description="Prompt loss of side chain from oxidized Met" create_date="2015-02-16T19:00:48.7784096+01:00" last_modified_date="2015-02-16T20:57:20.7443419+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-4) C(-1) S(-1)">
-      <position>anywhere</position>
-      <modification_site site="M">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Cation:Na (DE)" description="Sodium adduct" create_date="2015-02-16T20:54:06.1119974+01:00" last_modified_date="2015-02-16T20:57:43.9928189+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition=" H(-1) Na">
-      <position>anywhere</position>
-      <modification_site site="D">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="E">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Methyl (E)" description="Methylation" create_date="2015-02-16T20:55:56.2739838+01:00" last_modified_date="2015-02-16T20:56:23.1416934+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C H(2)">
-      <position>anywhere</position>
-      <modification_site site="E">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Dehydrated (ST)" description="Prompt loss of phosphate from phosphorylated residue" create_date="2015-02-16T21:39:06.0262512+01:00" last_modified_date="2015-02-16T21:40:25.1232759+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-2) O(-1)">
-      <position>anywhere</position>
-      <modification_site site="S">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="T">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Oxidation (P)" description="Oxidation" create_date="2015-02-16T21:42:09.532883+01:00" last_modified_date="2015-02-16T21:42:38.6247281+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="O">
-      <position>anywhere</position>
-      <modification_site site="P">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Dimethyl (K)" description="di-Methylation" create_date="2015-02-16T21:43:34.6392828+01:00" last_modified_date="2015-02-16T21:44:00.2369042+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(4) C(2)">
-      <position>anywhere</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Amidated (Protein C-term)" description="Amidation of the protein C-terminus" create_date="2015-02-16T21:54:02.8382094+01:00" last_modified_date="2015-03-12T11:21:17.8287613+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H N O(-1)">
-      <position>proteinCterm</position>
-      <modification_site site="-">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Sulfo (STY)" description="O-Sulfonation" create_date="2015-02-16T21:55:31.7678586+01:00" last_modified_date="2015-02-16T22:01:05.897043+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="S">
-      <position>anywhere</position>
-      <modification_site site="S">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="T">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="Y">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Hex(1)HexNAc(1) (ST)" description="Hex(1)HexNAc(1) " create_date="2015-02-16T22:26:37.261909+01:00" last_modified_date="2015-02-16T22:42:25.0111438+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(14) H(23) O(10) N">
-      <position>anywhere</position>
-      <modification_site site="S">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="T">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Glycan</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Hex (K)" description="Hexose" create_date="2015-02-16T22:45:12.1604134+01:00" last_modified_date="2015-02-16T22:46:21.8243075+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(10) O(5) C(6)">
-      <position>anywhere</position>
-      <modification_site site="K">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Glycan</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Hex(5) HexNAc(4) NeuAc(2) (N)" description="Hex(5) HexNAc(4) NeuAc(2)" create_date="2015-02-16T22:52:21.1019099+01:00" last_modified_date="2015-02-16T23:00:11.3822014+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(84) H(136) O(61) N(6)">
-      <position>anywhere</position>
-      <modification_site site="N">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Glycan</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Hex(5) HexNAc(4) NeuAc(2) Sodium (N)" description="Hex(5) HexNAc(4) NeuAc(2) Sodium" create_date="2015-02-16T22:59:10.3543539+01:00" last_modified_date="2015-02-16T23:01:58.033344+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(84) H(135) O(61) N(6) Na">
-      <position>anywhere</position>
-      <modification_site site="N">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Glycan</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Acetyl (N-term)" description="Acetylation of every peptide N-terminus" create_date="2015-03-12T11:19:38.9054558+01:00" last_modified_date="2015-03-12T11:20:19.9400726+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="C(2) H(2) O">
-      <position>anyNterm</position>
-      <modification_site site="-">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Amidated (C-term)" description="Amidation of every peptide C-terminus" create_date="2015-03-12T11:21:26.3803082+01:00" last_modified_date="2015-03-12T11:21:57.8773151+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H N O(-1)">
-      <position>proteinCterm</position>
-      <modification_site site="-">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Sulfation (Y)" description="O-Sulfate" create_date="2015-06-10T10:12:49.8153314+02:00" last_modified_date="2015-06-10T10:15:47.4284903+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="S O(3)">
-      <position>anywhere</position>
-      <modification_site site="Y">
-         <neutralloss_collection>
-            <neutralloss name="Loss of 80" shortname="X" composition="S O(3)" />
-         </neutralloss_collection>
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Phospho (ST)" description="Phosphorylation" create_date="2015-06-10T10:16:19.7733403+02:00" last_modified_date="2015-06-10T10:16:43.4096923+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H O(3) P">
-      <position>anywhere</position>
-      <modification_site site="S">
-         <neutralloss_collection>
-            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
-         </neutralloss_collection>
-         <diagnostic_collection />
-      </modification_site>
-      <modification_site site="T">
-         <neutralloss_collection>
-            <neutralloss name="H(3) O(4) P" shortname="H3 O4 P" composition="H(3) O(4) P" />
-         </neutralloss_collection>
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
-      <terminus_type>none</terminus_type>
-   </modification>
-   <modification title="Cys-Cys" description="Disulfide bridge" create_date="2015-06-10T10:17:21.5938763+02:00" last_modified_date="2015-06-10T10:30:27.6641159+02:00" user="Jesper" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" composition="H(-1)">
-      <position>anywhere</position>
-      <modification_site site="C">
-         <neutralloss_collection />
-         <diagnostic_collection />
-      </modification_site>
-      <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
 </modifications>
