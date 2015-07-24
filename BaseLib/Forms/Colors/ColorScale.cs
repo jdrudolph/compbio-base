@@ -8,9 +8,34 @@ namespace BaseLib.Forms.Colors{
 
 	public partial class ColorScale : UserControl{
 		public event ColorChangeHandler OnColorChange;
+		private readonly NumericAxis axis;
+		private readonly ColorStrip colorStrip;
 
 		public ColorScale(){
 			InitializeComponent();
+			colorStrip = new ColorStrip();
+			axis = new NumericAxis();
+			SuspendLayout();
+			colorStrip.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left) | AnchorStyles.Right;
+			colorStrip.Location = new Point(0, 59);
+			colorStrip.Margin = new Padding(0);
+			colorStrip.Name = "colorStrip";
+			colorStrip.Size = new Size(749, 31);
+			colorStrip.TabIndex = 1;
+			axis.Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right;
+			axis.ForeColor = Color.Black;
+			axis.Location = new Point(0, 0);
+			axis.Margin = new Padding(0);
+			axis.Name = "axis";
+			axis.Size = new Size(749, 59);
+			axis.TabIndex = 0;
+			AutoScaleDimensions = new SizeF(6F, 13F);
+			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(colorStrip);
+			Controls.Add(axis);
+			Name = "ColorScale";
+			Size = new Size(749, 90);
+			ResumeLayout(false);
 			colorStrip.GetView().Arrow = Arrows.Second;
 			colorStrip.GetView().StartupColorMax = Color.Red;
 			colorStrip.GetView().StartupColorMin = Color.White;

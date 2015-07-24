@@ -2,7 +2,6 @@
 using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Param;
-using BaseLibS.Util;
 
 namespace NumPluginBase.Classification{
 	public class FisherLdaClassification : ClassificationMethod{

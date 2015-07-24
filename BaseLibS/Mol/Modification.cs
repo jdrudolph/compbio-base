@@ -27,6 +27,9 @@ namespace BaseLibS.Mol{
 		[XmlAttribute("reporterCorrectionP2")]
 		public double ReporterCorrectionP2 { get; set; }
 
+		[XmlAttribute("reporterCorrectionType")]
+		public bool ReporterCorrectionType { get; set; }
+
 		/// <summary>
 		/// Monoisotopic mass of modification
 		/// </summary>
@@ -197,20 +200,20 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public char[] GetSiteArray() {
-			if (sitesArray == null) {
+		public char[] GetSiteArray(){
+			if (sitesArray == null){
 				sitesArray = new char[sites.Length];
-				for (int i = 0; i < sitesArray.Length; i++) {
+				for (int i = 0; i < sitesArray.Length; i++){
 					sitesArray[i] = sites[i].Aa;
 				}
 			}
 			return sitesArray;
 		}
 
-		public char[] GetSiteArraySorted() {
-			if (sitesArraySorted == null) {
+		public char[] GetSiteArraySorted(){
+			if (sitesArraySorted == null){
 				sitesArraySorted = new char[sites.Length];
-				for (int i = 0; i < sitesArraySorted.Length; i++) {
+				for (int i = 0; i < sitesArraySorted.Length; i++){
 					sitesArraySorted[i] = sites[i].Aa;
 				}
 				Array.Sort(sitesArraySorted);
