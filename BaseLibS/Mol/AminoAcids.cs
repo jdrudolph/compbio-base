@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Text;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLibS.Mol{
 	public static class AminoAcids{
@@ -315,7 +314,7 @@ namespace BaseLibS.Mol{
 					}
 				}
 			}
-			string[] keys = ArrayUtils.GetKeys(result);
+			string[] keys = result.Keys.ToArray();
 			foreach (string key in keys){
 				if (key.Contains("T")){
 					string k = key.Replace('T', 'U');
@@ -337,7 +336,7 @@ namespace BaseLibS.Mol{
 					}
 				}
 			}
-			string[] keys = ArrayUtils.GetKeys(result);
+			string[] keys = result.Keys.ToArray();
 			foreach (string key in keys){
 				if (key.Contains("T")){
 					string k = key.Replace('T', 'U');

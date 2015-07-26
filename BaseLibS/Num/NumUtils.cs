@@ -975,7 +975,7 @@ namespace BaseLibS.Num{
 		}
 
 		/// <summary>
-		/// Computes (a^2+b^2)^1/2 without destructive underflow or overflow.
+		/// Computes (a^2+b^2)^1/2 without underflow or overflow.
 		/// </summary>
 		public static double Pythag(double a, double b){
 			double absa = Math.Abs(a);
@@ -1425,11 +1425,12 @@ namespace BaseLibS.Num{
 			var xSorted = xx.Select(a => a.Key).ToArray();
 			var n = xSorted.Length;
 			var result = new double[n];
-			int duplicates = 0, sumRank = 0, i, j;
+			int duplicates = 0, sumRank = 0, i;
 			for (i = 0; i < n; i++){
 				sumRank += i;
 				duplicates++;
 				if ((i == n - 1) || (xSorted[i] != xSorted[i + 1])){
+					int j;
 					for (j = i - duplicates + 1; j < i + 1; j++) result[xSortedIndex[j]] = 1 + sumRank*1.0/duplicates;
 					if (duplicates > 1){
 						sumDuplicates.Add(duplicates);

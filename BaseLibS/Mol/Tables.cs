@@ -142,37 +142,37 @@ namespace BaseLibS.Mol{
 		}
 
 		public static string[] GetEnzymes(){
-			string[] tmp = ArrayUtils.GetKeys(Enzymes);
+			string[] tmp = Enzymes.Keys.ToArray();
 			Array.Sort(tmp);
 			return tmp;
 		}
 
 		public static string[] GetCrossLinkers(){
-			string[] tmp = ArrayUtils.GetKeys(CrossLinkers);
+			string[] tmp = CrossLinkers.Keys.ToArray();
 			Array.Sort(tmp);
 			return tmp;
 		}
 
 		public static string[] GetDatabases(){
-			string[] tmp = ArrayUtils.GetKeys(Databases);
+			string[] tmp = Databases.Keys.ToArray();
 			Array.Sort(tmp);
 			return tmp;
 		}
 
 		public static string[] GetModifications(){
-			string[] result = ArrayUtils.GetKeys(Modifications);
+			string[] result = Modifications.Keys.ToArray();
 			Array.Sort(result);
 			return result;
 		}
 
 		public static string[] GetLabelModifications() {
-			string[] result = ArrayUtils.GetKeys(LabelModifications);
+			string[] result = LabelModifications.Keys.ToArray();
 			Array.Sort(result);
 			return result;
 		}
 
 		public static string[] GetNeucodeModifications() {
-			string[] result = ArrayUtils.GetKeys(NeucodeModifications);
+			string[] result = NeucodeModifications.Keys.ToArray();
 			Array.Sort(result);
 			return result;
 		}
@@ -182,7 +182,7 @@ namespace BaseLibS.Mol{
 			List<string> result2 = new List<string>();
 			List<string> result3 = new List<string>();
 			List<string> result4 = new List<string>();
-			foreach (string m in ArrayUtils.GetKeys(Modifications)){
+			foreach (string m in Modifications.Keys) {
 				if (Modifications[m].ModificationType == ModificationType.Standard){
 					result1.Add(m);
 				}
@@ -205,7 +205,7 @@ namespace BaseLibS.Mol{
 
 		public static string[] GetCleavedCrosslinkModifications(){
 			List<string> result3 = new List<string>();
-			foreach (string m in ArrayUtils.GetKeys(Modifications)){
+			foreach (string m in Modifications.Keys) {
 				if (Modifications[m].ModificationType == ModificationType.CleavedCrosslink){
 					result3.Add(m);
 				}

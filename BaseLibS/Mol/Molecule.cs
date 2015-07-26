@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using BaseLibS.Num;
 using BaseLibS.Util;
@@ -249,7 +250,7 @@ namespace BaseLibS.Mol{
 						w[n] += c;
 					}
 				}
-				int[] newTypes = ArrayUtils.GetKeys(w);
+				int[] newTypes = w.Keys.ToArray();
 				Array.Sort(newTypes);
 				int[] newCounts = new int[newTypes.Length];
 				for (int i = 0; i < newCounts.Length; i++){

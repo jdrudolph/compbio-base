@@ -152,7 +152,7 @@ namespace BaseLibS.Mol{
 				w[cTermModification]++;
 			}
 			ushort[] counts = new ushort[w.Count];
-			ushort[] types = ArrayUtils.GetKeys(w);
+			ushort[] types = w.Keys.ToArray();
 			Array.Sort(types);
 			for (int i = 0; i < types.Length; i++){
 				counts[i] = w[types[i]];

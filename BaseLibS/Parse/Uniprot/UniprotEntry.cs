@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLibS.Parse.Uniprot{
 	[Serializable]
@@ -13,7 +13,7 @@ namespace BaseLibS.Parse.Uniprot{
 		private readonly List<string> taxonomyIds = new List<string>();
 		private readonly List<string> hostTaxonomyIds = new List<string>();
 		private readonly List<string> keywords = new List<string>();
-		public FeatureType[] GetAllFeatureTypes() { return ArrayUtils.GetKeys(features); }
+		public FeatureType[] GetAllFeatureTypes() { return features.Keys.ToArray(); }
 		public string[] Accessions { get; set; }
 		public string[] ProteinFullNames { get; set; }
 		public string[] ProteinShortNames { get; set; }
@@ -160,7 +160,7 @@ namespace BaseLibS.Parse.Uniprot{
 			return false;
 		}
 
-		public string[] Get(DbReferenceType key) { return !dbEntries.ContainsKey(key) ? new string[0] : ArrayUtils.GetKeys(dbEntries[key]); }
+		public string[] Get(DbReferenceType key) { return !dbEntries.ContainsKey(key) ? new string[0] : dbEntries[key].Keys.ToArray(); }
 
 		public string[] Get(DbReferenceType[] keys){
 			List<string> result = new List<string>();
@@ -178,13 +178,13 @@ namespace BaseLibS.Parse.Uniprot{
 			return result.ToArray();
 		}
 
-		public UniprotDbReference[] GetDbEntries(DbReferenceType key) { return !dbEntries.ContainsKey(key) ? new UniprotDbReference[0] : ArrayUtils.GetValues(dbEntries[key]); }
+		public UniprotDbReference[] GetDbEntries(DbReferenceType key) { return !dbEntries.ContainsKey(key) ? new UniprotDbReference[0] : dbEntries[key].Values.ToArray(); }
 
 		public string[] GetNames(DbReferenceType key){
 			if (!dbEntries.ContainsKey(key)){
 				return new string[0];
 			}
-			UniprotDbReference[] x = ArrayUtils.GetValues(dbEntries[key]);
+			UniprotDbReference[] x = dbEntries[key].Values.ToArray();
 			string[] result = new string[x.Length];
 			for (int i = 0; i < x.Length; i++){
 				result[i] = x[i].GetPropertyValues("entry name")[0];
