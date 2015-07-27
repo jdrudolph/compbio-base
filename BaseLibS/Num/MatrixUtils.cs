@@ -1,12 +1,14 @@
 using System;
 using BaseLibS.Api;
+using BaseLibS.Num.Matrix;
+using BaseLibS.Num.Vector;
 
 namespace BaseLibS.Num{
 	/// <summary>
 	/// A collection of primitive operation on matrices.
 	/// </summary>
 	public static class MatrixUtils{
-		public static bool HasNaNOrInfRows(IMatrixIndexer m){
+		public static bool HasNaNOrInfRows(MatrixIndexer m){
 			for (int i = 0; i < m.RowCount; i++){
 				if (m.IsNanOrInfRow(i)){
 					return true;
@@ -15,7 +17,7 @@ namespace BaseLibS.Num{
 			return false;
 		}
 
-		public static bool HasNaNOrInfColumns(IMatrixIndexer m){
+		public static bool HasNaNOrInfColumns(MatrixIndexer m){
 			for (int i = 0; i < m.ColumnCount; i++){
 				if (m.IsNanOrInfColumn(i)){
 					return true;

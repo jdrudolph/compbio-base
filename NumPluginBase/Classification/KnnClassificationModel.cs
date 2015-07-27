@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BaseLibS.Api;
 using BaseLibS.Num;
-using BaseLibS.Util;
+using BaseLibS.Num.Vector;
 
 namespace NumPluginBase.Classification{
 	[Serializable]

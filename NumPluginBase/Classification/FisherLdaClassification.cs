@@ -1,6 +1,7 @@
 ﻿using System;
 using BaseLibS.Api;
 using BaseLibS.Num;
+using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
 namespace NumPluginBase.Classification{

@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace BaseLibS.Api{
+namespace BaseLibS.Num.Vector{
 	[Serializable]
 	public abstract class BaseVector : ICloneable, IDisposable, IEnumerable<double>{
 		/// <summary>

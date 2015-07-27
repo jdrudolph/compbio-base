@@ -1,22 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 
 namespace BaseLibS.Num.Matrix{
 	[Serializable]
-	public class SparseColumnMatrixIndexer : IMatrixIndexer {
+	public class SparseColumnFloatMatrixIndexer : MatrixIndexer {
 		private SparseFloatVector[] vals;
 		private int nrows;
 
-		public SparseColumnMatrixIndexer(SparseFloatVector[] vals, int nrows){
+		public SparseColumnFloatMatrixIndexer(SparseFloatVector[] vals, int nrows){
 			this.vals = vals;
 			this.nrows = nrows;
 		}
 
-		private SparseColumnMatrixIndexer(){}
+		private SparseColumnFloatMatrixIndexer(){}
 
-		public void Init(int nrows1, int ncols){
+		public override void Init(int nrows1, int ncols){
 			nrows = nrows1;
 			vals = new SparseFloatVector[ncols];
 			for (int i = 0; i < ncols; i++){
@@ -24,7 +23,7 @@ namespace BaseLibS.Num.Matrix{
 			}
 		}
 
-		public void Set(float[,] value){
+		public override void Set(float[,] value){
 			nrows = value.GetLength(0);
 			vals = new SparseFloatVector[value.GetLength(1)];
 			for (int i = 0; i < vals.Length; i++){
@@ -44,7 +43,7 @@ namespace BaseLibS.Num.Matrix{
 			}
 		}
 
-		public BaseVector GetRow(int row){
+		public override BaseVector GetRow(int row){
 			List<int> inds = new List<int>();
 			List<float> x = new List<float>();
 			for (int i = 0; i < vals.Length; i++){
@@ -58,42 +57,42 @@ namespace BaseLibS.Num.Matrix{
 			return new SparseFloatVector(inds.ToArray(), x.ToArray(), vals.Length);
 		}
 
-		public BaseVector GetColumn(int col){
+		public override BaseVector GetColumn(int col){
 			return vals[col];
 		}
 
-		public bool IsInitialized(){
+		public override bool IsInitialized(){
 			return vals != null;
 		}
 
-		public IMatrixIndexer ExtractRows(IList<int> rows) {
+		public override MatrixIndexer ExtractRows(IList<int> rows) {
 			SparseFloatVector[] r = new SparseFloatVector[vals.Length];
 			for (int i = 0; i < vals.Length; i++){
 				r[i] = (SparseFloatVector) vals[i].SubArray(rows);
 			}
-			return new SparseColumnMatrixIndexer{vals = r, nrows = rows.Count};
+			return new SparseColumnFloatMatrixIndexer{vals = r, nrows = rows.Count};
 		}
 
-		public void ExtractRowsInPlace(IList<int> rows) {
+		public override void ExtractRowsInPlace(IList<int> rows) {
 			for (int i = 0; i < vals.Length; i++){
 				vals[i] = (SparseFloatVector) vals[i].SubArray(rows);
 			}
 			nrows = rows.Count;
 		}
 
-		public IMatrixIndexer ExtractColumns(IList<int> columns) {
-			return new SparseColumnMatrixIndexer{vals = ArrayUtils.SubArray(vals, columns), nrows = nrows};
+		public override MatrixIndexer ExtractColumns(IList<int> columns) {
+			return new SparseColumnFloatMatrixIndexer{vals = ArrayUtils.SubArray(vals, columns), nrows = nrows};
 		}
 
-		public void ExtractColumnsInPlace(IList<int> columns) {
+		public override void ExtractColumnsInPlace(IList<int> columns) {
 			vals = ArrayUtils.SubArray(vals, columns);
 		}
 
-		public IMatrixIndexer Transpose(){
-			return new SparseRowMatrixIndexer(vals, nrows);
+		public override MatrixIndexer Transpose(){
+			return new SparseRowFloatMatrixIndexer(vals, nrows);
 		}
 
-		public bool ContainsNaNOrInf(){
+		public override bool ContainsNaNOrInf(){
 			foreach (SparseFloatVector val in vals){
 				if (val.ContainsNaNOrInf()){
 					return true;
@@ -102,7 +101,7 @@ namespace BaseLibS.Num.Matrix{
 			return false;
 		}
 
-		public bool IsNanOrInfRow(int row){
+		public override bool IsNanOrInfRow(int row){
 			for (int i = 0; i < ColumnCount; i++) {
 				float v = (float)vals[i][row];
 				if (!float.IsNaN(v) && !float.IsInfinity(v)) {
@@ -112,39 +111,39 @@ namespace BaseLibS.Num.Matrix{
 			return true;
 		}
 
-		public bool IsNanOrInfColumn(int column){
+		public override bool IsNanOrInfColumn(int column){
 			return vals[column].IsNanOrInf();
 		}
 
-		public int RowCount{
+		public override int RowCount{
 			get { return nrows; }
 		}
 
-		public int ColumnCount{
+		public override int ColumnCount{
 			get { return vals.Length; }
 		}
 
-		public float this[int i, int j]{
+		public override float this[int i, int j]{
 			get { return (float) vals[j][i]; }
 			set { vals[j][i] = value; }
 		}
 
-		public void Dispose(){
+		public override void Dispose(){
 			foreach (SparseFloatVector val in vals){
 				val.Dispose();
 			}
 			vals = null;
 		}
 
-		public object Clone(){
+		public override object Clone(){
 			if (vals == null){
-				return new SparseColumnMatrixIndexer();
+				return new SparseColumnFloatMatrixIndexer();
 			}
 			SparseFloatVector[] v = new SparseFloatVector[vals.Length];
 			for (int i = 0; i < v.Length; i++){
 				v[i] = (SparseFloatVector) vals[i].Clone();
 			}
-			return new SparseColumnMatrixIndexer{vals = v, nrows = nrows};
+			return new SparseColumnFloatMatrixIndexer{vals = v, nrows = nrows};
 		}
 	}
 }

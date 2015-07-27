@@ -1,4 +1,5 @@
 ﻿using BaseLibS.Api;
+using BaseLibS.Num.Vector;
 
 namespace NumPluginSvm.Svm{
 	public abstract class SvmKernel : SvmMatrix{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseLibS.Api{
+namespace BaseLibS.Num.Matrix{
 	public interface IBoolMatrixIndexer : ICloneable, IDisposable{
 		void Init(int nrows, int ncols);
 		int RowCount { get; }

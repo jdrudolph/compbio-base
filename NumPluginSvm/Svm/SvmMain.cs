@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BaseLibS.Api;
+using BaseLibS.Num.Vector;
 
 namespace NumPluginSvm.Svm{
 	public class SvmMain{

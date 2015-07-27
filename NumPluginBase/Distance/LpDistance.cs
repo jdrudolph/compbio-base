@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BaseLib.Param;
 using BaseLibS.Api;
 using BaseLibS.Num;
+using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
 namespace NumPluginBase.Distance{

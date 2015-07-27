@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using BaseLibS.Num.Vector;
 
 namespace BaseLibS.Api{
 	[Serializable]

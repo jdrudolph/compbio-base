@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using BaseLibS.Api;
 using BaseLibS.Num;
+using BaseLibS.Num.Vector;
 using BaseLibS.Param;
-using BaseLibS.Util;
 
 namespace NumPluginBase.ClassificationRank{
 	public class GolubFeatureRanking : ClassificationFeatureRankingMethod{

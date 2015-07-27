@@ -1,4 +1,5 @@
-﻿using BaseLibS.Param;
+﻿using BaseLibS.Num.Vector;
+using BaseLibS.Param;
 
 namespace BaseLibS.Api{
     public interface IRegressionMethod : INamedListItem{

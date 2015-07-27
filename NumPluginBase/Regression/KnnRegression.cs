@@ -1,5 +1,6 @@
 ﻿using BaseLib.Param;
 using BaseLibS.Api;
+using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 using NumPluginBase.Distance;
 
