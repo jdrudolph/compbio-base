@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using BaseLibS.Num;
 using BaseLibS.Util;
 
 namespace BaseLibS.Mol{
@@ -28,11 +29,24 @@ namespace BaseLibS.Mol{
 			}
 		}
 
+		public PeptideModificationCounts Add(PeptideModificationCounts other){
+			ushort[] allTypes = ArrayUtils.UniqueValues(ArrayUtils.Concat(ModificationTypes, other.ModificationTypes));
+			ushort[] allCounts = new ushort[allTypes.Length];
+			for (int i = 0; i < ModificationTypes.Length; i++) {
+				int ind = Array.BinarySearch(allTypes, ModificationTypes[i]);
+				allCounts[ind] += ModificationCounts[i];
+			}
+			for (int i = 0; i < other.ModificationTypes.Length; i++) {
+				int ind = Array.BinarySearch(allTypes, other.ModificationTypes[i]);
+				allCounts[ind] += other.ModificationCounts[i];
+			}
+			return new PeptideModificationCounts(allTypes, allCounts);
+		}
+
 		public Molecule GetMolecule(){
 			Molecule[] x = new Molecule[ModificationTypes.Length];
 			for (int i = 0; i < x.Length; i++){
-					Modification mod = Tables.ModificationList[ModificationTypes[i]];
-				;
+				Modification mod = Tables.ModificationList[ModificationTypes[i]];
 				x[i] = mod.GetMolecule();
 			}
 			return Molecule.Sum(x, ModificationCounts);
