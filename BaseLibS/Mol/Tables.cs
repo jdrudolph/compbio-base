@@ -105,13 +105,13 @@ namespace BaseLibS.Mol{
 			return Databases.ContainsKey(s);
 		}
 
-		public static string GetParseRule(string path){
+		public static string GetIdentifierParseRule(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			string pr = ReadParseRuleFromFile(path);
 			if (pr != null){
 				return pr;
 			}
-			return !Databases.ContainsKey(s) ? ">([^ ]*)" : Databases[s].SearchExpression;
+			return !Databases.ContainsKey(s) ? ">([^ ]*)" : Databases[s].IdentifierParseRule;
 		}
 
 		public static string GetMutationParseRule(string path){
@@ -395,7 +395,7 @@ namespace BaseLibS.Mol{
 		public static string[] GetParseRules(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
 			for (int j = 0; j < parseRules.Length; j++){
-				parseRules[j] = GetParseRule(fastaFiles[j]);
+				parseRules[j] = GetIdentifierParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}

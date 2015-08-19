@@ -7,9 +7,9 @@ namespace BaseLibS.Mol{
 		/// </summary>
 		public SequenceDatabase() { }
 
-		public SequenceDatabase(string filename, string searchExpression){
+		public SequenceDatabase(string filename, string identifierParseRule) {
 			Filename = filename;
-			SearchExpression = searchExpression;
+			IdentifierParseRule = identifierParseRule;
 		}
 
 		/// <summary>
@@ -20,10 +20,10 @@ namespace BaseLibS.Mol{
 
 		/// <summary>
 		/// Regular expression which describes how to parse the fasta sequence header to 
-		/// obtain the accession number.
+		/// obtain the protein identifier.
 		/// </summary>
-		[XmlAttribute("search_expression")]
-		public string SearchExpression { get; set; }
+		[XmlAttribute("identifier_parse_rule")]
+		public string IdentifierParseRule { get; set; }
 
 		/// <summary>
 		/// Regular expression which describes how to parse the fasta sequence header to 
@@ -33,7 +33,21 @@ namespace BaseLibS.Mol{
 		public string MutationParseRule { get; set; }
 
 		/// <summary>
-		/// The human readable species of this database which should be NCBI entry's name
+		/// Regular expression which describes how to parse the fasta sequence header to 
+		/// obtain the string containing definition of modifications.
+		/// </summary>
+		[XmlAttribute("modification_parse_rule")]
+		public string ModificationParseRule { get; set; }
+
+		/// <summary>
+		/// Regular expression which describes how to parse the fasta sequence header to 
+		/// obtain the string containing definition of taxonomies.
+		/// </summary>
+		[XmlAttribute("taxonomy_parse_rule")]
+		public string TaxonomyParseRule { get; set; }
+
+		/// <summary>
+		/// The human readable species of this database which should be the NCBI entry name
 		/// </summary>
 		[XmlAttribute("species")]
 		public string Species { get; set; }
@@ -45,7 +59,7 @@ namespace BaseLibS.Mol{
 		public string Taxid { get; set; }
 
 		/// <summary>
-		/// The human readable species of this database which should be NCBI entry's name
+		/// Origin of this fasta file
 		/// </summary>
 		[XmlAttribute("source")]
 		public string Source { get; set; }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using BaseLibS.Num.Vector;
 
 namespace BaseLibS.Num.Matrix{
-	public abstract class MatrixIndexer : ICloneable, IDisposable{
+	[Serializable]
+	public abstract class MatrixIndexer : ICloneable, IDisposable {
 		public abstract void Init(int nrows, int ncols);
 		public abstract bool IsInitialized();
 		public abstract int RowCount { get; }
