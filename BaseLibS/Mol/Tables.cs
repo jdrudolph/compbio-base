@@ -114,12 +114,27 @@ namespace BaseLibS.Mol{
 			return !Databases.ContainsKey(s) ? ">([^ ]*)" : Databases[s].IdentifierParseRule;
 		}
 
-		public static string GetMutationParseRule(string path){
+		public static string GetDescriptionParseRule(string path) {
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
-			return !Databases.ContainsKey(s) ? "" : Databases[s].MutationParseRule;
+			return !Databases.ContainsKey(s) ? "" : Databases[s].DescriptionParseRule;
 		}
 
-		public static string GetTaxonomyId(string path){
+		public static string GetTaxonomyParseRule(string path) {
+			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
+			return !Databases.ContainsKey(s) ? "" : Databases[s].TaxonomyParseRule;
+		}
+
+		public static string GetVariationParseRule(string path) {
+			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
+			return !Databases.ContainsKey(s) ? "" : Databases[s].VariationParseRule;
+		}
+
+		public static string GetModificationParseRule(string path) {
+			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
+			return !Databases.ContainsKey(s) ? "" : Databases[s].ModificationParseRule;
+		}
+
+		public static string GetTaxonomyId(string path) {
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			return !Databases.ContainsKey(s) ? "" : Databases[s].Taxid;
 		}
@@ -392,7 +407,7 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public static string[] GetParseRules(string[] fastaFiles){
+		public static string[] GetIdentifierParseRules(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
 			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetIdentifierParseRule(fastaFiles[j]);
@@ -400,15 +415,39 @@ namespace BaseLibS.Mol{
 			return parseRules;
 		}
 
-		public static string[] GetMutationParseRules(string[] fastaFiles){
+		public static string[] GetDescriptionParseRules(string[] fastaFiles) {
 			string[] parseRules = new string[fastaFiles.Length];
-			for (int j = 0; j < parseRules.Length; j++){
-				parseRules[j] = GetMutationParseRule(fastaFiles[j]);
+			for (int j = 0; j < parseRules.Length; j++) {
+				parseRules[j] = GetDescriptionParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}
 
-		public static string[] GetTaxonomyIds(string[] fastaFiles){
+		public static string[] GetTaxonomyParseRules(string[] fastaFiles) {
+			string[] parseRules = new string[fastaFiles.Length];
+			for (int j = 0; j < parseRules.Length; j++) {
+				parseRules[j] = GetTaxonomyParseRule(fastaFiles[j]);
+			}
+			return parseRules;
+		}
+
+		public static string[] GetVariationParseRules(string[] fastaFiles) {
+			string[] parseRules = new string[fastaFiles.Length];
+			for (int j = 0; j < parseRules.Length; j++) {
+				parseRules[j] = GetVariationParseRule(fastaFiles[j]);
+			}
+			return parseRules;
+		}
+
+		public static string[] GetModificationParseRules(string[] fastaFiles) {
+			string[] parseRules = new string[fastaFiles.Length];
+			for (int j = 0; j < parseRules.Length; j++) {
+				parseRules[j] = GetModificationParseRule(fastaFiles[j]);
+			}
+			return parseRules;
+		}
+
+		public static string[] GetTaxonomyIds(string[] fastaFiles) {
 			string[] parseRules = new string[fastaFiles.Length];
 			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetTaxonomyId(fastaFiles[j]);

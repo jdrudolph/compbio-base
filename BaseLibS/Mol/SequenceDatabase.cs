@@ -27,10 +27,17 @@ namespace BaseLibS.Mol{
 
 		/// <summary>
 		/// Regular expression which describes how to parse the fasta sequence header to 
+		/// obtain the protein description.
+		/// </summary>
+		[XmlAttribute("description_parse_rule")]
+		public string DescriptionParseRule { get; set; }
+
+		/// <summary>
+		/// Regular expression which describes how to parse the fasta sequence header to 
 		/// obtain the string containing definition of mutations.
 		/// </summary>
 		[XmlAttribute("mutation_parse_rule")]
-		public string MutationParseRule { get; set; }
+		public string VariationParseRule { get; set; }
 
 		/// <summary>
 		/// Regular expression which describes how to parse the fasta sequence header to 
