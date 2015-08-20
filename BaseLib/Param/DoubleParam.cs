@@ -8,7 +8,6 @@ namespace BaseLib.Param{
 	public class DoubleParam : Parameter<double>{
 		[NonSerialized] private TextBox control;
 
-
 		public DoubleParam(string name, double value) : base(name){
 			Value = value;
 			Default = value;
@@ -37,8 +36,17 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = double.Parse(value); } }
-		public override void Clear() { Value = 0; }
-		public override object Clone() { return new DoubleParam(Name, Value) { Help = Help, Visible = Visible, Default = Default }; }
+		public override string StringValue{
+			get { return Value.ToString(CultureInfo.InvariantCulture); }
+			set { Value = double.Parse(value); }
+		}
+
+		public override void Clear(){
+			Value = 0;
+		}
+
+		public override object Clone(){
+			return new DoubleParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+		}
 	}
 }

@@ -87,7 +87,9 @@ namespace BaseLibS.Util{
 		/// <param name="separator">A string used to separate the array members.</param>
 		/// <param name="o">The list of objects to be concatenated.</param>
 		/// <returns>The concatenated string of all string representations of the array members.</returns>
-		public static string Concat<T>(string separator, T[] o) { return Concat(separator, o, int.MaxValue); }
+		public static string Concat<T>(string separator, T[] o){
+			return Concat(separator, o, int.MaxValue);
+		}
 
 		/// <summary>
 		/// Concatenates the string representations of the objects in the given array using the specified separator.
@@ -143,7 +145,9 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static string Concat<T>(string separator1, string separator2, T[][] o) { return Concat(separator1, separator2, o, int.MaxValue); }
+		public static string Concat<T>(string separator1, string separator2, T[][] o){
+			return Concat(separator1, separator2, o, int.MaxValue);
+		}
 
 		public static string Concat<T>(string separator1, string separator2, T[][] o, int maxLen){
 			if (o == null){
@@ -489,7 +493,9 @@ namespace BaseLibS.Util{
 		/// <summary>
 		/// Replaces occurences of characters that are problematic in file names or paths with an underscore.
 		/// </summary>
-		public static string ReplaceCharactersForFilename(string str) { return ReplaceCharactersForFilename(str, '_'); }
+		public static string ReplaceCharactersForFilename(string str){
+			return ReplaceCharactersForFilename(str, '_');
+		}
 
 		public static string ReplaceCharactersForFilename(string str, char replaceBy){
 			StringBuilder s = new StringBuilder();
@@ -584,8 +590,13 @@ namespace BaseLibS.Util{
 			return (negative ? "-" : "") + Repeat('0', len - ndigits) + n;
 		}
 
-		public static string ReturnAtWhitespace(string s) { return ReturnAtWhitespace(s, 80); }
-		public static string ReturnAtWhitespace(string s, int len) { return Concat("\n", SplitLinesAtWhitespace(s, len)); }
+		public static string ReturnAtWhitespace(string s){
+			return ReturnAtWhitespace(s, 80);
+		}
+
+		public static string ReturnAtWhitespace(string s, int len){
+			return Concat("\n", SplitLinesAtWhitespace(s, len));
+		}
 
 		public static string[] SplitLinesAtWhitespace(string s, int len){
 			List<string> result = new List<string>();
@@ -607,6 +618,33 @@ namespace BaseLibS.Util{
 			}
 			if (line.Length > 0){
 				result.Add(line.ToString());
+			}
+			return result.ToArray();
+		}
+
+		public static string[] SplitAtWhitespace(string s){
+			if (string.IsNullOrEmpty(s)){
+				return new string[0];
+			}
+			s = s.Trim();
+			if (string.IsNullOrEmpty(s)){
+				return new string[0];
+			}
+			StringBuilder current = new StringBuilder();
+			List<string> result = new List<string>();
+			foreach (char c in s){
+				if (char.IsWhiteSpace(c)){
+					if (current.Length > 0){
+						result.Add(current.ToString());
+						current.Clear();
+					}
+				} else{
+					current.Append(c);
+				}
+			}
+			if (current.Length > 0){
+				result.Add(current.ToString());
+				current.Clear();
 			}
 			return result.ToArray();
 		}

@@ -36,7 +36,7 @@ namespace BaseLibS.Mol{
 		/// Regular expression which describes how to parse the fasta sequence header to 
 		/// obtain the string containing definition of mutations.
 		/// </summary>
-		[XmlAttribute("mutation_parse_rule")]
+		[XmlAttribute("variation_parse_rule")]
 		public string VariationParseRule { get; set; }
 
 		/// <summary>

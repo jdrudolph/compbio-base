@@ -9,7 +9,7 @@ namespace BaseLib.Param{
 		public Func<string, string> ProcessFileName { get; set; }
 		public bool Save { get; set; }
 		[NonSerialized] private FileParameterControl control;
-		public FileParam(string name) : this(name, "") { }
+		public FileParam(string name) : this(name, ""){}
 
 		public FileParam(string name, string value) : base(name){
 			Value = value;
@@ -18,9 +18,14 @@ namespace BaseLib.Param{
 			Save = false;
 		}
 
-		public override string StringValue { get { return Value; } set { Value = value; } }
+		public override string StringValue{
+			get { return Value; }
+			set { Value = value; }
+		}
 
-		public override void SetValueFromControl() { Value = control.Text; }
+		public override void SetValueFromControl(){
+			Value = control.Text;
+		}
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
@@ -29,10 +34,13 @@ namespace BaseLib.Param{
 			control.Text = Value;
 		}
 
-		public override void Clear() { Value = ""; }
+		public override void Clear(){
+			Value = "";
+		}
 
 		public override object CreateControl(){
-			return control = new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save};
+			return
+				control = new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save};
 		}
 
 		public override object Clone(){
