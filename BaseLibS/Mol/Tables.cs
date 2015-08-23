@@ -105,10 +105,10 @@ namespace BaseLibS.Mol{
 			return Databases.ContainsKey(s);
 		}
 
-		public static string GetIdentifierParseRule(string path){
+		public static string GetIdentifierParseRule(string path) {
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			string pr = ReadParseRuleFromFile(path);
-			if (pr != null){
+			if (pr != null) {
 				return pr;
 			}
 			return !Databases.ContainsKey(s) ? ">([^ ]*)" : Databases[s].IdentifierParseRule;
@@ -407,9 +407,17 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public static string[] GetIdentifierParseRules(string[] fastaFiles){
+		public static bool[] ContainsDatabases(string[] fastaFiles) {
+			bool[] result = new bool[fastaFiles.Length];
+			for (int j = 0; j < result.Length; j++) {
+				result[j] = ContainsDatabase(fastaFiles[j]);
+			}
+			return result;
+		}
+
+		public static string[] GetIdentifierParseRules(string[] fastaFiles) {
 			string[] parseRules = new string[fastaFiles.Length];
-			for (int j = 0; j < parseRules.Length; j++){
+			for (int j = 0; j < parseRules.Length; j++) {
 				parseRules[j] = GetIdentifierParseRule(fastaFiles[j]);
 			}
 			return parseRules;

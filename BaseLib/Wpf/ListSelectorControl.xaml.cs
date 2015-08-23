@@ -28,7 +28,10 @@ namespace BaseLib.Wpf{
 			HasMoveButtons = false;
 		}
 
-		public bool Repeats { get { return repeats; } set { repeats = value; } }
+		public bool Repeats{
+			get { return repeats; }
+			set { repeats = value; }
+		}
 
 		private void DownButtonMouseUp(object sender, MouseEventArgs e){
 			downThread.Abort();
@@ -66,8 +69,13 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public ItemCollection Items { get { return AllListBox.Items; } }
-		public ItemCollection SelectedItems { get { return SelectedListBox.Items; } }
+		public ItemCollection Items{
+			get { return AllListBox.Items; }
+		}
+
+		public ItemCollection SelectedItems{
+			get { return SelectedListBox.Items; }
+		}
 
 		public string[] SelectedStrings{
 			get{
@@ -107,7 +115,14 @@ namespace BaseLib.Wpf{
 					return i;
 				}
 			}
-			throw new Exception("Never get here.");
+			if (o == null){
+				throw new Exception("Object is null.");
+			}
+			string[] x = new string[items.Count];
+			for (int i = 0; i < x.Length; i++){
+				x[i] = items[i].ToString();
+			}
+			throw new Exception(o + " is not contained. Values are " + StringUtils.Concat(",", x));
 		}
 
 		public void SetSelected(int index, bool value){
@@ -189,7 +204,9 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		private static void SelectAll(ListBox p0) { p0.SelectAll(); }
+		private static void SelectAll(ListBox p0){
+			p0.SelectAll();
+		}
 
 		public void SetDefaultSelectors(List<string> defaultSelectionNames1, List<string[]> defaultSelections1){
 			if (defaultSelectionNames1.Count > 0){
@@ -210,7 +227,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public void Connect(int connectionId, object target) { }
+		public void Connect(int connectionId, object target){}
 
 		private void Select_OnClick(object sender, RoutedEventArgs e){
 			foreach (object o in AllListBox.SelectedItems){
@@ -355,7 +372,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void CommandBinding_OnExecuted(object sender, ExecutedRoutedEventArgs e){
-			SelectedListBox.SelectAll();			
+			SelectedListBox.SelectAll();
 		}
 	}
 }
