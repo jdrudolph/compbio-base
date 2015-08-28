@@ -94,9 +94,15 @@ namespace BaseLib.Forms.Table{
 		private bool hasShowInPerseus;
 		private readonly float dpiScaleX;
 		private readonly float dpiScaleY;
+		private FindForm findForm;
+		private int origColumnHeaderHeight = 40;
+		private const int maxColHeaderStringSplits = 3;
+		private bool sortable;
+		public Action<string> SetCellText { get; set; }
 		//TODO
 		private readonly ToolTip columnViewToolTip = new ToolTip();
 		//private readonly ToolTip mainViewToolTip = new ToolTip();
+
 		public TableViewWf(string name){
 			Sortable = true;
 			RowHeaderWidth = 70;
@@ -113,7 +119,9 @@ namespace BaseLib.Forms.Table{
 			headerFont = defaultFont;
 		}
 
-		public bool Sortable{
+		public TableViewWf() : this("") { }
+
+		public bool Sortable {
 			get { return sortable; }
 			set{
 				if (selectionTopToolStripMenuItem != null){
@@ -125,14 +133,6 @@ namespace BaseLib.Forms.Table{
 				sortable = value;
 			}
 		}
-
-		private FindForm findForm;
-		private int origColumnHeaderHeight = 40;
-		private const int maxColHeaderStringSplits = 3;
-		private bool sortable;
-		public Action<string> SetCellText { get; set; }
-		public TableViewWf() : this(""){}
-
 
 		public bool HasShowInPerseus{
 			get { return hasShowInPerseus; }

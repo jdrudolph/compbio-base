@@ -51,11 +51,11 @@ namespace BaseLib.Forms.Table{
 			tableView.ClearSelection();
 			int[] rows = tableView1.GetSelectedRows();
 			foreach (int ind in rows.Select(row => (int)tableView1.GetEntry(row, 0) - 1)) {
-				tableView.SetSelectedIndex(ind);
+				tableView.SetSelectedViewIndex(ind);
 			}
 			if (rows.Length > 0) {
 				int ind0 = (int)tableView1.GetEntry(rows[0], 0) - 1;
-				tableView.ScrollToRow(tableView.GetViewIndex(ind0));
+				tableView.ScrollToRow(ind0);
 			}
 			tableView.Invalidate();
 		}
@@ -86,7 +86,7 @@ namespace BaseLib.Forms.Table{
 			toolStripStatusLabel1.Text = "";
 			if (lookInComboBox.SelectedIndex > tableModel.ColumnCount){
 				if (multipleColumns.Length == 0){
-					System.Windows.Forms.MessageBox.Show("Please select columns.");
+					MessageBox.Show("Please select columns.");
 					return;
 				}
 			}
@@ -94,7 +94,7 @@ namespace BaseLib.Forms.Table{
 			bool matchWholeWord = MatchWholeWord;
 			string searchString = SearchString;
 			if (string.IsNullOrEmpty(searchString)){
-				System.Windows.Forms.MessageBox.Show("Please enter a search string.");
+				MessageBox.Show("Please enter a search string.");
 				return;
 			}
 			IEnumerable<int> colInds = GetColumnIndices();
@@ -149,7 +149,7 @@ namespace BaseLib.Forms.Table{
 		private void FindNextButtonClick(object sender, EventArgs e){
 			if (lookInComboBox.SelectedIndex > tableModel.ColumnCount){
 				if (multipleColumns.Length == 0){
-					System.Windows.Forms.MessageBox.Show("Please select columns.");
+					MessageBox.Show("Please select columns.");
 					return;
 				}
 			}
@@ -158,7 +158,7 @@ namespace BaseLib.Forms.Table{
 			bool searchUp = SearchUp;
 			string searchString = SearchString;
 			if (string.IsNullOrEmpty(searchString)){
-				System.Windows.Forms.MessageBox.Show("Please enter a search string.");
+				MessageBox.Show("Please enter a search string.");
 				return;
 			}
 			IEnumerable<int> colInds = GetColumnIndices();
