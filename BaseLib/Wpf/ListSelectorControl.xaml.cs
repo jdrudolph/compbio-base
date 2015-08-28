@@ -59,7 +59,9 @@ namespace BaseLib.Wpf{
 				Dispatcher.Invoke(() => DownButtonClick(null, null));
 				Thread.Sleep(150);
 			}
+// ReSharper disable FunctionNeverReturns
 		}
+// ReSharper restore FunctionNeverReturns
 
 		private void WalkUp(){
 			Thread.Sleep(400);
@@ -67,7 +69,9 @@ namespace BaseLib.Wpf{
 				Dispatcher.Invoke(() => UpButtonClick(null, null));
 				Thread.Sleep(150);
 			}
+// ReSharper disable FunctionNeverReturns
 		}
+// ReSharper restore FunctionNeverReturns
 
 		public ItemCollection Items{
 			get { return AllListBox.Items; }
@@ -204,7 +208,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		private static void SelectAll(ListBox p0){
+		public static void SelectAll(ListBox p0){
 			p0.SelectAll();
 		}
 
