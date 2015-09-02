@@ -8,7 +8,7 @@ namespace BaseLib.Param{
 	public class SingleChoiceParam : Parameter<int>{
 		public IList<string> Values { get; set; }
 		[NonSerialized] private ComboBox control;
-		public SingleChoiceParam(string name) : this(name, 0) { }
+		public SingleChoiceParam(string name) : this(name, 0){}
 
 		public SingleChoiceParam(string name, int value) : base(name){
 			Value = value;
@@ -33,7 +33,9 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override void Clear() { Value = 0; }
+		public override void Clear(){
+			Value = 0;
+		}
 
 		public override void SetValueFromControl(){
 			if (control == null){
@@ -85,6 +87,8 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public override object Clone() { return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default}; }
+		public override object Clone(){
+			return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
+		}
 	}
 }

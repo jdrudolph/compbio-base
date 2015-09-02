@@ -23,7 +23,7 @@ namespace BaseLibS.Param{
 		public abstract void SetValueFromControl();
 		public abstract void UpdateControlFromValue();
 		public abstract object CreateControl();
-		public virtual void Drop(string x) { }
+		public virtual void Drop(string x){}
 
 		public abstract string StringValue { get; set; }
 		public abstract void ResetValue();
@@ -31,9 +31,18 @@ namespace BaseLibS.Param{
 		public abstract object Clone();
 		public abstract void Clear();
 		public abstract bool IsModified { get; }
-		public virtual bool IsDropTarget { get { return false; } }
-		public virtual float Height { get { return paramHeight; } }
-		public virtual string[] Markup { get { return new[]{"<parameter" + " name=\"" + Name + "\" value=\"" + StringValue + "\"></parameter>"}; } }
+
+		public virtual bool IsDropTarget{
+			get { return false; }
+		}
+
+		public virtual float Height{
+			get { return paramHeight; }
+		}
+
+		public virtual string[] Markup{
+			get { return new[]{"<parameter" + " name=\"" + Name + "\" value=\"" + StringValue + "\"></parameter>"}; }
+		}
 
 		protected void ValueHasChanged(){
 			if (ValueChanged != null){
@@ -43,8 +52,8 @@ namespace BaseLibS.Param{
 	}
 
 	[Serializable]
-	public abstract class Parameter<T> : Parameter {
-		protected Parameter(string name) : base(name) { }
+	public abstract class Parameter<T> : Parameter{
+		protected Parameter(string name) : base(name){}
 		public T Value { get; set; }
 		public T Default { get; protected set; }
 
@@ -66,9 +75,12 @@ namespace BaseLibS.Param{
 			ResetSubParamDefaults();
 		}
 
-		public override bool IsModified { get { return !Equals(Value, Default); } }
-		public virtual void ResetSubParamValues() { }
-		public virtual void ResetSubParamDefaults() { }
+		public override bool IsModified{
+			get { return !Equals(Value, Default); }
+		}
+
+		public virtual void ResetSubParamValues(){}
+		public virtual void ResetSubParamDefaults(){}
 
 		public T Value2{
 			get{

@@ -28,8 +28,8 @@ namespace BaseLibS.Param{
 		}
 		public bool IsModified{
 			get{
-				foreach (Parameter parameterGroup in parameters){
-					if (parameterGroup.IsModified){
+				foreach (Parameter parameter in parameters){
+					if (parameter.IsModified){
 						return true;
 					}
 				}

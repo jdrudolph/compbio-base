@@ -5,11 +5,18 @@ namespace BaseLibS.Param{
 	[Serializable]
 	public class Parameters : ICloneable{
 		private readonly List<ParameterGroup> paramGroups = new List<ParameterGroup>();
-		public Parameters(IList<Parameter> param, string name) { AddParameterGroup(param, name, false); }
-		public Parameters(Parameter param) : this(new[]{param}) { }
-		public Parameters(IList<Parameter> param) : this(param, null) { }
-		public Parameters() { }
-		public Parameters GetSubGroupAt(int index) { return new Parameters(paramGroups[index].ParameterList); }
+
+		public Parameters(IList<Parameter> param, string name){
+			AddParameterGroup(param, name, false);
+		}
+
+		public Parameters(Parameter param) : this(new[]{param}){}
+		public Parameters(IList<Parameter> param) : this(param, null){}
+		public Parameters(){}
+
+		public Parameters GetSubGroupAt(int index){
+			return new Parameters(paramGroups[index].ParameterList);
+		}
 
 		public Parameter[] GetAllParameters(){
 			List<Parameter> result = new List<Parameter>();
@@ -48,7 +55,9 @@ namespace BaseLibS.Param{
 			}
 		}
 
-		public void AddParameterGroup(IList<Parameter> param, string name, bool collapsed) { paramGroups.Add(new ParameterGroup(param, name, collapsed)); }
+		public void AddParameterGroup(IList<Parameter> param, string name, bool collapsed){
+			paramGroups.Add(new ParameterGroup(param, name, collapsed));
+		}
 
 		public object Clone(){
 			Parameters newParam = new Parameters();
@@ -78,9 +87,17 @@ namespace BaseLibS.Param{
 			}
 		}
 
-		public Parameter<T> GetParam<T>(string name) { return (Parameter<T>) GetParam(name); }
-		public ParameterWithSubParams<T> GetParamWithSubParams<T>(string name) { return (ParameterWithSubParams<T>) GetParam(name); }
-		public int GroupCount { get { return paramGroups.Count; } }
+		public Parameter<T> GetParam<T>(string name){
+			return (Parameter<T>) GetParam(name);
+		}
+
+		public ParameterWithSubParams<T> GetParamWithSubParams<T>(string name){
+			return (ParameterWithSubParams<T>) GetParam(name);
+		}
+
+		public int GroupCount{
+			get { return paramGroups.Count; }
+		}
 
 		public Parameter GetParam(string name){
 			foreach (ParameterGroup parameterGroup in paramGroups){
@@ -132,7 +149,9 @@ namespace BaseLibS.Param{
 			}
 		}
 
-		public ParameterGroup GetGroup(int i) { return paramGroups[i]; }
+		public ParameterGroup GetGroup(int i){
+			return paramGroups[i];
+		}
 
 		public void SetValuesFromControl(){
 			foreach (ParameterGroup parameterGroup in paramGroups){
@@ -158,7 +177,9 @@ namespace BaseLibS.Param{
 			}
 		}
 
-		public Parameter FindParameter(string paramName) { return FindParameter(paramName, this); }
+		public Parameter FindParameter(string paramName){
+			return FindParameter(paramName, this);
+		}
 
 		private static Parameter FindParameter(string paramName, Parameters parameters){
 			Parameter p = parameters.GetParamNoException(paramName);

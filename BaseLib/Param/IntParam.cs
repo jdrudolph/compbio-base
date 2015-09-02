@@ -13,7 +13,10 @@ namespace BaseLib.Param{
 			Default = value;
 		}
 
-		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
+		public override string StringValue{
+			get { return Value.ToString(CultureInfo.InvariantCulture); }
+			set { Value = int.Parse(value); }
+		}
 
 		public override void SetValueFromControl(){
 			int val;
@@ -30,7 +33,9 @@ namespace BaseLib.Param{
 			control.Text = "" + Value;
 		}
 
-		public override void Clear() { Value = 0; }
+		public override void Clear(){
+			Value = 0;
+		}
 
 		public override object CreateControl(){
 			control = new TextBox{Text = "" + Value};
@@ -41,6 +46,8 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public override object Clone() { return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
+		public override object Clone(){
+			return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+		}
 	}
 }
