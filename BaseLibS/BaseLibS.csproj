@@ -31,6 +31,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Api\ClassificationModel.cs" />
+    <Compile Include="Mol\TaxonomyItem.cs" />
+    <Compile Include="Mol\TaxonomyItems.cs" />
+    <Compile Include="Mol\TaxonomyNameType.cs" />
+    <Compile Include="Mol\TaxonomyRank.cs" />
+    <Compile Include="Mol\TaxonomyRanks.cs" />
     <Compile Include="Num\Matrix\IBoolMatrixIndexer.cs" />
     <Compile Include="Api\ClassificationFeatureRankingMethod.cs" />
     <Compile Include="Api\ClassificationMethod.cs" />
@@ -127,6 +132,11 @@
     <Compile Include="Parse\Uniprot\UniprotFeature.cs" />
     <Compile Include="Parse\Uniprot\UniprotParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="Table\ColumnType.cs" />
     <Compile Include="Table\DataAnnotationRow.cs" />
     <Compile Include="Table\DataRow2.cs" />
@@ -166,7 +176,16 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\names.dmp.gz" />
+    <None Include="Resources\nodes.dmp.gz" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
