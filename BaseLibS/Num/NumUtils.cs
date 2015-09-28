@@ -106,6 +106,11 @@ namespace BaseLibS.Num{
 
 		public static int[][] GetCombinations(int n, int k, int max, out bool incomplete){
 			List<int[]> result = new List<int[]>();
+			if (k == 0){
+				incomplete = false;
+				result.Add(new int[0]);
+				return result.ToArray();
+			}
 			Combination comb = new Combination(n, k);
 			result.Add(comb.Data);
 			incomplete = false;

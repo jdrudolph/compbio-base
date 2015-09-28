@@ -7,6 +7,7 @@
 		SemispecificFreeNterm,
 		SemispecificFreeCterm,
 		Semispecific,
-		Unspecific
+		Unspecific,
+		None
 	}
 }
