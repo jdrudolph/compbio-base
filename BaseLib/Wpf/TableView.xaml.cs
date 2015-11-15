@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using BaseLib.Forms.Table;
+using BaseLibS.Util;
 
 namespace BaseLib.Wpf{
 	/// <summary>
@@ -17,13 +18,11 @@ namespace BaseLib.Wpf{
 			InitializeComponent();
 			tableView = new TableViewWf();
 			tableView.SelectionChanged += (sender, args) =>{
-				if (SelectionChanged != null){
-					SelectionChanged(sender, args);
-				}
+				SelectionChanged?.Invoke(sender, args);
 				long c = tableView.SelectedCount;
 				long t = tableView.RowCount;
-				SelectedTextBlock.Text = c > 0 ? "" + c + " selected" : "";
-				ItemsTextBlock.Text = "" + t + " items";
+				SelectedTextBlock.Text = c > 0 ? "" + StringUtils.WithDecimalSeparators(c) + " selected" : "";
+				ItemsTextBlock.Text = "" + StringUtils.WithDecimalSeparators(t) + " items";
 			};
 			MainPanel.Child = tableView;
 			KeyDown += (sender, args) => tableView.Focus();
@@ -33,7 +32,7 @@ namespace BaseLib.Wpf{
 			get { return tableView.TableModel; }
 			set{
 				tableView.TableModel = value;
-				ItemsTextBlock.Text = value != null ? "" + value.RowCount + " items" : "";
+				ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
 			}
 		}
 
@@ -70,9 +69,7 @@ namespace BaseLib.Wpf{
 			set { tableView.Sortable = value; }
 		}
 
-		public int RowCount{
-			get { return tableView.RowCount; }
-		}
+		public int RowCount => tableView.RowCount;
 
 		public int RowHeaderWidth{
 			get { return tableView.RowHeaderWidth; }
