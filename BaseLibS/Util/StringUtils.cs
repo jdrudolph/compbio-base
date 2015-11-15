@@ -720,6 +720,21 @@ namespace BaseLibS.Util{
 				r = r/1000;
 			}
 			t.Reverse();
+			for (int i = 1; i < t.Count; i++){
+				if (t[i].Length < 3){
+					switch (t[i].Length){
+						case 0:
+							t[i] = "000";
+							break;
+						case 1:
+							t[i] = "00" + t[i];
+							break;
+						default:
+							t[i] = "0" + t[i];
+							break;
+					}
+				}
+			}
 			return s + Concat(",", t);
 		}
 	}
