@@ -10,14 +10,18 @@ namespace BaseLibS.Util{
 		/// <summary>
 		/// The digits 0 to 9 as subscripts.
 		/// </summary>
-		private static readonly char[] subscripts = new[]
-		{'\u2080', '\u2081', '\u2082', '\u2083', '\u2084', '\u2085', '\u2086', '\u2087', '\u2088', '\u2089'};
+		private static readonly char[] subscripts ={
+			'\u2080', '\u2081', '\u2082', '\u2083', '\u2084', '\u2085', '\u2086',
+			'\u2087', '\u2088', '\u2089'
+		};
 
 		/// <summary>
 		/// The digits 0 to 9 as superscripts.
 		/// </summary>
-		private static readonly char[] superscripts = new[]
-		{'\u2070', '\u00b9', '\u00b2', '\u00b3', '\u2074', '\u2075', '\u2076', '\u2077', '\u2078', '\u2079'};
+		private static readonly char[] superscripts ={
+			'\u2070', '\u00b9', '\u00b2', '\u00b3', '\u2074', '\u2075', '\u2076',
+			'\u2077', '\u2078', '\u2079'
+		};
 
 		/// <summary>
 		/// Returns a string containing a representation of the given integer as superscript.
@@ -697,6 +701,26 @@ namespace BaseLibS.Util{
 				}
 			}
 			return prefix.Length;
+		}
+
+		public static string WithDecimalSeparators(long a){
+			if (a < 999 && a > -999){
+				return "" + a;
+			}
+			string s = "";
+			if (a < 0){
+				s = "-";
+				a = -a;
+			}
+			long r = a;
+			List<string> t = new List<string>();
+			while (r > 0){
+				long x = r%1000;
+				t.Add("" + x);
+				r = r/1000;
+			}
+			t.Reverse();
+			return s + Concat(",", t);
 		}
 	}
 }
