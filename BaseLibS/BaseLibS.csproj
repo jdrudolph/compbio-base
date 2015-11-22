@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Api\ClassificationModel.cs" />
+    <Compile Include="Data\NeighbourListAssym.cs" />
     <Compile Include="Mol\TaxonomyItem.cs" />
     <Compile Include="Mol\TaxonomyItems.cs" />
     <Compile Include="Mol\TaxonomyNameType.cs" />
