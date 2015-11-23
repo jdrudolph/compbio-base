@@ -30,8 +30,10 @@ namespace BaseLibS.Data{
 				int[] cluster1;
 				int[] cluster2;
 				GetClusterAt(neighborList1.Keys.First(), out cluster1, out cluster2);
-				result1.Add(cluster1);
-				result2.Add(cluster2);
+				if (cluster2.Length > 0){
+					result1.Add(cluster1);
+					result2.Add(cluster2);
+				}
 			}
 			clusters1 = result1.ToArray();
 			clusters2 = result2.ToArray();
