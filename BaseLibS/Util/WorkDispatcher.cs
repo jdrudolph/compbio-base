@@ -123,15 +123,15 @@ namespace BaseLibS.Util{
 		}
 
 		private string GetLogArgs(int taskIndex, int id){
-			return string.Format("\"{0}\" \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" ", infoFolder, GetFilename(), id,
-				GetName(taskIndex), GetComment(taskIndex), "Process");
+			return
+				$"\"{infoFolder}\" \"{GetFilename()}\" \"{id}\" \"{GetName(taskIndex)}\" \"{GetComment(taskIndex)}\" \"{"Process"}\" ";
 		}
 
 		protected string GetFilename(){
 			return GetMessagePrefix().Trim().Replace("/", "").Replace("(", "_").Replace(")", "_").Replace(" ", "_");
 		}
 
-		public virtual bool IsFallbackPosition { get { return true; } }
+		public virtual bool IsFallbackPosition => true;
 		protected abstract string GetCommandArguments(int taskIndex);
 		protected abstract string GetCommandFilename();
 		protected abstract void InternalCalculation(int taskIndex);

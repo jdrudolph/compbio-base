@@ -491,7 +491,7 @@ namespace BaseLibS.Num{
 				return null;
 			}
 			if (first == null || first.Count == 0){
-				return second != null ? second.ToArray() : null;
+				return second?.ToArray();
 			}
 			if (second == null || second.Count == 0){
 				return first.ToArray();

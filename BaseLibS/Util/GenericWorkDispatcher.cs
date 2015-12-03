@@ -3,30 +3,43 @@
 		protected readonly bool externalCalculations;
 
 		protected GenericWorkDispatcher(int nThreads, int nTasks, string infoFolder, bool externalCalculations)
-			: base(nThreads, nTasks, infoFolder) { this.externalCalculations = externalCalculations; }
+			: base(nThreads, nTasks, infoFolder){
+			this.externalCalculations = externalCalculations;
+		}
 
-		protected override sealed string GetCommandFilename() { return "\"" + FileUtils.executablePath + "\\" + Executable64Bit + "\""; }
+		protected sealed override string GetCommandFilename(){
+			return "\"" + FileUtils.executablePath + "\\" + Executable64Bit + "\"";
+		}
+
 		protected abstract string Executable64Bit { get; }
-		protected override sealed bool ExternalCalculation() { return externalCalculations; }
 
-		protected override sealed string GetCommandArguments(int taskIndex){
+		protected sealed override bool ExternalCalculation(){
+			return externalCalculations;
+		}
+
+		protected sealed override string GetCommandArguments(int taskIndex){
 			object[] o = GetArguments(taskIndex);
 			string[] args = new string[o.Length + 1];
-			args[0] = string.Format("\"{0}\"", Id);
+			args[0] = $"\"{Id}\"";
 			for (int i = 0; i < o.Length; i++){
-				args[i + 1] = string.Format("\"{0}\"", o[i]);
+				args[i + 1] = $"\"{o[i]}\"";
 			}
 			return StringUtils.Concat(" ", args);
 		}
 
-		protected override sealed void InternalCalculation(int taskIndex) { Calculation(GetStringArgs(taskIndex)); }
-		public override sealed string GetMessagePrefix() { return MessagePrefix + " "; }
+		protected sealed override void InternalCalculation(int taskIndex){
+			Calculation(GetStringArgs(taskIndex));
+		}
+
+		public sealed override string GetMessagePrefix(){
+			return MessagePrefix + " ";
+		}
 
 		private string[] GetStringArgs(int taskIndex){
 			object[] o = GetArguments(taskIndex);
 			string[] args = new string[o.Length];
 			for (int i = 0; i < o.Length; i++){
-				args[i] = string.Format("{0}", o[i]);
+				args[i] = $"{o[i]}";
 			}
 			return args;
 		}
