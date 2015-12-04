@@ -6,6 +6,6 @@
 		AaSubstitution,
 		Glycan,
 		CleavedCrosslink,
-		NeuCode
+		NeuCodeLabel
 	}
 }

@@ -17,17 +17,9 @@ namespace BaseLibS.Mol{
 		private static Dictionary<string, Modification> neucodeModifications;
 		private static Modification[] modificationList;
 
-		public static Dictionary<string, SequenceDatabase> Databases{
-			get { return databases ?? (databases = ReadDatabases()); }
-		}
-
-		public static Dictionary<string, Enzyme> Enzymes{
-			get { return enzymes ?? (enzymes = ReadProteases()); }
-		}
-
-		public static Dictionary<string, CrossLinker> CrossLinkers{
-			get { return crossLinkers ?? (crossLinkers = ReadCrossLinks()); }
-		}
+		public static Dictionary<string, SequenceDatabase> Databases => databases ?? (databases = ReadDatabases());
+		public static Dictionary<string, Enzyme> Enzymes => enzymes ?? (enzymes = ReadProteases());
+		public static Dictionary<string, CrossLinker> CrossLinkers => crossLinkers ?? (crossLinkers = ReadCrossLinks());
 
 		public static Dictionary<string, Modification> Modifications{
 			get{
@@ -265,7 +257,7 @@ namespace BaseLibS.Mol{
 					if (mod.ModificationType == ModificationType.IsobaricLabel && !isobaricLabelMods.ContainsKey(mod.Name)){
 						isobaricLabelMods.Add(mod.Name, mod);
 					}
-					if (mod.ModificationType == ModificationType.NeuCode && !neucodeLabelMods.ContainsKey(mod.Name)){
+					if (mod.ModificationType == ModificationType.NeuCodeLabel && !neucodeLabelMods.ContainsKey(mod.Name)){
 						neucodeLabelMods.Add(mod.Name, mod);
 					}
 				}
