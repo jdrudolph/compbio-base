@@ -6,14 +6,10 @@ using System.Xml.Serialization;
 namespace BaseLibS.Mol{
 	public class Modification : StorableItem{
 		private double deltaMass = double.NaN;
-		private string composition;
-		private ModificationPosition position = ModificationPosition.anywhere;
 		private ModificationSite[] sites = new ModificationSite[0];
 		private Dictionary<char, ModificationSite> sitesMap;
 		private char[] sitesArray;
 		private char[] sitesArraySorted;
-		private ModificationType modificationType = ModificationType.Standard;
-		private NewTerminusType newTerminusType = NewTerminusType.none;
 
 		[XmlAttribute("reporterCorrectionM2")]
 		public double ReporterCorrectionM2 { get; set; }
@@ -31,27 +27,21 @@ namespace BaseLibS.Mol{
 		public bool ReporterCorrectionType { get; set; }
 
 		/// <summary>
-		/// Monoisotopic mass of modification
+		/// Monoisotopic mass
 		/// </summary>
 		[XmlAttribute("delta_mass"), XmlIgnore]
 		public double DeltaMass{
 			get{
 				if (double.IsNaN(deltaMass)){
-					deltaMass = ChemElements.GetMassFromComposition(composition);
+					deltaMass = ChemElements.GetMassFromComposition(Composition);
 				}
 				return deltaMass;
 			}
 			set { deltaMass = value; }
 		}
 
-		/// <summary>
-		/// Composition of modification
-		/// </summary>
 		[XmlAttribute("composition")]
-		public string Composition{
-			get { return composition; }
-			set { composition = value; }
-		}
+		public string Composition { get; set; }
 
 		/// <summary>
 		/// Equivalent Unimod id
@@ -63,14 +53,8 @@ namespace BaseLibS.Mol{
 		/// Position of Modification
 		/// </summary>
 		[XmlElement("position", typeof (ModificationPosition))]
-		public ModificationPosition Position{
-			get { return position; }
-			set { position = value; }
-		}
+		public ModificationPosition Position { get; set; } = ModificationPosition.anywhere;
 
-		/// <summary>
-		/// Sites of Modification
-		/// </summary>
 		[XmlElement("modification_site")]
 		public ModificationSite[] Sites{
 			set{
@@ -84,64 +68,38 @@ namespace BaseLibS.Mol{
 		}
 
 		/// <summary>
-		/// Determines if this is a standard modification, a label or an isobaric label
+		/// Determines if this is a standard modification, a label or an isobaric label, etc
 		/// </summary>
 		[XmlElement("type", typeof (ModificationType))]
-		public ModificationType ModificationType{
-			get { return modificationType; }
-			set { modificationType = value; }
-		}
+		public ModificationType ModificationType { get; set; } = ModificationType.Standard;
 
 		[XmlElement("terminus_type", typeof (NewTerminusType))]
-		public NewTerminusType NewTerminusType{
-			get { return newTerminusType; }
-			set { newTerminusType = value; }
-		}
+		public NewTerminusType NewTerminusType { get; set; } = NewTerminusType.none;
 
-		public int AaCount{
-			get { return sites.Length; }
-		}
+		public int AaCount => sites.Length;
+		public string Abbreviation => Name.Substring(0, 2).ToLower();
+		public bool IsPhosphorylation => Math.Abs(deltaMass - 79.96633) < 0.0001;
 
-		public string Abbreviation{
-			get { return Name.Substring(0, 2).ToLower(); }
-		}
+		public bool IsInternal
+			=>
+				Position == ModificationPosition.anywhere || Position == ModificationPosition.notNterm ||
+				Position == ModificationPosition.notCterm || Position == ModificationPosition.notTerm;
 
-		public bool IsPhosphorylation{
-			get { return Math.Abs(deltaMass - 79.96633) < 0.0001; }
-		}
+		public bool IsNterminal => Position == ModificationPosition.anyNterm || Position == ModificationPosition.proteinNterm;
+		public bool IsCterminal => Position == ModificationPosition.anyCterm || Position == ModificationPosition.proteinCterm;
 
-		public bool IsInternal{
-			get{
-				return position == ModificationPosition.anywhere || position == ModificationPosition.notNterm ||
-						position == ModificationPosition.notCterm || position == ModificationPosition.notTerm;
-			}
-		}
+		public bool IsNterminalStep
+			=>
+				Position == ModificationPosition.anyNterm || Position == ModificationPosition.proteinNterm ||
+				Position == ModificationPosition.anywhere || Position == ModificationPosition.notCterm;
 
-		public bool IsNterminal{
-			get { return position == ModificationPosition.anyNterm || position == ModificationPosition.proteinNterm; }
-		}
+		public bool IsCterminalStep
+			=>
+				Position == ModificationPosition.anyCterm || Position == ModificationPosition.proteinCterm ||
+				Position == ModificationPosition.anywhere || Position == ModificationPosition.notNterm;
 
-		public bool IsCterminal{
-			get { return position == ModificationPosition.anyCterm || position == ModificationPosition.proteinCterm; }
-		}
-
-		public bool IsNterminalStep{
-			get{
-				return position == ModificationPosition.anyNterm || position == ModificationPosition.proteinNterm ||
-						position == ModificationPosition.anywhere || position == ModificationPosition.notCterm;
-			}
-		}
-
-		public bool IsCterminalStep{
-			get{
-				return position == ModificationPosition.anyCterm || position == ModificationPosition.proteinCterm ||
-						position == ModificationPosition.anywhere || position == ModificationPosition.notNterm;
-			}
-		}
-
-		public bool IsProteinTerminal{
-			get { return position == ModificationPosition.proteinNterm || position == ModificationPosition.proteinCterm; }
-		}
+		public bool IsProteinTerminal
+			=> Position == ModificationPosition.proteinNterm || Position == ModificationPosition.proteinCterm;
 
 		public ModificationSite GetSite(char aa){
 			return sitesMap[aa];
@@ -241,7 +199,7 @@ namespace BaseLibS.Mol{
 
 		public bool IsIsotopicLabel{
 			get{
-				if (modificationType == ModificationType.IsobaricLabel || IsStandardVarMod(modificationType)){
+				if (ModificationType == ModificationType.IsobaricLabel || IsStandardVarMod(ModificationType)){
 					return false;
 				}
 				Tuple<Molecule, Molecule> x = Molecule.GetDifferences(new Molecule(), new Molecule(GetFormula()));

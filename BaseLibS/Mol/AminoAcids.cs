@@ -102,46 +102,21 @@ namespace BaseLibS.Mol{
 		private static string singleLetterAas;
 		private static string standardSingleLetterAas;
 		private static Dictionary<char, AminoAcid> letterToAa;
+		public static double[] AaMonoMasses => aaMonoMasses ?? (aaMonoMasses = InitMasses());
+		public static Dictionary<char, double> AaOccurences => aaOccurences ?? (aaOccurences = InitOccurences());
+		public static Dictionary<char, double> AaWeights => aaWeights ?? (aaWeights = InitWeights());
+		public static Dictionary<string, char> CodonToAa => codonToAa ?? (codonToAa = InitCodonToAa());
+		public static Dictionary<string, byte> CodonToInd => codonToInd ?? (codonToInd = InitCodonToInd());
+		public static Dictionary<char, string[]> AaToCodons => aaToCodons ?? (aaToCodons = InitAaToCodons());
+		public static string SingleLetterAas => singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(false));
 
-		public static double[] AaMonoMasses{
-			get { return aaMonoMasses ?? (aaMonoMasses = InitMasses()); }
-		}
+		public static string StandardSingleLetterAas
+			=> standardSingleLetterAas ?? (standardSingleLetterAas = ExtractSingleLetterAa(true));
 
-		public static Dictionary<char, double> AaOccurences{
-			get { return aaOccurences ?? (aaOccurences = InitOccurences()); }
-		}
+		public static Dictionary<char, AminoAcid> LetterToAa => letterToAa ?? (letterToAa = InitLetter2Aa());
 
-		public static Dictionary<char, double> AaWeights{
-			get { return aaWeights ?? (aaWeights = InitWeights()); }
-		}
-
-		public static Dictionary<string, char> CodonToAa{
-			get { return codonToAa ?? (codonToAa = InitCodonToAa()); }
-		}
-
-		public static Dictionary<string, byte> CodonToInd{
-			get { return codonToInd ?? (codonToInd = InitCodonToInd()); }
-		}
-
-		public static Dictionary<char, string[]> AaToCodons{
-			get { return aaToCodons ?? (aaToCodons = InitAaToCodons()); }
-		}
-
-		public static string SingleLetterAas{
-			get { return singleLetterAas ?? (singleLetterAas = ExtractSingleLetterAa(false)); }
-		}
-
-		public static string StandardSingleLetterAas{
-			get { return standardSingleLetterAas ?? (standardSingleLetterAas = ExtractSingleLetterAa(true)); }
-		}
-
-		public static Dictionary<char, AminoAcid> LetterToAa{
-			get { return letterToAa ?? (letterToAa = InitLetter2Aa()); }
-		}
-
-		public static Dictionary<string, char[]> CodonMutatesToAa{
-			get { return codonMutatesToAa ?? (codonMutatesToAa = InitCodonMutatesToAa()); }
-		}
+		public static Dictionary<string, char[]> CodonMutatesToAa
+			=> codonMutatesToAa ?? (codonMutatesToAa = InitCodonMutatesToAa());
 
 		private static Dictionary<char, string[]> InitAaToCodons(){
 			Dictionary<char, string[]> result = new Dictionary<char, string[]>();
@@ -229,8 +204,9 @@ namespace BaseLibS.Mol{
 			bool isProteinCterm){
 			PeptideModificationState fixedModifications = new PeptideModificationState(sequence.Length);
 			double monoisotopicMass = 0;
-			monoisotopicMass += fixedModifications.ApplyFixedModifications(modifications, sequence, isProteinNterm,
-				isProteinCterm);
+			foreach (Modification mod in modifications){
+				monoisotopicMass += fixedModifications.ApplyFixedModification(mod, sequence, isProteinNterm, isProteinCterm);
+			}
 			return monoisotopicMass;
 		}
 

@@ -39,7 +39,7 @@ namespace BaseLibS.Mol{
 			}
 		}
 
-		public int Length { get { return Modifications.Length; } }
+		public int Length => Modifications.Length;
 
 		public int Count{
 			get{
@@ -232,7 +232,7 @@ namespace BaseLibS.Mol{
 			return deltaMass;
 		}
 
-		private double ApplyFixedModification(Modification mod, string sequence, bool isNterm, bool isCterm){
+		internal double ApplyFixedModification(Modification mod, string sequence, bool isNterm, bool isCterm){
 			ModificationPosition pos = mod.Position;
 			double deltaMass = 0;
 			for (int i = 0; i < mod.AaCount; i++){
