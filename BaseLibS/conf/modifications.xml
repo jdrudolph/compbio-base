@@ -5148,9 +5148,126 @@
       <type>NeuCodeLabel</type>
       <terminus_type>none</terminus_type>
    </modification>
+   <modification title="Lysine C3H4N1O0" description="Lysine C3H4N1O0 Neucode" create_date="2015-12-06T13:06:46.2456022+01:00" last_modified_date="2015-12-06T13:08:08.4883856+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Cx(3) C(-3) Hx(4) H(-4) Nx N(-1)">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
    <modification title="Lysine C0H8N0O0" description="Lysine C0H8N0O0 Neucode" create_date="2015-12-04T03:54:49.896961+01:00" last_modified_date="2015-12-04T03:55:40.2794238+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Hx(8) H(-8)">
       <position>anywhere</position>
       <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C6H0N2O0 light mTRAQ " description="Lysine C6H0N2O0 Neucode + light mTRAQ" create_date="2015-12-06T13:11:03.2071802+01:00" last_modified_date="2015-12-06T13:14:38.5969646+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Cx(6) C H(12) Nx(2) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C3H4N1O0 light mTRAQ" description="Lysine C3H4N1O0 Neucode + light mTRAQ" create_date="2015-12-06T13:11:12.6902739+01:00" last_modified_date="2015-12-06T13:17:04.3063543+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Cx(3) C(4) Hx(4) H(8) Nx N O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C0H8N0O0 light mTRAQ" description="Lysine C0H8N0O0 Neucode + light mTRAQ" create_date="2015-12-06T13:11:16.1786869+01:00" last_modified_date="2015-12-06T13:18:29.944949+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Hx(8) H(4) C(7) N(2) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="light mTRAQ Nterm" description="N-terminal mTRAQ light" create_date="2015-12-06T13:19:08.5656388+01:00" last_modified_date="2015-12-06T13:19:57.658458+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="H(12) C(7) N(2) O">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C6H0N2O0 medium mTRAQ " description="Lysine C6H0N2O0 Neucode + medium mTRAQ" create_date="2015-12-06T13:21:38.5009319+01:00" last_modified_date="2015-12-06T13:23:05.1475577+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Cx(9) C(-2) H(12) Nx(3) N(-1) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C3H4N1O0 medium mTRAQ" description="Lysine C3H4N1O0 Neucode + medium mTRAQ" create_date="2015-12-06T13:21:43.3901661+01:00" last_modified_date="2015-12-06T13:24:11.0036879+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Cx(6) C Hx(4) H(8) Nx(2) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C0H8N0O0 medium mTRAQ" description="Lysine C0H8N0O0 Neucode + medium mTRAQ" create_date="2015-12-06T13:21:47.695342+01:00" last_modified_date="2015-12-06T13:25:21.3376487+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Hx(8) H(4) Cx(3) C(4) Nx(1) N(1) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="medium mTRAQ Nterm" description="N-terminal mTRAQ medium " create_date="2015-12-06T13:21:51.6324707+01:00" last_modified_date="2015-12-06T13:26:44.7871919+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="H(12) Cx(3) C(4) Nx(1) N(1) O">
+      <position>anyNterm</position>
+      <modification_site site="-">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C6H0N2O0 heavy mTRAQ " description="Lysine C6H0N2O0 Neucode + heavy mTRAQ" create_date="2015-12-06T13:27:21.9171168+01:00" last_modified_date="2015-12-06T13:28:42.9855976+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Cx(12) C(-5) H(12) Nx(4) N(-2) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C3H4N1O0 heavy mTRAQ" description="Lysine C3H4N1O0 Neucode + heavy mTRAQ" create_date="2015-12-06T13:27:25.6314655+01:00" last_modified_date="2015-12-06T13:29:56.1622003+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Cx(9) C(-2) Hx(4) H(8) Nx(3) N(-1) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="Lysine C0H8N0O0 heavy mTRAQ" description="Lysine C0H8N0O0 Neucode + heavy mTRAQ" create_date="2015-12-06T13:27:29.2338395+01:00" last_modified_date="2015-12-06T13:32:03.569124+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="Hx(8) H(4) Cx(6) C(1) Nx(2) O">
+      <position>anywhere</position>
+      <modification_site site="K">
+         <neutralloss_collection />
+         <diagnostic_collection />
+      </modification_site>
+      <type>NeuCodeLabel</type>
+      <terminus_type>none</terminus_type>
+   </modification>
+   <modification title="heavy mTRAQ Nterm" description="N-terminal mTRAQ heavy" create_date="2015-12-06T13:27:33.0592927+01:00" last_modified_date="2015-12-06T13:32:45.1700553+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="H(12) Cx(6) C(1) Nx(2) O">
+      <position>anyNterm</position>
+      <modification_site site="-">
          <neutralloss_collection />
          <diagnostic_collection />
       </modification_site>

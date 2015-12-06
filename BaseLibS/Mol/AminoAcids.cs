@@ -202,12 +202,42 @@ namespace BaseLibS.Mol{
 
 		public static double GetFixedModificationMass(string sequence, Modification[] modifications, bool isProteinNterm,
 			bool isProteinCterm){
-			PeptideModificationState fixedModifications = new PeptideModificationState(sequence.Length);
 			double monoisotopicMass = 0;
 			foreach (Modification mod in modifications){
-				monoisotopicMass += fixedModifications.ApplyFixedModification(mod, sequence, isProteinNterm, isProteinCterm);
+				monoisotopicMass += GetDeltaMass(mod, sequence, isProteinNterm, isProteinCterm);
 			}
 			return monoisotopicMass;
+		}
+
+		private static double GetDeltaMass(Modification mod, string sequence, bool isNterm, bool isCterm){
+			ModificationPosition pos = mod.Position;
+			double deltaMass = 0;
+			for (int i = 0; i < mod.AaCount; i++){
+				for (int j = 0; j < sequence.Length; j++){
+					if ((pos == ModificationPosition.notNterm || pos == ModificationPosition.notTerm) && j == 0){
+						continue;
+					}
+					if ((pos == ModificationPosition.notCterm || pos == ModificationPosition.notTerm) && j == sequence.Length - 1){
+						continue;
+					}
+					if (sequence[j] == mod.GetAaAt(i)){
+						deltaMass += mod.DeltaMass;
+					}
+				}
+			}
+			if (pos == ModificationPosition.anyNterm){
+				deltaMass += mod.DeltaMass;
+			}
+			if (pos == ModificationPosition.anyCterm){
+				deltaMass += mod.DeltaMass;
+			}
+			if (pos == ModificationPosition.proteinNterm && isNterm){
+				deltaMass += mod.DeltaMass;
+			}
+			if (pos == ModificationPosition.proteinCterm && isCterm){
+				deltaMass += mod.DeltaMass;
+			}
+			return deltaMass;
 		}
 
 		public static Molecule GetPeptideMolecule(string aaseq){

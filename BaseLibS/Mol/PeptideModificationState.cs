@@ -83,8 +83,13 @@ namespace BaseLibS.Mol{
 			}
 		}
 
-		public ushort GetModificationAt(int index) { return index >= Modifications.Length ? ushort.MaxValue : Modifications[index]; }
-		public void SetModificationAt(int index, ushort value) { Modifications[index] = value; }
+		public ushort GetModificationAt(int index){
+			return index >= Modifications.Length ? ushort.MaxValue : Modifications[index];
+		}
+
+		public void SetModificationAt(int index, ushort value){
+			Modifications[index] = value;
+		}
 
 		public static PeptideModificationState Read(BinaryReader reader){
 			PeptideModificationState result = new PeptideModificationState{
@@ -128,7 +133,9 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public PeptideModificationCounts ProjectToCounts() { return ProjectToCounts(Modifications, NTermModification, CTermModification); }
+		public PeptideModificationCounts ProjectToCounts(){
+			return ProjectToCounts(Modifications, NTermModification, CTermModification);
+		}
 
 		private static PeptideModificationCounts ProjectToCounts(IEnumerable<ushort> modifications, ushort nTermModification,
 			ushort cTermModification){
@@ -222,65 +229,6 @@ namespace BaseLibS.Mol{
 				Hash = h;
 			}
 			return h;
-		}
-
-		public double ApplyFixedModifications(Modification[] mods, string sequence, bool isNterm, bool isCterm){
-			double deltaMass = 0;
-			foreach (Modification mod in mods){
-				deltaMass += ApplyFixedModification(mod, sequence, isNterm, isCterm);
-			}
-			return deltaMass;
-		}
-
-		internal double ApplyFixedModification(Modification mod, string sequence, bool isNterm, bool isCterm){
-			ModificationPosition pos = mod.Position;
-			double deltaMass = 0;
-			for (int i = 0; i < mod.AaCount; i++){
-				for (int j = 0; j < sequence.Length; j++){
-					if ((pos == ModificationPosition.notNterm || pos == ModificationPosition.notTerm) && j == 0){
-						continue;
-					}
-					if ((pos == ModificationPosition.notCterm || pos == ModificationPosition.notTerm) && j == sequence.Length - 1){
-						continue;
-					}
-					if (sequence[j] == mod.GetAaAt(i)){
-						if (GetModificationAt(j) != ushort.MaxValue){
-							throw new Exception("Conflicting fixed modifications.");
-						}
-						SetModificationAt(j, mod.Index);
-						deltaMass += mod.DeltaMass;
-					}
-				}
-			}
-			if (pos == ModificationPosition.anyNterm){
-				if (NTermModification != ushort.MaxValue){
-					throw new Exception("Conflicting fixed modifications.");
-				}
-				NTermModification = mod.Index;
-				deltaMass += mod.DeltaMass;
-			}
-			if (pos == ModificationPosition.anyCterm){
-				if (CTermModification != ushort.MaxValue){
-					throw new Exception("Conflicting fixed modifications.");
-				}
-				CTermModification = mod.Index;
-				deltaMass += mod.DeltaMass;
-			}
-			if (pos == ModificationPosition.proteinNterm && isNterm){
-				if (NTermModification != ushort.MaxValue){
-					throw new Exception("Conflicting fixed modifications.");
-				}
-				NTermModification = mod.Index;
-				deltaMass += mod.DeltaMass;
-			}
-			if (pos == ModificationPosition.proteinCterm && isCterm){
-				if (CTermModification != ushort.MaxValue){
-					throw new Exception("Conflicting fixed modifications.");
-				}
-				CTermModification = mod.Index;
-				deltaMass += mod.DeltaMass;
-			}
-			return deltaMass;
 		}
 
 		public PeptideModificationState GetTrueModifications(){
@@ -408,7 +356,9 @@ namespace BaseLibS.Mol{
 			return sb.ToString();
 		}
 
-		public string UshortToString(ushort u) { return u == ushort.MaxValue ? "A" : u.ToString(CultureInfo.InvariantCulture); }
+		public string UshortToString(ushort u){
+			return u == ushort.MaxValue ? "A" : u.ToString(CultureInfo.InvariantCulture);
+		}
 
 		public static PeptideModificationState FillFixedModifications(string sequence, IDictionary<char, ushort> fmods){
 			PeptideModificationState result = new PeptideModificationState(sequence.Length);
