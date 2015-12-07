@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLib.Wpf{
 	/// <summary>
@@ -25,7 +24,8 @@ namespace BaseLib.Wpf{
 		}
 
 		public string Text { set { TitleBlock.Text = value; } }
-		internal ItemCollection SelectedItems { get { return SelectedListBox.Items; } }
+		internal ItemCollection SelectedItems => SelectedListBox.Items;
+
 		internal string[] SelectedStrings{
 			get{
 				ItemCollection sel = SelectedItems;
@@ -84,7 +84,7 @@ namespace BaseLib.Wpf{
 		private void WalkDown(){
 			Thread.Sleep(400);
 			while (true){
-				Dispatcher.Invoke(() => DownButtonClick(null, null));
+				Dispatcher.Invoke(new Action(() => DownButtonClick(null, null)));
 				Thread.Sleep(150);
 			}
 // ReSharper disable FunctionNeverReturns
@@ -94,7 +94,7 @@ namespace BaseLib.Wpf{
 		private void WalkUp(){
 			Thread.Sleep(400);
 			while (true){
-				Dispatcher.Invoke(() => UpButtonClick(null, null));
+				Dispatcher.Invoke(new Action(() => UpButtonClick(null, null)));
 				Thread.Sleep(150);
 			}
 // ReSharper disable FunctionNeverReturns

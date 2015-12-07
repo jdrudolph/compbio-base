@@ -56,30 +56,25 @@ namespace BaseLib.Wpf{
 		private void WalkDown(){
 			Thread.Sleep(400);
 			while (true){
-				Dispatcher.Invoke(() => DownButtonClick(null, null));
+				Dispatcher.Invoke(new Action(() => DownButtonClick(null, null)));
 				Thread.Sleep(150);
 			}
 // ReSharper disable FunctionNeverReturns
 		}
-// ReSharper restore FunctionNeverReturns
 
+// ReSharper restore FunctionNeverReturns
 		private void WalkUp(){
 			Thread.Sleep(400);
 			while (true){
-				Dispatcher.Invoke(() => UpButtonClick(null, null));
+				Dispatcher.Invoke(new Action(() => UpButtonClick(null, null)));
 				Thread.Sleep(150);
 			}
 // ReSharper disable FunctionNeverReturns
 		}
+
 // ReSharper restore FunctionNeverReturns
-
-		public ItemCollection Items{
-			get { return AllListBox.Items; }
-		}
-
-		public ItemCollection SelectedItems{
-			get { return SelectedListBox.Items; }
-		}
+		public ItemCollection Items => AllListBox.Items;
+		public ItemCollection SelectedItems => SelectedListBox.Items;
 
 		public string[] SelectedStrings{
 			get{
@@ -106,9 +101,7 @@ namespace BaseLib.Wpf{
 				foreach (int i in value){
 					SetSelected(i, true);
 				}
-				if (SelectionChanged != null){
-					SelectionChanged(this, new EventArgs());
-				}
+				SelectionChanged?.Invoke(this, new EventArgs());
 			}
 		}
 
@@ -239,9 +232,7 @@ namespace BaseLib.Wpf{
 					SelectedListBox.Items.Add(o);
 				}
 			}
-			if (SelectionChanged != null){
-				SelectionChanged(this, e);
-			}
+			SelectionChanged?.Invoke(this, e);
 		}
 
 		private void Deselect_OnClick(object sender, RoutedEventArgs e){
@@ -250,9 +241,7 @@ namespace BaseLib.Wpf{
 			foreach (object o in os){
 				SelectedListBox.Items.Remove(o);
 			}
-			if (SelectionChanged != null){
-				SelectionChanged(this, e);
-			}
+			SelectionChanged?.Invoke(this, e);
 		}
 
 		private void TopButtonClick(object sender, RoutedEventArgs e){
@@ -369,7 +358,6 @@ namespace BaseLib.Wpf{
 		//	}
 		//	base.OnKeyDown(e);
 		//}
-
 		private void ListSelectorControl_OnLoaded(object sender, RoutedEventArgs e){
 			//KeyDown += (o, e1) =>{
 			//};
