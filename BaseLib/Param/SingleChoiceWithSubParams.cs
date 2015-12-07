@@ -12,18 +12,21 @@ namespace BaseLib.Param{
 		public IList<string> Values { get; set; }
 		public IList<Parameters> SubParams { get; set; }
 		[NonSerialized] private Grid control;
-		public SingleChoiceWithSubParams(string name) : this(name, 0) { }
+		public SingleChoiceWithSubParams(string name) : this(name, 0){}
 
 		public SingleChoiceWithSubParams(string name, int value) : base(name){
 			TotalWidth = 1000F;
 			ParamNameWidth = 250F;
 			Value = value;
 			Default = value;
-			Values = new[]{""};
-			SubParams = new[]{new Parameters()};
+			Values = new List<string>(new[] { "" });
+			SubParams = new List<Parameters>(new[] { new Parameters() });
 		}
 
-		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = int.Parse(value); } }
+		public override string StringValue{
+			get { return Value.ToString(CultureInfo.InvariantCulture); }
+			set { Value = int.Parse(value); }
+		}
 
 		public override void ResetSubParamValues(){
 			Value = Default;
@@ -53,8 +56,11 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public string SelectedValue { get { return Value < 0 || Value >= Values.Count ? null : Values[Value]; } }
-		public override Parameters GetSubParameters() { return Value < 0 || Value >= Values.Count ? null : SubParams[Value]; }
+		public string SelectedValue => Value < 0 || Value >= Values.Count ? null : Values[Value];
+
+		public override Parameters GetSubParameters(){
+			return Value < 0 || Value >= Values.Count ? null : SubParams[Value];
+		}
 
 		public override void Clear(){
 			Value = 0;
@@ -158,8 +164,8 @@ namespace BaseLib.Param{
 			foreach (Parameter p in GetSubParameters().GetAllParameters()){
 				if (p is IntParam || p is DoubleParam){
 					p.ValueChanged += action;
-				} else if (p is SingleChoiceWithSubParams){
-					((SingleChoiceWithSubParams) p).SetValueChangedHandlerForSubParams(action);
+				} else{
+					(p as SingleChoiceWithSubParams)?.SetValueChangedHandlerForSubParams(action);
 				}
 			}
 		}

@@ -5,13 +5,13 @@ using System.Linq;
 namespace BaseLibS.Param{
 	[Serializable]
 	public class ParameterGroup : ICloneable{
-		private readonly IList<Parameter> parameters = new List<Parameter>();
+		private readonly List<Parameter> parameters = new List<Parameter>();
 		private string name;
 		private bool collapsedDefault;
 
 		public ParameterGroup(IList<Parameter> parameters, string name, bool collapsedDefault){
 			this.name = name;
-			this.parameters = parameters;
+			this.parameters = new List<Parameter>(parameters);
 			this.collapsedDefault = collapsedDefault;
 		}
 
@@ -48,8 +48,9 @@ namespace BaseLibS.Param{
 			return newParam;
 		}
 
-		public IList<Parameter> ParameterList { get { return parameters; } }
-		public int Count { get { return parameters.Count; } }
+		public List<Parameter> ParameterList => parameters;
+		public int Count => parameters.Count;
+
 		public float Height{
 			get{
 				float h = 0;
@@ -73,7 +74,7 @@ namespace BaseLibS.Param{
 			}
 		}
 
-		public Parameter this[int i] { get { return parameters[i]; } }
+		public Parameter this[int i] => parameters[i];
 
 		public void SetParametersFromConrtol(){
 			foreach (Parameter parameter in parameters){

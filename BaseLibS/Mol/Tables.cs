@@ -14,7 +14,7 @@ namespace BaseLibS.Mol{
 		private static Dictionary<string, Modification> modifications;
 		private static Dictionary<string, Modification> labelModifications;
 		private static Dictionary<string, Modification> isobaricLabelModifications;
-		private static Dictionary<string, Modification> neucodeModifications;
+		private static List<Modification> neucodeModificationList;
 		private static Modification[] modificationList;
 
 		public static Dictionary<string, SequenceDatabase> Databases => databases ?? (databases = ReadDatabases());
@@ -30,7 +30,7 @@ namespace BaseLibS.Mol{
 					return modifications ??
 							(modifications =
 							ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
-								out neucodeModifications));
+								out neucodeModificationList));
 				}
 			}
 		}
@@ -40,21 +40,21 @@ namespace BaseLibS.Mol{
 				lock (lockMods) {
 					if (labelModifications == null) {
 						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
-							out neucodeModifications);
+							out neucodeModificationList);
 					}
 					return labelModifications;
 				}
 			}
 		}
 
-		public static Dictionary<string, Modification> NeucodeModifications {
+		public static List<Modification> NeucodeModifications {
 			get {
 				lock (lockMods) {
-					if (neucodeModifications == null) {
+					if (neucodeModificationList == null) {
 						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
-							out neucodeModifications);
+							out neucodeModificationList);
 					}
-					return neucodeModifications;
+					return neucodeModificationList;
 				}
 			}
 		}
@@ -64,7 +64,7 @@ namespace BaseLibS.Mol{
 				lock (lockMods){
 					if (isobaricLabelModifications == null){
 						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
-							out neucodeModifications);
+							out neucodeModificationList);
 					}
 					return isobaricLabelModifications;
 				}
@@ -76,7 +76,7 @@ namespace BaseLibS.Mol{
 				lock (lockMods){
 					if (modificationList == null){
 						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
-							out neucodeModifications);
+							out neucodeModificationList);
 					}
 					return modificationList;
 				}
@@ -179,8 +179,10 @@ namespace BaseLibS.Mol{
 		}
 
 		public static string[] GetNeucodeModifications() {
-			string[] result = NeucodeModifications.Keys.ToArray();
-			Array.Sort(result);
+			string[] result = new string[NeucodeModifications.Count];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = NeucodeModifications[i].Name;
+			}
 			return result;
 		}
 
@@ -235,12 +237,12 @@ namespace BaseLibS.Mol{
 
 		private static Dictionary<string, Modification> ReadModifications(out Modification[] modList,
 			out Dictionary<string, Modification> labelMods, out Dictionary<string, Modification> isobaricLabelMods,
-			out Dictionary<string, Modification> neucodeLabelMods){
+			out List<Modification> neucodeLabelMods){
 			Dictionary<string, Modification> result = new Dictionary<string, Modification>();
 			modList = null;
 			labelMods = new Dictionary<string, Modification>();
 			isobaricLabelMods = new Dictionary<string, Modification>();
-			neucodeLabelMods = new Dictionary<string, Modification>();
+			neucodeLabelMods = new List<Modification>();
 			Modification[] list = ReadModificationList();
 			if (list != null){
 				modList = list;
@@ -257,8 +259,8 @@ namespace BaseLibS.Mol{
 					if (mod.ModificationType == ModificationType.IsobaricLabel && !isobaricLabelMods.ContainsKey(mod.Name)){
 						isobaricLabelMods.Add(mod.Name, mod);
 					}
-					if (mod.ModificationType == ModificationType.NeuCodeLabel && !neucodeLabelMods.ContainsKey(mod.Name)){
-						neucodeLabelMods.Add(mod.Name, mod);
+					if (mod.ModificationType == ModificationType.NeuCodeLabel){
+						neucodeLabelMods.Add(mod);
 					}
 				}
 			}

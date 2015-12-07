@@ -95,9 +95,7 @@ namespace BaseLibS.Param{
 			return (ParameterWithSubParams<T>) GetParam(name);
 		}
 
-		public int GroupCount{
-			get { return paramGroups.Count; }
-		}
+		public int GroupCount => paramGroups.Count;
 
 		public Parameter GetParam(string name){
 			foreach (ParameterGroup parameterGroup in paramGroups){
