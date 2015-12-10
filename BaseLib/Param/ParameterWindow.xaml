@@ -1,7 +1,33 @@
-﻿<Window x:Class="BaseLib.Param.ParameterWindow"
+﻿<ribbon:RibbonWindow x:Class="BaseLib.Param.ParameterWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:param="clr-namespace:BaseLib.Param"
-        Title="Parameters" Height="850" Width="1100" ShowInTaskbar="false" KeyDown="OnKeyDownHandler" SourceInitialized="WindowSourceInitialized">
+                     xmlns:ribbon="http://schemas.microsoft.com/winfx/2006/xaml/presentation/ribbon"
+                     Title="Parameters" Height="850" Width="1100" ShowInTaskbar="false" KeyDown="OnKeyDownHandler" SourceInitialized="WindowSourceInitialized">
+    <DockPanel>
+        <ribbon:Ribbon DockPanel.Dock="Top" Height="23" Title="Perseus" x:Name="Ribbon1" Background="#FFFFC500">
+            <ribbon:Ribbon.ContextMenu>
+                <ContextMenu Visibility="Hidden"></ContextMenu>
+            </ribbon:Ribbon.ContextMenu>
+            <ribbon:Ribbon.QuickAccessToolBar>
+                <ribbon:RibbonQuickAccessToolBar>
+                    <Button Width="20" Height="20" Background="CornflowerBlue" ToolTip="OK" x:Name="OkButton1" Click="OkButtonClick">OK</Button>
+                    <Button Width="20" Height="20" Background="CornflowerBlue" ToolTip="Cancel" x:Name="CancelButton1" Click="CancelButtonClick">C</Button>
+                    <Button Width="20" Height="20" Background="CornflowerBlue" ToolTip="Help" x:Name="HelpButton1" Click="HelpButtonClick">H</Button>
+                </ribbon:RibbonQuickAccessToolBar>
+            </ribbon:Ribbon.QuickAccessToolBar>
+            <ribbon:Ribbon.ApplicationMenu>
+                <ribbon:RibbonApplicationMenu x:Name="RibbonApplicationMenu">
+                    <ribbon:RibbonApplicationMenu.Resources>
+                        <Style TargetType="Popup">
+                            <Setter Property="Placement" Value="Left"/>
+                            <Setter Property="HorizontalOffset" Value="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ribbon:RibbonApplicationMenu}}"/>
+                        </Style>
+                    </ribbon:RibbonApplicationMenu.Resources>
+                    <ribbon:RibbonApplicationMenuItem Header="Save" x:Name="SaveMenuItem" ContextMenu="{x:Null}"/>
+                </ribbon:RibbonApplicationMenu>
+            </ribbon:Ribbon.ApplicationMenu>
+        </ribbon:Ribbon>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -27,4 +53,5 @@
             <Button Grid.Column="3" Width="50" HorizontalAlignment="Right" x:Name="OkButton" Click="OkButtonClick">OK</Button>
         </Grid>
     </Grid>
-</Window>
+    </DockPanel>
+</ribbon:RibbonWindow>
