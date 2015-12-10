@@ -63,18 +63,18 @@ namespace BaseLibS.Mol{
 			get{
 				int c = 0;
 				if (NTermModification != ushort.MaxValue){
-					if (Modification.IsStandardVarMod(Tables.ModificationList[NTermModification].ModificationType)){
+					if (Modification.IsStandardVarMod(NTermModification)){
 						c++;
 					}
 				}
 				if (CTermModification != ushort.MaxValue){
-					if (Modification.IsStandardVarMod(Tables.ModificationList[CTermModification].ModificationType)){
+					if (Modification.IsStandardVarMod(CTermModification)){
 						c++;
 					}
 				}
 				foreach (ushort m in Modifications){
 					if (m != ushort.MaxValue){
-						if (Modification.IsStandardVarMod(Tables.ModificationList[m].ModificationType)){
+						if (Modification.IsStandardVarMod(m)){
 							c++;
 						}
 					}
@@ -234,16 +234,16 @@ namespace BaseLibS.Mol{
 		public PeptideModificationState GetTrueModifications(){
 			PeptideModificationState result = GetFreshCopy(Length);
 			if (NTermModification != ushort.MaxValue &&
-				(Modification.IsStandardVarMod(Tables.ModificationList[NTermModification].ModificationType))){
+				Modification.IsStandardVarMod(NTermModification)){
 				result.NTermModification = NTermModification;
 			}
 			if (CTermModification != ushort.MaxValue &&
-				(Modification.IsStandardVarMod(Tables.ModificationList[CTermModification].ModificationType))){
+				Modification.IsStandardVarMod(CTermModification)){
 				result.CTermModification = CTermModification;
 			}
 			for (int i = 0; i < Length; i++){
 				ushort m = GetModificationAt(i);
-				if (m == ushort.MaxValue || (!Modification.IsStandardVarMod(Tables.ModificationList[m].ModificationType))){
+				if (m == ushort.MaxValue || !Modification.IsStandardVarMod(m)){
 					result.SetModificationAt(i, ushort.MaxValue);
 				} else{
 					result.SetModificationAt(i, GetModificationAt(i));
@@ -252,27 +252,27 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public PeptideModificationState GetLabelModifications(ushort[] fixedMods, string sequence){
+		public PeptideModificationState GetLabelModifications(ushort[] labelMods, string sequence){
 			PeptideModificationState result = GetFreshCopy(Length);
 			if (NTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(Tables.ModificationList[NTermModification].ModificationType)){
+				!Modification.IsStandardVarMod(NTermModification)){
 				result.NTermModification = NTermModification;
 			}
 			if (CTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(Tables.ModificationList[CTermModification].ModificationType)){
+				!Modification.IsStandardVarMod(CTermModification)){
 				result.CTermModification = CTermModification;
 			}
 			for (int i = 0; i < Length; i++){
 				ushort m = GetModificationAt(i);
-				if (m != ushort.MaxValue && !Modification.IsStandardVarMod(Tables.ModificationList[m].ModificationType)){
+				if (m != ushort.MaxValue && !Modification.IsStandardVarMod(m)){
 					result.SetModificationAt(i, m);
 				} else{
 					result.SetModificationAt(i, ushort.MaxValue);
 				}
 			}
-			foreach (ushort fixMod in fixedMods){
-				Modification mod = Tables.ModificationList[fixMod];
-				if (!Modification.IsStandardVarMod(mod.ModificationType)){
+			foreach (ushort labelMod in labelMods){
+				if (!Modification.IsStandardVarMod(labelMod)){
+					Modification mod = Tables.ModificationList[labelMod];
 					if (mod.IsInternal){
 						for (int j = 0; j < mod.AaCount; j++){
 							char c = mod.GetAaAt(j);
@@ -313,16 +313,16 @@ namespace BaseLibS.Mol{
 		public PeptideModificationState RemoveLabelModifications(){
 			PeptideModificationState result = Clone();
 			if (NTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(Tables.ModificationList[NTermModification].ModificationType)){
+				!Modification.IsStandardVarMod(NTermModification)){
 				result.NTermModification = ushort.MaxValue;
 			}
 			if (CTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(Tables.ModificationList[CTermModification].ModificationType)){
+				!Modification.IsStandardVarMod(CTermModification)){
 				result.CTermModification = ushort.MaxValue;
 			}
 			for (int i = 0; i < Modifications.Length; i++){
 				if (Modifications[i] != ushort.MaxValue &&
-					!Modification.IsStandardVarMod(Tables.ModificationList[Modifications[i]].ModificationType)){
+					!Modification.IsStandardVarMod(Modifications[i])){
 					result.Modifications[i] = ushort.MaxValue;
 				}
 			}

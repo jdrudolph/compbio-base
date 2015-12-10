@@ -188,13 +188,15 @@ namespace BaseLibS.Mol{
 			return formula;
 		}
 
-		public bool HasNeutralLoss(){
-			foreach (ModificationSite site in sites){
-				if (site.HasNeutralLoss){
-					return true;
+		public bool HasNeutralLoss{
+			get{
+				foreach (ModificationSite site in sites){
+					if (site.HasNeutralLoss){
+						return true;
+					}
 				}
+				return false;
 			}
-			return false;
 		}
 
 		public bool IsIsotopicLabel{
@@ -213,6 +215,13 @@ namespace BaseLibS.Mol{
 				Tuple<Molecule, Molecule> d = Molecule.GetDifferences(d1, d2);
 				return d.Item1.IsEmpty && d.Item2.IsEmpty;
 			}
+		}
+
+		public static bool IsStandardVarMod(ushort m){
+			if (m >= Tables.ModificationList.Length){
+				return false;
+			}
+			return IsStandardVarMod(Tables.ModificationList[m].ModificationType);
 		}
 
 		public static bool IsStandardVarMod(ModificationType type){

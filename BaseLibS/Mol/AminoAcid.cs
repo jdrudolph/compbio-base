@@ -3,7 +3,7 @@ namespace BaseLibS.Mol{
 		internal readonly bool isStandard;
 		public string Abbreviation { get; private set; }
 		public string Type { get; private set; }
-		public char Letter { get; private set; }
+		public char Letter { get; }
 		public double Occurence { get; private set; }
 		public string[] Codons { get; private set; }
 		public double Gravy { get; private set; }
@@ -27,11 +27,8 @@ namespace BaseLibS.Mol{
 			if (this == obj){
 				return true;
 			}
-			if (obj is AminoAcid){
-				var other = (AminoAcid) obj;
-				return other.Letter == Letter;
-			}
-			return false;
+			AminoAcid other = obj as AminoAcid;
+			return other?.Letter == Letter;
 		}
 
 		public override int GetHashCode() { return Letter + 1; }
