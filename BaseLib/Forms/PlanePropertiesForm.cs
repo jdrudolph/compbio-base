@@ -60,58 +60,19 @@ namespace BaseLib.Forms{
 		}
 
 		public bool Ok { get; private set; }
-
-		public Color FillColor{
-			get { return fillColorButton.BackColor; }
-		}
-
-		public bool TopAxesVisible{
-			get { return showTopAxisCheckBox.Checked; }
-		}
-
-		public bool RightAxesVisible{
-			get { return showRightAxisCheckBox.Checked; }
-		}
-
-		public int MajorTickLength{
-			get { return (int) majorTicLengthNumericUpDown.Value; }
-		}
-
-		public int MajorTickLineWidth{
-			get { return (int) majorTicLineWidthNumericUpDown.Value; }
-		}
-
-		public int MinorTickLength{
-			get { return (int) minorTicLengthNumericUpDown.Value; }
-		}
-
-		public int MinorTickLineWidth{
-			get { return (int) minorTicLineWidthNumericUpDown.Value; }
-		}
-
-		public Color LineColor{
-			get { return lineColorButton.BackColor; }
-		}
-
-		public Color BackgroundColor{
-			get { return backgroundColorButton.BackColor; }
-		}
-
-		public Color HorizontalGridColor{
-			get { return horizontalGridColorButton.BackColor; }
-		}
-
-		public Color VerticalGridColor{
-			get { return verticalGridColorButton.BackColor; }
-		}
-
-		public Color HorizontalZeroColor{
-			get { return horizontalZeroColorButton.BackColor; }
-		}
-
-		public Color VerticalZeroColor{
-			get { return verticalZeroColorButton.BackColor; }
-		}
+		public Color FillColor => fillColorButton.BackColor;
+		public bool TopAxesVisible => showTopAxisCheckBox.Checked;
+		public bool RightAxesVisible => showRightAxisCheckBox.Checked;
+		public int MajorTickLength => (int) majorTicLengthNumericUpDown.Value;
+		public int MajorTickLineWidth => (int) majorTicLineWidthNumericUpDown.Value;
+		public int MinorTickLength => (int) minorTicLengthNumericUpDown.Value;
+		public int MinorTickLineWidth => (int) minorTicLineWidthNumericUpDown.Value;
+		public Color LineColor => lineColorButton.BackColor;
+		public Color BackgroundColor => backgroundColorButton.BackColor;
+		public Color HorizontalGridColor => horizontalGridColorButton.BackColor;
+		public Color VerticalGridColor => verticalGridColorButton.BackColor;
+		public Color HorizontalZeroColor => horizontalZeroColorButton.BackColor;
+		public Color VerticalZeroColor => verticalZeroColorButton.BackColor;
 
 		public GridType HorizontalGrid{
 			get{
