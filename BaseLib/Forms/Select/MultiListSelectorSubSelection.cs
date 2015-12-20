@@ -2,25 +2,306 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using BaseLib.Forms.Help;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLib.Forms.Select{
 	internal partial class MultiListSelectorSubSelection : UserControl{
 		private Thread downThread;
 		private Thread upThread;
 		internal MultiListSelector MultiListSelector { get; set; }
+		private TableLayoutPanel tableLayoutPanel1;
+		private ListBox selectedListBox;
+		private Panel panel1;
+		private HelpLabel helpLabel6;
+		private HelpLabel helpLabel5;
+		private Button deselectButton;
+		private Button selectButton;
+		private Panel panel2;
+		private HelpLabel helpLabel4;
+		private HelpLabel helpLabel3;
+		private HelpLabel helpLabel2;
+		private HelpLabel helpLabel1;
+		private Button bottomButton;
+		private Button downButton;
+		private Button upButton;
+		private Button topButton;
+		private TableLayoutPanel tableLayoutPanel2;
+		private Panel panel3;
+		private HelpLabel helpLabel7;
 
 		internal MultiListSelectorSubSelection(){
 			InitializeComponent();
+			InitializeComponent2();
 			downButton.MouseDown += DownButtonMouseDown;
 			downButton.MouseUp += DownButtonMouseUp;
 			upButton.MouseDown += UpButtonMouseDown;
 			upButton.MouseUp += UpButtonMouseUp;
 		}
 
-		public override string Text { get { return helpLabel7.Text; } set { helpLabel7.Text = value; } }
-		internal ListBox.ObjectCollection SelectedItems { get { return selectedListBox.Items; } }
+		private void InitializeComponent2(){
+			tableLayoutPanel1 = new TableLayoutPanel();
+			selectedListBox = new ListBox();
+			panel1 = new Panel();
+			helpLabel6 = new HelpLabel();
+			helpLabel5 = new HelpLabel();
+			deselectButton = new Button();
+			selectButton = new Button();
+			panel2 = new Panel();
+			helpLabel4 = new HelpLabel();
+			helpLabel3 = new HelpLabel();
+			helpLabel2 = new HelpLabel();
+			helpLabel1 = new HelpLabel();
+			bottomButton = new Button();
+			downButton = new Button();
+			upButton = new Button();
+			topButton = new Button();
+			tableLayoutPanel2 = new TableLayoutPanel();
+			panel3 = new Panel();
+			helpLabel7 = new HelpLabel();
+			tableLayoutPanel1.SuspendLayout();
+			panel1.SuspendLayout();
+			panel2.SuspendLayout();
+			tableLayoutPanel2.SuspendLayout();
+			panel3.SuspendLayout();
+			SuspendLayout();
+			// 
+			// tableLayoutPanel1
+			// 
+			tableLayoutPanel1.ColumnCount = 3;
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 30F));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel1.Controls.Add(selectedListBox, 1, 0);
+			tableLayoutPanel1.Controls.Add(panel1, 0, 0);
+			tableLayoutPanel1.Controls.Add(panel2, 2, 0);
+			tableLayoutPanel1.Dock = DockStyle.Fill;
+			tableLayoutPanel1.Location = new System.Drawing.Point(0, 20);
+			tableLayoutPanel1.Margin = new Padding(0);
+			tableLayoutPanel1.Name = "tableLayoutPanel1";
+			tableLayoutPanel1.RowCount = 1;
+			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel1.Size = new System.Drawing.Size(280, 326);
+			tableLayoutPanel1.TabIndex = 1;
+			// 
+			// selectedListBox
+			// 
+			selectedListBox.Dock = DockStyle.Fill;
+			selectedListBox.FormattingEnabled = true;
+			selectedListBox.Location = new System.Drawing.Point(33, 3);
+			selectedListBox.Name = "selectedListBox";
+			selectedListBox.SelectionMode = SelectionMode.MultiExtended;
+			selectedListBox.Size = new System.Drawing.Size(214, 316);
+			selectedListBox.TabIndex = 1;
+			// 
+			// panel1
+			// 
+			panel1.Controls.Add(helpLabel6);
+			panel1.Controls.Add(helpLabel5);
+			panel1.Controls.Add(deselectButton);
+			panel1.Controls.Add(selectButton);
+			panel1.Dock = DockStyle.Fill;
+			panel1.Location = new System.Drawing.Point(3, 3);
+			panel1.Name = "panel1";
+			panel1.Size = new System.Drawing.Size(24, 320);
+			panel1.TabIndex = 2;
+			// 
+			// helpLabel6
+			// 
+			helpLabel6.BackColor = System.Drawing.Color.Transparent;
+			helpLabel6.HelpText = "Deselect.";
+			helpLabel6.HelpTitle = "<";
+			helpLabel6.Location = new System.Drawing.Point(1, 59);
+			helpLabel6.Name = "helpLabel6";
+			helpLabel6.Size = new System.Drawing.Size(23, 13);
+			helpLabel6.TabIndex = 11;
+			// 
+			// helpLabel5
+			// 
+			helpLabel5.BackColor = System.Drawing.Color.Transparent;
+			helpLabel5.HelpText = "Select.";
+			helpLabel5.HelpTitle = ">";
+			helpLabel5.Location = new System.Drawing.Point(2, 23);
+			helpLabel5.Name = "helpLabel5";
+			helpLabel5.Size = new System.Drawing.Size(23, 13);
+			helpLabel5.TabIndex = 10;
+			// 
+			// deselectButton
+			// 
+			deselectButton.Location = new System.Drawing.Point(0, 36);
+			deselectButton.Name = "deselectButton";
+			deselectButton.Size = new System.Drawing.Size(24, 23);
+			deselectButton.TabIndex = 1;
+			deselectButton.Text = "<";
+			deselectButton.UseVisualStyleBackColor = true;
+			deselectButton.Click += DeselectButtonClick;
+			// 
+			// selectButton
+			// 
+			selectButton.Location = new System.Drawing.Point(0, 0);
+			selectButton.Name = "selectButton";
+			selectButton.Size = new System.Drawing.Size(24, 23);
+			selectButton.TabIndex = 0;
+			selectButton.Text = ">";
+			selectButton.UseVisualStyleBackColor = true;
+			selectButton.Click += SelectButtonClick;
+			// 
+			// panel2
+			// 
+			panel2.Controls.Add(helpLabel4);
+			panel2.Controls.Add(helpLabel3);
+			panel2.Controls.Add(helpLabel2);
+			panel2.Controls.Add(helpLabel1);
+			panel2.Controls.Add(bottomButton);
+			panel2.Controls.Add(downButton);
+			panel2.Controls.Add(upButton);
+			panel2.Controls.Add(topButton);
+			panel2.Dock = DockStyle.Fill;
+			panel2.Location = new System.Drawing.Point(253, 3);
+			panel2.Name = "panel2";
+			panel2.Size = new System.Drawing.Size(24, 320);
+			panel2.TabIndex = 3;
+			// 
+			// helpLabel4
+			// 
+			helpLabel4.BackColor = System.Drawing.Color.Transparent;
+			helpLabel4.HelpText = "Move selection to the bottom.";
+			helpLabel4.HelpTitle = "b";
+			helpLabel4.Location = new System.Drawing.Point(1, 113);
+			helpLabel4.Name = "helpLabel4";
+			helpLabel4.Size = new System.Drawing.Size(23, 13);
+			helpLabel4.TabIndex = 9;
+			// 
+			// helpLabel3
+			// 
+			helpLabel3.BackColor = System.Drawing.Color.Transparent;
+			helpLabel3.HelpText = "Move selection down.";
+			helpLabel3.HelpTitle = "d";
+			helpLabel3.Location = new System.Drawing.Point(1, 82);
+			helpLabel3.Name = "helpLabel3";
+			helpLabel3.Size = new System.Drawing.Size(23, 13);
+			helpLabel3.TabIndex = 8;
+			// 
+			// helpLabel2
+			// 
+			helpLabel2.BackColor = System.Drawing.Color.Transparent;
+			helpLabel2.HelpText = "Move selection up.";
+			helpLabel2.HelpTitle = "u";
+			helpLabel2.Location = new System.Drawing.Point(1, 50);
+			helpLabel2.Name = "helpLabel2";
+			helpLabel2.Size = new System.Drawing.Size(23, 13);
+			helpLabel2.TabIndex = 7;
+			// 
+			// helpLabel1
+			// 
+			helpLabel1.BackColor = System.Drawing.Color.Transparent;
+			helpLabel1.HelpText = "Move selection to the top.";
+			helpLabel1.HelpTitle = "t";
+			helpLabel1.Location = new System.Drawing.Point(1, 19);
+			helpLabel1.Name = "helpLabel1";
+			helpLabel1.Size = new System.Drawing.Size(23, 13);
+			helpLabel1.TabIndex = 6;
+			// 
+			// bottomButton
+			// 
+			bottomButton.Location = new System.Drawing.Point(0, 94);
+			bottomButton.Name = "bottomButton";
+			bottomButton.Size = new System.Drawing.Size(24, 20);
+			bottomButton.TabIndex = 5;
+			bottomButton.Text = "b";
+			bottomButton.UseVisualStyleBackColor = true;
+			bottomButton.Click += BottomButtonClick;
+			// 
+			// downButton
+			// 
+			downButton.Location = new System.Drawing.Point(0, 62);
+			downButton.Name = "downButton";
+			downButton.Size = new System.Drawing.Size(24, 20);
+			downButton.TabIndex = 4;
+			downButton.Text = "d";
+			downButton.UseVisualStyleBackColor = true;
+			downButton.Click += DownButtonClick;
+			// 
+			// upButton
+			// 
+			upButton.Location = new System.Drawing.Point(0, 31);
+			upButton.Name = "upButton";
+			upButton.Size = new System.Drawing.Size(24, 20);
+			upButton.TabIndex = 3;
+			upButton.Text = "u";
+			upButton.UseVisualStyleBackColor = true;
+			upButton.Click += UpButtonClick;
+			// 
+			// topButton
+			// 
+			topButton.Location = new System.Drawing.Point(0, 0);
+			topButton.Name = "topButton";
+			topButton.Size = new System.Drawing.Size(24, 20);
+			topButton.TabIndex = 2;
+			topButton.Text = "t";
+			topButton.UseVisualStyleBackColor = true;
+			topButton.Click += TopButtonClick;
+			// 
+			// tableLayoutPanel2
+			// 
+			tableLayoutPanel2.ColumnCount = 1;
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+			tableLayoutPanel2.Controls.Add(tableLayoutPanel1, 0, 1);
+			tableLayoutPanel2.Controls.Add(panel3, 0, 0);
+			tableLayoutPanel2.Dock = DockStyle.Fill;
+			tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
+			tableLayoutPanel2.Margin = new Padding(0);
+			tableLayoutPanel2.Name = "tableLayoutPanel2";
+			tableLayoutPanel2.RowCount = 2;
+			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
+			tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+			tableLayoutPanel2.Size = new System.Drawing.Size(280, 346);
+			tableLayoutPanel2.TabIndex = 2;
+			// 
+			// panel3
+			// 
+			panel3.Controls.Add(helpLabel7);
+			panel3.Dock = DockStyle.Fill;
+			panel3.Location = new System.Drawing.Point(0, 0);
+			panel3.Margin = new Padding(0);
+			panel3.Name = "panel3";
+			panel3.Size = new System.Drawing.Size(280, 20);
+			panel3.TabIndex = 2;
+			// 
+			// helpLabel7
+			// 
+			helpLabel7.BackColor = System.Drawing.Color.Transparent;
+			helpLabel7.Dock = DockStyle.Fill;
+			helpLabel7.HelpText = null;
+			helpLabel7.HelpTitle = null;
+			helpLabel7.Location = new System.Drawing.Point(0, 0);
+			helpLabel7.Name = "helpLabel7";
+			helpLabel7.Size = new System.Drawing.Size(280, 20);
+			helpLabel7.TabIndex = 0;
+			// 
+			// MultiListSelectorSubSelection
+			// 
+			AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			AutoScaleMode = AutoScaleMode.Font;
+			Controls.Add(tableLayoutPanel2);
+			Name = "MultiListSelectorSubSelection";
+			Size = new System.Drawing.Size(280, 346);
+			tableLayoutPanel1.ResumeLayout(false);
+			panel1.ResumeLayout(false);
+			panel2.ResumeLayout(false);
+			tableLayoutPanel2.ResumeLayout(false);
+			panel3.ResumeLayout(false);
+			ResumeLayout(false);
+		}
+
+		public override string Text{
+			get { return helpLabel7.Text; }
+			set { helpLabel7.Text = value; }
+		}
+
+		internal ListBox.ObjectCollection SelectedItems => selectedListBox.Items;
+
 		internal string[] SelectedStrings{
 			get{
 				ListBox.ObjectCollection sel = SelectedItems;
@@ -31,7 +312,8 @@ namespace BaseLib.Forms.Select{
 				return result;
 			}
 		}
-		public ListBox SelectedListBox { get { return selectedListBox; } }
+
+		public ListBox SelectedListBox => selectedListBox;
 
 		private void DownButtonMouseUp(object sender, MouseEventArgs e){
 			downThread.Abort();

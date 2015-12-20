@@ -56,7 +56,8 @@ namespace BaseLib.Forms.Select{
 			tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 0);
 		}
 
-		internal ListBox AllListBox { get { return allListBox; } }
+		internal ListBox AllListBox => allListBox;
+
 		public int[][] SelectedIndices{
 			get{
 				int[][] result = new int[subSelection.Length][];
@@ -83,9 +84,7 @@ namespace BaseLib.Forms.Select{
 		}
 
 		internal void SelectionHasChanged(MultiListSelectorSubSelection sender, EventArgs e){
-			if (SelectionChanged != null){
-				SelectionChanged(this, e);
-			}
+			SelectionChanged?.Invoke(this, e);
 		}
 
 		public static void TrySelect(ListSelector selector, IEnumerable<string> strings){

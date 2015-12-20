@@ -9,7 +9,7 @@ namespace BaseLib.Forms.Base{
 			this.view = view;
 		}
 
-		public int Count { get { return list.Count; } }
+		public int Count => list.Count;
 
 		public BasicColumnStyle this[int i]{
 			get { return list[i]; }
