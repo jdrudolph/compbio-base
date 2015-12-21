@@ -13,7 +13,7 @@ namespace BaseLib.Param{
 		private readonly List<string> defaultSelectionNames = new List<string>();
 		private readonly List<string[]> defaultSelections = new List<string[]>();
 		[NonSerialized] private ListSelectorControl control;
-		public MultiChoiceParam(string name) : this(name, new int[0]) { }
+		public MultiChoiceParam(string name) : this(name, new int[0]){}
 
 		public MultiChoiceParam(string name, int[] value) : base(name){
 			Value = value;
@@ -51,9 +51,15 @@ namespace BaseLib.Param{
 			return result.ToArray();
 		}
 
-		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Value, Default); } }
-		public override void SetValueFromControl() { Value = control.SelectedIndices; }
-		public override void Clear() { Value = new int[0]; }
+		public override bool IsModified => !ArrayUtils.EqualArrays(Value, Default);
+
+		public override void SetValueFromControl(){
+			Value = control.SelectedIndices;
+		}
+
+		public override void Clear(){
+			Value = new int[0];
+		}
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
@@ -73,7 +79,7 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public override float Height { get { return 160f; } }
+		public override float Height => 160f;
 
 		public override object Clone(){
 			return new MultiChoiceParam(Name, Value){

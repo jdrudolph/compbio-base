@@ -21,6 +21,12 @@ namespace BaseLib.Wpf{
 
 		public ListSelectorControl(){
 			InitializeComponent();
+			H1.Source = WpfUtils.LoadBitmap(Properties.Resources.top);
+			H2.Source = WpfUtils.LoadBitmap(Properties.Resources.up);
+			H3.Source = WpfUtils.LoadBitmap(Properties.Resources.down);
+			H4.Source = WpfUtils.LoadBitmap(Properties.Resources.bottom);
+			H6.Source = WpfUtils.LoadBitmap(Properties.Resources.right);
+			H7.Source = WpfUtils.LoadBitmap(Properties.Resources.left);
 			DownButton.MouseDown += DownButtonMouseDown;
 			DownButton.MouseUp += DownButtonMouseUp;
 			UpButton.MouseDown += UpButtonMouseDown;

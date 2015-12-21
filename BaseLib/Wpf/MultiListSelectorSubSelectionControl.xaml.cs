@@ -27,6 +27,13 @@ namespace BaseLib.Wpf{
 
 		public MultiListSelectorSubSelectionControl(){
 			InitializeComponent();
+			H1.Source = WpfUtils.LoadBitmap(Properties.Resources.top);
+			H2.Source = WpfUtils.LoadBitmap(Properties.Resources.up);
+			H3.Source = WpfUtils.LoadBitmap(Properties.Resources.down);
+			H4.Source = WpfUtils.LoadBitmap(Properties.Resources.bottom);
+			H5.Source = WpfUtils.LoadBitmap(Properties.Resources.filter);
+			H6.Source = WpfUtils.LoadBitmap(Properties.Resources.right);
+			H7.Source = WpfUtils.LoadBitmap(Properties.Resources.left);
 			DownButton.MouseDown += DownButtonMouseDown;
 			DownButton.MouseUp += DownButtonMouseUp;
 			UpButton.MouseDown += UpButtonMouseDown;
@@ -35,6 +42,7 @@ namespace BaseLib.Wpf{
 
 		public string Text{
 			set { TitleBlock.Text = value; }
+			get { return TitleBlock.Text; }
 		}
 
 		internal ItemCollection SelectedItems => SelectedListBox.Items;
@@ -214,7 +222,7 @@ namespace BaseLib.Wpf{
 
 		private void ParameterButtonClick(object sender, EventArgs e){
 			Point p = ParameterButton.PointToScreen(new Point(0, 0));
-			FilterWindow fw = new FilterWindow{Top = p.Y, Left = p.X -305};
+			FilterWindow fw = new FilterWindow{Top = p.Y, Left = p.X - 295, Title = "Filter " + Text.ToLower() + " columns"};
 			fw.ShowDialog();
 		}
 

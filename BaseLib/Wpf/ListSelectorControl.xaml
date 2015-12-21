@@ -24,8 +24,12 @@
                     <RowDefinition Height="23"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="&gt;" ToolTip="Select" Click="Select_OnClick"></Button>
-                <Button Grid.Row="1" Content="&lt;" ToolTip="Deselect" Click="Deselect_OnClick"></Button>
+                <Button Grid.Row="0" ToolTip="Select" Click="Select_OnClick">
+                    <Image x:Name="H6"></Image>
+                </Button>
+                <Button Grid.Row="1" ToolTip="Deselect" Click="Deselect_OnClick">
+                    <Image x:Name="H7"></Image>
+                </Button>
             </Grid>
             <ListBox Grid.Column="2" x:Name="SelectedListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True">
 				<ListBox.CommandBindings>
@@ -40,10 +44,18 @@
                     <RowDefinition Height="23"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Button Grid.Row="0" Content="t" ToolTip="Top" Click="TopButtonClick" x:Name="TopButton"></Button>
-                <Button Grid.Row="1" Content="u" ToolTip="Up" Click="UpButtonClick" x:Name="UpButton"></Button>
-                <Button Grid.Row="2" Content="d" ToolTip="Down" Click="DownButtonClick" x:Name="DownButton"></Button>
-                <Button Grid.Row="3" Content="b" ToolTip="Bottom" Click="BottomButtonClick" x:Name="BottomButton"></Button>
+                <Button Grid.Row="0" ToolTip="Bring to top" Click="TopButtonClick" x:Name="TopButton">
+                    <Image x:Name="H1"></Image>
+                </Button>
+                <Button Grid.Row="1" ToolTip="Move up" Click="UpButtonClick" x:Name="UpButton">
+                    <Image x:Name="H2"></Image>
+                </Button>
+                <Button Grid.Row="2" ToolTip="Move down" Click="DownButtonClick" x:Name="DownButton">
+                    <Image x:Name="H3"></Image>
+                </Button>
+                <Button Grid.Row="3" ToolTip="Bring to bottom" Click="BottomButtonClick" x:Name="BottomButton">
+                    <Image x:Name="H4"></Image>
+                </Button>
             </Grid>
         </Grid>
         <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" x:Name="DefaultButtonPanel">

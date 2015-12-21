@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for NumericUpDownControl.xaml
 	/// </summary>
-	public partial class NumericUpDownControl : UserControl{
+	public partial class NumericUpDownControl {
 		public event RoutedEventHandler ValueChanged;
 		private decimal minimum;
 		private decimal maximum;
@@ -30,9 +29,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void FireValueChanged(){
-			if (ValueChanged != null){
-				ValueChanged(this, new RoutedEventArgs());
-			}
+			ValueChanged?.Invoke(this, new RoutedEventArgs());
 		}
 
 		public decimal Value { get { return decimal.Parse(TextBox1.Text); } set { TextBox1.Text = "" + value; } }

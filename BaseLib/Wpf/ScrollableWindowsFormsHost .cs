@@ -36,8 +36,8 @@ namespace BaseLib.Wpf{
 		/// <param name="x2">Bottom right X</param>
 		/// <param name="y2">Bottom right Y</param>
 		/// <returns>Returns a handle to the created region.</returns>
-		[DllImport("GDI32.DLL", EntryPoint = "CreateRectRgn")] private static extern IntPtr CreateRectRgn(Int32 x1, Int32 y1,
-			Int32 x2, Int32 y2);
+		[DllImport("GDI32.DLL", EntryPoint = "CreateRectRgn")] private static extern IntPtr CreateRectRgn(int x1, int y1,
+			int x2, int y2);
 
 		/// <summary>Sets the specified region to the specified window. That means the specified window can paint
 		/// itself only in the specified region.</summary>
@@ -45,12 +45,12 @@ namespace BaseLib.Wpf{
 		/// <param name="hRgn">Hanlde to the region</param>
 		/// <param name="bRedraw">Boolean indicating whether the specified region should be redrawn.</param>
 		/// <returns>Returns nonzero if success, otherwise zero.</returns>
-		[DllImport("User32.dll", SetLastError = true)] private static extern Int32 SetWindowRgn(IntPtr hWnd, IntPtr hRgn,
-			Boolean bRedraw);
+		[DllImport("User32.dll", SetLastError = true)] private static extern int SetWindowRgn(IntPtr hWnd, IntPtr hRgn,
+			bool bRedraw);
 
 		/// <summary>Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
 		/// <param name="bDisposing"><b>true</b> if the method has been called by applicaton code.</param>
-		protected override void Dispose(Boolean bDisposing){
+		protected override void Dispose(bool bDisposing){
 			if (bDisposing){
 				try{
 					if (!disposed){
@@ -69,7 +69,7 @@ namespace BaseLib.Wpf{
 		/// <param name="viewer">ScrollViewer</param>
 		public void RegisterScrollViewer(ScrollViewer viewer){
 			if (viewer == null){
-				throw new ArgumentNullException("scollViewer");
+				throw new ArgumentNullException(nameof(viewer));
 			}
 			if (scrollViewer != null){
 				UnregisterScrollViewer(scrollViewer);
@@ -86,7 +86,7 @@ namespace BaseLib.Wpf{
 		/// <param name="viewer">ScrollViewer</param>
 		public void UnregisterScrollViewer(ScrollViewer viewer){
 			if (viewer == null){
-				throw new ArgumentNullException("scollViewer");
+				throw new ArgumentNullException(nameof(viewer));
 			}
 			viewer.ScrollChanged -= ScrollHandler;
 			GotFocus -= ScrollableWindowsFormsHostGotFocus;
@@ -96,12 +96,9 @@ namespace BaseLib.Wpf{
 		/// <summary>Scroll handler manages the clipping of this windows forms host.</summary>
 		/// <param name="sender">Sender</param>
 		/// <param name="ea">Event argument</param>
-		private void ScrollHandler(Object sender, ScrollChangedEventArgs ea){
+		private void ScrollHandler(object sender, ScrollChangedEventArgs ea){
 			PresentationSource presentationSource = PresentationSource.FromVisual(this);
-			if (presentationSource == null){
-				return;
-			}
-			Visual rootVisual = presentationSource.RootVisual;
+			Visual rootVisual = presentationSource?.RootVisual;
 			if (rootVisual == null){
 				return;
 			}
@@ -123,10 +120,10 @@ namespace BaseLib.Wpf{
 			int bottomRightY1 = 0;
 			if (intersectRect != Rect.Empty){
 				// calculate the HRGN points with 0/0 at upper left corner of scrollable windows forms host instance
-				topLeftX1 = (Int32) (intersectRect.TopLeft.X - hostRect.TopLeft.X);
-				topLeftY1 = (Int32) (intersectRect.TopLeft.Y - hostRect.TopLeft.Y);
-				bottomRightX1 = (Int32) (intersectRect.BottomRight.X - hostRect.TopLeft.X);
-				bottomRightY1 = (Int32) (intersectRect.BottomRight.Y - hostRect.TopLeft.Y);
+				topLeftX1 = (int) (intersectRect.TopLeft.X - hostRect.TopLeft.X);
+				topLeftY1 = (int) (intersectRect.TopLeft.Y - hostRect.TopLeft.Y);
+				bottomRightX1 = (int) (intersectRect.BottomRight.X - hostRect.TopLeft.X);
+				bottomRightY1 = (int) (intersectRect.BottomRight.Y - hostRect.TopLeft.Y);
 			}
 			// because the CreateRectRgn / SetWindowRgn api calls are slow we call them only if it has a visual effect
 			if (topLeftX != topLeftX1 || topLeftY != topLeftY1 || bottomRightX != bottomRightX1 || bottomRightY != bottomRightY1){
@@ -143,7 +140,7 @@ namespace BaseLib.Wpf{
 		/// <summary>Occurs on got focus and adjusts the scroll value of the registered scrollviewer that this is visible.</summary>
 		/// <param name="sender">Sender</param>
 		/// <param name="e">Event argument</param>
-		private void ScrollableWindowsFormsHostGotFocus(Object sender, RoutedEventArgs e){
+		private void ScrollableWindowsFormsHostGotFocus(object sender, RoutedEventArgs e){
 			Debug.Assert(scrollViewer != null);
 			// calculate the rect of this windows forms host instance with 0/0 at upper left corner of scrollviewer
 			GeneralTransform transform = TransformToAncestor(scrollViewer);
