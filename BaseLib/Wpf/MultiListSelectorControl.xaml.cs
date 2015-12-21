@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLib.Wpf{
 	/// <summary>
@@ -97,9 +96,7 @@ namespace BaseLib.Wpf{
 		}
 
 		internal void SelectionHasChanged(MultiListSelectorSubSelectionControl sender, EventArgs e){
-			if (SelectionChanged != null){
-				SelectionChanged(this, e);
-			}
+			SelectionChanged?.Invoke(this, e);
 		}
 
 		private HashSet<string> GetSubSelection(int selectorInd){
@@ -127,7 +124,7 @@ namespace BaseLib.Wpf{
 			subSelection[selectorInd].SelectedListBox.Items.Add(items[itemInd]);
 		}
 
-		internal ListBox AllListBox { get { return allListBox; } }
+		internal ListBox AllListBox => allListBox;
 
 		public int[] GetSelectedIndices(int selectorInd){
 			string[] sel = subSelection[selectorInd].SelectedStrings;

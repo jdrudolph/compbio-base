@@ -62,8 +62,9 @@ namespace BaseLib.Forms.Select{
 			}
 		}
 
-		public ListBox.ObjectCollection Items { get { return allListBox.Items; } }
-		public ListBox.ObjectCollection SelectedItems { get { return selectedListBox.Items; } }
+		public ListBox.ObjectCollection Items => allListBox.Items;
+		public ListBox.ObjectCollection SelectedItems => selectedListBox.Items;
+
 		public string[] SelectedStrings{
 			get{
 				ListBox.ObjectCollection sel = SelectedItems;
@@ -88,9 +89,7 @@ namespace BaseLib.Forms.Select{
 				foreach (int i in value){
 					SetSelected(i, true);
 				}
-				if (SelectionChanged != null){
-					SelectionChanged(this, new EventArgs());
-				}
+				SelectionChanged?.Invoke(this, new EventArgs());
 			}
 		}
 
@@ -138,9 +137,7 @@ namespace BaseLib.Forms.Select{
 					selectedListBox.Items.Add(o);
 				}
 			}
-			if (SelectionChanged != null){
-				SelectionChanged(this, e);
-			}
+			SelectionChanged?.Invoke(this, e);
 		}
 
 		private void DeselectButtonClick(object sender, EventArgs e){
@@ -149,9 +146,7 @@ namespace BaseLib.Forms.Select{
 			foreach (object o in os){
 				selectedListBox.Items.Remove(o);
 			}
-			if (SelectionChanged != null){
-				SelectionChanged(this, e);
-			}
+			SelectionChanged?.Invoke(this, e);
 		}
 
 		private void TopButtonClick(object sender, EventArgs e){
