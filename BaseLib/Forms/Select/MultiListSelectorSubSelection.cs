@@ -12,16 +12,9 @@ namespace BaseLib.Forms.Select{
 		internal MultiListSelector MultiListSelector { get; set; }
 		private TableLayoutPanel tableLayoutPanel1;
 		private ListBox selectedListBox;
-		private Panel panel1;
-		private HelpLabel helpLabel6;
-		private HelpLabel helpLabel5;
 		private Button deselectButton;
 		private Button selectButton;
 		private Panel panel2;
-		private HelpLabel helpLabel4;
-		private HelpLabel helpLabel3;
-		private HelpLabel helpLabel2;
-		private HelpLabel helpLabel1;
 		private Button bottomButton;
 		private Button downButton;
 		private Button upButton;
@@ -42,16 +35,16 @@ namespace BaseLib.Forms.Select{
 		private void InitializeComponent2(){
 			tableLayoutPanel1 = new TableLayoutPanel();
 			selectedListBox = new ListBox();
-			panel1 = new Panel();
-			helpLabel6 = new HelpLabel();
-			helpLabel5 = new HelpLabel();
+			Panel panel1 = new Panel();
+			HelpLabel helpLabel6 = new HelpLabel();
+			HelpLabel helpLabel5 = new HelpLabel();
 			deselectButton = new Button();
 			selectButton = new Button();
 			panel2 = new Panel();
-			helpLabel4 = new HelpLabel();
-			helpLabel3 = new HelpLabel();
-			helpLabel2 = new HelpLabel();
-			helpLabel1 = new HelpLabel();
+			HelpLabel helpLabel4 = new HelpLabel();
+			HelpLabel helpLabel3 = new HelpLabel();
+			HelpLabel helpLabel2 = new HelpLabel();
+			HelpLabel helpLabel1 = new HelpLabel();
 			bottomButton = new Button();
 			downButton = new Button();
 			upButton = new Button();
