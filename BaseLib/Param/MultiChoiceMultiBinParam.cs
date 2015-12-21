@@ -10,6 +10,7 @@ namespace BaseLib.Param{
 	public class MultiChoiceMultiBinParam : Parameter<int[][]>{
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
+		public IList<Parameters> SubParams { get; set; }
 		[NonSerialized] private MultiListSelectorControl control;
 		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]){}
 
@@ -24,6 +25,7 @@ namespace BaseLib.Param{
 			}
 			Values = new string[0];
 			Bins = new string[0];
+			SubParams = new Parameters[0];
 		}
 
 		public override string StringValue{
@@ -62,7 +64,19 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override bool IsModified => !ArrayUtils.EqualArraysOfArrays(Value, Default);
+		public override bool IsModified{
+			get{
+				if (!ArrayUtils.EqualArraysOfArrays(Value, Default)){
+					return true;
+				}
+				foreach (Parameters p in SubParams){
+					if (p != null && p.IsModified){
+						return true;
+					}
+				}
+				return false;
+			}
+		}
 
 		public override void SetValueFromControl(){
 			Value = control.SelectedIndices;
@@ -70,6 +84,9 @@ namespace BaseLib.Param{
 
 		public override void Clear(){
 			Value = new int[0][];
+			foreach (Parameters parameters in SubParams){
+				parameters?.Clear();
+			}
 		}
 
 		public override void UpdateControlFromValue(){
@@ -77,11 +94,14 @@ namespace BaseLib.Param{
 				return;
 			}
 			control.SelectedIndices = Value;
+			foreach (Parameters p in SubParams){
+				p?.UpdateControlsFromValue();
+			}
 		}
 
 		public override object CreateControl(){
 			control = new MultiListSelectorControl();
-			control.Init(Values, Bins);
+			control.Init(Values, Bins, SubParams);
 			control.SelectedIndices = Value;
 			return control;
 		}
@@ -89,7 +109,35 @@ namespace BaseLib.Param{
 		public override float Height => 310f;
 
 		public override object Clone(){
-			return new MultiChoiceMultiBinParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
+			MultiChoiceMultiBinParam s = new MultiChoiceMultiBinParam(Name, Value){
+				Help = Help,
+				Visible = Visible,
+				Values = Values,
+				Default = Default,
+				SubParams = new Parameters[SubParams.Count]
+			};
+			for (int i = 0; i < SubParams.Count; i++){
+				s.SubParams[i] = (Parameters) SubParams[i]?.Clone();
+			}
+			return s;
+		}
+
+		public Parameters GetSubParameters(){
+			return null;
+		}
+
+		public override void ResetSubParamValues(){
+			Value = Default;
+			foreach (Parameters p in SubParams){
+				p?.ResetValues();
+			}
+		}
+
+		public override void ResetSubParamDefaults(){
+			Default = Value;
+			foreach (Parameters p in SubParams){
+				p?.ResetDefaults();
+			}
 		}
 	}
 }

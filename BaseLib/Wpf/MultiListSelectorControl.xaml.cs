@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using BaseLibS.Num;
+using BaseLibS.Param;
 
 namespace BaseLib.Wpf{
 	/// <summary>
@@ -67,6 +68,10 @@ namespace BaseLib.Wpf{
 		}
 
 		public void Init(IList<string> items1, IList<string> selectorNames){
+			Init(items1, selectorNames, new Parameters[0]);
+		}
+
+		public void Init(IList<string> items1, IList<string> selectorNames, IList<Parameters> subParams){
 			items = items1;
 			foreach (string s in items1){
 				AllListBox.Items.Add(s);
@@ -76,6 +81,9 @@ namespace BaseLib.Wpf{
 			subSelection = new MultiListSelectorSubSelectionControl[n];
 			for (int i = 0; i < n; i++){
 				subSelection[i] = new MultiListSelectorSubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
+				if (subParams != null && i < subParams.Count && subParams[i] != null){
+					subSelection[i].Parameters = subParams[i];
+				}
 			}
 			tableLayoutPanel2.Margin = new Thickness(0);
 			tableLayoutPanel2.ColumnDefinitions.Add(new ColumnDefinition());

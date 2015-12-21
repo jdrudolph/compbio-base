@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using BaseLibS.Num;
+using BaseLibS.Param;
 
 namespace BaseLib.Wpf{
 	/// <summary>
@@ -13,7 +14,16 @@ namespace BaseLib.Wpf{
 	public partial class MultiListSelectorSubSelectionControl{
 		private Thread downThread;
 		private Thread upThread;
+		private Parameters parameters;
 		internal MultiListSelectorControl MultiListSelectorControl { get; set; }
+
+		internal Parameters Parameters{
+			get { return parameters; }
+			set{
+				ParameterButton.Visibility = Visibility.Visible;
+				parameters = value;
+			}
+		}
 
 		public MultiListSelectorSubSelectionControl(){
 			InitializeComponent();
@@ -202,7 +212,11 @@ namespace BaseLib.Wpf{
 			SetOrder(order, selection);
 		}
 
-		private void FilterButtonClick(object sender, EventArgs e){}
+		private void ParameterButtonClick(object sender, EventArgs e){
+			Point p = ParameterButton.PointToScreen(new Point(0, 0));
+			FilterWindow fw = new FilterWindow{Top = p.Y, Left = p.X -305};
+			fw.ShowDialog();
+		}
 
 		//TODO
 		//protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {

@@ -257,6 +257,9 @@
     <Compile Include="Wpf\FileParameterControl.xaml.cs">
       <DependentUpon>FileParameterControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\FilterWindow.xaml.cs">
+      <DependentUpon>FilterWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\FolderParameterControl.xaml.cs">
       <DependentUpon>FolderParameterControl.xaml</DependentUpon>
     </Compile>
@@ -459,6 +462,10 @@
     <Page Include="Wpf\FileParameterControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\FilterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\FolderParameterControl.xaml">
       <Generator>MSBuild:Compile</Generator>
