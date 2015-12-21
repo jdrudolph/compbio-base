@@ -10,52 +10,26 @@ namespace BaseLib.Forms.Select{
 		private Thread downThread;
 		private Thread upThread;
 		internal MultiListSelector MultiListSelector { get; set; }
-		private TableLayoutPanel tableLayoutPanel1;
 		private ListBox selectedListBox;
-		private Button deselectButton;
-		private Button selectButton;
-		private Panel panel2;
-		private Button bottomButton;
-		private Button downButton;
-		private Button upButton;
-		private Button topButton;
-		private TableLayoutPanel tableLayoutPanel2;
-		private Panel panel3;
-		private HelpLabel helpLabel7;
+		private HelpLabel mainLabel;
 
 		internal MultiListSelectorSubSelection(){
 			InitializeComponent();
 			InitializeComponent2();
-			downButton.MouseDown += DownButtonMouseDown;
-			downButton.MouseUp += DownButtonMouseUp;
-			upButton.MouseDown += UpButtonMouseDown;
-			upButton.MouseUp += UpButtonMouseUp;
 		}
 
 		private void InitializeComponent2(){
-			tableLayoutPanel1 = new TableLayoutPanel();
+			TableLayoutPanel tableLayoutPanel1 = new TableLayoutPanel();
 			selectedListBox = new ListBox();
-			Panel panel1 = new Panel();
-			HelpLabel helpLabel6 = new HelpLabel();
-			HelpLabel helpLabel5 = new HelpLabel();
-			deselectButton = new Button();
-			selectButton = new Button();
-			panel2 = new Panel();
-			HelpLabel helpLabel4 = new HelpLabel();
-			HelpLabel helpLabel3 = new HelpLabel();
-			HelpLabel helpLabel2 = new HelpLabel();
-			HelpLabel helpLabel1 = new HelpLabel();
-			bottomButton = new Button();
-			downButton = new Button();
-			upButton = new Button();
-			topButton = new Button();
-			tableLayoutPanel2 = new TableLayoutPanel();
-			panel3 = new Panel();
-			helpLabel7 = new HelpLabel();
+			TableLayoutPanel tableLayoutPanel2 = new TableLayoutPanel();
+			mainLabel = new HelpLabel();
 			tableLayoutPanel1.SuspendLayout();
+			Panel panel1 = new Panel();
 			panel1.SuspendLayout();
+			Panel panel2 = new Panel();
 			panel2.SuspendLayout();
 			tableLayoutPanel2.SuspendLayout();
+			Panel panel3 = new Panel();
 			panel3.SuspendLayout();
 			SuspendLayout();
 			// 
@@ -88,10 +62,82 @@ namespace BaseLib.Forms.Select{
 			selectedListBox.Size = new System.Drawing.Size(214, 316);
 			selectedListBox.TabIndex = 1;
 			// 
+			// deselectButton
+			// 
+			Button deselectButton = new Button{
+				Size = new System.Drawing.Size(24, 23),
+				TabIndex = 1,
+				Text = "<",
+				UseVisualStyleBackColor = true
+			};
+			deselectButton.Click += DeselectButtonClick;
+			// 
+			// selectButton
+			// 
+			Button selectButton = new Button{
+				Size = new System.Drawing.Size(24, 23),
+				TabIndex = 0,
+				Text = ">",
+				UseVisualStyleBackColor = true
+			};
+			selectButton.Click += SelectButtonClick;
+			// 
+			// bottomButton
+			// 
+			Button bottomButton = new Button{
+				Size = new System.Drawing.Size(24, 20),
+				TabIndex = 5,
+				Text = "b",
+				UseVisualStyleBackColor = true
+			};
+			bottomButton.Click += BottomButtonClick;
+			// 
+			// downButton
+			// 
+			Button downButton = new Button{
+				Size = new System.Drawing.Size(24, 20),
+				TabIndex = 4,
+				Text = "d",
+				UseVisualStyleBackColor = true
+			};
+			downButton.Click += DownButtonClick;
+			// 
+			// upButton
+			// 
+			Button upButton = new Button{
+				Size = new System.Drawing.Size(24, 20),
+				TabIndex = 3,
+				Text = "u",
+				UseVisualStyleBackColor = true
+			};
+			upButton.Click += UpButtonClick;
+			// 
+			// topButton
+			// 
+			Button topButton = new Button{
+				Size = new System.Drawing.Size(24, 20),
+				TabIndex = 2,
+				Text = "t",
+				UseVisualStyleBackColor = true
+			};
+			topButton.Click += TopButtonClick;
+			// 
 			// panel1
 			// 
-			panel1.Controls.Add(helpLabel6);
-			panel1.Controls.Add(helpLabel5);
+			panel1.Controls.Add(new HelpLabel{
+				BackColor = System.Drawing.Color.Transparent,
+				HelpText = "Deselect.",
+				HelpTitle = "<",
+				Size = new System.Drawing.Size(23, 13),
+				TabIndex = 11
+			});
+			panel1.Controls.Add(new HelpLabel{
+				BackColor = System.Drawing.Color.Transparent,
+				HelpText = "Select.",
+				HelpTitle = ">",
+				Size = new System.Drawing.Size(23, 13),
+				TabIndex = 10
+			});
 			panel1.Controls.Add(deselectButton);
 			panel1.Controls.Add(selectButton);
 			panel1.Dock = DockStyle.Fill;
@@ -100,52 +146,36 @@ namespace BaseLib.Forms.Select{
 			panel1.Size = new System.Drawing.Size(24, 320);
 			panel1.TabIndex = 2;
 			// 
-			// helpLabel6
-			// 
-			helpLabel6.BackColor = System.Drawing.Color.Transparent;
-			helpLabel6.HelpText = "Deselect.";
-			helpLabel6.HelpTitle = "<";
-			helpLabel6.Location = new System.Drawing.Point(1, 59);
-			helpLabel6.Name = "helpLabel6";
-			helpLabel6.Size = new System.Drawing.Size(23, 13);
-			helpLabel6.TabIndex = 11;
-			// 
-			// helpLabel5
-			// 
-			helpLabel5.BackColor = System.Drawing.Color.Transparent;
-			helpLabel5.HelpText = "Select.";
-			helpLabel5.HelpTitle = ">";
-			helpLabel5.Location = new System.Drawing.Point(2, 23);
-			helpLabel5.Name = "helpLabel5";
-			helpLabel5.Size = new System.Drawing.Size(23, 13);
-			helpLabel5.TabIndex = 10;
-			// 
-			// deselectButton
-			// 
-			deselectButton.Location = new System.Drawing.Point(0, 36);
-			deselectButton.Name = "deselectButton";
-			deselectButton.Size = new System.Drawing.Size(24, 23);
-			deselectButton.TabIndex = 1;
-			deselectButton.Text = "<";
-			deselectButton.UseVisualStyleBackColor = true;
-			deselectButton.Click += DeselectButtonClick;
-			// 
-			// selectButton
-			// 
-			selectButton.Location = new System.Drawing.Point(0, 0);
-			selectButton.Name = "selectButton";
-			selectButton.Size = new System.Drawing.Size(24, 23);
-			selectButton.TabIndex = 0;
-			selectButton.Text = ">";
-			selectButton.UseVisualStyleBackColor = true;
-			selectButton.Click += SelectButtonClick;
-			// 
 			// panel2
 			// 
-			panel2.Controls.Add(helpLabel4);
-			panel2.Controls.Add(helpLabel3);
-			panel2.Controls.Add(helpLabel2);
-			panel2.Controls.Add(helpLabel1);
+			panel2.Controls.Add(new HelpLabel{
+				BackColor = System.Drawing.Color.Transparent,
+				HelpText = "Move selection to the bottom.",
+				HelpTitle = "b",
+				Size = new System.Drawing.Size(23, 13),
+				TabIndex = 9
+			});
+			panel2.Controls.Add(new HelpLabel{
+				BackColor = System.Drawing.Color.Transparent,
+				HelpText = "Move selection down.",
+				HelpTitle = "d",
+				Size = new System.Drawing.Size(23, 13),
+				TabIndex = 8
+			});
+			panel2.Controls.Add(new HelpLabel{
+				BackColor = System.Drawing.Color.Transparent,
+				HelpText = "Move selection up.",
+				HelpTitle = "u",
+				Size = new System.Drawing.Size(23, 13),
+				TabIndex = 7
+			});
+			panel2.Controls.Add(new HelpLabel{
+				BackColor = System.Drawing.Color.Transparent,
+				HelpText = "Move selection to the top.",
+				HelpTitle = "t",
+				Size = new System.Drawing.Size(23, 13),
+				TabIndex = 6
+			});
 			panel2.Controls.Add(bottomButton);
 			panel2.Controls.Add(downButton);
 			panel2.Controls.Add(upButton);
@@ -155,86 +185,6 @@ namespace BaseLib.Forms.Select{
 			panel2.Name = "panel2";
 			panel2.Size = new System.Drawing.Size(24, 320);
 			panel2.TabIndex = 3;
-			// 
-			// helpLabel4
-			// 
-			helpLabel4.BackColor = System.Drawing.Color.Transparent;
-			helpLabel4.HelpText = "Move selection to the bottom.";
-			helpLabel4.HelpTitle = "b";
-			helpLabel4.Location = new System.Drawing.Point(1, 113);
-			helpLabel4.Name = "helpLabel4";
-			helpLabel4.Size = new System.Drawing.Size(23, 13);
-			helpLabel4.TabIndex = 9;
-			// 
-			// helpLabel3
-			// 
-			helpLabel3.BackColor = System.Drawing.Color.Transparent;
-			helpLabel3.HelpText = "Move selection down.";
-			helpLabel3.HelpTitle = "d";
-			helpLabel3.Location = new System.Drawing.Point(1, 82);
-			helpLabel3.Name = "helpLabel3";
-			helpLabel3.Size = new System.Drawing.Size(23, 13);
-			helpLabel3.TabIndex = 8;
-			// 
-			// helpLabel2
-			// 
-			helpLabel2.BackColor = System.Drawing.Color.Transparent;
-			helpLabel2.HelpText = "Move selection up.";
-			helpLabel2.HelpTitle = "u";
-			helpLabel2.Location = new System.Drawing.Point(1, 50);
-			helpLabel2.Name = "helpLabel2";
-			helpLabel2.Size = new System.Drawing.Size(23, 13);
-			helpLabel2.TabIndex = 7;
-			// 
-			// helpLabel1
-			// 
-			helpLabel1.BackColor = System.Drawing.Color.Transparent;
-			helpLabel1.HelpText = "Move selection to the top.";
-			helpLabel1.HelpTitle = "t";
-			helpLabel1.Location = new System.Drawing.Point(1, 19);
-			helpLabel1.Name = "helpLabel1";
-			helpLabel1.Size = new System.Drawing.Size(23, 13);
-			helpLabel1.TabIndex = 6;
-			// 
-			// bottomButton
-			// 
-			bottomButton.Location = new System.Drawing.Point(0, 94);
-			bottomButton.Name = "bottomButton";
-			bottomButton.Size = new System.Drawing.Size(24, 20);
-			bottomButton.TabIndex = 5;
-			bottomButton.Text = "b";
-			bottomButton.UseVisualStyleBackColor = true;
-			bottomButton.Click += BottomButtonClick;
-			// 
-			// downButton
-			// 
-			downButton.Location = new System.Drawing.Point(0, 62);
-			downButton.Name = "downButton";
-			downButton.Size = new System.Drawing.Size(24, 20);
-			downButton.TabIndex = 4;
-			downButton.Text = "d";
-			downButton.UseVisualStyleBackColor = true;
-			downButton.Click += DownButtonClick;
-			// 
-			// upButton
-			// 
-			upButton.Location = new System.Drawing.Point(0, 31);
-			upButton.Name = "upButton";
-			upButton.Size = new System.Drawing.Size(24, 20);
-			upButton.TabIndex = 3;
-			upButton.Text = "u";
-			upButton.UseVisualStyleBackColor = true;
-			upButton.Click += UpButtonClick;
-			// 
-			// topButton
-			// 
-			topButton.Location = new System.Drawing.Point(0, 0);
-			topButton.Name = "topButton";
-			topButton.Size = new System.Drawing.Size(24, 20);
-			topButton.TabIndex = 2;
-			topButton.Text = "t";
-			topButton.UseVisualStyleBackColor = true;
-			topButton.Click += TopButtonClick;
 			// 
 			// tableLayoutPanel2
 			// 
@@ -254,7 +204,7 @@ namespace BaseLib.Forms.Select{
 			// 
 			// panel3
 			// 
-			panel3.Controls.Add(helpLabel7);
+			panel3.Controls.Add(mainLabel);
 			panel3.Dock = DockStyle.Fill;
 			panel3.Location = new System.Drawing.Point(0, 0);
 			panel3.Margin = new Padding(0);
@@ -262,16 +212,16 @@ namespace BaseLib.Forms.Select{
 			panel3.Size = new System.Drawing.Size(280, 20);
 			panel3.TabIndex = 2;
 			// 
-			// helpLabel7
+			// mainLabel
 			// 
-			helpLabel7.BackColor = System.Drawing.Color.Transparent;
-			helpLabel7.Dock = DockStyle.Fill;
-			helpLabel7.HelpText = null;
-			helpLabel7.HelpTitle = null;
-			helpLabel7.Location = new System.Drawing.Point(0, 0);
-			helpLabel7.Name = "helpLabel7";
-			helpLabel7.Size = new System.Drawing.Size(280, 20);
-			helpLabel7.TabIndex = 0;
+			mainLabel.BackColor = System.Drawing.Color.Transparent;
+			mainLabel.Dock = DockStyle.Fill;
+			mainLabel.HelpText = null;
+			mainLabel.HelpTitle = null;
+			mainLabel.Location = new System.Drawing.Point(0, 0);
+			mainLabel.Name = "mainLabel";
+			mainLabel.Size = new System.Drawing.Size(280, 20);
+			mainLabel.TabIndex = 0;
 			// 
 			// MultiListSelectorSubSelection
 			// 
@@ -286,11 +236,15 @@ namespace BaseLib.Forms.Select{
 			tableLayoutPanel2.ResumeLayout(false);
 			panel3.ResumeLayout(false);
 			ResumeLayout(false);
+			downButton.MouseDown += DownButtonMouseDown;
+			downButton.MouseUp += DownButtonMouseUp;
+			upButton.MouseDown += UpButtonMouseDown;
+			upButton.MouseUp += UpButtonMouseUp;
 		}
 
 		public override string Text{
-			get { return helpLabel7.Text; }
-			set { helpLabel7.Text = value; }
+			get { return mainLabel.Text; }
+			set { mainLabel.Text = value; }
 		}
 
 		internal ListBox.ObjectCollection SelectedItems => selectedListBox.Items;
@@ -306,7 +260,7 @@ namespace BaseLib.Forms.Select{
 			}
 		}
 
-		public ListBox SelectedListBox => selectedListBox;
+		internal ListBox SelectedListBox => selectedListBox;
 
 		private void DownButtonMouseUp(object sender, MouseEventArgs e){
 			downThread.Abort();
