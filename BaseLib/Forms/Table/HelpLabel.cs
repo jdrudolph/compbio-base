@@ -5,7 +5,7 @@ using System.Windows.Forms;
 using BaseLib.Properties;
 using BaseLibS.Util;
 
-namespace BaseLib.Forms.Help{
+namespace BaseLib.Forms.Table{
 	public partial class HelpLabel : Control{
 		private bool helpActive;
 		private readonly ToolTip toolTip = new ToolTip();

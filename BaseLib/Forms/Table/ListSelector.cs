@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
-namespace BaseLib.Forms.Select{
+namespace BaseLib.Forms.Table{
 	public partial class ListSelector : UserControl{
 		public event EventHandler SelectionChanged;
 		private Thread downThread;

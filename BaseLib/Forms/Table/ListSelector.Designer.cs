@@ -1,6 +1,4 @@
-using BaseLib.Forms.Help;
-
-namespace BaseLib.Forms.Select{
+namespace BaseLib.Forms.Table{
 	partial class ListSelector {
 		/// <summary> 
 		/// Required designer variable.

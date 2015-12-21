@@ -1,6 +1,4 @@
-﻿using BaseLib.Forms.Select;
-
-namespace BaseLib.Forms.Table {
+﻿namespace BaseLib.Forms.Table {
 	partial class SelectColumnsForm {
 		/// <summary>
 		/// Required designer variable.

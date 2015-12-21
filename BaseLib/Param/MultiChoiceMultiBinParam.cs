@@ -11,7 +11,7 @@ namespace BaseLib.Param{
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
 		[NonSerialized] private MultiListSelectorControl control;
-		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]) { }
+		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]){}
 
 		public MultiChoiceMultiBinParam(string name, int[][] value) : base(name){
 			Value = value;
@@ -62,9 +62,15 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override bool IsModified { get { return !ArrayUtils.EqualArraysOfArrays(Value, Default); } }
-		public override void SetValueFromControl() { Value = control.SelectedIndices; }
-		public override void Clear() { Value = new int[0][]; }
+		public override bool IsModified => !ArrayUtils.EqualArraysOfArrays(Value, Default);
+
+		public override void SetValueFromControl(){
+			Value = control.SelectedIndices;
+		}
+
+		public override void Clear(){
+			Value = new int[0][];
+		}
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
@@ -80,7 +86,10 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public override float Height { get { return 310f; } }
-		public override object Clone() { return new MultiChoiceMultiBinParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default}; }
+		public override float Height => 310f;
+
+		public override object Clone(){
+			return new MultiChoiceMultiBinParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
+		}
 	}
 }

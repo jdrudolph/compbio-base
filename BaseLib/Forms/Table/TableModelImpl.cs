@@ -19,7 +19,7 @@ namespace BaseLib.Forms.Table{
 		protected readonly List<string> annotationRowDescriptions = new List<string>();
 		private readonly Collection<DataAnnotationRow> annotationRows = new Collection<DataAnnotationRow>();
 		protected readonly Dictionary<string, int> nameMapping = new Dictionary<string, int>();
-		public int ColumnCount { get { return columnNames.Count; } }
+		public int ColumnCount => columnNames.Count;
 
 		public RenderTableCell GetColumnRenderer(int col){
 			return cellRenderers[col];
@@ -79,7 +79,7 @@ namespace BaseLib.Forms.Table{
 			annotationRowDescriptions.Add(description);
 		}
 
-		public int AnnotationRowsCount { get { return annotationRowNames.Count; } }
+		public int AnnotationRowsCount => annotationRowNames.Count;
 
 		public string GetAnnotationRowName(int index){
 			return annotationRowNames[index];

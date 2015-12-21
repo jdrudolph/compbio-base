@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Forms.Help {
+﻿namespace BaseLib.Forms.Table {
 	partial class HelpLabel {
 		/// <summary> 
 		/// Required designer variable.

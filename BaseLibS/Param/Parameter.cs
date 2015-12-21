@@ -10,7 +10,7 @@ namespace BaseLibS.Param{
 		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
 
-		public string Name { get; private set; }
+		public string Name { get; }
 		public string Help { get; set; }
 		public bool Visible { get; set; }
 
@@ -24,30 +24,20 @@ namespace BaseLibS.Param{
 		public abstract void UpdateControlFromValue();
 		public abstract object CreateControl();
 		public virtual void Drop(string x){}
-
 		public abstract string StringValue { get; set; }
 		public abstract void ResetValue();
 		public abstract void ResetDefault();
 		public abstract object Clone();
 		public abstract void Clear();
 		public abstract bool IsModified { get; }
+		public virtual bool IsDropTarget => false;
+		public virtual float Height => paramHeight;
 
-		public virtual bool IsDropTarget{
-			get { return false; }
-		}
-
-		public virtual float Height{
-			get { return paramHeight; }
-		}
-
-		public virtual string[] Markup{
-			get { return new[]{"<parameter" + " name=\"" + Name + "\" value=\"" + StringValue + "\"></parameter>"}; }
-		}
+		public virtual string[] Markup
+			=> new[]{"<parameter" + " name=\"" + Name + "\" value=\"" + StringValue + "\"></parameter>"};
 
 		protected void ValueHasChanged(){
-			if (ValueChanged != null){
-				ValueChanged();
-			}
+			ValueChanged?.Invoke();
 		}
 	}
 
@@ -57,7 +47,7 @@ namespace BaseLibS.Param{
 		public T Value { get; set; }
 		public T Default { get; protected set; }
 
-		public override sealed void ResetValue(){
+		public sealed override void ResetValue(){
 			if (Value is ICloneable){
 				Value = (T) ((ICloneable) Default).Clone();
 			} else{
@@ -66,7 +56,7 @@ namespace BaseLibS.Param{
 			ResetSubParamValues();
 		}
 
-		public override sealed void ResetDefault(){
+		public sealed override void ResetDefault(){
 			if (Value is ICloneable){
 				Default = (T) ((ICloneable) Value).Clone();
 			} else{
@@ -75,10 +65,7 @@ namespace BaseLibS.Param{
 			ResetSubParamDefaults();
 		}
 
-		public override bool IsModified{
-			get { return !Equals(Value, Default); }
-		}
-
+		public override bool IsModified => !Equals(Value, Default);
 		public virtual void ResetSubParamValues(){}
 		public virtual void ResetSubParamDefaults(){}
 

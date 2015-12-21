@@ -23,7 +23,10 @@ namespace BaseLib.Wpf{
 			UpButton.MouseUp += UpButtonMouseUp;
 		}
 
-		public string Text { set { TitleBlock.Text = value; } }
+		public string Text{
+			set { TitleBlock.Text = value; }
+		}
+
 		internal ItemCollection SelectedItems => SelectedListBox.Items;
 
 		internal string[] SelectedStrings{
@@ -198,6 +201,8 @@ namespace BaseLib.Wpf{
 			int[] selection = ArrayUtils.ConsecutiveInts(n - selectedIndices.Length, n);
 			SetOrder(order, selection);
 		}
+
+		private void FilterButtonClick(object sender, EventArgs e){}
 
 		//TODO
 		//protected override bool ProcessCmdKey(ref Message msg, Keys keyData) {

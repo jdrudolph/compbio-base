@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using BaseLib.Forms.Select;
+using BaseLib.Forms.Table;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
