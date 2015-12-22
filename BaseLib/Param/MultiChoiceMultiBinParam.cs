@@ -11,7 +11,6 @@ namespace BaseLib.Param{
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
 		public IList<Func<string[], Parameters>> SubParams { get; set; }
-		public IList<Parameters[]> SubParamValues { get; set; }
 		[NonSerialized] private MultiListSelectorControl control;
 		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]){}
 
@@ -69,7 +68,6 @@ namespace BaseLib.Param{
 
 		public override void SetValueFromControl(){
 			Value = control.SelectedIndices;
-			SubParamValues = control.GetSubParameterValues();
 		}
 
 		public override void Clear(){
@@ -106,10 +104,6 @@ namespace BaseLib.Param{
 				}
 			}
 			return s;
-		}
-
-		public Parameters GetSubParameters(){
-			return null;
 		}
 
 		public override void ResetSubParamValues(){
