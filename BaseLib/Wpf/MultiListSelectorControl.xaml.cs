@@ -82,7 +82,7 @@ namespace BaseLib.Wpf{
 			for (int i = 0; i < n; i++){
 				subSelection[i] = new SubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
 				if (subParams != null && i < subParams.Count && subParams[i] != null){
-					subSelection[i].Parameters = subParams[i];
+					subSelection[i].ParameterFuncs = subParams[i];
 				}
 			}
 			tableLayoutPanel2.Margin = new Thickness(0);
@@ -134,6 +134,17 @@ namespace BaseLib.Wpf{
 			int[] result = new int[sel.Length];
 			for (int i = 0; i < result.Length; i++){
 				result[i] = ArrayUtils.IndexOf(items, sel[i]);
+			}
+			return result;
+		}
+
+		public IList<Parameters[]> GetSubParameterValues(){
+			Parameters[][] result = new Parameters[subSelection.Length][];
+			for (int i = 0; i < result.Length; i++){
+				if (subSelection[i].ParameterFuncs == null){
+					continue;
+				}
+				result[i] = subSelection[i].parameters.ToArray();
 			}
 			return result;
 		}

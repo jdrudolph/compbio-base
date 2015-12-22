@@ -14,14 +14,15 @@ namespace BaseLib.Wpf{
 	public partial class SubSelectionControl{
 		private Thread downThread;
 		private Thread upThread;
-		private Func<string[], Parameters> parameters;
+		private Func<string[], Parameters> parameterFuncs;
+		internal readonly List<Parameters> parameters = new List<Parameters>();
 		internal MultiListSelectorControl MultiListSelectorControl { get; set; }
 
-		internal Func<string[], Parameters> Parameters{
-			get { return parameters; }
+		internal Func<string[], Parameters> ParameterFuncs{
+			get { return parameterFuncs; }
 			set{
 				ParameterButton.Visibility = Visibility.Visible;
-				parameters = value;
+				parameterFuncs = value;
 			}
 		}
 
@@ -221,6 +222,9 @@ namespace BaseLib.Wpf{
 		}
 
 		private void ParameterButtonClick(object sender, EventArgs e){
+			if (SelectedStrings.Length == 0){
+				return;
+			}
 			Point p = ParameterButton.PointToScreen(new Point(0, 0));
 			FilterWindow fw = new FilterWindow(this){
 				Top = p.Y,
@@ -272,7 +276,7 @@ namespace BaseLib.Wpf{
 		}
 
 		public Parameters GetParameters(){
-			return parameters(SelectedStrings);
+			return parameterFuncs(SelectedStrings);
 		}
 	}
 }
