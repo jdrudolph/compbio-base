@@ -68,10 +68,10 @@ namespace BaseLib.Wpf{
 		}
 
 		public void Init(IList<string> items1, IList<string> selectorNames){
-			Init(items1, selectorNames, new Parameters[0]);
+			Init(items1, selectorNames, new Func<string[], Parameters>[0]);
 		}
 
-		public void Init(IList<string> items1, IList<string> selectorNames, IList<Parameters> subParams){
+		public void Init(IList<string> items1, IList<string> selectorNames, IList<Func<string[], Parameters>> subParams){
 			items = items1;
 			foreach (string s in items1){
 				AllListBox.Items.Add(s);

@@ -14,10 +14,10 @@ namespace BaseLib.Wpf{
 	public partial class SubSelectionControl{
 		private Thread downThread;
 		private Thread upThread;
-		private Parameters parameters;
+		private Func<string[], Parameters> parameters;
 		internal MultiListSelectorControl MultiListSelectorControl { get; set; }
 
-		internal Parameters Parameters{
+		internal Func<string[], Parameters> Parameters{
 			get { return parameters; }
 			set{
 				ParameterButton.Visibility = Visibility.Visible;
@@ -222,7 +222,11 @@ namespace BaseLib.Wpf{
 
 		private void ParameterButtonClick(object sender, EventArgs e){
 			Point p = ParameterButton.PointToScreen(new Point(0, 0));
-			FilterWindow fw = new FilterWindow{Top = p.Y, Left = p.X - 295, Title = "Filter " + Text.ToLower() + " columns"};
+			FilterWindow fw = new FilterWindow(this){
+				Top = p.Y,
+				Left = p.X - 895,
+				Title = "Filter " + Text.ToLower() + " columns"
+			};
 			fw.ShowDialog();
 		}
 
@@ -265,6 +269,10 @@ namespace BaseLib.Wpf{
 				MultiListSelectorControl.AllListBox.Items.Add(o);
 			}
 			MultiListSelectorControl.SelectionHasChanged(this, e);
+		}
+
+		public Parameters GetParameters(){
+			return parameters(SelectedStrings);
 		}
 	}
 }
