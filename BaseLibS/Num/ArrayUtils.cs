@@ -437,7 +437,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static float[,] ToFloats(MatrixIndexer floats){
-			float[,] result = new float[floats.RowCount,floats.ColumnCount];
+			float[,] result = new float[floats.RowCount, floats.ColumnCount];
 			for (int i = 0; i < result.GetLength(0); i++){
 				for (int j = 0; j < result.GetLength(1); j++){
 					result[i, j] = floats[i, j];
@@ -856,7 +856,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void Histogram(IList<double> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-		                             double h, double min, double max){
+			double h, double min, double max){
 			int n = data.Count;
 			double span = max - min;
 			int nbins = (int) Math.Max(Math.Round(span/h), 1);
@@ -891,7 +891,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-		                             double h, double min, double max){
+			double h, double min, double max){
 			int n = data.Count;
 			double span = max - min;
 			int nbins = (int) Math.Max(Math.Round(span/h), 1);
@@ -926,7 +926,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void Histogram(IList<double> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-		                             double h){
+			double h){
 			double min;
 			double max;
 			MinMax(data, out min, out max);
@@ -941,7 +941,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void Histogram(IList<float> data, out double[] x, out double[] y, bool normalized, bool cumulative,
-		                             double h){
+			double h){
 			float min;
 			float max;
 			MinMax(data, out min, out max);
@@ -955,49 +955,49 @@ namespace BaseLibS.Num{
 			Histogram(data, out x, out y, normalized, cumulative, h, min, max);
 		}
 
-		public static void MinMax(IList<double> x, out double min, out double max) {
+		public static void MinMax(IList<double> x, out double min, out double max){
 			int n = x.Count;
-			if (n == 0) {
+			if (n == 0){
 				min = double.NaN;
 				max = double.NaN;
 				return;
 			}
 			min = double.MaxValue;
 			max = double.MinValue;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				double val = x[i];
-				if (double.IsInfinity(val)) {
+				if (double.IsInfinity(val)){
 					continue;
 				}
-				if (val < min) {
+				if (val < min){
 					min = val;
 				}
-				if (val > max) {
+				if (val > max){
 					max = val;
 				}
 			}
-			if (min == double.MaxValue) {
+			if (min == double.MaxValue){
 				min = double.NaN;
 				max = double.NaN;
 			}
 		}
 
-		public static void MinMax(IList<long> x, out long min, out long max) {
+		public static void MinMax(IList<long> x, out long min, out long max){
 			int n = x.Count;
 			min = long.MaxValue;
 			max = long.MinValue;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				long val = x[i];
-				if (val < min) {
+				if (val < min){
 					min = val;
 				}
-				if (val > max) {
+				if (val > max){
 					max = val;
 				}
 			}
 		}
 
-		public static void MinMax(IList<float> x, out float min, out float max) {
+		public static void MinMax(IList<float> x, out float min, out float max){
 			int n = x.Count;
 			if (n == 0){
 				min = float.NaN;
@@ -1763,25 +1763,25 @@ namespace BaseLibS.Num{
 			return sum;
 		}
 
-		public static long Sum(IList<int> x) {
+		public static long Sum(IList<int> x){
 			int n = x.Count;
 			long sum = 0;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				sum += x[i];
 			}
 			return sum;
 		}
 
-		public static long Sum(IList<long> x) {
+		public static long Sum(IList<long> x){
 			int n = x.Count;
 			long sum = 0;
-			for (int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++){
 				sum += x[i];
 			}
 			return sum;
 		}
 
-		public static int Sum(IList<bool> x) {
+		public static int Sum(IList<bool> x){
 			int n = x.Count;
 			int sum = 0;
 			for (int i = 0; i < n; i++){
@@ -1939,7 +1939,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static float[,] ToFloats(double[,] x){
-			var result = new float[x.GetLength(0),x.GetLength(1)];
+			var result = new float[x.GetLength(0), x.GetLength(1)];
 			for (int i = 0; i < x.GetLength(0); i++){
 				for (int j = 0; j < x.GetLength(1); j++){
 					result[i, j] = (float) x[i, j];
@@ -2023,10 +2023,23 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,] Transpose<T>(T[,] x){
-			T[,] result = new T[x.GetLength(1),x.GetLength(0)];
+			T[,] result = new T[x.GetLength(1), x.GetLength(0)];
 			for (int i = 0; i < x.GetLength(0); i++){
 				for (int j = 0; j < x.GetLength(1); j++){
 					result[j, i] = x[i, j];
+				}
+			}
+			return result;
+		}
+
+		public static T[][] Transpose<T>(T[][] x){
+			T[][] result = new T[x.GetLength(1)][];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = new T[x.GetLength(0)];
+			}
+			for (int i = 0; i < x.GetLength(0); i++){
+				for (int j = 0; j < x.GetLength(1); j++){
+					result[j][i] = x[i][j];
 				}
 			}
 			return result;
@@ -2172,7 +2185,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,] ExtractRows<T>(T[,] values, IList<int> rows){
-			T[,] result = new T[rows.Count,values.GetLength(1)];
+			T[,] result = new T[rows.Count, values.GetLength(1)];
 			for (int i = 0; i < rows.Count; i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					result[i, j] = values[rows[i], j];
@@ -2182,7 +2195,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,] ExtractColumns<T>(T[,] values, IList<int> cols){
-			T[,] result = new T[values.GetLength(0),cols.Count];
+			T[,] result = new T[values.GetLength(0), cols.Count];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < cols.Count; j++){
 					result[i, j] = values[i, cols[j]];
@@ -2192,7 +2205,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,,] ExtractDim0<T>(T[,,] values, IList<int> inds){
-			T[,,] result = new T[inds.Count,values.GetLength(1),values.GetLength(2)];
+			T[,,] result = new T[inds.Count, values.GetLength(1), values.GetLength(2)];
 			for (int i = 0; i < inds.Count; i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					for (int k = 0; k < values.GetLength(2); k++){
@@ -2204,7 +2217,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,,] ExtractDim1<T>(T[,,] values, IList<int> inds){
-			T[,,] result = new T[values.GetLength(0),inds.Count,values.GetLength(2)];
+			T[,,] result = new T[values.GetLength(0), inds.Count, values.GetLength(2)];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < inds.Count; j++){
 					for (int k = 0; k < values.GetLength(2); k++){
@@ -2216,7 +2229,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,,] ExtractDim2<T>(T[,,] values, IList<int> inds){
-			T[,,] result = new T[values.GetLength(0),values.GetLength(1),inds.Count];
+			T[,,] result = new T[values.GetLength(0), values.GetLength(1), inds.Count];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					for (int k = 0; k < inds.Count; k++){
@@ -2228,7 +2241,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,,,] ExtractDim0<T>(T[,,,] values, IList<int> inds){
-			T[,,,] result = new T[inds.Count,values.GetLength(1),values.GetLength(2),values.GetLength(3)];
+			T[,,,] result = new T[inds.Count, values.GetLength(1), values.GetLength(2), values.GetLength(3)];
 			for (int i = 0; i < inds.Count; i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					for (int k = 0; k < values.GetLength(2); k++){
@@ -2242,7 +2255,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,,,] ExtractDim1<T>(T[,,,] values, IList<int> inds){
-			T[,,,] result = new T[values.GetLength(0),inds.Count,values.GetLength(2),values.GetLength(3)];
+			T[,,,] result = new T[values.GetLength(0), inds.Count, values.GetLength(2), values.GetLength(3)];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < inds.Count; j++){
 					for (int k = 0; k < values.GetLength(2); k++){
@@ -2256,7 +2269,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,,,] ExtractDim2<T>(T[,,,] values, IList<int> inds){
-			T[,,,] result = new T[values.GetLength(0),values.GetLength(1),inds.Count,values.GetLength(3)];
+			T[,,,] result = new T[values.GetLength(0), values.GetLength(1), inds.Count, values.GetLength(3)];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					for (int k = 0; k < inds.Count; k++){
@@ -2270,7 +2283,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[,,,] ExtractDim3<T>(T[,,,] values, IList<int> inds){
-			T[,,,] result = new T[values.GetLength(0),values.GetLength(1),values.GetLength(2),inds.Count];
+			T[,,,] result = new T[values.GetLength(0), values.GetLength(1), values.GetLength(2), inds.Count];
 			for (int i = 0; i < values.GetLength(0); i++){
 				for (int j = 0; j < values.GetLength(1); j++){
 					for (int k = 0; k < values.GetLength(2); k++){
