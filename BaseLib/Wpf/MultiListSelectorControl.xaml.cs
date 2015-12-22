@@ -13,7 +13,7 @@ namespace BaseLib.Wpf{
 		public event EventHandler SelectionChanged;
 		public IList<string> items;
 		internal ListBox AllListBox { get; }
-		private MultiListSelectorSubSelectionControl[] subSelection;
+		private SubSelectionControl[] subSelection;
 		private readonly Grid tableLayoutPanel1;
 
 		public MultiListSelectorControl(){
@@ -59,7 +59,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void ClearSelection(){
-			foreach (MultiListSelectorSubSelectionControl t in subSelection){
+			foreach (SubSelectionControl t in subSelection){
 				foreach (object x in t.SelectedListBox.Items){
 					AllListBox.Items.Add(x);
 				}
@@ -78,9 +78,9 @@ namespace BaseLib.Wpf{
 			}
 			int n = selectorNames.Count;
 			Grid tableLayoutPanel2 = new Grid();
-			subSelection = new MultiListSelectorSubSelectionControl[n];
+			subSelection = new SubSelectionControl[n];
 			for (int i = 0; i < n; i++){
-				subSelection[i] = new MultiListSelectorSubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
+				subSelection[i] = new SubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
 				if (subParams != null && i < subParams.Count && subParams[i] != null){
 					subSelection[i].Parameters = subParams[i];
 				}
@@ -100,7 +100,7 @@ namespace BaseLib.Wpf{
 			tableLayoutPanel1.Children.Add(tableLayoutPanel2);
 		}
 
-		internal void SelectionHasChanged(MultiListSelectorSubSelectionControl sender, EventArgs e){
+		internal void SelectionHasChanged(SubSelectionControl sender, EventArgs e){
 			SelectionChanged?.Invoke(this, e);
 		}
 

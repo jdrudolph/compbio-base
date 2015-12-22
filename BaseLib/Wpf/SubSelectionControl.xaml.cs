@@ -9,9 +9,9 @@ using BaseLibS.Param;
 
 namespace BaseLib.Wpf{
 	/// <summary>
-	/// Interaction logic for MultiListSelectorSubSelectionControl.xaml
+	/// Interaction logic for SubSelectionControl.xaml
 	/// </summary>
-	public partial class MultiListSelectorSubSelectionControl{
+	public partial class SubSelectionControl{
 		private Thread downThread;
 		private Thread upThread;
 		private Parameters parameters;
@@ -25,7 +25,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public MultiListSelectorSubSelectionControl(){
+		public SubSelectionControl(){
 			InitializeComponent();
 			H1.Source = WpfUtils.LoadBitmap(Properties.Resources.top);
 			H2.Source = WpfUtils.LoadBitmap(Properties.Resources.up);
