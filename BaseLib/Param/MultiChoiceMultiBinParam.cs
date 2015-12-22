@@ -10,7 +10,6 @@ namespace BaseLib.Param{
 	public class MultiChoiceMultiBinParam : Parameter<int[][]>{
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
-		public IList<Func<string[], Parameters>> SubParams { get; set; }
 		[NonSerialized] private MultiListSelectorControl control;
 		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]){}
 
@@ -25,7 +24,6 @@ namespace BaseLib.Param{
 			}
 			Values = new string[0];
 			Bins = new string[0];
-			SubParams = new Func<string[], Parameters>[0];
 		}
 
 		public override string StringValue{
@@ -83,7 +81,7 @@ namespace BaseLib.Param{
 
 		public override object CreateControl(){
 			control = new MultiListSelectorControl();
-			control.Init(Values, Bins, SubParams);
+			control.Init(Values, Bins);
 			control.SelectedIndices = Value;
 			return control;
 		}
@@ -96,13 +94,7 @@ namespace BaseLib.Param{
 				Visible = Visible,
 				Values = Values,
 				Default = Default,
-				SubParams = new Func<string[], Parameters>[SubParams.Count]
 			};
-			if (SubParams != null){
-				for (int i = 0; i < SubParams.Count; i++){
-					s.SubParams[i] = (Func<string[], Parameters>)SubParams[i]?.Clone();
-				}
-			}
 			return s;
 		}
 
