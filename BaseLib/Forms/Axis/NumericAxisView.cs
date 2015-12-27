@@ -22,10 +22,7 @@ namespace BaseLib.Forms.Axis{
 		public AxisZoomType ZoomType { get; set; }
 		public AxisMouseMode MouseMode { get; set; }
 
-		public bool Zoomable{
-			get { return true; }
-		}
-
+		public bool Zoomable => true;
 		public Color IndicatorColor { get; set; }
 		public double TotalMin { get; set; }
 		public double TotalMax { get; set; }
@@ -34,7 +31,7 @@ namespace BaseLib.Forms.Axis{
 		public bool Reverse { get; set; }
 		public bool IsLogarithmic { get; set; }
 		public bool Configurable { get; set; }
-		private int MaxNumIntegerDigits { get; set; }
+		private int MaxNumIntegerDigits { get; }
 		public int MajorTickLength { get; set; }
 		public int MinorTickLength { get; set; }
 		public float MajorTickLineWidth { get; set; }
@@ -67,13 +64,9 @@ namespace BaseLib.Forms.Axis{
 			MouseMode = AxisMouseMode.Zoom;
 		}
 
-		private double VisibleMin{
-			get { return ZoomType == AxisZoomType.Zoom ? ZoomMin : TotalMin; }
-		}
+		private double VisibleMin => ZoomType == AxisZoomType.Zoom ? ZoomMin : TotalMin;
 
-		private double VisibleMax{
-			get { return ZoomType == AxisZoomType.Zoom ? ZoomMax : TotalMax; }
-		}
+		private double VisibleMax => ZoomType == AxisZoomType.Zoom ? ZoomMax : TotalMax;
 
 		public double ZeroPoint{
 			get { return zeroPoint; }
@@ -83,9 +76,7 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		private int Sign{
-			get { return Reverse ? -1 : 1; }
-		}
+		private int Sign => Reverse ? -1 : 1;
 
 		internal float GetMinIndicator(int length){
 			if (indicator1 != -1 && indicator2 != -1){

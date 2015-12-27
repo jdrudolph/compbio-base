@@ -63,7 +63,7 @@ namespace BaseLibS.Mol{
 			CalcMasses();
 		}
 
-		public Molecule() : this(new int[0], new int[0]) { }
+		public Molecule() : this(new int[0], new int[0]){}
 
 		public Molecule(BinaryReader reader){
 			AtomCount = FileUtils.ReadInt32Array(reader);
@@ -81,27 +81,29 @@ namespace BaseLibS.Mol{
 			writer.Write(mostLikelyMass);
 		}
 
-		public string GetEmpiricalFormula() { return GetEmpiricalFormula(true); }
+		public string GetEmpiricalFormula(){
+			return GetEmpiricalFormula(true);
+		}
 
-		public int GetOCount() {
+		public int GetOCount(){
 			int ind = ChemElements.IndexO;
 			int x = Array.BinarySearch(AtomType, ind);
 			return x < 0 ? 0 : AtomCount[x];
 		}
 
-		public int GetSCount() {
+		public int GetSCount(){
 			int ind = ChemElements.IndexS;
 			int x = Array.BinarySearch(AtomType, ind);
 			return x < 0 ? 0 : AtomCount[x];
 		}
 
-		public int GetHCount() {
+		public int GetHCount(){
 			int ind = ChemElements.IndexH;
 			int x = Array.BinarySearch(AtomType, ind);
 			return x < 0 ? 0 : AtomCount[x];
 		}
 
-		public string GetEmpiricalFormula(bool oneForSingleAtoms) {
+		public string GetEmpiricalFormula(bool oneForSingleAtoms){
 			StringBuilder result = new StringBuilder();
 			for (int i = 0; i < AtomType.Length; i++){
 				if (AtomCount[i] > 0){
@@ -289,7 +291,7 @@ namespace BaseLibS.Mol{
 
 		public double[][] GetIsotopeSpectrum(double resolution, int charge){
 			double m = MonoIsotopicMass;
-			double sigma = m / Math.Abs(charge) / resolution * 0.5 / Math.Sqrt(2 * Math.Log(2));
+			double sigma = m/Math.Abs(charge)/resolution*0.5/Math.Sqrt(2*Math.Log(2));
 			double[][] x = GetIsotopeSpectrum(sigma, 12, 0.0001);
 			double dm = charge > 0 ? -massElectron : massElectron;
 			for (int i = 0; i < x[0].Length; i++){
@@ -422,7 +424,9 @@ namespace BaseLibS.Mol{
 			return new Tuple<Molecule, Molecule>(diff1, diff2);
 		}
 
-		public static Molecule Sum(Molecule molecule1, Molecule molecule2) { return Sum(new[]{molecule1, molecule2}); }
+		public static Molecule Sum(Molecule molecule1, Molecule molecule2){
+			return Sum(new[]{molecule1, molecule2});
+		}
 
 		public static Molecule Subtract(Molecule molecule1, Molecule molecule2){
 			int[] counts = new int[ChemElements.Elements.Length];
@@ -450,7 +454,7 @@ namespace BaseLibS.Mol{
 			}
 			return Sum(molecules, n);
 		}
-		
+
 		//TODO: can probably be optimized. (not necessary to produce the full counts arrays.)
 		public bool Contains(Molecule other){
 			int[] counts = ToCountArray();
@@ -546,10 +550,21 @@ namespace BaseLibS.Mol{
 			return c < 0 ? 0 : AtomCount[c];
 		}
 
-		public static double CalcMonoMass(string formula) { return new Molecule(formula).MonoIsotopicMass; }
-		public static double CalcWeight(string formula) { return new Molecule(formula).MolecularWeight; }
-		public static double ConvertToMass(double mz, int charge) { return mz*charge - massProton*charge; }
-		public static double ConvertToMz(double mass, int charge) { return (mass + charge*massProton)/charge; }
+		public static double CalcMonoMass(string formula){
+			return new Molecule(formula).MonoIsotopicMass;
+		}
+
+		public static double CalcWeight(string formula){
+			return new Molecule(formula).MolecularWeight;
+		}
+
+		public static double ConvertToMass(double mz, int charge){
+			return mz*charge - massProton*charge;
+		}
+
+		public static double ConvertToMz(double mass, int charge){
+			return (mass + charge*massProton)/charge;
+		}
 
 		public override bool Equals(object obj){
 			if (ReferenceEquals(null, obj)){
@@ -564,12 +579,14 @@ namespace BaseLibS.Mol{
 			return Equals((Molecule) obj);
 		}
 
-		protected bool Equals(Molecule other) { return ArrayUtils.EqualArrays(AtomType, other.AtomType) && ArrayUtils.EqualArrays(AtomCount, other.AtomCount); }
+		protected bool Equals(Molecule other){
+			return ArrayUtils.EqualArrays(AtomType, other.AtomType) && ArrayUtils.EqualArrays(AtomCount, other.AtomCount);
+		}
 
 		public override int GetHashCode(){
 			unchecked{
 				return ((AtomType != null ? ArrayUtils.GetArrayHashCode(AtomType) : 0)*397) ^
-					(AtomCount != null ? ArrayUtils.GetArrayHashCode(AtomCount) : 0);
+						(AtomCount != null ? ArrayUtils.GetArrayHashCode(AtomCount) : 0);
 			}
 		}
 	}

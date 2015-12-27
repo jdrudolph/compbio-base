@@ -98,7 +98,7 @@
     <Compile Include="Num\Distrib\Normal.cs" />
     <Compile Include="Num\Func\Gamma.cs" />
     <Compile Include="Num\LinearInterpolator.cs" />
-    <Compile Include="Num\MatrixAccess.cs" />
+    <Compile Include="Api\MatrixAccess.cs" />
     <Compile Include="Num\MatrixUtils.cs" />
     <Compile Include="Num\Matrix\SparseRowFloatMatrixIndexer.cs" />
     <Compile Include="Num\Matrix\FloatMatrixIndexer.cs" />

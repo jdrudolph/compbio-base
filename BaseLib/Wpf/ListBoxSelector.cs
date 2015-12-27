@@ -254,7 +254,7 @@ namespace BaseLib.Wpf{
 			/// <exception cref="ArgumentNullException">itemsControl is null.</exception>
 			public AutoScroller(ItemsControl itemsControl){
 				if (itemsControl == null){
-					throw new ArgumentNullException("itemsControl");
+					throw new ArgumentNullException(nameof(itemsControl));
 				}
 				this.itemsControl = itemsControl;
 				scrollViewer = FindChild<ScrollViewer>(itemsControl);
@@ -354,9 +354,7 @@ namespace BaseLib.Wpf{
 					offset.X += horizontal;
 					offset.Y += vertical;
 					EventHandler<OffsetChangedEventArgs> callback = OffsetChanged;
-					if (callback != null){
-						callback(this, new OffsetChangedEventArgs(horizontal, vertical));
-					}
+					callback?.Invoke(this, new OffsetChangedEventArgs(horizontal, vertical));
 				}
 			}
 
@@ -397,7 +395,7 @@ namespace BaseLib.Wpf{
 			/// <exception cref="ArgumentNullException">itemsControl is null.</exception>
 			public ItemsControlSelector(ItemsControl itemsControl){
 				if (itemsControl == null){
-					throw new ArgumentNullException("itemsControl");
+					throw new ArgumentNullException(nameof(itemsControl));
 				}
 				this.itemsControl = itemsControl;
 			}
@@ -445,24 +443,21 @@ namespace BaseLib.Wpf{
 
 		/// <summary>The event data for the AutoScroller.OffsetChanged event.</summary>
 		private sealed class OffsetChangedEventArgs : EventArgs{
-			private readonly double horizontal;
-			private readonly double vertical;
-
 			/// <summary>
 			/// Initializes a new instance of the OffsetChangedEventArgs class.
 			/// </summary>
 			/// <param name="horizontal">The change in horizontal scroll.</param>
 			/// <param name="vertical">The change in vertical scroll.</param>
 			internal OffsetChangedEventArgs(double horizontal, double vertical){
-				this.horizontal = horizontal;
-				this.vertical = vertical;
+				HorizontalChange = horizontal;
+				VerticalChange = vertical;
 			}
 
 			/// <summary>Gets the change in horizontal scroll position.</summary>
-			public double HorizontalChange { get { return horizontal; } }
+			public double HorizontalChange { get; }
 
 			/// <summary>Gets the change in vertical scroll position.</summary>
-			public double VerticalChange { get { return vertical; } }
+			public double VerticalChange { get; }
 		}
 
 		/// <summary>Draws a selection rectangle on an AdornerLayer.</summary>

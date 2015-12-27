@@ -13,7 +13,7 @@ namespace BaseLibS.Data{
 			return map.ContainsKey(key);
 		}
 
-		public int Count { get { return map.Count; } }
+		public int Count => map.Count;
 
 		public void Add(Tk key, Tv value){
 			if (map.ContainsKey(key)){

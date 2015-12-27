@@ -86,7 +86,7 @@ namespace BaseLibS.Num{
 			for (int i = 0; i < ndata; i++){
 				double ymod;
 				func(x[i], a, out ymod, dyda, ma);
-				double sig2I = sig != null ? 1.0/(sig[i]*sig[i]) : 1.0;
+				double sig2I = 1.0/(sig?[i]*sig[i]) ?? 1.0;
 				double dy = y[i] - ymod;
 				for (int j = 0, l = 0; l < ma; l++){
 					double wt = dyda[l]*sig2I;
@@ -145,7 +145,7 @@ namespace BaseLibS.Num{
 				}
 			}
 			for (int i = 0; i < ndata; i++){
-				double sig2I = sig != null ? 1.0/(sig[i]*sig[i]) : 1.0;
+				double sig2I = 1.0/(sig?[i]*sig[i]) ?? 1.0;
 				double dy = y[i] - ymod[i];
 				for (int j = 0, l = 0; l < ma; l++){
 					double wt = dyda[i][l]*sig2I;

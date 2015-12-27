@@ -6,10 +6,10 @@ namespace BaseLibS.Num{
 	[Serializable]
 	public class CubicSpline{
 		public readonly double[] x;
-		public double[] Y { get; private set; }
+		public double[] Y { get; }
 		private double[] y2;
-		public double Yp1 { get; private set; }
-		public double Ypn { get; private set; }
+		public double Yp1 { get; }
+		public double Ypn { get; }
 
 		public CubicSpline(double val){
 			x = new double[]{0, 1};
@@ -38,7 +38,7 @@ namespace BaseLibS.Num{
 			y2 = FileUtils.ReadDoubleArray(reader);
 		}
 
-		public int Length { get { return x.Length; } }
+		public int Length => x.Length;
 
 		public void Write(BinaryWriter writer){
 			FileUtils.Write(x, writer);

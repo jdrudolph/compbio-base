@@ -1,5 +1,4 @@
 using System;
-using BaseLibS.Api;
 using BaseLibS.Num.Matrix;
 using BaseLibS.Num.Vector;
 
@@ -209,9 +208,9 @@ namespace BaseLibS.Num{
 
 		public class Lu{
 			public double[,] l;
-			public Lu llu = null;
+			public Lu llu;
 			public double[,] u;
-			public Lu ulu = null;
+			public Lu ulu;
 			public int[] pi;
 			public double determinantOfPi;
 		}

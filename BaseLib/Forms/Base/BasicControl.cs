@@ -22,7 +22,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected override sealed void OnPaint(PaintEventArgs e) {
+		protected sealed override void OnPaint(PaintEventArgs e) {
 			base.OnPaint(e);
 			if (view != null) {
 				try{
@@ -33,20 +33,20 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected override sealed void OnPaintBackground(PaintEventArgs e){
+		protected sealed override void OnPaintBackground(PaintEventArgs e){
 			base.OnPaintBackground(e);
 			if (view != null){
 				view.OnPaintBackground(new CGraphics(e.Graphics), Width, Height);
 			}
 		}
 
-		protected override sealed void OnMouseDown(MouseEventArgs e){
+		protected sealed override void OnMouseDown(MouseEventArgs e){
 			base.OnMouseDown(e);
 			mouseDown = true;
 			view.OnMouseIsDown(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
 		}
 
-		protected override sealed void OnMouseUp(MouseEventArgs e){
+		protected sealed override void OnMouseUp(MouseEventArgs e){
 			base.OnMouseUp(e);
 			mouseDown = false;
 			view.OnMouseIsUp(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));

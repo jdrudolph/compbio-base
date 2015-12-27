@@ -2033,12 +2033,15 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[][] Transpose<T>(T[][] x){
-			T[][] result = new T[x.GetLength(1)][];
-			for (int i = 0; i < result.Length; i++){
-				result[i] = new T[x.GetLength(0)];
+			if (x.Length == 0){
+				return new T[0][];
 			}
-			for (int i = 0; i < x.GetLength(0); i++){
-				for (int j = 0; j < x.GetLength(1); j++){
+			T[][] result = new T[x[0].Length][];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = new T[x.Length];
+			}
+			for (int i = 0; i < x.Length; i++){
+				for (int j = 0; j < x[0].Length; j++){
 					result[j][i] = x[i][j];
 				}
 			}

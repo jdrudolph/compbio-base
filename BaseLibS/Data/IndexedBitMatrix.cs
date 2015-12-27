@@ -3,17 +3,15 @@ using System.Collections.Generic;
 namespace BaseLibS.Data{
 	public class IndexedBitMatrix{
 		private readonly HashSet<int>[] data;
-		private readonly int nrows;
-		private readonly int ncols;
 
 		public IndexedBitMatrix(int nrows, int ncols){
-			this.nrows = nrows;
-			this.ncols = ncols;
+			RowCount = nrows;
+			ColumnCount = ncols;
 			data = new HashSet<int>[nrows];
 		}
 
-		public int RowCount { get { return nrows; } }
-		public int ColumnCount { get { return ncols; } }
+		public int RowCount { get; }
+		public int ColumnCount { get; }
 
 		public void Set(int row, int col, bool val){
 			if (data[row] == null){

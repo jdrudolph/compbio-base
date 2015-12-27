@@ -133,6 +133,7 @@ namespace BaseLib.Wpf{
 			int[] order = ArrayUtils.Concat(selectedIndices, unselectedIndices);
 			int[] selection = ArrayUtils.ConsecutiveInts(selectedIndices.Length);
 			SetOrder(order, selection);
+			parameters.Clear();
 		}
 
 		private void UpButtonClick(object sender, EventArgs e){
@@ -170,6 +171,7 @@ namespace BaseLib.Wpf{
 				selection[i]--;
 			}
 			SetOrder(order, selection);
+			parameters.Clear();
 		}
 
 		private void DownButtonClick(object sender, EventArgs e){
@@ -207,6 +209,7 @@ namespace BaseLib.Wpf{
 				selection[i]++;
 			}
 			SetOrder(order, selection);
+			parameters.Clear();
 		}
 
 		private void BottomButtonClick(object sender, EventArgs e){
@@ -219,6 +222,7 @@ namespace BaseLib.Wpf{
 			int[] order = ArrayUtils.Concat(unselectedIndices, selectedIndices);
 			int[] selection = ArrayUtils.ConsecutiveInts(n - selectedIndices.Length, n);
 			SetOrder(order, selection);
+			parameters.Clear();
 		}
 
 		private void ParameterButtonClick(object sender, EventArgs e){
@@ -250,6 +254,7 @@ namespace BaseLib.Wpf{
 		//	return base.ProcessCmdKey(ref msg, keyData);
 		//}
 		private void Select_OnClick(object sender, RoutedEventArgs e){
+			parameters.Clear();
 			object[] os = new object[MultiListSelectorControl.AllListBox.SelectedItems.Count];
 			MultiListSelectorControl.AllListBox.SelectedItems.CopyTo(os, 0);
 			foreach (object o in os){
@@ -264,6 +269,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void Deselect_OnClick(object sender, RoutedEventArgs e){
+			parameters.Clear();
 			object[] os = new object[SelectedListBox.SelectedItems.Count];
 			SelectedListBox.SelectedItems.CopyTo(os, 0);
 			foreach (object o in os){

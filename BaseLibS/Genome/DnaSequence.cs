@@ -86,7 +86,7 @@ namespace BaseLibS.Genome{
 		}
 
 		public DnaSequence() {}
-		public int Length { get { return data.Count*27 + remaining.Count; } }
+		public int Length => data.Count*27 + remaining.Count;
 
 		private static Dictionary<char, char> InitComplement(){
 			Dictionary<char, char> result = new Dictionary<char, char>

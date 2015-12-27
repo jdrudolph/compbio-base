@@ -123,8 +123,8 @@ namespace BaseLibS.Data{
 			}
 		}
 
-		public int Count { get { return hashSet.Count; } }
-		public bool IsReadOnly { get { return ((ISet<T>) (hashSet)).IsReadOnly; } }
+		public int Count => hashSet.Count;
+		public bool IsReadOnly => ((ISet<T>) hashSet).IsReadOnly;
 
 		public int RemoveWhere(Predicate<T> predicate){
 			HashSet<T> toBeRemoved = new HashSet<T>();

@@ -1,25 +1,25 @@
 using System;
 using System.Collections.Generic;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLibS.Mol{
 	public class ChemElement{
 		public int Z { get; private set; }
 		public string Name { get; private set; }
 		public ChemElementType Type { get; private set; }
-		public string Symbol { get; private set; }
+		public string Symbol { get; }
 		public string CasRegistryId { get; private set; }
 		public double AtomicWeight { get; private set; }
 		public double MonoIsotopicMass { get; private set; }
 		public bool IsIsotopicLabel { get; private set; }
 		public int NaturalVersion { get; internal set; }
+		public int MaxNumDefault { get; private set; }
 		private readonly double[] composition;
 		private readonly double[] masses;
 		private readonly Dictionary<int, double[][]> store = new Dictionary<int, double[][]>();
 
 		internal ChemElement(int z, string symbol, string name, double[] masses, double[] composition, double atomicWeight,
-			ChemElementType type, string casRegistryId = "", bool isotopicLabel = false){
+			ChemElementType type, string casRegistryId = "", bool isotopicLabel = false, int maxNumDefault = 10){
 			Symbol = symbol;
 			this.masses = masses;
 			Z = z;
@@ -33,6 +33,7 @@ namespace BaseLibS.Mol{
 			}
 			AtomicWeight = atomicWeight;
 			IsIsotopicLabel = isotopicLabel;
+			MaxNumDefault = maxNumDefault;
 		}
 
 		public double[][] GetIsotopeDistribution(int n){
@@ -122,6 +123,8 @@ namespace BaseLibS.Mol{
 			return (int) Math.Round(masses[ind]);
 		}
 
-		public override string ToString() { return Symbol; }
+		public override string ToString(){
+			return Symbol;
+		}
 	}
 }

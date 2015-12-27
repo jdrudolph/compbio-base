@@ -32,7 +32,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public void Close() {}
-		public override int RowCount { get { return Rows.Count; } }
+		public override int RowCount => Rows.Count;
 
 		public override object GetEntry(int row, int column){
 			if (row < 0 || row >= Rows.Count){

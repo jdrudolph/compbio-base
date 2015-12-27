@@ -53,8 +53,8 @@ namespace BaseLibS.Num{
 			return cs;
 		}
 
-		public double MinX { get { return xvals[0]; } }
-		public double MaxX { get { return xvals[xvals.Length - 1]; } }
+		public double MinX => xvals[0];
+		public double MaxX => xvals[xvals.Length - 1];
 
 		public LinearInterpolator Scale(double mean, double width, double height){
 			double[] newX = new double[xvals.Length];

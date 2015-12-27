@@ -6,11 +6,7 @@ using System.Text.RegularExpressions;
 namespace BaseLibS.Mol{
 	public static class ChemElements{
 		private static ChemElement[] elements;
-
-		public static ChemElement[] Elements{
-			get { return elements ?? (elements = InitElements()); }
-		}
-
+		public static ChemElement[] Elements => elements ?? (elements = InitElements());
 		private static Dictionary<string, ChemElement> elementDictionary;
 
 		public static Dictionary<string, ChemElement> ElementDictionary{
@@ -76,9 +72,9 @@ namespace BaseLibS.Mol{
 		}
 
 		private static ChemElement[] InitElements(){
-			ChemElement[] e = new[]{
+			ChemElement[] e = {
 				new ChemElement(1, "H", "Hydrogen", new[]{1.0078250321, 2.014101778}, new[]{99.9885, 0.0115}, 1.00794,
-					ChemElementType.Nonmetal, "1333-74-0"),
+					ChemElementType.Nonmetal, "1333-74-0", false, 60),
 				new ChemElement(1, "Hx", "Deuterium", new[]{1.0078250321, 2.014101778}, new[]{0.0, 100.0}, 2.014101778,
 					ChemElementType.Nonmetal, "", true),
 				new ChemElement(1, "T", "Tritium", new[]{1.0078250321, 2.014101778, 3.0160492777}, new[]{0.0, 0.0, 100.0},
@@ -87,10 +83,10 @@ namespace BaseLibS.Mol{
 					ChemElementType.NobleGas),
 				new ChemElement(3, "Li", "Lithium", new[]{6.0151223, 7.0160040}, new[]{7.59, 92.41}, 6.941,
 					ChemElementType.AlkaliMetal),
-				new ChemElement(5, "B", "Boron", new[]{10.0129370, 11.0093055}, new[]{19.9, 80.1}, 10.811, ChemElementType.Semimetal)
-				, new ChemElement(4, "Be", "Beryllium", new[]{9.0121822}, new[]{100.0}, 9.0121822, ChemElementType.AlkalineEarth),
-				new ChemElement(6, "C", "Carbon", new[]{12.0, 13.0033548378}, new[]{98.93, 1.07}, 12.0107, ChemElementType.Nonmetal)
-				,
+				new ChemElement(5, "B", "Boron", new[]{10.0129370, 11.0093055}, new[]{19.9, 80.1}, 10.811, ChemElementType.Semimetal),
+				new ChemElement(4, "Be", "Beryllium", new[]{9.0121822}, new[]{100.0}, 9.0121822, ChemElementType.AlkalineEarth),
+				new ChemElement(6, "C", "Carbon", new[]{12.0, 13.0033548378}, new[]{98.93, 1.07}, 12.0107, ChemElementType.Nonmetal,
+					"", false, 30),
 				new ChemElement(6, "Cx", "Carbon", new[]{12.0, 13.0033548378}, new[]{0.0, 100.0}, 13.0033548378,
 					ChemElementType.Nonmetal, "", true),
 				new ChemElement(7, "N", "Nitrogen", new[]{14.0030740052, 15.0001088984}, new[]{99.632, 0.368}, 14.0067,
@@ -98,7 +94,7 @@ namespace BaseLibS.Mol{
 				new ChemElement(7, "Nx", "Nitrogen", new[]{14.0030740052, 15.0001088984}, new[]{0.0, 100.0}, 15.0001088984,
 					ChemElementType.Nonmetal, "", true),
 				new ChemElement(8, "O", "Oxygen", new[]{15.9949146221, 16.9991315, 17.9991604}, new[]{99.757, 0.038, 0.205}, 15.9994,
-					ChemElementType.Nonmetal),
+					ChemElementType.Nonmetal, "", false, 15),
 				new ChemElement(8, "Ox", "Oxygen", new[]{15.9949146221, 17.9991604}, new[]{0.0, 100.0}, 17.9991604,
 					ChemElementType.Nonmetal, "", true),
 				new ChemElement(8, "Oy", "Oxygen", new[]{15.9949146221, 16.9991315}, new[]{0.0, 100.0}, 16.9991315,
@@ -197,8 +193,7 @@ namespace BaseLibS.Mol{
 						123.9052739
 					}, new[]{0.97, 0.66, 0.34, 14.54, 7.68, 24.22, 8.59, 32.58, 4.63, 5.79}, 118.710,
 					ChemElementType.BasicMetal),
-				new ChemElement(53, "I", "Iodine", new[]{126.904468}, new[]{100.0}, 126.90447, ChemElementType.Halogen, "7553-56-2")
-				,
+				new ChemElement(53, "I", "Iodine", new[]{126.904468}, new[]{100.0}, 126.90447, ChemElementType.Halogen, "7553-56-2"),
 				new ChemElement(49, "In", "Indium", new[]{112.904058, 114.903878}, new[]{4.29, 95.71}, 114.818,
 					ChemElementType.BasicMetal, "7440-74-6"),
 				new ChemElement(52, "Te", "Tellurium",
@@ -216,8 +211,7 @@ namespace BaseLibS.Mol{
 				new ChemElement(56, "Ba", "Barium",
 					new[]{129.9063208, 131.9050613, 133.9045084, 134.9056886, 135.9045759, 136.9058274, 137.9052472},
 					new[]{0.106, 0.101, 2.417, 6.592, 7.854, 11.232, 71.698}, 137.327, ChemElementType.AlkalineEarth),
-				new ChemElement(55, "Cs", "Caesium", new[]{132.905451933}, new[]{100.0}, 132.905451933, ChemElementType.AlkaliMetal)
-				,
+				new ChemElement(55, "Cs", "Caesium", new[]{132.905451933}, new[]{100.0}, 132.905451933, ChemElementType.AlkaliMetal),
 				new ChemElement(59, "Pr", "Praseodymium", new[]{140.9076528}, new[]{100.0}, 140.90765, ChemElementType.Lanthanide,
 					"7440-10-0"),
 				new ChemElement(60, "Nd", "Neodymium",

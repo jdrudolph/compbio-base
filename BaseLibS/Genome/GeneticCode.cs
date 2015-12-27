@@ -8,7 +8,8 @@ namespace BaseLibS.Genome{
 		private const string b2 = "TTTTCCCCAAAAGGGGTTTTCCCCAAAAGGGGTTTTCCCCAAAAGGGGTTTTCCCCAAAAGGGG";
 		private const string b3 = "TCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAGTCAG";
 		private static GeneticCode[] codes;
-		public static GeneticCode[] Codes { get { return codes ?? (codes = InitCodes()); } }
+		public static GeneticCode[] Codes => codes ?? (codes = InitCodes());
+
 		public static string[] CodeNames{
 			get{
 				string[] result = new string[Codes.Length];
