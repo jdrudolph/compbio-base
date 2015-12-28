@@ -5,6 +5,7 @@ using BaseLibS.Num;
 namespace BaseLibS.Mol{
 	public class ChemElement{
 		public int Z { get; private set; }
+		public int[] MainValences { get; }
 		public string Name { get; private set; }
 		public ChemElementType Type { get; private set; }
 		public string Symbol { get; }
@@ -19,7 +20,7 @@ namespace BaseLibS.Mol{
 		private readonly Dictionary<int, double[][]> store = new Dictionary<int, double[][]>();
 
 		internal ChemElement(int z, string symbol, string name, double[] masses, double[] composition, double atomicWeight,
-			ChemElementType type, string casRegistryId = "", bool isotopicLabel = false, int maxNumDefault = 10){
+			ChemElementType type, int[] mainValences = null, string casRegistryId = "", bool isotopicLabel = false, int maxNumDefault = 10){
 			Symbol = symbol;
 			this.masses = masses;
 			Z = z;
@@ -34,7 +35,11 @@ namespace BaseLibS.Mol{
 			AtomicWeight = atomicWeight;
 			IsIsotopicLabel = isotopicLabel;
 			MaxNumDefault = maxNumDefault;
+			MainValences = mainValences;
 		}
+
+		public bool OddValence => MainValences != null && MainValences[0] % 2 != 0;
+		public int Valence => MainValences != null ? Math.Abs(MainValences[0]) :0;
 
 		public double[][] GetIsotopeDistribution(int n){
 			if (store.ContainsKey(n)){

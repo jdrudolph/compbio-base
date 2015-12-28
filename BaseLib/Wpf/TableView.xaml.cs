@@ -120,11 +120,7 @@ namespace BaseLib.Wpf{
 		}
 
 		public void Invalidate(){
-			tableView.Invalidate();
-		}
-
-		public void Invalidate(bool b){
-			tableView.Invalidate(b);
+			tableView.Invalidate(true);
 		}
 
 		public int[] GetSelectedRows(){
