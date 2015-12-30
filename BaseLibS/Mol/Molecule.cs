@@ -8,6 +8,7 @@ using BaseLibS.Util;
 
 namespace BaseLibS.Mol{
 	public class Molecule{
+		public static readonly Molecule empty = new Molecule();
 		public static readonly decimal massProtonM = 1.0072764666m;
 		public static readonly double massProton = 1.0072764666;
 		public static readonly double massElectron = 5.4857990943e-4;
