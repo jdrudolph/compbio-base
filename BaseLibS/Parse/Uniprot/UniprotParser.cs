@@ -53,9 +53,9 @@ namespace BaseLibS.Parse.Uniprot{
 		private string dbReferenceType;
 		private string dbReferenceId;
         private int numIsoforms;
-        private Dictionary<string, List<string>> isoformToENST;
+        private Dictionary<string, List<string>> isoformToEnst;
         private StringBuilder molecule;
-        private bool resolveIsoforms;
+        private readonly bool resolveIsoforms;
 
 		public UniprotParser(string swissprotFileName, string tremblFileName, bool includeTrembl, HandleUniprotEntry handle, bool resolveIsos){
 		    resolveIsoforms = resolveIsos;
@@ -157,7 +157,7 @@ namespace BaseLibS.Parse.Uniprot{
 				unames = new List<string>();
 				level = 0;
                 numIsoforms = 0;
-                isoformToENST = new Dictionary<string, List<string>>();
+                isoformToEnst = new Dictionary<string, List<string>>();
 			} else if (qName.Equals("dbReference")){
 				inDbRef = true;
 				dbReferenceType = attrs["type"];
@@ -219,9 +219,9 @@ namespace BaseLibS.Parse.Uniprot{
             } else if (qName.Equals("molecule") && dbReferenceType.Equals("Ensembl")){
                 string mol = molecule.ToString().Trim();
                 entry.AddDbEntryProperty(dbReferenceType, dbReferenceId, "isoform ID", mol);
-                if (!isoformToENST.ContainsKey(mol))
-                    isoformToENST.Add(mol, new List<string>());
-                isoformToENST[mol].Add(dbReferenceId);
+                if (!isoformToEnst.ContainsKey(mol))
+                    isoformToEnst.Add(mol, new List<string>());
+                isoformToEnst[mol].Add(dbReferenceId);
                 molecule = null;
             } else if (qName.Equals("entry")){
 				entry.Accessions = accessions.ToArray();
@@ -233,8 +233,8 @@ namespace BaseLibS.Parse.Uniprot{
 				entry.UniprotNames = unames.ToArray();
 				entry.IsTrembl = isTrembl;
                 if (resolveIsoforms){
-                    if (numIsoforms > 1 && isoformToENST.Count > 1){
-                        List<UniprotEntry> isoEntries = entry.ResolveIsoforms(isoformToENST);
+                    if (numIsoforms > 1 && isoformToEnst.Count > 1){
+                        List<UniprotEntry> isoEntries = entry.ResolveIsoforms(isoformToEnst);
                         foreach (UniprotEntry e in isoEntries){
                             handle(e);
                         }
@@ -285,12 +285,10 @@ namespace BaseLibS.Parse.Uniprot{
 				gname = null;
 				gnameType = null;
 			} else if (qName.Equals("name") && inOrganism){
-				if (oname != null){
-					string on = oname.ToString().Trim();
-					if (on.Length > 0){
-						onames.Add(on);
-						oname = null;
-					}
+				string on = oname?.ToString().Trim();
+				if (@on?.Length > 0){
+					onames.Add(@on);
+					oname = null;
 				}
 			} else if (qName.Equals("name") && level == 1){
 				unames.Add(uname.ToString().Trim());
@@ -309,42 +307,18 @@ namespace BaseLibS.Parse.Uniprot{
 		}
 
 		private void Characters(string buf, int offset, int len){
-			if (sequence != null) {
-				sequence.Append(buf, offset, len);
-			}
-			if (keyword != null) {
-				keyword.Append(buf, offset, len);
-			}
-			if (accession != null) {
-				accession.Append(buf, offset, len);
-			}
-			if (proteinFullName != null){
-				proteinFullName.Append(buf, offset, len);
-			}
-			if (proteinShortName != null){
-				proteinShortName.Append(buf, offset, len);
-			}
-			if (proteinEcNumber != null){
-				proteinEcNumber.Append(buf, offset, len);
-			}
-			if (gname != null){
-				gname.Append(buf, offset, len);
-			}
-			if (oname != null){
-				oname.Append(buf, offset, len);
-			}
-			if (uname != null){
-				uname.Append(buf, offset, len);
-			}
-			if (original != null){
-				original.Append(buf, offset, len);
-			}
-			if (variation != null){
-				variation.Append(buf, offset, len);
-			}
-		    if (molecule != null){
-		        molecule.Append(buf, offset, len);
-		    }
+			sequence?.Append(buf, offset, len);
+			keyword?.Append(buf, offset, len);
+			accession?.Append(buf, offset, len);
+			proteinFullName?.Append(buf, offset, len);
+			proteinShortName?.Append(buf, offset, len);
+			proteinEcNumber?.Append(buf, offset, len);
+			gname?.Append(buf, offset, len);
+			oname?.Append(buf, offset, len);
+			uname?.Append(buf, offset, len);
+			original?.Append(buf, offset, len);
+			variation?.Append(buf, offset, len);
+			molecule?.Append(buf, offset, len);
 		}
 	}
 }

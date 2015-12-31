@@ -98,8 +98,20 @@ namespace BaseLibS.Mol{
 			return x < 0 ? 0 : AtomCount[x];
 		}
 
+		public int GetClCount(){
+			int ind = ChemElements.IndexCl;
+			int x = Array.BinarySearch(AtomType, ind);
+			return x < 0 ? 0 : AtomCount[x];
+		}
+
 		public int GetHCount(){
 			int ind = ChemElements.IndexH;
+			int x = Array.BinarySearch(AtomType, ind);
+			return x < 0 ? 0 : AtomCount[x];
+		}
+
+		public int GetCCount(){
+			int ind = ChemElements.IndexC;
 			int x = Array.BinarySearch(AtomType, ind);
 			return x < 0 ? 0 : AtomCount[x];
 		}
@@ -200,9 +212,6 @@ namespace BaseLibS.Mol{
 				if (formula.StartsWith(symbol)){
 					return Calc(formula, counts, symbol, i);
 				}
-			}
-			if (formula.StartsWith("R")){
-				return Calc(formula, counts, "R", 0);
 			}
 			throw new Exception("Cannot process " + formula);
 		}

@@ -38,6 +38,17 @@ namespace BaseLibS.Mol{
 			}
 		}
 
+		private static int indexC = -1;
+
+		public static int IndexC{
+			get{
+				if (indexC == -1){
+					indexC = ElementIndex["C"];
+				}
+				return indexC;
+			}
+		}
+
 		private static int indexO = -1;
 
 		public static int IndexO{
@@ -57,6 +68,17 @@ namespace BaseLibS.Mol{
 					indexS = ElementIndex["S"];
 				}
 				return indexS;
+			}
+		}
+
+		private static int indexCl = -1;
+
+		public static int IndexCl{
+			get{
+				if (indexCl == -1){
+					indexCl = ElementIndex["Cl"];
+				}
+				return indexCl;
 			}
 		}
 
