@@ -31,7 +31,7 @@ namespace BaseLib.Param{
 			}
 		}
 
-		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Default, Value); } }
+		public override bool IsModified => !ArrayUtils.EqualArrays(Default, Value);
 		public override void SetValueFromControl() { Value = control.Filenames; }
 		public override void Clear() { Value = new string[0]; }
 
@@ -44,6 +44,6 @@ namespace BaseLib.Param{
 
 		public override object CreateControl() { return control = new MultiFileParameterControl{Filter = Filter, Filenames = Value}; }
 		public override object Clone() { return new MultiFileParam(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default}; }
-		public override float Height { get { return 120; } }
+		public override float Height => 120;
 	}
 }

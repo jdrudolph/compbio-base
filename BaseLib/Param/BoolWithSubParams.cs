@@ -69,12 +69,8 @@ namespace BaseLib.Param{
 				return;
 			}
 			cb.IsChecked = Value;
-			if (SubParamsFalse != null){
-				SubParamsFalse.UpdateControlsFromValue();
-			}
-			if (SubParamsTrue != null){
-				SubParamsTrue.UpdateControlsFromValue();
-			}
+			SubParamsFalse?.UpdateControlsFromValue();
+			SubParamsTrue?.UpdateControlsFromValue();
 		}
 
 		public override object CreateControl(){
@@ -110,7 +106,7 @@ namespace BaseLib.Param{
 			return control;
 		}
 
-		public override float Height { get { return 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height); } }
+		public override float Height => 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height);
 
 		public override object Clone(){
 			return new BoolWithSubParams(Name, Value){

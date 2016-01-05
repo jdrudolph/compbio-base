@@ -39,6 +39,7 @@ namespace BaseLib.Wpf{
 					TextBox.Text = s;
 				}
 			}
+			WpfUtils.SetOkFocus(this);
 		}
 	}
 }

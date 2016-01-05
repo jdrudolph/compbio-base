@@ -9,24 +9,26 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for MultiFileParameterControl.xaml
 	/// </summary>
-	public partial class MultiFileParameterControl {
+	public partial class MultiFileParameterControl{
 		public MultiFileParameterControl(){
 			InitializeComponent();
 		}
 
-		public void Connect(int connectionId, object target) {}
+		public void Connect(int connectionId, object target){}
 
 		private void AddButton_OnClick(object sender, RoutedEventArgs e){
 			OpenFileDialog ofd = new OpenFileDialog{Multiselect = true, Filter = Filter};
 			if (ofd.ShowDialog() == true){
 				AddFastaFiles(ofd.FileNames, ListBox1);
 			}
+			WpfUtils.SetOkFocus(this);
 		}
 
 		private void RemoveButton_OnClick(object sender, RoutedEventArgs e){
 			if (ListBox1.SelectedIndex >= 0){
 				ListBox1.Items.RemoveAt(ListBox1.SelectedIndex);
 			}
+			WpfUtils.SetOkFocus(this);
 		}
 
 		public string[] Filenames{
@@ -38,6 +40,7 @@ namespace BaseLib.Wpf{
 				}
 			}
 		}
+
 		public string Filter { get; set; }
 
 		private static void AddFastaFiles(IEnumerable<string> filenames, ItemsControl listbox){

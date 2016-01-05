@@ -266,6 +266,7 @@ namespace BaseLib.Wpf{
 				MultiListSelectorControl.AllListBox.Items.Remove(o);
 			}
 			MultiListSelectorControl.SelectionHasChanged(this, e);
+			WpfUtils.SetOkFocus(this);
 		}
 
 		private void Deselect_OnClick(object sender, RoutedEventArgs e){
@@ -279,6 +280,7 @@ namespace BaseLib.Wpf{
 				MultiListSelectorControl.AllListBox.Items.Add(o);
 			}
 			MultiListSelectorControl.SelectionHasChanged(this, e);
+			WpfUtils.SetOkFocus(this);
 		}
 
 		public Parameters GetParameters(){

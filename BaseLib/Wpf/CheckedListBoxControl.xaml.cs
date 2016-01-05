@@ -16,9 +16,7 @@ namespace BaseLib.Wpf{
 			System.Windows.Controls.CheckBox cb = new System.Windows.Controls.CheckBox{Content = text};
 			int index = ListBox1.Items.Count;
 			cb.Checked += (sender, e) =>{
-				if (ItemCheck != null){
-					ItemCheck(this, new ItemCheckEventArgs(index, CheckState.Checked, CheckState.Unchecked));
-				}
+				ItemCheck?.Invoke(this, new ItemCheckEventArgs(index, CheckState.Checked, CheckState.Unchecked));
 			};
 			ListBox1.Items.Add(new ListBoxItem{Content = cb});
 		}
@@ -49,7 +47,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public int Count { get { return ListBox1.Items.Count; } }
+		public int Count => ListBox1.Items.Count;
 
 		public void SetItemChecked(int i, bool b){
 			ListBoxItem lbi = (ListBoxItem) ListBox1.Items[i];

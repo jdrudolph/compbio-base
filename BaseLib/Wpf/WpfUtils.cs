@@ -4,22 +4,32 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using BaseLib.Param;
 
 namespace BaseLib.Wpf{
 	public static class WpfUtils{
-		public static float GetDpiScaleX() {
-			PropertyInfo dpiXProperty = typeof(SystemParameters).GetProperty("DpiX", BindingFlags.NonPublic | BindingFlags.Static);
-			int dpiX = (int)dpiXProperty.GetValue(null, null);
-			return dpiX / 96f;
+		public static void SetOkFocus(Control c){
+			Window w = Window.GetWindow(c);
+			if (w is ParameterWindow){
+				ParameterWindow pw = (ParameterWindow) w;
+				pw.FocusOkButton();
+			}
 		}
 
-		public static float GetDpiScaleY() {
-			PropertyInfo dpiYProperty = typeof(SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
-			int dpiY = (int)dpiYProperty.GetValue(null, null);
-			return dpiY / 96f;
+		public static float GetDpiScaleX(){
+			PropertyInfo dpiXProperty = typeof (SystemParameters).GetProperty("DpiX",
+				BindingFlags.NonPublic | BindingFlags.Static);
+			int dpiX = (int) dpiXProperty.GetValue(null, null);
+			return dpiX/96f;
 		}
 
-		public static UIElement GetGridChild(Grid grid, int row, int column) {
+		public static float GetDpiScaleY(){
+			PropertyInfo dpiYProperty = typeof (SystemParameters).GetProperty("Dpi", BindingFlags.NonPublic | BindingFlags.Static);
+			int dpiY = (int) dpiYProperty.GetValue(null, null);
+			return dpiY/96f;
+		}
+
+		public static UIElement GetGridChild(Grid grid, int row, int column){
 			return grid.Children.Cast<UIElement>().First(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == column);
 		}
 

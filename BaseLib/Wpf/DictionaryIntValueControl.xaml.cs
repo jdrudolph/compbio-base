@@ -23,6 +23,7 @@ namespace BaseLib.Wpf{
 				Value = p.GetData(Keys);
 				TextBox1.Text = StringVal;
 			}
+			WpfUtils.SetOkFocus(this);
 		}
 
 		private string StringVal{

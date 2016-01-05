@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System.Windows.Threading;
 using BaseLib.Wpf;
 using BaseLibS.Param;
 using BaseLibS.Util;
@@ -14,24 +15,28 @@ namespace BaseLib.Param{
 	/// Interaction logic for ParameterWindow.xaml
 	/// </summary>
 	public partial class ParameterWindow{
-		[DllImport("user32.dll")] private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
-		[DllImport("user32.dll")] private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+		[DllImport("user32.dll")]
+		private static extern int GetWindowLong(IntPtr hWnd, int nIndex);
+
+		[DllImport("user32.dll")]
+		private static extern int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
+
 		private const int gwlStyle = -16;
 		private const int wsMinimizebox = 0x20000;
 		private readonly Action helpAction;
 
 		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
-			IList<string> helpSuppls) : this(parameters, title, helpDescription, helpOutput, helpSuppls, null) { }
+			IList<string> helpSuppls) : this(parameters, title, helpDescription, helpOutput, helpSuppls, null){}
 
 		public ParameterWindow(Parameters parameters, string title, string helpDescription, string helpOutput,
 			IList<string> helpSuppls, Action helpAction){
 			InitializeComponent();
+			IsVisibleChanged += ControlIsVisibleChanged;
 			this.helpAction = helpAction;
 			if (helpAction == null){
 				HelpButton.Width = 0;
 			}
 			H1.Source = WpfUtils.GetHelpBitmap();
-			OkButton.Focus();
 			Height = ParameterPanel1.Init(parameters) + 65;
 			HelpPanel.Children.Clear();
 			List<string> titles = new List<string>();
@@ -75,6 +80,16 @@ namespace BaseLib.Param{
 			Title = title;
 		}
 
+		private void ControlIsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e){
+			if ((bool) e.NewValue){
+				FocusOkButton();
+			}
+		}
+
+		public void FocusOkButton(){
+			Dispatcher.BeginInvoke(DispatcherPriority.ContextIdle, new Action(delegate { OkButton.Focus(); }));
+		}
+
 		private void WindowSourceInitialized(object sender, EventArgs e){
 			IntPtr hwnd = new WindowInteropHelper((Window) sender).Handle;
 			int value = GetWindowLong(hwnd, gwlStyle);
@@ -101,9 +116,7 @@ namespace BaseLib.Param{
 		}
 
 		private void HelpButtonClick(object sender, RoutedEventArgs e){
-			if (helpAction != null){
-				helpAction();
-			}
+			helpAction?.Invoke();
 		}
 	}
 }
