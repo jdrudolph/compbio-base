@@ -4,7 +4,6 @@ using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
-using BaseLibS.Util;
 
 namespace NumPluginBase.Distance{
 	[Serializable]
@@ -114,9 +113,9 @@ namespace NumPluginBase.Distance{
 		}
 
 		public object Clone() { return new SpearmanCorrelationDistance(); }
-		public string Name { get { return "Spearman correlation"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 5; } }
-		public bool IsActive { get { return true; } }
+		public string Name => "Spearman correlation";
+		public string Description => "";
+		public float DisplayRank => 5;
+		public bool IsActive => true;
 	}
 }

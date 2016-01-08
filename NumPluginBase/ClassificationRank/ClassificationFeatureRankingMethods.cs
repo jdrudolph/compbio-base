@@ -7,7 +7,10 @@ using BaseLibS.Util;
 namespace NumPluginBase.ClassificationRank{
 	public static class ClassificationFeatureRankingMethods{
 		private static readonly ClassificationFeatureRankingMethod[] allMethods = InitRankingMethods();
-		private static ClassificationFeatureRankingMethod[] InitRankingMethods() { return FileUtils.GetPlugins<ClassificationFeatureRankingMethod>(NumPluginUtils.pluginNames, true); }
+
+		private static ClassificationFeatureRankingMethod[] InitRankingMethods(){
+			return FileUtils.GetPlugins<ClassificationFeatureRankingMethod>(NumPluginUtils.pluginNames, true);
+		}
 
 		public static string[] GetAllNames(){
 			string[] result = new string[allMethods.Length];
@@ -25,7 +28,9 @@ namespace NumPluginBase.ClassificationRank{
 			return result;
 		}
 
-		public static ClassificationFeatureRankingMethod Get(int index) { return allMethods[index]; }
+		public static ClassificationFeatureRankingMethod Get(int index){
+			return allMethods[index];
+		}
 
 		public static ClassificationFeatureRankingMethod GetByName(string name){
 			foreach (ClassificationFeatureRankingMethod method in allMethods.Where(method => method.Name.Equals(name))){

@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BaseLibS.Api;
-using BaseLibS.Num;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
@@ -162,9 +161,9 @@ namespace NumPluginBase.Distance{
 		}
 
 		public object Clone() { return new CosineDistance(); }
-		public string Name { get { return "Cosine"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 6; } }
-		public bool IsActive { get { return true; } }
+		public string Name => "Cosine";
+		public string Description => "";
+		public float DisplayRank => 6;
+		public bool IsActive => true;
 	}
 }

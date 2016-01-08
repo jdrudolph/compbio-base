@@ -54,9 +54,7 @@ namespace BaseLibS.Util{
 		}
 
 		private void Work(object ithread){
-			if (reportProgress != null){
-				reportProgress(0);
-			}
+			reportProgress?.Invoke(0);
 			while (true){
 				int x;
 				lock (locker){
@@ -68,9 +66,7 @@ namespace BaseLibS.Util{
 				calculation(x, (int) ithread);
 				lock (locker){
 					tasksDone++;
-					if (reportProgress != null){
-						reportProgress(tasksDone/(double) nTasks);
-					}
+					reportProgress?.Invoke(tasksDone/(double) nTasks);
 				}
 			}
 		}

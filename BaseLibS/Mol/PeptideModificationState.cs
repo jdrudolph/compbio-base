@@ -39,6 +39,23 @@ namespace BaseLibS.Mol{
 			}
 		}
 
+		public PeptideModificationState RemoveNonCompositionMods(){
+			PeptideModificationState result = Clone();
+			const ushort m = ushort.MaxValue - 10;
+			if (result.NTermModification >= m){
+				result.NTermModification = ushort.MaxValue;
+			}
+			if (result.CTermModification >= m){
+				result.CTermModification = ushort.MaxValue;
+			}
+			for (int i = 0; i < Modifications.Length; i++){
+				if (result.Modifications[i] >= m){
+					result.Modifications[i] = ushort.MaxValue;
+				}
+			}
+			return result;
+		}
+
 		public int Length => Modifications.Length;
 
 		public int Count{
@@ -233,12 +250,10 @@ namespace BaseLibS.Mol{
 
 		public PeptideModificationState GetTrueModifications(){
 			PeptideModificationState result = GetFreshCopy(Length);
-			if (NTermModification != ushort.MaxValue &&
-				Modification.IsStandardVarMod(NTermModification)){
+			if (NTermModification != ushort.MaxValue && Modification.IsStandardVarMod(NTermModification)){
 				result.NTermModification = NTermModification;
 			}
-			if (CTermModification != ushort.MaxValue &&
-				Modification.IsStandardVarMod(CTermModification)){
+			if (CTermModification != ushort.MaxValue && Modification.IsStandardVarMod(CTermModification)){
 				result.CTermModification = CTermModification;
 			}
 			for (int i = 0; i < Length; i++){
@@ -252,14 +267,27 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
+		public bool HasIsobaricLabels(){
+			if (Modification.IsIsobaricLabelMod(NTermModification)){
+				return true;
+			}
+			if (Modification.IsIsobaricLabelMod(CTermModification)){
+				return true;
+			}
+			foreach (ushort m in Modifications){
+				if (Modification.IsIsobaricLabelMod(m)){
+					return true;
+				}
+			}
+			return false;
+		}
+
 		public PeptideModificationState GetLabelModifications(ushort[] labelMods, string sequence){
 			PeptideModificationState result = GetFreshCopy(Length);
-			if (NTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(NTermModification)){
+			if (NTermModification != ushort.MaxValue && !Modification.IsStandardVarMod(NTermModification)){
 				result.NTermModification = NTermModification;
 			}
-			if (CTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(CTermModification)){
+			if (CTermModification != ushort.MaxValue && !Modification.IsStandardVarMod(CTermModification)){
 				result.CTermModification = CTermModification;
 			}
 			for (int i = 0; i < Length; i++){
@@ -312,17 +340,14 @@ namespace BaseLibS.Mol{
 
 		public PeptideModificationState RemoveLabelModifications(){
 			PeptideModificationState result = Clone();
-			if (NTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(NTermModification)){
+			if (NTermModification != ushort.MaxValue && !Modification.IsStandardVarMod(NTermModification)){
 				result.NTermModification = ushort.MaxValue;
 			}
-			if (CTermModification != ushort.MaxValue &&
-				!Modification.IsStandardVarMod(CTermModification)){
+			if (CTermModification != ushort.MaxValue && !Modification.IsStandardVarMod(CTermModification)){
 				result.CTermModification = ushort.MaxValue;
 			}
 			for (int i = 0; i < Modifications.Length; i++){
-				if (Modifications[i] != ushort.MaxValue &&
-					!Modification.IsStandardVarMod(Modifications[i])){
+				if (Modifications[i] != ushort.MaxValue && !Modification.IsStandardVarMod(Modifications[i])){
 					result.Modifications[i] = ushort.MaxValue;
 				}
 			}

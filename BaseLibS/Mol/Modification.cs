@@ -238,5 +238,12 @@ namespace BaseLibS.Mol{
 		public Molecule GetMolecule(){
 			return new Molecule(GetFormula());
 		}
+
+		public static bool IsIsobaricLabelMod(ushort m){
+			if (m >= Tables.ModificationList.Length){
+				return false;
+			}
+			return Tables.ModificationList[m].ModificationType == ModificationType.IsobaricLabel;
+		}
 	}
 }

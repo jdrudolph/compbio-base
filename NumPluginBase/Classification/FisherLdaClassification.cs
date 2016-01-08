@@ -12,7 +12,7 @@ namespace NumPluginBase.Classification{
 			int p = x[0].Length;
 			int[] groupCounts = new int[ngroups];
 			int totalCount = 0;
-			double[,] groupMeans = new double[ngroups,p];
+			double[,] groupMeans = new double[ngroups, p];
 			double[] totalMean = new double[p];
 			for (int i = 0; i < n; i++){
 				int groupIndex = y[i][0];
@@ -31,7 +31,7 @@ namespace NumPluginBase.Classification{
 			for (int j = 0; j < p; j++){
 				totalMean[j] /= totalCount;
 			}
-			double[,] b = new double[p,p];
+			double[,] b = new double[p, p];
 			for (int i = 0; i < p; i++){
 				for (int j = 0; j < p; j++){
 					for (int k = 0; k < ngroups; k++){
@@ -39,7 +39,7 @@ namespace NumPluginBase.Classification{
 					}
 				}
 			}
-			double[,] w = new double[p,p];
+			double[,] w = new double[p, p];
 			for (int k = 0; k < n; k++){
 				int groupIndex = y[k][0];
 				for (int i = 0; i < p; i++){
@@ -64,7 +64,7 @@ namespace NumPluginBase.Classification{
 		public static double[,] ExtractColumns(double[,] x, int[] indices){
 			int n = x.GetLength(0);
 			int ncol = indices.Length;
-			double[,] result = new double[n,ncol];
+			double[,] result = new double[n, ncol];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < ncol; j++){
 					result[i, j] = (float) x[i, indices[j]];
@@ -103,24 +103,10 @@ namespace NumPluginBase.Classification{
 			return result;
 		}
 
-		public override Parameters Parameters{
-			get { return new Parameters(); }
-		}
-
-		public override string Name{
-			get { return "Fisher LDA"; }
-		}
-
-		public override string Description{
-			get { return ""; }
-		}
-
-		public override float DisplayRank{
-			get { return 1; }
-		}
-
-		public override bool IsActive{
-			get { return true; }
-		}
+		public override Parameters Parameters => new Parameters();
+		public override string Name => "Fisher LDA";
+		public override string Description => "";
+		public override float DisplayRank => 1;
+		public override bool IsActive => true;
 	}
 }

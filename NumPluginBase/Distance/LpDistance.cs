@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using BaseLib.Param;
 using BaseLibS.Api;
-using BaseLibS.Num;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
@@ -138,9 +137,9 @@ namespace NumPluginBase.Distance{
 		}
 
 		public object Clone() { return new LpDistance(P); }
-		public string Name { get { return "Lp"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 3; } }
-		public bool IsActive { get { return true; } }
+		public string Name => "Lp";
+		public string Description => "";
+		public float DisplayRank => 3;
+		public bool IsActive => true;
 	}
 }

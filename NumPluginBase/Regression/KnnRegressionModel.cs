@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
-using BaseLibS.Util;
 using NumPluginBase.Classification;
 
 namespace NumPluginBase.Regression{

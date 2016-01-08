@@ -14,24 +14,12 @@ namespace NumPluginBase.Classification{
 			return new KnnClassificationModel(x, y, ngroups, k, distance);
 		}
 
-		public override Parameters Parameters{
-			get { return new Parameters(new Parameter[]{Distances.GetDistanceParameters(), new IntParam("Number of neighbours", 5)}); }
-		}
+		public override Parameters Parameters
+			=> new Parameters(new Parameter[]{Distances.GetDistanceParameters(), new IntParam("Number of neighbours", 5)});
 
-		public override string Name{
-			get { return "KNN"; }
-		}
-
-		public override string Description{
-			get { return ""; }
-		}
-
-		public override float DisplayRank{
-			get { return 2; }
-		}
-
-		public override bool IsActive{
-			get { return true; }
-		}
+		public override string Name => "KNN";
+		public override string Description => "";
+		public override float DisplayRank => 2;
+		public override bool IsActive => true;
 	}
 }

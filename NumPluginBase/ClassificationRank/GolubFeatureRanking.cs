@@ -101,20 +101,9 @@ namespace NumPluginBase.ClassificationRank{
 			return new Parameters();
 		}
 
-		public override string Name{
-			get { return "Golub"; }
-		}
-
-		public override string Description{
-			get { return ""; }
-		}
-
-		public override float DisplayRank{
-			get { return 20; }
-		}
-
-		public override bool IsActive{
-			get { return true; }
-		}
+		public override string Name => "Golub";
+		public override string Description => "";
+		public override float DisplayRank => 20;
+		public override bool IsActive => true;
 	}
 }

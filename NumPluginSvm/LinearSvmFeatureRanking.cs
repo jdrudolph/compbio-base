@@ -5,7 +5,6 @@ using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
-using BaseLibS.Util;
 using NumPluginBase.Kernel;
 using NumPluginSvm.Svm;
 
@@ -15,24 +14,13 @@ namespace NumPluginSvm{
 			return new Parameters(new Parameter[]{new DoubleParam("C", 100){Help = SvmClassification.cHelp}});
 		}
 
-		public override string Name{
-			get { return "SVM"; }
-		}
-
-		public override string Description{
-			get { return ""; }
-		}
-
-		public override float DisplayRank{
-			get { return 0; }
-		}
-
-		public override bool IsActive{
-			get { return true; }
-		}
+		public override string Name => "SVM";
+		public override string Description => "";
+		public override float DisplayRank => 0;
+		public override bool IsActive => true;
 
 		public override int[] Rank(BaseVector[] x, int[][] y, int ngroups, Parameters param, IGroupDataProvider data,
-			int nthreads, Action<double> reportProgress) {
+			int nthreads, Action<double> reportProgress){
 			SvmParameter sp = new SvmParameter{
 				kernelFunction = new LinearKernelFunction(),
 				svmType = SvmType.CSvc,

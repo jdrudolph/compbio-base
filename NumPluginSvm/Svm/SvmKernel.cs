@@ -47,8 +47,8 @@ namespace NumPluginSvm.Svm{
 		}
 
 		internal double KernelFunctionEval(int i, int j){
-			return kernelFunction.Evaluate(x[i], x[j], xSquare == null ? double.NaN : xSquare[i],
-				xSquare == null ? double.NaN : xSquare[j]);
+			return kernelFunction.Evaluate(x[i], x[j], xSquare?[i] ?? double.NaN,
+				xSquare?[j] ?? double.NaN);
 		}
 	}
 }

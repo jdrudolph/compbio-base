@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using BaseLibS.Api;
-using BaseLibS.Num;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 
@@ -180,9 +179,9 @@ namespace NumPluginBase.Distance{
 		}
 
 		public object Clone() { return new PearsonCorrelationDistance(); }
-		public string Name { get { return "Pearson correlation"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 4; } }
-		public bool IsActive { get { return true; } }
+		public string Name => "Pearson correlation";
+		public string Description => "";
+		public float DisplayRank => 4;
+		public bool IsActive => true;
 	}
 }

@@ -16,7 +16,7 @@ namespace NumPluginSvm.Svm{
 		}
 
 		public SvmProblem() { }
-		public int Count { get { return x.Length; } }
+		public int Count => x.Length;
 
 		public SvmProblem Copy(){
 			SvmProblem newProb = new SvmProblem{x = new BaseVector[Count], y = new float[Count]};

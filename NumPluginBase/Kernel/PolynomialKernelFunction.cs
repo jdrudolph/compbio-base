@@ -18,8 +18,8 @@ namespace NumPluginBase.Kernel{
 		}
 
 		public PolynomialKernelFunction() : this(3, 0.01, 0) { }
-		public bool UsesSquares { get { return false; } }
-		public string Name { get { return "Polynomial"; } }
+		public bool UsesSquares => false;
+		public string Name => "Polynomial";
 
 		public Parameters Parameters{
 			get{
@@ -54,8 +54,8 @@ namespace NumPluginBase.Kernel{
 			return ret;
 		}
 
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 2; } }
-		public bool IsActive { get { return true; } }
+		public string Description => "";
+		public float DisplayRank => 2;
+		public bool IsActive => true;
 	}
 }

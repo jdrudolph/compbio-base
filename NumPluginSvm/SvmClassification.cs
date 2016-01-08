@@ -34,11 +34,7 @@ namespace NumPluginSvm{
 			SvmProblem[] problems = CreateProblems(x, y, ngroups, out invert);
 			SvmModel[] models = new SvmModel[problems.Length];
 			ThreadDistributor td = new ThreadDistributor(nthreads, models.Length,
-				i => { models[i] = SvmMain.SvmTrain(problems[i], sp); }, fractionDone =>{
-					if (reportProgress != null){
-						reportProgress(fractionDone);
-					}
-				});
+				i => { models[i] = SvmMain.SvmTrain(problems[i], sp); }, fractionDone => { reportProgress?.Invoke(fractionDone); });
 			td.Start();
 			return new SvmClassificationModel(models, invert);
 		}
@@ -88,24 +84,12 @@ namespace NumPluginSvm{
 			return new SvmProblem(x, y1);
 		}
 
-		public override Parameters Parameters{
-			get { return new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10){Help = cHelp}}); }
-		}
+		public override Parameters Parameters
+			=> new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10){Help = cHelp}});
 
-		public override string Name{
-			get { return "Support vector machine"; }
-		}
-
-		public override string Description{
-			get { return ""; }
-		}
-
-		public override float DisplayRank{
-			get { return 0; }
-		}
-
-		public override bool IsActive{
-			get { return true; }
-		}
+		public override string Name => "Support vector machine";
+		public override string Description => "";
+		public override float DisplayRank => 0;
+		public override bool IsActive => true;
 	}
 }

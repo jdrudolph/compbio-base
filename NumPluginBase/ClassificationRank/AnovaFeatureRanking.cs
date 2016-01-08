@@ -6,7 +6,6 @@ using BaseLibS.Num;
 using BaseLibS.Num.Test.Univariate.NSamples;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
-using BaseLibS.Util;
 
 namespace NumPluginBase.ClassificationRank{
 	public class AnovaFeatureRanking : ClassificationFeatureRankingMethod{
@@ -61,17 +60,9 @@ namespace NumPluginBase.ClassificationRank{
 			return new Parameters(new Parameter[]{new DoubleParam("s0", 0){Help = s0Help}});
 		}
 
-		public override string Name{
-			get { return "ANOVA"; }
-		}
-		public override string Description{
-			get { return ""; }
-		}
-		public override float DisplayRank{
-			get { return 0; }
-		}
-		public override bool IsActive{
-			get { return true; }
-		}
+		public override string Name => "ANOVA";
+		public override string Description => "";
+		public override float DisplayRank => 0;
+		public override bool IsActive => true;
 	}
 }

@@ -16,8 +16,8 @@ namespace NumPluginBase.Kernel{
 			Offset = coef;
 		}
 
-		public bool UsesSquares { get { return false; } }
-		public string Name { get { return "Sigmoid"; } }
+		public bool UsesSquares => false;
+		public string Name => "Sigmoid";
 
 		public Parameters Parameters{
 			get{
@@ -35,8 +35,8 @@ namespace NumPluginBase.Kernel{
 
 		public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej) { return Math.Tanh(Gamma*xi.Dot(xj) + Offset); }
 		public object Clone() { return new SigmoidKernelFunction(Gamma, Offset); }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 3; } }
-		public bool IsActive { get { return true; } }
+		public string Description => "";
+		public float DisplayRank => 3;
+		public bool IsActive => true;
 	}
 }

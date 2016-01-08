@@ -18,17 +18,14 @@ namespace NumPluginSvm{
 			return new SvmRegressionModel(model);
 		}
 
-		public Parameters Parameters{
-			get{
-				return
-					new Parameters(new Parameter[]
-					{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 100){Help = SvmClassification.cHelp}});
-			}
-		}
+		public Parameters Parameters
+			=>
+				new Parameters(new Parameter[]
+				{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 100){Help = SvmClassification.cHelp}});
 
-		public string Name { get { return "Support vector machine"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 0; } }
-		public bool IsActive { get { return true; } }
+		public string Name => "Support vector machine";
+		public string Description => "";
+		public float DisplayRank => 0;
+		public bool IsActive => true;
 	}
 }

@@ -4,7 +4,6 @@ using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
-using BaseLibS.Util;
 
 namespace NumPluginBase.RegressionRank{
 	public class RankCorrelationFeatureRanking : IRegressionFeatureRankingMethod{
@@ -25,9 +24,9 @@ namespace NumPluginBase.RegressionRank{
 
 		private static double CalcScore(IList<float> xx, IList<float> yy) { return 1 - Math.Abs(ArrayUtils.Correlation(xx, yy)); }
 		public Parameters GetParameters(IGroupDataProvider data) { return new Parameters(); }
-		public string Name { get { return "Abs(Spearman correlation)"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 1; } }
-		public bool IsActive { get { return true; } }
+		public string Name => "Abs(Spearman correlation)";
+		public string Description => "";
+		public float DisplayRank => 1;
+		public bool IsActive => true;
 	}
 }

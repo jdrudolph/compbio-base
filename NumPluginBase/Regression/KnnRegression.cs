@@ -12,10 +12,10 @@ namespace NumPluginBase.Regression{
 			return new KnnRegressionModel(x, y, k, distance);
 		}
 
-		public Parameters Parameters { get { return new Parameters(new Parameter[]{Distances.GetDistanceParameters(), new IntParam("Number of neighbours", 5)}); } }
-		public string Name { get { return "KNN"; } }
-		public string Description { get { return ""; } }
-		public float DisplayRank { get { return 2; } }
-		public bool IsActive { get { return true; } }
+		public Parameters Parameters => new Parameters(new Parameter[]{Distances.GetDistanceParameters(), new IntParam("Number of neighbours", 5)});
+		public string Name => "KNN";
+		public string Description => "";
+		public float DisplayRank => 2;
+		public bool IsActive => true;
 	}
 }
