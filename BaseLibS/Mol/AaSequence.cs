@@ -24,7 +24,7 @@ namespace BaseLibS.Mol{
 			Length = seq.Length;
 			int a = Length/aasPerLong;
 			int b = Length%aasPerLong;
-			int n = (b == 0) ? a : a + 1;
+			int n = b == 0 ? a : a + 1;
 			sequence = new ulong[n];
 			for (int i = 0; i < a; i++){
 				sequence[i] = Encode(seq.Substring(aasPerLong*i, aasPerLong));
