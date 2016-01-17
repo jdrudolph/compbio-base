@@ -35,43 +35,36 @@ namespace BaseLib.Forms.Base{
 		}
 
 		public void Invalidate(){
-			if (invalidate != null){
-				invalidate();
-			}
+			invalidate?.Invoke();
 		}
 
 		public void ResetCursor(){
-			if (resetCursor != null){
-				resetCursor();
-			}
+			resetCursor?.Invoke();
 		}
 
 		public Cursor Cursor{
-			set{
-				if (setCursor != null){
-					setCursor(value);
-				}
-			}
+			set { setCursor?.Invoke(value); }
 		}
-		protected internal virtual void OnPaint(IGraphics g, int width, int height) {}
+
+		protected internal virtual void OnPaint(IGraphics g, int width, int height){}
 
 		protected internal virtual void OnPaintBackground(IGraphics g, int width, int height){
 			g.FillRectangle(new SolidBrush(BackColor), 0, 0, width, height);
 		}
 
-		protected internal virtual void OnMouseDragged(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseMoved(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseIsUp(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseIsDown(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseLeave(EventArgs e) {}
-		protected internal virtual void OnMouseClick(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseDoubleClick(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseHover(EventArgs e) {}
-		protected internal virtual void OnMouseCaptureChanged(EventArgs e) {}
-		protected internal virtual void OnMouseEnter(EventArgs e) {}
-		protected internal virtual void OnMouseWheel(BasicMouseEventArgs e) {}
-		protected internal virtual void OnResize(EventArgs e, int width, int height) {}
-		protected internal virtual void Dispose(bool disposing) {}
+		protected internal virtual void OnMouseDragged(BasicMouseEventArgs e){}
+		protected internal virtual void OnMouseMoved(BasicMouseEventArgs e){}
+		protected internal virtual void OnMouseIsUp(BasicMouseEventArgs e){}
+		protected internal virtual void OnMouseIsDown(BasicMouseEventArgs e){}
+		protected internal virtual void OnMouseLeave(EventArgs e){}
+		protected internal virtual void OnMouseClick(BasicMouseEventArgs e){}
+		protected internal virtual void OnMouseDoubleClick(BasicMouseEventArgs e){}
+		protected internal virtual void OnMouseHover(EventArgs e){}
+		protected internal virtual void OnMouseCaptureChanged(EventArgs e){}
+		protected internal virtual void OnMouseEnter(EventArgs e){}
+		protected internal virtual void OnMouseWheel(BasicMouseEventArgs e){}
+		protected internal virtual void OnResize(EventArgs e, int width, int height){}
+		protected internal virtual void Dispose(bool disposing){}
 
 		public BasicControl CreateControl(){
 			BasicControl c = new BasicControl();

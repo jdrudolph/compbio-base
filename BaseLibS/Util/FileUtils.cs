@@ -18,9 +18,18 @@ namespace BaseLibS.Util{
 		private static readonly Random random = new Random();
 		public static string executableFile = Assembly.GetEntryAssembly().Location;
 		public static string executablePath = Path.GetDirectoryName(executableFile);
-		public static string GetConfigPath() { return Path.Combine(Path.GetDirectoryName(executableFile), "conf"); }
-		public static string GetContaminantFilePath() { return Path.Combine(GetConfigPath(), "contaminants.fasta"); }
-		public static string GetContaminantParseRule() { return ">([^ ]*)"; }
+
+		public static string GetConfigPath(){
+			return Path.Combine(Path.GetDirectoryName(executableFile), "conf");
+		}
+
+		public static string GetContaminantFilePath(){
+			return Path.Combine(GetConfigPath(), "contaminants.fasta");
+		}
+
+		public static string GetContaminantParseRule(){
+			return ">([^ ]*)";
+		}
 
 		public static string[] GetAllFilesWithSuffix(string folder, string[] suffixes, bool recursive){
 			if (string.IsNullOrEmpty(folder)){
@@ -112,7 +121,7 @@ namespace BaseLibS.Util{
 			foreach (string pluginFile in pluginFiles){
 				string n = pluginFile.Substring(pluginFile.LastIndexOf("\\", StringComparison.InvariantCulture) + 1,
 					pluginFile.IndexOf(".dll", StringComparison.InvariantCulture) -
-						pluginFile.LastIndexOf("\\", StringComparison.InvariantCulture) - 1);
+					pluginFile.LastIndexOf("\\", StringComparison.InvariantCulture) - 1);
 				Assembly ass = Assembly.Load(n);
 				Type[] types;
 				try{
@@ -170,7 +179,9 @@ namespace BaseLibS.Util{
 		/// </summary>
 		/// <param name="path">File to read from.</param>
 		/// <returns>The <code>BinaryReader</code>.</returns>
-		public static BinaryReader GetBinaryReader(string path) { return new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read)); }
+		public static BinaryReader GetBinaryReader(string path){
+			return new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read));
+		}
 
 		public static StreamReader GetReader(string filename){
 			bool gz = filename.ToLower().EndsWith(".gz");
@@ -187,7 +198,9 @@ namespace BaseLibS.Util{
 		/// </summary>
 		/// <param name="name">Name of the resource to read from.</param>
 		/// <returns>The <code>StreamReader</code>.</returns>
-		public static StreamReader GetResourceTextReader(string name) { return new StreamReader(GetResourceStream(name)); }
+		public static StreamReader GetResourceTextReader(string name){
+			return new StreamReader(GetResourceStream(name));
+		}
 
 		/// <summary>
 		/// Creates a <code>Stream</code> reading from the given text resource within this assembly.
@@ -283,7 +296,9 @@ namespace BaseLibS.Util{
 		/// </summary>
 		/// <param name="path">File to write to.</param>
 		/// <returns>The <code>BinaryWriter</code>.</returns>
-		public static BinaryWriter GetBinaryWriter(string path) { return new BinaryWriter(new FileStream(path, FileMode.Create, FileAccess.Write)); }
+		public static BinaryWriter GetBinaryWriter(string path){
+			return new BinaryWriter(new FileStream(path, FileMode.Create, FileAccess.Write));
+		}
 
 		/// <summary>
 		/// Tests whether the directory corresponding to the given path is writable.
@@ -460,7 +475,9 @@ namespace BaseLibS.Util{
 			info.MoveTo(destFilePath);
 		}
 
-		public static void Copy(string filePath, string destFolder) { Copy(filePath, destFolder, false); }
+		public static void Copy(string filePath, string destFolder){
+			Copy(filePath, destFolder, false);
+		}
 
 		public static void Copy(string filePath, string destFolder, bool overwrite){
 			string name = Path.GetFileName(filePath);
@@ -559,7 +576,9 @@ namespace BaseLibS.Util{
 			return Type.GetType("System.Reflection.ReflectionContext", false) != null;
 		}
 
-		public static string BasicChecks() { return !IsNet45OrNewer() ? ".NET 4.5 framework is not installed." : null; }
+		public static string BasicChecks(){
+			return !IsNet45OrNewer() ? ".NET 4.5 framework is not installed." : null;
+		}
 
 		public static void Write(IList<double> x, BinaryWriter writer){
 			writer.Write(x.Count);

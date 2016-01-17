@@ -16,10 +16,8 @@ namespace BaseLib.Forms.Base{
 			Dock = DockStyle.Fill;
 		}
 
-		public void Print(IGraphics g) {
-			if (view != null) {
-				view.OnPaint(g, Width, Height);
-			}
+		public void Print(IGraphics g){
+			view?.OnPaint(g, Width, Height);
 		}
 
 		protected sealed override void OnPaint(PaintEventArgs e) {
@@ -35,9 +33,7 @@ namespace BaseLib.Forms.Base{
 
 		protected sealed override void OnPaintBackground(PaintEventArgs e){
 			base.OnPaintBackground(e);
-			if (view != null){
-				view.OnPaintBackground(new CGraphics(e.Graphics), Width, Height);
-			}
+			view?.OnPaintBackground(new CGraphics(e.Graphics), Width, Height);
 		}
 
 		protected sealed override void OnMouseDown(MouseEventArgs e){
@@ -52,7 +48,7 @@ namespace BaseLib.Forms.Base{
 			view.OnMouseIsUp(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
 		}
 
-		protected override sealed void OnMouseMove(MouseEventArgs e){
+		protected sealed override void OnMouseMove(MouseEventArgs e){
 			SetStyle(ControlStyles.Selectable, true);
 			Focus();
 			base.OnMouseMove(e);
@@ -63,67 +59,49 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected override sealed void OnMouseLeave(EventArgs e){
+		protected sealed override void OnMouseLeave(EventArgs e){
 			base.OnMouseLeave(e);
-			if (view != null){
-				view.OnMouseLeave(e);
-			}
+			view?.OnMouseLeave(e);
 		}
 
-		protected override sealed void OnMouseClick(MouseEventArgs e){
+		protected sealed override void OnMouseClick(MouseEventArgs e){
 			base.OnMouseClick(e);
-			if (view != null){
-				view.OnMouseClick(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
-			}
+			view?.OnMouseClick(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
 		}
 
-		protected override sealed void OnMouseDoubleClick(MouseEventArgs e){
+		protected sealed override void OnMouseDoubleClick(MouseEventArgs e){
 			base.OnMouseDoubleClick(e);
-			if (view != null){
-				view.OnMouseDoubleClick(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
-			}
+			view?.OnMouseDoubleClick(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
 		}
 
-		protected override sealed void OnMouseHover(EventArgs e){
+		protected sealed override void OnMouseHover(EventArgs e){
 			base.OnMouseHover(e);
-			if (view != null){
-				view.OnMouseHover(e);
-			}
+			view?.OnMouseHover(e);
 		}
 
-		protected override sealed void OnMouseCaptureChanged(EventArgs e){
+		protected sealed override void OnMouseCaptureChanged(EventArgs e){
 			base.OnMouseCaptureChanged(e);
-			if (view != null){
-				view.OnMouseCaptureChanged(e);
-			}
+			view?.OnMouseCaptureChanged(e);
 		}
 
-		protected override sealed void OnMouseEnter(EventArgs e){
+		protected sealed override void OnMouseEnter(EventArgs e){
 			base.OnMouseEnter(e);
-			if (view != null){
-				view.OnMouseEnter(e);
-			}
+			view?.OnMouseEnter(e);
 		}
 
-		protected override sealed void OnMouseWheel(MouseEventArgs e){
+		protected sealed override void OnMouseWheel(MouseEventArgs e){
 			base.OnMouseWheel(e);
-			if (view != null){
-				view.OnMouseWheel(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
-			}
+			view?.OnMouseWheel(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
 		}
 
-		protected override sealed void OnResize(EventArgs e){
+		protected sealed override void OnResize(EventArgs e){
 			base.OnResize(e);
-			if (view != null){
-				view.OnResize(e, Width, Height);
-			}
+			view?.OnResize(e, Width, Height);
 		}
 
 		protected sealed override void Dispose(bool disposing) {
 			base.Dispose(disposing);
-			if (view != null){
-				view.Dispose(disposing);
-			}
+			view?.Dispose(disposing);
 		}
 
 		private void ViewToolTip(string text, int x, int y, int duration){
