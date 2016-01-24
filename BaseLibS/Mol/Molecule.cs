@@ -119,8 +119,8 @@ namespace BaseLibS.Mol{
 		public string GetEmpiricalFormula(bool oneForSingleAtoms){
 			StringBuilder result = new StringBuilder();
 			for (int i = 0; i < AtomType.Length; i++){
-				if (AtomCount[i] > 0){
-					int count = AtomCount[i];
+				int count = AtomCount[i];
+				if (count != 0){
 					string ac = (count != 1 || oneForSingleAtoms) ? "" + count : "";
 					result.Append(ChemElements.Elements[AtomType[i]].Symbol + ac);
 				}
