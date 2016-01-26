@@ -653,20 +653,47 @@ namespace BaseLibS.Util{
 			return result.ToArray();
 		}
 
-		public static string[] RemoveCommonSubstrings(string[] s){
+		public static string[] RemoveCommonSubstrings(string[] s, bool ensureNonempty){
 			if (s.Length < 2){
 				return s;
 			}
 			int prefixLen = GetCommonPrefixLength(s);
+			string prefix = prefixLen > 0 ? s[0].Substring(0, prefixLen) : "";
 			string[] result = new string[s.Length];
 			for (int i = 0; i < result.Length; i++){
 				result[i] = prefixLen > 0 ? s[i].Substring(prefixLen) : s[i];
 			}
 			int suffixLen = GetCommonSuffixLength(result);
+			string suffix = suffixLen > 0 ? s[0].Substring(s[0].Length - suffixLen, suffixLen) : "";
 			if (suffixLen > 0){
 				for (int i = 0; i < result.Length; i++){
 					result[i] = result[i].Substring(0, result[i].Length - suffixLen);
 				}
+			}
+			if (!ensureNonempty){
+				return result;
+			}
+			bool anyIsEmpty = false;
+			foreach (string s1 in result){
+				if (s1.Length == 0){
+					anyIsEmpty = true;
+					break;
+				}
+			}
+			if (!anyIsEmpty){
+				return result;
+			}
+			if (prefixLen > 0){
+				for (int i = 0; i < result.Length; i++){
+					result[i] = prefix[prefixLen - 1] + result[i];
+				}
+				return result;
+			}
+			if (suffixLen > 0){
+				for (int i = 0; i < result.Length; i++){
+					result[i] = result[i] + suffix[0];
+				}
+				return result;
 			}
 			return result;
 		}
