@@ -15,36 +15,36 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public RenderTableCell GetColumnRenderer(int column){
-			return baseModel.GetColumnRenderer(columns == null ? column : columns[column]);
+			return baseModel.GetColumnRenderer(columns?[column] ?? column);
 		}
 
-		public int RowCount { get { return rows.Length; } }
-		public int ColumnCount { get { return columns == null ? baseModel.ColumnCount : columns.Length; } }
-		public string Name { get { return baseModel.Name; } }
-		public string Description { get { return baseModel.Description; } }
+		public int RowCount => rows.Length;
+		public int ColumnCount => columns?.Length ?? baseModel.ColumnCount;
+		public string Name => baseModel.Name;
+		public string Description => baseModel.Description;
 
 		public string GetColumnName(int column) {
-			return baseModel.GetColumnName(columns == null ? column : columns[column]);
+			return baseModel.GetColumnName(columns?[column] ?? column);
 		}
 
 		public bool IsColumnEditable(int column) {
-			return baseModel.IsColumnEditable(columns == null ? column : columns[column]);
+			return baseModel.IsColumnEditable(columns?[column] ?? column);
 		}
 
 		public string GetColumnDescription(int column) {
-			return baseModel.GetColumnDescription(columns == null ? column : columns[column]);
+			return baseModel.GetColumnDescription(columns?[column] ?? column);
 		}
 
 		public ColumnType GetColumnType(int column){
-			return baseModel.GetColumnType(columns == null ? column : columns[column]);
+			return baseModel.GetColumnType(columns?[column] ?? column);
 		}
 
 		public int GetColumnWidth(int column){
-			return baseModel.GetColumnWidth(columns == null ? column : columns[column]);
+			return baseModel.GetColumnWidth(columns?[column] ?? column);
 		}
 
 		public object GetEntry(int row, int column){
-			return baseModel.GetEntry(rows[row], columns == null ? column : columns[column]);
+			return baseModel.GetEntry(rows[row], columns?[column] ?? column);
 		}
 
 		public object GetEntry(int row, string colname){
@@ -52,10 +52,10 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public void SetEntry(int row, int column, object value){
-			baseModel.SetEntry(rows[row], columns == null ? column : columns[column], value);
+			baseModel.SetEntry(rows[row], columns?[column] ?? column, value);
 		}
 
-		public int AnnotationRowsCount { get { return baseModel.AnnotationRowsCount; } }
+		public int AnnotationRowsCount => baseModel.AnnotationRowsCount;
 
 		public string GetAnnotationRowName(int index){
 			return baseModel.GetAnnotationRowName(index);
@@ -66,7 +66,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public object GetAnnotationRowValue(int index, int column){
-			return baseModel.GetAnnotationRowValue(index, columns == null ? column : columns[column]);
+			return baseModel.GetAnnotationRowValue(index, columns?[column] ?? column);
 		}
 
 		public object GetAnnotationRowValue(int index, string colname){
@@ -77,7 +77,7 @@ namespace BaseLib.Forms.Table{
 			if (columns == null){
 				int index = baseModel.GetColumnIndex(columnName);
 				if (index == -1){
-					throw new ArgumentException(string.Format("Could not find column name {0} in table {1}", columnName, Name));
+					throw new ArgumentException($"Could not find column name {columnName} in table {Name}");
 				}
 				return index;
 			}
@@ -86,7 +86,7 @@ namespace BaseLib.Forms.Table{
 					return i;
 				}
 			}
-			throw new ArgumentException(string.Format("Could not find column name {0} in table {1}", columnName, Name));
+			throw new ArgumentException($"Could not find column name {columnName} in table {Name}");
 		}
 	}
 }

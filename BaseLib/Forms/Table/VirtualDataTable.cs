@@ -5,15 +5,14 @@ namespace BaseLib.Forms.Table{
 	public abstract class VirtualDataTable : TableModelImpl, ITable{
 		private int rowInUse = -1;
 		private object[] rowDataInUse;
-		private readonly int rowCount;
 
 		protected VirtualDataTable(string name, string description, int rowCount){
 			Name = name;
 			Description = description;
-			this.rowCount = rowCount;
+			this.RowCount = rowCount;
 		}
 
-		public override int RowCount { get { return rowCount; } }
+		public override int RowCount { get; }
 
 		public override object GetEntry(int row, int col){
 			if (row >= RowCount || row < 0){

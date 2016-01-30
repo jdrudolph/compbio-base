@@ -15,6 +15,6 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public int[] SelectedIndices { get { return listSelector1.SelectedIndices; } }
+		public int[] SelectedIndices => listSelector1.SelectedIndices;
 	}
 }

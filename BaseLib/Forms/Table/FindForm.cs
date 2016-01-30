@@ -72,10 +72,10 @@ namespace BaseLib.Forms.Table{
 			return ind <= tableModel.ColumnCount ? new[]{ind - 1} : multipleColumns;
 		}
 
-		private bool MatchCase { get { return matchCaseCheckBox.Checked; } }
-		private bool MatchWholeWord { get { return matchWholeWordCheckBox.Checked; } }
-		private bool SearchUp { get { return searchUpCheckBox.Checked; } }
-		private string SearchString { get { return expressionTextBox.Text; } }
+		private bool MatchCase => matchCaseCheckBox.Checked;
+		private bool MatchWholeWord => matchWholeWordCheckBox.Checked;
+		private bool SearchUp => searchUpCheckBox.Checked;
+		private string SearchString => expressionTextBox.Text;
 
 		private void UseCheckBoxCheckedChanged(object sender, EventArgs e){
 			wildcardsComboBox.Enabled = useCheckBox.Checked;
@@ -232,7 +232,7 @@ namespace BaseLib.Forms.Table{
 				return val.Contains(searchString);
 			}
 			val = StringUtils.ReduceWhitespace(val);
-			string[] vals = val.Split(new[]{' ', ';'});
+			string[] vals = val.Split(' ', ';');
 			foreach (string s in vals){
 				if (s.Equals(searchString)){
 					return true;

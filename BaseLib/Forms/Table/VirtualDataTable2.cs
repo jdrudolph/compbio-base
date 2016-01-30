@@ -58,7 +58,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public override int RowCount { get { return rowCount; } }
+		public override int RowCount => rowCount;
 
 		public override object GetEntry(int row, int col){
 			if (row >= RowCount || row < 0){
