@@ -24,10 +24,12 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="16"></ColumnDefinition>
+                <ColumnDefinition Width="16"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="ItemsTextBlock"></TextBlock>
             <TextBlock x:Name="SelectedTextBlock" Grid.Column="2"></TextBlock>
-            <Button Grid.Column="4" x:Name="TextButton" Click="TextButton_OnClick" Margin="1"></Button>
+            <Button Grid.Column="4" x:Name="SelectionAgentButton" Click="SelectionAgentButton_OnClick" Margin="1" Visibility="Hidden"></Button>
+            <Button Grid.Column="5" x:Name="TextButton" Click="TextButton_OnClick" Margin="1"></Button>
         </Grid>
     </Grid>
 </UserControl>

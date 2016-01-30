@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using BaseLib.Forms.Table;
+using BaseLibS.Num;
 using BaseLibS.Util;
 
 namespace BaseLib.Wpf{
@@ -11,8 +12,14 @@ namespace BaseLib.Wpf{
 	/// Interaction logic for TableView.xaml
 	/// </summary>
 	public partial class TableView{
+		internal static readonly List<ITableSelectionAgent> selectionAgents = new List<ITableSelectionAgent>();
 		public event EventHandler SelectionChanged;
 		private readonly TableViewWf tableView;
+		private bool textBoxVisible;
+		private bool hasSelectionAgent;
+		private ITableSelectionAgent selectionAgent;
+		private int selectionAgentColInd = -1;
+		private double[] selectionAgentColVals;
 
 		public TableView(){
 			InitializeComponent();
@@ -26,6 +33,32 @@ namespace BaseLib.Wpf{
 			};
 			MainPanel.Child = tableView;
 			KeyDown += (sender, args) => tableView.Focus();
+		}
+
+		public void SelectTime(double timeMs){
+			if (selectionAgentColInd < 0){
+				return;
+			}
+			int ind = ArrayUtils.ClosestIndex(selectionAgentColVals, timeMs);
+			SetSelectedIndex(ind);
+		}
+
+		public static void RegisterSelectionAgent(ITableSelectionAgent agent){
+			selectionAgents.Add(agent);
+		}
+
+		public static void UnregisterSelectionAgent(ITableSelectionAgent agent){
+			selectionAgents.Remove(agent);
+		}
+
+		public bool HasSelectionAgent{
+			get { return hasSelectionAgent; }
+			set{
+				hasSelectionAgent = value;
+				if (hasSelectionAgent && selectionAgents.Count > 0){
+					SelectionAgentButton.Visibility = Visibility.Visible;
+				}
+			}
 		}
 
 		public ITableModel TableModel{
@@ -200,6 +233,32 @@ namespace BaseLib.Wpf{
 			tableView.ClearSelectionFire();
 		}
 
-		private bool textBoxVisible;
+		private void SelectionAgentButton_OnClick(object sender, RoutedEventArgs e){
+			Point p = SelectionAgentButton.PointToScreen(new Point(0, 0));
+			TableViewSelectionAgentWindow w = new TableViewSelectionAgentWindow(TableModel){Top = p.Y - 125, Left = p.X - 300};
+			if (w.ShowDialog() == true){
+				int ind1 = w.SourceBox.SelectedIndex;
+				int ind2 = w.ColumnBox.SelectedIndex;
+				if (ind1 >= 0 && ind2 >= 0){
+					selectionAgent = selectionAgents[ind1];
+					selectionAgentColInd = ind2;
+					selectionAgentColVals = GetTimeVals(ind2);
+					selectionAgent.AddTable(this);
+				} else{
+					selectionAgent = null;
+					selectionAgentColInd = -1;
+					selectionAgentColVals = null;
+					selectionAgent.RemoveTable(this);
+				}
+			}
+		}
+
+		private double[] GetTimeVals(int ind2){
+			double[] result = new double[TableModel.RowCount];
+			for (int i = 0; i < result.Length; i++){
+				result[i] = (double) TableModel.GetEntry(i, ind2);
+			}
+			return result;
+		}
 	}
 }

@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Forms\Scroll\SimpleScrollableControlMainView.cs" />
     <Compile Include="Forms\Scroll\VerticalScrollBarView.cs" />
+    <Compile Include="Forms\Table\ITableSelectionAgent.cs" />
     <Compile Include="Forms\Table\ListSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -289,6 +290,9 @@
     <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
     <Compile Include="Wpf\TableView.xaml.cs">
       <DependentUpon>TableView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\TableViewSelectionAgentWindow.xaml.cs">
+      <DependentUpon>TableViewSelectionAgentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\Axis\NumericAxisPropertiesForm.resx">
@@ -500,6 +504,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\TableView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf\TableViewSelectionAgentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
