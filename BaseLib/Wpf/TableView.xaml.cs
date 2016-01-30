@@ -21,8 +21,8 @@ namespace BaseLib.Wpf{
 				SelectionChanged?.Invoke(sender, args);
 				long c = tableView.SelectedCount;
 				long t = tableView.RowCount;
-				SelectedTextBlock.Text = c > 0 ? "" + StringUtils.WithDecimalSeparators(c) + " selected" : "";
-				ItemsTextBlock.Text = "" + StringUtils.WithDecimalSeparators(t) + " items";
+				SelectedTextBlock.Text = c > 0 && MultiSelect ? "" + StringUtils.WithDecimalSeparators(c) + " selected" : "";
+				ItemsTextBlock.Text = "" + StringUtils.WithDecimalSeparators(t) + " item" + (t == 1 ? "" : "s");
 			};
 			MainPanel.Child = tableView;
 			KeyDown += (sender, args) => tableView.Focus();
