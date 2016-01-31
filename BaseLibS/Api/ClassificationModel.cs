@@ -20,8 +20,7 @@ namespace BaseLibS.Api{
 		public abstract float[] PredictStrength(BaseVector x);
 
 		public int PredictClass(BaseVector x){
-			float[] w = PredictStrength(x);
-			return ArrayUtils.MaxInd(w);
+			return ArrayUtils.MaxInd(PredictStrength(x));
 		}
 
 		public int[] PredictClasses(BaseVector x){

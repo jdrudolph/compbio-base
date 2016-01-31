@@ -6,7 +6,10 @@ using BaseLibS.Num.Vector;
 namespace NumPluginSvm.Svm{
 	public class SvmMain{
 		public static Random rand = new Random();
-		internal static void Info(String s) { Console.Write(s); }
+
+		internal static void Info(String s){
+			Console.Write(s);
+		}
 
 		private static void SolveCSvc(SvmProblem prob, SvmParameter param, double[] alpha, SvmSolver.SolutionInfo si,
 			double cp, double cn){
@@ -136,7 +139,7 @@ namespace NumPluginSvm.Svm{
 			for (i = 0; i < l; i++){
 				alpha2[i] = alpha2[i + l] = Math.Min(sum, c);
 				sum -= alpha2[i];
-				linearTerm[i] = - prob.y[i];
+				linearTerm[i] = -prob.y[i];
 				y[i] = 1;
 				linearTerm[i + l] = prob.y[i];
 				y[i + l] = -1;
@@ -476,7 +479,7 @@ namespace NumPluginSvm.Svm{
 			mae /= (prob.Count - count);
 			Info(
 				"Prob. model for test data: target value = predicted value + z,\nz: Laplace distribution e^(-|z|/sigma)/(2sigma),sigma=" +
-					mae + "\n");
+				mae + "\n");
 			return mae;
 		}
 
@@ -864,6 +867,9 @@ namespace NumPluginSvm.Svm{
 		}
 
 		public static float SvmPredictValues(SvmModel model, BaseVector x, double[] decValues){
+			if (model.l == 0){
+				return float.NaN;
+			}
 			if (model.param.svmType == SvmType.OneClass || model.param.svmType == SvmType.EpsilonSvr ||
 				model.param.svmType == SvmType.NuSvr){
 				double[] svCoef = model.svCoef[0];
@@ -874,7 +880,7 @@ namespace NumPluginSvm.Svm{
 				sum -= model.rho[0];
 				decValues[0] = sum;
 				if (model.param.svmType == SvmType.OneClass){
-					return (sum > 0) ? 1 : -1;
+					return sum > 0 ? 1 : -1;
 				}
 				return (float) sum;
 			}

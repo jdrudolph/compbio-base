@@ -52,7 +52,7 @@ namespace NumPluginSvm{
 			int[] vals = ArrayUtils.UniqueValues(ArrayUtils.Concat(y));
 			for (int i = 0; i < vals.Length; i++){
 				if (vals[i] != i){
-					return "At least one group has no training example.";
+					//return "At least one group has no training example.";
 				}
 			}
 			return null;

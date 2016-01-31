@@ -40,6 +40,7 @@ namespace BaseLib.Wpf{
 				return;
 			}
 			int ind = ArrayUtils.ClosestIndex(selectionAgentColVals, timeMs);
+			ClearSelection();
 			SetSelectedIndex(ind);
 		}
 
