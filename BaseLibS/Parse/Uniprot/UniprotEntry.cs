@@ -104,7 +104,7 @@ namespace BaseLibS.Parse.Uniprot{
 			}
 		}
 
-		public string[] Enst { get { return FilterEnst(Get(ensemblTypes)); } }
+		public string[] Enst => FilterEnst(Get(ensemblTypes));
 
 		private static string[] FilterEnst(IEnumerable<string> x){
 			List<string> result = new List<string>();
@@ -127,7 +127,7 @@ namespace BaseLibS.Parse.Uniprot{
 			return s[ind - 1] == 'T';
 		}
 
-        public string[] IsoformID{
+        public string[] IsoformId{
             get {
                 List<string> result = new List<string>();
                 UniprotDbReference[] refs = GetDbEntries(ensemblTypes);
@@ -259,10 +259,10 @@ namespace BaseLibS.Parse.Uniprot{
 		public void AddHostTaxonomyId(string id) { hostTaxonomyIds.Add(id); }
 		public void AddKeyword(string kw) { keywords.Add(kw); }
 
-        public List<UniprotEntry> ResolveIsoforms(Dictionary<string, List<string>> isoformToENSEMBL){
+        public List<UniprotEntry> ResolveIsoforms(Dictionary<string, List<string>> isoformToEnsembl){
             DbReferenceType dbRefType = DbReferenceType.ensembl;
             List<UniprotEntry> isoforms = new List<UniprotEntry>();
-            foreach (var isofToEnsembl in isoformToENSEMBL){
+            foreach (var isofToEnsembl in isoformToEnsembl){
                 UniprotEntry modEntry = CopyEntry();
                 modEntry.dbEntries.Remove(dbRefType);
                 Dictionary<string, UniprotDbReference> enstToData = new Dictionary<string, UniprotDbReference>();

@@ -13,7 +13,7 @@ namespace BaseLibS.Num.Matrix{
 		}
 
 		public override void Init(int nrows, int ncols){
-			vals = new float[nrows,ncols];
+			vals = new float[nrows, ncols];
 		}
 
 		public void TransposeInPlace(){
@@ -50,21 +50,21 @@ namespace BaseLibS.Num.Matrix{
 			return vals != null;
 		}
 
-		public override MatrixIndexer ExtractRows(IList<int> rows) {
+		public override MatrixIndexer ExtractRows(IList<int> rows){
 			return new FloatMatrixIndexer(ArrayUtils.ExtractRows(vals, rows));
 		}
 
-		public override MatrixIndexer ExtractColumns(IList<int> columns) {
+		public override MatrixIndexer ExtractColumns(IList<int> columns){
 			return new FloatMatrixIndexer(ArrayUtils.ExtractColumns(vals, columns));
 		}
 
-		public override void ExtractRowsInPlace(IList<int> rows) {
+		public override void ExtractRowsInPlace(IList<int> rows){
 			if (vals != null){
 				vals = ArrayUtils.ExtractRows(vals, rows);
 			}
 		}
 
-		public override void ExtractColumnsInPlace(IList<int> columns) {
+		public override void ExtractColumnsInPlace(IList<int> columns){
 			if (vals != null){
 				vals = ArrayUtils.ExtractColumns(vals, columns);
 			}
@@ -81,33 +81,28 @@ namespace BaseLibS.Num.Matrix{
 			return false;
 		}
 
-		public override bool IsNanOrInfRow(int row) {
+		public override bool IsNanOrInfRow(int row){
 			for (int i = 0; i < ColumnCount; i++){
 				float v = vals[row, i];
-				if (!float.IsNaN(v) && !float.IsInfinity(v)) {
+				if (!float.IsNaN(v) && !float.IsInfinity(v)){
 					return false;
 				}
 			}
 			return true;
 		}
 
-		public override bool IsNanOrInfColumn(int column) {
+		public override bool IsNanOrInfColumn(int column){
 			for (int i = 0; i < RowCount; i++){
 				float v = vals[i, column];
-				if (!float.IsNaN(v) && !float.IsInfinity(v)) {
+				if (!float.IsNaN(v) && !float.IsInfinity(v)){
 					return false;
 				}
 			}
 			return true;
 		}
 
-		public override int RowCount{
-			get { return vals.GetLength(0); }
-		}
-
-		public override int ColumnCount{
-			get { return vals.GetLength(1); }
-		}
+		public override int RowCount => vals.GetLength(0);
+		public override int ColumnCount => vals.GetLength(1);
 
 		public override float this[int i, int j]{
 			get { return !IsInitialized() ? float.NaN : vals[i, j]; }

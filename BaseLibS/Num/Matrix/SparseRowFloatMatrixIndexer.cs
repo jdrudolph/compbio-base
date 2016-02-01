@@ -115,13 +115,8 @@ namespace BaseLibS.Num.Matrix{
 			return true;
 		}
 
-		public override int RowCount{
-			get { return vals.Length; }
-		}
-
-		public override int ColumnCount{
-			get { return ncolumns; }
-		}
+		public override int RowCount => vals.Length;
+		public override int ColumnCount => ncolumns;
 
 		public override float this[int i, int j]{
 			get { return (float) vals[i][j]; }

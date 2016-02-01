@@ -13,9 +13,7 @@ namespace BaseLibS.Num.Vector{
 			this.values = values;
 		}
 
-		public override int Length{
-			get { return values.Length; }
-		}
+		public override int Length => values.Length;
 
 		public override BaseVector Copy(){
 			bool[] newValues = new bool[Length];

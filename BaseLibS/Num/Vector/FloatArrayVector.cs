@@ -10,9 +10,7 @@ namespace BaseLibS.Num.Vector{
 			this.values = values;
 		}
 
-		public override int Length{
-			get { return values.Length; }
-		}
+		public override int Length => values.Length;
 
 		public override BaseVector Copy(){
 			float[] newValues = new float[Length];

@@ -4,7 +4,7 @@ using BaseLibS.Num.Vector;
 
 namespace BaseLibS.Num.Matrix{
 	[Serializable]
-	public class SparseColumnFloatMatrixIndexer : MatrixIndexer {
+	public class SparseColumnFloatMatrixIndexer : MatrixIndexer{
 		private SparseFloatVector[] vals;
 		private int nrows;
 
@@ -65,7 +65,7 @@ namespace BaseLibS.Num.Matrix{
 			return vals != null;
 		}
 
-		public override MatrixIndexer ExtractRows(IList<int> rows) {
+		public override MatrixIndexer ExtractRows(IList<int> rows){
 			SparseFloatVector[] r = new SparseFloatVector[vals.Length];
 			for (int i = 0; i < vals.Length; i++){
 				r[i] = (SparseFloatVector) vals[i].SubArray(rows);
@@ -73,18 +73,18 @@ namespace BaseLibS.Num.Matrix{
 			return new SparseColumnFloatMatrixIndexer{vals = r, nrows = rows.Count};
 		}
 
-		public override void ExtractRowsInPlace(IList<int> rows) {
+		public override void ExtractRowsInPlace(IList<int> rows){
 			for (int i = 0; i < vals.Length; i++){
 				vals[i] = (SparseFloatVector) vals[i].SubArray(rows);
 			}
 			nrows = rows.Count;
 		}
 
-		public override MatrixIndexer ExtractColumns(IList<int> columns) {
+		public override MatrixIndexer ExtractColumns(IList<int> columns){
 			return new SparseColumnFloatMatrixIndexer{vals = ArrayUtils.SubArray(vals, columns), nrows = nrows};
 		}
 
-		public override void ExtractColumnsInPlace(IList<int> columns) {
+		public override void ExtractColumnsInPlace(IList<int> columns){
 			vals = ArrayUtils.SubArray(vals, columns);
 		}
 
@@ -102,9 +102,9 @@ namespace BaseLibS.Num.Matrix{
 		}
 
 		public override bool IsNanOrInfRow(int row){
-			for (int i = 0; i < ColumnCount; i++) {
-				float v = (float)vals[i][row];
-				if (!float.IsNaN(v) && !float.IsInfinity(v)) {
+			for (int i = 0; i < ColumnCount; i++){
+				float v = (float) vals[i][row];
+				if (!float.IsNaN(v) && !float.IsInfinity(v)){
 					return false;
 				}
 			}
@@ -115,13 +115,8 @@ namespace BaseLibS.Num.Matrix{
 			return vals[column].IsNanOrInf();
 		}
 
-		public override int RowCount{
-			get { return nrows; }
-		}
-
-		public override int ColumnCount{
-			get { return vals.Length; }
-		}
+		public override int RowCount => nrows;
+		public override int ColumnCount => vals.Length;
 
 		public override float this[int i, int j]{
 			get { return (float) vals[j][i]; }

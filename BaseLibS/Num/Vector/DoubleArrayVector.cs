@@ -6,7 +6,7 @@ namespace BaseLibS.Num.Vector{
 	public class DoubleArrayVector : BaseVector{
 		internal double[] values;
 		public DoubleArrayVector(double[] values) { this.values = values; }
-		public override int Length { get { return values.Length; } }
+		public override int Length => values.Length;
 
 		public override BaseVector Copy(){
 			float[] newValues = new float[Length];

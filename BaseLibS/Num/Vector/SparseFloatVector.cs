@@ -39,9 +39,7 @@ namespace BaseLibS.Num.Vector{
 			this.length = length;
 		}
 
-		public override int Length{
-			get { return length; }
-		}
+		public override int Length => length;
 
 		public override BaseVector Copy(){
 			int[] newIndices = new int[indices.Length];
