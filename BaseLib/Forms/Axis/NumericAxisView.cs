@@ -585,9 +585,7 @@ namespace BaseLib.Forms.Axis{
 		}
 
 		internal void FireZoomChanged(){
-			if (OnZoomChange != null){
-				OnZoomChange(this, ZoomMin, ZoomMax);
-			}
+			OnZoomChange?.Invoke(this, ZoomMin, ZoomMax);
 		}
 
 		public void ZoomIn(int length){
