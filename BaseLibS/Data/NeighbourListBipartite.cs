@@ -3,7 +3,7 @@ using System.Linq;
 using BaseLibS.Num;
 
 namespace BaseLibS.Data{
-	public class NeighbourListAssym{
+	public class NeighbourListBipartite{
 		private readonly Dictionary<int, HashSet<int>> neighborList1 = new Dictionary<int, HashSet<int>>();
 		private readonly Dictionary<int, HashSet<int>> neighborList2 = new Dictionary<int, HashSet<int>>();
 
