@@ -338,7 +338,7 @@
       <terminus_type>none</terminus_type>
    </modification>
    <modification title="Amidated (C-term)" description="Amidation of every peptide C-terminus" create_date="2015-03-12T11:21:26.3803082+01:00" last_modified_date="2015-03-12T11:21:57.8773151+01:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="H N O(-1)">
-      <position>proteinCterm</position>
+      <position>anyCterm</position>
       <modification_site site="-">
          <neutralloss_collection />
          <diagnostic_collection />
