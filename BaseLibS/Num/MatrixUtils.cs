@@ -28,7 +28,7 @@ namespace BaseLibS.Num{
 		public static T[,] Transpose<T>(T[,] x){
 			int nrows = x.GetLength(0);
 			int ncols = x.GetLength(1);
-			T[,] result = new T[ncols,nrows];
+			T[,] result = new T[ncols, nrows];
 			for (int i = 0; i < ncols; i++){
 				for (int j = 0; j < nrows; j++){
 					result[i, j] = x[j, i];
@@ -38,7 +38,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static double[,] ExtractRows(double[,] x, int[] indices){
-			double[,] result = new double[indices.Length,x.GetLength(1)];
+			double[,] result = new double[indices.Length, x.GetLength(1)];
 			for (int i = 0; i < result.GetLength(0); i++){
 				for (int j = 0; j < result.GetLength(1); j++){
 					result[i, j] = x[indices[i], j];
@@ -48,7 +48,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static float[,] ExtractRows(float[,] x, int[] indices){
-			float[,] result = new float[indices.Length,x.GetLength(1)];
+			float[,] result = new float[indices.Length, x.GetLength(1)];
 			for (int i = 0; i < result.GetLength(0); i++){
 				for (int j = 0; j < result.GetLength(1); j++){
 					result[i, j] = x[indices[i], j];
@@ -87,7 +87,7 @@ namespace BaseLibS.Num{
 		public static double[,] ExtractColumns(double[,] x, int[] indices){
 			int n = x.GetLength(0);
 			int ncol = indices.Length;
-			double[,] result = new double[n,ncol];
+			double[,] result = new double[n, ncol];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < ncol; j++){
 					result[i, j] = x[i, indices[j]];
@@ -97,7 +97,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static double[,] MatrixTimesMatrix(double[,] a, double[,] b){
-			double[,] result = new double[a.GetLength(0),b.GetLength(1)];
+			double[,] result = new double[a.GetLength(0), b.GetLength(1)];
 			for (int i = 0; i < result.GetLength(0); i++){
 				for (int j = 0; j < result.GetLength(1); j++){
 					for (int k = 0; k < a.GetLength(1); k++){
@@ -109,7 +109,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static float[,] MatrixTimesMatrix(float[,] a, float[,] b){
-			float[,] result = new float[a.GetLength(0),b.GetLength(1)];
+			float[,] result = new float[a.GetLength(0), b.GetLength(1)];
 			for (int i = 0; i < result.GetLength(0); i++){
 				for (int j = 0; j < result.GetLength(1); j++){
 					for (int k = 0; k < a.GetLength(1); k++){
@@ -131,7 +131,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static double[,] MatrixTimesMatrixTransposed(double[,] a, double[,] b){
-			double[,] result = new double[a.GetLength(0),b.GetLength(0)];
+			double[,] result = new double[a.GetLength(0), b.GetLength(0)];
 			for (int i = 0; i < result.GetLength(0); i++){
 				for (int j = 0; j < result.GetLength(1); j++){
 					for (int k = 0; k < a.GetLength(1); k++){
@@ -199,7 +199,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static double[,] Identity(int nrows, int ncols){
-			double[,] identity = new double[nrows,ncols]; // assumes all 0
+			double[,] identity = new double[nrows, ncols]; // assumes all 0
 			for (int i = 0; i < Math.Min(nrows, ncols); ++i){
 				identity[i, i] = 1;
 			}
@@ -270,7 +270,7 @@ namespace BaseLibS.Num{
 		public static double[,] Invert(double[,] matrix, Lu lu){
 			int nrows = matrix.GetLength(0);
 			int ncols = matrix.GetLength(1);
-			double[,] inv = new double[nrows,ncols];
+			double[,] inv = new double[nrows, ncols];
 			for (int i = 0; i < nrows; i++){
 				double[] ei = new double[nrows];
 				ei[lu.pi[lu.pi[i]]] = 1;
@@ -289,7 +289,7 @@ namespace BaseLibS.Num{
 			if (nrows != v.Length){
 				throw new Exception("Wrong number of results in solution vector.");
 			}
-			double[,] b = new double[nrows,ncols];
+			double[,] b = new double[nrows, ncols];
 			for (int i = 0; i < nrows; i++){
 				b[lu.pi[i], 0] = v[i];
 			}
@@ -306,7 +306,7 @@ namespace BaseLibS.Num{
 
 		public static double[,] ForwardSubstitution(double[,] a, Lu alu, double[,] b){
 			int n = a.GetLength(0);
-			double[,] x = new double[n,1];
+			double[,] x = new double[n, 1];
 			for (int i = 0; i < n; i++){
 				x[i, 0] = b[i, 0];
 				for (int j = 0; j < i; j++){
@@ -319,7 +319,7 @@ namespace BaseLibS.Num{
 
 		public static double[,] BackwardSubstitution(double[,] a, Lu alu, double[,] b){
 			int n = a.GetLength(0);
-			double[,] x = new double[n,1];
+			double[,] x = new double[n, 1];
 			for (int i = n - 1; i > -1; i--){
 				x[i, 0] = b[i, 0];
 				for (int j = n - 1; j > i; j--){
@@ -348,6 +348,18 @@ namespace BaseLibS.Num{
 				sum += x[i, colInd]*x[i, colInd];
 			}
 			return Math.Sqrt(sum);
+		}
+
+		public static double[,] NewDoubleMatix(int nrows, int ncolumns, double value){
+			double[,] result = new double[nrows, ncolumns];
+			if (value != 0){
+				for (int i = 0; i < nrows; i++){
+					for (int j = 0; j < ncolumns; j++){
+						result[i, j] = value;
+					}
+				}
+			}
+			return result;
 		}
 	}
 }
