@@ -11,12 +11,14 @@ namespace BaseLibS.Num{
 		/// Temporary store needed for generating Gaussian random numbers.
 		/// </summary>
 		private bool iset;
+
 		/// <summary>
 		/// Temporary store needed for generating Gaussian random numbers.
 		/// </summary>
 		private double gset;
-		public Random2(int seed) : base(seed) {}
-		public Random2() {}
+
+		public Random2(int seed) : base(seed){}
+		public Random2(){}
 
 		/// <summary>
 		/// This method generates a pseudo random number drawn from a normal distribution
@@ -33,6 +35,18 @@ namespace BaseLibS.Num{
 
 		public bool NextBoolean(double pTrue){
 			return NextDouble() < pTrue;
+		}
+
+		public bool[] NextBooleanArray(int n){
+			return NextBooleanArray(n, 0.5);
+		}
+
+		public bool[] NextBooleanArray(int n, double pTrue){
+			bool[] result = new bool[n];
+			for (int i = 0; i < n; i++){
+				result[i] = NextBoolean(pTrue);
+			}
+			return result;
 		}
 
 		/// <summary>
@@ -239,10 +253,10 @@ namespace BaseLibS.Num{
 						double w2 = w*w;
 						if (a2 >
 							xm*Math.Log(f1/x1) + (n - m + 0.5)*Math.Log(z/w) + (y - m)*Math.Log(w*p/(x1*q)) +
-								(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/f2)/f2)/f2)/f2)/f1/166320.0 +
-								(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/z2)/z2)/z2)/z2)/z/166320.0 +
-								(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/x2)/x2)/x2)/x2)/x1/166320.0 +
-								(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/w2)/w2)/w2)/w2)/w/166320.0){
+							(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/f2)/f2)/f2)/f2)/f1/166320.0 +
+							(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/z2)/z2)/z2)/z2)/z/166320.0 +
+							(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/x2)/x2)/x2)/x2)/x1/166320.0 +
+							(13860.0 - (462.0 - (132.0 - (99.0 - 140.0/w2)/w2)/w2)/w2)/w/166320.0){
 							continue;
 						}
 						return y;
