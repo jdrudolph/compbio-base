@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using BaseLibS.Util;
 
 namespace BaseLibS.Num.Test.Univariate.NSamples{
 	public class OneWayAnovaTest : MultipleSamplesTest{
@@ -8,8 +7,8 @@ namespace BaseLibS.Num.Test.Univariate.NSamples{
 			return TestImpl(data, out statistic, s0, out pvalS0);
 		}
 
-		public override bool HasSides { get { return false; } }
-		public override bool HasS0 { get { return true; } }
+		public override bool HasSides => false;
+		public override bool HasS0 => true;
 
 		public static double TestImpl(double[][] data, out double statistic, double s0, out double pvalS0){
 			List<int> v = new List<int>();
@@ -51,13 +50,13 @@ namespace BaseLibS.Num.Test.Univariate.NSamples{
 			double db = g - 1;
 			statistic = ssb*dw/db/ssw;
 			double gms = GetGeomMeanSquared(data);
-			double denom = (n*db*ssw/dw/gms);
-			double statisticS0 = (n*ssb/gms)/(Math.Sqrt(denom) + s0)/(Math.Sqrt(denom) + s0);
+			double denom = n*db*ssw/dw/gms;
+			double statisticS0 = n*ssb/gms/(Math.Sqrt(denom) + s0)/(Math.Sqrt(denom) + s0);
 			pvalS0 = NumRecipes.Betai(dw*0.5, db*0.5, dw/(dw + db*statisticS0));
 			return NumRecipes.Betai(dw*0.5, db*0.5, dw/(dw + db*statistic));
 		}
 
-		public override string Name { get { return "ANOVA"; } }
+		public override string Name => "ANOVA";
 
 		private static double GetGeomMeanSquared(ICollection<double[]> x){
 			double result = 1;
