@@ -2,7 +2,7 @@
 using System.Threading;
 
 namespace BaseLibS.Num{
-	public delegate void MrqminFunc(double x, double[] a, out double y, double[] dyda, int na);
+	public delegate double MrqminFunc(double x, double[] a, double[] dyda, int na);
 
 	public class NumRecipes{
 		private const int betacfMaxit = 100;
@@ -84,8 +84,7 @@ namespace BaseLibS.Num{
 			}
 			chisq = 0.0;
 			for (int i = 0; i < ndata; i++){
-				double ymod;
-				func(x[i], a, out ymod, dyda, ma);
+				double ymod = func(x[i], a, dyda, ma);
 				double sig2I = 1.0/(sig?[i]*sig[i]) ?? 1.0;
 				double dy = y[i] - ymod;
 				for (int j = 0, l = 0; l < ma; l++){
@@ -122,7 +121,7 @@ namespace BaseLibS.Num{
 			}
 			if (nthreads == 1){
 				for (int i = 0; i < ndata; i++){
-					func(x[i], a, out ymod[i], dyda[i], ma);
+					ymod[i] = func(x[i], a, dyda[i], ma);
 				}
 			} else{
 				nthreads = Math.Min(nthreads, ndata);
@@ -135,7 +134,7 @@ namespace BaseLibS.Num{
 					int index0 = i;
 					t[i] = new Thread(new ThreadStart(delegate{
 						for (int i1 = inds[index0]; i1 < inds[index0 + 1]; i1++){
-							func(x[i1], a, out ymod[i1], dyda[i1], ma);
+							ymod[i1] = func(x[i1], a, dyda[i1], ma);
 						}
 					}));
 					t[i].Start();
@@ -185,7 +184,7 @@ namespace BaseLibS.Num{
 				beta = new double[ma];
 				da = new double[ma];
 				mfit = ma;
-				oneda = new double[mfit,1];
+				oneda = new double[mfit, 1];
 				alamda = 0.001;
 				if (nthreads > 1){
 					MrqcofMulti(x, y, sig, ndata, a, alpha, beta, out chisq, func, nthreads);

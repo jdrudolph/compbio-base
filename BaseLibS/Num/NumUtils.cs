@@ -325,11 +325,12 @@ namespace BaseLibS.Num{
 
 		public static void FitNonlin(double[] x, double[] y, double[] sig, double[] a, double[] amin, double[] amax,
 			out double chisq, Func<double, double[], double> func, double epsilon, int nthreads){
-			MrqminFunc f = delegate(double x1, double[] a1, out double y1, double[] dyda, int na){
-				y1 = func(x1, a1);
+			MrqminFunc f = (x1, a1, dyda, na) =>{
+				double y1 = func(x1, a1);
 				for (int i = 0; i < na; i++){
 					dyda[i] = Dyda(x1, a1, func, i, epsilon);
 				}
+				return y1;
 			};
 			FitNonlin(x, y, sig, a, amin, amax, out chisq, f, nthreads);
 		}
@@ -356,8 +357,8 @@ namespace BaseLibS.Num{
 				}
 			}
 			int ma = a.Length;
-			double[,] covar = new double[ma,ma];
-			double[,] alpha = new double[ma,ma];
+			double[,] covar = new double[ma, ma];
+			double[,] alpha = new double[ma, ma];
 			double alamda = -1;
 			double ochisq = 0;
 			double[,] oneda = null;
@@ -402,9 +403,9 @@ namespace BaseLibS.Num{
 			int l;
 			int ma = a.Length;
 			int mfit = a.Length;
-			double[,] beta = new double[ma,1];
+			double[,] beta = new double[ma, 1];
 			double[] afunc = new double[ma];
-			covar = new double[ma,ma];
+			covar = new double[ma, ma];
 			for (i = 0; i < ndat; i++){
 				funcs(x[i], afunc);
 				double ym = y[i];
@@ -829,7 +830,7 @@ namespace BaseLibS.Num{
 				}
 				means[i] /= n;
 			}
-			double[,] cov = new double[p,p];
+			double[,] cov = new double[p, p];
 			for (int i = 0; i < p; i++){
 				for (int j = 0; j <= i; j++){
 					for (int k = 0; k < n; k++){
@@ -852,7 +853,7 @@ namespace BaseLibS.Num{
 				}
 				means[i] /= n;
 			}
-			double[,] cov = new double[p,p];
+			double[,] cov = new double[p, p];
 			for (int i = 0; i < p; i++){
 				for (int j = 0; j <= i; j++){
 					for (int k = 0; k < n; k++){
@@ -875,7 +876,7 @@ namespace BaseLibS.Num{
 				}
 				means[i] /= n;
 			}
-			double[,] cov = new double[p,p];
+			double[,] cov = new double[p, p];
 			for (int i = 0; i < p; i++){
 				for (int j = 0; j <= i; j++){
 					for (int k = 0; k < n; k++){
@@ -895,7 +896,7 @@ namespace BaseLibS.Num{
 			for (int i = 0; i < n; i++){
 				e[i] = func(e[i]);
 			}
-			double[,] result = new double[n,n];
+			double[,] result = new double[n, n];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < n; j++){
 					for (int k = 0; k < n; k++){
@@ -1375,7 +1376,7 @@ namespace BaseLibS.Num{
 			for (int i = 0; i < n; i++){
 				e[i] = 1.0/e[i];
 			}
-			double[,] result = new double[n,n];
+			double[,] result = new double[n, n];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < n; j++){
 					for (int k = 0; k < n; k++){
@@ -1391,7 +1392,7 @@ namespace BaseLibS.Num{
 			double[,] winv = InvertSymmMatrix(w);
 			double[,] v;
 			double[] e = DiagonalizeSymmMatrix(b, out v);
-			double[,] sqrtB = new double[n,n];
+			double[,] sqrtB = new double[n, n];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < n; j++){
 					for (int k = 0; k < n; k++){
@@ -1401,7 +1402,7 @@ namespace BaseLibS.Num{
 					}
 				}
 			}
-			double[,] sqrtBinv = new double[n,n];
+			double[,] sqrtBinv = new double[n, n];
 			for (int i = 0; i < n; i++){
 				for (int j = 0; j < n; j++){
 					for (int k = 0; k < n; k++){
@@ -1436,7 +1437,9 @@ namespace BaseLibS.Num{
 				duplicates++;
 				if ((i == n - 1) || (xSorted[i] != xSorted[i + 1])){
 					int j;
-					for (j = i - duplicates + 1; j < i + 1; j++) result[xSortedIndex[j]] = 1 + sumRank*1.0/duplicates;
+					for (j = i - duplicates + 1; j < i + 1; j++){
+						result[xSortedIndex[j]] = 1 + sumRank*1.0/duplicates;
+					}
 					if (duplicates > 1){
 						sumDuplicates.Add(duplicates);
 					}
