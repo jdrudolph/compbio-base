@@ -66,8 +66,13 @@ namespace BaseLibS.Num{
 			return new LinearInterpolator(newX, newY);
 		}
 
-		public double Get(double x) { return Get(x, xvals, yvals); }
-		public double Get(double x, out double dydx) { return Get(x, out dydx, xvals, yvals); }
+		public double Get(double x){
+			return Get(x, xvals, yvals);
+		}
+
+		public double Get(double x, out double dydx){
+			return Get(x, out dydx, xvals, yvals);
+		}
 
 		public static double Get(double x, out double dydx, double[] xvals, double[] yvals){
 			if (double.IsNaN(x) || double.IsInfinity(x)){
@@ -118,7 +123,9 @@ namespace BaseLibS.Num{
 			return a >= 0 ? yvals[a] : Interpolate(xvals[-2 - a], xvals[-1 - a], yvals[-2 - a], yvals[-1 - a], x);
 		}
 
-		public double Get(double x, out double[] dyda) { return Get(x, out dyda, xvals, yvals); }
+		public double Get(double x, out double[] dyda){
+			return Get(x, out dyda, xvals, yvals);
+		}
 
 		public static double Get(double x, out double[] dyda, double[] xvals, double[] yvals){
 			dyda = new double[xvals.Length];
@@ -153,9 +160,17 @@ namespace BaseLibS.Num{
 			return Interpolate(xvals[-2 - a], xvals[-1 - a], yvals[-2 - a], yvals[-1 - a], x);
 		}
 
-		private static double Dy2(double x1, double x2, double x) { return (x - x1)/(x2 - x1); }
-		private static double Dy1(double x1, double x2, double x) { return (x2 - x)/(x2 - x1); }
-		private static double Interpolate(double x1, double x2, double y1, double y2, double x) { return (y2 - y1)/(x2 - x1)*(x - x1) + y1; }
+		private static double Dy2(double x1, double x2, double x){
+			return (x - x1)/(x2 - x1);
+		}
+
+		private static double Dy1(double x1, double x2, double x){
+			return (x2 - x)/(x2 - x1);
+		}
+
+		private static double Interpolate(double x1, double x2, double y1, double y2, double x){
+			return (y2 - y1)/(x2 - x1)*(x - x1) + y1;
+		}
 
 		private static double Interpolate(double x1, double x2, double y1, double y2, double x, out double dydx){
 			dydx = (y2 - y1)/(x2 - x1);
@@ -168,7 +183,12 @@ namespace BaseLibS.Num{
 		}
 
 		public void FlattenEnds(){
-			if (xvals.Length <= 1){
+			if (xvals.Length == 0){
+				xvals = new[]{0.0, 1.0};
+				yvals = new[]{0.0, 0.0};
+				return;
+			}
+			if (xvals.Length == 1){
 				xvals = new[]{0.0, 1.0};
 				yvals = new[]{yvals[0], yvals[0]};
 				return;
