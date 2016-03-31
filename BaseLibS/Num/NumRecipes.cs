@@ -2,8 +2,6 @@
 using System.Threading;
 
 namespace BaseLibS.Num{
-	public delegate double MrqminFunc(double x, double[] a, double[] dyda, int na);
-
 	public class NumRecipes{
 		private const int betacfMaxit = 100;
 		private const double betacfEps = 3.0e-7;
@@ -73,7 +71,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void Mrqcof(double[] x, double[] y, double[] sig, int ndata, double[] a, double[,] alpha, double[] beta,
-			out double chisq, MrqminFunc func){
+			out double chisq, Func<double, double[], double[], int, double> func){
 			int ma = a.Length;
 			double[] dyda = new double[ma];
 			for (int j = 0; j < ma; j++){
@@ -105,7 +103,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void MrqcofMulti(double[] x, double[] y, double[] sig, int ndata, double[] a, double[,] alpha,
-			double[] beta, out double chisq, MrqminFunc func, int nthreads){
+			double[] beta, out double chisq, Func<double, double[], double[], int, double> func, int nthreads){
 			int ma = a.Length;
 			for (int j = 0; j < ma; j++){
 				for (int k = 0; k <= j; k++){
@@ -164,7 +162,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void Mrqmin(double[] x, double[] y, double[] sig, int ndata, double[] a, double[] amin, double[] amax,
-			double[,] covar, double[,] alpha, out double chisq, MrqminFunc func, ref double alamda, ref double ochisq,
+			double[,] covar, double[,] alpha, out double chisq, Func<double, double[], double[], int, double> func, ref double alamda, ref double ochisq,
 			ref double[,] oneda, ref int mfit, ref double[] atry, ref double[] beta, ref double[] da, int nthreads){
 			if (amin == null){
 				amin = new double[a.Length];
@@ -191,7 +189,7 @@ namespace BaseLibS.Num{
 				} else{
 					Mrqcof(x, y, sig, ndata, a, alpha, beta, out chisq, func);
 				}
-				ochisq = (chisq);
+				ochisq = chisq;
 				for (int j = 0; j < ma; j++){
 					atry[j] = a[j];
 				}

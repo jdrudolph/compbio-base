@@ -325,7 +325,7 @@ namespace BaseLibS.Num{
 
 		public static void FitNonlin(double[] x, double[] y, double[] sig, double[] a, double[] amin, double[] amax,
 			out double chisq, Func<double, double[], double> func, double epsilon, int nthreads){
-			MrqminFunc f = (x1, a1, dyda, na) =>{
+			Func<double, double[], double[], int, double> f = (x1, a1, dyda, na) =>{
 				double y1 = func(x1, a1);
 				for (int i = 0; i < na; i++){
 					dyda[i] = Dyda(x1, a1, func, i, epsilon);
@@ -348,7 +348,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static void FitNonlin(double[] x, double[] y, double[] sig, double[] a, double[] amin, double[] amax,
-			out double chisq, MrqminFunc func, int nthreads){
+			out double chisq, Func<double, double[], double[], int, double> func, int nthreads){
 			int ndata = x.Length;
 			if (sig == null){
 				sig = new double[ndata];
