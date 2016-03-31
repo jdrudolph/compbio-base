@@ -168,7 +168,7 @@ namespace BaseLibS.Num{
 		}
 
 		public void FlattenEnds(){
-			if (xvals.Length == 1){
+			if (xvals.Length <= 1){
 				xvals = new[]{0.0, 1.0};
 				yvals = new[]{yvals[0], yvals[0]};
 				return;
