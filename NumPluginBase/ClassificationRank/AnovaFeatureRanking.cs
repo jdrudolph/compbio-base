@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using BaseLib.Param;
 using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Test.Univariate.NSamples;
@@ -57,7 +56,7 @@ namespace NumPluginBase.ClassificationRank{
 		}
 
 		public override Parameters GetParameters(IGroupDataProvider data){
-			return new Parameters(new Parameter[]{new DoubleParam("s0", 0){Help = s0Help}});
+			return new Parameters(new Parameter[]{new DoubleParamS("s0", 0){Help = s0Help}});
 		}
 
 		public override string Name => "ANOVA";

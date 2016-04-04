@@ -1,5 +1,4 @@
 ﻿using System;
-using BaseLib.Param;
 using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
@@ -15,7 +14,7 @@ namespace NumPluginBase.Classification{
 		}
 
 		public override Parameters Parameters
-			=> new Parameters(new Parameter[]{Distances.GetDistanceParameters(), new IntParam("Number of neighbours", 5)});
+			=> new Parameters(new Parameter[]{Distances.GetDistanceParameters(), new IntParamS("Number of neighbours", 5)});
 
 		public override string Name => "KNN";
 		public override string Description => "";

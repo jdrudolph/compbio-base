@@ -1,5 +1,4 @@
 ﻿using System;
-using BaseLib.Param;
 using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
@@ -25,11 +24,11 @@ namespace NumPluginBase.Kernel{
 			get{
 				return
 					new Parameters(new Parameter[]{
-						new IntParam("Degree", Degree){
+						new IntParamS("Degree", Degree){
 							Help = "The degree of the polynomial. A degree of one will reproduce the linear kernel"
 						},
-						new DoubleParam("Gamma", Gamma){Help = "Coefficient in front of the scalar product."},
-						new DoubleParam("Offset", Offset){Help = "Shift parameter."}
+						new DoubleParamS("Gamma", Gamma){Help = "Coefficient in front of the scalar product."},
+						new DoubleParamS("Offset", Offset){Help = "Shift parameter."}
 					});
 			}
 			set{

@@ -1,5 +1,4 @@
-﻿using BaseLib.Param;
-using BaseLibS.Api;
+﻿using BaseLibS.Api;
 using BaseLibS.Param;
 using BaseLibS.Util;
 
@@ -24,8 +23,8 @@ namespace NumPluginBase.Kernel{
 			return result;
 		}
 
-		public static SingleChoiceWithSubParams GetKernelParameters(){
-			return new SingleChoiceWithSubParams("Kernel"){
+		public static SingleChoiceWithSubParamsS GetKernelParameters(){
+			return new SingleChoiceWithSubParamsS("Kernel"){
 				Values = GetAllNames(),
 				SubParams = GetAllParameters(),
 				Value = 0,

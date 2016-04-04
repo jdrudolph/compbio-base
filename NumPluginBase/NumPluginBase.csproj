@@ -72,10 +72,6 @@
       <Project>{1744226E-9EEC-4E1C-A231-96743695240F}</Project>
       <Name>BaseLibS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BaseLib\BaseLib.csproj">
-      <Project>{e18d8469-f79d-4e28-a6f7-6dea53300175}</Project>
-      <Name>BaseLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

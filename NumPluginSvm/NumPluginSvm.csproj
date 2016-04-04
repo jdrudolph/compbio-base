@@ -58,10 +58,6 @@
       <Project>{1744226E-9EEC-4E1C-A231-96743695240F}</Project>
       <Name>BaseLibS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BaseLib\BaseLib.csproj">
-      <Project>{E18D8469-F79D-4E28-A6F7-6DEA53300175}</Project>
-      <Name>BaseLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\NumPluginBase\NumPluginBase.csproj">
       <Project>{352faf61-6075-49d4-8513-3f333c518861}</Project>
       <Name>NumPluginBase</Name>

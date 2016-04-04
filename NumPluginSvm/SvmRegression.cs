@@ -1,5 +1,4 @@
-﻿using BaseLib.Param;
-using BaseLibS.Api;
+﻿using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
 using NumPluginBase.Kernel;
@@ -21,7 +20,7 @@ namespace NumPluginSvm{
 		public Parameters Parameters
 			=>
 				new Parameters(new Parameter[]
-				{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 100){Help = SvmClassification.cHelp}});
+				{KernelFunctions.GetKernelParameters(), new DoubleParamS("C", 100){Help = SvmClassification.cHelp}});
 
 		public string Name => "Support vector machine";
 		public string Description => "";

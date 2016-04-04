@@ -4,9 +4,9 @@ using System.Globalization;
 namespace BaseLibS.Param{
 	[Serializable]
 	public class BoolParamS : Parameter<bool>{
-		protected BoolParamS(string name) : this(name, false){}
+		public BoolParamS(string name) : this(name, false){}
 
-		protected BoolParamS(string name, bool value) : base(name){
+		public BoolParamS(string name, bool value) : base(name){
 			Value = value;
 			Default = value;
 		}

@@ -1,5 +1,4 @@
 ﻿using System;
-using BaseLib.Param;
 using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 using BaseLibS.Param;
@@ -18,7 +17,7 @@ namespace NumPluginBase.Kernel{
 		public string Name => "RBF";
 
 		public Parameters Parameters{
-			get { return new Parameters(new DoubleParam("Sigma", Sigma){Help = "Standard deviation parameter."}); }
+			get { return new Parameters(new DoubleParamS("Sigma", Sigma){Help = "Standard deviation parameter."}); }
 			set { Sigma = value.GetParam<double>("Sigma").Value; }
 		}
 

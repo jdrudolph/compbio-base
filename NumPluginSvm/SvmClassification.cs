@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using BaseLib.Param;
 using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
@@ -85,7 +84,7 @@ namespace NumPluginSvm{
 		}
 
 		public override Parameters Parameters
-			=> new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10){Help = cHelp}});
+			=> new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParamS("C", 10){Help = cHelp}});
 
 		public override string Name => "Support vector machine";
 		public override string Description => "";

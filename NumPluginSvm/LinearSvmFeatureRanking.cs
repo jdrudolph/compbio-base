@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using BaseLib.Param;
 using BaseLibS.Api;
 using BaseLibS.Num;
 using BaseLibS.Num.Vector;
@@ -11,7 +10,7 @@ using NumPluginSvm.Svm;
 namespace NumPluginSvm{
 	public class LinearSvmFeatureRanking : ClassificationFeatureRankingMethod{
 		public override Parameters GetParameters(IGroupDataProvider data){
-			return new Parameters(new Parameter[]{new DoubleParam("C", 100){Help = SvmClassification.cHelp}});
+			return new Parameters(new Parameter[]{new DoubleParamS("C", 100){Help = SvmClassification.cHelp}});
 		}
 
 		public override string Name => "SVM";

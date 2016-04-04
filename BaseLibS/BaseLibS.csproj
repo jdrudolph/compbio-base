@@ -34,6 +34,7 @@
     <Compile Include="Api\ClassificationModel.cs" />
     <Compile Include="Data\NeighbourListDirected.cs" />
     <Compile Include="Data\NeighbourListBipartite.cs" />
+    <Compile Include="Mol\Modification2.cs" />
     <Compile Include="Mol\TaxonomyItem.cs" />
     <Compile Include="Mol\TaxonomyItems.cs" />
     <Compile Include="Mol\TaxonomyNameType.cs" />
