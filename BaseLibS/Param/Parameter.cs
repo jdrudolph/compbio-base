@@ -4,7 +4,7 @@ namespace BaseLibS.Param{
 	public delegate void ValueChangedHandler();
 
 	[Serializable]
-	public abstract class Parameter : ICloneable{
+	public abstract class Parameter {
 		public const int paramHeight = 23;
 
 		[field: NonSerialized]
@@ -20,9 +20,13 @@ namespace BaseLibS.Param{
 			Visible = true;
 		}
 
-		public abstract void SetValueFromControl();
-		public abstract void UpdateControlFromValue();
-		public abstract object CreateControl();
+		public virtual void SetValueFromControl(){}
+		public virtual void UpdateControlFromValue(){}
+
+		public virtual object CreateControl(){
+			return null;
+		}
+
 		public virtual void Drop(string x){}
 		public abstract string StringValue { get; set; }
 		public abstract void ResetValue();

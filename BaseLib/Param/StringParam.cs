@@ -4,19 +4,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class StringParam : Parameter<string>{
+	public class StringParam : StringParamS{
 		[NonSerialized] private TextBox control;
-		public StringParam(string name) : this(name, ""){}
-
-		public StringParam(string name, string value) : base(name){
-			Value = value;
-			Default = value;
-		}
-
-		public override string StringValue{
-			get { return Value; }
-			set { Value = value; }
-		}
+		public StringParam(string name) : base(name){}
+		public StringParam(string name, string value) : base(name, value){}
 
 		public override void SetValueFromControl(){
 			Value = control.Text;
@@ -27,10 +18,6 @@ namespace BaseLib.Param{
 				return;
 			}
 			control.Text = Value;
-		}
-
-		public override void Clear(){
-			Value = "";
 		}
 
 		public override object CreateControl(){

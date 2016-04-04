@@ -1,14 +1,13 @@
 using System;
-using System.Globalization;
 using System.Windows.Controls;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class DoubleParam : Parameter<double>{
+	public class DoubleParam : DoubleParamS{
 		[NonSerialized] private TextBox control;
 
-		public DoubleParam(string name, double value) : base(name){
+		public DoubleParam(string name, double value) : base(name, value){
 			Value = value;
 			Default = value;
 		}
@@ -34,15 +33,6 @@ namespace BaseLib.Param{
 				ValueHasChanged();
 			};
 			return control;
-		}
-
-		public override string StringValue{
-			get { return Value.ToString(CultureInfo.InvariantCulture); }
-			set { Value = double.Parse(value); }
-		}
-
-		public override void Clear(){
-			Value = 0;
 		}
 
 		public override object Clone(){

@@ -66,9 +66,7 @@ namespace BaseLib.Param{
 		}
 		public void RegisterScrollViewer(ScrollViewer scrollViewer){
 			foreach (var child in grid.Children){
-				if (child is IScrollRegistrationTarget){
-					((IScrollRegistrationTarget)child).RegisterScrollViewer(scrollViewer);
-				}
+				(child as IScrollRegistrationTarget)?.RegisterScrollViewer(scrollViewer);
 			}
 		}
 

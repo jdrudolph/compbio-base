@@ -1,34 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
-using BaseLibS.Num;
 using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class MultiStringParam : Parameter<string[]>{
+	public class MultiStringParam : MultiStringParamS{
 		[NonSerialized] private TextBox control;
-		public MultiStringParam(string name) : this(name, new string[0]) { }
-
-		public MultiStringParam(string name, string[] value) : base(name){
-			Value = value;
-			Default = new string[Value.Length];
-			for (int i = 0; i < Value.Length; i++){
-				Default[i] = Value[i];
-			}
-		}
-
-		public override string StringValue{
-			get { return StringUtils.Concat(",", Value); }
-			set{
-				if (value.Trim().Length == 0){
-					Value = new string[0];
-					return;
-				}
-				Value = value.Split(',');
-			}
-		}
+		public MultiStringParam(string name) : base(name){}
+		public MultiStringParam(string name, string[] value) : base(name, value){}
 
 		public override void SetValueFromControl(){
 			string text = control.Text;
@@ -43,9 +24,6 @@ namespace BaseLib.Param{
 			Value = result.ToArray();
 		}
 
-		public override bool IsModified { get { return !ArrayUtils.EqualArrays(Default, Value); } }
-		public override void Clear() { Value = new string[0]; }
-
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
@@ -53,8 +31,12 @@ namespace BaseLib.Param{
 			control.Text = StringUtils.Concat("\n", Value);
 		}
 
-		public override object CreateControl() { return control = new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true}; }
-		public override object Clone() { return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default}; }
-		public override float Height { get { return 150f; } }
+		public override object CreateControl(){
+			return control = new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true};
+		}
+
+		public override object Clone(){
+			return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
+		}
 	}
 }

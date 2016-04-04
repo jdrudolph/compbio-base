@@ -1,22 +1,12 @@
 using System;
-using System.Globalization;
 using System.Windows.Controls;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class IntParam : Parameter<int>{
+	public class IntParam : IntParamS{
 		[NonSerialized] private TextBox control;
-
-		public IntParam(string name, int value) : base(name){
-			Value = value;
-			Default = value;
-		}
-
-		public override string StringValue{
-			get { return Value.ToString(CultureInfo.InvariantCulture); }
-			set { Value = int.Parse(value); }
-		}
+		public IntParam(string name, int value) : base(name, value){}
 
 		public override void SetValueFromControl(){
 			int val;
@@ -31,10 +21,6 @@ namespace BaseLib.Param{
 				return;
 			}
 			control.Text = "" + Value;
-		}
-
-		public override void Clear(){
-			Value = 0;
 		}
 
 		public override object CreateControl(){

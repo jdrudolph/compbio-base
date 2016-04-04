@@ -1,5 +1,4 @@
 using System;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Wpf;
@@ -7,13 +6,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class BoolWithSubParams : ParameterWithSubParams<bool>{
-		public Parameters SubParamsFalse { get; set; }
-		public Parameters SubParamsTrue { get; set; }
-		[NonSerialized] private Grid control;
-		public BoolWithSubParams(string name) : this(name, false) { }
+	public class BoolWithSubParams : BoolWithSubParamsS{
+		public BoolWithSubParams(string name) : base(name){}
 
-		public BoolWithSubParams(string name, bool value) : base(name){
+		public BoolWithSubParams(string name, bool value) : base(name, value){
 			TotalWidth = 1000F;
 			ParamNameWidth = 250F;
 			Value = value;
@@ -22,42 +18,13 @@ namespace BaseLib.Param{
 			SubParamsTrue = new Parameters();
 		}
 
-		public override string StringValue { get { return Value.ToString(CultureInfo.InvariantCulture); } set { Value = bool.Parse(value); } }
-
-		public override void ResetSubParamValues(){
-			SubParamsTrue.ResetValues();
-			SubParamsFalse.ResetValues();
-		}
-
-
-
-		public override void ResetSubParamDefaults(){
-			SubParamsTrue.ResetDefaults();
-			SubParamsFalse.ResetDefaults();
-		}
-
-		public override bool IsModified{
-			get{
-				if (Value != Default){
-					return true;
-				}
-				return SubParamsTrue.IsModified || SubParamsFalse.IsModified;
-			}
-		}
-
-		public override Parameters GetSubParameters() { return Value ? SubParamsTrue : SubParamsFalse; }
+		[NonSerialized] private Grid control;
 
 		public override void SetValueFromControl(){
 			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(control, 0, 0);
 			Value = cb.IsChecked != null && cb.IsChecked.Value;
 			SubParamsFalse.SetValuesFromControl();
 			SubParamsTrue.SetValuesFromControl();
-		}
-
-		public override void Clear(){
-			Value = false;
-			SubParamsTrue.Clear();
-			SubParamsFalse.Clear();
 		}
 
 		public override void UpdateControlFromValue(){
@@ -105,8 +72,6 @@ namespace BaseLib.Param{
 			control = tlp;
 			return control;
 		}
-
-		public override float Height => 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height);
 
 		public override object Clone(){
 			return new BoolWithSubParams(Name, Value){
