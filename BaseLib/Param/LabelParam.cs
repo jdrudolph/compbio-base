@@ -23,7 +23,5 @@ namespace BaseLib.Param{
 		public override object CreateControl(){
 			return control = new Label{Content = Value};
 		}
-
-		public override object Clone() { return new LabelParam(Name, Value) { Help = Help, Visible = Visible, Default = Default }; }
 	}
 }

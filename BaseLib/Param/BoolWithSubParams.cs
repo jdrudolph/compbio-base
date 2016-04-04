@@ -72,15 +72,5 @@ namespace BaseLib.Param{
 			control = tlp;
 			return control;
 		}
-
-		public override object Clone(){
-			return new BoolWithSubParams(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				SubParamsFalse = (Parameters) SubParamsFalse.Clone(),
-				SubParamsTrue = (Parameters) SubParamsTrue.Clone(),
-				Default = Default
-			};
-		}
 	}
 }

@@ -17,9 +17,5 @@ namespace BaseLibS.Param{
 		public override void Clear(){
 			Value = 0;
 		}
-
-		public override object Clone(){
-			return new IntParamS(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

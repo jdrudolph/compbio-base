@@ -30,15 +30,5 @@ namespace BaseLib.Param{
 			control.SetDefaultSelectors(defaultSelectionNames, defaultSelections);
 			return control;
 		}
-
-		public override object Clone(){
-			return new MultiChoiceParam(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				Repeats = Repeats,
-				Values = Values,
-				Default = Default
-			};
-		}
 	}
 }

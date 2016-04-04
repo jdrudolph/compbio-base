@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class Parameters : ICloneable{
+	public class Parameters {
 		private readonly List<ParameterGroup> paramGroups = new List<ParameterGroup>();
 
 		public Parameters(IList<Parameter> param, string name){
@@ -57,14 +57,6 @@ namespace BaseLibS.Param{
 
 		public void AddParameterGroup(IList<Parameter> param, string name, bool collapsed){
 			paramGroups.Add(new ParameterGroup(param, name, collapsed));
-		}
-
-		public object Clone(){
-			Parameters newParam = new Parameters();
-			foreach (ParameterGroup p in paramGroups){
-				newParam.paramGroups.Add((ParameterGroup) p.Clone());
-			}
-			return newParam;
 		}
 
 		public int Count{

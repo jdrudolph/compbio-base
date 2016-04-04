@@ -56,9 +56,5 @@ namespace BaseLibS.Param{
 		public override void Clear(){
 			Value = new Dictionary<string, int>();
 		}
-
-		public override object Clone(){
-			return new DictionaryIntValueParamS(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

@@ -16,10 +16,6 @@ namespace BaseLibS.Param{
 			set { Value = bool.Parse(value); }
 		}
 
-		public override object Clone(){
-			return new BoolParamS(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
-
 		public override void Clear(){
 			Value = false;
 		}

@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class ParameterGroup : ICloneable{
+	public class ParameterGroup {
 		private readonly List<Parameter> parameters = new List<Parameter>();
 		private string name;
 		private bool collapsedDefault;
@@ -37,16 +37,6 @@ namespace BaseLibS.Param{
 			}
 		}
 		public string Name { get { return name; } set { name = value; } }
-
-		public object Clone(){
-			ParameterGroup newParam = new ParameterGroup();
-			foreach (Parameter p in parameters){
-				newParam.parameters.Add((Parameter) p.Clone());
-			}
-			newParam.name = name;
-			newParam.collapsedDefault = collapsedDefault;
-			return newParam;
-		}
 
 		public List<Parameter> ParameterList => parameters;
 		public int Count => parameters.Count;

@@ -34,9 +34,5 @@ namespace BaseLib.Param{
 			};
 			return control;
 		}
-
-		public override object Clone(){
-			return new DoubleParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

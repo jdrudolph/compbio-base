@@ -56,16 +56,6 @@ namespace BaseLibS.Param{
 
 		public override float Height => 160f;
 
-		public override object Clone(){
-			return new MultiChoiceParamS(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				Repeats = Repeats,
-				Values = Values,
-				Default = Default
-			};
-		}
-
 		public void AddSelectedIndex(int index){
 			if (Array.BinarySearch(Value, index) >= 0){
 				return;

@@ -34,10 +34,6 @@ namespace BaseLibS.Param{
 			Value = new string[0];
 		}
 
-		public override object Clone(){
-			return new MultiFileParamS(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default};
-		}
-
 		public override float Height => 120;
 	}
 }

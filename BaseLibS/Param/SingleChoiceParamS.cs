@@ -33,9 +33,5 @@ namespace BaseLibS.Param{
 		public override void Clear(){
 			Value = 0;
 		}
-
-		public override object Clone(){
-			return new SingleChoiceParamS(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
-		}
 	}
 }

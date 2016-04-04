@@ -24,16 +24,5 @@ namespace BaseLib.Param{
 			return
 				control = new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save};
 		}
-
-		public override object Clone(){
-			return new FileParam(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				Save = Save,
-				Filter = Filter,
-				Default = Default,
-				ProcessFileName = ProcessFileName
-			};
-		}
 	}
 }

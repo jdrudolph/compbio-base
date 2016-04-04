@@ -67,16 +67,6 @@ namespace BaseLibS.Param{
 
 		public override float Height => 310f;
 
-		public override object Clone(){
-			MultiChoiceMultiBinParamS s = new MultiChoiceMultiBinParamS(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				Values = Values,
-				Default = Default,
-			};
-			return s;
-		}
-
 		public override void ResetSubParamValues(){
 			Value = Default;
 		}

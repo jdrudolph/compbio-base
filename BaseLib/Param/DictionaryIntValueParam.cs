@@ -33,9 +33,5 @@ namespace BaseLib.Param{
 		public override object CreateControl(){
 			return control = new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue};
 		}
-
-		public override object Clone(){
-			return new DictionaryIntValueParam(Name, Value, Keys){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

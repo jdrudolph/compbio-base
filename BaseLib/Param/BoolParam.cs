@@ -24,9 +24,5 @@ namespace BaseLib.Param{
 		public override object CreateControl(){
 			return control = new CheckBox{IsChecked = Value, VerticalAlignment = VerticalAlignment.Center};
 		}
-
-		public override object Clone(){
-			return new BoolParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

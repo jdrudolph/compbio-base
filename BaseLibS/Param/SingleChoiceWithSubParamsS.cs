@@ -74,20 +74,6 @@ namespace BaseLibS.Param{
 			}
 		}
 
-		public override object Clone(){
-			SingleChoiceWithSubParamsS s = new SingleChoiceWithSubParamsS(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				Values = Values,
-				Default = Default,
-				SubParams = new Parameters[SubParams.Count]
-			};
-			for (int i = 0; i < SubParams.Count; i++){
-				s.SubParams[i] = (Parameters) SubParams[i].Clone();
-			}
-			return s;
-		}
-
 		public void SetValueChangedHandlerForSubParams(ValueChangedHandler action){
 			ValueChanged += action;
 			foreach (Parameter p in GetSubParameters().GetAllParameters()){

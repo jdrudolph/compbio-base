@@ -23,9 +23,5 @@ namespace BaseLib.Param{
 		public override object CreateControl(){
 			return control = new FolderParameterControl{Text = Value};
 		}
-
-		public override object Clone(){
-			return new FolderParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

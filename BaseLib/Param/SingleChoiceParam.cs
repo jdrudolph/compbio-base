@@ -55,9 +55,5 @@ namespace BaseLib.Param{
 			control = cb;
 			return control;
 		}
-
-		public override object Clone(){
-			return new SingleChoiceParam(Name, Value){Help = Help, Visible = Visible, Values = Values, Default = Default};
-		}
 	}
 }

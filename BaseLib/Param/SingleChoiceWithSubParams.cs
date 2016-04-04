@@ -76,19 +76,5 @@ namespace BaseLib.Param{
 			control = grid;
 			return control;
 		}
-
-		public override object Clone(){
-			SingleChoiceWithSubParams s = new SingleChoiceWithSubParams(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				Values = Values,
-				Default = Default,
-				SubParams = new Parameters[SubParams.Count]
-			};
-			for (int i = 0; i < SubParams.Count; i++){
-				s.SubParams[i] = (Parameters) SubParams[i].Clone();
-			}
-			return s;
-		}
 	}
 }

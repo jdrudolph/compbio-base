@@ -31,7 +31,6 @@ namespace BaseLibS.Param{
 		public abstract string StringValue { get; set; }
 		public abstract void ResetValue();
 		public abstract void ResetDefault();
-		public abstract object Clone();
 		public abstract void Clear();
 		public abstract bool IsModified { get; }
 		public virtual bool IsDropTarget => false;

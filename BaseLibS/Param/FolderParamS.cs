@@ -18,9 +18,5 @@ namespace BaseLibS.Param{
 		public override void Clear(){
 			Value = "";
 		}
-
-		public override object Clone(){
-			return new FolderParamS(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

@@ -26,15 +26,5 @@ namespace BaseLib.Param{
 			control.SelectedIndices = Value;
 			return control;
 		}
-
-		public override object Clone(){
-			MultiChoiceMultiBinParam s = new MultiChoiceMultiBinParam(Name, Value){
-				Help = Help,
-				Visible = Visible,
-				Values = Values,
-				Default = Default,
-			};
-			return s;
-		}
 	}
 }

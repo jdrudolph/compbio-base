@@ -34,9 +34,5 @@ namespace BaseLib.Param{
 		public override object CreateControl(){
 			return control = new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true};
 		}
-
-		public override object Clone(){
-			return new MultiStringParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

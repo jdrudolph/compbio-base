@@ -31,9 +31,5 @@ namespace BaseLib.Param{
 			};
 			return control;
 		}
-
-		public override object Clone(){
-			return new IntParam(Name, Value){Help = Help, Visible = Visible, Default = Default};
-		}
 	}
 }

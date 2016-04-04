@@ -23,9 +23,5 @@ namespace BaseLib.Param{
 		public override object CreateControl(){
 			return control = new MultiFileParameterControl{Filter = Filter, Filenames = Value};
 		}
-
-		public override object Clone(){
-			return new MultiFileParam(Name, Value){Help = Help, Visible = Visible, Filter = Filter, Default = Default};
-		}
 	}
 }
