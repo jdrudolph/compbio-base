@@ -52,5 +52,6 @@ namespace BaseLibS.Param{
 		}
 
 		public override float Height => 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height);
+		public override ParamType Type => ParamType.Server;
 	}
 }

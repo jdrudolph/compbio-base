@@ -13,6 +13,7 @@ namespace BaseLibS.Param{
 		public string Name { get; }
 		public string Help { get; set; }
 		public bool Visible { get; set; }
+		public virtual ParamType Type => ParamType.Wpf;
 
 		internal Parameter(string name){
 			Name = name;
@@ -48,7 +49,7 @@ namespace BaseLibS.Param{
 	public abstract class Parameter<T> : Parameter{
 		protected Parameter(string name) : base(name){}
 		public T Value { get; set; }
-		public T Default { get; protected set; }
+		public T Default { get; set; }
 
 		public sealed override void ResetValue(){
 			if (Value is ICloneable){

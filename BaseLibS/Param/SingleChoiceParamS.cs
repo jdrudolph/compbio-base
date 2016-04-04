@@ -33,5 +33,6 @@ namespace BaseLibS.Param{
 		public override void Clear(){
 			Value = 0;
 		}
+		public override ParamType Type => ParamType.Server;
 	}
 }

@@ -139,6 +139,7 @@
     <Compile Include="Param\ParameterGroup.cs" />
     <Compile Include="Param\Parameters.cs" />
     <Compile Include="Param\ParameterWithSubParams.cs" />
+    <Compile Include="Param\ParamType.cs" />
     <Compile Include="Param\SingleChoiceParamS.cs" />
     <Compile Include="Param\SingleChoiceWithSubParamsS.cs" />
     <Compile Include="Param\StringParamS.cs" />

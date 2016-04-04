@@ -56,5 +56,6 @@ namespace BaseLibS.Param{
 		public override void Clear(){
 			Value = new Dictionary<string, int>();
 		}
+		public override ParamType Type => ParamType.Server;
 	}
 }

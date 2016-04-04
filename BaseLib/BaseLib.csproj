@@ -198,6 +198,7 @@
     <Compile Include="Param\SingleChoiceParam.cs" />
     <Compile Include="Param\SingleChoiceWithSubParams.cs" />
     <Compile Include="Param\StringParam.cs" />
+    <Compile Include="Param\WpfParameterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -13,5 +13,6 @@ namespace BaseLibS.Param{
 		public override string StringValue { get { return Value; } set { Value = value; } }
 
 		public override void Clear() { Value = ""; }
+		public override ParamType Type => ParamType.Server;
 	}
 }

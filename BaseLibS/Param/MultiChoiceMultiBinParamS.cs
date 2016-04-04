@@ -74,5 +74,6 @@ namespace BaseLibS.Param{
 		public override void ResetSubParamDefaults(){
 			Default = Value;
 		}
+		public override ParamType Type => ParamType.Server;
 	}
 }

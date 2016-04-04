@@ -84,5 +84,6 @@ namespace BaseLibS.Param{
 				}
 			}
 		}
+		public override ParamType Type => ParamType.Server;
 	}
 }

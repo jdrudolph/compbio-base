@@ -83,5 +83,6 @@ namespace BaseLibS.Param{
 			indices.Sort();
 			Value = indices.ToArray();
 		}
+		public override ParamType Type => ParamType.Server;
 	}
 }

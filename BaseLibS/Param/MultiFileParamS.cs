@@ -35,5 +35,6 @@ namespace BaseLibS.Param{
 		}
 
 		public override float Height => 120;
+		public override ParamType Type => ParamType.Server;
 	}
 }
