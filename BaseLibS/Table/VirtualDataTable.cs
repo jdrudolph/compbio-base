@@ -1,7 +1,6 @@
 using System;
-using BaseLibS.Table;
 
-namespace BaseLib.Forms.Table{
+namespace BaseLibS.Table{
 	public abstract class VirtualDataTable : TableModelImpl, ITable{
 		private int rowInUse = -1;
 		private object[] rowDataInUse;

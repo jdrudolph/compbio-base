@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using BaseLibS.Table;
 
-namespace BaseLib.Forms.Table{
+namespace BaseLibS.Table{
 	/// <summary>
 	/// Partial implementation of <code>ITableModel</code>, implementing all functionality that is shared 
 	/// between the full implementations of <code>ITableModel</code>.

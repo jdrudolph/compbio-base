@@ -884,7 +884,7 @@ namespace BaseLib.Forms.Table{
 					}
 				}
 			}
-			PasteSelectionWindow psw = new PasteSelectionWindow(ncols, GetColumnNames());
+			Wpf.PasteSelectionWindow psw = new Wpf.PasteSelectionWindow(ncols, GetColumnNames());
 			psw.ShowDialog();
 			if (!psw.Ok){
 				return;

@@ -1,7 +1,6 @@
 using System;
-using BaseLibS.Table;
 
-namespace BaseLib.Forms.Table{
+namespace BaseLibS.Table{
 	public class SubTableModel : ITableModel{
 		private readonly ITableModel baseModel;
 		private readonly int[] rows;

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using BaseLibS.Table;
 
-namespace BaseLib.Forms.Table{
+namespace BaseLibS.Table{
 	[Serializable]
 	public class DataTable2 : TableModelImpl, IDataTable{
 		public Collection<DataRow2> Rows { get; private set; }

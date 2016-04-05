@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using BaseLib.Forms.Table;
 using BaseLibS.Num;
+using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Wpf{

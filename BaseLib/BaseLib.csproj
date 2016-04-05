@@ -136,37 +136,31 @@
     </Compile>
     <Compile Include="Forms\Scroll\SimpleScrollableControlMainView.cs" />
     <Compile Include="Forms\Scroll\VerticalScrollBarView.cs" />
-    <Compile Include="Forms\Table\ITableSelectionAgent.cs" />
+    <Compile Include="Wpf\ITableSelectionAgent.cs" />
     <Compile Include="Forms\Table\ListSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Table\ListSelector.Designer.cs">
       <DependentUpon>ListSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\PasteSelectionWindow.xaml.cs">
+    <Compile Include="Wpf\PasteSelectionWindow.xaml.cs">
       <DependentUpon>PasteSelectionWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\VirtualDataTable2.cs" />
-    <Compile Include="Forms\Table\DataTable2.cs" />
     <Compile Include="Forms\Table\FindForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Table\FindForm.Designer.cs">
       <DependentUpon>FindForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\ITableModel.cs" />
     <Compile Include="Forms\Table\SelectColumnsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\Table\SelectColumnsForm.Designer.cs">
       <DependentUpon>SelectColumnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\SubTableModel.cs" />
-    <Compile Include="Forms\Table\TableModelImpl.cs" />
     <Compile Include="Forms\Table\TableViewWf.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Table\VirtualDataTable.cs" />
     <Compile Include="Graphic\BitmapGraphics.cs" />
     <Compile Include="Graphic\CGraphics.cs" />
     <Compile Include="Graphic\ColorConstants.cs" />
@@ -428,7 +422,7 @@
     <Resource Include="Resources\Y.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Forms\Table\PasteSelectionWindow.xaml">
+    <Page Include="Wpf\PasteSelectionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

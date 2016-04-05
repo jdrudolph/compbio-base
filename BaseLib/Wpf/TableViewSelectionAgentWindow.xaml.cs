@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using BaseLib.Forms.Table;
+using BaseLibS.Table;
 
 namespace BaseLib.Wpf{
 	/// <summary>

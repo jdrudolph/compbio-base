@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BaseLib.Forms.Table{
+namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for PasteSelectionWindow.xaml
 	/// </summary>

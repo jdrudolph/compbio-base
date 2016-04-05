@@ -164,10 +164,16 @@
     <Compile Include="Table\ColumnType.cs" />
     <Compile Include="Table\DataAnnotationRow.cs" />
     <Compile Include="Table\DataRow2.cs" />
+    <Compile Include="Table\DataTable2.cs" />
     <Compile Include="Table\IDataTable.cs" />
     <Compile Include="Table\ITable.cs" />
+    <Compile Include="Table\ITableModel.cs" />
     <Compile Include="Table\SortState.cs" />
     <Compile Include="Num\ArrayUtils.cs" />
+    <Compile Include="Table\SubTableModel.cs" />
+    <Compile Include="Table\TableModelImpl.cs" />
+    <Compile Include="Table\VirtualDataTable.cs" />
+    <Compile Include="Table\VirtualDataTable2.cs" />
     <Compile Include="Util\ComparableList.cs" />
     <Compile Include="Util\DocumentType.cs" />
     <Compile Include="Util\FileUtils.cs" />

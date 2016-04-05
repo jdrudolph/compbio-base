@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
-using BaseLibS.Table;
 
-namespace BaseLib.Forms.Table{
+namespace BaseLibS.Table{
 	[Serializable]
 	public class VirtualDataTable2 : TableModelImpl, ITable{
 		public Func<int, object[]> GetRowData { private get; set; }
