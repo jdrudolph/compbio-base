@@ -34,12 +34,15 @@
     <Compile Include="Api\ClassificationModel.cs" />
     <Compile Include="Data\NeighbourListDirected.cs" />
     <Compile Include="Data\NeighbourListBipartite.cs" />
+    <Compile Include="Mol\AminoAcidLabel.cs" />
+    <Compile Include="Mol\LabelModification.cs" />
     <Compile Include="Mol\Modification2.cs" />
     <Compile Include="Mol\TaxonomyItem.cs" />
     <Compile Include="Mol\TaxonomyItems.cs" />
     <Compile Include="Mol\TaxonomyNameType.cs" />
     <Compile Include="Mol\TaxonomyRank.cs" />
     <Compile Include="Mol\TaxonomyRanks.cs" />
+    <Compile Include="Mol\TerminalLabel.cs" />
     <Compile Include="Num\Matrix\IBoolMatrixIndexer.cs" />
     <Compile Include="Api\ClassificationFeatureRankingMethod.cs" />
     <Compile Include="Api\ClassificationMethod.cs" />
