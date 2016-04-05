@@ -183,6 +183,7 @@
     <Compile Include="Param\FolderParam.cs" />
     <Compile Include="Param\IntParam.cs" />
     <Compile Include="Param\LabelParam.cs" />
+    <Compile Include="Param\Ms1LabelParam.cs" />
     <Compile Include="Param\MultiChoiceMultiBinParam.cs" />
     <Compile Include="Param\MultiChoiceParam.cs" />
     <Compile Include="Param\MultiFileParam.cs" />
@@ -269,6 +270,9 @@
     <Compile Include="Wpf\ListBoxSelector.cs" />
     <Compile Include="Wpf\ListSelectorControl.xaml.cs">
       <DependentUpon>ListSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\Ms1LabelPanel.xaml.cs">
+      <DependentUpon>Ms1LabelPanel.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\MultiFileParameterControl.xaml.cs">
       <DependentUpon>MultiFileParameterControl.xaml</DependentUpon>
@@ -479,6 +483,10 @@
     <Page Include="Wpf\ListSelectorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\Ms1LabelPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\MultiFileParameterControl.xaml">
       <Generator>MSBuild:Compile</Generator>
