@@ -104,6 +104,16 @@ namespace BaseLib.Param{
 				StringParamS q = (StringParamS) p;
 				return new StringParam(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
 			}
+			if (p is Ms1LabelParamS){
+				Ms1LabelParamS q = (Ms1LabelParamS) p;
+				return new Ms1LabelParam(q.Name, q.Value){
+					Values = q.Values,
+					Multiplicity = q.Multiplicity,
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default
+				};
+			}
 			throw new Exception("Could not convert parameter");
 		}
 	}

@@ -135,6 +135,7 @@
     <Compile Include="Param\FolderParamS.cs" />
     <Compile Include="Param\IntParamS.cs" />
     <Compile Include="Param\LabelParamS.cs" />
+    <Compile Include="Param\Ms1LabelParamS.cs" />
     <Compile Include="Param\MultiChoiceMultiBinParamS.cs" />
     <Compile Include="Param\MultiChoiceParamS.cs" />
     <Compile Include="Param\MultiFileParamS.cs" />
