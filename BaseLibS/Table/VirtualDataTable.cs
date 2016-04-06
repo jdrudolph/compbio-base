@@ -8,7 +8,7 @@ namespace BaseLibS.Table{
 		protected VirtualDataTable(string name, string description, int rowCount){
 			Name = name;
 			Description = description;
-			this.RowCount = rowCount;
+			RowCount = rowCount;
 		}
 
 		public override int RowCount { get; }

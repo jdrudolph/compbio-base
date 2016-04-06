@@ -11,7 +11,7 @@ namespace BaseLibS.Util{
 		/// </summary>
 		/// <param name="item">Object that is to be serialized to XML</param>
 		/// <param name="path"></param>
-		public static void SerializeObject(Object item, string path){
+		public static void SerializeObject(object item, string path){
 			if (File.Exists(path)){
 				File.Delete(path);
 			}
@@ -34,7 +34,7 @@ namespace BaseLibS.Util{
 		/// </summary>
 		/// <param name="item">Object that is to be serialized to XML</param>
 		/// <param name="stream"></param>
-		public static void Save(Object item, Stream stream){
+		public static void Save(object item, Stream stream){
 			WriteToStream(stream, item);
 			stream.Close();
 		}
@@ -45,7 +45,7 @@ namespace BaseLibS.Util{
 		/// <param name="path">Filepath of serialized Object</param>
 		/// <param name="type">Type of Object in XML</param>     
 		/// <returns>Object in xml. If error occured or validation not passed than null.</returns>
-		public static Object DeserializeObject(string path, Type type){
+		public static object DeserializeObject(string path, Type type){
 			FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 			object result = DeserializeObject(stream, type);
 			stream.Flush();
@@ -53,7 +53,7 @@ namespace BaseLibS.Util{
 			return result;
 		}
 
-		public static Object DeserializeObject(Stream stream, Type type){
+		public static object DeserializeObject(Stream stream, Type type){
 			XmlTextReader reader = new XmlTextReader(stream);
 			XmlSerializer xs = new XmlSerializer(type);
 			return xs.Deserialize(reader);
