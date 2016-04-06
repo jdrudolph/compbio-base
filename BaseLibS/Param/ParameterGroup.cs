@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class ParameterGroup {
+	public class ParameterGroup{
 		private readonly List<Parameter> parameters = new List<Parameter>();
 		private string name;
 		private bool collapsedDefault;
@@ -15,8 +15,19 @@ namespace BaseLibS.Param{
 			this.collapsedDefault = collapsedDefault;
 		}
 
-		private ParameterGroup() {}
-		public bool CollapsedDefault { get { return collapsedDefault; } set { collapsedDefault = value; } }
+		private ParameterGroup(){}
+
+		public void Convert(Func<Parameter, Parameter> map){
+			for (int i = 0; i < parameters.Count; i++){
+				parameters[i] = map(parameters[i]);
+			}
+		}
+
+		public bool CollapsedDefault{
+			get { return collapsedDefault; }
+			set { collapsedDefault = value; }
+		}
+
 		public string[] Markup{
 			get{
 				List<string> result = new List<string>();
@@ -26,6 +37,7 @@ namespace BaseLibS.Param{
 				return result.ToArray();
 			}
 		}
+
 		public bool IsModified{
 			get{
 				foreach (Parameter parameter in parameters){
@@ -36,7 +48,11 @@ namespace BaseLibS.Param{
 				return false;
 			}
 		}
-		public string Name { get { return name; } set { name = value; } }
+
+		public string Name{
+			get { return name; }
+			set { name = value; }
+		}
 
 		public List<Parameter> ParameterList => parameters;
 		public int Count => parameters.Count;

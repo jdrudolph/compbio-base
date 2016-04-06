@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class Parameters {
+	public class Parameters{
 		private readonly List<ParameterGroup> paramGroups = new List<ParameterGroup>();
 
 		public Parameters(IList<Parameter> param, string name){
@@ -13,6 +13,12 @@ namespace BaseLibS.Param{
 		public Parameters(Parameter param) : this(new[]{param}){}
 		public Parameters(IList<Parameter> param) : this(param, null){}
 		public Parameters(){}
+
+		public void Convert(Func<Parameter, Parameter> map){
+			foreach (ParameterGroup t in paramGroups){
+				t.Convert(map);
+			}
+		}
 
 		public Parameters GetSubGroupAt(int index){
 			return new Parameters(paramGroups[index].ParameterList);

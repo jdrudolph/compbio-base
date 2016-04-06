@@ -13,6 +13,8 @@ namespace BaseLib.Param{
 			}
 			if (p is BoolWithSubParamsS){
 				BoolWithSubParamsS q = (BoolWithSubParamsS) p;
+				q.SubParamsFalse?.Convert(Convert);
+				q.SubParamsTrue?.Convert(Convert);
 				return new BoolWithSubParams(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
@@ -88,6 +90,9 @@ namespace BaseLib.Param{
 			}
 			if (p is SingleChoiceWithSubParamsS){
 				SingleChoiceWithSubParamsS q = (SingleChoiceWithSubParamsS) p;
+				foreach (var param in q.SubParams){
+					param?.Convert(Convert);
+				}
 				SingleChoiceWithSubParams s = new SingleChoiceWithSubParams(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
