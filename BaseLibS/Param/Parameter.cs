@@ -13,7 +13,7 @@ namespace BaseLibS.Param{
 		public string Name { get; }
 		public string Help { get; set; }
 		public bool Visible { get; set; }
-		public abstract ParamType Type { get; }
+		public virtual ParamType Type => ParamType.Wpf;
 
 		internal Parameter(string name){
 			Name = name;
