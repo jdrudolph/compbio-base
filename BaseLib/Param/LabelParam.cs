@@ -8,6 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private Label control;
 		public LabelParam(string name) : base(name){}
 		public LabelParam(string name, string value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			Value = control.Content.ToString();

@@ -14,6 +14,8 @@ namespace BaseLibS.Param{
 			Default = (int[][]) value.Clone();
 		}
 
+		public override ParamType Type => ParamType.Server;
+
 		public override string StringValue{
 			get { return StringUtils.Concat(",", ";", Value); }
 			set { Value = StringUtils.SplitToInt(',', ';', value); }

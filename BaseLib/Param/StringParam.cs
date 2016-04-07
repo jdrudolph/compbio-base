@@ -8,6 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private TextBox control;
 		public StringParam(string name) : base(name){}
 		public StringParam(string name, string value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			Value = control.Text;

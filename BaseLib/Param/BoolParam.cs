@@ -9,6 +9,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private CheckBox control;
 		public BoolParam(string name) : base(name){}
 		public BoolParam(string name, bool value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			Value = control.IsChecked != null && control.IsChecked.Value;

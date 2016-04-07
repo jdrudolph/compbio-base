@@ -8,6 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private MultiFileParameterControl control;
 		public MultiFileParam(string name) : base(name){}
 		public MultiFileParam(string name, string[] value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			Value = control.Filenames;

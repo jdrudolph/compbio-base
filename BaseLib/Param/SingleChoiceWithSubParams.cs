@@ -10,6 +10,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private Grid control;
 		public SingleChoiceWithSubParams(string name) : base(name){}
 		public SingleChoiceWithSubParams(string name, int value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			if (control == null){

@@ -7,6 +7,7 @@ namespace BaseLib.Param{
 	public class Ms1LabelParam : Ms1LabelParamS{
 		[NonSerialized] private Ms1LabelPanel control;
 		public Ms1LabelParam(string name, int[][] value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			Value = control.SelectedIndices;

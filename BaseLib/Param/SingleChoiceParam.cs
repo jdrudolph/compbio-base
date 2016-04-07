@@ -8,6 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private ComboBox control;
 		public SingleChoiceParam(string name) : base(name){}
 		public SingleChoiceParam(string name, int value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			if (control == null){

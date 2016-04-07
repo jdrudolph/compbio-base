@@ -10,6 +10,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private Grid control;
 		public BoolWithSubParams(string name) : base(name){}
 		public BoolWithSubParams(string name, bool value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(control, 0, 0);

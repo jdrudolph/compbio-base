@@ -7,6 +7,7 @@ namespace BaseLib.Param{
 	public class DoubleParam : DoubleParamS{
 		[NonSerialized] private TextBox control;
 		public DoubleParam(string name, double value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			double val;

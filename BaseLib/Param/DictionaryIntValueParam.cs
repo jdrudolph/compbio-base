@@ -8,6 +8,7 @@ namespace BaseLib.Param{
 	public class DictionaryIntValueParam : DictionaryIntValueParamS{
 		[NonSerialized] private DictionaryIntValueControl control;
 		public DictionaryIntValueParam(string name, Dictionary<string, int> value, string[] keys) : base(name, value, keys){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override string[] Keys{
 			get { return keys; }

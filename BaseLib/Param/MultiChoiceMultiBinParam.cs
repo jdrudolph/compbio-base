@@ -8,6 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private MultiListSelectorControl control;
 		public MultiChoiceMultiBinParam(string name) : base(name){}
 		public MultiChoiceMultiBinParam(string name, int[][] value) : base(name, value){}
+		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			Value = control.SelectedIndices;
