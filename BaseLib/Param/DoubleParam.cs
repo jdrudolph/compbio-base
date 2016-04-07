@@ -6,11 +6,7 @@ namespace BaseLib.Param{
 	[Serializable]
 	public class DoubleParam : DoubleParamS{
 		[NonSerialized] private TextBox control;
-
-		public DoubleParam(string name, double value) : base(name, value){
-			Value = value;
-			Default = value;
-		}
+		public DoubleParam(string name, double value) : base(name, value){}
 
 		public override void SetValueFromControl(){
 			double val;

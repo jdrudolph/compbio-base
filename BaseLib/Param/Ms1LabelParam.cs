@@ -6,11 +6,7 @@ namespace BaseLib.Param{
 	[Serializable]
 	public class Ms1LabelParam : Ms1LabelParamS{
 		[NonSerialized] private Ms1LabelPanel control;
-
-		public Ms1LabelParam(string name, int[][] value) : base(name, value){
-			Value = value;
-			Default = (int[][]) value.Clone();
-		}
+		public Ms1LabelParam(string name, int[][] value) : base(name, value){}
 
 		public override void SetValueFromControl(){
 			Value = control.SelectedIndices;

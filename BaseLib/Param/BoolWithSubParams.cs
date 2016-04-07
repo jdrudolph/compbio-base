@@ -7,18 +7,9 @@ using BaseLibS.Param;
 namespace BaseLib.Param{
 	[Serializable]
 	public class BoolWithSubParams : BoolWithSubParamsS{
-		public BoolWithSubParams(string name) : base(name){}
-
-		public BoolWithSubParams(string name, bool value) : base(name, value){
-			TotalWidth = 1000F;
-			ParamNameWidth = 250F;
-			Value = value;
-			Default = value;
-			SubParamsFalse = new Parameters();
-			SubParamsTrue = new Parameters();
-		}
-
 		[NonSerialized] private Grid control;
+		public BoolWithSubParams(string name) : base(name){}
+		public BoolWithSubParams(string name, bool value) : base(name, value){}
 
 		public override void SetValueFromControl(){
 			CheckBox cb = (CheckBox) WpfUtils.GetGridChild(control, 0, 0);
