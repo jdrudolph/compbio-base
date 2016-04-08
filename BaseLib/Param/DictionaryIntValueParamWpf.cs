@@ -5,9 +5,9 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class DictionaryIntValueParamWpf : DictionaryIntValueParam{
+	internal class DictionaryIntValueParamWpf : DictionaryIntValueParam{
 		[NonSerialized] private DictionaryIntValueControl control;
-		public DictionaryIntValueParamWpf(string name, Dictionary<string, int> value, string[] keys) : base(name, value, keys){}
+		internal DictionaryIntValueParamWpf(string name, Dictionary<string, int> value, string[] keys) : base(name, value, keys){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override string[] Keys{

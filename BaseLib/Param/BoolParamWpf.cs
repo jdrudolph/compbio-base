@@ -5,10 +5,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class BoolParamWpf : BoolParam{
+	internal class BoolParamWpf : BoolParam{
 		[NonSerialized] private CheckBox control;
-		public BoolParamWpf(string name) : base(name){}
-		public BoolParamWpf(string name, bool value) : base(name, value){}
+		internal BoolParamWpf(string name) : base(name){}
+		internal BoolParamWpf(string name, bool value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

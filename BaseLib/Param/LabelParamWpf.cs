@@ -4,10 +4,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class LabelParamWpf : LabelParam{
+	internal class LabelParamWpf : LabelParam{
 		[NonSerialized] private Label control;
-		public LabelParamWpf(string name) : base(name){}
-		public LabelParamWpf(string name, string value) : base(name, value){}
+		internal LabelParamWpf(string name) : base(name){}
+		internal LabelParamWpf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

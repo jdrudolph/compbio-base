@@ -4,9 +4,9 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class Ms1LabelParamWpf : Ms1LabelParam{
+	internal class Ms1LabelParamWpf : Ms1LabelParam{
 		[NonSerialized] private Ms1LabelPanel control;
-		public Ms1LabelParamWpf(string name, int[][] value) : base(name, value){}
+		internal Ms1LabelParamWpf(string name, int[][] value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

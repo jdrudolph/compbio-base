@@ -6,10 +6,10 @@ using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class MultiStringParamWpf : MultiStringParam{
+	internal class MultiStringParamWpf : MultiStringParam{
 		[NonSerialized] private TextBox control;
-		public MultiStringParamWpf(string name) : base(name){}
-		public MultiStringParamWpf(string name, string[] value) : base(name, value){}
+		internal MultiStringParamWpf(string name) : base(name){}
+		internal MultiStringParamWpf(string name, string[] value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

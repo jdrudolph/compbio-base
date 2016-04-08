@@ -4,10 +4,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class FolderParamWpf : FolderParam{
+	internal class FolderParamWpf : FolderParam{
 		[NonSerialized] private FolderParameterControl control;
-		public FolderParamWpf(string name) : base(name){}
-		public FolderParamWpf(string name, string value) : base(name, value){}
+		internal FolderParamWpf(string name) : base(name){}
+		internal FolderParamWpf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

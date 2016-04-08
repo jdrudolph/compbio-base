@@ -6,10 +6,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class BoolWithSubParamsWpf : BoolWithSubParams{
+	internal class BoolWithSubParamsWpf : BoolWithSubParams{
 		[NonSerialized] private Grid control;
-		public BoolWithSubParamsWpf(string name) : base(name){}
-		public BoolWithSubParamsWpf(string name, bool value) : base(name, value){}
+		internal BoolWithSubParamsWpf(string name) : base(name){}
+		internal BoolWithSubParamsWpf(string name, bool value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

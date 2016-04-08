@@ -4,10 +4,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class MultiFileParamWpf : MultiFileParam{
+	internal class MultiFileParamWpf : MultiFileParam{
 		[NonSerialized] private MultiFileParameterControl control;
-		public MultiFileParamWpf(string name) : base(name){}
-		public MultiFileParamWpf(string name, string[] value) : base(name, value){}
+		internal MultiFileParamWpf(string name) : base(name){}
+		internal MultiFileParamWpf(string name, string[] value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

@@ -4,9 +4,9 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class DoubleParamWpf : DoubleParam{
+	internal class DoubleParamWpf : DoubleParam{
 		[NonSerialized] private TextBox control;
-		public DoubleParamWpf(string name, double value) : base(name, value){}
+		internal DoubleParamWpf(string name, double value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

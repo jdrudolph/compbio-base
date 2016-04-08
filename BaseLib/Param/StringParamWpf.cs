@@ -4,10 +4,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class StringParamWpf : StringParam{
+	internal class StringParamWpf : StringParam{
 		[NonSerialized] private TextBox control;
-		public StringParamWpf(string name) : base(name){}
-		public StringParamWpf(string name, string value) : base(name, value){}
+		internal StringParamWpf(string name) : base(name){}
+		internal StringParamWpf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

@@ -4,10 +4,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	public class MultiChoiceParamWpf : MultiChoiceParam{
+	internal class MultiChoiceParamWpf : MultiChoiceParam{
 		[NonSerialized] private ListSelectorControl control;
-		public MultiChoiceParamWpf(string name) : base(name){}
-		public MultiChoiceParamWpf(string name, int[] value) : base(name, value){}
+		internal MultiChoiceParamWpf(string name) : base(name){}
+		internal MultiChoiceParamWpf(string name, int[] value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){

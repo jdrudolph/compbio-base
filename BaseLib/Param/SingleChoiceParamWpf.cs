@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
+	//TODO: should be internal
 	[Serializable]
 	public class SingleChoiceParamWpf : SingleChoiceParam{
 		[NonSerialized] private ComboBox control;
