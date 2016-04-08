@@ -23,8 +23,8 @@ namespace NumPluginBase.Kernel{
 			return result;
 		}
 
-		public static SingleChoiceWithSubParamsS GetKernelParameters(){
-			return new SingleChoiceWithSubParamsS("Kernel"){
+		public static SingleChoiceWithSubParams GetKernelParameters(){
+			return new SingleChoiceWithSubParams("Kernel"){
 				Values = GetAllNames(),
 				SubParams = GetAllParameters(),
 				Value = 0,

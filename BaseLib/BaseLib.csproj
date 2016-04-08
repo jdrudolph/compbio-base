@@ -169,19 +169,19 @@
     <Compile Include="Graphic\Svg.cs" />
     <Compile Include="Graphic\SvgGraphics.cs" />
     <Compile Include="Graphic\WindowsBasedGraphics.cs" />
-    <Compile Include="Param\BoolParam.cs" />
-    <Compile Include="Param\BoolWithSubParams.cs" />
-    <Compile Include="Param\DictionaryIntValueParam.cs" />
-    <Compile Include="Param\DoubleParam.cs" />
-    <Compile Include="Param\FileParam.cs" />
-    <Compile Include="Param\FolderParam.cs" />
-    <Compile Include="Param\IntParam.cs" />
-    <Compile Include="Param\LabelParam.cs" />
-    <Compile Include="Param\Ms1LabelParam.cs" />
-    <Compile Include="Param\MultiChoiceMultiBinParam.cs" />
-    <Compile Include="Param\MultiChoiceParam.cs" />
-    <Compile Include="Param\MultiFileParam.cs" />
-    <Compile Include="Param\MultiStringParam.cs" />
+    <Compile Include="Param\BoolParamWpf.cs" />
+    <Compile Include="Param\BoolWithSubParamsWpf.cs" />
+    <Compile Include="Param\DictionaryIntValueParamWpf.cs" />
+    <Compile Include="Param\DoubleParamWpf.cs" />
+    <Compile Include="Param\FileParamWpf.cs" />
+    <Compile Include="Param\FolderParamWpf.cs" />
+    <Compile Include="Param\IntParamWpf.cs" />
+    <Compile Include="Param\LabelParamWpf.cs" />
+    <Compile Include="Param\Ms1LabelParamWpf.cs" />
+    <Compile Include="Param\MultiChoiceMultiBinParamWpf.cs" />
+    <Compile Include="Param\MultiChoiceParamWpf.cs" />
+    <Compile Include="Param\MultiFileParamWpf.cs" />
+    <Compile Include="Param\MultiStringParamWpf.cs" />
     <Compile Include="Param\ParameterGroupPanel.cs" />
     <Compile Include="Param\ParameterGroupPanel.Designer.cs">
       <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
@@ -190,9 +190,9 @@
     <Compile Include="Param\ParameterWindow.xaml.cs">
       <DependentUpon>ParameterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Param\SingleChoiceParam.cs" />
-    <Compile Include="Param\SingleChoiceWithSubParams.cs" />
-    <Compile Include="Param\StringParam.cs" />
+    <Compile Include="Param\SingleChoiceParamWpf.cs" />
+    <Compile Include="Param\SingleChoiceWithSubParamsWpf.cs" />
+    <Compile Include="Param\StringParamWpf.cs" />
     <Compile Include="Param\WpfParameterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

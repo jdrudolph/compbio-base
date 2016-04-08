@@ -22,8 +22,8 @@ namespace NumPluginBase.Kernel{
 			get{
 				return
 					new Parameters(new Parameter[]{
-						new DoubleParamS("Gamma", Gamma){Help = "Coefficient in front of the scalar product."},
-						new DoubleParamS("Offset", Offset){Help = "Shift parameter."}
+						new DoubleParam("Gamma", Gamma){Help = "Coefficient in front of the scalar product."},
+						new DoubleParam("Offset", Offset){Help = "Shift parameter."}
 					});
 			}
 			set{

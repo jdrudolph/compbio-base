@@ -13,7 +13,7 @@ namespace BaseLib.Wpf{
 		internal void SetData(Dictionary<string, int> v, string[] keys, int d){
 			Parameter[] p = new Parameter[keys.Length];
 			for (int i = 0; i < p.Length; i++){
-				p[i] = new IntParam(keys[i], v.ContainsKey(keys[i]) ? v[keys[i]] : d);
+				p[i] = new IntParamWpf(keys[i], v.ContainsKey(keys[i]) ? v[keys[i]] : d);
 			}
 			ParameterPanel.Init(new Parameters(p));
 		}

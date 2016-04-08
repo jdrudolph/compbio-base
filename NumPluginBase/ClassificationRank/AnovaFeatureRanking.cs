@@ -56,7 +56,7 @@ namespace NumPluginBase.ClassificationRank{
 		}
 
 		public override Parameters GetParameters(IGroupDataProvider data){
-			return new Parameters(new Parameter[]{new DoubleParamS("s0", 0){Help = s0Help}});
+			return new Parameters(new Parameter[]{new DoubleParam("s0", 0){Help = s0Help}});
 		}
 
 		public override string Name => "ANOVA";

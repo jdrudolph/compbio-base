@@ -12,8 +12,8 @@ namespace NumPluginSvm{
 		public override Parameters GetParameters(IGroupDataProvider data){
 			return
 				new Parameters(new Parameter[]{
-					new DoubleParamS("C", 100){Help = SvmClassification.cHelp},
-					new DoubleParamS("Reduction factor", 1.414){
+					new DoubleParam("C", 100){Help = SvmClassification.cHelp},
+					new DoubleParam("Reduction factor", 1.414){
 						Help = "The feature set will be recursively reduced in size by this factor."
 					}
 				});
