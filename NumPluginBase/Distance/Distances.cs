@@ -5,15 +5,27 @@ using BaseLibS.Util;
 namespace NumPluginBase.Distance{
 	public static class Distances{
 		private static readonly IDistance[] allDistances = InitDistances();
-		private static IDistance[] InitDistances() { return FileUtils.GetPlugins<IDistance>(NumPluginUtils.pluginNames, true); }
-		public static SingleChoiceWithSubParams GetDistanceParameters() { return GetDistanceParameters(""); }
+
+		private static IDistance[] InitDistances(){
+			return FileUtils.GetPlugins<IDistance>(NumPluginUtils.pluginNames, true);
+		}
+
+		public static SingleChoiceWithSubParams GetDistanceParameters(){
+			return GetDistanceParameters("");
+		}
 
 		public static SingleChoiceWithSubParams GetDistanceParameters(string help){
+			return GetDistanceParameters(help, 666, 100);
+		}
+
+		public static SingleChoiceWithSubParams GetDistanceParameters(string help, int totalWidth, int paramNameWidth){
 			return new SingleChoiceWithSubParams("Distance"){
 				Values = GetAllNames(),
 				SubParams = GetAllParameters(),
 				Value = 0,
-				Help = help
+				Help = help,
+				TotalWidth = totalWidth,
+				ParamNameWidth = paramNameWidth
 			};
 		}
 
@@ -39,7 +51,7 @@ namespace NumPluginBase.Distance{
 		}
 
 		private static IDistance GetDistanceFunction(int index, Parameters param){
-			IDistance kf = ((IDistance) allDistances[index].Clone());
+			IDistance kf = (IDistance) allDistances[index].Clone();
 			kf.Parameters = param;
 			return kf;
 		}
