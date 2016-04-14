@@ -8,7 +8,6 @@ namespace NumPluginSvm.Svm{
 	/// size is the cache size limit in bytes
 	/// </summary>
 	internal class SvmCache{
-		private readonly int l;
 		private long size;
 
 		private class HeadT{
@@ -22,7 +21,7 @@ namespace NumPluginSvm.Svm{
 		private readonly HeadT lruHead;
 
 		internal SvmCache(int l1, long size1){
-			l = l1;
+			int l = l1;
 			size = size1;
 			head = new HeadT[l];
 			for (int i = 0; i < l; i++){
@@ -76,9 +75,9 @@ namespace NumPluginSvm.Svm{
 				h.data = newData;
 				size -= more;
 				do{
-					int _ = h.len;
+					int tmp = h.len;
 					h.len = len;
-					len = _;
+					len = tmp;
 				} while (false);
 			}
 			LruInsert(h);
@@ -97,14 +96,14 @@ namespace NumPluginSvm.Svm{
 				LruDelete(head[j]);
 			}
 			do{
-				float[] _ = head[i].data;
+				float[] tmp = head[i].data;
 				head[i].data = head[j].data;
-				head[j].data = _;
+				head[j].data = tmp;
 			} while (false);
 			do{
-				int _ = head[i].len;
+				int tmp = head[i].len;
 				head[i].len = head[j].len;
-				head[j].len = _;
+				head[j].len = tmp;
 			} while (false);
 			if (head[i].len > 0){
 				LruInsert(head[i]);
@@ -114,18 +113,18 @@ namespace NumPluginSvm.Svm{
 			}
 			if (i > j){
 				do{
-					int _ = i;
+					int tmp = i;
 					i = j;
-					j = _;
+					j = tmp;
 				} while (false);
 			}
 			for (HeadT h = lruHead.next; h != lruHead; h = h.next){
 				if (h.len > i){
 					if (h.len > j){
 						do{
-							float _ = h.data[i];
+							float tmp = h.data[i];
 							h.data[i] = h.data[j];
-							h.data[j] = _;
+							h.data[j] = tmp;
 						} while (false);
 					} else{
 						// give up

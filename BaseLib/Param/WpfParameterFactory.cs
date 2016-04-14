@@ -20,7 +20,9 @@ namespace BaseLib.Param{
 					Visible = q.Visible,
 					SubParamsFalse = q.SubParamsFalse,
 					SubParamsTrue = q.SubParamsTrue,
-					Default = q.Default
+					Default = q.Default,
+					ParamNameWidth = q.ParamNameWidth,
+					TotalWidth = q.TotalWidth
 				};
 			}
 			if (p is DictionaryIntValueParam){
@@ -53,6 +55,7 @@ namespace BaseLib.Param{
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,
+					Bins = q.Bins,
 					Default = q.Default
 				};
 			}
@@ -98,7 +101,9 @@ namespace BaseLib.Param{
 					Visible = q.Visible,
 					Values = q.Values,
 					Default = q.Default,
-					SubParams = new Parameters[q.SubParams.Count]
+					SubParams = new Parameters[q.SubParams.Count],
+					ParamNameWidth = q.ParamNameWidth,
+					TotalWidth = q.TotalWidth
 				};
 				for (int i = 0; i < q.SubParams.Count; i++){
 					s.SubParams[i] = q.SubParams[i];

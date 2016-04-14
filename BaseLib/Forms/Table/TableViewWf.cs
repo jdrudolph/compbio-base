@@ -69,8 +69,8 @@ namespace BaseLib.Forms.Table{
 		private int[] columnWidthSumsOld;
 		private ITableModel model;
 		private static Font defaultFont = new Font("Arial", 9);
-		private Font textFont = defaultFont;
-		private readonly Font headerFont = defaultFont;
+		private Font textFont;
+		private readonly Font headerFont;
 		private Brush textBrush = Brushes.Black;
 		private Color textColor = Color.Black;
 		private bool[] modelRowSel;
@@ -91,8 +91,6 @@ namespace BaseLib.Forms.Table{
 		private int colDragX = -1;
 		private int deltaDragX;
 		private bool hasShowInPerseus;
-		private readonly float dpiScaleX;
-		private readonly float dpiScaleY;
 		private FindForm findForm;
 		private int origColumnHeaderHeight = 40;
 		private const int maxColHeaderStringSplits = 3;
@@ -110,8 +108,7 @@ namespace BaseLib.Forms.Table{
 			InitContextMenu();
 			tagsControlToolStripMenuItem.Visible = false;
 			tagsToolStripMenuItem.Visible = false;
-			dpiScaleX = WpfUtils.GetDpiScaleX();
-			dpiScaleY = WpfUtils.GetDpiScaleY();
+			float dpiScaleX = WpfUtils.GetDpiScaleX();
 			defaultFont = new Font("Arial", 9/dpiScaleX);
 			textFont = defaultFont;
 			headerFont = defaultFont;
@@ -884,7 +881,7 @@ namespace BaseLib.Forms.Table{
 					}
 				}
 			}
-			Wpf.PasteSelectionWindow psw = new Wpf.PasteSelectionWindow(ncols, GetColumnNames());
+			PasteSelectionWindow psw = new PasteSelectionWindow(ncols, GetColumnNames());
 			psw.ShowDialog();
 			if (!psw.Ok){
 				return;
@@ -1558,7 +1555,7 @@ namespace BaseLib.Forms.Table{
 					}
 				}
 			} catch (Exception){}
-			currentRow = (y1)/rowHeight;
+			currentRow = y1/rowHeight;
 		}
 
 		protected internal override void OnMouseIsDownRowHeaderView(BasicMouseEventArgs e){

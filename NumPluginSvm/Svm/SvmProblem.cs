@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using BaseLibS.Api;
 using BaseLibS.Num.Vector;
 
 namespace NumPluginSvm.Svm{

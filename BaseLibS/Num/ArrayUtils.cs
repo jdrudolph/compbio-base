@@ -826,7 +826,7 @@ namespace BaseLibS.Num{
 			if (n < 2){
 				return double.NaN;
 			}
-			var /= (n - 1);
+			var /= n - 1;
 			return var;
 		}
 
@@ -841,7 +841,7 @@ namespace BaseLibS.Num{
 				double w = x[i] - mean;
 				var += w*w;
 			}
-			var /= (n - 1);
+			var /= n - 1;
 			return var;
 		}
 
@@ -1037,7 +1037,7 @@ namespace BaseLibS.Num{
 		}
 
 		/// <summary>
-		///     For the sake of simplicity do all sorting tasks always and ever with this method.
+		///     For the sake of simplicity do all sorting tasks always and ever with these method.
 		/// </summary>
 		/// <typeparam name="T">
 		///     The array type has to inherit IComparable in order to have a
@@ -1062,7 +1062,7 @@ namespace BaseLibS.Num{
 		}
 
 		/// <summary>
-		///     For the sake of simplicity do all sorting tasks always and ever with this method.
+		///     For the sake of simplicity do all sorting tasks always and ever with these method.
 		/// </summary>
 		/// <param name="x">The input data to be sorted.</param>
 		/// <returns>
@@ -1285,7 +1285,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[] RemoveAtIndex<T>(IList<T> x, int index){
-			var result = new T[x.Count - 1];
+			T[] result = new T[x.Count - 1];
 			for (int i = 0; i < index; i++){
 				result[i] = x[i];
 			}
@@ -1296,7 +1296,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[] Remove<T>(IList<T> x, IList<int> indices){
-			var result = new List<T>();
+			List<T> result = new List<T>();
 			for (int i = 0; i < x.Count; i++){
 				if (!indices.Contains(i)){
 					result.Add(x[i]);
@@ -1306,7 +1306,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static T[] Insert<T>(IList<T> x, T value, int index){
-			var result = new T[x.Count + 1];
+			T[] result = new T[x.Count + 1];
 			for (int i = 0; i < index; i++){
 				result[i] = x[i];
 			}
@@ -1718,7 +1718,7 @@ namespace BaseLibS.Num{
 				counters = new[]{1};
 				return array;
 			}
-			var sorted = (T[]) array.Clone();
+			T[] sorted = (T[]) array.Clone();
 			counters = new int[array.Length];
 			Array.Sort(sorted);
 			int counter = 1;

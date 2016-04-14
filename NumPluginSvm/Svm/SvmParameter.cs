@@ -17,7 +17,7 @@ namespace NumPluginSvm.Svm{
         public double nu = 0.5; // for NU_SVC, ONE_CLASS, and NU_SVR
         public double p = 0.1; // for EPSILON_SVR
         public bool shrinking = true; // use the shrinking heuristics
-        public bool probability = false; // do probability estimates
+        public bool probability; // do probability estimates
 
         public object Clone(){
             return new SvmParameter{
