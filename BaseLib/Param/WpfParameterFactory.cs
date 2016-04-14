@@ -27,7 +27,11 @@ namespace BaseLib.Param{
 			}
 			if (p is DictionaryIntValueParam){
 				DictionaryIntValueParam q = (DictionaryIntValueParam) p;
-				return new DictionaryIntValueParamWpf(q.Name, q.Value, q.Keys){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				return new DictionaryIntValueParamWpf(q.Name, q.Value, q.Keys){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default
+				};
 			}
 			if (p is DoubleParam){
 				DoubleParam q = (DoubleParam) p;
@@ -35,7 +39,14 @@ namespace BaseLib.Param{
 			}
 			if (p is FileParam){
 				FileParam q = (FileParam) p;
-				return new FileParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				return new FileParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Filter = q.Filter,
+					ProcessFileName = q.ProcessFileName,
+					Save = q.Save
+				};
 			}
 			if (p is FolderParam){
 				FolderParam q = (FolderParam) p;
