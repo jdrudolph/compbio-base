@@ -102,6 +102,9 @@ namespace BaseLibS.Table{
 
 		public void AddColumn(string colName, int width, ColumnType columnType, string description,
 			RenderTableCell renderer){
+			if (nameMapping.ContainsKey(colName)){
+				return;
+			}
 			nameMapping.Add(colName, columnNames.Count);
 			columnNames.Add(colName);
 			columnWidths.Add(width);
