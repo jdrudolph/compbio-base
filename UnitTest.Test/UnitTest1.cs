@@ -13,5 +13,11 @@ namespace UnitTest.Test
             var f = new FileParam("Just a test");
             Assert.IsNotNull(f);
         }
+        [TestMethod]
+        public void TestMethod2()
+        {
+            var f = new FileParam("Just a test");
+            Assert.IsNotNull(null);
+        }
     }
 }
