@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+using BaseLibS.Graph;
 using BaseLibS.Util;
 
 namespace BaseLib.Graphic{
@@ -45,6 +46,32 @@ namespace BaseLib.Graphic{
 				}
 			}
 			return sb + "...";
+		}
+
+		public static Bitmap2 ToBitmap2(Bitmap bitmap){
+			if (bitmap == null){
+				return null;
+			}
+			Bitmap2 result = new Bitmap2(bitmap.Width, bitmap.Height);
+			for (int i = 0; i < bitmap.Width; i++){
+				for (int j = 0; j < bitmap.Height; j++){
+					result.SetPixel(i, j, bitmap.GetPixel(i, j).ToArgb());
+				}
+			}
+			return result;
+		}
+
+		public static Bitmap ToBitmap(Bitmap2 bitmap){
+			if (bitmap == null){
+				return null;
+			}
+			Bitmap result = new Bitmap(bitmap.Width, bitmap.Height);
+			for (int i = 0; i < bitmap.Width; i++){
+				for (int j = 0; j < bitmap.Height; j++){
+					result.SetPixel(i, j, Color.FromArgb(bitmap.GetPixel(i, j)));
+				}
+			}
+			return result;
 		}
 	}
 }

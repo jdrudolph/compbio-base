@@ -4,7 +4,7 @@ using System.IO;
 namespace BaseLibS.Graph{
 	[Serializable]
 	public class Bitmap2{
-		private int[,] data;
+		private readonly int[,] data;
 
 		/// <summary>
 		/// Initializes a new instance of the <code>Bitmap2</code> class with the specified size.
@@ -29,6 +29,17 @@ namespace BaseLibS.Graph{
 		/// <param name="stream">The data stream used to load the image.</param>
 		public Bitmap2(Stream stream){
 			throw new NotImplementedException();
+		}
+
+		public int Width => data.GetLength(0);
+		public int Height => data.GetLength(1);
+
+		public void SetPixel(int i, int j, int argb){
+			data[i, j] = argb;
+		}
+
+		public int GetPixel(int i, int j){
+			return data[i, j];
 		}
 	}
 }
