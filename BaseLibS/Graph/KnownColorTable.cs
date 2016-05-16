@@ -2,9 +2,7 @@
 	internal static class KnownColorTable{
 		private static int[] colorTable;
 		private static string[] colorNameTable;
-		/**
-         * Shift count and bit mask for A, R, G, B components
-         */
+		// Shift count and bit mask for A, R, G, B components
 		private const int alphaShift = 24;
 		private const int redShift = 16;
 		private const int greenShift = 8;
@@ -29,7 +27,6 @@
 
 		private static void EnsureColorTable(){
 			// no need to lock... worse case is a double create of the table...
-			//
 			if (colorTable == null){
 				InitColorTable();
 			}
@@ -37,13 +34,7 @@
 
 		private static void InitColorTable(){
 			int[] values = new int[((int) KnownColor.MenuHighlight) + 1];
-
-			// system
-			// 
 			UpdateSystemColors(values);
-
-			// just consts...
-			//
 			values[(int) KnownColor.Transparent] = 0x00FFFFFF;
 			values[(int) KnownColor.AliceBlue] = unchecked((int) 0xFFF0F8FF);
 			values[(int) KnownColor.AntiqueWhite] = unchecked((int) 0xFFFAEBD7);
@@ -198,9 +189,6 @@
 
 		private static void InitColorNameTable(){
 			string[] values = new string[((int) KnownColor.MenuHighlight) + 1];
-
-			// just consts...
-			// 
 			values[(int) KnownColor.ActiveBorder] = "ActiveBorder";
 			values[(int) KnownColor.ActiveCaption] = "ActiveCaption";
 			values[(int) KnownColor.ActiveCaptionText] = "ActiveCaptionText";

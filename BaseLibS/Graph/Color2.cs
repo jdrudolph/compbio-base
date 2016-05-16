@@ -7,10 +7,7 @@ namespace BaseLibS.Graph{
 	[Serializable, DebuggerDisplay("{NameAndArgbValue}"),]
 	public struct Color2{
 		public static readonly Color2 empty = new Color2();
-
-		// -------------------------------------------------------------------
-		//  static list of "web" colors... 
-		//
+		// static list of known colors... 
 		public static Color2 Transparent => new Color2(KnownColor.Transparent);
 		public static Color2 AliceBlue => new Color2(KnownColor.AliceBlue);
 		public static Color2 AntiqueWhite => new Color2(KnownColor.AntiqueWhite);
@@ -153,10 +150,6 @@ namespace BaseLibS.Graph{
 		public static Color2 Yellow => new Color2(KnownColor.Yellow);
 		public static Color2 YellowGreen => new Color2(KnownColor.YellowGreen);
 
-		//
-		//  end "web" colors 
-		// -------------------------------------------------------------------
-
 		// NOTE : The "zero" pattern (all members being 0) must represent
 		//      : "not set". This allows "Color c;" to be correct. 
 		private const short stateKnownColorValid = 0x0001;
@@ -171,16 +164,12 @@ namespace BaseLibS.Graph{
 		private const int argbRedShift = 16;
 		private const int argbGreenShift = 8;
 		private const int argbBlueShift = 0;
+
 		///    WARNING!!! WARNING!!! WARNING!!! WARNING!!!
 		///    WARNING!!! WARNING!!! WARNING!!! WARNING!!!
 		///    We can never change the layout of this class (adding or removing or changing the 
 		///    order of member variables) if you want to be compatible v1.0 version of the runtime.
 		///    This is so that we can push into the runtime a custom marshaller for OLE_COLOR to Color. 
-
-		// user supplied name of color. Will not be filled in if
-		// we map to a "knowncolor" 
-		//
-		private readonly string name;
 
 		// will contain standard 32bit sRGB (ARGB) 
 		//
@@ -197,14 +186,12 @@ namespace BaseLibS.Graph{
 		internal Color2(KnownColor knownColor){
 			value = 0;
 			state = stateKnownColorValid;
-			name = null;
 			this.knownColor = (short) knownColor;
 		}
 
-		private Color2(long value, short state, string name, KnownColor knownColor){
+		private Color2(long value, short state, KnownColor knownColor){
 			this.value = value;
 			this.state = state;
-			this.name = name;
 			this.knownColor = (short) knownColor;
 		}
 
@@ -212,22 +199,26 @@ namespace BaseLibS.Graph{
 		///    Gets the red component value for this <see cref="Color2">. 
 		/// </see></devdoc> 
 		public byte R => (byte) ((Value >> argbRedShift) & 0xFF);
+
 		/// <devdoc> 
 		///    Gets the green component value for this <see cref="Color2">.
 		/// </see></devdoc> 
 		public byte G => (byte) ((Value >> argbGreenShift) & 0xFF);
+
 		/// <devdoc> 
 		///    <para>
 		///       Gets the blue component value for this <see cref="Color2">.
 		///    </see></para>
 		/// </devdoc> 
 		public byte B => (byte) ((Value >> argbBlueShift) & 0xFF);
+
 		/// <devdoc> 
 		///    <para>
 		///       Gets the alpha component value for this <see cref="Color2">. 
 		///    </see></para> 
 		/// </devdoc>
 		public byte A => (byte) ((Value >> argbAlphaShift) & 0xFF);
+
 		/// <devdoc>
 		///    <para> 
 		///       Specifies whether this <see cref="Color2"> is a known (predefined) color.
@@ -236,14 +227,17 @@ namespace BaseLibS.Graph{
 		///    </see></see></para> 
 		/// </devdoc>
 		public bool IsKnownColor => (state & stateKnownColorValid) != 0;
+
 		/// <devdoc> 
 		///    Specifies whether this <see cref="Color2"> is uninitialized.
 		/// </see></devdoc> 
 		public bool IsEmpty => state == 0;
+
 		/// <devdoc> 
 		///    Specifies whether this <see cref="Color2"> has a name or is a <see cref="KnownColor">. 
 		/// </see></see></devdoc>
 		public bool IsNamedColor => ((state & stateNameValid) != 0) || IsKnownColor;
+
 		/// <devdoc> 
 		///     Determines if this color is a system color.
 		/// </devdoc>
@@ -251,6 +245,7 @@ namespace BaseLibS.Graph{
 			=>
 				IsKnownColor &&
 				(((KnownColor) knownColor <= KnownColor.WindowText) || ((KnownColor) knownColor > KnownColor.YellowGreen));
+
 		private string NameAndArgbValue
 			=> string.Format(CultureInfo.CurrentCulture, "{{Name={0}, ARGB=({1}, {2}, {3}, {4})}}", Name, A, R, G, B);
 
@@ -265,7 +260,7 @@ namespace BaseLibS.Graph{
 		public string Name{
 			get{
 				if ((state & stateNameValid) != 0){
-					return name;
+					return null;
 				}
 				if (IsKnownColor){
 					// first try the table so we can avoid the (slow!) .ToString() 
@@ -310,26 +305,21 @@ namespace BaseLibS.Graph{
 				0xffffffff;
 		}
 
-		/// <devdoc>
-		///    <para> 
-		///       Creates a Color from its 32-bit component 
-		///       (alpha, red, green, and blue) values.
-		///    </para> 
-		/// </devdoc>
-		[System.Runtime.TargetedPatchingOptOutAttribute("Performance critical to inline across NGen image boundaries")]
+		/// <summary>
+		/// Creates a Color from its 32-bit component (alpha, red, green, and blue) values.
+		/// </summary>
 		public static Color2 FromArgb(int argb){
-			return new Color2(argb & 0xffffffff, stateArgbValueValid, null, 0);
+			return new Color2(argb & 0xffffffff, stateArgbValueValid, 0);
 		}
 
 		/// <devdoc>
 		///    <para> 
-		///       Creates a Color from its 32-bit component (alpha, red,
-		///       green, and blue) values.
+		///       Creates a Color from its 32-bit component (alpha, red, green, and blue) values.
 		///    </para>
 		/// </devdoc> 
 		public static Color2 FromArgb(int alpha, int red, int green, int blue){
 			return new Color2(MakeArgb(CheckByte(alpha), CheckByte(red), CheckByte(green), CheckByte(blue)), stateArgbValueValid,
-				null, 0);
+				0);
 		}
 
 		/// <devdoc>
@@ -339,7 +329,7 @@ namespace BaseLibS.Graph{
 		///    </see></see></para> 
 		/// </devdoc>
 		public static Color2 FromArgb(int alpha, Color2 baseColor){
-			return new Color2(MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, null, 0);
+			return new Color2(MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, 0);
 		}
 
 		/// <devdoc>
@@ -458,7 +448,6 @@ namespace BaseLibS.Graph{
 			if (b < min){
 				min = b;
 			}
-
 			// if max == min, then there is no color and 
 			// the saturation is zero.
 			//
@@ -482,10 +471,6 @@ namespace BaseLibS.Graph{
 			return (int) Value;
 		}
 
-		/// <devdoc>
-		///    Converts this <see cref="Color2"> to a human-readable
-		///    string. 
-		/// </see></devdoc>
 		public override string ToString(){
 			StringBuilder sb = new StringBuilder(32);
 			sb.Append(GetType().Name);
@@ -510,60 +495,24 @@ namespace BaseLibS.Graph{
 			return sb.ToString();
 		}
 
-		/// <devdoc>
-		///    <para>
-		///       Tests whether two specified <see cref="Color2"> objects 
-		///       are equivalent.
-		///    </see></para> 
-		/// </devdoc> 
 		public static bool operator ==(Color2 left, Color2 right){
-			if (left.value == right.value && left.state == right.state && left.knownColor == right.knownColor){
-				if (left.name == right.name){
-					return true;
-				}
-				if (left.name == null || right.name == null){
-					return false;
-				}
-				return left.name.Equals(right.name);
-			}
-			return false;
+			return left.value == right.value && left.state == right.state && left.knownColor == right.knownColor;
 		}
 
-		/// <devdoc>
-		///    <para>
-		///       Tests whether two specified <see cref="Color2"> objects
-		///       are equivalent. 
-		///    </see></para>
-		/// </devdoc> 
-		[System.Runtime.TargetedPatchingOptOutAttribute("Performance critical to inline across NGen image boundaries")]
 		public static bool operator !=(Color2 left, Color2 right){
 			return !(left == right);
 		}
 
-		/// <devdoc> 
-		///    Tests whether the specified object is a
-		/// <see cref="Color2"> 
-		/// and is equivalent to this <see cref="Color2">. 
-		/// </see></see></devdoc>
 		public override bool Equals(object obj){
 			if (obj is Color2){
 				Color2 right = (Color2) obj;
 				if (value == right.value && state == right.state && knownColor == right.knownColor){
-					if (name == right.name){
-						return true;
-					}
-					if (name == null || right.name == null){
-						return false;
-					}
-					return name.Equals(name);
+					return true;
 				}
 			}
 			return false;
 		}
 
-		/// <devdoc> 
-		///    <para>[To be supplied.]</para>
-		/// </devdoc> 
 		public override int GetHashCode(){
 			return value.GetHashCode() ^ state.GetHashCode() ^ knownColor.GetHashCode();
 		}
