@@ -9,13 +9,17 @@ namespace BaseLib.Param{
 			}
 			if (p is BoolParam){
 				BoolParam q = (BoolParam) p;
-				return new BoolParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				BoolParamWpf b = new BoolParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is BoolWithSubParams){
 				BoolWithSubParams q = (BoolWithSubParams) p;
 				q.SubParamsFalse?.Convert(Convert);
 				q.SubParamsTrue?.Convert(Convert);
-				return new BoolWithSubParamsWpf(q.Name, q.Value){
+				BoolWithSubParamsWpf b = new BoolWithSubParamsWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					SubParamsFalse = q.SubParamsFalse,
@@ -24,22 +28,34 @@ namespace BaseLib.Param{
 					ParamNameWidth = q.ParamNameWidth,
 					TotalWidth = q.TotalWidth
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is DictionaryIntValueParam){
 				DictionaryIntValueParam q = (DictionaryIntValueParam) p;
-				return new DictionaryIntValueParamWpf(q.Name, q.Value, q.Keys){
+				DictionaryIntValueParamWpf b = new DictionaryIntValueParamWpf(q.Name, q.Value, q.Keys){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is DoubleParam){
 				DoubleParam q = (DoubleParam) p;
-				return new DoubleParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				DoubleParamWpf b = new DoubleParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is FileParam){
 				FileParam q = (FileParam) p;
-				return new FileParamWpf(q.Name, q.Value){
+				FileParamWpf b = new FileParamWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -47,67 +63,107 @@ namespace BaseLib.Param{
 					ProcessFileName = q.ProcessFileName,
 					Save = q.Save
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is FolderParam){
 				FolderParam q = (FolderParam) p;
-				return new FolderParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				FolderParamWpf b = new FolderParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is IntParam){
 				IntParam q = (IntParam) p;
-				return new IntParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				IntParamWpf b = new IntParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is LabelParam){
 				LabelParam q = (LabelParam) p;
-				return new LabelParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				LabelParamWpf b = new LabelParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is MultiChoiceMultiBinParam){
 				MultiChoiceMultiBinParam q = (MultiChoiceMultiBinParam) p;
-				return new MultiChoiceMultiBinParamWpf(q.Name, q.Value){
+				MultiChoiceMultiBinParamWpf b = new MultiChoiceMultiBinParamWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,
 					Bins = q.Bins,
 					Default = q.Default
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is MultiChoiceParam){
 				MultiChoiceParam q = (MultiChoiceParam) p;
-				return new MultiChoiceParamWpf(q.Name, q.Value){
+				MultiChoiceParamWpf b = new MultiChoiceParamWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Repeats = q.Repeats,
 					Values = q.Values,
 					Default = q.Default
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is MultiFileParam){
 				MultiFileParam q = (MultiFileParam) p;
-				return new MultiFileParamWpf(q.Name, q.Value){
+				MultiFileParamWpf b = new MultiFileParamWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Filter = q.Filter,
 					Default = q.Default
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is MultiStringParam){
 				MultiStringParam q = (MultiStringParam) p;
-				return new MultiStringParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				MultiStringParamWpf b = new MultiStringParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default
+				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is SingleChoiceParam){
 				SingleChoiceParam q = (SingleChoiceParam) p;
-				return new SingleChoiceParamWpf(q.Name, q.Value){
+				SingleChoiceParamWpf b = new SingleChoiceParamWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,
 					Default = q.Default
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is SingleChoiceWithSubParams){
 				SingleChoiceWithSubParams q = (SingleChoiceWithSubParams) p;
 				foreach (var param in q.SubParams){
 					param?.Convert(Convert);
 				}
-				SingleChoiceWithSubParamsWpf s = new SingleChoiceWithSubParamsWpf(q.Name, q.Value){
+				SingleChoiceWithSubParamsWpf b = new SingleChoiceWithSubParamsWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,
@@ -117,23 +173,34 @@ namespace BaseLib.Param{
 					TotalWidth = q.TotalWidth
 				};
 				for (int i = 0; i < q.SubParams.Count; i++){
-					s.SubParams[i] = q.SubParams[i];
+					b.SubParams[i] = q.SubParams[i];
 				}
-				return s;
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is StringParam){
 				StringParam q = (StringParam) p;
-				return new StringParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				StringParamWpf b = new StringParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			if (p is Ms1LabelParam){
 				Ms1LabelParam q = (Ms1LabelParam) p;
-				return new Ms1LabelParamWpf(q.Name, q.Value){
+				Ms1LabelParamWpf b = new Ms1LabelParamWpf(q.Name, q.Value){
 					Values = q.Values,
 					Multiplicity = q.Multiplicity,
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default
 				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
 			}
 			throw new Exception("Could not convert parameter");
 		}

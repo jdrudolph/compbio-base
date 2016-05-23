@@ -50,7 +50,7 @@ namespace BaseLibS.Num{
 		}
 
 		/// <summary>
-		/// Returns a random number uniformly distributed between -x and x;
+		/// Returns a random number uniformly distributed between min and max;
 		/// </summary>
 		/// <returns></returns>
 		public double NextRange(double min, double max){

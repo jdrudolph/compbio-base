@@ -149,38 +149,32 @@ namespace BaseLibS.Graph{
 		public static Color2 WhiteSmoke => new Color2(KnownColor.WhiteSmoke);
 		public static Color2 Yellow => new Color2(KnownColor.Yellow);
 		public static Color2 YellowGreen => new Color2(KnownColor.YellowGreen);
-
 		// NOTE : The "zero" pattern (all members being 0) must represent
 		//      : "not set". This allows "Color c;" to be correct. 
 		private const short stateKnownColorValid = 0x0001;
 		private const short stateArgbValueValid = 0x0002;
 		private const short stateValueMask = stateArgbValueValid;
 		private const short stateNameValid = 0x0008;
-		private const long notDefinedValue = 0;
-		/**
-         * Shift count and bit mask for A, R, G, B components in ARGB mode! 
-         */
+		private const int notDefinedValue = 0;
+        // Shift count and bit mask for A, R, G, B components in ARGB mode! 
 		private const int argbAlphaShift = 24;
 		private const int argbRedShift = 16;
 		private const int argbGreenShift = 8;
 		private const int argbBlueShift = 0;
 
-		///    WARNING!!! WARNING!!! WARNING!!! WARNING!!!
-		///    WARNING!!! WARNING!!! WARNING!!! WARNING!!!
-		///    We can never change the layout of this class (adding or removing or changing the 
-		///    order of member variables) if you want to be compatible v1.0 version of the runtime.
-		///    This is so that we can push into the runtime a custom marshaller for OLE_COLOR to Color. 
+		/// <summary>
+		/// will contain standard 32bit sRGB (ARGB) 
+		/// </summary>
+		private readonly int value;
 
-		// will contain standard 32bit sRGB (ARGB) 
-		//
-		private readonly long value;
-
-		// ignored, unless "state" says it is valid
-		// 
+		/// <summary>
+		/// ignored, unless "state" says it is valid 
+		/// </summary>
 		private readonly short knownColor;
 
-		// implementation specific information
-		// 
+		/// <summary>
+		/// implementation specific information 
+		/// </summary>
 		private readonly short state;
 
 		internal Color2(KnownColor knownColor){
@@ -189,53 +183,46 @@ namespace BaseLibS.Graph{
 			this.knownColor = (short) knownColor;
 		}
 
-		private Color2(long value, short state, KnownColor knownColor){
+		private Color2(int value, short state, KnownColor knownColor){
 			this.value = value;
 			this.state = state;
 			this.knownColor = (short) knownColor;
 		}
 
-		/// <devdoc>
-		///    Gets the red component value for this <see cref="Color2">. 
-		/// </see></devdoc> 
+		/// <summary>
+		/// Gets the red component value for this <code>Color2</code>.
+		/// </summary>
 		public byte R => (byte) ((Value >> argbRedShift) & 0xFF);
 
-		/// <devdoc> 
-		///    Gets the green component value for this <see cref="Color2">.
-		/// </see></devdoc> 
+		/// <summary>
+		/// Gets the green component value for this <code>Color2</code>.
+		/// </summary>
 		public byte G => (byte) ((Value >> argbGreenShift) & 0xFF);
 
-		/// <devdoc> 
-		///    <para>
-		///       Gets the blue component value for this <see cref="Color2">.
-		///    </see></para>
-		/// </devdoc> 
+		/// <summary>
+		/// Gets the blue component value for this <code>Color2</code>.
+		/// </summary>
 		public byte B => (byte) ((Value >> argbBlueShift) & 0xFF);
 
-		/// <devdoc> 
-		///    <para>
-		///       Gets the alpha component value for this <see cref="Color2">. 
-		///    </see></para> 
-		/// </devdoc>
+		/// <summary>
+		/// Gets the alpha component value for this <code>Color2</code>.
+		/// </summary>
 		public byte A => (byte) ((Value >> argbAlphaShift) & 0xFF);
 
-		/// <devdoc>
-		///    <para> 
-		///       Specifies whether this <see cref="Color2"> is a known (predefined) color.
-		///       Predefined colors are defined in the <see cref="KnownColor">
-		///       enum.
-		///    </see></see></para> 
-		/// </devdoc>
+		/// <summary>
+		/// Specifies whether this <code>Color2</code> is a known (predefined) color.
+		/// Predefined colors are defined in the <code>KnownColor</code> enum.
+		/// </summary>
 		public bool IsKnownColor => (state & stateKnownColorValid) != 0;
 
 		/// <devdoc> 
-		///    Specifies whether this <see cref="Color2"> is uninitialized.
-		/// </see></devdoc> 
+		///    Specifies whether this <code>Color2</code> is uninitialized.
+		/// </devdoc> 
 		public bool IsEmpty => state == 0;
 
 		/// <devdoc> 
-		///    Specifies whether this <see cref="Color2"> has a name or is a <see cref="KnownColor">. 
-		/// </see></see></devdoc>
+		///    Specifies whether this <code>Color2</code> has a name or is a <see cref="KnownColor">. 
+		/// </see></devdoc>
 		public bool IsNamedColor => ((state & stateNameValid) != 0) || IsKnownColor;
 
 		/// <devdoc> 
@@ -251,11 +238,11 @@ namespace BaseLibS.Graph{
 
 		/// <devdoc>
 		///    <para> 
-		///       Gets the name of this <see cref="Color2"> . This will either return the user
+		///       Gets the name of this <code>Color2</code> . This will either return the user
 		///       defined name of the color, if the color was created from a name, or 
 		///       the name of the known color. For custom colors, the RGB value will 
 		///       be returned.
-		///    </see></para> 
+		///    </para> 
 		/// </devdoc>
 		public string Name{
 			get{
@@ -280,7 +267,7 @@ namespace BaseLibS.Graph{
 		/// <devdoc>
 		///     Actual color to be rendered. 
 		/// </devdoc>
-		private long Value{
+		private int Value{
 			get{
 				if ((state & stateValueMask) != 0){
 					return value;
@@ -309,7 +296,7 @@ namespace BaseLibS.Graph{
 		/// Creates a Color from its 32-bit component (alpha, red, green, and blue) values.
 		/// </summary>
 		public static Color2 FromArgb(int argb){
-			return new Color2(argb & 0xffffffff, stateArgbValueValid, 0);
+			return new Color2(argb, stateArgbValueValid, 0);
 		}
 
 		/// <devdoc>
@@ -318,25 +305,25 @@ namespace BaseLibS.Graph{
 		///    </para>
 		/// </devdoc> 
 		public static Color2 FromArgb(int alpha, int red, int green, int blue){
-			return new Color2(MakeArgb(CheckByte(alpha), CheckByte(red), CheckByte(green), CheckByte(blue)), stateArgbValueValid,
+			return new Color2((int)MakeArgb(CheckByte(alpha), CheckByte(red), CheckByte(green), CheckByte(blue)), stateArgbValueValid,
 				0);
 		}
 
 		/// <devdoc>
 		///    <para> 
-		///       Creates a new <see cref="Color2"> from the specified <see cref="Color2">, but with 
+		///       Creates a new <code>Color2</code> from the specified <code>Color2</code>, but with 
 		///       the new specified alpha value.
-		///    </see></see></para> 
+		///    </para> 
 		/// </devdoc>
 		public static Color2 FromArgb(int alpha, Color2 baseColor){
-			return new Color2(MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, 0);
+			return new Color2((int)MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, 0);
 		}
 
 		/// <devdoc>
 		///    <para> 
-		///       Creates a <see cref="Color2"> from the specified red, green, and
+		///       Creates a <code>Color2</code> from the specified red, green, and
 		///       blue values.
-		///    </see></para>
+		///    </para>
 		/// </devdoc> 
 		public static Color2 FromArgb(int red, int green, int blue){
 			return FromArgb(255, red, green, blue);
@@ -344,8 +331,8 @@ namespace BaseLibS.Graph{
 
 		/// <devdoc>
 		///    <para>
-		///       Creates a <see cref="Color2"> from the specified <see cref="KnownColor"> . 
-		///    </see></see></para>
+		///       Creates a <code>Color2</code> from the specified <see cref="KnownColor"> . 
+		///    </see></para>
 		/// </devdoc> 
 		internal static Color2 FromKnownColor(KnownColor color){
 			return new Color2(color);
@@ -354,8 +341,8 @@ namespace BaseLibS.Graph{
 		/// <devdoc>
 		///    <para> 
 		///       Returns the Hue-Saturation-Brightness (HSB) brightness
-		///       for this <see cref="Color2"> . 
-		///    </see></para> 
+		///       for this <code>Color2</code>. 
+		///    </para> 
 		/// </devdoc>
 		public float GetBrightness(){
 			float r = R/255.0f;
@@ -381,9 +368,9 @@ namespace BaseLibS.Graph{
 		/// <devdoc>
 		///    <para>
 		///       Returns the Hue-Saturation-Brightness (HSB) hue 
-		///       value, in degrees, for this <see cref="Color2"> .
+		///       value, in degrees, for this <code>Color2</code>.
 		///       If R == G == B, the hue is meaningless, and the return value is 0. 
-		///    </see></para> 
+		///    </para> 
 		/// </devdoc>
 		public float GetHue(){
 			if (R == G && G == B){
@@ -425,9 +412,8 @@ namespace BaseLibS.Graph{
 		/// <devdoc> 
 		///    <para>
 		///       The Hue-Saturation-Brightness (HSB) saturation for this 
-		///    <see cref="Color2"> 
-		///    .
-		/// </see></para> 
+		///    <code>Color2</code>.
+		/// </para> 
 		/// </devdoc>
 		public float GetSaturation(){
 			float r = R/255.0f;
@@ -464,11 +450,12 @@ namespace BaseLibS.Graph{
 
 		/// <devdoc>
 		///    <para> 
-		///       Returns the ARGB value of this <see cref="Color2"> .
-		///    </see></para>
+		///       Returns the ARGB value of this <code>Color2</code>.
+		///    </para>
 		/// </devdoc>
+		/// 
 		public int ToArgb(){
-			return (int) Value;
+			return Value;
 		}
 
 		public override string ToString(){

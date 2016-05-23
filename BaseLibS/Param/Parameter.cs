@@ -1,10 +1,11 @@
 using System;
+using System.Linq;
 
 namespace BaseLibS.Param{
 	public delegate void ValueChangedHandler();
 
 	[Serializable]
-	public abstract class Parameter {
+	public abstract class Parameter{
 		public const int paramHeight = 23;
 
 		[field: NonSerialized]
@@ -42,6 +43,13 @@ namespace BaseLibS.Param{
 
 		protected void ValueHasChanged(){
 			ValueChanged?.Invoke();
+		}
+
+		public ValueChangedHandler[] GetPropertyChangedHandlers(){
+			if (ValueChanged == null){
+				return new ValueChangedHandler[0];
+			}
+			return ValueChanged.GetInvocationList().OfType<ValueChangedHandler>().ToArray();
 		}
 	}
 

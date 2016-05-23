@@ -162,8 +162,9 @@ namespace BaseLibS.Num{
 		}
 
 		public static void Mrqmin(double[] x, double[] y, double[] sig, int ndata, double[] a, double[] amin, double[] amax,
-			double[,] covar, double[,] alpha, out double chisq, Func<double, double[], double[], int, double> func, ref double alamda, ref double ochisq,
-			ref double[,] oneda, ref int mfit, ref double[] atry, ref double[] beta, ref double[] da, int nthreads){
+			double[,] covar, double[,] alpha, out double chisq, Func<double, double[], double[], int, double> func,
+			ref double alamda, ref double ochisq, ref double[,] oneda, ref int mfit, ref double[] atry, ref double[] beta,
+			ref double[] da, int nthreads){
 			if (amin == null){
 				amin = new double[a.Length];
 				for (int i = 0; i < amin.Length; i++){
