@@ -160,7 +160,7 @@ namespace BaseLib.Param{
 			}
 			if (p is SingleChoiceWithSubParams){
 				SingleChoiceWithSubParams q = (SingleChoiceWithSubParams) p;
-				foreach (var param in q.SubParams){
+				foreach (Parameters param in q.SubParams){
 					param?.Convert(Convert);
 				}
 				SingleChoiceWithSubParamsWpf b = new SingleChoiceWithSubParamsWpf(q.Name, q.Value){
