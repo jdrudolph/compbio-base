@@ -6,10 +6,10 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class SingleChoiceWithSubParamsWpf : SingleChoiceWithSubParams{
+	public class SingleChoiceWithSubParamsWpf : SingleChoiceWithSubParams{
 		[NonSerialized] private Grid control;
-		internal SingleChoiceWithSubParamsWpf(string name) : base(name){}
-		internal SingleChoiceWithSubParamsWpf(string name, int value) : base(name, value){}
+		public SingleChoiceWithSubParamsWpf(string name) : base(name){}
+		public SingleChoiceWithSubParamsWpf(string name, int value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
