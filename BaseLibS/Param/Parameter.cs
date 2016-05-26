@@ -13,12 +13,14 @@ namespace BaseLibS.Param{
 
 		public string Name { get; }
 		public string Help { get; set; }
+		public string Url { get; set; }
 		public bool Visible { get; set; }
 		public virtual ParamType Type => ParamType.Wpf;
 
 		internal Parameter(string name){
 			Name = name;
 			Help = "";
+			Url = "";
 			Visible = true;
 		}
 
