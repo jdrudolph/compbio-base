@@ -9,7 +9,7 @@ namespace BaseLib.Param{
 			}
 			if (p is BoolParam){
 				BoolParam q = (BoolParam) p;
-				BoolParamWpf b = new BoolParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				BoolParamWpf b = new BoolParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -26,7 +26,8 @@ namespace BaseLib.Param{
 					SubParamsTrue = q.SubParamsTrue,
 					Default = q.Default,
 					ParamNameWidth = q.ParamNameWidth,
-					TotalWidth = q.TotalWidth
+					TotalWidth = q.TotalWidth,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -38,7 +39,8 @@ namespace BaseLib.Param{
 				DictionaryIntValueParamWpf b = new DictionaryIntValueParamWpf(q.Name, q.Value, q.Keys){
 					Help = q.Help,
 					Visible = q.Visible,
-					Default = q.Default
+					Default = q.Default,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -47,7 +49,7 @@ namespace BaseLib.Param{
 			}
 			if (p is DoubleParam){
 				DoubleParam q = (DoubleParam) p;
-				DoubleParamWpf b = new DoubleParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				DoubleParamWpf b = new DoubleParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -61,7 +63,8 @@ namespace BaseLib.Param{
 					Default = q.Default,
 					Filter = q.Filter,
 					ProcessFileName = q.ProcessFileName,
-					Save = q.Save
+					Save = q.Save,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -70,7 +73,7 @@ namespace BaseLib.Param{
 			}
 			if (p is FolderParam){
 				FolderParam q = (FolderParam) p;
-				FolderParamWpf b = new FolderParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				FolderParamWpf b = new FolderParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -78,7 +81,7 @@ namespace BaseLib.Param{
 			}
 			if (p is IntParam){
 				IntParam q = (IntParam) p;
-				IntParamWpf b = new IntParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				IntParamWpf b = new IntParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -86,7 +89,7 @@ namespace BaseLib.Param{
 			}
 			if (p is LabelParam){
 				LabelParam q = (LabelParam) p;
-				LabelParamWpf b = new LabelParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				LabelParamWpf b = new LabelParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -99,7 +102,8 @@ namespace BaseLib.Param{
 					Visible = q.Visible,
 					Values = q.Values,
 					Bins = q.Bins,
-					Default = q.Default
+					Default = q.Default,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -115,7 +119,8 @@ namespace BaseLib.Param{
 					Values = q.Values,
 					Default = q.Default,
 					DefaultSelections = q.DefaultSelections,
-					DefaultSelectionNames = q.DefaultSelectionNames
+					DefaultSelectionNames = q.DefaultSelectionNames,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -128,7 +133,8 @@ namespace BaseLib.Param{
 					Help = q.Help,
 					Visible = q.Visible,
 					Filter = q.Filter,
-					Default = q.Default
+					Default = q.Default,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -140,7 +146,8 @@ namespace BaseLib.Param{
 				MultiStringParamWpf b = new MultiStringParamWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
-					Default = q.Default
+					Default = q.Default,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -153,7 +160,8 @@ namespace BaseLib.Param{
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,
-					Default = q.Default
+					Default = q.Default,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
@@ -172,7 +180,8 @@ namespace BaseLib.Param{
 					Default = q.Default,
 					SubParams = new Parameters[q.SubParams.Count],
 					ParamNameWidth = q.ParamNameWidth,
-					TotalWidth = q.TotalWidth
+					TotalWidth = q.TotalWidth,
+					Url = q.Url
 				};
 				for (int i = 0; i < q.SubParams.Count; i++){
 					b.SubParams[i] = q.SubParams[i];
@@ -184,7 +193,7 @@ namespace BaseLib.Param{
 			}
 			if (p is StringParam){
 				StringParam q = (StringParam) p;
-				StringParamWpf b = new StringParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default};
+				StringParamWpf b = new StringParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -197,7 +206,8 @@ namespace BaseLib.Param{
 					Multiplicity = q.Multiplicity,
 					Help = q.Help,
 					Visible = q.Visible,
-					Default = q.Default
+					Default = q.Default,
+					Url = q.Url
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
