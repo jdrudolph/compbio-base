@@ -10,6 +10,7 @@ namespace BaseLibS.Mol{
 		public bool IsNterminal { get; set; }
 		public bool IsCterminal { get; set; }
 		public bool IsIsotopicLabel { get; set; }
+		public bool IsIsotopicMod { get; set; }
 		public bool HasNeutralLoss { get; set; }
 		public ushort Index { get; set; }
 		public string Name { get; set; }
@@ -35,6 +36,7 @@ namespace BaseLibS.Mol{
 				IsNterminal = false;
 				IsCterminal = false;
 				IsIsotopicLabel = true;
+				IsIsotopicMod = true;
 				HasNeutralLoss = false;
 				ModificationType = ModificationType.Label;
 				aas = new[]{modName[5]};
@@ -52,6 +54,7 @@ namespace BaseLibS.Mol{
 			IsNterminal = m.IsNterminal;
 			IsCterminal = m.IsCterminal;
 			IsIsotopicLabel = m.IsIsotopicLabel;
+			IsIsotopicMod = m.IsIsotopicMod;
 			ModificationType = m.ModificationType;
 			HasNeutralLoss = m.HasNeutralLoss;
 			aas = new char[m.AaCount];

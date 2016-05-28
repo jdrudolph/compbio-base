@@ -204,6 +204,12 @@ namespace BaseLibS.Mol{
 				if (ModificationType == ModificationType.IsobaricLabel || IsStandardVarMod(ModificationType)){
 					return false;
 				}
+				return IsIsotopicMod;
+			}
+		}
+
+		public bool IsIsotopicMod{
+			get{
 				Tuple<Molecule, Molecule> x = Molecule.GetDifferences(new Molecule(), new Molecule(GetFormula()));
 				Molecule labelingDiff1 = x.Item1;
 				Molecule labelingDiff2 = x.Item2;
@@ -218,10 +224,7 @@ namespace BaseLibS.Mol{
 		}
 
 		public static bool IsStandardVarMod(ushort m){
-			if (m >= Tables.ModificationList.Length){
-				return false;
-			}
-			return IsStandardVarMod(Tables.ModificationList[m].ModificationType);
+			return m < Tables.ModificationList.Length && IsStandardVarMod(Tables.ModificationList[m].ModificationType);
 		}
 
 		public static bool IsStandardVarMod(ModificationType type){
