@@ -13,9 +13,7 @@ namespace BaseLib.Query {
 			NumUpDown.Focus();
 		}
 
-		public int Value {
-			get { return (int)NumUpDown.Value; }
-		}
+		public int Value => (int)NumUpDown.Value;
 
 		private void CancelButtonClick(object sender, System.EventArgs e) {
 			DialogResult = false;

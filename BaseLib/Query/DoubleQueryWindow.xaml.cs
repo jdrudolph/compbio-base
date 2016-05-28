@@ -13,7 +13,7 @@ namespace BaseLib.Query{
 			TextBox.Focus();
 		}
 
-		public double Value { get { return double.Parse(TextBox.Text); } }
+		public double Value => double.Parse(TextBox.Text);
 
 		private void CancelButton_OnClick(object sender, RoutedEventArgs e){
 			DialogResult = false;

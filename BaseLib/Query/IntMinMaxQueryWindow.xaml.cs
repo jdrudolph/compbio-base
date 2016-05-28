@@ -16,8 +16,8 @@ namespace BaseLib.Query{
 			NumUpDown1.Focus();
 		}
 
-		public int Value1 { get { return (int) NumUpDown1.Value; } }
-		public int Value2 { get { return (int) NumUpDown2.Value; } }
+		public int Value1 => (int) NumUpDown1.Value;
+		public int Value2 => (int) NumUpDown2.Value;
 
 		private void CancelButtonClick(object sender, System.EventArgs e){
 			DialogResult = false;

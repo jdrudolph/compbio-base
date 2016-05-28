@@ -16,7 +16,7 @@ namespace BaseLib.Query {
 			ComboBox.Focus();
 		}
 
-		public string SelectedText { get { return ComboBox.Text; } }
+		public string SelectedText => ComboBox.Text;
 		public string Label { set { Label1.Text = value; } }
 
 		private void CancelButton_OnClick(object sender, RoutedEventArgs e){

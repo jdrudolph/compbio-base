@@ -28,7 +28,7 @@ namespace BaseLib.Param{
 			}
 			control.Repeats = Repeats;
 			control.SelectedIndices = Value;
-			control.SetDefaultSelectors(defaultSelectionNames, defaultSelections);
+			control.SetDefaultSelectors(DefaultSelectionNames, DefaultSelections);
 			return control;
 		}
 	}

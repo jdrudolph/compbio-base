@@ -8,8 +8,8 @@ namespace BaseLibS.Param{
 	public class MultiChoiceParam : Parameter<int[]>{
 		public bool Repeats { get; set; }
 		public IList<string> Values { get; set; }
-		protected readonly List<string> defaultSelectionNames = new List<string>();
-		protected readonly List<string[]> defaultSelections = new List<string[]>();
+		public List<string> DefaultSelectionNames { get; set; }
+		public List<string[]> DefaultSelections { get; set; }
 		public MultiChoiceParam(string name) : this(name, new int[0]){}
 
 		public MultiChoiceParam(string name, int[] value) : base(name){
@@ -20,6 +20,8 @@ namespace BaseLibS.Param{
 			}
 			Values = new string[0];
 			Repeats = false;
+			DefaultSelectionNames = new List<string>();
+			DefaultSelections = new List<string[]>();
 		}
 
 		public override string StringValue{
@@ -70,8 +72,8 @@ namespace BaseLibS.Param{
 		}
 
 		public void AddDefaultSelector(string title, string[] sel){
-			defaultSelectionNames.Add(title);
-			defaultSelections.Add(sel);
+			DefaultSelectionNames.Add(title);
+			DefaultSelections.Add(sel);
 		}
 
 		public void SetFromStrings(string[] x){

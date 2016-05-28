@@ -25,8 +25,8 @@ namespace BaseLib.Query{
 			}
 		}
 
-		public bool Recursive { get { return RecursiveCheckBox.IsChecked == true; } }
-		public string Value { get { return TextBox.Text; } }
+		public bool Recursive => RecursiveCheckBox.IsChecked == true;
+		public string Value => TextBox.Text;
 
 		private void CancelButton_OnClick(object sender, RoutedEventArgs e){
 			DialogResult = false;

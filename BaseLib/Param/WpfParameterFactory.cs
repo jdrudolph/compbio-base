@@ -113,7 +113,9 @@ namespace BaseLib.Param{
 					Visible = q.Visible,
 					Repeats = q.Repeats,
 					Values = q.Values,
-					Default = q.Default
+					Default = q.Default,
+					DefaultSelections = q.DefaultSelections,
+					DefaultSelectionNames = q.DefaultSelectionNames
 				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;

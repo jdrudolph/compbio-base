@@ -2,7 +2,7 @@
 
 namespace BaseLibS.Data{
 	public class EquatableArray<T>{
-		public T[] Array { get; private set; }
+		public T[] Array { get; }
 
 		public EquatableArray(T[] array){
 			Array = array;
