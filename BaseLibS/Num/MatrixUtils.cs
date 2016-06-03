@@ -1,4 +1,5 @@
 using System;
+using BaseLibS.Api;
 using BaseLibS.Num.Matrix;
 using BaseLibS.Num.Vector;
 
@@ -6,8 +7,23 @@ namespace BaseLibS.Num{
 	/// <summary>
 	/// A collection of primitive operation on matrices.
 	/// </summary>
-	public static class MatrixUtils{
-		public static bool HasNaNOrInfRows(MatrixIndexer m){
+	public static class MatrixUtils
+	{
+
+        public static bool HasNanOrInf(MatrixIndexer m, MatrixAccess access)
+        {
+            switch (access)
+            {
+                case MatrixAccess.Columns:
+                    return HasNaNOrInfColumns(m);
+                case MatrixAccess.Rows:
+                    return HasNaNOrInfRows(m);
+                default:
+                    throw new NotImplementedException($"Not implemented for access {access}");
+            }
+        }
+
+        public static bool HasNaNOrInfRows(MatrixIndexer m){
 			for (int i = 0; i < m.RowCount; i++){
 				if (m.IsNanOrInfRow(i)){
 					return true;
