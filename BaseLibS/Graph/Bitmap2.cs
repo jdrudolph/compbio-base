@@ -4,6 +4,10 @@ using System.IO;
 namespace BaseLibS.Graph{
 	[Serializable]
 	public class Bitmap2{
+		/// <summary>
+		/// Matrix with argb values of pixels which are assumed to be represented as int containing 
+		/// one byte for a, r, g and b each.
+		/// </summary>
 		private readonly int[,] data;
 
 		/// <summary>

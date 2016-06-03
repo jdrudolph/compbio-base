@@ -26,7 +26,7 @@
 		}
 
 		private static void EnsureColorTable(){
-			// no need to lock... worse case is a double create of the table...
+			// no need to lock... worst case is a double create of the table.
 			if (colorTable == null){
 				InitColorTable();
 			}
@@ -180,7 +180,7 @@
 		}
 
 		private static void EnsureColorNameTable(){
-			// no need to lock... worse case is a double create of the table... 
+			// no need to lock... worst case is a double create of the table.
 			//
 			if (colorNameTable == null){
 				InitColorNameTable();
@@ -368,20 +368,12 @@
 
 		public static int KnownColorToArgb(KnownColor color){
 			EnsureColorTable();
-			if (color <= KnownColor.MenuHighlight){
-				return colorTable[(int) color];
-			} else{
-				return 0;
-			}
+			return color <= KnownColor.MenuHighlight ? colorTable[(int) color] : 0;
 		}
 
 		public static string KnownColorToName(KnownColor color){
 			EnsureColorNameTable();
-			if (color <= KnownColor.MenuHighlight){
-				return colorNameTable[(int) color];
-			} else{
-				return null;
-			}
+			return color <= KnownColor.MenuHighlight ? colorNameTable[(int) color] : null;
 		}
 
 		private static int Encode(int alpha, int red, int green, int blue){

@@ -4,7 +4,7 @@ using System.Globalization;
 using System.Text;
 
 namespace BaseLibS.Graph{
-	[Serializable, DebuggerDisplay("{NameAndArgbValue}"),]
+	[Serializable, DebuggerDisplay("{NameAndArgbValue}")]
 	public struct Color2{
 		public static readonly Color2 empty = new Color2();
 		// static list of known colors... 
@@ -215,19 +215,19 @@ namespace BaseLibS.Graph{
 		/// </summary>
 		public bool IsKnownColor => (state & stateKnownColorValid) != 0;
 
-		/// <devdoc> 
+		/// <summary>
 		///    Specifies whether this <code>Color2</code> is uninitialized.
-		/// </devdoc> 
+		/// </summary>
 		public bool IsEmpty => state == 0;
 
-		/// <devdoc> 
-		///    Specifies whether this <code>Color2</code> has a name or is a <see cref="KnownColor">. 
-		/// </see></devdoc>
+		/// <summary>
+		///    Specifies whether this <code>Color2</code> has a name or is a <code>KnownColor</code>. 
+		/// </summary>
 		public bool IsNamedColor => ((state & stateNameValid) != 0) || IsKnownColor;
 
-		/// <devdoc> 
+		/// <summary>
 		///     Determines if this color is a system color.
-		/// </devdoc>
+		/// </summary>
 		public bool IsSystemColor
 			=>
 				IsKnownColor &&
@@ -236,14 +236,12 @@ namespace BaseLibS.Graph{
 		private string NameAndArgbValue
 			=> string.Format(CultureInfo.CurrentCulture, "{{Name={0}, ARGB=({1}, {2}, {3}, {4})}}", Name, A, R, G, B);
 
-		/// <devdoc>
-		///    <para> 
+		/// <summary>
 		///       Gets the name of this <code>Color2</code> . This will either return the user
 		///       defined name of the color, if the color was created from a name, or 
 		///       the name of the known color. For custom colors, the RGB value will 
 		///       be returned.
-		///    </para> 
-		/// </devdoc>
+		/// </summary>
 		public string Name{
 			get{
 				if ((state & stateNameValid) != 0){
@@ -264,9 +262,9 @@ namespace BaseLibS.Graph{
 			}
 		}
 
-		/// <devdoc>
+		/// <summary>
 		///     Actual color to be rendered. 
-		/// </devdoc>
+		/// </summary>
 		private int Value{
 			get{
 				if ((state & stateValueMask) != 0){
@@ -299,51 +297,41 @@ namespace BaseLibS.Graph{
 			return new Color2(argb, stateArgbValueValid, 0);
 		}
 
-		/// <devdoc>
-		///    <para> 
+		/// <summary>
 		///       Creates a Color from its 32-bit component (alpha, red, green, and blue) values.
-		///    </para>
-		/// </devdoc> 
+		/// </summary>
 		public static Color2 FromArgb(int alpha, int red, int green, int blue){
 			return new Color2((int)MakeArgb(CheckByte(alpha), CheckByte(red), CheckByte(green), CheckByte(blue)), stateArgbValueValid,
 				0);
 		}
 
-		/// <devdoc>
-		///    <para> 
+		/// <summary>
 		///       Creates a new <code>Color2</code> from the specified <code>Color2</code>, but with 
 		///       the new specified alpha value.
-		///    </para> 
-		/// </devdoc>
+		/// </summary>
 		public static Color2 FromArgb(int alpha, Color2 baseColor){
 			return new Color2((int)MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, 0);
 		}
 
-		/// <devdoc>
-		///    <para> 
+		/// <summary>
 		///       Creates a <code>Color2</code> from the specified red, green, and
 		///       blue values.
-		///    </para>
-		/// </devdoc> 
+		/// </summary>
 		public static Color2 FromArgb(int red, int green, int blue){
 			return FromArgb(255, red, green, blue);
 		}
 
-		/// <devdoc>
-		///    <para>
-		///       Creates a <code>Color2</code> from the specified <see cref="KnownColor"> . 
-		///    </see></para>
-		/// </devdoc> 
+		/// <summary>
+		///       Creates a <code>Color2</code> from the specified <code>KnownColor</code> . 
+		/// </summary>
 		internal static Color2 FromKnownColor(KnownColor color){
 			return new Color2(color);
 		}
 
-		/// <devdoc>
-		///    <para> 
+		/// <summary>
 		///       Returns the Hue-Saturation-Brightness (HSB) brightness
 		///       for this <code>Color2</code>. 
-		///    </para> 
-		/// </devdoc>
+		/// </summary>
 		public float GetBrightness(){
 			float r = R/255.0f;
 			float g = G/255.0f;
@@ -365,13 +353,11 @@ namespace BaseLibS.Graph{
 			return (max + min)/2;
 		}
 
-		/// <devdoc>
-		///    <para>
+		/// <summary>
 		///       Returns the Hue-Saturation-Brightness (HSB) hue 
 		///       value, in degrees, for this <code>Color2</code>.
 		///       If R == G == B, the hue is meaningless, and the return value is 0. 
-		///    </para> 
-		/// </devdoc>
+		/// </summary>
 		public float GetHue(){
 			if (R == G && G == B){
 				return 0; // 0 makes as good an UNDEFINED value as any
@@ -409,12 +395,10 @@ namespace BaseLibS.Graph{
 			return hue;
 		}
 
-		/// <devdoc> 
-		///    <para>
+		/// <summary>
 		///       The Hue-Saturation-Brightness (HSB) saturation for this 
 		///    <code>Color2</code>.
-		/// </para> 
-		/// </devdoc>
+		/// </summary>
 		public float GetSaturation(){
 			float r = R/255.0f;
 			float g = G/255.0f;
@@ -448,11 +432,9 @@ namespace BaseLibS.Graph{
 			return s;
 		}
 
-		/// <devdoc>
-		///    <para> 
+		/// <summary>
 		///       Returns the ARGB value of this <code>Color2</code>.
-		///    </para>
-		/// </devdoc>
+		/// </summary>
 		/// 
 		public int ToArgb(){
 			return Value;
