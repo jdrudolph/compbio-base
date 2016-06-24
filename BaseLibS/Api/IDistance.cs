@@ -6,7 +6,7 @@ using BaseLibS.Param;
 namespace BaseLibS.Api{
 	/// <summary>
 	/// Ancestor class of all distances. Distances are needed e.g. for hierarchical clustering
-	/// or k-nearest neoghbour classification. 
+	/// or k-nearest neighbour classification. 
 	/// </summary>
 	public interface IDistance : ICloneable, INamedListItem{
 		Parameters Parameters { get; set; }
