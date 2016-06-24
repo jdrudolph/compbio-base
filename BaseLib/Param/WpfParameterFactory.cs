@@ -7,6 +7,12 @@ namespace BaseLib.Param{
 			if (p.Type == ParamType.Wpf){
 				return p;
 			}
+		    if (p is RegexParam)
+		    {
+		        var q = (RegexParam) p;
+		        var b = new RegexParamWpf(q.Name, q.Value);
+		        return b;
+		    }
 			if (p is BoolParam){
 				BoolParam q = (BoolParam) p;
 				BoolParamWpf b = new BoolParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url};

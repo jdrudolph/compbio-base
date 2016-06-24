@@ -136,6 +136,8 @@
     </Compile>
     <Compile Include="Forms\Scroll\SimpleScrollableControlMainView.cs" />
     <Compile Include="Forms\Scroll\VerticalScrollBarView.cs" />
+    <Compile Include="Param\RegexParamWpf.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Wpf\ITableSelectionAgent.cs" />
     <Compile Include="Forms\Table\ListSelector.cs">
       <SubType>UserControl</SubType>
@@ -273,6 +275,9 @@
     </Compile>
     <Compile Include="Wpf\MultiListSelectorControl.xaml.cs">
       <DependentUpon>MultiListSelectorControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\RegexParamControl.xaml.cs">
+      <DependentUpon>RegexParamControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\SubSelectionControl.xaml.cs">
       <DependentUpon>SubSelectionControl.xaml</DependentUpon>
@@ -489,6 +494,10 @@
     <Page Include="Wpf\MultiListSelectorControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\RegexParamControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\SubSelectionControl.xaml">
       <SubType>Designer</SubType>

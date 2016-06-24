@@ -151,6 +151,7 @@
     <Compile Include="Param\ParamType.cs" />
     <Compile Include="Param\SingleChoiceParam.cs" />
     <Compile Include="Param\SingleChoiceWithSubParams.cs" />
+    <Compile Include="Param\RegexParam.cs" />
     <Compile Include="Param\StringParam.cs" />
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Parse\Uniprot\DbReferenceType.cs" />
