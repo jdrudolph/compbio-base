@@ -7,15 +7,27 @@ namespace BaseLib.Param{
 			if (p.Type == ParamType.Wpf){
 				return p;
 			}
-		    if (p is RegexParam)
-		    {
-		        var q = (RegexParam) p;
-		        var b = new RegexParamWpf(q.Name, q.Value);
-		        return b;
-		    }
+			if (p is RegexParam){
+				RegexParam q = (RegexParam) p;
+				RegexParamWpf b = new RegexParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
+			}
 			if (p is BoolParam){
 				BoolParam q = (BoolParam) p;
-				BoolParamWpf b = new BoolParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url};
+				BoolParamWpf b = new BoolParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -55,7 +67,12 @@ namespace BaseLib.Param{
 			}
 			if (p is DoubleParam){
 				DoubleParam q = (DoubleParam) p;
-				DoubleParamWpf b = new DoubleParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
+				DoubleParamWpf b = new DoubleParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -79,7 +96,12 @@ namespace BaseLib.Param{
 			}
 			if (p is FolderParam){
 				FolderParam q = (FolderParam) p;
-				FolderParamWpf b = new FolderParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
+				FolderParamWpf b = new FolderParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -87,7 +109,12 @@ namespace BaseLib.Param{
 			}
 			if (p is IntParam){
 				IntParam q = (IntParam) p;
-				IntParamWpf b = new IntParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
+				IntParamWpf b = new IntParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -95,7 +122,12 @@ namespace BaseLib.Param{
 			}
 			if (p is LabelParam){
 				LabelParam q = (LabelParam) p;
-				LabelParamWpf b = new LabelParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
+				LabelParamWpf b = new LabelParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
@@ -199,7 +231,12 @@ namespace BaseLib.Param{
 			}
 			if (p is StringParam){
 				StringParam q = (StringParam) p;
-				StringParamWpf b = new StringParamWpf(q.Name, q.Value){Help = q.Help, Visible = q.Visible, Default = q.Default, Url = q.Url };
+				StringParamWpf b = new StringParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
 				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
 					b.ValueChanged += act;
 				}
