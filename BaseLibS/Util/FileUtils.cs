@@ -184,8 +184,7 @@ namespace BaseLibS.Util{
 		}
 
 		public static StreamReader GetReader(string filename){
-			bool gz = filename.ToLower().EndsWith(".gz");
-			if (gz){
+			if (filename.ToLower().EndsWith(".gz")){
 				Stream fileStream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read);
 				Stream stream = new GZipStream(fileStream, CompressionMode.Decompress);
 				return new StreamReader(stream);
