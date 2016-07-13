@@ -57,16 +57,16 @@ namespace BaseLib.Forms.Scroll{
 			mainView.Invalidate();
 		}
 
-		public virtual int TotalWidth { get { return 200; } }
-		public virtual int TotalHeight { get { return 200; } }
-		public int ClientWidth { get { return VisibleWidth; } }
-		public int ClientHeight { get { return VisibleHeight; } }
-		public int TotalClientWidth { get { return TotalWidth; } }
-		public int TotalClientHeight { get { return TotalHeight; } }
-		public virtual int DeltaX { get { return (Width) / 20; } }
-		public virtual int DeltaY { get { return (Height)/20; } }
-		public int VisibleWidth { get { return mainControl.Width; } }
-		public int VisibleHeight { get { return mainControl.Height; } }
+		public virtual int TotalWidth => 200;
+		public virtual int TotalHeight => 200;
+		public int ClientWidth => VisibleWidth;
+		public int ClientHeight => VisibleHeight;
+		public int TotalClientWidth => TotalWidth;
+		public int TotalClientHeight => TotalHeight;
+		public virtual int DeltaX => Width / 20;
+		public virtual int DeltaY => Height/20;
+		public int VisibleWidth => mainControl.Width;
+		public int VisibleHeight => mainControl.Height;
 
 		protected override void OnResize(EventArgs e){
 			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth - VisibleWidth - 1));

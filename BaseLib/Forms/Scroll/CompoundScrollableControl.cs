@@ -10,7 +10,7 @@ namespace BaseLib.Forms.Scroll{
 		private int rowHeaderWidth = 40;
 		private int rowFooterWidth;
 		protected int columnHeaderHeight = 40;
-		protected int columnFooterHeight = 0;
+		protected int columnFooterHeight;
 		private int visibleX;
 		private int visibleY;
 		private BasicTableLayoutView tableLayoutPanel1;
@@ -134,16 +134,16 @@ namespace BaseLib.Forms.Scroll{
 				tableLayoutPanel2.RowStyles[2] = new BasicRowStyle(BasicSizeType.AbsoluteResizeable, value);
 			}
 		}
-		public virtual int TotalWidth { get { return 200; } }
-		public virtual int TotalHeight { get { return 200; } }
-		public int ClientWidth { get { return Width - scrollBarWidth; } }
-		public int ClientHeight { get { return Height - scrollBarWidth; } }
-		public virtual int DeltaX { get { return (Width - RowHeaderWidth)/20; } }
-		public virtual int DeltaY { get { return (Height - ColumnHeaderHeight)/20; } }
-		public int VisibleWidth { get { return Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth; } }
-		public int VisibleHeight { get { return Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth; } }
-		public int TotalClientWidth { get { return TotalWidth + RowHeaderWidth + RowFooterWidth; } }
-		public int TotalClientHeight { get { return TotalHeight + ColumnHeaderHeight + ColumnFooterHeight; } }
+		public virtual int TotalWidth => 200;
+		public virtual int TotalHeight => 200;
+		public int ClientWidth => Width - scrollBarWidth;
+		public int ClientHeight => Height - scrollBarWidth;
+		public virtual int DeltaX => (Width - RowHeaderWidth)/20;
+		public virtual int DeltaY => (Height - ColumnHeaderHeight)/20;
+		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth;
+		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth;
+		public int TotalClientWidth => TotalWidth + RowHeaderWidth + RowFooterWidth;
+		public int TotalClientHeight => TotalHeight + ColumnHeaderHeight + ColumnFooterHeight;
 
 		protected override void OnResize(EventArgs e){
 			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth - VisibleWidth - 1));

@@ -322,6 +322,6 @@ namespace BaseLib.Forms.Scroll{
 			Invalidate();
 		}
 
-		private bool HasBar { get { return main.VisibleHeight < main.TotalHeight; } }
+		private bool HasBar => main.VisibleHeight < main.TotalHeight;
 	}
 }

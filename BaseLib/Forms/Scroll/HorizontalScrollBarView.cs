@@ -75,7 +75,7 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		private bool HasBar { get { return main.VisibleWidth < main.TotalWidth; } }
+		private bool HasBar => main.VisibleWidth < main.TotalWidth;
 
 		private void PaintFirstMark(IGraphics g, int scrollBarWid){
 			if (firstMark == null){
