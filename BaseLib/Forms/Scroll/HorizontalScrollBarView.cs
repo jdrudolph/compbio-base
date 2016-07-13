@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Threading;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
 	internal sealed class HorizontalScrollBarView : BasicView{
@@ -115,19 +116,15 @@ namespace BaseLib.Forms.Scroll{
 		private void CreateBar(int scrollBarWid, int width){
 			int w = CalcBarSize(width);
 			int h = scrollBarWid - 2;
-			UnsafeBitmap b = new UnsafeBitmap(w, h);
-			b.LockBitmap();
+			Bitmap2 b = new Bitmap2(w, h);
 			FormUtil.FillShadedRectangle(b, w, h);
-			UnsafeBitmap bh = b.Lighter();
-			UnsafeBitmap bp = b.Darker();
-			b.UnlockBitmap();
-			bh.UnlockBitmap();
-			bp.UnlockBitmap();
-			bar = b.Bitmap;
+			Bitmap2 bh = b.Lighter();
+			Bitmap2 bp = b.Darker();
+			bar = GraphUtils.ToBitmap(b);
 			bar.MakeTransparent();
-			barHighlight = bh.Bitmap;
+			barHighlight = GraphUtils.ToBitmap(bh);
 			barHighlight.MakeTransparent();
-			barPress = bp.Bitmap;
+			barPress = GraphUtils.ToBitmap(bp);
 			barPress.MakeTransparent();
 		}
 
@@ -161,38 +158,30 @@ namespace BaseLib.Forms.Scroll{
 		private void CreateFirstMark(int scrollBarWid){
 			int w = scrollBarWid - 1;
 			int h = scrollBarWid - 2;
-			UnsafeBitmap b = new UnsafeBitmap(w, h);
-			b.LockBitmap();
+			Bitmap2 b = new Bitmap2(w, h);
 			FormUtil.FillShadedRectangle(b, w, h);
-			UnsafeBitmap bh = b.Lighter();
-			UnsafeBitmap bp = b.Darker();
-			b.UnlockBitmap();
-			bh.UnlockBitmap();
-			bp.UnlockBitmap();
-			firstMark = b.Bitmap;
+			Bitmap2 bh = b.Lighter();
+			Bitmap2 bp = b.Darker();
+			firstMark = GraphUtils.ToBitmap(b);
 			firstMark.MakeTransparent();
-			firstMarkHighlight = bh.Bitmap;
+			firstMarkHighlight = GraphUtils.ToBitmap(bh);
 			firstMarkHighlight.MakeTransparent();
-			firstMarkPress = bp.Bitmap;
+			firstMarkPress = GraphUtils.ToBitmap(bp);
 			firstMarkPress.MakeTransparent();
 		}
 
 		private void CreateSecondMark(int scrollBarWid){
 			int w = scrollBarWid - 1;
 			int h = scrollBarWid - 2;
-			UnsafeBitmap b = new UnsafeBitmap(w, h);
-			b.LockBitmap();
+			Bitmap2 b = new Bitmap2(w, h);
 			FormUtil.FillShadedRectangle(b, w, h);
-			UnsafeBitmap bh = b.Lighter();
-			UnsafeBitmap bp = b.Darker();
-			b.UnlockBitmap();
-			bh.UnlockBitmap();
-			bp.UnlockBitmap();
-			secondMark = b.Bitmap;
+			Bitmap2 bh = b.Lighter();
+			Bitmap2 bp = b.Darker();
+			secondMark = GraphUtils.ToBitmap(b);
 			secondMark.MakeTransparent();
-			secondMarkHighlight = bh.Bitmap;
+			secondMarkHighlight = GraphUtils.ToBitmap(bh);
 			secondMarkHighlight.MakeTransparent();
-			secondMarkPress = bp.Bitmap;
+			secondMarkPress = GraphUtils.ToBitmap(bp);
 			secondMarkPress.MakeTransparent();
 		}
 

@@ -10,32 +10,32 @@ namespace BaseLib.Forms.Base{
 	}
 
 	public unsafe class UnsafeBitmap{
-		private readonly Bitmap bitmap;
 		private readonly Graphics graphics;
 		private readonly int bitmapHeight;
 		private readonly int bitmapWidth;
 		private int width;
 		private BitmapData bitmapData;
 		private Byte* pBase = null;
+		public Bitmap Bitmap { get; }
 
 		public UnsafeBitmap(Image bitmap){
-			this.bitmap = new Bitmap(bitmap);
+			Bitmap = new Bitmap(bitmap);
 			graphics = Graphics.FromImage(bitmap);
-			bitmapWidth = this.bitmap.Width;
-			bitmapHeight = this.bitmap.Height;
+			bitmapWidth = Bitmap.Width;
+			bitmapHeight = Bitmap.Height;
 		}
 
 		public UnsafeBitmap(int width, int height){
-			bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
-			graphics = Graphics.FromImage(bitmap);
+			Bitmap = new Bitmap(width, height, PixelFormat.Format24bppRgb);
+			graphics = Graphics.FromImage(Bitmap);
 			bitmapWidth = width;
 			bitmapHeight = height;
 		}
 
 		public UnsafeBitmap(UnsafeBitmap other){
 			// copy the bitmap
-			bitmap = (Bitmap) other.bitmap.Clone();
-			graphics = Graphics.FromImage(bitmap);
+			Bitmap = (Bitmap) other.Bitmap.Clone();
+			graphics = Graphics.FromImage(Bitmap);
 			bitmapWidth = other.bitmapWidth;
 			bitmapHeight = other.bitmapHeight;
 			// the remaining parameters are not set, as the bitmap is in unlocked state
@@ -43,36 +43,24 @@ namespace BaseLib.Forms.Base{
 
 		public void Dispose(){
 			graphics.Dispose();
-			bitmap.Dispose();
+			Bitmap.Dispose();
 		}
-
-		public Bitmap Bitmap { get { return (bitmap); } }
 
 		public void LockBitmap(){
 			GraphicsUnit unit = GraphicsUnit.Pixel;
-			RectangleF boundsF = bitmap.GetBounds(ref unit);
+			RectangleF boundsF = Bitmap.GetBounds(ref unit);
 			Rectangle bounds = new Rectangle((int) boundsF.X, (int) boundsF.Y, (int) boundsF.Width, (int) boundsF.Height);
 			width = (int) boundsF.Width*sizeof (PixelData);
 			if (width%4 != 0){
 				width = 4*(width/4 + 1);
 			}
-			bitmapData = bitmap.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
+			bitmapData = Bitmap.LockBits(bounds, ImageLockMode.ReadWrite, PixelFormat.Format24bppRgb);
 			pBase = (Byte*) bitmapData.Scan0.ToPointer();
 		}
 
 		public PixelData GetPixel(int x, int y){
 			PixelData returnValue = *PixelAt(x, y);
 			return returnValue;
-		}
-
-		public void MirrorY(){
-			for (int i = 0; i < bitmapWidth; i++){
-				for (int j = 0; j < bitmapHeight/2; j++){
-					PixelData p = GetPixel(i, j);
-					SetPixel(i, j, GetPixel(i, bitmapHeight - 1 - j));
-					SetPixel(i, bitmapHeight - 1 - j, p);
-				}
-			}
 		}
 
 		public void SetPixel(int x, int y, Color c){
@@ -84,6 +72,16 @@ namespace BaseLib.Forms.Base{
 			if (Valid(x, y)){
 				PixelData* pixel = PixelAt(x, y);
 				*pixel = colour;
+			}
+		}
+
+		public void MirrorY(){
+			for (int i = 0; i < bitmapWidth; i++){
+				for (int j = 0; j < bitmapHeight/2; j++){
+					PixelData p = GetPixel(i, j);
+					SetPixel(i, j, GetPixel(i, bitmapHeight - 1 - j));
+					SetPixel(i, bitmapHeight - 1 - j, p);
+				}
 			}
 		}
 
@@ -106,12 +104,14 @@ namespace BaseLib.Forms.Base{
 		}
 
 		public void UnlockBitmap(){
-			bitmap.UnlockBits(bitmapData);
+			Bitmap.UnlockBits(bitmapData);
 			bitmapData = null;
 			pBase = null;
 		}
 
-		public PixelData* PixelAt(int x, int y) { return (PixelData*) (pBase + y*width + x*sizeof (PixelData)); }
+		public PixelData* PixelAt(int x, int y){
+			return (PixelData*) (pBase + y*width + x*sizeof (PixelData));
+		}
 
 		public void DrawPath(Color c, int x, int y, int[] xpath, int[] ypath){
 			PixelData pd = new PixelData{red = c.R, green = c.G, blue = c.B};
@@ -146,9 +146,17 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		public void DrawLine(Color c, int x1, int y1, int x2, int y2, bool dots) { DrawLine(c, x1, y1, x2, y2, dots, 1); }
-		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots) { DrawLine(c, x1, y1, x2, y2, dots, 1); }
-		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots, int width1) { DrawLine(c, (int) x1, (int) y1, (int) x2, (int) y2, dots, width1); }
+		public void DrawLine(Color c, int x1, int y1, int x2, int y2, bool dots){
+			DrawLine(c, x1, y1, x2, y2, dots, 1);
+		}
+
+		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots){
+			DrawLine(c, x1, y1, x2, y2, dots, 1);
+		}
+
+		public void DrawLine(Color c, float x1, float y1, float x2, float y2, bool dots, int width1){
+			DrawLine(c, (int) x1, (int) y1, (int) x2, (int) y2, dots, width1);
+		}
 
 		public void DrawLine(Color c, int x1, int y1, int x2, int y2, bool dots, int width1){
 			PixelData pd = new PixelData{red = c.R, green = c.G, blue = c.B};
@@ -206,7 +214,12 @@ namespace BaseLib.Forms.Base{
 			return result;
 		}
 
-		public void DrawString(string s, Font f, Brush b, int x, int y) { graphics.DrawString(s, f, b, x, y); }
-		public SizeF MeasureString(string s, Font f) { return graphics.MeasureString(s, f); }
+		public void DrawString(string s, Font f, Brush b, int x, int y){
+			graphics.DrawString(s, f, b, x, y);
+		}
+
+		public SizeF MeasureString(string s, Font f){
+			return graphics.MeasureString(s, f);
+		}
 	}
 }

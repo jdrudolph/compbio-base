@@ -156,7 +156,7 @@ namespace BaseLibS.Graph{
 		private const short stateValueMask = stateArgbValueValid;
 		private const short stateNameValid = 0x0008;
 		private const int notDefinedValue = 0;
-        // Shift count and bit mask for A, R, G, B components in ARGB mode! 
+		// Shift count and bit mask for A, R, G, B components in ARGB mode! 
 		private const int argbAlphaShift = 24;
 		private const int argbRedShift = 16;
 		private const int argbGreenShift = 8;
@@ -208,6 +208,34 @@ namespace BaseLibS.Graph{
 		/// Gets the alpha component value for this <code>Color2</code>.
 		/// </summary>
 		public byte A => (byte) ((Value >> argbAlphaShift) & 0xFF);
+
+		/// <summary>
+		/// Gets the red component value for the given <code>value</code>.
+		/// </summary>
+		public static byte GetR(int value){
+			return (byte) ((value >> argbRedShift) & 0xFF);
+		}
+
+		/// <summary>
+		/// Gets the green component value for the given <code>value</code>.
+		/// </summary>
+		public static byte GetG(int value){
+			return (byte) ((value >> argbGreenShift) & 0xFF);
+		}
+
+		/// <summary>
+		/// Gets the blue component value for the given <code>value</code>.
+		/// </summary>
+		public static byte GetB(int value){
+			return (byte) ((value >> argbBlueShift) & 0xFF);
+		}
+
+		/// <summary>
+		/// Gets the alpha component value for the given <code>value</code>.
+		/// </summary>
+		public static byte GetA(int value){
+			return (byte) ((value >> argbAlphaShift) & 0xFF);
+		}
 
 		/// <summary>
 		/// Specifies whether this <code>Color2</code> is a known (predefined) color.
@@ -265,7 +293,7 @@ namespace BaseLibS.Graph{
 		/// <summary>
 		///     Actual color to be rendered. 
 		/// </summary>
-		private int Value{
+		public int Value{
 			get{
 				if ((state & stateValueMask) != 0){
 					return value;
@@ -301,8 +329,8 @@ namespace BaseLibS.Graph{
 		///       Creates a Color from its 32-bit component (alpha, red, green, and blue) values.
 		/// </summary>
 		public static Color2 FromArgb(int alpha, int red, int green, int blue){
-			return new Color2((int)MakeArgb(CheckByte(alpha), CheckByte(red), CheckByte(green), CheckByte(blue)), stateArgbValueValid,
-				0);
+			return new Color2((int) MakeArgb(CheckByte(alpha), CheckByte(red), CheckByte(green), CheckByte(blue)),
+				stateArgbValueValid, 0);
 		}
 
 		/// <summary>
@@ -310,7 +338,7 @@ namespace BaseLibS.Graph{
 		///       the new specified alpha value.
 		/// </summary>
 		public static Color2 FromArgb(int alpha, Color2 baseColor){
-			return new Color2((int)MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, 0);
+			return new Color2((int) MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, 0);
 		}
 
 		/// <summary>
