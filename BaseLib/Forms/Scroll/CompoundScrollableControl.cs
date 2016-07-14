@@ -124,6 +124,10 @@ namespace BaseLib.Forms.Scroll{
 			OnPaintRowSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, ColumnFooterHeight); };
 			OnPaintCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, ColumnHeaderHeight); };
 			OnPaintMiddleCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, ColumnFooterHeight); };
+			TotalWidth = () => 200;
+			TotalHeight = () => 200;
+			DeltaX = () => (Width - RowHeaderWidth)/20;
+			DeltaY = () => (Height - ColumnHeaderHeight)/20;
 		}
 
 		public virtual void InvalidateBackgroundImages(){}
@@ -231,10 +235,10 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		public Func<int> TotalWidth { get; set; } = () => 200;
-		public Func<int> TotalHeight { get; set; } = () => 200;
-		public virtual int DeltaX => (Width - RowHeaderWidth)/20;
-		public virtual int DeltaY => (Height - ColumnHeaderHeight)/20;
+		public Func<int> TotalWidth { get; set; }
+		public Func<int> TotalHeight { get; set; }
+		public Func<int> DeltaX { get; set; }
+		public Func<int> DeltaY { get; set; }
 		public int ClientWidth => Width - scrollBarWidth;
 		public int ClientHeight => Height - scrollBarWidth;
 		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth;

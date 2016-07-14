@@ -569,6 +569,8 @@ namespace BaseLib.Forms.Table{
 				return columnWidthSums[ind] + 5;
 			};
 			TotalHeight = () => rowHeight*model?.RowCount + 5 ?? 0;
+			DeltaX = () => 40;
+			DeltaY = () => rowHeight;
 		}
 
 		public bool Sortable{
@@ -885,8 +887,6 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public sealed override int DeltaX => 40;
-		public sealed override int DeltaY => rowHeight;
 		public int RowCount => model?.RowCount ?? 0;
 
 		public bool ViewRowIsSelected(int row){

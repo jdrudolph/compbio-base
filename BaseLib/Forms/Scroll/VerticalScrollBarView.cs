@@ -209,8 +209,8 @@ namespace BaseLib.Forms.Scroll{
 					MoveUp(main.DeltaUpToSelection());
 				} else {
 					newState = ScrollBarState.PressFirstBox;
-					MoveUp(main.DeltaY);
-					upThread = new Thread(() => WalkUp(main.DeltaY));
+					MoveUp(main.DeltaY());
+					upThread = new Thread(() => WalkUp(main.DeltaY()));
 					upThread.Start();
 				}
 			} else if (e.Y > e.Height - CompoundScrollableControl.scrollBarWidth) {
@@ -219,8 +219,8 @@ namespace BaseLib.Forms.Scroll{
 					MoveDown(main.DeltaDownToSelection());
 				} else {
 					newState = ScrollBarState.PressSecondBox;
-					MoveDown(main.DeltaY);
-					downThread = new Thread(() => WalkDown(main.DeltaY));
+					MoveDown(main.DeltaY());
+					downThread = new Thread(() => WalkDown(main.DeltaY()));
 					downThread.Start();
 				}
 			} else if (HasBar) {

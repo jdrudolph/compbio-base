@@ -20,6 +20,8 @@ namespace BaseLib.Forms.Scroll{
 			OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
 			TotalWidth = () => 200;
 			TotalHeight = () => 200;
+			DeltaX = () => Width/20;
+			DeltaY = () => Height/20;
 		}
 
 		public virtual void InvalidateBackgroundImages(){}
@@ -63,12 +65,12 @@ namespace BaseLib.Forms.Scroll{
 
 		public Func<int> TotalWidth { get; set; }
 		public Func<int> TotalHeight { get; set; }
+		public Func<int> DeltaX { get; set; }
+		public Func<int> DeltaY { get; set; }
 		public int ClientWidth => VisibleWidth;
 		public int ClientHeight => VisibleHeight;
 		public int TotalClientWidth => TotalWidth();
 		public int TotalClientHeight => TotalHeight();
-		public virtual int DeltaX => Width/20;
-		public virtual int DeltaY => Height/20;
 		public int VisibleWidth => mainControl.Width;
 		public int VisibleHeight => mainControl.Height;
 

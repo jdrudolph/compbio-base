@@ -208,13 +208,13 @@ namespace BaseLib.Forms.Scroll{
 			ScrollBarState newState = ScrollBarState.Neutral;
 			if (e.X < CompoundScrollableControl.scrollBarWidth - 1) {
 				newState = ScrollBarState.PressFirstBox;
-				MoveLeft(main.DeltaX);
-				leftThread = new Thread(() => WalkLeft(main.DeltaX));
+				MoveLeft(main.DeltaX());
+				leftThread = new Thread(() => WalkLeft(main.DeltaX()));
 				leftThread.Start();
 			} else if (e.X > e.Width - CompoundScrollableControl.scrollBarWidth) {
 				newState = ScrollBarState.PressSecondBox;
-				MoveRight(main.DeltaX);
-				rightThread = new Thread(() => WalkRight(main.DeltaX));
+				MoveRight(main.DeltaX());
+				rightThread = new Thread(() => WalkRight(main.DeltaX()));
 				rightThread.Start();
 			} else if (HasBar) {
 				int s = CalcBarStart(e.Width);
