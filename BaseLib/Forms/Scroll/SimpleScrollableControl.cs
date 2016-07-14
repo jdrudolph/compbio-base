@@ -17,9 +17,10 @@ namespace BaseLib.Forms.Scroll{
 		protected SimpleScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
+			OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
 		}
 
-		public virtual void InvalidateBackgroundImages() {}
+		public virtual void InvalidateBackgroundImages(){}
 
 		public void InvalidateScrollbars(){
 			horizontalScrollBar.Invalidate();
@@ -43,6 +44,7 @@ namespace BaseLib.Forms.Scroll{
 				horizontalScrollBar.Invalidate();
 			}
 		}
+
 		public int VisibleY{
 			get { return visibleY; }
 			set{
@@ -63,7 +65,7 @@ namespace BaseLib.Forms.Scroll{
 		public int ClientHeight => VisibleHeight;
 		public int TotalClientWidth => TotalWidth;
 		public int TotalClientHeight => TotalHeight;
-		public virtual int DeltaX => Width / 20;
+		public virtual int DeltaX => Width/20;
 		public virtual int DeltaY => Height/20;
 		public int VisibleWidth => mainControl.Width;
 		public int VisibleHeight => mainControl.Height;
@@ -132,18 +134,15 @@ namespace BaseLib.Forms.Scroll{
 			base.OnMouseWheel(e);
 		}
 
-		protected internal virtual void OnPaintMainView(IGraphics g, int x, int y, int width, int height){
-			g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight);
-		}
-
-		protected internal virtual void OnMouseClickMainView(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseDoubleClickMainView(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseDraggedMainView(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseHoverMainView(EventArgs e) {}
-		protected internal virtual void OnMouseIsDownMainView(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseIsUpMainView(BasicMouseEventArgs e) {}
-		protected internal virtual void OnMouseLeaveMainView(EventArgs e) {}
-		protected internal virtual void OnMouseMoveMainView(BasicMouseEventArgs e) {}
+		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseClickMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseDoubleClickMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseDraggedMainView { get; set; }
+		public Action<EventArgs> OnMouseHoverMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseIsDownMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseIsUpMainView { get; set; }
+		public Action<EventArgs> OnMouseLeaveMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
 
 		public virtual int DeltaUpToSelection(){
 			return 0;

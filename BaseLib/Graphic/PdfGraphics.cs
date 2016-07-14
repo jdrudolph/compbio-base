@@ -35,12 +35,8 @@ namespace BaseLib.Graphic{
 		}
 
 		public void Dispose(){
-			if (document != null){
-				document.Dispose();
-			}
-			if (writer != null){
-				writer.Dispose();
-			}
+			document?.Dispose();
+			writer?.Dispose();
 		}
 
 		public SmoothingMode SmoothingMode { get; set; }
@@ -148,7 +144,7 @@ namespace BaseLib.Graphic{
 
 		public void FillRectangle(Brush brush, float x, float y, float width, float height){
 			if (brush is SolidBrush){
-				if ((brush as SolidBrush).Color.IsEmpty){
+				if (((SolidBrush) brush).Color.IsEmpty){
 					return;
 				}
 			}
@@ -331,7 +327,7 @@ namespace BaseLib.Graphic{
 						f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size * 0.667f, font.Bold ? 1 : 0);
 						break;
 					default:
-						file = string.Format("c:/windows/fonts/{0}.ttf", font.Name);
+						file = $"c:/windows/fonts/{font.Name}.ttf";
 						if (File.Exists(file)){
 							f = FontFactory.GetFont(file, BaseFont.CP1252, BaseFont.EMBEDDED, font.Size * 0.667f, font.Bold ? 1 : 0);
 						}

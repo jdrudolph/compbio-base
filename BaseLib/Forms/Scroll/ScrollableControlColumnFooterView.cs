@@ -7,39 +7,39 @@ namespace BaseLib.Forms.Scroll{
 		internal ScrollableControlColumnFooterView(CompoundScrollableControl main) : base(main) {}
 
 		protected internal override void OnPaint(IGraphics g, int width, int height) {
-			main.OnPaintColumnFooterView(g, main.VisibleX, width);
+			main.OnPaintColumnFooterView?.Invoke(g, main.VisibleX, width);
 		}
 
 		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
-			main.OnMouseMoveColumnFooterView(e);
+			main.OnMouseMoveColumnFooterView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseLeave(EventArgs e){
-			main.OnMouseLeaveColumnFooterView(e);
+			main.OnMouseLeaveColumnFooterView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseClick(BasicMouseEventArgs e){
-			main.OnMouseClickColumnFooterView(e);
+			main.OnMouseClickColumnFooterView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseDoubleClick(BasicMouseEventArgs e){
-			main.OnMouseDoubleClickColumnFooterView(e);
+			main.OnMouseDoubleClickColumnFooterView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
-			main.OnMouseIsDownColumnFooterView(e);
+			main.OnMouseIsDownColumnFooterView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
-			main.OnMouseIsUpColumnFooterView(e);
+			main.OnMouseIsUpColumnFooterView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseHover(EventArgs e){
-			main.OnMouseHoverColumnFooterView(e);
+			main.OnMouseHoverColumnFooterView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
-			main.OnMouseDraggedColumnFooterView(e);
+			main.OnMouseDraggedColumnFooterView?.Invoke(e);
 		}
 	}
 }

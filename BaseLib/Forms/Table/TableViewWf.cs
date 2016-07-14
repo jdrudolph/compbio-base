@@ -99,7 +99,6 @@ namespace BaseLib.Forms.Table{
 		//TODO
 		private readonly ToolTip columnViewToolTip = new ToolTip();
 		//private readonly ToolTip mainViewToolTip = new ToolTip();
-
 		public TableViewWf(){
 			Sortable = true;
 			RowHeaderWidth = 70;
@@ -112,9 +111,453 @@ namespace BaseLib.Forms.Table{
 			defaultFont = new Font("Arial", 9/dpiScaleX);
 			textFont = defaultFont;
 			headerFont = defaultFont;
+			OnMouseIsDownMainView = e =>{
+				if (!Enabled){
+					return;
+				}
+				if (e.IsMainButton){
+					try{
+						int row = (VisibleY + e.Y)/rowHeight;
+						if (model == null || row >= model.RowCount || row < 0){
+							return;
+						}
+						bool ctrl = (ModifierKeys & Keys.Control) == Keys.Control;
+						bool shift = (ModifierKeys & Keys.Shift) == Keys.Shift;
+						if (!ctrl || !multiSelect){
+							ClearSelection();
+						}
+						int ox = order[row];
+						if (ox < 0 || ox >= modelRowSel.Length){
+							return;
+						}
+						modelRowSel[ox] = !ctrl || !modelRowSel[ox];
+						if (multiSelect && shift && selectStart != -1){
+							SelectRange(selectStart, row);
+						} else{
+							selectStart = row;
+						}
+						Invalidate(true);
+					} catch (Exception){}
+					SelectionChanged?.Invoke(this, new EventArgs());
+					if (SetCellText != null){
+						int row = (VisibleY + e.Y)/rowHeight;
+						if (model == null || row >= model.RowCount || row < 0){
+							return;
+						}
+						if (columnWidthSums == null){
+							return;
+						}
+						int x1 = VisibleX + e.X;
+						int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+						int ox = order[row];
+						SetCellText("" + TableModel.GetEntry(ox, ind));
+					}
+				}
+			};
+			OnMouseDraggedRowHeaderView = e =>{
+				if (!Enabled){
+					return;
+				}
+				OnMouseDraggedMainView(e);
+			};
+			OnMouseHoverMainView = e => { HandleToolTip(true); };
+			OnMouseDraggedMainView = e =>{
+				if (!Enabled){
+					return;
+				}
+				if (!MultiSelect){
+					OnMouseIsDownMainView(e);
+					return;
+				}
+				if (e.IsMainButton){
+					if (modelRowSel == null){
+						return;
+					}
+					int row = (VisibleY + e.Y)/rowHeight;
+					if (row >= modelRowSel.Length || row < 0){
+						return;
+					}
+					modelRowSel[order[row]] = true;
+					if (selectStart != row){
+						selectStart = row;
+						Invalidate(true);
+						SelectionChanged?.Invoke(this, new EventArgs());
+					}
+				}
+			};
+			OnMouseDraggedColumnHeaderView = e =>{
+				if (!Enabled){
+					return;
+				}
+				if (columnWidthSumsOld == null || columnWidthSums == null){
+					return;
+				}
+				if (resizeCol != -1){
+					int mind = resizeCol == 0
+						? 6 - columnWidthSumsOld[0]
+						: columnWidthSumsOld[resizeCol - 1] - columnWidthSumsOld[resizeCol] + 6;
+					deltaDragX = Math.Max(mind, e.X - colDragX);
+					for (int i = resizeCol; i < columnWidthSums.Length; i++){
+						columnWidthSums[i] = columnWidthSumsOld[i] + deltaDragX;
+					}
+					Invalidate(true);
+				}
+			};
+			OnMouseMoveMainView = e =>{
+				currentX = e.X;
+				currentY = e.Y;
+				HandleToolTip(false);
+				CalcCurrentRowAndColumn(e);
+			};
+			OnMouseDoubleClickMainView = e =>{
+				if (e.IsMainButton){
+					int row = (VisibleY + e.Y)/rowHeight;
+					if (model == null || row >= model.RowCount || row < 0){
+						return;
+					}
+				}
+				//TODO: edit
+			};
+			OnMouseIsDownRowHeaderView = e =>{
+				if (!Enabled){
+					return;
+				}
+				OnMouseIsDownMainView(e);
+			};
+			OnMouseMoveColumnHeaderView = e =>{
+				if (!Enabled){
+					return;
+				}
+				int x1 = VisibleX + e.X;
+				if (columnWidthSums == null){
+					return;
+				}
+				int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
+				if (ind >= 0){
+					if (Math.Abs(columnWidthSums[ind] - x1) < 5){
+						Cursor.Current = Cursors.VSplit;
+						resizeCol = ind;
+					} else{
+						Cursor.Current = Cursors.Default;
+						resizeCol = -1;
+					}
+				}
+				int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
+				try{
+					if (model != null){
+						if (indf >= 0 && !string.IsNullOrEmpty(model.GetColumnDescription(indf)) &&
+							Math.Abs((indf == 0 ? 0 : columnWidthSums[indf - 1]) + 9 - x1) < 4 && e.Y > 7 && e.Y < 17){
+							if (helpCol != indf){
+								helpCol = indf;
+								InvalidateColumnHeaderView();
+							}
+						} else{
+							if (helpCol != -1){
+								helpCol = -1;
+								InvalidateColumnHeaderView();
+							}
+						}
+					}
+				} catch (Exception){}
+			};
+			OnMouseIsUpColumnHeaderView = e =>{
+				//TODO
+				columnViewToolTip.Hide(this);
+			};
+			OnMouseIsUpCornerView = e =>{
+				//TODO
+				columnViewToolTip.Hide(this);
+			};
+			OnMouseIsDownColumnHeaderView = e =>{
+				if (!Enabled){
+					return;
+				}
+				if (columnWidthSums == null){
+					return;
+				}
+				if (resizeCol != -1){
+					colDragX = e.X;
+					columnWidthSumsOld = (int[]) columnWidthSums.Clone();
+					return;
+				}
+				if (helpCol >= 0){
+					//TODO
+					columnViewToolTip.ToolTipTitle = model.GetColumnName(helpCol);
+					StringBuilder text = new StringBuilder();
+					string[] wrapped = StringUtils.Wrap(model.GetColumnDescription(helpCol), 75);
+					for (int i = 0; i < wrapped.Length; ++i){
+						string s = wrapped[i];
+						text.Append(s);
+						if (i < wrapped.Length - 1){
+							text.Append("\n");
+						}
+					}
+					columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
+					helpCol = -1;
+					InvalidateColumnHeaderView();
+					return;
+				}
+				if (Sortable && e.IsMainButton){
+					int ind = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, VisibleX + e.X) + 1);
+					if (sortCol == ind){
+						switch (sortState){
+							case SortState.Unsorted:
+								Sort();
+								break;
+							case SortState.Increasing:
+								InvertOrder();
+								break;
+							case SortState.Decreasing:
+								Unsort();
+								break;
+						}
+					} else{
+						sortCol = ind;
+						Sort();
+					}
+				}
+				Invalidate(true);
+			};
+			OnMouseIsDownCornerView = e =>{
+				if (!Enabled){
+					return;
+				}
+				if (matrixHelp){
+					//TODO
+					columnViewToolTip.ToolTipTitle = model.Name;
+					StringBuilder text = new StringBuilder();
+					string[] wrapped = StringUtils.Wrap(model.Description, 75);
+					for (int i = 0; i < wrapped.Length; ++i){
+						string s = wrapped[i];
+						text.Append(s);
+						if (i < wrapped.Length - 1){
+							text.Append("\n");
+						}
+					}
+					columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
+					matrixHelp = false;
+					InvalidateCornerView();
+					return;
+				}
+				Invalidate(true);
+			};
+			OnMouseMoveCornerView = e =>{
+				if (model == null){
+					return;
+				}
+				int x1 = e.X;
+				if (!string.IsNullOrEmpty(model.Description) && Math.Abs(9 - x1) < 4 && e.Y > 7 && e.Y < 17){
+					if (!matrixHelp){
+						matrixHelp = true;
+						InvalidateCornerView();
+					} else{
+						matrixHelp = false;
+						InvalidateCornerView();
+					}
+				}
+			};
+			OnPaintRowHeaderView = (g, y, height) =>{
+				if (model == null){
+					return;
+				}
+				g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, height);
+				g.DrawLine(gridPen, 0, 0, 0, height);
+				g.DrawLine(gridPen, RowHeaderWidth - 1, 0, RowHeaderWidth - 1, height);
+				g.DrawLine(Pens.White, 1, 0, 1, height);
+				g.DrawLine(shadow1Pen, RowHeaderWidth - 2, 0, RowHeaderWidth - 2, height);
+				g.DrawLine(shadow2Pen, RowHeaderWidth - 3, 0, RowHeaderWidth - 3, height);
+				g.DrawLine(shadow3Pen, RowHeaderWidth - 4, 0, RowHeaderWidth - 4, height);
+				int offset = -y%rowHeight;
+				for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
+					int row = (y + y1)/rowHeight;
+					if (model == null || row > model.RowCount){
+						break;
+					}
+					g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
+					g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
+				}
+				for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
+					int row = (y + y1)/rowHeight;
+					if (row < 0){
+						continue;
+					}
+					if (model == null || row >= model.RowCount){
+						break;
+					}
+					if (ViewRowIsSelected(row)){
+						g.DrawLine(selectHeader1Pen, 2, y1 + 1, RowHeaderWidth - 2, y1 + 1);
+						g.DrawLine(selectHeader1Pen, 2, y1 + rowHeight, RowHeaderWidth - 2, y1 + rowHeight);
+						g.DrawLine(selectHeader1Pen, RowHeaderWidth - 2, y1 + 1, RowHeaderWidth - 2, y1 + rowHeight);
+						g.DrawLine(selectHeader2Pen, 2, y1 + 2, RowHeaderWidth - 3, y1 + 2);
+						g.DrawLine(selectHeader2Pen, 2, y1 + 2, 2, y1 + rowHeight - 1);
+						g.DrawLine(selectHeader3Pen, 3, y1 + 3, RowHeaderWidth - 3, y1 + 3);
+						g.DrawLine(selectHeader3Pen, 3, y1 + 3, 3, y1 + rowHeight - 1);
+						g.FillRectangle(selectHeader4Brush, 4, y1 + 4, RowHeaderWidth - 6, rowHeight - 4);
+					}
+					g.DrawString("" + (row + 1), textFont, Brushes.Black, 5, y1 + 4);
+				}
+			};
+			OnPaintColumnHeaderView = (g, x, width) =>{
+				if (model == null){
+					return;
+				}
+				g.FillRectangle(headerBrush, 0, 0, width, ColumnHeaderHeight - 1);
+				g.DrawLine(gridPen, 0, 0, width, 0);
+				g.DrawLine(gridPen, 0, ColumnHeaderHeight - 1, width, ColumnHeaderHeight - 1);
+				g.DrawLine(Pens.White, 0, 1, width, 1);
+				g.DrawLine(shadow1Pen, 0, ColumnHeaderHeight - 2, width, ColumnHeaderHeight - 2);
+				g.DrawLine(shadow2Pen, 0, ColumnHeaderHeight - 3, width, ColumnHeaderHeight - 3);
+				g.DrawLine(shadow3Pen, 0, ColumnHeaderHeight - 4, width, ColumnHeaderHeight - 4);
+				if (columnWidthSums != null){
+					int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
+					int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
+					if (startInd >= 0){
+						for (int i = startInd; i <= endInd; i++){
+							int x1 = columnWidthSums[i] - x;
+							g.DrawLine(headerGridPen, x1, 5, x1, ColumnHeaderHeight - 6);
+							g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, ColumnHeaderHeight - 6);
+						}
+					}
+				}
+				if (columnWidthSums != null && columnWidthSums.Length > 0){
+					int startInd = Math.Max(0, ArrayUtils.CeilIndex(columnWidthSums, x) - 1);
+					int endInd = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, x + width) + 1);
+					if (startInd >= 0){
+						for (int i = startInd; i <= endInd; i++){
+							int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
+							int w = i == 0 ? columnWidthSums[0] : columnWidthSums[i] - columnWidthSums[i - 1];
+							string[] q = GetStringHeader(g, i, w, headerFont);
+							for (int j = 0; j < q.Length; j++){
+								g.DrawString(q[j], headerFont, Brushes.Black, x1 + 3, 4 + 11*j);
+							}
+						}
+						if (sortCol != -1 && sortState != SortState.Unsorted){
+							int x1 = columnWidthSums[sortCol] - x - 11;
+							if (x1 >= -15 && x1 <= width){
+								g.DrawImage(sortState == SortState.Increasing ? Resources.arrowDown1 : Resources.arrowUp1, x1, 6, 9, 13);
+							}
+						}
+						if (helpCol != -1){
+							int x1 = (helpCol == 0 ? 0 : columnWidthSums[helpCol - 1]) - x + 5;
+							if (x1 >= -15 && x1 <= width){
+								g.DrawImage(Resources.question12, x1, 7, 10, 10);
+							}
+						}
+						if (model != null && model.AnnotationRowsCount > 0){
+							for (int i = startInd; i <= endInd; i++){
+								int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
+								int x2 = (i >= 0 ? columnWidthSums[i] : 0) - x;
+								for (int k = 0; k < model.AnnotationRowsCount; k++){
+									int y1 = origColumnHeaderHeight + k*rowHeight;
+									g.DrawLine(headerGridPen, x1 + 5, y1 - 1, x2 - 6, y1 - 1);
+									g.DrawLine(Pens.White, x1 + 5, y1, x2 - 6, y1);
+									string s = (string) model.GetAnnotationRowValue(k, i);
+									if (s != null){
+										g.DrawString("" + GetStringValue(g, s, x2 - x1 - 2, headerFont), textFont, Brushes.Black, x1 + 3, y1 + 3);
+									}
+								}
+							}
+						}
+					}
+				}
+			};
+			OnPaintCornerView = g =>{
+				if (model == null){
+					return;
+				}
+				g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
+				g.DrawRectangle(gridPen, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
+				g.DrawLine(Pens.White, 1, 1, RowHeaderWidth - 2, 1);
+				g.DrawLine(Pens.White, 1, 1, 1, ColumnHeaderHeight - 2);
+				if (matrixHelp){
+					g.DrawImage(Resources.question12, 7, 7, 10, 10);
+				}
+				if (model != null && model.AnnotationRowsCount > 0){
+					for (int i = 0; i < model.AnnotationRowsCount; i++){
+						int y1 = origColumnHeaderHeight + i*rowHeight;
+						g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
+						g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
+						string s = model.GetAnnotationRowName(i);
+						if (s != null){
+							g.DrawString("" + GetStringValue(g, s, RowHeaderWidth - 6, headerFont), textFont, Brushes.Black, 3, y1 + 3);
+						}
+					}
+				}
+			};
+			OnPaintMainView = (g, x, y, width, height) =>{
+				if (model == null){
+					return;
+				}
+				try{
+					CheckSizes();
+					g.FillRectangle(Brushes.White, 0, 0, width, height);
+					int offset = -y%rowHeight;
+					if (columnWidthSums == null || columnWidthSums.Length == 0){
+						return;
+					}
+					for (int y1 = offset; y1 < height; y1 += rowHeight){
+						int xmax = Math.Min(width, columnWidthSums[columnWidthSums.Length - 1] - x);
+						g.DrawLine(gridPen, 0, y1, xmax, y1);
+						int row = (y + y1)/rowHeight;
+						if (row < 0){
+							continue;
+						}
+						if (model == null || row >= model.RowCount){
+							break;
+						}
+						bool sel = ViewRowIsSelected(row);
+						if (sel){
+							g.FillRectangle(selectBgBrush, 0, y1 + 1, xmax, rowHeight - 1);
+						} else if (row%2 == 1){
+							g.FillRectangle(oddBgBrush, 0, y1 + 1, xmax, rowHeight - 1);
+						}
+						int startInd = Math.Max(0, ArrayUtils.CeilIndex(columnWidthSums, x) - 1);
+						int endInd = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, x + width) + 1);
+						if (order.Length == 0){
+							return;
+						}
+						if (startInd >= 0 && endInd >= 0){
+							for (int i = startInd; i <= endInd; i++){
+								if (i >= columnWidthSums.Length){
+									continue;
+								}
+								int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
+								int w;
+								if (i == 0){
+									w = columnWidthSums[0];
+								} else{
+									if (i >= columnWidthSums.Length || i - 1 < 0){
+										continue;
+									}
+									w = columnWidthSums[i] - columnWidthSums[i - 1];
+								}
+								RenderCell(g, sel, order[row], i, w, x1, y1);
+							}
+						}
+					}
+					{
+						int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
+						int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
+						if (startInd >= 0 && endInd >= 0){
+							int ymax = Math.Min(height, rowHeight*model.RowCount - y);
+							for (int i = startInd; i <= endInd; i++){
+								if (i >= columnWidthSums.Length || i < 0){
+									continue;
+								}
+								int x1 = columnWidthSums[i] - x;
+								g.DrawLine(gridPen, x1, 0, x1, ymax);
+							}
+						}
+					}
+				} catch (Exception){
+					//This is an exceptional case where we put an unspecific try/catch block around code. Everything is working fine
+					//except for extremely rare index out of bounds crashes, which are probably due to lack of thread safety. This avoilds
+					//crashes of the MaxQuant interface during very long running times.
+				}
+			};
 		}
 
-		public bool Sortable {
+		public bool Sortable{
 			get { return sortable; }
 			set{
 				if (selectionTopToolStripMenuItem != null){
@@ -164,8 +607,8 @@ namespace BaseLib.Forms.Table{
 			showSelectedInPerseusMenuItem.Visible = false;
 			perseusPropertiesMenuItem.Visible = false;
 			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
-				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem
-				, selectionTopToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
+				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem,
+				selectionTopToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
 				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
 				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem,
 				copyColumnSelectionToolStripMenuItem, new ToolStripSeparator(), tagsToolStripMenuItem, tagsControlToolStripMenuItem,
@@ -447,7 +890,6 @@ namespace BaseLib.Forms.Table{
 		public sealed override int TotalHeight => rowHeight*model?.RowCount + 5 ?? 0;
 		public sealed override int DeltaX => 40;
 		public sealed override int DeltaY => rowHeight;
-
 		public int RowCount => model?.RowCount ?? 0;
 
 		public bool ViewRowIsSelected(int row){
@@ -478,142 +920,6 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		protected internal sealed override void OnPaintRowHeaderView(IGraphics g, int y, int height){
-			if (model == null){
-				return;
-			}
-			g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, height);
-			g.DrawLine(gridPen, 0, 0, 0, height);
-			g.DrawLine(gridPen, RowHeaderWidth - 1, 0, RowHeaderWidth - 1, height);
-			g.DrawLine(Pens.White, 1, 0, 1, height);
-			g.DrawLine(shadow1Pen, RowHeaderWidth - 2, 0, RowHeaderWidth - 2, height);
-			g.DrawLine(shadow2Pen, RowHeaderWidth - 3, 0, RowHeaderWidth - 3, height);
-			g.DrawLine(shadow3Pen, RowHeaderWidth - 4, 0, RowHeaderWidth - 4, height);
-			int offset = -y%rowHeight;
-			for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
-				int row = (y + y1)/rowHeight;
-				if (model == null || row > model.RowCount){
-					break;
-				}
-				g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
-				g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
-			}
-			for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
-				int row = (y + y1)/rowHeight;
-				if (row < 0){
-					continue;
-				}
-				if (model == null || row >= model.RowCount){
-					break;
-				}
-				if (ViewRowIsSelected(row)){
-					g.DrawLine(selectHeader1Pen, 2, y1 + 1, RowHeaderWidth - 2, y1 + 1);
-					g.DrawLine(selectHeader1Pen, 2, y1 + rowHeight, RowHeaderWidth - 2, y1 + rowHeight);
-					g.DrawLine(selectHeader1Pen, RowHeaderWidth - 2, y1 + 1, RowHeaderWidth - 2, y1 + rowHeight);
-					g.DrawLine(selectHeader2Pen, 2, y1 + 2, RowHeaderWidth - 3, y1 + 2);
-					g.DrawLine(selectHeader2Pen, 2, y1 + 2, 2, y1 + rowHeight - 1);
-					g.DrawLine(selectHeader3Pen, 3, y1 + 3, RowHeaderWidth - 3, y1 + 3);
-					g.DrawLine(selectHeader3Pen, 3, y1 + 3, 3, y1 + rowHeight - 1);
-					g.FillRectangle(selectHeader4Brush, 4, y1 + 4, RowHeaderWidth - 6, rowHeight - 4);
-				}
-				g.DrawString("" + (row + 1), textFont, Brushes.Black, 5, y1 + 4);
-			}
-		}
-
-		protected internal sealed override void OnPaintColumnHeaderView(IGraphics g, int x, int width){
-			if (model == null){
-				return;
-			}
-			g.FillRectangle(headerBrush, 0, 0, width, ColumnHeaderHeight - 1);
-			g.DrawLine(gridPen, 0, 0, width, 0);
-			g.DrawLine(gridPen, 0, ColumnHeaderHeight - 1, width, ColumnHeaderHeight - 1);
-			g.DrawLine(Pens.White, 0, 1, width, 1);
-			g.DrawLine(shadow1Pen, 0, ColumnHeaderHeight - 2, width, ColumnHeaderHeight - 2);
-			g.DrawLine(shadow2Pen, 0, ColumnHeaderHeight - 3, width, ColumnHeaderHeight - 3);
-			g.DrawLine(shadow3Pen, 0, ColumnHeaderHeight - 4, width, ColumnHeaderHeight - 4);
-			if (columnWidthSums != null){
-				int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
-				int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
-				if (startInd >= 0){
-					for (int i = startInd; i <= endInd; i++){
-						int x1 = columnWidthSums[i] - x;
-						g.DrawLine(headerGridPen, x1, 5, x1, ColumnHeaderHeight - 6);
-						g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, ColumnHeaderHeight - 6);
-					}
-				}
-			}
-			if (columnWidthSums != null && columnWidthSums.Length > 0){
-				int startInd = Math.Max(0, ArrayUtils.CeilIndex(columnWidthSums, x) - 1);
-				int endInd = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, x + width) + 1);
-				if (startInd >= 0){
-					for (int i = startInd; i <= endInd; i++){
-						int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
-						int w = i == 0 ? columnWidthSums[0] : columnWidthSums[i] - columnWidthSums[i - 1];
-						string[] q = GetStringHeader(g, i, w, headerFont);
-						for (int j = 0; j < q.Length; j++){
-							g.DrawString(q[j], headerFont, Brushes.Black, x1 + 3, 4 + 11*j);
-						}
-					}
-					if (sortCol != -1 && sortState != SortState.Unsorted){
-						int x1 = columnWidthSums[sortCol] - x - 11;
-						if (x1 >= -15 && x1 <= width){
-							g.DrawImage(sortState == SortState.Increasing ? Resources.arrowDown1 : Resources.arrowUp1, x1, 6, 9, 13);
-						}
-					}
-					if (helpCol != -1){
-						int x1 = (helpCol == 0 ? 0 : columnWidthSums[helpCol - 1]) - x + 5;
-						if (x1 >= -15 && x1 <= width){
-							g.DrawImage(Resources.question12, x1, 7, 10, 10);
-						}
-					}
-					if (model != null && model.AnnotationRowsCount > 0){
-						for (int i = startInd; i <= endInd; i++){
-							int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
-							int x2 = (i >= 0 ? columnWidthSums[i] : 0) - x;
-							for (int k = 0; k < model.AnnotationRowsCount; k++){
-								int y1 = origColumnHeaderHeight + k*rowHeight;
-								g.DrawLine(headerGridPen, x1 + 5, y1 - 1, x2 - 6, y1 - 1);
-								g.DrawLine(Pens.White, x1 + 5, y1, x2 - 6, y1);
-								string s = (string) model.GetAnnotationRowValue(k, i);
-								if (s != null){
-									g.DrawString("" + GetStringValue(g, s, x2 - x1 - 2, headerFont), textFont, Brushes.Black, x1 + 3, y1 + 3);
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-
-		protected internal sealed override void OnPaintCornerView(IGraphics g){
-			if (model == null){
-				return;
-			}
-			g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
-			g.DrawRectangle(gridPen, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
-			g.DrawLine(Pens.White, 1, 1, RowHeaderWidth - 2, 1);
-			g.DrawLine(Pens.White, 1, 1, 1, ColumnHeaderHeight - 2);
-			if (matrixHelp){
-				g.DrawImage(Resources.question12, 7, 7, 10, 10);
-			}
-			if (model != null && model.AnnotationRowsCount > 0){
-				for (int i = 0; i < model.AnnotationRowsCount; i++){
-					int y1 = origColumnHeaderHeight + i*rowHeight;
-					g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
-					g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
-					string s = model.GetAnnotationRowName(i);
-					if (s != null){
-						g.DrawString("" + GetStringValue(g, s, RowHeaderWidth - 6, headerFont), textFont, Brushes.Black, 3, y1 + 3);
-					}
-				}
-			}
-		}
-
-		protected internal override void OnMouseLeaveMainView(EventArgs e){
-			//TODO
-			//mainViewToolTip.Hide(this);
-		}
-
 		public static bool IsMulti(ColumnType columnType){
 			return columnType == ColumnType.MultiNumeric || columnType == ColumnType.MultiInteger;
 		}
@@ -639,15 +945,15 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public int GetModelIndex(int rowIndView) {
+		public int GetModelIndex(int rowIndView){
 			return order[rowIndView];
 		}
 
-		public int GetViewIndex(int rowIndModel) {
+		public int GetViewIndex(int rowIndModel){
 			return inverseOrder[rowIndModel];
 		}
 
-		public void ClearSelection() {
+		public void ClearSelection(){
 			if (modelRowSel == null){
 				return;
 			}
@@ -661,19 +967,19 @@ namespace BaseLib.Forms.Table{
 			SelectionChanged?.Invoke(this, new EventArgs());
 		}
 
-		public void SelectAll() {
-			if (!MultiSelect) {
+		public void SelectAll(){
+			if (!MultiSelect){
 				return;
 			}
 			CheckSizes();
 			bool[] x = new bool[RowCount];
-			for (int i = 0; i < x.Length; i++) {
+			for (int i = 0; i < x.Length; i++){
 				x[i] = true;
 			}
 			SetSelection(x);
 		}
 
-		public long SelectedCount {
+		public long SelectedCount{
 			get{
 				if (modelRowSel == null){
 					return 0;
@@ -1334,177 +1640,6 @@ namespace BaseLib.Forms.Table{
 			Clipboard.SetDataObject(str.ToString());
 		}
 
-		protected internal override void OnMouseIsDownMainView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			if (e.IsMainButton){
-				try{
-					int row = (VisibleY + e.Y)/rowHeight;
-					if (model == null || row >= model.RowCount || row < 0){
-						return;
-					}
-					bool ctrl = (ModifierKeys & Keys.Control) == Keys.Control;
-					bool shift = (ModifierKeys & Keys.Shift) == Keys.Shift;
-					if (!ctrl || !multiSelect){
-						ClearSelection();
-					}
-					int ox = order[row];
-					if (ox < 0 || ox >= modelRowSel.Length){
-						return;
-					}
-					modelRowSel[ox] = !ctrl || !modelRowSel[ox];
-					if (multiSelect && shift && selectStart != -1){
-						SelectRange(selectStart, row);
-					} else{
-						selectStart = row;
-					}
-					Invalidate(true);
-				} catch (Exception){}
-				SelectionChanged?.Invoke(this, new EventArgs());
-				if (SetCellText != null){
-					int row = (VisibleY + e.Y)/rowHeight;
-					if (model == null || row >= model.RowCount || row < 0){
-						return;
-					}
-					if (columnWidthSums == null){
-						return;
-					}
-					int x1 = VisibleX + e.X;
-					int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-					int ox = order[row];
-					SetCellText("" + TableModel.GetEntry(ox, ind));
-				}
-			}
-		}
-
-		protected internal override void OnMouseDraggedRowHeaderView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			OnMouseDraggedMainView(e);
-		}
-
-		protected internal override void OnMouseDraggedMainView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			if (!MultiSelect){
-				OnMouseIsDownMainView(e);
-				return;
-			}
-			if (e.IsMainButton){
-				if (modelRowSel == null){
-					return;
-				}
-				int row = (VisibleY + e.Y)/rowHeight;
-				if (row >= modelRowSel.Length || row < 0){
-					return;
-				}
-				modelRowSel[order[row]] = true;
-				if (selectStart != row){
-					selectStart = row;
-					Invalidate(true);
-					SelectionChanged?.Invoke(this, new EventArgs());
-				}
-			}
-		}
-
-		protected internal override void OnMouseDraggedColumnHeaderView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			if (columnWidthSumsOld == null || columnWidthSums == null){
-				return;
-			}
-			if (resizeCol != -1){
-				int mind = resizeCol == 0
-								? 6 - columnWidthSumsOld[0]
-								: columnWidthSumsOld[resizeCol - 1] - columnWidthSumsOld[resizeCol] + 6;
-				deltaDragX = Math.Max(mind, e.X - colDragX);
-				for (int i = resizeCol; i < columnWidthSums.Length; i++){
-					columnWidthSums[i] = columnWidthSumsOld[i] + deltaDragX;
-				}
-				Invalidate(true);
-			}
-		}
-
-		protected internal sealed override void OnPaintMainView(IGraphics g, int x, int y, int width, int height){
-			if (model == null){
-				return;
-			}
-			try{
-				CheckSizes();
-				g.FillRectangle(Brushes.White, 0, 0, width, height);
-				int offset = -y%rowHeight;
-				if (columnWidthSums == null || columnWidthSums.Length == 0){
-					return;
-				}
-				for (int y1 = offset; y1 < height; y1 += rowHeight){
-					int xmax = Math.Min(width, columnWidthSums[columnWidthSums.Length - 1] - x);
-					g.DrawLine(gridPen, 0, y1, xmax, y1);
-					int row = (y + y1)/rowHeight;
-					if (row < 0){
-						continue;
-					}
-					if (model == null || row >= model.RowCount){
-						break;
-					}
-					bool sel = ViewRowIsSelected(row);
-					if (sel){
-						g.FillRectangle(selectBgBrush, 0, y1 + 1, xmax, rowHeight - 1);
-					} else if (row%2 == 1){
-						g.FillRectangle(oddBgBrush, 0, y1 + 1, xmax, rowHeight - 1);
-					}
-					int startInd = Math.Max(0, ArrayUtils.CeilIndex(columnWidthSums, x) - 1);
-					int endInd = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, x + width) + 1);
-					if (order.Length == 0){
-						return;
-					}
-					if (startInd >= 0 && endInd >= 0){
-						for (int i = startInd; i <= endInd; i++){
-							if (i >= columnWidthSums.Length){
-								continue;
-							}
-							int x1 = (i > 0 ? columnWidthSums[i - 1] : 0) - x;
-							int w;
-							if (i == 0){
-								w = columnWidthSums[0];
-							} else{
-								if (i >= columnWidthSums.Length || i - 1 < 0){
-									continue;
-								}
-								w = columnWidthSums[i] - columnWidthSums[i - 1];
-							}
-							RenderCell(g, sel, order[row], i, w, x1, y1);
-						}
-					}
-				}
-				{
-					int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
-					int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
-					if (startInd >= 0 && endInd >= 0){
-						int ymax = Math.Min(height, rowHeight*model.RowCount - y);
-						for (int i = startInd; i <= endInd; i++){
-							if (i >= columnWidthSums.Length || i < 0){
-								continue;
-							}
-							int x1 = columnWidthSums[i] - x;
-							g.DrawLine(gridPen, x1, 0, x1, ymax);
-						}
-					}
-				}
-			} catch (Exception){
-				//This is an exceptional case where we put an unspecific try/catch block around code. Everything is working fine
-				//except for extremely rare index out of bounds crashes, which are probably due to lack of thread safety. This avoilds
-				//crashes of the MaxQuant interface during very long running times.
-			}
-		}
-
-		protected internal override void OnMouseHoverMainView(EventArgs e){
-			HandleToolTip(true);
-		}
-
 		private void HandleToolTip(bool hover){
 			if (currentX < 0 || currentY < 0 || currentRow < 0 || currentCol < 0 || model == null || currentRow >= model.RowCount ||
 				currentCol >= model.ColumnCount){
@@ -1525,23 +1660,6 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		protected internal override void OnMouseMoveMainView(BasicMouseEventArgs e){
-			currentX = e.X;
-			currentY = e.Y;
-			HandleToolTip(false);
-			CalcCurrentRowAndColumn(e);
-		}
-
-		protected internal override void OnMouseDoubleClickMainView(BasicMouseEventArgs e){
-			if (e.IsMainButton){
-				int row = (VisibleY + e.Y)/rowHeight;
-				if (model == null || row >= model.RowCount || row < 0){
-					return;
-				}
-			}
-			//TODO: edit
-		}
-
 		public void CalcCurrentRowAndColumn(BasicMouseEventArgs e){
 			int x1 = VisibleX + e.X;
 			int y1 = VisibleY + e.Y;
@@ -1556,151 +1674,6 @@ namespace BaseLib.Forms.Table{
 				}
 			} catch (Exception){}
 			currentRow = y1/rowHeight;
-		}
-
-		protected internal override void OnMouseIsDownRowHeaderView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			OnMouseIsDownMainView(e);
-		}
-
-		protected internal override void OnMouseMoveColumnHeaderView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			int x1 = VisibleX + e.X;
-			if (columnWidthSums == null){
-				return;
-			}
-			int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
-			if (ind >= 0){
-				if (Math.Abs(columnWidthSums[ind] - x1) < 5){
-					Cursor.Current = Cursors.VSplit;
-					resizeCol = ind;
-				} else{
-					Cursor.Current = Cursors.Default;
-					resizeCol = -1;
-				}
-			}
-			int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			try{
-				if (model != null){
-					if (indf >= 0 && !string.IsNullOrEmpty(model.GetColumnDescription(indf)) &&
-						Math.Abs((indf == 0 ? 0 : columnWidthSums[indf - 1]) + 9 - x1) < 4 && e.Y > 7 && e.Y < 17){
-						if (helpCol != indf){
-							helpCol = indf;
-							InvalidateColumnHeaderView();
-						}
-					} else{
-						if (helpCol != -1){
-							helpCol = -1;
-							InvalidateColumnHeaderView();
-						}
-					}
-				}
-			} catch (Exception){}
-		}
-
-		protected internal override void OnMouseMoveCornerView(BasicMouseEventArgs e){
-			if (model == null){
-				return;
-			}
-			int x1 = e.X;
-			if (!string.IsNullOrEmpty(model.Description) && Math.Abs(9 - x1) < 4 && e.Y > 7 && e.Y < 17){
-				if (!matrixHelp){
-					matrixHelp = true;
-					InvalidateCornerView();
-				} else{
-					matrixHelp = false;
-					InvalidateCornerView();
-				}
-			}
-		}
-
-		protected internal override void OnMouseIsUpColumnHeaderView(BasicMouseEventArgs e){
-			//TODO
-			columnViewToolTip.Hide(this);
-		}
-
-		protected internal override void OnMouseIsUpCornerView(BasicMouseEventArgs e){
-			//TODO
-			columnViewToolTip.Hide(this);
-		}
-
-		protected internal override void OnMouseIsDownColumnHeaderView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			if (columnWidthSums == null){
-				return;
-			}
-			if (resizeCol != -1){
-				colDragX = e.X;
-				columnWidthSumsOld = (int[]) columnWidthSums.Clone();
-				return;
-			}
-			if (helpCol >= 0){
-				//TODO
-				columnViewToolTip.ToolTipTitle = model.GetColumnName(helpCol);
-				StringBuilder text = new StringBuilder();
-				string[] wrapped = StringUtils.Wrap(model.GetColumnDescription(helpCol), 75);
-				for (int i = 0; i < wrapped.Length; ++i){
-					string s = wrapped[i];
-					text.Append(s);
-					if (i < wrapped.Length - 1){
-						text.Append("\n");
-					}
-				}
-				columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
-				helpCol = -1;
-				InvalidateColumnHeaderView();
-				return;
-			}
-			if (Sortable && e.IsMainButton){
-				int ind = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, VisibleX + e.X) + 1);
-				if (sortCol == ind){
-					switch (sortState){
-						case SortState.Unsorted:
-							Sort();
-							break;
-						case SortState.Increasing:
-							InvertOrder();
-							break;
-						case SortState.Decreasing:
-							Unsort();
-							break;
-					}
-				} else{
-					sortCol = ind;
-					Sort();
-				}
-			}
-			Invalidate(true);
-		}
-
-		protected internal override void OnMouseIsDownCornerView(BasicMouseEventArgs e){
-			if (!Enabled){
-				return;
-			}
-			if (matrixHelp){
-				//TODO
-				columnViewToolTip.ToolTipTitle = model.Name;
-				StringBuilder text = new StringBuilder();
-				string[] wrapped = StringUtils.Wrap(model.Description, 75);
-				for (int i = 0; i < wrapped.Length; ++i){
-					string s = wrapped[i];
-					text.Append(s);
-					if (i < wrapped.Length - 1){
-						text.Append("\n");
-					}
-				}
-				columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
-				matrixHelp = false;
-				InvalidateCornerView();
-				return;
-			}
-			Invalidate(true);
 		}
 
 		protected override void Dispose(bool disposing){

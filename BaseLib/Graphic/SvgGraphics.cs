@@ -32,28 +32,26 @@ namespace BaseLib.Graphic{
 			docHeight = height;
 			scale = 1;
 			svg = new Svg{
-				Width = width*scale, Height = height*scale, ViewBox = String.Format("0 0 {0} {1}", width*scale, height*scale),
+				Width = width*scale, Height = height*scale, ViewBox = $"0 0 {width*scale} {height*scale}",
 				Title = "tandem spectrum as vector graphics"
 			};
 		}
 
 		public void Dispose(){
-			if (stream != null){
-				stream.Dispose();
-			}
+			stream?.Dispose();
 		}
 
 		private string Transform{
 			get{
 				string transform = "";
 				if (locationX != 0 || locationY != 0){
-					transform += string.Format(" translate({0}, {1})", locationX, locationY);
+					transform += $" translate({locationX}, {locationY})";
 				}
 				if (rotationAngle != 0){
-					transform += string.Format(" rotate({0})", rotationAngle);
+					transform += $" rotate({rotationAngle})";
 				}
 				if (scale != 1){
-					transform += string.Format(" scale({0})", scale);
+					transform += $" scale({scale})";
 				}
 				return string.IsNullOrEmpty(transform) ? null : transform.Trim();
 			}
@@ -64,7 +62,7 @@ namespace BaseLib.Graphic{
 			//{
 			//    return color.Name;
 			//}
-			return string.Format("rgb({0},{1},{2})", color.R, color.G, color.B);
+			return $"rgb({color.R},{color.G},{color.B})";
 		}
 
 		public string BrushColor(Brush brush){
@@ -150,9 +148,9 @@ namespace BaseLib.Graphic{
 			Path path = new Path{D = "", Transform = Transform};
 			for (int i = 0; i < points.Length; i++){
 				if (i == 0){
-					path.D += string.Format("M{0} {1} ", points[i].X, points[i].Y);
+					path.D += $"M{points[i].X} {points[i].Y} ";
 				} else{
-					path.D += string.Format("L{0} {1} ", points[i].X, points[i].Y);
+					path.D += $"L{points[i].X} {points[i].Y} ";
 				}
 			}
 			path.Stroke = PenColor(pen);
@@ -169,9 +167,9 @@ namespace BaseLib.Graphic{
 			Path path = new Path { D = "", Transform = Transform };
 			for (int i = 0; i < points.Length; i++) {
 				if (i == 0) {
-					path.D += string.Format("M{0} {1} ", points[i].X, points[i].Y);
+					path.D += $"M{points[i].X} {points[i].Y} ";
 				} else {
-					path.D += string.Format("L{0} {1} ", points[i].X, points[i].Y);
+					path.D += $"L{points[i].X} {points[i].Y} ";
 				}
 			}
 			path.Stroke = PenColor(pen);

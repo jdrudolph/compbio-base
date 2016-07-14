@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Graphic;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLib.Forms.Base{
 	public class BasicTableLayoutView : BasicView{
@@ -12,8 +11,8 @@ namespace BaseLib.Forms.Base{
 		private static readonly Brush borderBrush = new SolidBrush(borderColor);
 		private readonly object lockThis = new object();
 		public int BorderSize { get; set; }
-		public BasicColumnStyles ColumnStyles { get; private set; }
-		public BasicRowStyles RowStyles { get; private set; }
+		public BasicColumnStyles ColumnStyles { get; }
+		public BasicRowStyles RowStyles { get; }
 		private readonly Dictionary<Tuple<int, int>, BasicView> components = new Dictionary<Tuple<int, int>, BasicView>();
 		private int[] widths;
 		private int[] xpos;
@@ -144,8 +143,8 @@ namespace BaseLib.Forms.Base{
 			return ArrayUtils.FloorIndex(pos, p1);
 		}
 
-		public int RowCount { get { return RowStyles.Count; } }
-		public int ColumnCount { get { return ColumnStyles.Count; } }
+		public int RowCount => RowStyles.Count;
+		public int ColumnCount => ColumnStyles.Count;
 
 		protected internal override void OnPaint(IGraphics g, int width, int height){
 			if (widths == null){
@@ -249,27 +248,21 @@ namespace BaseLib.Forms.Base{
 			int indX;
 			int indY;
 			BasicView v = GetComponentAt(e.X, e.Y, out indX, out indY);
-			if (v != null){
-				v.OnMouseClick(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
-			}
+			v?.OnMouseClick(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
 		}
 
 		protected internal override void OnMouseDoubleClick(BasicMouseEventArgs e){
 			int indX;
 			int indY;
 			BasicView v = GetComponentAt(e.X, e.Y, out indX, out indY);
-			if (v != null){
-				v.OnMouseDoubleClick(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
-			}
+			v?.OnMouseDoubleClick(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
 		}
 
 		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
 			if (dragging){}
 			BasicView v = GetComponentAt(mouseDownX, mouseDownY);
-			if (v != null){
-				v.OnMouseDragged(new BasicMouseEventArgs(e, xpos[mouseDownX], ypos[mouseDownY], widths[mouseDownX],
-					heights[mouseDownY]));
-			}
+			v?.OnMouseDragged(new BasicMouseEventArgs(e, xpos[mouseDownX], ypos[mouseDownY], widths[mouseDownX],
+				heights[mouseDownY]));
 			//TODO: splitter
 		}
 
@@ -308,9 +301,7 @@ namespace BaseLib.Forms.Base{
 				return;
 			}
 			BasicView v = GetComponentAt(mouseDownX, mouseDownY);
-			if (v != null){
-				v.OnMouseIsUp(new BasicMouseEventArgs(e, xpos[mouseDownX], ypos[mouseDownY], widths[mouseDownX], heights[mouseDownY]));
-			}
+			v?.OnMouseIsUp(new BasicMouseEventArgs(e, xpos[mouseDownX], ypos[mouseDownY], widths[mouseDownX], heights[mouseDownY]));
 		}
 
 		private BasicView GetComponentAt(int x, int y, out int indX1, out int indY1){
@@ -370,9 +361,7 @@ namespace BaseLib.Forms.Base{
 			int indX;
 			int indY;
 			BasicView v = GetComponentAt(e.X, e.Y, out indX, out indY);
-			if (v != null){
-				v.OnMouseWheel(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
-			}
+			v?.OnMouseWheel(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
 		}
 
 		public void InvalidateSizes(){

@@ -7,39 +7,39 @@ namespace BaseLib.Forms.Scroll{
 		public ScrollableControlMiddleCornerView(CompoundScrollableControl main) : base(main) {}
 
 		protected internal override void OnPaint(IGraphics g, int width, int height) {
-			main.OnPaintMiddleCornerView(g);
+			main.OnPaintMiddleCornerView?.Invoke(g);
 		}
 
 		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
-			main.OnMouseMoveMiddleCornerView(e);
+			main.OnMouseMoveMiddleCornerView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseClick(BasicMouseEventArgs e){
-			main.OnMouseClickMiddleCornerView(e);
+			main.OnMouseClickMiddleCornerView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseDoubleClick(BasicMouseEventArgs e){
-			main.OnMouseDoubleClickMiddleCornerView(e);
+			main.OnMouseDoubleClickMiddleCornerView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
-			main.OnMouseDraggedMiddleCornerView(e);
+			main.OnMouseDraggedMiddleCornerView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseHover(EventArgs e){
-			main.OnMouseHoverMiddleCornerView(e);
+			main.OnMouseHoverMiddleCornerView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
-			main.OnMouseIsDownMiddleCornerView(e);
+			main.OnMouseIsDownMiddleCornerView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
-			main.OnMouseIsUpMiddleCornerView(e);
+			main.OnMouseIsUpMiddleCornerView?.Invoke(e);
 		}
 
 		protected internal override void OnMouseLeave(EventArgs e){
-			main.OnMouseLeaveMiddleCornerView(e);
+			main.OnMouseLeaveMiddleCornerView?.Invoke(e);
 		}
 	}
 }
