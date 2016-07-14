@@ -571,6 +571,44 @@ namespace BaseLib.Forms.Table{
 			TotalHeight = () => rowHeight*model?.RowCount + 5 ?? 0;
 			DeltaX = () => 40;
 			DeltaY = () => rowHeight;
+			DeltaUpToSelection = () =>{
+				int[] inds = GetSelectedRowsView();
+				if (inds.Length == 0){
+					return VisibleY;
+				}
+				int visRow = (VisibleY + rowHeight - 1)/rowHeight;
+				int ind = Array.BinarySearch(inds, visRow);
+				if (ind >= 0){
+					if (ind < 1){
+						return VisibleY;
+					}
+					return (visRow - inds[ind - 1])*rowHeight;
+				}
+				ind = -1 - ind;
+				if (ind < 1){
+					return VisibleY;
+				}
+				return (visRow - inds[ind - 1])*rowHeight;
+			};
+			DeltaDownToSelection = () =>{
+				int[] inds = GetSelectedRowsView();
+				if (inds.Length == 0){
+					return TotalHeight() - VisibleY - VisibleHeight;
+				}
+				int visRow = (VisibleY + rowHeight - 1)/rowHeight;
+				int ind = Array.BinarySearch(inds, visRow);
+				if (ind >= 0){
+					if (ind >= inds.Length - 1){
+						return TotalHeight() - VisibleY - VisibleHeight;
+					}
+					return (inds[ind + 1] - visRow)*rowHeight;
+				}
+				ind = -1 - ind;
+				if (ind >= inds.Length){
+					return TotalHeight() - VisibleY - VisibleHeight;
+				}
+				return (inds[ind] - visRow)*rowHeight;
+			};
 		}
 
 		public bool Sortable{
@@ -721,46 +759,6 @@ namespace BaseLib.Forms.Table{
 				origColumnHeaderHeight = value;
 				base.ColumnHeaderHeight = value;
 			}
-		}
-
-		public override int DeltaUpToSelection(){
-			int[] inds = GetSelectedRowsView();
-			if (inds.Length == 0){
-				return VisibleY;
-			}
-			int visRow = (VisibleY + rowHeight - 1)/rowHeight;
-			int ind = Array.BinarySearch(inds, visRow);
-			if (ind >= 0){
-				if (ind < 1){
-					return VisibleY;
-				}
-				return (visRow - inds[ind - 1])*rowHeight;
-			}
-			ind = -1 - ind;
-			if (ind < 1){
-				return VisibleY;
-			}
-			return (visRow - inds[ind - 1])*rowHeight;
-		}
-
-		public override int DeltaDownToSelection(){
-			int[] inds = GetSelectedRowsView();
-			if (inds.Length == 0){
-				return TotalHeight() - VisibleY - VisibleHeight;
-			}
-			int visRow = (VisibleY + rowHeight - 1)/rowHeight;
-			int ind = Array.BinarySearch(inds, visRow);
-			if (ind >= 0){
-				if (ind >= inds.Length - 1){
-					return TotalHeight() - VisibleY - VisibleHeight;
-				}
-				return (inds[ind + 1] - visRow)*rowHeight;
-			}
-			ind = -1 - ind;
-			if (ind >= inds.Length){
-				return TotalHeight() - VisibleY - VisibleHeight;
-			}
-			return (inds[ind] - visRow)*rowHeight;
 		}
 
 		public void SetSelectedRow(int row){

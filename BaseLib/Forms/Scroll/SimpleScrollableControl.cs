@@ -22,6 +22,8 @@ namespace BaseLib.Forms.Scroll{
 			TotalHeight = () => 200;
 			DeltaX = () => Width/20;
 			DeltaY = () => Height/20;
+			DeltaUpToSelection = () => 0;
+			DeltaDownToSelection = () => 0;
 		}
 
 		public virtual void InvalidateBackgroundImages(){}
@@ -67,6 +69,8 @@ namespace BaseLib.Forms.Scroll{
 		public Func<int> TotalHeight { get; set; }
 		public Func<int> DeltaX { get; set; }
 		public Func<int> DeltaY { get; set; }
+		public Func<int> DeltaUpToSelection { get; set; }
+		public Func<int> DeltaDownToSelection { get; set; }
 		public int ClientWidth => VisibleWidth;
 		public int ClientHeight => VisibleHeight;
 		public int TotalClientWidth => TotalWidth();
@@ -150,14 +154,6 @@ namespace BaseLib.Forms.Scroll{
 		public Action<BasicMouseEventArgs> OnMouseIsUpMainView { get; set; }
 		public Action<EventArgs> OnMouseLeaveMainView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
-
-		public virtual int DeltaUpToSelection(){
-			return 0;
-		}
-
-		public virtual int DeltaDownToSelection(){
-			return 0;
-		}
 
 		public void Print(IGraphics g, int width, int height){
 			mainView.Print(g, width, height);

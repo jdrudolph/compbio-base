@@ -7,6 +7,8 @@ namespace BaseLib.Forms.Scroll {
 		Func<int> TotalHeight { get; set; }
 		Func<int> DeltaX { get; set; }
 		Func<int> DeltaY { get; set; }
+		Func<int> DeltaUpToSelection { get; set; }
+		Func<int> DeltaDownToSelection { get; set; }
 		int VisibleX { get; set; }
 		int VisibleY { get; set; }
 		int VisibleWidth { get; }
@@ -15,7 +17,5 @@ namespace BaseLib.Forms.Scroll {
 		int ClientHeight { get; }
 		int TotalClientWidth { get; }
 		int TotalClientHeight { get; }
-		int DeltaDownToSelection();
-		int DeltaUpToSelection();
 	}
 }
