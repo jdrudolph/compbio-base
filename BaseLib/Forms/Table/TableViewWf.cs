@@ -102,7 +102,7 @@ namespace BaseLib.Forms.Table{
 		public TableViewWf(){
 			Sortable = true;
 			RowHeaderWidth = 70;
-			ColumnHeaderHeight = 26;
+			SetColumnHeaderHeight(26);
 			ResizeRedraw = true;
 			InitContextMenu();
 			tagsControlToolStripMenuItem.Visible = false;
@@ -401,21 +401,21 @@ namespace BaseLib.Forms.Table{
 				if (model == null){
 					return;
 				}
-				g.FillRectangle(headerBrush, 0, 0, width, ColumnHeaderHeight - 1);
+				g.FillRectangle(headerBrush, 0, 0, width, GetColumnHeaderHeight() - 1);
 				g.DrawLine(gridPen, 0, 0, width, 0);
-				g.DrawLine(gridPen, 0, ColumnHeaderHeight - 1, width, ColumnHeaderHeight - 1);
+				g.DrawLine(gridPen, 0, GetColumnHeaderHeight() - 1, width, GetColumnHeaderHeight() - 1);
 				g.DrawLine(Pens.White, 0, 1, width, 1);
-				g.DrawLine(shadow1Pen, 0, ColumnHeaderHeight - 2, width, ColumnHeaderHeight - 2);
-				g.DrawLine(shadow2Pen, 0, ColumnHeaderHeight - 3, width, ColumnHeaderHeight - 3);
-				g.DrawLine(shadow3Pen, 0, ColumnHeaderHeight - 4, width, ColumnHeaderHeight - 4);
+				g.DrawLine(shadow1Pen, 0, GetColumnHeaderHeight() - 2, width, GetColumnHeaderHeight() - 2);
+				g.DrawLine(shadow2Pen, 0, GetColumnHeaderHeight() - 3, width, GetColumnHeaderHeight() - 3);
+				g.DrawLine(shadow3Pen, 0, GetColumnHeaderHeight() - 4, width, GetColumnHeaderHeight() - 4);
 				if (columnWidthSums != null){
 					int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
 					int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
 					if (startInd >= 0){
 						for (int i = startInd; i <= endInd; i++){
 							int x1 = columnWidthSums[i] - x;
-							g.DrawLine(headerGridPen, x1, 5, x1, ColumnHeaderHeight - 6);
-							g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, ColumnHeaderHeight - 6);
+							g.DrawLine(headerGridPen, x1, 5, x1, GetColumnHeaderHeight() - 6);
+							g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, GetColumnHeaderHeight() - 6);
 						}
 					}
 				}
@@ -465,10 +465,10 @@ namespace BaseLib.Forms.Table{
 				if (model == null){
 					return;
 				}
-				g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
-				g.DrawRectangle(gridPen, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
+				g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, GetColumnHeaderHeight() - 1);
+				g.DrawRectangle(gridPen, 0, 0, RowHeaderWidth - 1, GetColumnHeaderHeight() - 1);
 				g.DrawLine(Pens.White, 1, 1, RowHeaderWidth - 2, 1);
-				g.DrawLine(Pens.White, 1, 1, 1, ColumnHeaderHeight - 2);
+				g.DrawLine(Pens.White, 1, 1, 1, GetColumnHeaderHeight() - 2);
 				if (matrixHelp){
 					g.DrawImage(Resources.question12, 7, 7, 10, 10);
 				}
@@ -754,11 +754,9 @@ namespace BaseLib.Forms.Table{
 
 		public bool HasHelp { get; set; } = true;
 
-		public sealed override int ColumnHeaderHeight{
-			set{
+		public sealed override void SetColumnHeaderHeight(int value){
 				origColumnHeaderHeight = value;
-				base.ColumnHeaderHeight = value;
-			}
+				base.SetColumnHeaderHeight( value);
 		}
 
 		public void SetSelectedRow(int row){
@@ -880,7 +878,7 @@ namespace BaseLib.Forms.Table{
 					columnWidthSums[i] = columnWidthSums[i - 1] + model.GetColumnWidth(i);
 				}
 				if (model.AnnotationRowsCount > 0){
-					base.ColumnHeaderHeight = origColumnHeaderHeight + model.AnnotationRowsCount*rowHeight;
+					base.SetColumnHeaderHeight(origColumnHeaderHeight + model.AnnotationRowsCount*rowHeight);
 				}
 			}
 		}
@@ -1546,7 +1544,7 @@ namespace BaseLib.Forms.Table{
 			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
 			Point q = PointToScreen(new Point(0, 0));
 			int cx = p.X - q.X - RowHeaderWidth;
-			int cy = p.Y - q.Y - ColumnHeaderHeight;
+			int cy = p.Y - q.Y - GetColumnHeaderHeight();
 			int x1 = VisibleX + cx;
 			if (columnWidthSums == null){
 				return;

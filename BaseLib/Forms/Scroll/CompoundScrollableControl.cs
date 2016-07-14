@@ -117,17 +117,17 @@ namespace BaseLib.Forms.Scroll{
 			OnPaintRowHeaderView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, VisibleHeight); };
 			OnPaintRowFooterView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, VisibleHeight); };
 			OnPaintColumnHeaderView =
-				(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, ColumnHeaderHeight); };
+				(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, GetColumnHeaderHeight()); };
 			OnPaintColumnFooterView =
 				(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, ColumnFooterHeight); };
-			OnPaintColumnSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, ColumnHeaderHeight); };
+			OnPaintColumnSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, GetColumnHeaderHeight()); };
 			OnPaintRowSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, ColumnFooterHeight); };
-			OnPaintCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, ColumnHeaderHeight); };
+			OnPaintCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, GetColumnHeaderHeight()); };
 			OnPaintMiddleCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, ColumnFooterHeight); };
 			TotalWidth = () => 200;
 			TotalHeight = () => 200;
 			DeltaX = () => (Width - RowHeaderWidth)/20;
-			DeltaY = () => (Height - ColumnHeaderHeight)/20;
+			DeltaY = () => (Height - GetColumnHeaderHeight())/20;
 			DeltaUpToSelection = () => 0;
 			DeltaDownToSelection = () => 0;
 		}
@@ -221,15 +221,16 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		public virtual int ColumnHeaderHeight{
-			get { return columnHeaderHeight; }
-			set{
-				columnHeaderHeight = value;
-				tableLayoutPanel2.RowStyles[0] = new BasicRowStyle(BasicSizeType.AbsoluteResizeable, value);
-			}
+		public virtual int GetColumnHeaderHeight(){
+			return columnHeaderHeight;
 		}
 
-		public virtual int ColumnFooterHeight{
+		public virtual void SetColumnHeaderHeight(int value){
+			columnHeaderHeight = value;
+			tableLayoutPanel2.RowStyles[0] = new BasicRowStyle(BasicSizeType.AbsoluteResizeable, value);
+		}
+
+		public int ColumnFooterHeight{
 			get { return columnFooterHeight; }
 			set{
 				columnFooterHeight = value;
@@ -246,9 +247,9 @@ namespace BaseLib.Forms.Scroll{
 		public int ClientWidth => Width - scrollBarWidth;
 		public int ClientHeight => Height - scrollBarWidth;
 		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth;
-		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth;
+		public int VisibleHeight => Height - GetColumnHeaderHeight() - ColumnFooterHeight - scrollBarWidth;
 		public int TotalClientWidth => TotalWidth() + RowHeaderWidth + RowFooterWidth;
-		public int TotalClientHeight => TotalHeight() + ColumnHeaderHeight + ColumnFooterHeight;
+		public int TotalClientHeight => TotalHeight() + GetColumnHeaderHeight() + ColumnFooterHeight;
 
 		protected override void OnResize(EventArgs e){
 			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth() - VisibleWidth - 1));
