@@ -1,4 +1,5 @@
-﻿using BaseLib.Forms.Base;
+﻿using System;
+using BaseLib.Forms.Base;
 
 namespace BaseLib.Forms.Scroll {
 	public interface IScrollableControl : IPrintable{
@@ -8,8 +9,8 @@ namespace BaseLib.Forms.Scroll {
 		int VisibleY { get; set; }
 		int VisibleWidth { get; }
 		int VisibleHeight { get; }
-		int TotalWidth { get; }
-		int TotalHeight { get; }
+		Func<int> TotalWidth { get; set; }
+		Func<int> TotalHeight { get; set; }
 		int ClientWidth { get; }
 		int ClientHeight { get; }
 		int TotalClientWidth { get; }

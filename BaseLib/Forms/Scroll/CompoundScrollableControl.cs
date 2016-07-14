@@ -100,6 +100,15 @@ namespace BaseLib.Forms.Scroll{
 		public Action<BasicMouseEventArgs> OnMouseIsUpMiddleCornerView { get; set; }
 		public Action<EventArgs> OnMouseLeaveMiddleCornerView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMiddleCornerView { get; set; }
+		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		public Action<IGraphics, int, int> OnPaintRowHeaderView { get; set; }
+		public Action<IGraphics, int, int> OnPaintRowFooterView { get; set; }
+		public Action<IGraphics, int, int> OnPaintColumnHeaderView { get; set; }
+		public Action<IGraphics, int, int> OnPaintColumnFooterView { get; set; }
+		public Action<IGraphics> OnPaintColumnSpacerView { get; set; }
+		public Action<IGraphics> OnPaintRowSpacerView { get; set; }
+		public Action<IGraphics> OnPaintCornerView { get; set; }
+		public Action<IGraphics> OnPaintMiddleCornerView { get; set; }
 
 		protected CompoundScrollableControl(){
 			InitializeComponent2();
@@ -222,35 +231,35 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		public virtual int TotalWidth => 200;
-		public virtual int TotalHeight => 200;
-		public int ClientWidth => Width - scrollBarWidth;
-		public int ClientHeight => Height - scrollBarWidth;
+		public Func<int> TotalWidth { get; set; } = () => 200;
+		public Func<int> TotalHeight { get; set; } = () => 200;
 		public virtual int DeltaX => (Width - RowHeaderWidth)/20;
 		public virtual int DeltaY => (Height - ColumnHeaderHeight)/20;
+		public int ClientWidth => Width - scrollBarWidth;
+		public int ClientHeight => Height - scrollBarWidth;
 		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth;
 		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth;
-		public int TotalClientWidth => TotalWidth + RowHeaderWidth + RowFooterWidth;
-		public int TotalClientHeight => TotalHeight + ColumnHeaderHeight + ColumnFooterHeight;
+		public int TotalClientWidth => TotalWidth() + RowHeaderWidth + RowFooterWidth;
+		public int TotalClientHeight => TotalHeight() + ColumnHeaderHeight + ColumnFooterHeight;
 
 		protected override void OnResize(EventArgs e){
-			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth - VisibleWidth - 1));
-			VisibleY = Math.Max(0, Math.Min(VisibleY, TotalHeight - VisibleHeight - 1));
+			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth() - VisibleWidth - 1));
+			VisibleY = Math.Max(0, Math.Min(VisibleY, TotalHeight() - VisibleHeight - 1));
 			base.OnResize(e);
 		}
 
 		public void MoveUp(int delta){
-			if (TotalHeight <= VisibleHeight){
+			if (TotalHeight() <= VisibleHeight){
 				return;
 			}
 			VisibleY = Math.Max(0, VisibleY - delta);
 		}
 
 		public void MoveDown(int delta){
-			if (TotalHeight <= VisibleHeight){
+			if (TotalHeight() <= VisibleHeight){
 				return;
 			}
-			VisibleY = Math.Min(TotalHeight - VisibleHeight, VisibleY + delta);
+			VisibleY = Math.Min(TotalHeight() - VisibleHeight, VisibleY + delta);
 		}
 
 		private void InitializeComponent2(){
@@ -302,24 +311,14 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e){
-			if (TotalHeight <= VisibleHeight){
+			if (TotalHeight() <= VisibleHeight){
 				return;
 			}
 			VisibleY = Math.Min(Math.Max(0, VisibleY - (int) Math.Round(VisibleHeight*0.001*e.Delta)),
-				TotalHeight - VisibleHeight);
+				TotalHeight() - VisibleHeight);
 			verticalScrollBarView.Invalidate();
 			base.OnMouseWheel(e);
 		}
-
-		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
-		public Action<IGraphics, int, int> OnPaintRowHeaderView { get; set; }
-		public Action<IGraphics, int, int> OnPaintRowFooterView { get; set; }
-		public Action<IGraphics, int, int> OnPaintColumnHeaderView { get; set; }
-		public Action<IGraphics, int, int> OnPaintColumnFooterView { get; set; }
-		public Action<IGraphics> OnPaintColumnSpacerView { get; set; }
-		public Action<IGraphics> OnPaintRowSpacerView { get; set; }
-		public Action<IGraphics> OnPaintCornerView { get; set; }
-		public Action<IGraphics> OnPaintMiddleCornerView { get; set; }
 
 		public virtual int DeltaUpToSelection(){
 			return 0;

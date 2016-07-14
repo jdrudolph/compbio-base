@@ -131,7 +131,7 @@ namespace BaseLib.Forms.Scroll{
 			if (hx <= 0){
 				return CompoundScrollableControl.scrollBarWidth - 1;
 			}
-			int w = (int) Math.Round(hx*(main.VisibleY/(double) (main.TotalHeight - 1)));
+			int w = (int) Math.Round(hx*(main.VisibleY/(double) (main.TotalHeight() - 1)));
 			w = Math.Min(w, hx - 5);
 			return Math.Max(0, w) + CompoundScrollableControl.scrollBarWidth - 1;
 		}
@@ -141,7 +141,7 @@ namespace BaseLib.Forms.Scroll{
 			if (hx <= 0){
 				return CompoundScrollableControl.scrollBarWidth - 1;
 			}
-			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleY + main.VisibleHeight)/(double) (main.TotalHeight - 1)))) +
+			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleY + main.VisibleHeight)/(double) (main.TotalHeight() - 1)))) +
 				CompoundScrollableControl.scrollBarWidth - 1;
 		}
 
@@ -251,7 +251,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		private void MoveDown(int delta) {
-			main.VisibleY = Math.Min(main.TotalHeight - main.VisibleHeight, main.VisibleY + delta);
+			main.VisibleY = Math.Min(main.TotalHeight() - main.VisibleHeight, main.VisibleY + delta);
 		}
 
 		private void WalkDown(int delta) {
@@ -281,9 +281,9 @@ namespace BaseLib.Forms.Scroll{
 				return;
 			}
 			int hx = e.Height - 2 * CompoundScrollableControl.scrollBarWidth + 2;
-			int y = visibleDragStart + (int)Math.Round((e.Y - dragStart) / (double)hx * main.TotalHeight);
+			int y = visibleDragStart + (int)Math.Round((e.Y - dragStart) / (double)hx * main.TotalHeight());
 			y = Math.Max(0, y);
-			y = Math.Min(main.TotalHeight - main.VisibleHeight, y);
+			y = Math.Min(main.TotalHeight() - main.VisibleHeight, y);
 			main.VisibleY = y;
 			Invalidate();
 		}
@@ -311,6 +311,6 @@ namespace BaseLib.Forms.Scroll{
 			Invalidate();
 		}
 
-		private bool HasBar => main.VisibleHeight < main.TotalHeight;
+		private bool HasBar => main.VisibleHeight < main.TotalHeight();
 	}
 }

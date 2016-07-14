@@ -76,7 +76,7 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		private bool HasBar => main.VisibleWidth < main.TotalWidth;
+		private bool HasBar => main.VisibleWidth < main.TotalWidth();
 
 		private void PaintFirstMark(IGraphics g, int scrollBarWid){
 			if (firstMark == null){
@@ -133,7 +133,7 @@ namespace BaseLib.Forms.Scroll{
 			if (hx <= 0){
 				return CompoundScrollableControl.scrollBarWidth - 1;
 			}
-			int w = (int) Math.Round(hx*(main.VisibleX/(double) (main.TotalWidth - 1)));
+			int w = (int) Math.Round(hx*(main.VisibleX/(double) (main.TotalWidth() - 1)));
 			w = Math.Min(w, hx - 5);
 			return Math.Max(0, w) + CompoundScrollableControl.scrollBarWidth - 1;
 		}
@@ -143,7 +143,7 @@ namespace BaseLib.Forms.Scroll{
 			if (hx <= 0){
 				return CompoundScrollableControl.scrollBarWidth - 1;
 			}
-			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleX + main.VisibleWidth)/(double) (main.TotalWidth - 1)))) +
+			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleX + main.VisibleWidth)/(double) (main.TotalWidth() - 1)))) +
 				CompoundScrollableControl.scrollBarWidth - 1;
 		}
 
@@ -244,7 +244,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		private void MoveRight(int delta) {
-			main.VisibleX = Math.Min(main.TotalWidth - main.VisibleWidth, main.VisibleX + delta);
+			main.VisibleX = Math.Min(main.TotalWidth() - main.VisibleWidth, main.VisibleX + delta);
 		}
 
 		private void WalkLeft(int delta) {
@@ -274,9 +274,9 @@ namespace BaseLib.Forms.Scroll{
 				return;
 			}
 			int hx = e.Width - 2 * CompoundScrollableControl.scrollBarWidth + 2;
-			int x = visibleDragStart + (int)Math.Round((e.X - dragStart) / (double)hx * main.TotalWidth);
+			int x = visibleDragStart + (int)Math.Round((e.X - dragStart) / (double)hx * main.TotalWidth());
 			x = Math.Max(0, x);
-			x = Math.Min(main.TotalWidth - main.VisibleWidth, x);
+			x = Math.Min(main.TotalWidth() - main.VisibleWidth, x);
 			main.VisibleX = x;
 			Invalidate();
 		}

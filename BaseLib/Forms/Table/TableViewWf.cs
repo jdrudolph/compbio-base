@@ -555,6 +555,20 @@ namespace BaseLib.Forms.Table{
 					//crashes of the MaxQuant interface during very long running times.
 				}
 			};
+			TotalWidth = () =>{
+				if (model == null){
+					return 0;
+				}
+				if (columnWidthSums == null){
+					return 0;
+				}
+				int ind = model.ColumnCount - 1;
+				if (ind < 0 || ind >= columnWidthSums.Length){
+					return 0;
+				}
+				return columnWidthSums[ind] + 5;
+			};
+			TotalHeight = () => rowHeight*model?.RowCount + 5 ?? 0;
 		}
 
 		public bool Sortable{
@@ -730,19 +744,19 @@ namespace BaseLib.Forms.Table{
 		public override int DeltaDownToSelection(){
 			int[] inds = GetSelectedRowsView();
 			if (inds.Length == 0){
-				return TotalHeight - VisibleY - VisibleHeight;
+				return TotalHeight() - VisibleY - VisibleHeight;
 			}
 			int visRow = (VisibleY + rowHeight - 1)/rowHeight;
 			int ind = Array.BinarySearch(inds, visRow);
 			if (ind >= 0){
 				if (ind >= inds.Length - 1){
-					return TotalHeight - VisibleY - VisibleHeight;
+					return TotalHeight() - VisibleY - VisibleHeight;
 				}
 				return (inds[ind + 1] - visRow)*rowHeight;
 			}
 			ind = -1 - ind;
 			if (ind >= inds.Length){
-				return TotalHeight - VisibleY - VisibleHeight;
+				return TotalHeight() - VisibleY - VisibleHeight;
 			}
 			return (inds[ind] - visRow)*rowHeight;
 		}
@@ -871,23 +885,6 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public sealed override int TotalWidth{
-			get{
-				if (model == null){
-					return 0;
-				}
-				if (columnWidthSums == null){
-					return 0;
-				}
-				int ind = model.ColumnCount - 1;
-				if (ind < 0 || ind >= columnWidthSums.Length){
-					return 0;
-				}
-				return columnWidthSums[ind] + 5;
-			}
-		}
-
-		public sealed override int TotalHeight => rowHeight*model?.RowCount + 5 ?? 0;
 		public sealed override int DeltaX => 40;
 		public sealed override int DeltaY => rowHeight;
 		public int RowCount => model?.RowCount ?? 0;

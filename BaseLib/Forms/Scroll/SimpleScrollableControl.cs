@@ -18,6 +18,8 @@ namespace BaseLib.Forms.Scroll{
 			InitializeComponent2();
 			ResizeRedraw = true;
 			OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
+			TotalWidth = () => 200;
+			TotalHeight = () => 200;
 		}
 
 		public virtual void InvalidateBackgroundImages(){}
@@ -59,35 +61,38 @@ namespace BaseLib.Forms.Scroll{
 			mainView.Invalidate();
 		}
 
-		public virtual int TotalWidth => 200;
-		public virtual int TotalHeight => 200;
+		public Func<int> TotalWidth { get; set; }
+		public Func<int> TotalHeight { get; set; }
 		public int ClientWidth => VisibleWidth;
 		public int ClientHeight => VisibleHeight;
-		public int TotalClientWidth => TotalWidth;
-		public int TotalClientHeight => TotalHeight;
+		public int TotalClientWidth => TotalWidth();
+		public int TotalClientHeight => TotalHeight();
 		public virtual int DeltaX => Width/20;
 		public virtual int DeltaY => Height/20;
 		public int VisibleWidth => mainControl.Width;
 		public int VisibleHeight => mainControl.Height;
 
 		protected override void OnResize(EventArgs e){
-			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth - VisibleWidth - 1));
-			VisibleY = Math.Max(0, Math.Min(VisibleY, TotalHeight - VisibleHeight - 1));
+			if (TotalWidth == null || TotalHeight == null){
+				return;
+			}
+			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth() - VisibleWidth - 1));
+			VisibleY = Math.Max(0, Math.Min(VisibleY, TotalHeight() - VisibleHeight - 1));
 			base.OnResize(e);
 		}
 
 		public void MoveUp(int delta){
-			if (TotalHeight <= VisibleHeight){
+			if (TotalHeight() <= VisibleHeight){
 				return;
 			}
 			VisibleY = Math.Max(0, VisibleY - delta);
 		}
 
 		public void MoveDown(int delta){
-			if (TotalHeight <= VisibleHeight){
+			if (TotalHeight() <= VisibleHeight){
 				return;
 			}
-			VisibleY = Math.Min(TotalHeight - VisibleHeight, VisibleY + delta);
+			VisibleY = Math.Min(TotalHeight() - VisibleHeight, VisibleY + delta);
 		}
 
 		private void InitializeComponent2(){
@@ -125,11 +130,11 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		protected override void OnMouseWheel(MouseEventArgs e){
-			if (TotalHeight <= VisibleHeight){
+			if (TotalHeight() <= VisibleHeight){
 				return;
 			}
 			VisibleY = Math.Min(Math.Max(0, VisibleY - (int) Math.Round(VisibleHeight*0.001*e.Delta)),
-				TotalHeight - VisibleHeight);
+				TotalHeight() - VisibleHeight);
 			verticalScrollBar.Invalidate();
 			base.OnMouseWheel(e);
 		}
