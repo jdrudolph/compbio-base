@@ -83,7 +83,6 @@
     <Compile Include="Forms\Base\FormUtil.cs" />
     <Compile Include="Forms\Base\IPrintable.cs" />
     <Compile Include="Forms\Base\Printing.cs" />
-    <Compile Include="Forms\Base\UnsafeBitmap.cs" />
     <Compile Include="Forms\Chars.cs" />
     <Compile Include="Forms\Colors\ColorScale.cs">
       <SubType>UserControl</SubType>
