@@ -15,7 +15,7 @@ namespace BaseLib.Symbol{
 		public static SymbolType filledCircle = new SymbolTypeFilledCircle(9);
 		public static SymbolType filledDiamond = new SymbolTypeFilledDiamond(10);
 		public static SymbolType horizontalDash = new SymbolTypeHorizontalDash(11);
-		public static SymbolType[] allSymbols = new[]{
+		public static SymbolType[] allSymbols = {
 			cross, square, circle, triangle, diamond, star, diagonalCross, filledSquare, filledTriangle, filledCircle,
 			filledDiamond, horizontalDash
 		};
@@ -29,13 +29,11 @@ namespace BaseLib.Symbol{
 			return result;
 		}
 
-		private readonly int index;
-
 		protected SymbolType(int index){
-			this.index = index;
+			this.Index = index;
 		}
 
-		public int Index { get { return index; } }
+		public int Index { get; }
 		public abstract string Name { get; }
 		public abstract void GetPath(int size, out int[] pathX, out int[] pathY);
 		public abstract void Draw(int size, int x, int y, IGraphics g, Pen pen, Brush brush);

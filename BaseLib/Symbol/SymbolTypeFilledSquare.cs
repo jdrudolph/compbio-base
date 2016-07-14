@@ -5,7 +5,7 @@ using BaseLib.Graphic;
 namespace BaseLib.Symbol{
 	public class SymbolTypeFilledSquare : SymbolType{
 		public SymbolTypeFilledSquare(int index) : base(index) {}
-		public override string Name { get { return "Filled square"; } }
+		public override string Name => "Filled square";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;

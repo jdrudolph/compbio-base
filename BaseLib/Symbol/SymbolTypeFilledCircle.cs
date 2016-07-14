@@ -6,7 +6,7 @@ using BaseLib.Graphic;
 namespace BaseLib.Symbol{
 	public class SymbolTypeFilledCircle : SymbolType{
 		public SymbolTypeFilledCircle(int index) : base(index) {}
-		public override string Name { get { return "Filled circle"; } }
+		public override string Name => "Filled circle";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;

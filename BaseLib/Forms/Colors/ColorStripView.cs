@@ -6,7 +6,6 @@ using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 using BaseLibS.Num;
-using BaseLibS.Util;
 
 namespace BaseLib.Forms.Colors{
 	public enum Arrows{
@@ -32,8 +31,8 @@ namespace BaseLib.Forms.Colors{
 		internal float Weight2 { get; set; }
 		internal Arrows Arrow { get; set; }
 		internal int StripWidth { get; set; }
-		public List<Color> Colors { get; private set; }
-		public List<double> Positions { get; private set; }
+		public List<Color> Colors { get; }
+		public List<double> Positions { get; }
 		internal int mouseOverIndex = -1;
 		internal int mouseDragIndex = -1;
 		internal int mouseStartPos = -1;
@@ -66,9 +65,7 @@ namespace BaseLib.Forms.Colors{
 		}
 
 		internal void FireColorChanged(){
-			if (OnColorChange != null){
-				OnColorChange();
-			}
+			OnColorChange?.Invoke();
 		}
 
 		public Color GetColorAt(double x, int width, int height){
@@ -187,7 +184,7 @@ namespace BaseLib.Forms.Colors{
 			for (int i = 0; i < Colors.Count; i++){
 				Pen p = new Pen(Colors[i]);
 				int a = ModelToView(Positions[i], width, height);
-				int d = ((i == mouseOverIndex) && (Arrow == Arrows.First || Arrow == Arrows.Both)) ? triangleHeight : 0;
+				int d = (i == mouseOverIndex) && (Arrow == Arrows.First || Arrow == Arrows.Both) ? triangleHeight : 0;
 				if (Vertical){
 					int e = ((i == mouseOverIndex)) && (Arrow == Arrows.Second || Arrow == Arrows.Both)
 						? width - 1 - triangleHeight : width - 1;
@@ -197,7 +194,7 @@ namespace BaseLib.Forms.Colors{
 					g.DrawLine(fgPen, off + StripWidth + 1, a - 1, e, a - 1);
 					g.DrawLine(fgPen, off + StripWidth + 1, a + 1, e, a + 1);
 				} else{
-					int e = ((i == mouseOverIndex)) && (Arrow == Arrows.Second || Arrow == Arrows.Both)
+					int e = (i == mouseOverIndex) && (Arrow == Arrows.Second || Arrow == Arrows.Both)
 						? height - 1 - triangleHeight : height - 1;
 					g.DrawLine(p, a, 0, a, height - 1);
 					g.DrawLine(fgPen, a - 1, d, a - 1, off - 1);
@@ -209,7 +206,7 @@ namespace BaseLib.Forms.Colors{
 					Brush b = new SolidBrush(p.Color);
 					if (Vertical){
 						if (Arrow == Arrows.Second || Arrow == Arrows.Both){
-							Point[] points = new[]{
+							Point[] points = {
 								new Point(width - 1 - triangleHeight, a - 1), new Point(width - 1 - triangleHeight, a - triangleBase2),
 								new Point(width - 1, a), new Point(width - 1 - triangleHeight, a + triangleBase2),
 								new Point(width - 1 - triangleHeight, a + 1)
@@ -218,7 +215,7 @@ namespace BaseLib.Forms.Colors{
 							g.DrawCurve(fgPen, points);
 						}
 						if (Arrow == Arrows.First || Arrow == Arrows.Both){
-							Point[] points = new[]{
+							Point[] points = {
 								new Point(triangleHeight, a - 1), new Point(triangleHeight, a - triangleBase2), new Point(0, a),
 								new Point(triangleHeight, a + triangleBase2), new Point(triangleHeight, a + 1)
 							};
@@ -226,7 +223,7 @@ namespace BaseLib.Forms.Colors{
 							g.DrawCurve(fgPen, points);
 						}
 					} else{
-						Point[] points = new[]{
+						Point[] points = {
 							new Point(a - 1, height - 1 - triangleHeight), new Point(a - triangleBase2, height - 1 - triangleHeight),
 							new Point(a, height - 1), new Point(a + triangleBase2, height - 1 - triangleHeight),
 							new Point(a + 1, height - 1 - triangleHeight)

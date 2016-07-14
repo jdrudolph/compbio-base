@@ -5,7 +5,7 @@ using BaseLib.Graphic;
 namespace BaseLib.Symbol{
 	public class SymbolTypeHorizontalDash : SymbolType{
 		public SymbolTypeHorizontalDash(int index) : base(index) {}
-		public override string Name { get { return "Horizontal dash"; } }
+		public override string Name => "Horizontal dash";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;

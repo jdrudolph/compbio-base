@@ -48,6 +48,10 @@ namespace BaseLib.Graphic{
 			return sb + "...";
 		}
 
+		public static Color2 ToColor2(Color c){
+			return Color2.FromArgb(c.A, c.R, c.G, c.B);
+		}
+
 		public static Bitmap2 ToBitmap2(Bitmap bitmap){
 			if (bitmap == null){
 				return null;

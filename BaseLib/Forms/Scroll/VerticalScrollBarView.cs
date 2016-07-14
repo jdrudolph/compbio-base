@@ -34,9 +34,9 @@ namespace BaseLib.Forms.Scroll{
 		protected internal override void OnPaintBackground(IGraphics g, int width, int height) {
 			Pen p = new Pen(Color.FromArgb(172, 168, 153));
 			g.DrawLine(p, width - 1, 0, width - 1, height);
-			int[] start = new[]{243, 241, 236};
-			int[] end = new[]{254, 254, 251};
-			int[][] rgbs = FormUtil.InterpolateRgb(start, end, CompoundScrollableControl.scrollBarWidth - 2);
+			int[] start = {243, 241, 236};
+			int[] end = {254, 254, 251};
+			int[][] rgbs = GraphUtil.InterpolateRgb(start, end, CompoundScrollableControl.scrollBarWidth - 2);
 			for (int i = 0; i < CompoundScrollableControl.scrollBarWidth - 2; i++){
 				p = new Pen(Color.FromArgb(rgbs[0][i], rgbs[1][i], rgbs[2][i]));
 				g.DrawLine(p, i + 1, 0, i + 1, height);
@@ -115,7 +115,7 @@ namespace BaseLib.Forms.Scroll{
 			int w = scrollBarWid - 2;
 			int h = CalcBarSize(height);
 			Bitmap2 b = new Bitmap2(w, h);
-			FormUtil.FillShadedRectangle(b, w, h);
+			GraphUtil.FillShadedRectangle(b, w, h);
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
 			bar = GraphUtils.ToBitmap(b);
@@ -154,7 +154,7 @@ namespace BaseLib.Forms.Scroll{
 			int w = scrollBarWid - 2;
 			int h = scrollBarWid - 1;
 			Bitmap2 b = new Bitmap2(w, h);
-			FormUtil.FillShadedRectangle(b, w, h);
+			GraphUtil.FillShadedRectangle(b, w, h);
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
 			firstMark = GraphUtils.ToBitmap(b);
@@ -169,7 +169,7 @@ namespace BaseLib.Forms.Scroll{
 			int w = scrollBarWid - 2;
 			int h = scrollBarWid - 1;
 			Bitmap2 b = new Bitmap2(w, h);
-			FormUtil.FillShadedRectangle(b, w, h);
+			GraphUtil.FillShadedRectangle(b, w, h);
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
 			secondMark = GraphUtils.ToBitmap(b);

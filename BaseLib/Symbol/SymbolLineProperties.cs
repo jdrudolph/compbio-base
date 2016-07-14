@@ -37,8 +37,8 @@ namespace BaseLib.Symbol{
 
 		public override int GetHashCode(){
 			unchecked{
-				return ((SymbolProperties != null ? SymbolProperties.GetHashCode() : 0)*397) ^
-					(LineProperties != null ? LineProperties.GetHashCode() : 0);
+				return ((SymbolProperties?.GetHashCode() ?? 0)*397) ^
+					(LineProperties?.GetHashCode() ?? 0);
 			}
 		}
 	}

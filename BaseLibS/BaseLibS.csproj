@@ -36,6 +36,7 @@
     <Compile Include="Data\NeighbourListBipartite.cs" />
     <Compile Include="Graph\Bitmap2.cs" />
     <Compile Include="Graph\Color2.cs" />
+    <Compile Include="Graph\GraphUtil.cs" />
     <Compile Include="Graph\KnownColor.cs" />
     <Compile Include="Graph\KnownColorTable.cs" />
     <Compile Include="Mol\AminoAcidLabel.cs" />

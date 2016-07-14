@@ -70,6 +70,10 @@ namespace BaseLibS.Graph{
 			return result;
 		}
 
+		public void DrawPath(Color2 c, int x, int y, int[] xpath, int[] ypath){
+			DrawPath(c.Value, x, y, xpath, ypath);
+		}
+
 		public void DrawPath(int argb, int x, int y, int[] xpath, int[] ypath){
 			for (int i = 0; i < xpath.Length; i++){
 				SetPixel(x + xpath[i], y + ypath[i], argb);
@@ -86,6 +90,10 @@ namespace BaseLibS.Graph{
 					SetPixel(i, j, argb);
 				}
 			}
+		}
+
+		public void DrawRectangle(Color2 c, int x, int y, int wid, int height){
+			DrawRectangle(c.Value, x, y, wid, height);
 		}
 
 		public void DrawRectangle(int argb, int x, int y, int wid, int height){
@@ -112,8 +120,16 @@ namespace BaseLibS.Graph{
 			DrawLine(argb, x1, y1, x2, y2, dots, 1);
 		}
 
+		public void DrawLine(Color2 c, float x1, float y1, float x2, float y2, bool dots, int width1){
+			DrawLine(c.Value, x1, y1, x2, y2, dots, width1);
+		}
+
 		public void DrawLine(int argb, float x1, float y1, float x2, float y2, bool dots, int width1){
 			DrawLine(argb, (int) x1, (int) y1, (int) x2, (int) y2, dots, width1);
+		}
+
+		public void DrawLine(Color2 c, int x1, int y1, int x2, int y2, bool dots, int width1){
+			DrawLine(c.Value, x1, y1, x2, y2, dots, width1);
 		}
 
 		public void DrawLine(int argb, int x1, int y1, int x2, int y2, bool dots, int width1){

@@ -17,13 +17,13 @@ namespace BaseLib.Forms.Colors{
 			ColorStrip = new ColorStrip();
 			axis = new NumericAxis();
 			SuspendLayout();
-			ColorStrip.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left) | AnchorStyles.Right;
+			ColorStrip.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			ColorStrip.Location = new Point(0, 59);
 			ColorStrip.Margin = new Padding(0);
 			ColorStrip.Name = "colorStrip";
 			ColorStrip.Size = new Size(749, 31);
 			ColorStrip.TabIndex = 1;
-			axis.Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right;
+			axis.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			axis.ForeColor = Color.Black;
 			axis.Location = new Point(0, 0);
 			axis.Margin = new Padding(0);

@@ -5,7 +5,7 @@ using BaseLib.Graphic;
 namespace BaseLib.Symbol{
 	public class SymbolTypeStar : SymbolType{
 		public SymbolTypeStar(int index) : base(index) {}
-		public override string Name { get { return "Star"; } }
+		public override string Name => "Star";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;

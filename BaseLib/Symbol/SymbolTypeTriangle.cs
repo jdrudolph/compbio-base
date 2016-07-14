@@ -6,7 +6,7 @@ using BaseLib.Graphic;
 namespace BaseLib.Symbol{
 	public class SymbolTypeTriangle : SymbolType{
 		public SymbolTypeTriangle(int index) : base(index) {}
-		public override string Name { get { return "Triangle"; } }
+		public override string Name => "Triangle";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;

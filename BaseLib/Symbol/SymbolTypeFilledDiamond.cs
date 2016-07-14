@@ -5,7 +5,7 @@ using BaseLib.Graphic;
 namespace BaseLib.Symbol{
 	public class SymbolTypeFilledDiamond : SymbolType{
 		public SymbolTypeFilledDiamond(int index) : base(index) {}
-		public override string Name { get { return "Filled diamond"; } }
+		public override string Name => "Filled diamond";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;

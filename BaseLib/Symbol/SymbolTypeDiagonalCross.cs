@@ -5,7 +5,7 @@ using BaseLib.Graphic;
 namespace BaseLib.Symbol{
 	public class SymbolTypeDiagonalCross : SymbolType{
 		public SymbolTypeDiagonalCross(int index) : base(index) {}
-		public override string Name { get { return "Diagonal cross"; } }
+		public override string Name => "Diagonal cross";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;
