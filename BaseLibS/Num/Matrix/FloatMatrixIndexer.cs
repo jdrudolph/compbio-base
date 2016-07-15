@@ -114,6 +114,17 @@ namespace BaseLibS.Num.Matrix{
 			}
 		}
 
+		public override float Get(int i, int j){
+			return !IsInitialized() ? float.NaN : vals[i, j];
+		}
+
+		public override void Set(int i, int j, float value){
+			if (!IsInitialized()){
+				return;
+			}
+			vals[i, j] = value;
+		}
+
 		public override void Dispose(){
 			vals = null;
 		}

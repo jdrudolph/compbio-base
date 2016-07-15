@@ -10,6 +10,8 @@ namespace BaseLibS.Num.Matrix{
 		public abstract int RowCount { get; }
 		public abstract int ColumnCount { get; }
 		public abstract float this[int i, int j] { get; set; }
+		public abstract float Get(int i, int j);
+		public abstract void Set(int i, int j, float value);
 		public abstract void Set(float[,] value);
 		public abstract BaseVector GetRow(int row);
 		public abstract BaseVector GetColumn(int col);

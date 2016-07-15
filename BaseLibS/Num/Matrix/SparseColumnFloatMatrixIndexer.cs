@@ -123,6 +123,14 @@ namespace BaseLibS.Num.Matrix{
 			set { vals[j][i] = value; }
 		}
 
+		public override float Get(int i, int j){
+			return (float)vals[j][i];
+		}
+
+		public override void Set(int i, int j, float value){
+			vals[j][i] = value;
+		}
+
 		public override void Dispose(){
 			foreach (SparseFloatVector val in vals){
 				val.Dispose();
