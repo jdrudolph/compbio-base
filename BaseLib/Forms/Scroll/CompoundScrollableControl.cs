@@ -113,17 +113,26 @@ namespace BaseLib.Forms.Scroll{
 		protected CompoundScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
-			OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
-			OnPaintRowHeaderView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, VisibleHeight); };
-			OnPaintRowFooterView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, VisibleHeight); };
-			OnPaintColumnHeaderView =
-				(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, GetColumnHeaderHeight()); };
-			OnPaintColumnFooterView =
-				(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, ColumnFooterHeight); };
-			OnPaintColumnSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, GetColumnHeaderHeight()); };
-			OnPaintRowSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, ColumnFooterHeight); };
-			OnPaintCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, GetColumnHeaderHeight()); };
-			OnPaintMiddleCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, ColumnFooterHeight); };
+			//OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
+			//OnPaintRowHeaderView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, VisibleHeight); };
+			//OnPaintRowFooterView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, VisibleHeight); };
+			//OnPaintColumnHeaderView =
+			//	(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, GetColumnHeaderHeight()); };
+			//OnPaintColumnFooterView =
+			//	(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, ColumnFooterHeight); };
+			//OnPaintColumnSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, GetColumnHeaderHeight()); };
+			//OnPaintRowSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, ColumnFooterHeight); };
+			//OnPaintCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, GetColumnHeaderHeight()); };
+			//OnPaintMiddleCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, ColumnFooterHeight); };
+			OnPaintMainView = (g, x, y, width, height) => { };
+			OnPaintRowHeaderView = (g, y, height) => { };
+			OnPaintRowFooterView = (g, y, height) => { };
+			OnPaintColumnHeaderView = (g, x, width) => { };
+			OnPaintColumnFooterView = (g, x, width) => { };
+			OnPaintColumnSpacerView = g => { };
+			OnPaintRowSpacerView = g => { };
+			OnPaintCornerView = g => { };
+			OnPaintMiddleCornerView = g => { };
 			TotalWidth = () => 200;
 			TotalHeight = () => 200;
 			DeltaX = () => (Width - RowHeaderWidth)/20;
@@ -221,7 +230,7 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		public virtual int GetColumnHeaderHeight(){
+		public int GetColumnHeaderHeight(){
 			return columnHeaderHeight;
 		}
 
@@ -252,6 +261,9 @@ namespace BaseLib.Forms.Scroll{
 		public int TotalClientHeight => TotalHeight() + GetColumnHeaderHeight() + ColumnFooterHeight;
 
 		protected override void OnResize(EventArgs e){
+			if (TotalWidth == null || TotalHeight == null){
+				return;
+			}
 			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth() - VisibleWidth - 1));
 			VisibleY = Math.Max(0, Math.Min(VisibleY, TotalHeight() - VisibleHeight - 1));
 			base.OnResize(e);
