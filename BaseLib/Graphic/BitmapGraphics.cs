@@ -15,6 +15,7 @@ namespace BaseLib.Graphic{
 		}
 
 		public override void Close(){
+			//TODO: this seems to write EMF or WMF as PNG. (Issue Perseus-104)
 			bmap.Save(filename, imageFormat);
 		}
 	}

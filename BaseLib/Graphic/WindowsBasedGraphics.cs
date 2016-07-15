@@ -11,7 +11,7 @@ namespace BaseLib.Graphic{
 		}
 
 		public SmoothingMode SmoothingMode { get { return gc.SmoothingMode; } set { gc.SmoothingMode = value; } }
-		public Graphics Graphics { get { return gc; } }
+		public Graphics Graphics => gc;
 		//TODO?
 		public void SetClippingMask(int width, int height, int x, int y) {}
 
