@@ -112,8 +112,11 @@ namespace BaseLib.Wpf{
 		}
 
 		public int ColumnHeaderHeight{
-			get { return tableView.GetColumnHeaderHeight(); }
-			set { tableView.SetColumnHeaderHeight(value); }
+			get { return tableView.ColumnHeaderHeight; }
+			set{
+				tableView.origColumnHeaderHeight = value;
+				tableView.ColumnHeaderHeight=(value);
+			}
 		}
 
 		public int VisibleX{

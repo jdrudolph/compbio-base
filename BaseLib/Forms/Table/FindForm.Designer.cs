@@ -249,7 +249,8 @@
 			// 
 			// tableView1
 			// 
-			this.tableView1.SetColumnHeaderHeight(26);
+			this.tableView1.ColumnHeaderHeight=(26);
+			tableView1.origColumnHeaderHeight = 26;
 			this.tableView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableView1.HasHelp = true;
 			this.tableView1.Location = new System.Drawing.Point(3, 199);

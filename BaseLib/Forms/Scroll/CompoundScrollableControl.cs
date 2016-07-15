@@ -110,7 +110,7 @@ namespace BaseLib.Forms.Scroll{
 		public Action<IGraphics> OnPaintCornerView { get; set; }
 		public Action<IGraphics> OnPaintMiddleCornerView { get; set; }
 
-		protected CompoundScrollableControl(){
+		public CompoundScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
 			//OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
@@ -136,7 +136,7 @@ namespace BaseLib.Forms.Scroll{
 			TotalWidth = () => 200;
 			TotalHeight = () => 200;
 			DeltaX = () => (Width - RowHeaderWidth)/20;
-			DeltaY = () => (Height - GetColumnHeaderHeight())/20;
+			DeltaY = () => (Height - ColumnHeaderHeight)/20;
 			DeltaUpToSelection = () => 0;
 			DeltaDownToSelection = () => 0;
 		}
@@ -230,13 +230,12 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		public int GetColumnHeaderHeight(){
-			return columnHeaderHeight;
-		}
-
-		public virtual void SetColumnHeaderHeight(int value){
-			columnHeaderHeight = value;
-			tableLayoutPanel2.RowStyles[0] = new BasicRowStyle(BasicSizeType.AbsoluteResizeable, value);
+		public int ColumnHeaderHeight{
+			get { return columnHeaderHeight; }
+			set{
+				columnHeaderHeight = value;
+				tableLayoutPanel2.RowStyles[0] = new BasicRowStyle(BasicSizeType.AbsoluteResizeable, value);
+			}
 		}
 
 		public int ColumnFooterHeight{
@@ -256,9 +255,9 @@ namespace BaseLib.Forms.Scroll{
 		public int ClientWidth => Width - scrollBarWidth;
 		public int ClientHeight => Height - scrollBarWidth;
 		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth;
-		public int VisibleHeight => Height - GetColumnHeaderHeight() - ColumnFooterHeight - scrollBarWidth;
+		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth;
 		public int TotalClientWidth => TotalWidth() + RowHeaderWidth + RowFooterWidth;
-		public int TotalClientHeight => TotalHeight() + GetColumnHeaderHeight() + ColumnFooterHeight;
+		public int TotalClientHeight => TotalHeight() + ColumnHeaderHeight + ColumnFooterHeight;
 
 		protected override void OnResize(EventArgs e){
 			if (TotalWidth == null || TotalHeight == null){
