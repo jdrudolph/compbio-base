@@ -113,17 +113,6 @@ namespace BaseLib.Forms.Scroll{
 		public CompoundScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
-			//OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
-			//OnPaintRowHeaderView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, VisibleHeight); };
-			//OnPaintRowFooterView = (g, y, height) => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, VisibleHeight); };
-			//OnPaintColumnHeaderView =
-			//	(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, GetColumnHeaderHeight()); };
-			//OnPaintColumnFooterView =
-			//	(g, x, width) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, ColumnFooterHeight); };
-			//OnPaintColumnSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, GetColumnHeaderHeight()); };
-			//OnPaintRowSpacerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, ColumnFooterHeight); };
-			//OnPaintCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowHeaderWidth, GetColumnHeaderHeight()); };
-			//OnPaintMiddleCornerView = g => { g.FillRectangle(Brushes.White, 0, 0, RowFooterWidth, ColumnFooterHeight); };
 			OnPaintMainView = (g, x, y, width, height) => { };
 			OnPaintRowHeaderView = (g, y, height) => { };
 			OnPaintRowFooterView = (g, y, height) => { };

@@ -92,13 +92,11 @@ namespace BaseLib.Forms.Table{
 		private int deltaDragX;
 		private bool hasShowInPerseus;
 		private FindForm findForm;
-		internal int origColumnHeaderHeight = 40;
+		internal int origColumnHeaderHeight;
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }
-		//TODO
 		private readonly ToolTip columnViewToolTip = new ToolTip();
-		//private readonly ToolTip mainViewToolTip = new ToolTip();
 		public TableViewWf(){
 			Sortable = true;
 			RowHeaderWidth = 70;
@@ -927,7 +925,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public void ScrollToEnd(){
-			if ((RowCount)*rowHeight < VisibleHeight){
+			if (RowCount*rowHeight < VisibleHeight){
 				VisibleY = 0;
 			} else{
 				VisibleY = (RowCount - (int) (VisibleHeight/(double) rowHeight))*rowHeight;
