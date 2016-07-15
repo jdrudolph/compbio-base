@@ -804,7 +804,7 @@ namespace BaseLibS.Num{
 			if (n < 2){
 				return double.NaN;
 			}
-			var /= (n - 1);
+			var /= n - 1;
 			return var;
 		}
 

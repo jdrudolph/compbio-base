@@ -9,8 +9,17 @@ namespace BaseLibS.Num.Matrix{
 		public abstract bool IsInitialized();
 		public abstract int RowCount { get; }
 		public abstract int ColumnCount { get; }
+		/// <summary>
+		/// uncheked
+		/// </summary>
 		public abstract float this[int i, int j] { get; set; }
+		/// <summary>
+		/// checked
+		/// </summary>
 		public abstract float Get(int i, int j);
+		/// <summary>
+		/// checked
+		/// </summary>
 		public abstract void Set(int i, int j, float value);
 		public abstract void Set(float[,] value);
 		public abstract BaseVector GetRow(int row);
