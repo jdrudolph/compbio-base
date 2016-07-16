@@ -101,6 +101,8 @@
     </Compile>
     <Compile Include="Forms\Colors\ColorStripView.cs" />
     <Compile Include="Forms\GridType.cs" />
+    <Compile Include="Forms\Scroll\ICompoundScrollableControlClient.cs" />
+    <Compile Include="Forms\Scroll\ISimpleScrollableControlClient.cs" />
     <Compile Include="Forms\Table\HelpLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -159,9 +161,7 @@
     <Compile Include="Forms\Table\SelectColumnsForm.Designer.cs">
       <DependentUpon>SelectColumnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\TableViewWf.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
+    <Compile Include="Forms\Table\TableViewWf.cs" />
     <Compile Include="Graphic\BitmapGraphics.cs" />
     <Compile Include="Graphic\CGraphics.cs" />
     <Compile Include="Graphic\ColorConstants.cs" />

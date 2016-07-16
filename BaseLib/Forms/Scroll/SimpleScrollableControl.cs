@@ -5,7 +5,7 @@ using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 
 namespace BaseLib.Forms.Scroll{
-	public class SimpleScrollableControl : UserControl, IScrollableControl{
+	public sealed class SimpleScrollableControl : UserControl, IScrollableControl{
 		private int visibleX;
 		private int visibleY;
 		private BasicView horizontalScrollBar;
@@ -14,10 +14,11 @@ namespace BaseLib.Forms.Scroll{
 		private BasicView mainView;
 		private BasicView smallCornerView;
 
-		protected SimpleScrollableControl(){
+		public SimpleScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
-			OnPaintMainView = (g, x, y, width, height) => { g.FillRectangle(Brushes.White, 0, 0, VisibleWidth, VisibleHeight); };
+			DoubleBuffered = true;
+			OnPaintMainView = (g, x, y, width, height) => {  };
 			TotalWidth = () => 200;
 			TotalHeight = () => 200;
 			DeltaX = () => Width/20;
@@ -26,7 +27,9 @@ namespace BaseLib.Forms.Scroll{
 			DeltaDownToSelection = () => 0;
 		}
 
-		public virtual void InvalidateBackgroundImages(){}
+		public void InvalidateBackgroundImages(){
+			client?.InvalidateBackgroundImages();
+		}
 
 		public void InvalidateScrollbars(){
 			horizontalScrollBar.Invalidate();
@@ -77,6 +80,14 @@ namespace BaseLib.Forms.Scroll{
 		public int TotalClientHeight => TotalHeight();
 		public int VisibleWidth => mainControl.Width;
 		public int VisibleHeight => mainControl.Height;
+		ISimpleScrollableControlClient client;
+
+		public ISimpleScrollableControlClient Client{
+			set{
+				client = value;
+				value.Register(this, () => ModifierKeys);
+			}
+		}
 
 		protected override void OnResize(EventArgs e){
 			if (TotalWidth == null || TotalHeight == null){
@@ -84,6 +95,7 @@ namespace BaseLib.Forms.Scroll{
 			}
 			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth() - VisibleWidth - 1));
 			VisibleY = Math.Max(0, Math.Min(VisibleY, TotalHeight() - VisibleHeight - 1));
+			InvalidateBackgroundImages();
 			base.OnResize(e);
 		}
 
@@ -157,6 +169,16 @@ namespace BaseLib.Forms.Scroll{
 
 		public void Print(IGraphics g, int width, int height){
 			mainView.Print(g, width, height);
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
+			client?.ProcessCmdKey(keyData);
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		protected override void OnSizeChanged(EventArgs e){
+			base.OnSizeChanged(e);
+			client?.OnSizeChanged();
 		}
 	}
 }

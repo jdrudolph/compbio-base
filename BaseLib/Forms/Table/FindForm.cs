@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using BaseLib.Forms.Scroll;
 using BaseLibS.Num;
 using BaseLibS.Table;
 using BaseLibS.Util;
@@ -10,15 +11,24 @@ using BaseLibS.Util;
 namespace BaseLib.Forms.Table{
 	internal partial class FindForm : Form{
 		private const int expandedHeight = 700;
-		private readonly TableViewWf tableView;
+		private readonly TableViewWf tableViewWf;
+		private readonly CompoundScrollableControl tableView;
 		private readonly ITableModel tableModel;
 		private int searchRowIndView = -1;
 		private int[] multipleColumns = new int[0];
-
-		public FindForm(TableViewWf tableView){
+		TableViewWf tableView1Wf;
+		public FindForm(TableViewWf tableViewWf, CompoundScrollableControl tableView){
 			InitializeComponent();
+			tableView1Wf = new TableViewWf();
+			tableView1.Client = tableView1Wf;
+			tableView1Wf.origColumnHeaderHeight = 26;
+			tableView1Wf.HasHelp = true;
+			tableView1Wf.MultiSelect = true;
+			tableView1Wf.Sortable = true;
+			tableView1Wf.TableModel = null;
+			this.tableViewWf = tableViewWf;
 			this.tableView = tableView;
-			tableModel = tableView.TableModel;
+			tableModel = tableViewWf.TableModel;
 			wildcardsComboBox.SelectedIndex = 0;
 			wildcardsComboBox.Enabled = false;
 			helpButton.Enabled = false;
@@ -33,7 +43,7 @@ namespace BaseLib.Forms.Table{
 			useCheckBox.Visible = false;
 			wildcardsComboBox.Visible = false;
 			helpButton.Visible = false;
-			tableView1.SelectionChanged += TableView1SelectionChanged;
+			tableView1Wf.SelectionChanged += TableView1SelectionChanged;
 			expressionTextBox.Focus();
 			expressionTextBox.SelectAll();
 		}
@@ -48,14 +58,14 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private void TableView1SelectionChanged(object sender, EventArgs e) {
-			tableView.ClearSelection();
-			int[] rows = tableView1.GetSelectedRows();
-			foreach (int ind in rows.Select(row => (int)tableView1.GetEntry(row, 0) - 1)) {
-				tableView.SetSelectedViewIndex(ind);
+			tableViewWf.ClearSelection();
+			int[] rows = tableView1Wf.GetSelectedRows();
+			foreach (int ind in rows.Select(row => (int)tableView1Wf.GetEntry(row, 0) - 1)) {
+				tableViewWf.SetSelectedViewIndex(ind);
 			}
 			if (rows.Length > 0) {
-				int ind0 = (int)tableView1.GetEntry(rows[0], 0) - 1;
-				tableView.ScrollToRow(ind0);
+				int ind0 = (int)tableView1Wf.GetEntry(rows[0], 0) - 1;
+				tableViewWf.ScrollToRow(ind0);
 			}
 			tableView.Invalidate();
 		}
@@ -107,7 +117,7 @@ namespace BaseLib.Forms.Table{
 				toolStripStatusLabel1.Text = "Search string not found.";
 			}
 			Height = expandedHeight;
-			tableView1.TableModel = CreateTable(searchInds, matchingCols);
+			tableView1Wf.TableModel = CreateTable(searchInds, matchingCols);
 			tableView1.VisibleY = 0;
 			tableView1.Invalidate(true);
 		}
@@ -135,7 +145,7 @@ namespace BaseLib.Forms.Table{
 			List<int> result = new List<int>();
 			List<int[]> matchingCols2 = new List<int[]>();
 			for (int i = 0; i < tableModel.RowCount; i++){
-				int modelInd = tableView.GetModelIndex(i);
+				int modelInd = tableViewWf.GetModelIndex(i);
 				int[] matchingCols1;
 				if (MatchRow(modelInd, colInds, matchCase, matchWholeWord, searchString, out matchingCols1)){
 					result.Add(i);
@@ -178,12 +188,12 @@ namespace BaseLib.Forms.Table{
 		private void FindUp(bool matchCase, bool matchWholeWord, string searchString, IEnumerable<int> colInds){
 			searchRowIndView--;
 			while (searchRowIndView >= 0){
-				int modelInd = tableView.GetModelIndex(searchRowIndView);
+				int modelInd = tableViewWf.GetModelIndex(searchRowIndView);
 				int[] matchingCols;
 				if (MatchRow(modelInd, colInds, matchCase, matchWholeWord, searchString, out matchingCols)){
-					tableView.ClearSelection();
-					tableView.SetSelectedViewIndex(searchRowIndView);
-					tableView.ScrollToRow(searchRowIndView);
+					tableViewWf.ClearSelection();
+					tableViewWf.SetSelectedViewIndex(searchRowIndView);
+					tableViewWf.ScrollToRow(searchRowIndView);
 					return;
 				}
 				searchRowIndView--;
@@ -194,12 +204,12 @@ namespace BaseLib.Forms.Table{
 		private void FindDown(bool matchCase, bool matchWholeWord, string searchString, IEnumerable<int> colInds){
 			searchRowIndView++;
 			while (searchRowIndView < tableModel.RowCount){
-				int modelInd = tableView.GetModelIndex(searchRowIndView);
+				int modelInd = tableViewWf.GetModelIndex(searchRowIndView);
 				int[] matchingCols;
 				if (MatchRow(modelInd, colInds, matchCase, matchWholeWord, searchString, out matchingCols)){
-					tableView.ClearSelection();
-					tableView.SetSelectedViewIndex(searchRowIndView);
-					tableView.ScrollToRow(searchRowIndView);
+					tableViewWf.ClearSelection();
+					tableViewWf.SetSelectedViewIndex(searchRowIndView);
+					tableViewWf.ScrollToRow(searchRowIndView);
 					return;
 				}
 				searchRowIndView++;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
+using BaseLib.Forms.Scroll;
 using BaseLib.Forms.Table;
 using BaseLibS.Num;
 using BaseLibS.Table;
@@ -15,7 +16,8 @@ namespace BaseLib.Wpf{
 	public partial class TableView{
 		internal static readonly List<ITableSelectionAgent> selectionAgents = new List<ITableSelectionAgent>();
 		public event EventHandler SelectionChanged;
-		private readonly TableViewWf tableView;
+		private readonly CompoundScrollableControl tableView;
+		private readonly TableViewWf tableViewWf;
 		private bool textBoxVisible;
 		private bool hasSelectionAgent;
 		private ITableSelectionAgent selectionAgent;
@@ -24,11 +26,13 @@ namespace BaseLib.Wpf{
 
 		public TableView(){
 			InitializeComponent();
-			tableView = new TableViewWf();
-			tableView.SelectionChanged += (sender, args) =>{
+			tableView = new CompoundScrollableControl();
+			tableViewWf = new TableViewWf();
+			tableView.Client = tableViewWf;
+			tableViewWf.SelectionChanged += (sender, args) =>{
 				SelectionChanged?.Invoke(sender, args);
-				long c = tableView.SelectedCount;
-				long t = tableView.RowCount;
+				long c = tableViewWf.SelectedCount;
+				long t = tableViewWf.RowCount;
 				SelectedTextBlock.Text = c > 0 && MultiSelect ? "" + StringUtils.WithDecimalSeparators(c) + " selected" : "";
 				ItemsTextBlock.Text = "" + StringUtils.WithDecimalSeparators(t) + " item" + (t == 1 ? "" : "s");
 			};
@@ -64,9 +68,9 @@ namespace BaseLib.Wpf{
 		}
 
 		public ITableModel TableModel{
-			get { return tableView.TableModel; }
+			get { return tableViewWf.TableModel; }
 			set{
-				tableView.TableModel = value;
+				tableViewWf.TableModel = value;
 				ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
 			}
 		}
@@ -76,7 +80,7 @@ namespace BaseLib.Wpf{
 		}
 
 		public void SwitchOnTextBox(){
-			tableView.SetCellText = s => AuxTextBox.Text = s;
+			tableViewWf.SetCellText = s => AuxTextBox.Text = s;
 			MainGrid.RowDefinitions.Clear();
 			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
 			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(5)});
@@ -86,7 +90,7 @@ namespace BaseLib.Wpf{
 
 		public void SwitchOffTextBox(){
 			AuxTextBox.Text = "";
-			tableView.SetCellText = null;
+			tableViewWf.SetCellText = null;
 			MainGrid.RowDefinitions.Clear();
 			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Star)});
 			MainGrid.RowDefinitions.Add(new RowDefinition{Height = new GridLength(0)});
@@ -95,16 +99,16 @@ namespace BaseLib.Wpf{
 		}
 
 		public bool MultiSelect{
-			get { return tableView.MultiSelect; }
-			set { tableView.MultiSelect = value; }
+			get { return tableViewWf.MultiSelect; }
+			set { tableViewWf.MultiSelect = value; }
 		}
 
 		public bool Sortable{
-			get { return tableView.Sortable; }
-			set { tableView.Sortable = value; }
+			get { return tableViewWf.Sortable; }
+			set { tableViewWf.Sortable = value; }
 		}
 
-		public int RowCount => tableView.RowCount;
+		public int RowCount => tableViewWf.RowCount;
 
 		public int RowHeaderWidth{
 			get { return tableView.RowHeaderWidth; }
@@ -114,7 +118,7 @@ namespace BaseLib.Wpf{
 		public int ColumnHeaderHeight{
 			get { return tableView.ColumnHeaderHeight; }
 			set{
-				tableView.origColumnHeaderHeight = value;
+				tableViewWf.origColumnHeaderHeight = value;
 				tableView.ColumnHeaderHeight=(value);
 			}
 		}
@@ -130,31 +134,31 @@ namespace BaseLib.Wpf{
 		}
 
 		public void SetSelectedRow(int row){
-			tableView.SetSelectedRow(row);
+			tableViewWf.SetSelectedRow(row);
 		}
 
 		public void SetSelectedRow(int row, bool add, bool fire){
-			tableView.SetSelectedRow(row, add, fire);
+			tableViewWf.SetSelectedRow(row, add, fire);
 		}
 
 		public bool HasSelectedRows(){
-			return tableView.HasSelectedRows();
+			return tableViewWf.HasSelectedRows();
 		}
 
 		public void SetSelectedRows(IList<int> rows){
-			tableView.SetSelectedRows(rows);
+			tableViewWf.SetSelectedRows(rows);
 		}
 
 		public void SetSelectedRows(IList<int> rows, bool add, bool fire){
-			tableView.SetSelectedRows(rows, add, fire);
+			tableViewWf.SetSelectedRows(rows, add, fire);
 		}
 
 		public void SetSelectedRowAndMove(int row){
-			tableView.SetSelectedRowAndMove(row);
+			tableViewWf.SetSelectedRowAndMove(row);
 		}
 
 		public void SetSelectedRowsAndMove(IList<int> rows){
-			tableView.SetSelectedRowsAndMove(rows);
+			tableViewWf.SetSelectedRowsAndMove(rows);
 		}
 
 		public void Invalidate(){
@@ -162,59 +166,59 @@ namespace BaseLib.Wpf{
 		}
 
 		public int[] GetSelectedRows(){
-			return tableView.GetSelectedRows();
+			return tableViewWf.GetSelectedRows();
 		}
 
 		public int GetSelectedRow(){
-			return tableView.GetSelectedRow();
+			return tableViewWf.GetSelectedRow();
 		}
 
 		public void ScrollToRow(int row){
-			tableView.ScrollToRow(row);
+			tableViewWf.ScrollToRow(row);
 		}
 
 		public void BringSelectionToTop(){
-			tableView.BringSelectionToTop();
+			tableViewWf.BringSelectionToTop();
 		}
 
 		public void FireSelectionChange(){
-			tableView.FireSelectionChange();
+			tableViewWf.FireSelectionChange();
 		}
 
 		public bool ModelRowIsSelected(int row){
-			return tableView.ModelRowIsSelected(row);
+			return tableViewWf.ModelRowIsSelected(row);
 		}
 
 		public void ClearSelection(){
-			tableView.ClearSelection();
+			tableViewWf.ClearSelection();
 		}
 
 		public void SelectAll(){
-			tableView.SelectAll();
+			tableViewWf.SelectAll();
 		}
 
 		public void SetSelection(bool[] selection){
-			tableView.SetSelection(selection);
+			tableViewWf.SetSelection(selection);
 		}
 
 		public void SetSelectedIndex(int index){
-			tableView.SetSelectedIndex(index);
+			tableViewWf.SetSelectedIndex(index);
 		}
 
 		public void SetSelectedViewIndex(int index){
-			tableView.SetSelectedViewIndex(index);
+			tableViewWf.SetSelectedViewIndex(index);
 		}
 
 		public void SetSelectedIndex(int index, object sender){
-			tableView.SetSelectedIndex(index, sender);
+			tableViewWf.SetSelectedIndex(index, sender);
 		}
 
 		public void AddContextMenuItem(ToolStripItem item){
-			tableView.AddContextMenuItem(item);
+			tableViewWf.AddContextMenuItem(item);
 		}
 
 		public object GetEntry(int row, int col){
-			return tableView.GetEntry(row, col);
+			return tableViewWf.GetEntry(row, col);
 		}
 
 		private void TextButton_OnClick(object sender, RoutedEventArgs e){
@@ -235,7 +239,7 @@ namespace BaseLib.Wpf{
 		}
 
 		public void ClearSelectionFire(){
-			tableView.ClearSelectionFire();
+			tableViewWf.ClearSelectionFire();
 		}
 
 		private void SelectionAgentButton_OnClick(object sender, RoutedEventArgs e){

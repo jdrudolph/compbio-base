@@ -16,7 +16,7 @@ using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
-	internal class TableViewWf : CompoundScrollableControl{
+	internal class TableViewWf : ICompoundScrollableControlClient{
 		private const int rowHeight = 22;
 		private static readonly Color gridColor = Color.FromArgb(172, 168, 153);
 		private static readonly Pen gridPen = new Pen(gridColor);
@@ -70,7 +70,7 @@ namespace BaseLib.Forms.Table{
 		private ITableModel model;
 		private static Font defaultFont = new Font("Arial", 9);
 		private Font textFont;
-		private readonly Font headerFont;
+		private Font headerFont;
 		private Brush textBrush = Brushes.Black;
 		private Color textColor = Color.Black;
 		private bool[] modelRowSel;
@@ -97,12 +97,14 @@ namespace BaseLib.Forms.Table{
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }
 		private readonly ToolTip columnViewToolTip = new ToolTip();
-		public TableViewWf(){
+		CompoundScrollableControl control;
+
+		public void Register(CompoundScrollableControl control1, Func<Keys> getModifierKeys){
+			control = control1;
 			Sortable = true;
-			RowHeaderWidth = 70;
-			ColumnHeaderHeight=(26);
+			control1.RowHeaderWidth = 70;
+			control1.ColumnHeaderHeight = 26;
 			origColumnHeaderHeight = 26;
-			ResizeRedraw = true;
 			InitContextMenu();
 			tagsControlToolStripMenuItem.Visible = false;
 			tagsToolStripMenuItem.Visible = false;
@@ -110,18 +112,18 @@ namespace BaseLib.Forms.Table{
 			defaultFont = new Font("Arial", 9/dpiScaleX);
 			textFont = defaultFont;
 			headerFont = defaultFont;
-			OnMouseIsDownMainView = e =>{
-				if (!Enabled){
+			control1.OnMouseIsDownMainView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
 				if (e.IsMainButton){
 					try{
-						int row = (VisibleY + e.Y)/rowHeight;
+						int row = (control1.VisibleY + e.Y)/rowHeight;
 						if (model == null || row >= model.RowCount || row < 0){
 							return;
 						}
-						bool ctrl = (ModifierKeys & Keys.Control) == Keys.Control;
-						bool shift = (ModifierKeys & Keys.Shift) == Keys.Shift;
+						bool ctrl = (getModifierKeys() & Keys.Control) == Keys.Control;
+						bool shift = (getModifierKeys() & Keys.Shift) == Keys.Shift;
 						if (!ctrl || !multiSelect){
 							ClearSelection();
 						}
@@ -135,57 +137,57 @@ namespace BaseLib.Forms.Table{
 						} else{
 							selectStart = row;
 						}
-						Invalidate(true);
+						control1.Invalidate(true);
 					} catch (Exception){}
 					SelectionChanged?.Invoke(this, new EventArgs());
 					if (SetCellText != null){
-						int row = (VisibleY + e.Y)/rowHeight;
+						int row = (control1.VisibleY + e.Y)/rowHeight;
 						if (model == null || row >= model.RowCount || row < 0){
 							return;
 						}
 						if (columnWidthSums == null){
 							return;
 						}
-						int x1 = VisibleX + e.X;
+						int x1 = control1.VisibleX + e.X;
 						int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
 						int ox = order[row];
 						SetCellText("" + TableModel.GetEntry(ox, ind));
 					}
 				}
 			};
-			OnMouseDraggedRowHeaderView = e =>{
-				if (!Enabled){
+			control1.OnMouseDraggedRowHeaderView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
-				OnMouseDraggedMainView(e);
+				control1.OnMouseDraggedMainView(e);
 			};
-			OnMouseHoverMainView = e => { HandleToolTip(true); };
-			OnMouseDraggedMainView = e =>{
-				if (!Enabled){
+			control1.OnMouseHoverMainView = e => { HandleToolTip(true); };
+			control1.OnMouseDraggedMainView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
 				if (!MultiSelect){
-					OnMouseIsDownMainView(e);
+					control1.OnMouseIsDownMainView(e);
 					return;
 				}
 				if (e.IsMainButton){
 					if (modelRowSel == null){
 						return;
 					}
-					int row = (VisibleY + e.Y)/rowHeight;
+					int row = (control1.VisibleY + e.Y)/rowHeight;
 					if (row >= modelRowSel.Length || row < 0){
 						return;
 					}
 					modelRowSel[order[row]] = true;
 					if (selectStart != row){
 						selectStart = row;
-						Invalidate(true);
+						control1.Invalidate(true);
 						SelectionChanged?.Invoke(this, new EventArgs());
 					}
 				}
 			};
-			OnMouseDraggedColumnHeaderView = e =>{
-				if (!Enabled){
+			control1.OnMouseDraggedColumnHeaderView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
 				if (columnWidthSumsOld == null || columnWidthSums == null){
@@ -199,35 +201,35 @@ namespace BaseLib.Forms.Table{
 					for (int i = resizeCol; i < columnWidthSums.Length; i++){
 						columnWidthSums[i] = columnWidthSumsOld[i] + deltaDragX;
 					}
-					Invalidate(true);
+					control1.Invalidate(true);
 				}
 			};
-			OnMouseMoveMainView = e =>{
+			control1.OnMouseMoveMainView = e =>{
 				currentX = e.X;
 				currentY = e.Y;
 				HandleToolTip(false);
 				CalcCurrentRowAndColumn(e);
 			};
-			OnMouseDoubleClickMainView = e =>{
+			control1.OnMouseDoubleClickMainView = e =>{
 				if (e.IsMainButton){
-					int row = (VisibleY + e.Y)/rowHeight;
+					int row = (control1.VisibleY + e.Y)/rowHeight;
 					if (model == null || row >= model.RowCount || row < 0){
 						return;
 					}
 				}
 				//TODO: edit
 			};
-			OnMouseIsDownRowHeaderView = e =>{
-				if (!Enabled){
+			control1.OnMouseIsDownRowHeaderView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
-				OnMouseIsDownMainView(e);
+				control1.OnMouseIsDownMainView(e);
 			};
-			OnMouseMoveColumnHeaderView = e =>{
-				if (!Enabled){
+			control1.OnMouseMoveColumnHeaderView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
-				int x1 = VisibleX + e.X;
+				int x1 = control1.VisibleX + e.X;
 				if (columnWidthSums == null){
 					return;
 				}
@@ -248,27 +250,27 @@ namespace BaseLib.Forms.Table{
 							Math.Abs((indf == 0 ? 0 : columnWidthSums[indf - 1]) + 9 - x1) < 4 && e.Y > 7 && e.Y < 17){
 							if (helpCol != indf){
 								helpCol = indf;
-								InvalidateColumnHeaderView();
+								control1.InvalidateColumnHeaderView();
 							}
 						} else{
 							if (helpCol != -1){
 								helpCol = -1;
-								InvalidateColumnHeaderView();
+								control1.InvalidateColumnHeaderView();
 							}
 						}
 					}
 				} catch (Exception){}
 			};
-			OnMouseIsUpColumnHeaderView = e =>{
+			control1.OnMouseIsUpColumnHeaderView = e =>{
 				//TODO
-				columnViewToolTip.Hide(this);
+				columnViewToolTip.Hide(control1);
 			};
-			OnMouseIsUpCornerView = e =>{
+			control1.OnMouseIsUpCornerView = e =>{
 				//TODO
-				columnViewToolTip.Hide(this);
+				columnViewToolTip.Hide(control1);
 			};
-			OnMouseIsDownColumnHeaderView = e =>{
-				if (!Enabled){
+			control1.OnMouseIsDownColumnHeaderView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
 				if (columnWidthSums == null){
@@ -291,13 +293,13 @@ namespace BaseLib.Forms.Table{
 							text.Append("\n");
 						}
 					}
-					columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
+					columnViewToolTip.Show(text.ToString(), control1, e.X + 75, e.Y + 5);
 					helpCol = -1;
-					InvalidateColumnHeaderView();
+					control1.InvalidateColumnHeaderView();
 					return;
 				}
 				if (Sortable && e.IsMainButton){
-					int ind = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, VisibleX + e.X) + 1);
+					int ind = Math.Min(columnWidthSums.Length - 1, ArrayUtils.FloorIndex(columnWidthSums, control1.VisibleX + e.X) + 1);
 					if (sortCol == ind){
 						switch (sortState){
 							case SortState.Unsorted:
@@ -315,10 +317,10 @@ namespace BaseLib.Forms.Table{
 						Sort();
 					}
 				}
-				Invalidate(true);
+				control1.Invalidate(true);
 			};
-			OnMouseIsDownCornerView = e =>{
-				if (!Enabled){
+			control1.OnMouseIsDownCornerView = e =>{
+				if (!control1.Enabled){
 					return;
 				}
 				if (matrixHelp){
@@ -333,14 +335,14 @@ namespace BaseLib.Forms.Table{
 							text.Append("\n");
 						}
 					}
-					columnViewToolTip.Show(text.ToString(), this, e.X + 75, e.Y + 5);
+					columnViewToolTip.Show(text.ToString(), control1, e.X + 75, e.Y + 5);
 					matrixHelp = false;
-					InvalidateCornerView();
+					control1.InvalidateCornerView();
 					return;
 				}
-				Invalidate(true);
+				control1.Invalidate(true);
 			};
-			OnMouseMoveCornerView = e =>{
+			control1.OnMouseMoveCornerView = e =>{
 				if (model == null){
 					return;
 				}
@@ -348,32 +350,32 @@ namespace BaseLib.Forms.Table{
 				if (!string.IsNullOrEmpty(model.Description) && Math.Abs(9 - x1) < 4 && e.Y > 7 && e.Y < 17){
 					if (!matrixHelp){
 						matrixHelp = true;
-						InvalidateCornerView();
+						control1.InvalidateCornerView();
 					} else{
 						matrixHelp = false;
-						InvalidateCornerView();
+						control1.InvalidateCornerView();
 					}
 				}
 			};
-			OnPaintRowHeaderView = (g, y, height) =>{
+			control1.OnPaintRowHeaderView = (g, y, height) =>{
 				if (model == null){
 					return;
 				}
-				g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, height);
+				g.FillRectangle(headerBrush, 0, 0, control1.RowHeaderWidth - 1, height);
 				g.DrawLine(gridPen, 0, 0, 0, height);
-				g.DrawLine(gridPen, RowHeaderWidth - 1, 0, RowHeaderWidth - 1, height);
+				g.DrawLine(gridPen, control1.RowHeaderWidth - 1, 0, control1.RowHeaderWidth - 1, height);
 				g.DrawLine(Pens.White, 1, 0, 1, height);
-				g.DrawLine(shadow1Pen, RowHeaderWidth - 2, 0, RowHeaderWidth - 2, height);
-				g.DrawLine(shadow2Pen, RowHeaderWidth - 3, 0, RowHeaderWidth - 3, height);
-				g.DrawLine(shadow3Pen, RowHeaderWidth - 4, 0, RowHeaderWidth - 4, height);
+				g.DrawLine(shadow1Pen, control1.RowHeaderWidth - 2, 0, control1.RowHeaderWidth - 2, height);
+				g.DrawLine(shadow2Pen, control1.RowHeaderWidth - 3, 0, control1.RowHeaderWidth - 3, height);
+				g.DrawLine(shadow3Pen, control1.RowHeaderWidth - 4, 0, control1.RowHeaderWidth - 4, height);
 				int offset = -y%rowHeight;
 				for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
 					int row = (y + y1)/rowHeight;
 					if (model == null || row > model.RowCount){
 						break;
 					}
-					g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
-					g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
+					g.DrawLine(headerGridPen, 5, y1 - 1, control1.RowHeaderWidth - 6, y1 - 1);
+					g.DrawLine(Pens.White, 5, y1, control1.RowHeaderWidth - 6, y1);
 				}
 				for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
 					int row = (y + y1)/rowHeight;
@@ -384,37 +386,37 @@ namespace BaseLib.Forms.Table{
 						break;
 					}
 					if (ViewRowIsSelected(row)){
-						g.DrawLine(selectHeader1Pen, 2, y1 + 1, RowHeaderWidth - 2, y1 + 1);
-						g.DrawLine(selectHeader1Pen, 2, y1 + rowHeight, RowHeaderWidth - 2, y1 + rowHeight);
-						g.DrawLine(selectHeader1Pen, RowHeaderWidth - 2, y1 + 1, RowHeaderWidth - 2, y1 + rowHeight);
-						g.DrawLine(selectHeader2Pen, 2, y1 + 2, RowHeaderWidth - 3, y1 + 2);
+						g.DrawLine(selectHeader1Pen, 2, y1 + 1, control1.RowHeaderWidth - 2, y1 + 1);
+						g.DrawLine(selectHeader1Pen, 2, y1 + rowHeight, control1.RowHeaderWidth - 2, y1 + rowHeight);
+						g.DrawLine(selectHeader1Pen, control1.RowHeaderWidth - 2, y1 + 1, control1.RowHeaderWidth - 2, y1 + rowHeight);
+						g.DrawLine(selectHeader2Pen, 2, y1 + 2, control1.RowHeaderWidth - 3, y1 + 2);
 						g.DrawLine(selectHeader2Pen, 2, y1 + 2, 2, y1 + rowHeight - 1);
-						g.DrawLine(selectHeader3Pen, 3, y1 + 3, RowHeaderWidth - 3, y1 + 3);
+						g.DrawLine(selectHeader3Pen, 3, y1 + 3, control1.RowHeaderWidth - 3, y1 + 3);
 						g.DrawLine(selectHeader3Pen, 3, y1 + 3, 3, y1 + rowHeight - 1);
-						g.FillRectangle(selectHeader4Brush, 4, y1 + 4, RowHeaderWidth - 6, rowHeight - 4);
+						g.FillRectangle(selectHeader4Brush, 4, y1 + 4, control1.RowHeaderWidth - 6, rowHeight - 4);
 					}
 					g.DrawString("" + (row + 1), textFont, Brushes.Black, 5, y1 + 4);
 				}
 			};
-			OnPaintColumnHeaderView = (g, x, width) =>{
+			control1.OnPaintColumnHeaderView = (g, x, width) =>{
 				if (model == null){
 					return;
 				}
-				g.FillRectangle(headerBrush, 0, 0, width, ColumnHeaderHeight - 1);
+				g.FillRectangle(headerBrush, 0, 0, width, control1.ColumnHeaderHeight - 1);
 				g.DrawLine(gridPen, 0, 0, width, 0);
-				g.DrawLine(gridPen, 0, ColumnHeaderHeight - 1, width, ColumnHeaderHeight - 1);
+				g.DrawLine(gridPen, 0, control1.ColumnHeaderHeight - 1, width, control1.ColumnHeaderHeight - 1);
 				g.DrawLine(Pens.White, 0, 1, width, 1);
-				g.DrawLine(shadow1Pen, 0, ColumnHeaderHeight - 2, width, ColumnHeaderHeight - 2);
-				g.DrawLine(shadow2Pen, 0, ColumnHeaderHeight - 3, width, ColumnHeaderHeight - 3);
-				g.DrawLine(shadow3Pen, 0, ColumnHeaderHeight - 4, width, ColumnHeaderHeight - 4);
+				g.DrawLine(shadow1Pen, 0, control1.ColumnHeaderHeight - 2, width, control1.ColumnHeaderHeight - 2);
+				g.DrawLine(shadow2Pen, 0, control1.ColumnHeaderHeight - 3, width, control1.ColumnHeaderHeight - 3);
+				g.DrawLine(shadow3Pen, 0, control1.ColumnHeaderHeight - 4, width, control1.ColumnHeaderHeight - 4);
 				if (columnWidthSums != null){
 					int startInd = ArrayUtils.CeilIndex(columnWidthSums, x);
 					int endInd = ArrayUtils.FloorIndex(columnWidthSums, x + width);
 					if (startInd >= 0){
 						for (int i = startInd; i <= endInd; i++){
 							int x1 = columnWidthSums[i] - x;
-							g.DrawLine(headerGridPen, x1, 5, x1, ColumnHeaderHeight - 6);
-							g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, ColumnHeaderHeight - 6);
+							g.DrawLine(headerGridPen, x1, 5, x1, control1.ColumnHeaderHeight - 6);
+							g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, control1.ColumnHeaderHeight - 6);
 						}
 					}
 				}
@@ -460,30 +462,31 @@ namespace BaseLib.Forms.Table{
 					}
 				}
 			};
-			OnPaintCornerView = g =>{
+			control1.OnPaintCornerView = g =>{
 				if (model == null){
 					return;
 				}
-				g.FillRectangle(headerBrush, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
-				g.DrawRectangle(gridPen, 0, 0, RowHeaderWidth - 1, ColumnHeaderHeight - 1);
-				g.DrawLine(Pens.White, 1, 1, RowHeaderWidth - 2, 1);
-				g.DrawLine(Pens.White, 1, 1, 1, ColumnHeaderHeight - 2);
+				g.FillRectangle(headerBrush, 0, 0, control1.RowHeaderWidth - 1, control1.ColumnHeaderHeight - 1);
+				g.DrawRectangle(gridPen, 0, 0, control1.RowHeaderWidth - 1, control1.ColumnHeaderHeight - 1);
+				g.DrawLine(Pens.White, 1, 1, control1.RowHeaderWidth - 2, 1);
+				g.DrawLine(Pens.White, 1, 1, 1, control1.ColumnHeaderHeight - 2);
 				if (matrixHelp){
 					g.DrawImage(Resources.question12, 7, 7, 10, 10);
 				}
 				if (model != null && model.AnnotationRowsCount > 0){
 					for (int i = 0; i < model.AnnotationRowsCount; i++){
 						int y1 = origColumnHeaderHeight + i*rowHeight;
-						g.DrawLine(headerGridPen, 5, y1 - 1, RowHeaderWidth - 6, y1 - 1);
-						g.DrawLine(Pens.White, 5, y1, RowHeaderWidth - 6, y1);
+						g.DrawLine(headerGridPen, 5, y1 - 1, control1.RowHeaderWidth - 6, y1 - 1);
+						g.DrawLine(Pens.White, 5, y1, control1.RowHeaderWidth - 6, y1);
 						string s = model.GetAnnotationRowName(i);
 						if (s != null){
-							g.DrawString("" + GetStringValue(g, s, RowHeaderWidth - 6, headerFont), textFont, Brushes.Black, 3, y1 + 3);
+							g.DrawString("" + GetStringValue(g, s, control1.RowHeaderWidth - 6, headerFont), textFont, Brushes.Black, 3,
+								y1 + 3);
 						}
 					}
 				}
 			};
-			OnPaintMainView = (g, x, y, width, height) =>{
+			control1.OnPaintMainView = (g, x, y, width, height) =>{
 				if (model == null){
 					return;
 				}
@@ -554,7 +557,7 @@ namespace BaseLib.Forms.Table{
 					//crashes of the MaxQuant interface during very long running times.
 				}
 			};
-			TotalWidth = () =>{
+			control1.TotalWidth = () =>{
 				if (model == null){
 					return 0;
 				}
@@ -567,44 +570,44 @@ namespace BaseLib.Forms.Table{
 				}
 				return columnWidthSums[ind] + 5;
 			};
-			TotalHeight = () => rowHeight*model?.RowCount + 5 ?? 0;
-			DeltaX = () => 40;
-			DeltaY = () => rowHeight;
-			DeltaUpToSelection = () =>{
+			control1.TotalHeight = () => rowHeight*model?.RowCount + 5 ?? 0;
+			control1.DeltaX = () => 40;
+			control1.DeltaY = () => rowHeight;
+			control1.DeltaUpToSelection = () =>{
 				int[] inds = GetSelectedRowsView();
 				if (inds.Length == 0){
-					return VisibleY;
+					return control1.VisibleY;
 				}
-				int visRow = (VisibleY + rowHeight - 1)/rowHeight;
+				int visRow = (control1.VisibleY + rowHeight - 1)/rowHeight;
 				int ind = Array.BinarySearch(inds, visRow);
 				if (ind >= 0){
 					if (ind < 1){
-						return VisibleY;
+						return control1.VisibleY;
 					}
 					return (visRow - inds[ind - 1])*rowHeight;
 				}
 				ind = -1 - ind;
 				if (ind < 1){
-					return VisibleY;
+					return control1.VisibleY;
 				}
 				return (visRow - inds[ind - 1])*rowHeight;
 			};
-			DeltaDownToSelection = () =>{
+			control1.DeltaDownToSelection = () =>{
 				int[] inds = GetSelectedRowsView();
 				if (inds.Length == 0){
-					return TotalHeight() - VisibleY - VisibleHeight;
+					return control1.TotalHeight() - control1.VisibleY - control1.VisibleHeight;
 				}
-				int visRow = (VisibleY + rowHeight - 1)/rowHeight;
+				int visRow = (control1.VisibleY + rowHeight - 1)/rowHeight;
 				int ind = Array.BinarySearch(inds, visRow);
 				if (ind >= 0){
 					if (ind >= inds.Length - 1){
-						return TotalHeight() - VisibleY - VisibleHeight;
+						return control1.TotalHeight() - control1.VisibleY - control1.VisibleHeight;
 					}
 					return (inds[ind + 1] - visRow)*rowHeight;
 				}
 				ind = -1 - ind;
 				if (ind >= inds.Length){
-					return TotalHeight() - VisibleY - VisibleHeight;
+					return control1.TotalHeight() - control1.VisibleY - control1.VisibleHeight;
 				}
 				return (inds[ind] - visRow)*rowHeight;
 			};
@@ -726,7 +729,7 @@ namespace BaseLib.Forms.Table{
 			perseusPropertiesMenuItem.Size = new Size(209, 22);
 			perseusPropertiesMenuItem.Text = "Perseus properties";
 			perseusToolStripSeparator.Size = new Size(206, 6);
-			ContextMenuStrip = contextMenuStrip;
+			control.ContextMenuStrip = contextMenuStrip;
 		}
 
 		private void PerseusPropertiesToolStripMenuItemClick(object sender, EventArgs e){
@@ -794,7 +797,7 @@ namespace BaseLib.Forms.Table{
 			if (rows.Count > 0){
 				ScrollToRow(inverseOrder[rows[0]]);
 			} else{
-				Invalidate(true);
+				control.Invalidate(true);
 			}
 			SelectionChanged?.Invoke(this, new EventArgs());
 		}
@@ -859,8 +862,8 @@ namespace BaseLib.Forms.Table{
 				if (model == null){
 					return;
 				}
-				VisibleX = 0;
-				VisibleY = 0;
+				control.VisibleX = 0;
+				control.VisibleY = 0;
 				modelRowSel = new bool[model.RowCount];
 				order = ArrayUtils.ConsecutiveInts(model.RowCount);
 				inverseOrder = ArrayUtils.ConsecutiveInts(model.RowCount);
@@ -872,7 +875,7 @@ namespace BaseLib.Forms.Table{
 					columnWidthSums[i] = columnWidthSums[i - 1] + model.GetColumnWidth(i);
 				}
 				if (model.AnnotationRowsCount > 0){
-					ColumnHeaderHeight=(origColumnHeaderHeight + model.AnnotationRowsCount*rowHeight);
+					control.ColumnHeaderHeight = (origColumnHeaderHeight + model.AnnotationRowsCount*rowHeight);
 				}
 			}
 		}
@@ -917,18 +920,18 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public void ScrollToRow(int row){
-			if ((RowCount - row)*rowHeight < VisibleHeight){
+			if ((RowCount - row)*rowHeight < control.VisibleHeight){
 				ScrollToEnd();
 			} else{
-				VisibleY = row*rowHeight;
+				control.VisibleY = row*rowHeight;
 			}
 		}
 
 		public void ScrollToEnd(){
-			if (RowCount*rowHeight < VisibleHeight){
-				VisibleY = 0;
+			if (RowCount*rowHeight < control.VisibleHeight){
+				control.VisibleY = 0;
 			} else{
-				VisibleY = (RowCount - (int) (VisibleHeight/(double) rowHeight))*rowHeight;
+				control.VisibleY = (RowCount - (int) (control.VisibleHeight/(double) rowHeight))*rowHeight;
 			}
 		}
 
@@ -1019,12 +1022,12 @@ namespace BaseLib.Forms.Table{
 
 		private void SelectAllToolStripMenuItemClick(object sender, EventArgs e){
 			SelectAll();
-			Invalidate(true);
+			control.Invalidate(true);
 		}
 
 		private void ClearSelectionToolStripMenuItemClick(object sender, EventArgs e){
 			ClearSelectionFire();
-			Invalidate(true);
+			control.Invalidate(true);
 		}
 
 		private void FontsToolStripMenuItemClick(object sender, EventArgs e){
@@ -1044,23 +1047,23 @@ namespace BaseLib.Forms.Table{
 				return;
 			}
 			if (findForm == null){
-				findForm = new FindForm(this);
+				findForm = new FindForm(this, control);
 			}
 			findForm.Visible = false;
 			findForm.BringToFront();
-			findForm.Show(this);
+			findForm.Show(control);
 			findForm.FocusInputField();
 			findForm.Activate();
 		}
 
 		private void MonospaceFont(){
 			textFont = new Font(FontFamily.GenericMonospace, 9);
-			Invalidate(true);
+			control.Invalidate(true);
 		}
 
 		private void DefaultFont1(){
 			textFont = defaultFont;
-			Invalidate(true);
+			control.Invalidate(true);
 		}
 
 		private void ChangeFonts(){
@@ -1074,7 +1077,7 @@ namespace BaseLib.Forms.Table{
 				textBrush = new SolidBrush(textColor);
 			}
 			fontDialog.Dispose();
-			Invalidate(true);
+			control.Invalidate(true);
 		}
 
 		public void BringSelectionToTop(){
@@ -1094,8 +1097,8 @@ namespace BaseLib.Forms.Table{
 				}
 			}
 			order = ArrayUtils.Concat(l1, l2);
-			VisibleY = 0;
-			Invalidate(true);
+			control.VisibleY = 0;
+			control.Invalidate(true);
 		}
 
 		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e){
@@ -1108,7 +1111,7 @@ namespace BaseLib.Forms.Table{
 			for (int i = 0; i < modelRowSel.Length; i++){
 				modelRowSel[i] = !modelRowSel[i];
 			}
-			Invalidate(true);
+			control.Invalidate(true);
 			SelectionChanged?.Invoke(this, new EventArgs());
 		}
 
@@ -1182,7 +1185,7 @@ namespace BaseLib.Forms.Table{
 			int[] colInds = psw.GetSelectedIndices();
 			int[] sel = GetSelection(ncols, colData, colInds);
 			SetSelectedRows(sel);
-			Invalidate(true);
+			control.Invalidate(true);
 		}
 
 		private int[] GetSelection(int ncols, IList<string[]> colData, IList<int> colInds){
@@ -1536,15 +1539,15 @@ namespace BaseLib.Forms.Table{
 
 		private void CopyCell(){
 			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Point q = PointToScreen(new Point(0, 0));
-			int cx = p.X - q.X - RowHeaderWidth;
-			int cy = p.Y - q.Y - ColumnHeaderHeight;
-			int x1 = VisibleX + cx;
+			Point q = control.PointToScreen(new Point(0, 0));
+			int cx = p.X - q.X - control.RowHeaderWidth;
+			int cy = p.Y - q.Y - control.ColumnHeaderHeight;
+			int x1 = control.VisibleX + cx;
 			if (columnWidthSums == null){
 				return;
 			}
 			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			int row = (VisibleY + cy)/rowHeight;
+			int row = (control.VisibleY + cy)/rowHeight;
 			if (model == null || row >= model.RowCount || row < 0){
 				return;
 			}
@@ -1555,9 +1558,9 @@ namespace BaseLib.Forms.Table{
 
 		private void CopyColumnFull(){
 			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Point q = PointToScreen(new Point(0, 0));
-			int cx = p.X - q.X - RowHeaderWidth;
-			int x1 = VisibleX + cx;
+			Point q = control.PointToScreen(new Point(0, 0));
+			int cx = p.X - q.X - control.RowHeaderWidth;
+			int x1 = control.VisibleX + cx;
 			if (columnWidthSums == null){
 				return;
 			}
@@ -1578,9 +1581,9 @@ namespace BaseLib.Forms.Table{
 
 		private void CopyColumnSelectedRows(){
 			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Point q = PointToScreen(new Point(0, 0));
-			int cx = p.X - q.X - RowHeaderWidth;
-			int x1 = VisibleX + cx;
+			Point q = control.PointToScreen(new Point(0, 0));
+			int cx = p.X - q.X - control.RowHeaderWidth;
+			int x1 = control.VisibleX + cx;
 			if (columnWidthSums == null){
 				return;
 			}
@@ -1648,8 +1651,8 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public void CalcCurrentRowAndColumn(BasicMouseEventArgs e){
-			int x1 = VisibleX + e.X;
-			int y1 = VisibleY + e.Y;
+			int x1 = control.VisibleX + e.X;
+			int y1 = control.VisibleY + e.Y;
 			try{
 				int indf = ArrayUtils.CeilIndex(columnWidthSums, x1);
 				if (model != null){
@@ -1663,26 +1666,25 @@ namespace BaseLib.Forms.Table{
 			currentRow = y1/rowHeight;
 		}
 
-		protected override void Dispose(bool disposing){
-			base.Dispose(disposing);
+		public void Dispose(){
 			if (findForm != null){
 				findForm.Close();
 				findForm.Dispose();
 			}
 		}
 
-		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
+		public void ProcessCmdKey(Keys keyData){
 			switch (keyData){
 				case Keys.Shift | Keys.Home:
 				case Keys.Home:{
-					VisibleX = 0;
-					Invalidate(true);
+					control.VisibleX = 0;
+					control.Invalidate(true);
 				}
 					break;
 				case Keys.Shift | Keys.End:
 				case Keys.End:{
 					ScrollToEnd();
-					Invalidate(true);
+					control.Invalidate(true);
 				}
 					break;
 				case Keys.Shift | Keys.Down:
@@ -1693,8 +1695,8 @@ namespace BaseLib.Forms.Table{
 							modelRowSel[order[selection[selection.Length - 1]]] = false;
 						}
 						SetSelectedViewIndex(selection[selection.Length - 1] + 1);
-						MoveDown(rowHeight);
-						Invalidate(true);
+						control.MoveDown(rowHeight);
+						control.Invalidate(true);
 					}
 				}
 					break;
@@ -1706,14 +1708,14 @@ namespace BaseLib.Forms.Table{
 							modelRowSel[order[selection[0]]] = false;
 						}
 						SetSelectedViewIndex(selection[0] - 1);
-						MoveUp(rowHeight);
-						Invalidate(true);
+						control.MoveUp(rowHeight);
+						control.Invalidate(true);
 					}
 				}
 					break;
 				case Keys.Control | Keys.A:
 					SelectAll();
-					Invalidate(true);
+					control.Invalidate(true);
 					break;
 				case Keys.Control | Keys.C:
 					Copy();
@@ -1725,7 +1727,9 @@ namespace BaseLib.Forms.Table{
 					Goto();
 					break;
 			}
-			return base.ProcessCmdKey(ref msg, keyData);
 		}
+
+		public void InvalidateBackgroundImages(){}
+		public void OnSizeChanged(){}
 	}
 }

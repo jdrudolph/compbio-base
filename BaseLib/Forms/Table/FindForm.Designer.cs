@@ -1,4 +1,6 @@
-﻿namespace BaseLib.Forms.Table {
+﻿using BaseLib.Forms.Scroll;
+
+namespace BaseLib.Forms.Table {
 	partial class FindForm {
 		/// <summary>
 		/// Required designer variable.
@@ -43,7 +45,7 @@
 			this.matchCaseCheckBox = new System.Windows.Forms.CheckBox();
 			this.expressionTextBox = new System.Windows.Forms.TextBox();
 			this.label1 = new System.Windows.Forms.Label();
-			this.tableView1 = new TableViewWf();
+			this.tableView1 = new CompoundScrollableControl();
 			this.statusStrip1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -250,17 +252,12 @@
 			// tableView1
 			// 
 			this.tableView1.ColumnHeaderHeight=(26);
-			tableView1.origColumnHeaderHeight = 26;
 			this.tableView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableView1.HasHelp = true;
 			this.tableView1.Location = new System.Drawing.Point(3, 199);
-			this.tableView1.MultiSelect = true;
 			this.tableView1.Name = "tableView1";
 			this.tableView1.RowHeaderWidth = 70;
 			this.tableView1.Size = new System.Drawing.Size(330, 1);
-			this.tableView1.Sortable = true;
 			this.tableView1.TabIndex = 1;
-			this.tableView1.TableModel = null;
 			this.tableView1.VisibleX = 0;
 			this.tableView1.VisibleY = 0;
 			// 
@@ -299,7 +296,7 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button findAllButton;
 		private System.Windows.Forms.Button findNextButton;
-		private TableViewWf tableView1;
+		private CompoundScrollableControl tableView1;
 		private System.Windows.Forms.CheckBox matchWholeWordCheckBox;
 		private System.Windows.Forms.ComboBox wildcardsComboBox;
 		private System.Windows.Forms.ComboBox lookInComboBox;

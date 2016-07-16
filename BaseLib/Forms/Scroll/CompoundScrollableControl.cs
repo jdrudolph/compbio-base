@@ -5,12 +5,12 @@ using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 
 namespace BaseLib.Forms.Scroll{
-	public class CompoundScrollableControl : UserControl, IScrollableControl{
+	public sealed class CompoundScrollableControl : UserControl, IScrollableControl{
 		public const int scrollBarWidth = 18;
 		private int rowHeaderWidth = 40;
 		private int rowFooterWidth;
-		protected int columnHeaderHeight = 40;
-		protected int columnFooterHeight;
+		private int columnHeaderHeight = 40;
+		private int columnFooterHeight;
 		private int visibleX;
 		private int visibleY;
 		private BasicTableLayoutView tableLayoutPanel1;
@@ -113,6 +113,7 @@ namespace BaseLib.Forms.Scroll{
 		public CompoundScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
+			DoubleBuffered = true;
 			OnPaintMainView = (g, x, y, width, height) => { };
 			OnPaintRowHeaderView = (g, y, height) => { };
 			OnPaintRowFooterView = (g, y, height) => { };
@@ -130,7 +131,9 @@ namespace BaseLib.Forms.Scroll{
 			DeltaDownToSelection = () => 0;
 		}
 
-		public virtual void InvalidateBackgroundImages(){}
+		public void InvalidateBackgroundImages(){
+			client?.InvalidateBackgroundImages();
+		}
 
 		public void InvalidateScrollbars(){
 			horizontalScrollBarView.Invalidate();
@@ -185,16 +188,16 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		protected void InvalidateColumnHeaderView(){
+		public void InvalidateColumnHeaderView(){
 			columnHeaderView.Invalidate();
 			horizontalScrollBarView.Invalidate();
 		}
 
-		protected void InvalidateCornerView(){
+		public void InvalidateCornerView(){
 			cornerView.Invalidate();
 		}
 
-		protected void InvalidateRowHeaderView(){
+		public void InvalidateRowHeaderView(){
 			rowHeaderView.Invalidate();
 			verticalScrollBarView.Invalidate();
 		}
@@ -247,6 +250,14 @@ namespace BaseLib.Forms.Scroll{
 		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth;
 		public int TotalClientWidth => TotalWidth() + RowHeaderWidth + RowFooterWidth;
 		public int TotalClientHeight => TotalHeight() + ColumnHeaderHeight + ColumnFooterHeight;
+		ICompoundScrollableControlClient client;
+
+		public ICompoundScrollableControlClient Client{
+			set{
+				client = value;
+				value.Register(this, () => ModifierKeys);
+			}
+		}
 
 		protected override void OnResize(EventArgs e){
 			if (TotalWidth == null || TotalHeight == null){
@@ -254,6 +265,7 @@ namespace BaseLib.Forms.Scroll{
 			}
 			VisibleX = Math.Max(0, Math.Min(VisibleX, TotalWidth() - VisibleWidth - 1));
 			VisibleY = Math.Max(0, Math.Min(VisibleY, TotalHeight() - VisibleHeight - 1));
+			InvalidateBackgroundImages();
 			base.OnResize(e);
 		}
 
@@ -333,6 +345,16 @@ namespace BaseLib.Forms.Scroll{
 			tableLayoutPanel2.InvalidateSizes();
 			tableLayoutPanel2.Print(g, width, height);
 			tableLayoutPanel2.InvalidateSizes();
+		}
+
+		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
+			client?.ProcessCmdKey(keyData);
+			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		protected override void OnSizeChanged(EventArgs e){
+			base.OnSizeChanged(e);
+			client?.OnSizeChanged();
 		}
 	}
 }
