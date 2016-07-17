@@ -13,6 +13,16 @@ namespace BaseLib.Forms.Scroll{
 		private BasicControl mainControl;
 		private BasicView mainView;
 		private BasicView smallCornerView;
+		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseClickMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseDoubleClickMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseDraggedMainView { get; set; }
+		public Action<EventArgs> OnMouseHoverMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseIsDownMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseIsUpMainView { get; set; }
+		public Action<EventArgs> OnMouseLeaveMainView { get; set; }
+		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
+
 
 		public SimpleScrollableControl(){
 			InitializeComponent2();
@@ -156,16 +166,6 @@ namespace BaseLib.Forms.Scroll{
 			verticalScrollBar.Invalidate();
 			base.OnMouseWheel(e);
 		}
-
-		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
-		public Action<BasicMouseEventArgs> OnMouseClickMainView { get; set; }
-		public Action<BasicMouseEventArgs> OnMouseDoubleClickMainView { get; set; }
-		public Action<BasicMouseEventArgs> OnMouseDraggedMainView { get; set; }
-		public Action<EventArgs> OnMouseHoverMainView { get; set; }
-		public Action<BasicMouseEventArgs> OnMouseIsDownMainView { get; set; }
-		public Action<BasicMouseEventArgs> OnMouseIsUpMainView { get; set; }
-		public Action<EventArgs> OnMouseLeaveMainView { get; set; }
-		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
 
 		public void Print(IGraphics g, int width, int height){
 			mainView.Print(g, width, height);
