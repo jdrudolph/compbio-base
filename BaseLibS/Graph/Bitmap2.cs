@@ -39,6 +39,12 @@ namespace BaseLibS.Graph{
 		public int Height => data.GetLength(1);
 
 		public void SetPixel(int i, int j, int argb){
+			if (i < 0 || j < 0){
+				return;
+			}
+			if (i >= data.GetLength(0) || j >= data.GetLength(1)){
+				return;
+			}
 			data[i, j] = argb;
 		}
 
