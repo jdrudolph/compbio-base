@@ -16,7 +16,7 @@ namespace NumPluginBase.Kernel{
 			Offset = offset;
 		}
 
-		public PolynomialKernelFunction() : this(3, 0.01, 0) { }
+		public PolynomialKernelFunction() : this(3, 0.01, 0){}
 		public bool UsesSquares => false;
 		public string Name => "Polynomial";
 
@@ -38,8 +38,13 @@ namespace NumPluginBase.Kernel{
 			}
 		}
 
-		public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej) { return Powi(Gamma*xi.Dot(xj) + Offset, Degree); }
-		public object Clone() { return new PolynomialKernelFunction(Degree, Gamma, Offset); }
+		public double Evaluate(BaseVector xi, BaseVector xj, double xSquarei, double xSquarej){
+			return Powi(Gamma*xi.Dot(xj) + Offset, Degree);
+		}
+
+		public object Clone(){
+			return new PolynomialKernelFunction(Degree, Gamma, Offset);
+		}
 
 		private static double Powi(double base1, int times){
 			double tmp = base1;
