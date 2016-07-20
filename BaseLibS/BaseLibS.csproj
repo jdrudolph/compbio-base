@@ -48,6 +48,11 @@
     <Compile Include="Mol\TaxonomyRank.cs" />
     <Compile Include="Mol\TaxonomyRanks.cs" />
     <Compile Include="Mol\TerminalLabel.cs" />
+    <Compile Include="Num\Cluster\HierarchicalClusterConstraint.cs" />
+    <Compile Include="Num\Cluster\HierarchicalClustering.cs" />
+    <Compile Include="Num\Cluster\HierarchicalClusterLinkage.cs" />
+    <Compile Include="Num\Cluster\HierarchicalClusterNode.cs" />
+    <Compile Include="Num\Cluster\KmeansClustering.cs" />
     <Compile Include="Num\Matrix\IBoolMatrixIndexer.cs" />
     <Compile Include="Api\ClassificationFeatureRankingMethod.cs" />
     <Compile Include="Api\ClassificationMethod.cs" />
@@ -222,6 +227,7 @@
     <None Include="Resources\names.dmp.gz" />
     <None Include="Resources\nodes.dmp.gz" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
