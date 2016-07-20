@@ -53,6 +53,13 @@
     <Compile Include="Num\Cluster\HierarchicalClusterLinkage.cs" />
     <Compile Include="Num\Cluster\HierarchicalClusterNode.cs" />
     <Compile Include="Num\Cluster\KmeansClustering.cs" />
+    <Compile Include="Num\Learning\ClassificationOnSubFeatures.cs" />
+    <Compile Include="Num\Learning\ClassificationWithRanking.cs" />
+    <Compile Include="Num\Learning\ClassificationWithRankingMultiSizes.cs" />
+    <Compile Include="Num\Learning\GroupWiseClassifier.cs" />
+    <Compile Include="Num\Learning\RegressionOnSubFeatures.cs" />
+    <Compile Include="Num\Learning\RegressionWithRanking.cs" />
+    <Compile Include="Num\Learning\RegressionWithRankingMultiSizes.cs" />
     <Compile Include="Num\Matrix\IBoolMatrixIndexer.cs" />
     <Compile Include="Api\ClassificationFeatureRankingMethod.cs" />
     <Compile Include="Api\ClassificationMethod.cs" />
@@ -118,6 +125,7 @@
     <Compile Include="Num\Matrix\SparseRowFloatMatrixIndexer.cs" />
     <Compile Include="Num\Matrix\FloatMatrixIndexer.cs" />
     <Compile Include="Num\Matrix\SparseColumnFloatMatrixIndexer.cs" />
+    <Compile Include="Num\NumConstants.cs" />
     <Compile Include="Num\NumRecipes.cs" />
     <Compile Include="Num\NumUtils.cs" />
     <Compile Include="Num\Random2.cs" />
@@ -193,6 +201,7 @@
     <Compile Include="Util\LockFile.cs" />
     <Compile Include="Util\StringUtils.cs" />
     <Compile Include="Util\ThreadDistributor.cs" />
+    <Compile Include="Util\ThreadDistributorTriangularMatrix.cs" />
     <Compile Include="Util\WorkDispatcher.cs" />
     <Compile Include="Util\XmlSerialization.cs" />
   </ItemGroup>
