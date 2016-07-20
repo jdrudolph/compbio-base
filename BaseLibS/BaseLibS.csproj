@@ -53,6 +53,9 @@
     <Compile Include="Num\Cluster\HierarchicalClusterLinkage.cs" />
     <Compile Include="Num\Cluster\HierarchicalClusterNode.cs" />
     <Compile Include="Num\Cluster\KmeansClustering.cs" />
+    <Compile Include="Num\Distrib\StudentsT.cs" />
+    <Compile Include="Num\Func\Factorial.cs" />
+    <Compile Include="Num\Func\IncompleteBeta.cs" />
     <Compile Include="Num\Learning\ClassificationOnSubFeatures.cs" />
     <Compile Include="Num\Learning\ClassificationWithRanking.cs" />
     <Compile Include="Num\Learning\ClassificationWithRankingMultiSizes.cs" />
@@ -114,7 +117,6 @@
     <Compile Include="Mol\Tables.cs" />
     <Compile Include="Num\Bootstrap.cs" />
     <Compile Include="Num\Combination.cs" />
-    <Compile Include="Num\CorrelationType.cs" />
     <Compile Include="Num\CubicSpline.cs" />
     <Compile Include="Num\DensityEstimation.cs" />
     <Compile Include="Num\Distrib\Normal.cs" />

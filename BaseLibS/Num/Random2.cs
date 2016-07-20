@@ -26,7 +26,7 @@ namespace BaseLibS.Num{
 		/// </summary>
 		/// <returns> The Gaussian random number.</returns>
 		public double NextGaussian(){
-			return NumUtils.Gasdev(ref iset, ref gset, this);
+			return Gasdev(ref iset, ref gset, this);
 		}
 
 		public bool NextBoolean(){
@@ -65,7 +65,7 @@ namespace BaseLibS.Num{
 		/// </summary>
 		/// <returns> The Gaussian random number.</returns>
 		public double NextGaussian(double mean, double stddev){
-			double x = NumUtils.Gasdev(ref iset, ref gset, this);
+			double x = Gasdev(ref iset, ref gset, this);
 			return x*stddev + mean;
 		}
 
@@ -148,6 +148,25 @@ namespace BaseLibS.Num{
 				test[i] = ArrayUtils.SubArray(perm, start, end);
 				train[i] = ArrayUtils.SubArray(perm, end, perm.Length);
 			}
+		}
+
+		private static double Gasdev(ref bool iset, ref double gset, Random random){
+			if (!iset){
+				double rsq;
+				double v1;
+				double v2;
+				do{
+					v1 = 2.0*random.NextDouble() - 1.0;
+					v2 = 2.0*random.NextDouble() - 1.0;
+					rsq = v1*v1 + v2*v2;
+				} while (rsq >= 1.0 || rsq == 0.0);
+				double fac = Math.Sqrt(-2.0*Math.Log(rsq)/rsq);
+				gset = v1*fac;
+				iset = true;
+				return v2*fac;
+			}
+			iset = false;
+			return gset;
 		}
 
 		/// <summary>

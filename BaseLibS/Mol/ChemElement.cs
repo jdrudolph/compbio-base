@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using BaseLibS.Num;
+using BaseLibS.Num.Func;
 
 namespace BaseLibS.Mol{
 	public class ChemElement{
@@ -66,7 +67,7 @@ namespace BaseLibS.Mol{
 						weights[i] *= composition[j];
 					}
 				}
-				weights[i] *= NumUtils.Multinomial(n, partition);
+				weights[i] *= Factorial.Multinomial(n, partition);
 			}
 			int[] o = ArrayUtils.Order(ms);
 			ms = ArrayUtils.SubArray(ms, o);

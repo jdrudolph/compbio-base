@@ -1,4 +1,5 @@
 using System;
+using BaseLibS.Num.Func;
 
 namespace BaseLibS.Num.Test{
 	public class FisherExactTest{
@@ -21,8 +22,9 @@ namespace BaseLibS.Num.Test{
 			int colSum0 = q00 + q10;
 			int colSum1 = q01 + q11;
 			int total = rowSum0 + rowSum1;
-			return NumUtils.Factln(rowSum0) + NumUtils.Factln(rowSum1) + NumUtils.Factln(colSum0) + NumUtils.Factln(colSum1) -
-				NumUtils.Factln(q00) - NumUtils.Factln(q01) - NumUtils.Factln(q10) - NumUtils.Factln(q11) - NumUtils.Factln(total);
+			return Factorial.LnValue(rowSum0) + Factorial.LnValue(rowSum1) + Factorial.LnValue(colSum0) +
+					Factorial.LnValue(colSum1) - Factorial.LnValue(q00) - Factorial.LnValue(q01) - Factorial.LnValue(q10) -
+					Factorial.LnValue(q11) - Factorial.LnValue(total);
 		}
 
 		public static void CalcContingency(bool[] x, bool[] y, out int r00, out int r01, out int r10, out int r11){

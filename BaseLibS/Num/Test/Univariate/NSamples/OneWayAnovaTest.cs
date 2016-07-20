@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BaseLibS.Num.Func;
 
 namespace BaseLibS.Num.Test.Univariate.NSamples{
 	public class OneWayAnovaTest : MultipleSamplesTest{
@@ -52,8 +53,8 @@ namespace BaseLibS.Num.Test.Univariate.NSamples{
 			double gms = GetGeomMeanSquared(data);
 			double denom = n*db*ssw/dw/gms;
 			double statisticS0 = n*ssb/gms/(Math.Sqrt(denom) + s0)/(Math.Sqrt(denom) + s0);
-			pvalS0 = NumRecipes.Betai(dw*0.5, db*0.5, dw/(dw + db*statisticS0));
-			return NumRecipes.Betai(dw*0.5, db*0.5, dw/(dw + db*statistic));
+			pvalS0 = IncompleteBeta.Value(dw*0.5, db*0.5, dw/(dw + db*statisticS0));
+			return IncompleteBeta.Value(dw*0.5, db*0.5, dw/(dw + db*statistic));
 		}
 
 		public override string Name => "ANOVA";

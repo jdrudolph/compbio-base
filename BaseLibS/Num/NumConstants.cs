@@ -3,5 +3,6 @@
 namespace BaseLibS.Num{
 	public static class NumConstants{
 		public static readonly double ln2 = Math.Log(2);
+		public static readonly double ln10 = Math.Log(10);
 	}
 }

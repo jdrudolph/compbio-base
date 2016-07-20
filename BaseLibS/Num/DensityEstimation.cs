@@ -106,7 +106,7 @@ namespace BaseLibS.Num{
 				int yind = (int) Math.Floor((yval - miny)/yStep);
 				for (int ii = Math.Max(xind - dx, 0); ii <= Math.Min(xind + dx, xCount - 1); ii++){
 					for (int jj = Math.Max(yind - dy, 0); jj <= Math.Min(yind + dy, yCount - 1); jj++){
-						double[] w = new double[]{ii - xind, jj - yind};
+						double[] w = {ii - xind, jj - yind};
 						double[] b = NumUtils.MatrixTimesVector(hinv, w);
 						vals[ii, jj] += (float) NumUtils.StandardGaussian(b);
 					}
