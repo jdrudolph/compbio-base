@@ -2515,7 +2515,7 @@ namespace BaseLibS.Num{
 		}
 
 		public static int TriangleToLinearIndex(int i, int j){
-			int b = (i*(i - 1))/2;
+			int b = i*(i - 1)/2;
 			return b + j;
 		}
 

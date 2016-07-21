@@ -127,7 +127,7 @@ namespace BaseLibS.Num{
 				return x;
 			}
 			try{
-				int sign = (x > 0) ? 1 : -1;
+				int sign = x > 0 ? 1 : -1;
 				x = Math.Abs(x);
 				int w = (int) Math.Ceiling(Math.Log(x)/Math.Log(10));
 				if (w - n > 0){
