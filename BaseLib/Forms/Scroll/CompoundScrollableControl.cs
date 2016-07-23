@@ -5,7 +5,7 @@ using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 
 namespace BaseLib.Forms.Scroll{
-	public sealed class CompoundScrollableControl : UserControl, IScrollableControl{
+	public sealed class CompoundScrollableControl : UserControl, ICompoundScrollableControl{
 		public const int scrollBarWidth = 18;
 		private int rowHeaderWidth = 40;
 		private int rowFooterWidth;

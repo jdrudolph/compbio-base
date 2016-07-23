@@ -5,7 +5,7 @@ using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 
 namespace BaseLib.Forms.Scroll{
-	public sealed class SimpleScrollableControl : UserControl, IScrollableControl{
+	public sealed class SimpleScrollableControl : UserControl, ISimpleScrollableControl{
 		private int visibleX;
 		private int visibleY;
 		private BasicView horizontalScrollBar;

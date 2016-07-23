@@ -97,7 +97,7 @@ namespace BaseLib.Forms.Table{
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }
 		private readonly ToolTip columnViewToolTip = new ToolTip();
-		CompoundScrollableControl control;
+		private CompoundScrollableControl control;
 
 		public void Register(CompoundScrollableControl control1, Func<Keys> getModifierKeys){
 			control = control1;

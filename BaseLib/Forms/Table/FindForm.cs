@@ -12,12 +12,12 @@ namespace BaseLib.Forms.Table{
 	internal partial class FindForm : Form{
 		private const int expandedHeight = 700;
 		private readonly TableViewClient tableViewWf;
-		private readonly CompoundScrollableControl tableView;
+		private readonly ICompoundScrollableControl tableView;
 		private readonly ITableModel tableModel;
 		private int searchRowIndView = -1;
 		private int[] multipleColumns = new int[0];
 		private readonly TableViewClient tableView1Wf;
-		public FindForm(TableViewClient tableViewWf, CompoundScrollableControl tableView){
+		public FindForm(TableViewClient tableViewWf, ICompoundScrollableControl tableView){
 			InitializeComponent();
 			tableView1Wf = new TableViewClient();
 			tableView1.Client = tableView1Wf;
@@ -67,7 +67,7 @@ namespace BaseLib.Forms.Table{
 				int ind0 = (int)tableView1Wf.GetEntry(rows[0], 0) - 1;
 				tableViewWf.ScrollToRow(ind0);
 			}
-			tableView.Invalidate();
+			tableView.Invalidate(true);
 		}
 
 		private void LookInComboBoxSelectedIndexChanged(object sender, EventArgs e) {
