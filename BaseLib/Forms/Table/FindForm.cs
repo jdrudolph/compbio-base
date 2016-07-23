@@ -11,15 +11,15 @@ using BaseLibS.Util;
 namespace BaseLib.Forms.Table{
 	internal partial class FindForm : Form{
 		private const int expandedHeight = 700;
-		private readonly TableViewWf tableViewWf;
+		private readonly TableViewClient tableViewWf;
 		private readonly CompoundScrollableControl tableView;
 		private readonly ITableModel tableModel;
 		private int searchRowIndView = -1;
 		private int[] multipleColumns = new int[0];
-		TableViewWf tableView1Wf;
-		public FindForm(TableViewWf tableViewWf, CompoundScrollableControl tableView){
+		private readonly TableViewClient tableView1Wf;
+		public FindForm(TableViewClient tableViewWf, CompoundScrollableControl tableView){
 			InitializeComponent();
-			tableView1Wf = new TableViewWf();
+			tableView1Wf = new TableViewClient();
 			tableView1.Client = tableView1Wf;
 			tableView1Wf.origColumnHeaderHeight = 26;
 			tableView1Wf.HasHelp = true;

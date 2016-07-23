@@ -17,7 +17,7 @@ namespace BaseLib.Wpf{
 		internal static readonly List<ITableSelectionAgent> selectionAgents = new List<ITableSelectionAgent>();
 		public event EventHandler SelectionChanged;
 		private readonly CompoundScrollableControl tableView;
-		private readonly TableViewWf tableViewWf;
+		private readonly TableViewClient tableViewWf;
 		private bool textBoxVisible;
 		private bool hasSelectionAgent;
 		private ITableSelectionAgent selectionAgent;
@@ -27,7 +27,7 @@ namespace BaseLib.Wpf{
 		public TableView(){
 			InitializeComponent();
 			tableView = new CompoundScrollableControl();
-			tableViewWf = new TableViewWf();
+			tableViewWf = new TableViewClient();
 			tableView.Client = tableViewWf;
 			tableViewWf.SelectionChanged += (sender, args) =>{
 				SelectionChanged?.Invoke(sender, args);

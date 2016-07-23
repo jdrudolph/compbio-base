@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
@@ -16,7 +16,7 @@ using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
-	internal class TableViewWf : ICompoundScrollableControlClient{
+	internal class TableViewClient : ICompoundScrollableControlClient{
 		private const int rowHeight = 22;
 		private static readonly Color gridColor = Color.FromArgb(172, 168, 153);
 		private static readonly Pen gridPen = new Pen(gridColor);

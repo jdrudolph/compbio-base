@@ -90,7 +90,7 @@ namespace BaseLib.Forms.Scroll{
 		public int TotalClientHeight => TotalHeight();
 		public int VisibleWidth => mainControl.Width;
 		public int VisibleHeight => mainControl.Height;
-		ISimpleScrollableControlClient client;
+		private ISimpleScrollableControlClient client;
 
 		public ISimpleScrollableControlClient Client{
 			set{

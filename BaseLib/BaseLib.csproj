@@ -137,6 +137,7 @@
     </Compile>
     <Compile Include="Forms\Scroll\SimpleScrollableControlMainView.cs" />
     <Compile Include="Forms\Scroll\VerticalScrollBarView.cs" />
+    <Compile Include="Forms\Table\TableViewClient.cs" />
     <Compile Include="Param\RegexParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Wpf\ITableSelectionAgent.cs" />
@@ -161,7 +162,6 @@
     <Compile Include="Forms\Table\SelectColumnsForm.Designer.cs">
       <DependentUpon>SelectColumnsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Table\TableViewWf.cs" />
     <Compile Include="Graphic\BitmapGraphics.cs" />
     <Compile Include="Graphic\CGraphics.cs" />
     <Compile Include="Graphic\ColorConstants.cs" />
@@ -327,10 +327,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\SelectColumnsForm.resx">
       <DependentUpon>SelectColumnsForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Table\TableViewWf.resx">
-      <DependentUpon>TableViewWf.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Param\ParameterGroupPanel.resx">
