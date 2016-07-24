@@ -255,7 +255,7 @@ namespace BaseLib.Forms.Scroll{
 		public ICompoundScrollableControlClient Client{
 			set{
 				client = value;
-				value.Register(this, () => ModifierKeys);
+				value.Register(this);
 			}
 		}
 
@@ -274,6 +274,11 @@ namespace BaseLib.Forms.Scroll{
 				return;
 			}
 			VisibleY = Math.Max(0, VisibleY - delta);
+		}
+
+		public Tuple<int, int> GetOrigin(){
+			Point q = PointToScreen(new Point(0, 0));
+			return new Tuple<int, int>(q.X, q.Y);
 		}
 
 		public void MoveDown(int delta){

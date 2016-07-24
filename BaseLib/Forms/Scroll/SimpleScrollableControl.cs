@@ -23,12 +23,11 @@ namespace BaseLib.Forms.Scroll{
 		public Action<EventArgs> OnMouseLeaveMainView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
 
-
 		public SimpleScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
 			DoubleBuffered = true;
-			OnPaintMainView = (g, x, y, width, height) => {  };
+			OnPaintMainView = (g, x, y, width, height) => { };
 			TotalWidth = () => 200;
 			TotalHeight = () => 200;
 			DeltaX = () => Width/20;
@@ -95,7 +94,7 @@ namespace BaseLib.Forms.Scroll{
 		public ISimpleScrollableControlClient Client{
 			set{
 				client = value;
-				value.Register(this, () => ModifierKeys);
+				value.Register(this);
 			}
 		}
 
@@ -169,6 +168,11 @@ namespace BaseLib.Forms.Scroll{
 
 		public void Print(IGraphics g, int width, int height){
 			mainView.Print(g, width, height);
+		}
+
+		public Tuple<int, int> GetOrigin(){
+			Point q = PointToScreen(new Point(0, 0));
+			return new Tuple<int, int>(q.X, q.Y);
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){

@@ -99,7 +99,7 @@ namespace BaseLib.Forms.Table{
 		private readonly ToolTip columnViewToolTip = new ToolTip();
 		private CompoundScrollableControl control;
 
-		public void Register(CompoundScrollableControl control1, Func<Keys> getModifierKeys){
+		public void Register(CompoundScrollableControl control1){
 			control = control1;
 			Sortable = true;
 			control1.RowHeaderWidth = 70;
@@ -122,8 +122,8 @@ namespace BaseLib.Forms.Table{
 						if (model == null || row >= model.RowCount || row < 0){
 							return;
 						}
-						bool ctrl = (getModifierKeys() & Keys.Control) == Keys.Control;
-						bool shift = (getModifierKeys() & Keys.Shift) == Keys.Shift;
+						bool ctrl = (Control.ModifierKeys & Keys.Control) == Keys.Control;
+						bool shift = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
 						if (!ctrl || !multiSelect){
 							ClearSelection();
 						}
@@ -335,6 +335,7 @@ namespace BaseLib.Forms.Table{
 							text.Append("\n");
 						}
 					}
+					//TODO
 					columnViewToolTip.Show(text.ToString(), control1, e.X + 75, e.Y + 5);
 					matrixHelp = false;
 					control1.InvalidateCornerView();
@@ -729,6 +730,7 @@ namespace BaseLib.Forms.Table{
 			perseusPropertiesMenuItem.Size = new Size(209, 22);
 			perseusPropertiesMenuItem.Text = "Perseus properties";
 			perseusToolStripSeparator.Size = new Size(206, 6);
+			//TODO
 			control.ContextMenuStrip = contextMenuStrip;
 		}
 
@@ -1051,7 +1053,7 @@ namespace BaseLib.Forms.Table{
 			}
 			findForm.Visible = false;
 			findForm.BringToFront();
-			findForm.Show(control);
+			findForm.Show();
 			findForm.FocusInputField();
 			findForm.Activate();
 		}
@@ -1539,9 +1541,9 @@ namespace BaseLib.Forms.Table{
 
 		private void CopyCell(){
 			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Point q = control.PointToScreen(new Point(0, 0));
-			int cx = p.X - q.X - control.RowHeaderWidth;
-			int cy = p.Y - q.Y - control.ColumnHeaderHeight;
+			Tuple<int, int> q = control.GetOrigin();
+			int cx = p.X - q.Item1 - control.RowHeaderWidth;
+			int cy = p.Y - q.Item2 - control.ColumnHeaderHeight;
 			int x1 = control.VisibleX + cx;
 			if (columnWidthSums == null){
 				return;
@@ -1558,8 +1560,8 @@ namespace BaseLib.Forms.Table{
 
 		private void CopyColumnFull(){
 			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Point q = control.PointToScreen(new Point(0, 0));
-			int cx = p.X - q.X - control.RowHeaderWidth;
+			Tuple<int, int> q = control.GetOrigin();
+			int cx = p.X - q.Item1 - control.RowHeaderWidth;
 			int x1 = control.VisibleX + cx;
 			if (columnWidthSums == null){
 				return;
@@ -1581,8 +1583,8 @@ namespace BaseLib.Forms.Table{
 
 		private void CopyColumnSelectedRows(){
 			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Point q = control.PointToScreen(new Point(0, 0));
-			int cx = p.X - q.X - control.RowHeaderWidth;
+			Tuple<int, int> q = control.GetOrigin();
+			int cx = p.X - q.Item1 - control.RowHeaderWidth;
 			int x1 = control.VisibleX + cx;
 			if (columnWidthSums == null){
 				return;

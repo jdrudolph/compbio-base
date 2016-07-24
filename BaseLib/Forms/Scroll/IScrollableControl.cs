@@ -17,5 +17,6 @@ namespace BaseLib.Forms.Scroll {
 		int ClientHeight { get; }
 		int TotalClientWidth { get; }
 		int TotalClientHeight { get; }
+		Tuple<int, int> GetOrigin();
 	}
 }
