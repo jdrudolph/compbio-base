@@ -23,20 +23,18 @@ namespace BaseLib.Forms.Scroll{
 		private Thread downThread;
 		private Thread upThread;
 
-		internal VerticalScrollBarView(IScrollableControl main) {
+		internal VerticalScrollBarView(IScrollableControl main){
 			this.main = main;
 		}
 
-		protected internal override void OnResize(EventArgs e, int width, int height) {
+		protected internal override void OnResize(EventArgs e, int width, int height){
 			bar = null;
 		}
 
-		protected internal override void OnPaintBackground(IGraphics g, int width, int height) {
+		protected internal override void OnPaintBackground(IGraphics g, int width, int height){
 			Pen p = new Pen(Color.FromArgb(172, 168, 153));
 			g.DrawLine(p, width - 1, 0, width - 1, height);
-			int[] start = {243, 241, 236};
-			int[] end = {254, 254, 251};
-			int[][] rgbs = GraphUtil.InterpolateRgb(start, end, CompoundScrollableControl.scrollBarWidth - 2);
+			int[][] rgbs = GraphUtil.InterpolateRgb(243, 241, 236, 254, 254, 251, CompoundScrollableControl.scrollBarWidth - 2);
 			for (int i = 0; i < CompoundScrollableControl.scrollBarWidth - 2; i++){
 				p = new Pen(Color.FromArgb(rgbs[0][i], rgbs[1][i], rgbs[2][i]));
 				g.DrawLine(p, i + 1, 0, i + 1, height);
@@ -46,7 +44,7 @@ namespace BaseLib.Forms.Scroll{
 			g.DrawLine(p, width - 2, 0, width - 2, height);
 		}
 
-		protected internal override void OnPaint(IGraphics g, int width, int height) {
+		protected internal override void OnPaint(IGraphics g, int width, int height){
 			PaintFirstMark(g, CompoundScrollableControl.scrollBarWidth);
 			PaintSecondMark(g, CompoundScrollableControl.scrollBarWidth, height);
 			PaintBar(g, CompoundScrollableControl.scrollBarWidth, height);
@@ -142,7 +140,7 @@ namespace BaseLib.Forms.Scroll{
 				return CompoundScrollableControl.scrollBarWidth - 1;
 			}
 			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleY + main.VisibleHeight)/(double) (main.TotalHeight() - 1)))) +
-				CompoundScrollableControl.scrollBarWidth - 1;
+					CompoundScrollableControl.scrollBarWidth - 1;
 		}
 
 		private int CalcBarSize(int height){
@@ -180,120 +178,119 @@ namespace BaseLib.Forms.Scroll{
 			secondMarkPress.MakeTransparent();
 		}
 
-
-		protected internal override void OnMouseMoved(BasicMouseEventArgs e) {
+		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
 			ScrollBarState newState = ScrollBarState.Neutral;
-			if (e.Y < CompoundScrollableControl.scrollBarWidth - 1) {
+			if (e.Y < CompoundScrollableControl.scrollBarWidth - 1){
 				newState = ScrollBarState.HighlightFirstBox;
-			} else if (e.Y > e.Height - CompoundScrollableControl.scrollBarWidth) {
+			} else if (e.Y > e.Height - CompoundScrollableControl.scrollBarWidth){
 				newState = ScrollBarState.HighlightSecondBox;
-			} else if (HasBar) {
+			} else if (HasBar){
 				int s = CalcBarStart(e.Height);
 				int l = CalcBarSize(e.Height);
-				if (e.Y >= s && e.Y <= s + l) {
+				if (e.Y >= s && e.Y <= s + l){
 					newState = ScrollBarState.HighlightBar;
 				}
 			}
-			if (newState != state) {
+			if (newState != state){
 				state = newState;
 				Invalidate();
 			}
 		}
 
-		protected internal override void OnMouseIsDown(BasicMouseEventArgs e) {
+		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
 			ScrollBarState newState = ScrollBarState.Neutral;
 			bool ctrl = e.ControlPressed;
-			if (e.Y < CompoundScrollableControl.scrollBarWidth - 1) {
-				if (ctrl) {
+			if (e.Y < CompoundScrollableControl.scrollBarWidth - 1){
+				if (ctrl){
 					newState = ScrollBarState.PressFirstBox;
 					MoveUp(main.DeltaUpToSelection());
-				} else {
+				} else{
 					newState = ScrollBarState.PressFirstBox;
 					MoveUp(main.DeltaY());
 					upThread = new Thread(() => WalkUp(main.DeltaY()));
 					upThread.Start();
 				}
-			} else if (e.Y > e.Height - CompoundScrollableControl.scrollBarWidth) {
-				if (ctrl) {
+			} else if (e.Y > e.Height - CompoundScrollableControl.scrollBarWidth){
+				if (ctrl){
 					newState = ScrollBarState.PressSecondBox;
 					MoveDown(main.DeltaDownToSelection());
-				} else {
+				} else{
 					newState = ScrollBarState.PressSecondBox;
 					MoveDown(main.DeltaY());
 					downThread = new Thread(() => WalkDown(main.DeltaY()));
 					downThread.Start();
 				}
-			} else if (HasBar) {
+			} else if (HasBar){
 				int s = CalcBarStart(e.Height);
 				int l = CalcBarSize(e.Height);
-				if (e.Y >= s && e.Y <= s + l) {
+				if (e.Y >= s && e.Y <= s + l){
 					newState = ScrollBarState.PressBar;
 					dragStart = e.Y;
 					visibleDragStart = main.VisibleY;
-				} else if (e.Y < s) {
+				} else if (e.Y < s){
 					MoveUp(main.VisibleHeight);
 					upThread = new Thread(() => WalkUp(main.VisibleHeight));
 					upThread.Start();
-				} else {
+				} else{
 					MoveDown(main.VisibleHeight);
 					downThread = new Thread(() => WalkDown(main.VisibleHeight));
 					downThread.Start();
 				}
 			}
-			if (newState != state) {
+			if (newState != state){
 				state = newState;
 				Invalidate();
 			}
 		}
 
-		private void MoveUp(int delta) {
+		private void MoveUp(int delta){
 			main.VisibleY = Math.Max(0, main.VisibleY - delta);
 		}
 
-		private void MoveDown(int delta) {
+		private void MoveDown(int delta){
 			main.VisibleY = Math.Min(main.TotalHeight() - main.VisibleHeight, main.VisibleY + delta);
 		}
 
-		private void WalkDown(int delta) {
+		private void WalkDown(int delta){
 			Thread.Sleep(400);
-			while (true) {
+			while (true){
 				MoveDown(delta);
 				Invalidate();
 				Thread.Sleep(150);
 			}
 			// ReSharper disable FunctionNeverReturns
 		}
-		// ReSharper restore FunctionNeverReturns
 
-		private void WalkUp(int delta) {
+		// ReSharper restore FunctionNeverReturns
+		private void WalkUp(int delta){
 			Thread.Sleep(400);
-			while (true) {
+			while (true){
 				MoveUp(delta);
 				Invalidate();
 				Thread.Sleep(150);
 			}
 			// ReSharper disable FunctionNeverReturns
 		}
-		// ReSharper restore FunctionNeverReturns
 
-		protected internal override void OnMouseDragged(BasicMouseEventArgs e) {
-			if (state != ScrollBarState.PressBar) {
+		// ReSharper restore FunctionNeverReturns
+		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
+			if (state != ScrollBarState.PressBar){
 				return;
 			}
-			int hx = e.Height - 2 * CompoundScrollableControl.scrollBarWidth + 2;
-			int y = visibleDragStart + (int)Math.Round((e.Y - dragStart) / (double)hx * main.TotalHeight());
+			int hx = e.Height - 2*CompoundScrollableControl.scrollBarWidth + 2;
+			int y = visibleDragStart + (int) Math.Round((e.Y - dragStart)/(double) hx*main.TotalHeight());
 			y = Math.Max(0, y);
 			y = Math.Min(main.TotalHeight() - main.VisibleHeight, y);
 			main.VisibleY = y;
 			Invalidate();
 		}
 
-		protected internal override void OnMouseIsUp(BasicMouseEventArgs e) {
-			if (upThread != null) {
+		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
+			if (upThread != null){
 				upThread.Abort();
 				upThread = null;
 			}
-			if (downThread != null) {
+			if (downThread != null){
 				downThread.Abort();
 				downThread = null;
 			}
@@ -303,8 +300,8 @@ namespace BaseLib.Forms.Scroll{
 			Invalidate();
 		}
 
-		protected internal override void OnMouseLeave(EventArgs e) {
-			if (state == ScrollBarState.PressBar) {
+		protected internal override void OnMouseLeave(EventArgs e){
+			if (state == ScrollBarState.PressBar){
 				return;
 			}
 			state = ScrollBarState.Neutral;

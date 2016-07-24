@@ -187,8 +187,8 @@ namespace BaseLibS.Graph{
 				for (int j = 0; j < Height; j++){
 					int p = GetPixel(i, j);
 					result.SetPixel(i, j,
-						Color2.FromArgb(Math.Min(0, Color2.GetR(p) + 20), Math.Min(0, Color2.GetG(p) + 20),
-							Math.Min(0, Color2.GetB(p) + 20)).Value);
+						Color2.FromArgb(Math.Min(255, Color2.GetR(p) + 20), Math.Min(255, Color2.GetG(p) + 20),
+							Math.Min(255, Color2.GetB(p) + 20)).Value);
 				}
 			}
 			return result;
