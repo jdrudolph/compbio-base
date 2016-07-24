@@ -109,6 +109,7 @@ namespace BaseLib.Forms.Scroll{
 		public Action<IGraphics> OnPaintRowSpacerView { get; set; }
 		public Action<IGraphics> OnPaintCornerView { get; set; }
 		public Action<IGraphics> OnPaintMiddleCornerView { get; set; }
+		private readonly ToolTip columnViewToolTip = new ToolTip();
 
 		public CompoundScrollableControl(){
 			InitializeComponent2();
@@ -360,6 +361,18 @@ namespace BaseLib.Forms.Scroll{
 		protected override void OnSizeChanged(EventArgs e){
 			base.OnSizeChanged(e);
 			client?.OnSizeChanged();
+		}
+
+		public void HideColumnViewToolTip(){
+			columnViewToolTip.Hide(this);
+		}
+
+		public void ShowColumnViewToolTip(string text, int x, int y){
+			columnViewToolTip.Show(text, this, x, y);
+		}
+
+		public void SetColumnViewToolTipTitle(string title){
+			columnViewToolTip.ToolTipTitle = title;
 		}
 	}
 }

@@ -30,5 +30,8 @@ namespace BaseLib.Forms.Scroll{
 		void InvalidateCornerView();
 		void MoveDown(int rowHeight);
 		void MoveUp(int rowHeight);
+		void SetColumnViewToolTipTitle(string title);
+		void ShowColumnViewToolTip(string text, int x, int y);
+		void HideColumnViewToolTip();
 	}
 }

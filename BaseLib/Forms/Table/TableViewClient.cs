@@ -96,7 +96,6 @@ namespace BaseLib.Forms.Table{
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }
-		private readonly ToolTip columnViewToolTip = new ToolTip();
 		private CompoundScrollableControl control;
 
 		public void Register(CompoundScrollableControl control1){
@@ -262,12 +261,10 @@ namespace BaseLib.Forms.Table{
 				} catch (Exception){}
 			};
 			control1.OnMouseIsUpColumnHeaderView = e =>{
-				//TODO
-				columnViewToolTip.Hide(control1);
+				control1.HideColumnViewToolTip();
 			};
 			control1.OnMouseIsUpCornerView = e =>{
-				//TODO
-				columnViewToolTip.Hide(control1);
+				control1.HideColumnViewToolTip();
 			};
 			control1.OnMouseIsDownColumnHeaderView = e =>{
 				if (!control1.Enabled){
@@ -282,8 +279,7 @@ namespace BaseLib.Forms.Table{
 					return;
 				}
 				if (helpCol >= 0){
-					//TODO
-					columnViewToolTip.ToolTipTitle = model.GetColumnName(helpCol);
+					control1.SetColumnViewToolTipTitle(model.GetColumnName(helpCol));
 					StringBuilder text = new StringBuilder();
 					string[] wrapped = StringUtils.Wrap(model.GetColumnDescription(helpCol), 75);
 					for (int i = 0; i < wrapped.Length; ++i){
@@ -293,7 +289,7 @@ namespace BaseLib.Forms.Table{
 							text.Append("\n");
 						}
 					}
-					columnViewToolTip.Show(text.ToString(), control1, e.X + 75, e.Y + 5);
+					control1.ShowColumnViewToolTip(text.ToString(), e.X + 75, e.Y + 5);
 					helpCol = -1;
 					control1.InvalidateColumnHeaderView();
 					return;
@@ -324,8 +320,7 @@ namespace BaseLib.Forms.Table{
 					return;
 				}
 				if (matrixHelp){
-					//TODO
-					columnViewToolTip.ToolTipTitle = model.Name;
+					control1.SetColumnViewToolTipTitle(model.Name);
 					StringBuilder text = new StringBuilder();
 					string[] wrapped = StringUtils.Wrap(model.Description, 75);
 					for (int i = 0; i < wrapped.Length; ++i){
@@ -335,8 +330,7 @@ namespace BaseLib.Forms.Table{
 							text.Append("\n");
 						}
 					}
-					//TODO
-					columnViewToolTip.Show(text.ToString(), control1, e.X + 75, e.Y + 5);
+					control1.ShowColumnViewToolTip(text.ToString(), e.X + 75, e.Y + 5);
 					matrixHelp = false;
 					control1.InvalidateCornerView();
 					return;
