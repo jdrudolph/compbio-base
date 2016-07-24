@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 using UtilsC.Util;
 
 namespace BaseLib.Forms.Scroll{

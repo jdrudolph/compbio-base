@@ -1,6 +1,6 @@
 ﻿using System;
-using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
 	public interface ICompoundScrollableControl : IScrollableControl{
@@ -10,8 +10,6 @@ namespace BaseLib.Forms.Scroll{
 		int RowFooterWidth { get; set; }
 		int ColumnHeaderHeight { get; set; }
 		int ColumnFooterHeight { get; set; }
-
-		
 		bool Enabled { get; }
 		Action<BasicMouseEventArgs> OnMouseDraggedRowHeaderView { get; set; }
 		Action<BasicMouseEventArgs> OnMouseDraggedColumnHeaderView { get; set; }

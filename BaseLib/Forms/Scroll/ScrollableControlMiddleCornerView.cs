@@ -1,6 +1,7 @@
 using System;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
 	internal sealed class ScrollableControlMiddleCornerView : ScrollComponentView{

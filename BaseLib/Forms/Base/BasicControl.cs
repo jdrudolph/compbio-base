@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Base{
 	public class BasicControl : ScrollableControl{
@@ -20,9 +21,9 @@ namespace BaseLib.Forms.Base{
 			view?.OnPaint(g, Width, Height);
 		}
 
-		protected sealed override void OnPaint(PaintEventArgs e) {
+		protected sealed override void OnPaint(PaintEventArgs e){
 			base.OnPaint(e);
-			if (view != null) {
+			if (view != null){
 				try{
 					view.OnPaint(new CGraphics(e.Graphics), Width, Height);
 				} catch (Exception e1){
@@ -39,13 +40,15 @@ namespace BaseLib.Forms.Base{
 		protected sealed override void OnMouseDown(MouseEventArgs e){
 			base.OnMouseDown(e);
 			mouseDown = true;
-			view.OnMouseIsDown(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
+			view.OnMouseIsDown(new BasicMouseEventArgs(e.X, e.Y, e.Button == MouseButtons.Left, Width, Height,
+				() => (ModifierKeys & Keys.Control) == Keys.Control, ViewToolTip));
 		}
 
 		protected sealed override void OnMouseUp(MouseEventArgs e){
 			base.OnMouseUp(e);
 			mouseDown = false;
-			view.OnMouseIsUp(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
+			view.OnMouseIsUp(new BasicMouseEventArgs(e.X, e.Y, e.Button == MouseButtons.Left, Width, Height,
+				() => (ModifierKeys & Keys.Control) == Keys.Control, ViewToolTip));
 		}
 
 		protected sealed override void OnMouseMove(MouseEventArgs e){
@@ -53,9 +56,11 @@ namespace BaseLib.Forms.Base{
 			Focus();
 			base.OnMouseMove(e);
 			if (mouseDown){
-				view.OnMouseDragged(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
+				view.OnMouseDragged(new BasicMouseEventArgs(e.X, e.Y, e.Button == MouseButtons.Left, Width, Height,
+					() => (ModifierKeys & Keys.Control) == Keys.Control, ViewToolTip));
 			} else{
-				view.OnMouseMoved(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
+				view.OnMouseMoved(new BasicMouseEventArgs(e.X, e.Y, e.Button == MouseButtons.Left, Width, Height,
+					() => (ModifierKeys & Keys.Control) == Keys.Control, ViewToolTip));
 			}
 		}
 
@@ -66,12 +71,14 @@ namespace BaseLib.Forms.Base{
 
 		protected sealed override void OnMouseClick(MouseEventArgs e){
 			base.OnMouseClick(e);
-			view?.OnMouseClick(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
+			view?.OnMouseClick(new BasicMouseEventArgs(e.X, e.Y, e.Button == MouseButtons.Left, Width, Height,
+				() => (ModifierKeys & Keys.Control) == Keys.Control, ViewToolTip));
 		}
 
 		protected sealed override void OnMouseDoubleClick(MouseEventArgs e){
 			base.OnMouseDoubleClick(e);
-			view?.OnMouseDoubleClick(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
+			view?.OnMouseDoubleClick(new BasicMouseEventArgs(e.X, e.Y, e.Button == MouseButtons.Left, Width, Height,
+				() => (ModifierKeys & Keys.Control) == Keys.Control, ViewToolTip));
 		}
 
 		protected sealed override void OnMouseHover(EventArgs e){
@@ -91,7 +98,8 @@ namespace BaseLib.Forms.Base{
 
 		protected sealed override void OnMouseWheel(MouseEventArgs e){
 			base.OnMouseWheel(e);
-			view?.OnMouseWheel(new BasicMouseEventArgs(e, Width, Height, () => ModifierKeys, ViewToolTip));
+			view?.OnMouseWheel(new BasicMouseEventArgs(e.X, e.Y, e.Button == MouseButtons.Left, Width, Height,
+				() => (ModifierKeys & Keys.Control) == Keys.Control, ViewToolTip));
 		}
 
 		protected sealed override void OnResize(EventArgs e){
@@ -99,7 +107,7 @@ namespace BaseLib.Forms.Base{
 			view?.OnResize(e, Width, Height);
 		}
 
-		protected sealed override void Dispose(bool disposing) {
+		protected sealed override void Dispose(bool disposing){
 			base.Dispose(disposing);
 			view?.Dispose(disposing);
 		}

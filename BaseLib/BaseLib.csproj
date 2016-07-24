@@ -70,7 +70,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Base\BasicImageFormat.cs" />
-    <Compile Include="Forms\Base\BasicMouseEventArgs.cs" />
     <Compile Include="Forms\Base\BasicRowStyle.cs" />
     <Compile Include="Forms\Base\BasicRowStyles.cs" />
     <Compile Include="Forms\Base\BasicSizeType.cs" />

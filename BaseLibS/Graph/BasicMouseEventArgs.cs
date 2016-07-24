@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Windows.Forms;
 
-namespace BaseLib.Forms.Base{
+namespace BaseLibS.Graph{
 	public class BasicMouseEventArgs{
-		private readonly Func<Keys> modifierKeys;
+		private readonly Func<bool> controlPressed;
 		private readonly Action<string, int, int, int> showTip;
 
-		internal BasicMouseEventArgs(MouseEventArgs e, int width, int height, Func<Keys> modifierKeys,
+		public BasicMouseEventArgs(int x, int y, bool isMainButton, int width, int height, Func<bool> controlPressed,
 			Action<string, int, int, int> showTip){
-			X = e.X;
-			Y = e.Y;
+			X = x;
+			Y = y;
 			Width = width;
 			Height = height;
-			IsMainButton = e.Button == MouseButtons.Left;
-			this.modifierKeys = modifierKeys;
+			IsMainButton = isMainButton;
+			this.controlPressed = controlPressed;
 			this.showTip = showTip;
 		}
 
@@ -23,7 +22,7 @@ namespace BaseLib.Forms.Base{
 			Width = width;
 			Height = height;
 			IsMainButton = e.IsMainButton;
-			modifierKeys = e.modifierKeys;
+			controlPressed = e.controlPressed;
 			showTip = e.showTip;
 		}
 
@@ -31,7 +30,7 @@ namespace BaseLib.Forms.Base{
 		public int Y { get; }
 		public int Width { get; }
 		public int Height { get; }
-		public bool ControlPressed => (modifierKeys() & Keys.Control) == Keys.Control;
+		public bool ControlPressed => controlPressed();
 		public bool IsMainButton { get; }
 
 		public void ViewToolTip(string text){

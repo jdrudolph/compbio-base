@@ -34,6 +34,7 @@
     <Compile Include="Api\ClassificationModel.cs" />
     <Compile Include="Data\NeighbourListDirected.cs" />
     <Compile Include="Data\NeighbourListBipartite.cs" />
+    <Compile Include="Graph\BasicMouseEventArgs.cs" />
     <Compile Include="Graph\Bitmap2.cs" />
     <Compile Include="Graph\Color2.cs" />
     <Compile Include="Graph\GraphUtil.cs" />

@@ -5,6 +5,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 using BaseLibS.Num;
 
 namespace BaseLib.Forms.Colors{

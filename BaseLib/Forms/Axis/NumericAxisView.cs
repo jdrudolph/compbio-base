@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 using BaseLibS.Num;
 
 namespace BaseLib.Forms.Axis{
