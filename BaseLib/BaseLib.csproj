@@ -140,6 +140,10 @@
     <Compile Include="Forms\Scroll\SimpleScrollableControlMainView.cs" />
     <Compile Include="Forms\Scroll\VerticalScrollBarView.cs" />
     <Compile Include="Forms\Table\TableViewClient.cs" />
+    <Compile Include="Graphic\BaseDrawControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Graphic\ExportGraphics.cs" />
     <Compile Include="Param\RegexParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Wpf\ITableSelectionAgent.cs" />

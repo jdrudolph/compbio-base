@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using BaseLibS.Util;
 
 namespace BaseLib.Graphic{
-	internal class SvgGraphics : IGraphics {
+	internal class SvgGraphics : IGraphics{
 		private readonly Svg svg;
 		private readonly Stream stream;
 		private readonly float docWidth;
@@ -26,13 +26,18 @@ namespace BaseLib.Graphic{
 		private float scale = 1;
 		private Group clippingMask;
 
-		internal SvgGraphics(string filename, int width, int height) {
-			stream = new FileStream(filename, FileMode.Create);
+		public SvgGraphics(string filename, int width, int height)
+			: this(new FileStream(filename, FileMode.Create), width, height){}
+
+		public SvgGraphics(Stream stream, int width, int height){
+			this.stream = stream;
 			docWidth = width;
 			docHeight = height;
 			scale = 1;
 			svg = new Svg{
-				Width = width*scale, Height = height*scale, ViewBox = $"0 0 {width*scale} {height*scale}",
+				Width = width*scale,
+				Height = height*scale,
+				ViewBox = $"0 0 {width*scale} {height*scale}",
 				Title = "tandem spectrum as vector graphics"
 			};
 		}
@@ -124,8 +129,14 @@ namespace BaseLib.Graphic{
 		/// <param name="x2">The x-coordinate of the second point.</param>
 		/// <param name="y2">The y-coordinate of the second point. </param>
 		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
-			Line line = new Line {
-				X1 = x1, X2 = x2, Y1 = y1, Y2 = y2, Transform = Transform, Stroke = PenColor(pen), Strokewidth = pen.Width
+			Line line = new Line{
+				X1 = x1,
+				X2 = x2,
+				Y1 = y1,
+				Y2 = y2,
+				Transform = Transform,
+				Stroke = PenColor(pen),
+				Strokewidth = pen.Width
 			};
 			lines.Add(line);
 		}
@@ -164,18 +175,18 @@ namespace BaseLib.Graphic{
 		}
 
 		public void DrawLines(Pen pen, Point[] points){
-			Path path = new Path { D = "", Transform = Transform };
-			for (int i = 0; i < points.Length; i++) {
-				if (i == 0) {
+			Path path = new Path{D = "", Transform = Transform};
+			for (int i = 0; i < points.Length; i++){
+				if (i == 0){
 					path.D += $"M{points[i].X} {points[i].Y} ";
-				} else {
+				} else{
 					path.D += $"L{points[i].X} {points[i].Y} ";
 				}
 			}
 			path.Stroke = PenColor(pen);
 			path.StrokeWidth = pen.Width;
 			path.Fill = "none";
-			if (pen.DashStyle != DashStyle.Solid) {
+			if (pen.DashStyle != DashStyle.Solid){
 				path.StrokeDashArray = "1, 1";
 			}
 			//path.D = path.D + " Z";
@@ -194,12 +205,23 @@ namespace BaseLib.Graphic{
 		public void DrawEllipse(Pen pen, float x, float y, float width, float height){
 			if (width == height){
 				circleList.Add(new Circle{
-					X = x + width/2f, Y = y + height/2f, R = width, Fill = "none", Stroke = pen.Color.Name, StrokeWidth = pen.Width,
+					X = x + width/2f,
+					Y = y + height/2f,
+					R = width,
+					Fill = "none",
+					Stroke = pen.Color.Name,
+					StrokeWidth = pen.Width,
 					Transform = Transform
 				});
 			} else{
 				ellipseList.Add(new Ellipse{
-					Cx = x, Cy = y, Rx = width, Ry = height, Fill = "none", Stroke = pen.Color.Name, StrokeWidth = pen.Width,
+					Cx = x,
+					Cy = y,
+					Rx = width,
+					Ry = height,
+					Fill = "none",
+					Stroke = pen.Color.Name,
+					StrokeWidth = pen.Width,
 					Transform = Transform
 				});
 			}
@@ -215,11 +237,22 @@ namespace BaseLib.Graphic{
 		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
 		public void FillEllipse(Brush brush, float x, float y, float width, float height){
 			if (width == height){
-				circleList.Add(new Circle
-				{X = x + width/2f, Y = y + height/2f, R = width, Fill = BrushColor(brush), Transform = Transform});
+				circleList.Add(new Circle{
+					X = x + width/2f,
+					Y = y + height/2f,
+					R = width,
+					Fill = BrushColor(brush),
+					Transform = Transform
+				});
 			} else{
-				ellipseList.Add(new Ellipse
-				{Cx = x, Cy = y, Rx = width, Ry = height, Fill = BrushColor(brush), Transform = Transform});
+				ellipseList.Add(new Ellipse{
+					Cx = x,
+					Cy = y,
+					Rx = width,
+					Ry = height,
+					Fill = BrushColor(brush),
+					Transform = Transform
+				});
 			}
 		}
 
@@ -233,7 +266,13 @@ namespace BaseLib.Graphic{
 		/// <param name="height">Height of the rectangle to draw.</param>
 		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
 			Rect rect = new Rect{
-				X = x, Y = y, Width = width, Height = height, Fill = "none", Transform = Transform, Stroke = pen.Color.Name,
+				X = x,
+				Y = y,
+				Width = width,
+				Height = height,
+				Fill = "none",
+				Transform = Transform,
+				Stroke = pen.Color.Name,
 				StrokeWidth = pen.Width
 			};
 			rectList.Add(rect);
@@ -321,19 +360,25 @@ namespace BaseLib.Graphic{
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line spacing and alignment, that are applied to the drawn text.</param>
 		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format){
-			if (format != null && rectangleF.Width > 0) {
-				switch (format.Alignment) {
+			if (format != null && rectangleF.Width > 0){
+				switch (format.Alignment){
 					case StringAlignment.Center:
-						rectangleF.X += (rectangleF.Width - MeasureString(s, font, (int)rectangleF.Width, format).Width) * 0.5f;
+						rectangleF.X += (rectangleF.Width - MeasureString(s, font, (int) rectangleF.Width, format).Width)*0.5f;
 						break;
 					case StringAlignment.Far:
-						rectangleF.X += rectangleF.Width - MeasureString(s, font, (int)rectangleF.Width, format).Width;
+						rectangleF.X += rectangleF.Width - MeasureString(s, font, (int) rectangleF.Width, format).Width;
 						break;
 				}
 			}
-			textList.Add(new Text {
-				X = rectangleF.X, Y = rectangleF.Y + (font.Height * 0.5f), FontFamily = font.Name, FontSize = font.Size * 1.2f,
-				FontWeight = font.Bold ? "bold" : "normal", Value = s, Fill = BrushColor(brush), Transform = Transform
+			textList.Add(new Text{
+				X = rectangleF.X,
+				Y = rectangleF.Y + (font.Height*0.5f),
+				FontFamily = font.Name,
+				FontSize = font.Size*1.2f,
+				FontWeight = font.Bold ? "bold" : "normal",
+				Value = s,
+				Fill = BrushColor(brush),
+				Transform = Transform
 			});
 		}
 

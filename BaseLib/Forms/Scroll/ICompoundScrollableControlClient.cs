@@ -2,7 +2,7 @@
 
 namespace BaseLib.Forms.Scroll{
 	public interface ICompoundScrollableControlClient{
-		void Register(CompoundScrollableControl control);
+		void Register(ICompoundScrollableControl control);
 		void ProcessCmdKey(Keys keyData);
 		void InvalidateBackgroundImages();
 		void OnSizeChanged();

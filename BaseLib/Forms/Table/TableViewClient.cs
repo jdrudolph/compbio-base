@@ -96,9 +96,9 @@ namespace BaseLib.Forms.Table{
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }
-		private CompoundScrollableControl control;
+		private ICompoundScrollableControl control;
 
-		public void Register(CompoundScrollableControl control1){
+		public void Register(ICompoundScrollableControl control1){
 			control = control1;
 			Sortable = true;
 			control1.RowHeaderWidth = 70;
@@ -725,7 +725,7 @@ namespace BaseLib.Forms.Table{
 			perseusPropertiesMenuItem.Text = "Perseus properties";
 			perseusToolStripSeparator.Size = new Size(206, 6);
 			//TODO
-			control.ContextMenuStrip = contextMenuStrip;
+			//control.ContextMenuStrip = contextMenuStrip;
 		}
 
 		private void PerseusPropertiesToolStripMenuItemClick(object sender, EventArgs e){

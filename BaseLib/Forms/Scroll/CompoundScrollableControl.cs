@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using UtilsC.Util;
 
 namespace BaseLib.Forms.Scroll{
 	public sealed class CompoundScrollableControl : UserControl, ICompoundScrollableControl{
@@ -101,6 +102,10 @@ namespace BaseLib.Forms.Scroll{
 		public Action<EventArgs> OnMouseLeaveMiddleCornerView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMiddleCornerView { get; set; }
 		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		public void ExportGraphic(string name, bool showDialog){
+			ExportGraphics.ExportGraphic(this, name, showDialog);
+		}
+
 		public Action<IGraphics, int, int> OnPaintRowHeaderView { get; set; }
 		public Action<IGraphics, int, int> OnPaintRowFooterView { get; set; }
 		public Action<IGraphics, int, int> OnPaintColumnHeaderView { get; set; }

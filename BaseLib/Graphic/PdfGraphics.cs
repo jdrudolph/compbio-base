@@ -6,7 +6,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 
 namespace BaseLib.Graphic{
-	internal class PdfGraphics : IGraphics{
+	public class PdfGraphics : IGraphics{
 		private float currentWidth;
 		private float currentHeight;
 		private readonly float originalWidth;
@@ -17,14 +17,17 @@ namespace BaseLib.Graphic{
 		private readonly PdfTemplate topTemplate;
 		private PdfTemplate template;
 
-		internal PdfGraphics(string filename, int width, int height){
+		public PdfGraphics(string filename, int width, int height)
+			: this(new FileStream(filename, FileMode.Create), width, height){}
+
+		public PdfGraphics(Stream stream, int width, int height){
 			originalWidth = currentWidth = width;
 			originalHeight = currentHeight = height;
 			document = new Document(new iTextSharp.text.Rectangle(width, height), 50, 50, 50, 50);
 			document.AddAuthor("");
 			document.AddSubject("");
 			try{
-				writer = PdfWriter.GetInstance(document, new FileStream(filename, FileMode.Create));
+				writer = PdfWriter.GetInstance(document, stream);
 				document.Open();
 				content = writer.DirectContent;
 				template = topTemplate = content.CreateTemplate(width, height);
@@ -186,7 +189,7 @@ namespace BaseLib.Graphic{
 		public SizeF MeasureString(string text, System.Drawing.Font font){
 			SetFont(font);
 			Chunk chunk = new Chunk(text, GetFont(font));
-			return new SizeF(chunk.GetWidthPoint() * 1.5f, font.Height * 0.5f * 1.5f);
+			return new SizeF(chunk.GetWidthPoint()*1.5f, font.Height*0.5f*1.5f);
 		}
 
 		public SizeF MeasureString(string text, System.Drawing.Font font, int width){
@@ -314,22 +317,22 @@ namespace BaseLib.Graphic{
 
 		private static iTextSharp.text.Font GetFont(System.Drawing.Font font){
 			iTextSharp.text.Font f = FontFactory.GetFont("c:/windows/fonts/arial.ttf", BaseFont.CP1252, BaseFont.EMBEDDED,
-				font.Size * 0.667f, font.Bold ? 1 : 0);
+				font.Size*0.667f, font.Bold ? 1 : 0);
 			try{
 				string file;
 				switch (font.Name){
 					case "Lucida Sans Unicode":
 						file = "c:/windows/fonts/L_10646.TTF";
-						f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size * 0.667f, font.Bold ? 1 : 0);
+						f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size*0.667f, font.Bold ? 1 : 0);
 						break;
 					case "Arial Unicode MS":
 						file = "c:/windows/fonts/ARIALUNI.TTF";
-						f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size * 0.667f, font.Bold ? 1 : 0);
+						f = FontFactory.GetFont(file, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, font.Size*0.667f, font.Bold ? 1 : 0);
 						break;
 					default:
 						file = $"c:/windows/fonts/{font.Name}.ttf";
 						if (File.Exists(file)){
-							f = FontFactory.GetFont(file, BaseFont.CP1252, BaseFont.EMBEDDED, font.Size * 0.667f, font.Bold ? 1 : 0);
+							f = FontFactory.GetFont(file, BaseFont.CP1252, BaseFont.EMBEDDED, font.Size*0.667f, font.Bold ? 1 : 0);
 						}
 						break;
 				}

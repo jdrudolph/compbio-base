@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using UtilsC.Util;
 
 namespace BaseLib.Forms.Scroll{
 	public sealed class SimpleScrollableControl : UserControl, ISimpleScrollableControl{
@@ -168,6 +169,10 @@ namespace BaseLib.Forms.Scroll{
 
 		public void Print(IGraphics g, int width, int height){
 			mainView.Print(g, width, height);
+		}
+
+		public void ExportGraphic(string name, bool showDialog){
+			ExportGraphics.ExportGraphic(this, name, showDialog);
 		}
 
 		public Tuple<int, int> GetOrigin(){

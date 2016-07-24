@@ -1,5 +1,6 @@
 ﻿using System;
 using BaseLib.Forms.Base;
+using BaseLib.Graphic;
 
 namespace BaseLib.Forms.Scroll {
 	public interface IScrollableControl : IPrintable{
@@ -17,6 +18,16 @@ namespace BaseLib.Forms.Scroll {
 		int ClientHeight { get; }
 		int TotalClientWidth { get; }
 		int TotalClientHeight { get; }
+		void Invalidate(bool p0);
+		void InvalidateMainView();
+		void InvalidateScrollbars();
 		Tuple<int, int> GetOrigin();
+		Action<BasicMouseEventArgs> OnMouseIsDownMainView { get; set; }
+		Action<BasicMouseEventArgs> OnMouseIsUpMainView { get; set; }
+		Action<BasicMouseEventArgs> OnMouseClickMainView { get; set; }
+		Action<BasicMouseEventArgs> OnMouseDraggedMainView { get; set; }
+		Action<EventArgs> OnMouseHoverMainView { get; set; }
+		Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		void ExportGraphic(string name, bool showDialog);
 	}
 }
