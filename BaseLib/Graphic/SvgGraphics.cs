@@ -143,7 +143,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="pen">Pen that determines the color, width, and style of the path.</param>
 		/// <param name="path">GraphicsPath to draw.</param>
-		public void DrawPath(Pen2 pen, GraphicsPath path){
+		public void DrawPath(Pen2 pen, GraphicsPath2 path){
 			DrawLines(pen, path.PathPoints);
 		}
 
@@ -152,7 +152,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="pen"></param>
 		/// <param name="points"></param>
-		public void DrawLines(Pen2 pen, PointF[] points){
+		public void DrawLines(Pen2 pen, PointF2[] points){
 			Path path = new Path{D = "", Transform = Transform};
 			for (int i = 0; i < points.Length; i++){
 				if (i == 0){
@@ -171,7 +171,7 @@ namespace BaseLib.Graphic{
 			pathList.Add(path);
 		}
 
-		public void DrawLines(Pen2 pen, Point[] points){
+		public void DrawLines(Pen2 pen, Point2[] points){
 			Path path = new Path{D = "", Transform = Transform};
 			for (int i = 0; i < points.Length; i++){
 				if (i == 0){
@@ -287,7 +287,7 @@ namespace BaseLib.Graphic{
 			rectList.Add(new Rect{X = x, Y = y, Width = width, Height = height, Fill = BrushColor(brush), Transform = Transform});
 		}
 
-		public void DrawPolygon(Pen2 pen, Point[] points){
+		public void DrawPolygon(Pen2 pen, Point2[] points){
 			throw new NotImplementedException();
 		}
 
@@ -296,7 +296,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="brush"></param>
 		/// <param name="points"></param>
-		public void FillPolygon(Brush2 brush, Point[] points){
+		public void FillPolygon(Brush2 brush, Point2[] points){
 			throw new NotImplementedException();
 		}
 
@@ -306,8 +306,8 @@ namespace BaseLib.Graphic{
 		/// <param name="text">String to measure.</param>
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <returns></returns>
-		public SizeF MeasureString(string text, Font font){
-			return TextRenderer.MeasureText(text, font);
+		public SizeF2 MeasureString(string text, Font font){
+			return GraphUtils.ToSizeF2(TextRenderer.MeasureText(text, font));
 		}
 
 		/// <summary>
@@ -345,7 +345,7 @@ namespace BaseLib.Graphic{
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn text.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn text.</param>
 		public void DrawString(string s, Font font, Brush2 brush, float x, float y){
-			DrawString(s, font, brush, new RectangleF(x, y, 0, 0), null);
+			DrawString(s, font, brush, new RectangleF2(x, y, 0, 0), null);
 		}
 
 		/// <summary>
@@ -356,7 +356,7 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line spacing and alignment, that are applied to the drawn text.</param>
-		public void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF, StringFormat format){
+		public void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
 			if (format != null && rectangleF.Width > 0){
 				switch (format.Alignment){
 					case StringAlignment.Center:
@@ -386,15 +386,15 @@ namespace BaseLib.Graphic{
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="location">The location of the upper-left corner of the drawn text.</param>
-		public void DrawString(string s, Font font, Brush2 brush, Point location){
-			DrawString(s, font, brush, new RectangleF(location, SizeF.Empty), null);
+		public void DrawString(string s, Font font, Brush2 brush, Point2 location){
+			DrawString(s, font, brush, new RectangleF2(location, SizeF2.Empty), null);
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, Point point, StringFormat format){
-			DrawString(s, font, brush, new RectangleF(point, SizeF.Empty), format);
+		public void DrawString(string s, Font font, Brush2 brush, Point2 point, StringFormat format){
+			DrawString(s, font, brush, new RectangleF2(point, SizeF2.Empty), format);
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF){
+		public void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF){
 			DrawString(s, font, brush, rectangleF, null);
 		}
 
@@ -415,7 +415,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="image">Image to draw.</param>
 		/// <param name="rectangle">Dimensions of the drawn image.</param>
-		public void DrawImage(Image image, Rectangle rectangle){
+		public void DrawImage(Image image, Rectangle2 rectangle){
 			imageList.Add(new SvgImage{X = rectangle.X, Y = rectangle.Y, Transform = Transform});
 		}
 
@@ -429,15 +429,15 @@ namespace BaseLib.Graphic{
 			imageList.Add(new SvgImage{X = x, Y = y, Transform = Transform});
 		}
 
-		public SizeF MeasureString(string text, Font font, int width){
-			return TextRenderer.MeasureText(text, font);
+		public SizeF2 MeasureString(string text, Font font, int width){
+			return GraphUtils.ToSizeF2(TextRenderer.MeasureText(text, font)) ;
 		}
 
-		public void FillClosedCurve(Brush2 brush, Point[] points){
+		public void FillClosedCurve(Brush2 brush, Point2[] points){
 			FillPolygon(brush, points);
 		}
 
-		public void DrawCurve(Pen2 pen, Point[] points){
+		public void DrawCurve(Pen2 pen, Point2[] points){
 			DrawPolygon(pen, points);
 		}
 
@@ -453,7 +453,7 @@ namespace BaseLib.Graphic{
 			//TODO
 		}
 
-		public void SetClip(Rectangle rectangle){
+		public void SetClip(Rectangle2 rectangle){
 			//TODO
 		}
 

@@ -157,7 +157,7 @@ namespace BaseLib.Forms.Base{
 					Tuple<int, int> key = new Tuple<int, int>(row, col);
 					if (components.ContainsKey(key)){
 						BasicView v = components[key];
-						g.SetClip(new Rectangle(xpos[col], ypos[row], widths[col], heights[row]));
+						g.SetClip(new Rectangle2(xpos[col], ypos[row], widths[col], heights[row]));
 						g.TranslateTransform(xpos[col], ypos[row]);
 						v.OnPaint(g, widths[col], heights[row]);
 						g.ResetTransform();

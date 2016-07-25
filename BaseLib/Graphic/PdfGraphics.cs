@@ -66,7 +66,7 @@ namespace BaseLib.Graphic{
 			template.Transform(m);
 		}
 
-		public void Clear(Color color){
+		public void Clear(Color2 color){
 			template.SetRGBColorFill(color.R, color.G, color.B);
 			template.Rectangle(0, 0, template.Width, template.Height);
 			template.FillStroke();
@@ -83,10 +83,10 @@ namespace BaseLib.Graphic{
 			DrawLine(pen, x1, y1, x2, y2);
 		}
 
-		public void DrawPath(Pen2 pen, GraphicsPath path){
+		public void DrawPath(Pen2 pen, GraphicsPath2 path){
 			SetPen(pen);
-			for (int index = 0; index < path.PathData.Points.Length; index++){
-				PointF point = path.PathData.Points[index];
+			for (int index = 0; index < path.PathPoints.Length; index++){
+				PointF2 point = path.PathPoints[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -98,10 +98,10 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawLines(Pen2 pen, PointF[] points){
+		public void DrawLines(Pen2 pen, PointF2[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
-				PointF point = points[index];
+				PointF2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -113,10 +113,10 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawLines(Pen2 pen, Point[] points){
+		public void DrawLines(Pen2 pen, Point2[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
-				PointF point = points[index];
+				Point2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -155,10 +155,10 @@ namespace BaseLib.Graphic{
 			template.Fill();
 		}
 
-		public void DrawPolygon(Pen2 pen, Point[] points){
+		public void DrawPolygon(Pen2 pen, Point2[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
-				PointF point = points[index];
+				Point2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -170,10 +170,10 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void FillPolygon(Brush2 brush, Point[] points){
+		public void FillPolygon(Brush2 brush, Point2[] points){
 			SetBrush(brush);
 			for (int index = 0; index < points.Length; index++){
-				PointF point = points[index];
+				Point2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -185,21 +185,21 @@ namespace BaseLib.Graphic{
 			template.Fill();
 		}
 
-		public SizeF MeasureString(string text, System.Drawing.Font font){
+		public SizeF2 MeasureString(string text, System.Drawing.Font font){
 			SetFont(font);
 			Chunk chunk = new Chunk(text, GetFont(font));
-			return new SizeF(chunk.GetWidthPoint()*1.5f, font.Height*0.5f*1.5f);
+			return new SizeF2(chunk.GetWidthPoint()*1.5f, font.Height*0.5f*1.5f);
 		}
 
-		public SizeF MeasureString(string text, System.Drawing.Font font, int width){
+		public SizeF2 MeasureString(string text, System.Drawing.Font font, int width){
 			return MeasureString(text, font);
 		}
 
-		public void FillClosedCurve(Brush2 brush, Point[] points){
+		public void FillClosedCurve(Brush2 brush, Point2[] points){
 			FillPolygon(brush, points);
 		}
 
-		public void DrawCurve(Pen2 pen, Point[] points){
+		public void DrawCurve(Pen2 pen, Point2[] points){
 			DrawPolygon(pen, points);
 		}
 
@@ -217,7 +217,7 @@ namespace BaseLib.Graphic{
 			//TODO
 		}
 
-		public void SetClip(System.Drawing.Rectangle rectangle){
+		public void SetClip(Rectangle2 rectangle){
 			template = topTemplate.CreateTemplate(rectangle.Width, rectangle.Height);
 			topTemplate.AddTemplate(template, rectangle.X, topTemplate.Height - rectangle.Height - rectangle.Y);
 			currentWidth = rectangle.Width;
@@ -231,20 +231,20 @@ namespace BaseLib.Graphic{
 
 		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, float x, float y){
 			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
-			DrawString(s, font, brush, new RectangleF(new PointF(x, y), MeasureString(s, font)), format);
+			DrawString(s, font, brush, new RectangleF2(new PointF2(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point point, StringFormat format){
-			DrawString(s, font, brush, new RectangleF(point, MeasureString(s, font)), format);
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point2 point, StringFormat format){
+			DrawString(s, font, brush, new RectangleF2(point, MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF rectangleF, StringFormat format){
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
 			template.BeginText();
 			SetFont(font);
 			SetBrush(brush);
 			float x = rectangleF.X;
 			float y = rectangleF.Y - 1;
-			SizeF size = MeasureString(s, font);
+			SizeF2 size = MeasureString(s, font);
 			if (format != null){
 				switch (format.Alignment){
 					case StringAlignment.Center:
@@ -274,11 +274,11 @@ namespace BaseLib.Graphic{
 			template.EndText();
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point location){
-			DrawString(s, font, brush, new RectangleF(location, new SizeF(0, 0)), new StringFormat());
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point2 location){
+			DrawString(s, font, brush, new RectangleF2(location, new SizeF2(0, 0)), new StringFormat());
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF rectangleF){
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF2 rectangleF){
 			DrawString(s, font, brush, rectangleF, new StringFormat());
 		}
 
@@ -296,7 +296,7 @@ namespace BaseLib.Graphic{
 			}
 		}
 
-		public void DrawImage(System.Drawing.Image image, System.Drawing.Rectangle rectangle){
+		public void DrawImage(System.Drawing.Image image, Rectangle2 rectangle){
 			DrawImage(image, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 		}
 

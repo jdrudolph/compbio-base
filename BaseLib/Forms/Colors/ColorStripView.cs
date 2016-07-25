@@ -207,33 +207,33 @@ namespace BaseLib.Forms.Colors{
 					Brush2 b = new Brush2(p.Color);
 					if (Vertical){
 						if (Arrow == Arrows.Second || Arrow == Arrows.Both){
-							Point[] points = {
-								new Point(width - 1 - triangleHeight, a - 1), new Point(width - 1 - triangleHeight, a - triangleBase2),
-								new Point(width - 1, a), new Point(width - 1 - triangleHeight, a + triangleBase2),
-								new Point(width - 1 - triangleHeight, a + 1)
+							Point2[] points = {
+								new Point2(width - 1 - triangleHeight, a - 1), new Point2(width - 1 - triangleHeight, a - triangleBase2),
+								new Point2(width - 1, a), new Point2(width - 1 - triangleHeight, a + triangleBase2),
+								new Point2(width - 1 - triangleHeight, a + 1)
 							};
 							g.FillClosedCurve(b, points);
 							g.DrawCurve(fgPen, points);
 						}
 						if (Arrow == Arrows.First || Arrow == Arrows.Both){
-							Point[] points = {
-								new Point(triangleHeight, a - 1), new Point(triangleHeight, a - triangleBase2), new Point(0, a),
-								new Point(triangleHeight, a + triangleBase2), new Point(triangleHeight, a + 1)
+							Point2[] points = {
+								new Point2(triangleHeight, a - 1), new Point2(triangleHeight, a - triangleBase2), new Point2(0, a),
+								new Point2(triangleHeight, a + triangleBase2), new Point2(triangleHeight, a + 1)
 							};
 							g.FillClosedCurve(b, points);
 							g.DrawCurve(fgPen, points);
 						}
 					} else{
-						Point[] points = {
-							new Point(a - 1, height - 1 - triangleHeight), new Point(a - triangleBase2, height - 1 - triangleHeight),
-							new Point(a, height - 1), new Point(a + triangleBase2, height - 1 - triangleHeight),
-							new Point(a + 1, height - 1 - triangleHeight)
+						Point2[] points = {
+							new Point2(a - 1, height - 1 - triangleHeight), new Point2(a - triangleBase2, height - 1 - triangleHeight),
+							new Point2(a, height - 1), new Point2(a + triangleBase2, height - 1 - triangleHeight),
+							new Point2(a + 1, height - 1 - triangleHeight)
 						};
 						g.FillClosedCurve(b, points);
 						g.DrawCurve(fgPen, points);
 						points = new[]{
-							new Point(a - 1, triangleHeight), new Point(a - triangleBase2, triangleHeight), new Point(a, 0),
-							new Point(a + triangleBase2, triangleHeight), new Point(a + 1, triangleHeight)
+							new Point2(a - 1, triangleHeight), new Point2(a - triangleBase2, triangleHeight), new Point2(a, 0),
+							new Point2(a + triangleBase2, triangleHeight), new Point2(a + 1, triangleHeight)
 						};
 						g.FillClosedCurve(b, points);
 						g.DrawCurve(fgPen, points);

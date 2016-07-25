@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Drawing;
 using BaseLib.Graphic;
 using BaseLibS.Graph;
 
@@ -30,7 +29,7 @@ namespace BaseLib.Symbol{
 
 		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
-			Point[] points = new[]{new Point(x - s2, y), new Point(x, y - s2), new Point(x + s2, y), new Point(x, y + s2)};
+			Point2[] points = {new Point2(x - s2, y), new Point2(x, y - s2), new Point2(x + s2, y), new Point2(x, y + s2)};
 			g.FillPolygon(brush, points);
 			g.DrawPolygon(pen, points);
 		}

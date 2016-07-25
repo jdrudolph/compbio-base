@@ -48,6 +48,10 @@ namespace BaseLib.Graphic{
 			return sb + "...";
 		}
 
+		public static SizeF2 ToSizeF2(SizeF size){
+			return new SizeF2{Width = size.Width, Height = size.Height};
+		}
+
 		public static Color2 ToColor2(Color c){
 			return Color2.FromArgb(c.A, c.R, c.G, c.B);
 		}
@@ -80,6 +84,26 @@ namespace BaseLib.Graphic{
 				}
 			}
 			return result;
+		}
+
+		public static Point ToPoint(Point2 location){
+			return new Point(location.X, location.Y);
+		}
+
+		public static PointF ToPointF(PointF2 location){
+			return new PointF(location.X, location.Y);
+		}
+
+		public static Point2 ToPoint2(Point location){
+			return new Point2(location.X, location.Y);
+		}
+
+		public static PointF2 ToPointF2(PointF location){
+			return new PointF2(location.X, location.Y);
+		}
+
+		public static Size2 ToSize2(Size size){
+			return new Size2(size.Width, size.Height);
 		}
 	}
 }

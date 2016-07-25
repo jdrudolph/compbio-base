@@ -6,7 +6,7 @@ using System.Text;
 namespace BaseLibS.Graph{
 	[Serializable, DebuggerDisplay("{NameAndArgbValue}")]
 	public struct Color2{
-		public static readonly Color2 empty = new Color2();
+		public static readonly Color2 Empty = new Color2();
 		// static list of known colors... 
 		public static Color2 Transparent => new Color2(KnownColor.Transparent);
 		public static Color2 AliceBlue => new Color2(KnownColor.AliceBlue);
