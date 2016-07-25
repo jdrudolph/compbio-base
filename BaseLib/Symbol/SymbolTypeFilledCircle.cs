@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public class SymbolTypeFilledCircle : SymbolType{
@@ -25,7 +25,7 @@ namespace BaseLib.Symbol{
 			pathY = y.ToArray();
 		}
 
-		public override void Draw(int size, int x, int y, IGraphics g, Pen pen, Brush brush){
+		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
 			g.FillEllipse(brush, x - s2, y - s2, size, size);
 			if (pen != null){

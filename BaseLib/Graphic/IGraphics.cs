@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using BaseLibS.Graph;
 
 namespace BaseLib.Graphic{
 	/// <summary>
@@ -48,17 +49,17 @@ namespace BaseLib.Graphic{
 		/// <param name="y1">The y-coordinate of the first point. </param>
 		/// <param name="x2">The x-coordinate of the second point.</param>
 		/// <param name="y2">The y-coordinate of the second point. </param>
-		void DrawLine(Pen pen, float x1, float y1, float x2, float y2);
+		void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2);
 
 		/// <summary>
 		/// Draws a GraphicsPath.
 		/// </summary>
 		/// <param name="pen">Pen that determines the color, width, and style of the path.</param>
 		/// <param name="path">GraphicsPath to draw.</param>
-		void DrawPath(Pen pen, GraphicsPath path);
+		void DrawPath(Pen2 pen, GraphicsPath path);
 
-		void DrawLines(Pen pen, PointF[] points);
-		void DrawLines(Pen pen, Point[] points);
+		void DrawLines(Pen2 pen, PointF[] points);
+		void DrawLines(Pen2 pen, Point[] points);
 
 		/// <summary>
 		/// Draws an ellipse defined by a bounding rectangle specified by coordinates for the upper-left corner of
@@ -69,7 +70,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="width">Width of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
-		void DrawEllipse(Pen pen, float x, float y, float width, float height);
+		void DrawEllipse(Pen2 pen, float x, float y, float width, float height);
 
 		/// <summary>
 		/// Fills the interior of an ellipse defined by a bounding rectangle specified by a pair of coordinates, a width, and a height.
@@ -79,7 +80,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="width">Width of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
-		void FillEllipse(Brush brush, float x, float y, float width, float height);
+		void FillEllipse(Brush2 brush, float x, float y, float width, float height);
 
 		/// <summary>
 		/// Draws a rectangle specified by a coordinate pair, a width, and a height.
@@ -89,7 +90,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to draw.</param>
 		/// <param name="width">Width of the rectangle to draw.</param>
 		/// <param name="height">Height of the rectangle to draw.</param>
-		void DrawRectangle(Pen pen, float x, float y, float width, float height);
+		void DrawRectangle(Pen2 pen, float x, float y, float width, float height);
 
 		/// <summary>
 		/// Fills the interior of a rectangle specified by a pair of coordinates, a width, and a height.
@@ -99,10 +100,10 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to fill.</param>
 		/// <param name="width">Width of the rectangle to fill.</param>
 		/// <param name="height">Height of the rectangle to fill.</param>
-		void FillRectangle(Brush brush, float x, float y, float width, float height);
+		void FillRectangle(Brush2 brush, float x, float y, float width, float height);
 
-		void DrawPolygon(Pen pen, Point[] points);
-		void FillPolygon(Brush brush, Point[] points);
+		void DrawPolygon(Pen2 pen, Point[] points);
+		void FillPolygon(Brush2 brush, Point[] points);
 
 		/// <summary>
 		/// Measures the specified string when drawn with the specified Font.
@@ -120,7 +121,7 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn text.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn text.</param>
-		void DrawString(string s, Font font, Brush brush, float x, float y);
+		void DrawString(string s, Font font, Brush2 brush, float x, float y);
 
 		/// <summary>
 		/// Draws the specified text string at the specified location with the specified Brush and Font objects.
@@ -131,12 +132,12 @@ namespace BaseLib.Graphic{
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line 
 		/// spacing and alignment, that are applied to the drawn text.</param>
-		void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format);
+		void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF, StringFormat format);
 
-		void DrawString(string s, Font font, Brush brush, Point point, StringFormat format);
+		void DrawString(string s, Font font, Brush2 brush, Point point, StringFormat format);
 
-		void DrawString(string s, Font font, Brush brush, Point location);
-		void DrawString(string s, Font font, Brush brush, RectangleF rectangleF);
+		void DrawString(string s, Font font, Brush2 brush, Point location);
+		void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF);
 
 		/// <summary>
 		/// Draws the specified Image at the specified location and with the specified size.
@@ -159,8 +160,8 @@ namespace BaseLib.Graphic{
 		void DrawImageUnscaled(Image image, int x, int y);
 
 		SizeF MeasureString(string text, Font font, int width);
-		void FillClosedCurve(Brush brush, Point[] points);
-		void DrawCurve(Pen pen, Point[] points);
+		void FillClosedCurve(Brush2 brush, Point[] points);
+		void DrawCurve(Pen2 pen, Point[] points);
 		void TranslateTransform(float dx, float dy);
 		void ResetTransform();
 		void ResetClip();

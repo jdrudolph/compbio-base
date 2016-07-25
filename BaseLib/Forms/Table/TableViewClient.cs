@@ -18,30 +18,30 @@ using BaseLibS.Util;
 namespace BaseLib.Forms.Table{
 	internal class TableViewClient : ICompoundScrollableControlClient{
 		private const int rowHeight = 22;
-		private static readonly Color gridColor = Color.FromArgb(172, 168, 153);
-		private static readonly Pen gridPen = new Pen(gridColor);
-		private static readonly Color headerGridColor = Color.FromArgb(199, 197, 178);
-		private static readonly Pen headerGridPen = new Pen(headerGridColor);
-		private static readonly Color shadow1Color = Color.FromArgb(203, 199, 184);
-		private static readonly Pen shadow1Pen = new Pen(shadow1Color);
-		private static readonly Color shadow2Color = Color.FromArgb(214, 210, 194);
-		private static readonly Pen shadow2Pen = new Pen(shadow2Color);
-		private static readonly Color shadow3Color = Color.FromArgb(226, 222, 205);
-		private static readonly Pen shadow3Pen = new Pen(shadow3Color);
-		private static readonly Color headerColor = Color.FromArgb(235, 234, 219);
-		private static readonly Brush headerBrush = new SolidBrush(headerColor);
-		private static readonly Color oddBgColor = Color.FromArgb(224, 224, 224);
-		private static readonly Brush oddBgBrush = new SolidBrush(oddBgColor);
-		private static readonly Color selectBgColor = Color.FromArgb(49, 106, 197);
-		private static readonly Brush selectBgBrush = new SolidBrush(selectBgColor);
-		private static readonly Color selectHeader1Color = Color.FromArgb(165, 165, 151);
-		private static readonly Pen selectHeader1Pen = new Pen(selectHeader1Color);
-		private static readonly Color selectHeader2Color = Color.FromArgb(193, 194, 184);
-		private static readonly Pen selectHeader2Pen = new Pen(selectHeader2Color);
-		private static readonly Color selectHeader3Color = Color.FromArgb(208, 209, 201);
-		private static readonly Pen selectHeader3Pen = new Pen(selectHeader3Color);
-		private static readonly Color selectHeader4Color = Color.FromArgb(222, 223, 216);
-		private static readonly Brush selectHeader4Brush = new SolidBrush(selectHeader4Color);
+		private static readonly Color2 gridColor = Color2.FromArgb(172, 168, 153);
+		private static readonly Pen2 gridPen = new Pen2(gridColor);
+		private static readonly Color2 headerGridColor = Color2.FromArgb(199, 197, 178);
+		private static readonly Pen2 headerGridPen = new Pen2(headerGridColor);
+		private static readonly Color2 shadow1Color = Color2.FromArgb(203, 199, 184);
+		private static readonly Pen2 shadow1Pen = new Pen2(shadow1Color);
+		private static readonly Color2 shadow2Color = Color2.FromArgb(214, 210, 194);
+		private static readonly Pen2 shadow2Pen = new Pen2(shadow2Color);
+		private static readonly Color2 shadow3Color = Color2.FromArgb(226, 222, 205);
+		private static readonly Pen2 shadow3Pen = new Pen2(shadow3Color);
+		private static readonly Color2 headerColor = Color2.FromArgb(235, 234, 219);
+		private static readonly Brush2 headerBrush = new Brush2(headerColor);
+		private static readonly Color2 oddBgColor = Color2.FromArgb(224, 224, 224);
+		private static readonly Brush2 oddBgBrush = new Brush2(oddBgColor);
+		private static readonly Color2 selectBgColor = Color2.FromArgb(49, 106, 197);
+		private static readonly Brush2 selectBgBrush = new Brush2(selectBgColor);
+		private static readonly Color2 selectHeader1Color = Color2.FromArgb(165, 165, 151);
+		private static readonly Pen2 selectHeader1Pen = new Pen2(selectHeader1Color);
+		private static readonly Color2 selectHeader2Color = Color2.FromArgb(193, 194, 184);
+		private static readonly Pen2 selectHeader2Pen = new Pen2(selectHeader2Color);
+		private static readonly Color2 selectHeader3Color = Color2.FromArgb(208, 209, 201);
+		private static readonly Pen2 selectHeader3Pen = new Pen2(selectHeader3Color);
+		private static readonly Color2 selectHeader4Color = Color2.FromArgb(222, 223, 216);
+		private static readonly Brush2 selectHeader4Brush = new Brush2(selectHeader4Color);
 		private bool multiSelect = true;
 		public event EventHandler SelectionChanged;
 		private ContextMenuStrip contextMenuStrip;
@@ -71,8 +71,8 @@ namespace BaseLib.Forms.Table{
 		private static Font defaultFont = new Font("Arial", 9);
 		private Font textFont;
 		private Font headerFont;
-		private Brush textBrush = Brushes.Black;
-		private Color textColor = Color.Black;
+		private Brush2 textBrush = Brushes2.Black;
+		private Color2 textColor = Color2.Black;
 		private bool[] modelRowSel;
 		private int[] order;
 		private int[] inverseOrder;
@@ -260,12 +260,8 @@ namespace BaseLib.Forms.Table{
 					}
 				} catch (Exception){}
 			};
-			control1.OnMouseIsUpColumnHeaderView = e =>{
-				control1.HideColumnViewToolTip();
-			};
-			control1.OnMouseIsUpCornerView = e =>{
-				control1.HideColumnViewToolTip();
-			};
+			control1.OnMouseIsUpColumnHeaderView = e => { control1.HideColumnViewToolTip(); };
+			control1.OnMouseIsUpCornerView = e => { control1.HideColumnViewToolTip(); };
 			control1.OnMouseIsDownColumnHeaderView = e =>{
 				if (!control1.Enabled){
 					return;
@@ -359,7 +355,7 @@ namespace BaseLib.Forms.Table{
 				g.FillRectangle(headerBrush, 0, 0, control1.RowHeaderWidth - 1, height);
 				g.DrawLine(gridPen, 0, 0, 0, height);
 				g.DrawLine(gridPen, control1.RowHeaderWidth - 1, 0, control1.RowHeaderWidth - 1, height);
-				g.DrawLine(Pens.White, 1, 0, 1, height);
+				g.DrawLine(Pens2.White, 1, 0, 1, height);
 				g.DrawLine(shadow1Pen, control1.RowHeaderWidth - 2, 0, control1.RowHeaderWidth - 2, height);
 				g.DrawLine(shadow2Pen, control1.RowHeaderWidth - 3, 0, control1.RowHeaderWidth - 3, height);
 				g.DrawLine(shadow3Pen, control1.RowHeaderWidth - 4, 0, control1.RowHeaderWidth - 4, height);
@@ -370,7 +366,7 @@ namespace BaseLib.Forms.Table{
 						break;
 					}
 					g.DrawLine(headerGridPen, 5, y1 - 1, control1.RowHeaderWidth - 6, y1 - 1);
-					g.DrawLine(Pens.White, 5, y1, control1.RowHeaderWidth - 6, y1);
+					g.DrawLine(Pens2.White, 5, y1, control1.RowHeaderWidth - 6, y1);
 				}
 				for (int y1 = offset - rowHeight; y1 < height; y1 += rowHeight){
 					int row = (y + y1)/rowHeight;
@@ -390,7 +386,7 @@ namespace BaseLib.Forms.Table{
 						g.DrawLine(selectHeader3Pen, 3, y1 + 3, 3, y1 + rowHeight - 1);
 						g.FillRectangle(selectHeader4Brush, 4, y1 + 4, control1.RowHeaderWidth - 6, rowHeight - 4);
 					}
-					g.DrawString("" + (row + 1), textFont, Brushes.Black, 5, y1 + 4);
+					g.DrawString("" + (row + 1), textFont, Brushes2.Black, 5, y1 + 4);
 				}
 			};
 			control1.OnPaintColumnHeaderView = (g, x, width) =>{
@@ -400,7 +396,7 @@ namespace BaseLib.Forms.Table{
 				g.FillRectangle(headerBrush, 0, 0, width, control1.ColumnHeaderHeight - 1);
 				g.DrawLine(gridPen, 0, 0, width, 0);
 				g.DrawLine(gridPen, 0, control1.ColumnHeaderHeight - 1, width, control1.ColumnHeaderHeight - 1);
-				g.DrawLine(Pens.White, 0, 1, width, 1);
+				g.DrawLine(Pens2.White, 0, 1, width, 1);
 				g.DrawLine(shadow1Pen, 0, control1.ColumnHeaderHeight - 2, width, control1.ColumnHeaderHeight - 2);
 				g.DrawLine(shadow2Pen, 0, control1.ColumnHeaderHeight - 3, width, control1.ColumnHeaderHeight - 3);
 				g.DrawLine(shadow3Pen, 0, control1.ColumnHeaderHeight - 4, width, control1.ColumnHeaderHeight - 4);
@@ -411,7 +407,7 @@ namespace BaseLib.Forms.Table{
 						for (int i = startInd; i <= endInd; i++){
 							int x1 = columnWidthSums[i] - x;
 							g.DrawLine(headerGridPen, x1, 5, x1, control1.ColumnHeaderHeight - 6);
-							g.DrawLine(Pens.White, x1 + 1, 5, x1 + 1, control1.ColumnHeaderHeight - 6);
+							g.DrawLine(Pens2.White, x1 + 1, 5, x1 + 1, control1.ColumnHeaderHeight - 6);
 						}
 					}
 				}
@@ -424,7 +420,7 @@ namespace BaseLib.Forms.Table{
 							int w = i == 0 ? columnWidthSums[0] : columnWidthSums[i] - columnWidthSums[i - 1];
 							string[] q = GetStringHeader(g, i, w, headerFont);
 							for (int j = 0; j < q.Length; j++){
-								g.DrawString(q[j], headerFont, Brushes.Black, x1 + 3, 4 + 11*j);
+								g.DrawString(q[j], headerFont, Brushes2.Black, x1 + 3, 4 + 11*j);
 							}
 						}
 						if (sortCol != -1 && sortState != SortState.Unsorted){
@@ -446,10 +442,10 @@ namespace BaseLib.Forms.Table{
 								for (int k = 0; k < model.AnnotationRowsCount; k++){
 									int y1 = origColumnHeaderHeight + k*rowHeight;
 									g.DrawLine(headerGridPen, x1 + 5, y1 - 1, x2 - 6, y1 - 1);
-									g.DrawLine(Pens.White, x1 + 5, y1, x2 - 6, y1);
+									g.DrawLine(Pens2.White, x1 + 5, y1, x2 - 6, y1);
 									string s = (string) model.GetAnnotationRowValue(k, i);
 									if (s != null){
-										g.DrawString("" + GetStringValue(g, s, x2 - x1 - 2, headerFont), textFont, Brushes.Black, x1 + 3, y1 + 3);
+										g.DrawString("" + GetStringValue(g, s, x2 - x1 - 2, headerFont), textFont, Brushes2.Black, x1 + 3, y1 + 3);
 									}
 								}
 							}
@@ -463,8 +459,8 @@ namespace BaseLib.Forms.Table{
 				}
 				g.FillRectangle(headerBrush, 0, 0, control1.RowHeaderWidth - 1, control1.ColumnHeaderHeight - 1);
 				g.DrawRectangle(gridPen, 0, 0, control1.RowHeaderWidth - 1, control1.ColumnHeaderHeight - 1);
-				g.DrawLine(Pens.White, 1, 1, control1.RowHeaderWidth - 2, 1);
-				g.DrawLine(Pens.White, 1, 1, 1, control1.ColumnHeaderHeight - 2);
+				g.DrawLine(Pens2.White, 1, 1, control1.RowHeaderWidth - 2, 1);
+				g.DrawLine(Pens2.White, 1, 1, 1, control1.ColumnHeaderHeight - 2);
 				if (matrixHelp){
 					g.DrawImage(Resources.question12, 7, 7, 10, 10);
 				}
@@ -472,10 +468,10 @@ namespace BaseLib.Forms.Table{
 					for (int i = 0; i < model.AnnotationRowsCount; i++){
 						int y1 = origColumnHeaderHeight + i*rowHeight;
 						g.DrawLine(headerGridPen, 5, y1 - 1, control1.RowHeaderWidth - 6, y1 - 1);
-						g.DrawLine(Pens.White, 5, y1, control1.RowHeaderWidth - 6, y1);
+						g.DrawLine(Pens2.White, 5, y1, control1.RowHeaderWidth - 6, y1);
 						string s = model.GetAnnotationRowName(i);
 						if (s != null){
-							g.DrawString("" + GetStringValue(g, s, control1.RowHeaderWidth - 6, headerFont), textFont, Brushes.Black, 3,
+							g.DrawString("" + GetStringValue(g, s, control1.RowHeaderWidth - 6, headerFont), textFont, Brushes2.Black, 3,
 								y1 + 3);
 						}
 					}
@@ -487,7 +483,7 @@ namespace BaseLib.Forms.Table{
 				}
 				try{
 					CheckSizes();
-					g.FillRectangle(Brushes.White, 0, 0, width, height);
+					g.FillRectangle(Brushes2.White, 0, 0, width, height);
 					int offset = -y%rowHeight;
 					if (columnWidthSums == null || columnWidthSums.Length == 0){
 						return;
@@ -1066,11 +1062,15 @@ namespace BaseLib.Forms.Table{
 			if (model == null){
 				return;
 			}
-			FontDialog fontDialog = new FontDialog{ShowColor = true, Font = textFont, Color = textColor};
+			FontDialog fontDialog = new FontDialog{
+				ShowColor = true,
+				Font = textFont,
+				Color = Color.FromArgb(textColor.A, textColor.R, textColor.G, textColor.B)
+			};
 			if (fontDialog.ShowDialog() != DialogResult.Cancel){
 				textFont = fontDialog.Font;
-				textColor = fontDialog.Color;
-				textBrush = new SolidBrush(textColor);
+				textColor = Color2.FromArgb(fontDialog.Color.A, fontDialog.Color.R, fontDialog.Color.G, fontDialog.Color.B);
+				textBrush = new Brush2(textColor);
 			}
 			fontDialog.Dispose();
 			control.Invalidate(true);
@@ -1393,24 +1393,22 @@ namespace BaseLib.Forms.Table{
 
 		private static void RenderCellDashStyle(IGraphics g, bool selected, object o, int x1, int y1){
 			int dashInd = (int) o;
-			Pen p = selected ? Pens.White : Pens.Black;
-			p = (Pen) p.Clone();
-			p.DashStyle = DashStyles.DashStyleFromIndex(dashInd);
-			p.Width = 2;
+			Pen2 p = selected ? Pens2.White : Pens2.Black;
+			p = new Pen2(p.Color){DashStyle = DashStyles.DashStyleFromIndex(dashInd), Width = 2};
 			g.DrawLine(p, x1 + 4, y1 + 11, x1 + 40, y1 + 11);
 		}
 
 		private static void RenderCellColor(IGraphics g, bool selected, object o, int x1, int y1){
-			Color c = (Color) o;
-			Brush b = new SolidBrush(c);
-			Pen p = selected ? Pens.White : Pens.Black;
+			Color2 c = (Color2) o;
+			Brush2 b = new Brush2(c);
+			Pen2 p = selected ? Pens2.White : Pens2.Black;
 			const int w = 14;
 			g.FillRectangle(b, x1 + 3, y1 + 4, w, w);
 			g.DrawRectangle(p, x1 + 3, y1 + 4, w, w);
 		}
 
 		private void RenderCellString(IGraphics g, bool selected, object o, int width, int x1, int y1){
-			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes.White : textBrush, x1 + 3, y1 + 4);
+			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes2.White : textBrush, x1 + 3, y1 + 4);
 		}
 
 		private static string GetStringValue(IGraphics g, object o, int width, Font font){

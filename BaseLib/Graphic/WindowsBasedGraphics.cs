@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
+using BaseLibS.Graph;
 
 namespace BaseLib.Graphic{
 	//TODO: should not be exposed
@@ -10,10 +11,14 @@ namespace BaseLib.Graphic{
 			this.gc = gc;
 		}
 
-		public SmoothingMode SmoothingMode { get { return gc.SmoothingMode; } set { gc.SmoothingMode = value; } }
+		public SmoothingMode SmoothingMode{
+			get { return gc.SmoothingMode; }
+			set { gc.SmoothingMode = value; }
+		}
+
 		public Graphics Graphics => gc;
 		//TODO?
-		public void SetClippingMask(int width, int height, int x, int y) {}
+		public void SetClippingMask(int width, int height, int x, int y){}
 
 		public void Dispose(){
 			gc.Dispose();
@@ -23,68 +28,68 @@ namespace BaseLib.Graphic{
 			gc.RotateTransform(angle);
 		}
 
-		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
-			gc.DrawLine(pen, x1, y1, x2, y2);
+		public void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2){
+			gc.DrawLine(GetPen(pen), x1, y1, x2, y2);
 		}
 
-		public void DrawPath(Pen pen, GraphicsPath path){
-			gc.DrawPath(pen, path);
+		public void DrawPath(Pen2 pen, GraphicsPath path){
+			gc.DrawPath(GetPen(pen), path);
 		}
 
-		public void DrawLines(Pen pen, PointF[] points){
-			gc.DrawLines(pen, points);
+		public void DrawLines(Pen2 pen, PointF[] points){
+			gc.DrawLines(GetPen(pen), points);
 		}
 
-		public void DrawLines(Pen pen, Point[] points){
-			gc.DrawLines(pen, points);
+		public void DrawLines(Pen2 pen, Point[] points){
+			gc.DrawLines(GetPen(pen), points);
 		}
 
-		public void DrawEllipse(Pen pen, float x, float y, float width, float height){
-			gc.DrawEllipse(pen, x, y, width, height);
+		public void DrawEllipse(Pen2 pen, float x, float y, float width, float height){
+			gc.DrawEllipse(GetPen(pen), x, y, width, height);
 		}
 
-		public void FillEllipse(Brush brush, float x, float y, float width, float height){
-			gc.FillEllipse(brush, x, y, width, height);
+		public void FillEllipse(Brush2 brush, float x, float y, float width, float height){
+			gc.FillEllipse(GetBrush(brush), x, y, width, height);
 		}
 
-		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
-			gc.DrawRectangle(pen, x, y, width, height);
+		public void DrawRectangle(Pen2 pen, float x, float y, float width, float height){
+			gc.DrawRectangle(GetPen(pen), x, y, width, height);
 		}
 
-		public void FillRectangle(Brush brush, float x, float y, float width, float height){
-			gc.FillRectangle(brush, x, y, width, height);
+		public void FillRectangle(Brush2 brush, float x, float y, float width, float height){
+			gc.FillRectangle(GetBrush(brush), x, y, width, height);
 		}
 
-		public void DrawPolygon(Pen pen, Point[] points){
-			gc.DrawPolygon(pen, points);
+		public void DrawPolygon(Pen2 pen, Point[] points){
+			gc.DrawPolygon(GetPen(pen), points);
 		}
 
-		public void FillPolygon(Brush brush, Point[] points){
-			gc.FillPolygon(brush, points);
+		public void FillPolygon(Brush2 brush, Point[] points){
+			gc.FillPolygon(GetBrush(brush), points);
 		}
 
 		public SizeF MeasureString(string text, Font font){
 			return gc.MeasureString(text, font);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, float x, float y){
-			gc.DrawString(s, font, brush, x, y);
+		public void DrawString(string s, Font font, Brush2 brush, float x, float y){
+			gc.DrawString(s, font, GetBrush(brush), x, y);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format){
-			gc.DrawString(s, font, brush, rectangleF, format);
+		public void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF, StringFormat format){
+			gc.DrawString(s, font, GetBrush(brush), rectangleF, format);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, Point location){
-			gc.DrawString(s, font, brush, location);
+		public void DrawString(string s, Font font, Brush2 brush, Point location){
+			gc.DrawString(s, font, GetBrush(brush), location);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF){
-			gc.DrawString(s, font, brush, rectangleF);
+		public void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF){
+			gc.DrawString(s, font, GetBrush(brush), rectangleF);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, Point point, StringFormat format){
-			gc.DrawString(s, font, brush, point, format);
+		public void DrawString(string s, Font font, Brush2 brush, Point point, StringFormat format){
+			gc.DrawString(s, font, GetBrush(brush), point, format);
 		}
 
 		public void DrawImage(Image image, int x, int y, int width, int height){
@@ -103,12 +108,12 @@ namespace BaseLib.Graphic{
 			return gc.MeasureString(text, font, width);
 		}
 
-		public void FillClosedCurve(Brush brush, Point[] points){
-			gc.FillClosedCurve(brush, points);
+		public void FillClosedCurve(Brush2 brush, Point[] points){
+			gc.FillClosedCurve(GetBrush(brush), points);
 		}
 
-		public void DrawCurve(Pen pen, Point[] points){
-			gc.DrawCurve(pen, points);
+		public void DrawCurve(Pen2 pen, Point[] points){
+			gc.DrawCurve(GetPen(pen), points);
 		}
 
 		public void TranslateTransform(float dx, float dy){
@@ -128,5 +133,13 @@ namespace BaseLib.Graphic{
 		}
 
 		public abstract void Close();
+
+		public static Pen GetPen(Pen2 p){
+			return new Pen(Color.FromArgb(p.Color.A, p.Color.R, p.Color.G, p.Color.B), p.Width);
+		}
+
+		private static Brush GetBrush(Brush2 b){
+			return new SolidBrush(Color.FromArgb(b.Color.A, b.Color.R, b.Color.G, b.Color.B));
+		}
 	}
 }

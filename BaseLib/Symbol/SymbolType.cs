@@ -1,5 +1,5 @@
-using System.Drawing;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public abstract class SymbolType{
@@ -36,6 +36,6 @@ namespace BaseLib.Symbol{
 		public int Index { get; }
 		public abstract string Name { get; }
 		public abstract void GetPath(int size, out int[] pathX, out int[] pathY);
-		public abstract void Draw(int size, int x, int y, IGraphics g, Pen pen, Brush brush);
+		public abstract void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush);
 	}
 }

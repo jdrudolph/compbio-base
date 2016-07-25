@@ -6,8 +6,8 @@ using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Base{
 	public class BasicView : IPrintable{
-		public Color BackColor { get; set; }
-		public Color ForeColor { get; set; }
+		public Color2 BackColor { get; set; }
+		public Color2 ForeColor { get; set; }
 		public bool Visible { get; set; }
 		public Font Font { get; set; }
 		public bool Enabled { get; set; }
@@ -16,8 +16,8 @@ namespace BaseLib.Forms.Base{
 		protected Action<Cursor> setCursor;
 
 		public BasicView(){
-			BackColor = Color.White;
-			ForeColor = Color.Black;
+			BackColor = Color2.White;
+			ForeColor = Color2.Black;
 			Visible = true;
 			Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular);
 		}
@@ -50,7 +50,7 @@ namespace BaseLib.Forms.Base{
 		protected internal virtual void OnPaint(IGraphics g, int width, int height){}
 
 		protected internal virtual void OnPaintBackground(IGraphics g, int width, int height){
-			g.FillRectangle(new SolidBrush(BackColor), 0, 0, width, height);
+			g.FillRectangle(new Brush2(BackColor), 0, 0, width, height);
 		}
 
 		protected internal virtual void OnMouseDragged(BasicMouseEventArgs e){}

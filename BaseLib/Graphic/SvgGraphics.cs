@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
+using BaseLibS.Graph;
 using BaseLibS.Util;
 
 namespace BaseLib.Graphic{
@@ -23,7 +24,7 @@ namespace BaseLib.Graphic{
 		private float rotationAngle;
 		private float locationX;
 		private float locationY;
-		private float scale = 1;
+		private float scale;
 		private Group clippingMask;
 
 		public SvgGraphics(string filename, int width, int height)
@@ -62,7 +63,7 @@ namespace BaseLib.Graphic{
 			}
 		}
 
-		public string GetColor(Color color){
+		public string GetColor(Color2 color){
 			//if (color.IsNamedColor)
 			//{
 			//    return color.Name;
@@ -70,15 +71,11 @@ namespace BaseLib.Graphic{
 			return $"rgb({color.R},{color.G},{color.B})";
 		}
 
-		public string BrushColor(Brush brush){
-			if (brush is SolidBrush){
-				SolidBrush b = (SolidBrush) brush;
-				return GetColor(b.Color);
-			}
-			return Color.Black.Name;
+		public string BrushColor(Brush2 b){
+			return GetColor(b.Color);
 		}
 
-		public string PenColor(Pen pen){
+		public string PenColor(Pen2 pen){
 			return GetColor(pen.Color);
 		}
 
@@ -128,7 +125,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y1">The y-coordinate of the first point. </param>
 		/// <param name="x2">The x-coordinate of the second point.</param>
 		/// <param name="y2">The y-coordinate of the second point. </param>
-		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
+		public void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2){
 			Line line = new Line{
 				X1 = x1,
 				X2 = x2,
@@ -146,7 +143,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="pen">Pen that determines the color, width, and style of the path.</param>
 		/// <param name="path">GraphicsPath to draw.</param>
-		public void DrawPath(Pen pen, GraphicsPath path){
+		public void DrawPath(Pen2 pen, GraphicsPath path){
 			DrawLines(pen, path.PathPoints);
 		}
 
@@ -155,7 +152,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="pen"></param>
 		/// <param name="points"></param>
-		public void DrawLines(Pen pen, PointF[] points){
+		public void DrawLines(Pen2 pen, PointF[] points){
 			Path path = new Path{D = "", Transform = Transform};
 			for (int i = 0; i < points.Length; i++){
 				if (i == 0){
@@ -167,14 +164,14 @@ namespace BaseLib.Graphic{
 			path.Stroke = PenColor(pen);
 			path.StrokeWidth = pen.Width;
 			path.Fill = "none";
-			if (pen.DashStyle != DashStyle.Solid){
+			if (pen.DashStyle != DashStyle2.Solid){
 				path.StrokeDashArray = "1, 1";
 			}
 			//path.D = path.D + " Z";
 			pathList.Add(path);
 		}
 
-		public void DrawLines(Pen pen, Point[] points){
+		public void DrawLines(Pen2 pen, Point[] points){
 			Path path = new Path{D = "", Transform = Transform};
 			for (int i = 0; i < points.Length; i++){
 				if (i == 0){
@@ -186,7 +183,7 @@ namespace BaseLib.Graphic{
 			path.Stroke = PenColor(pen);
 			path.StrokeWidth = pen.Width;
 			path.Fill = "none";
-			if (pen.DashStyle != DashStyle.Solid){
+			if (pen.DashStyle != DashStyle2.Solid){
 				path.StrokeDashArray = "1, 1";
 			}
 			//path.D = path.D + " Z";
@@ -202,7 +199,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="width">Width of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
-		public void DrawEllipse(Pen pen, float x, float y, float width, float height){
+		public void DrawEllipse(Pen2 pen, float x, float y, float width, float height){
 			if (width == height){
 				circleList.Add(new Circle{
 					X = x + width/2f,
@@ -235,7 +232,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="width">Width of the bounding rectangle that defines the ellipse.</param>
 		/// <param name="height">Height of the bounding rectangle that defines the ellipse.</param>
-		public void FillEllipse(Brush brush, float x, float y, float width, float height){
+		public void FillEllipse(Brush2 brush, float x, float y, float width, float height){
 			if (width == height){
 				circleList.Add(new Circle{
 					X = x + width/2f,
@@ -264,7 +261,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to draw.</param>
 		/// <param name="width">Width of the rectangle to draw.</param>
 		/// <param name="height">Height of the rectangle to draw.</param>
-		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
+		public void DrawRectangle(Pen2 pen, float x, float y, float width, float height){
 			Rect rect = new Rect{
 				X = x,
 				Y = y,
@@ -286,11 +283,11 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the rectangle to fill.</param>
 		/// <param name="width">Width of the rectangle to fill.</param>
 		/// <param name="height">Height of the rectangle to fill.</param>
-		public void FillRectangle(Brush brush, float x, float y, float width, float height){
+		public void FillRectangle(Brush2 brush, float x, float y, float width, float height){
 			rectList.Add(new Rect{X = x, Y = y, Width = width, Height = height, Fill = BrushColor(brush), Transform = Transform});
 		}
 
-		public void DrawPolygon(Pen pen, Point[] points){
+		public void DrawPolygon(Pen2 pen, Point[] points){
 			throw new NotImplementedException();
 		}
 
@@ -299,7 +296,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="brush"></param>
 		/// <param name="points"></param>
-		public void FillPolygon(Brush brush, Point[] points){
+		public void FillPolygon(Brush2 brush, Point[] points){
 			throw new NotImplementedException();
 		}
 
@@ -347,7 +344,7 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn text.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn text.</param>
-		public void DrawString(string s, Font font, Brush brush, float x, float y){
+		public void DrawString(string s, Font font, Brush2 brush, float x, float y){
 			DrawString(s, font, brush, new RectangleF(x, y, 0, 0), null);
 		}
 
@@ -359,7 +356,7 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line spacing and alignment, that are applied to the drawn text.</param>
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF, StringFormat format){
+		public void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF, StringFormat format){
 			if (format != null && rectangleF.Width > 0){
 				switch (format.Alignment){
 					case StringAlignment.Center:
@@ -389,15 +386,15 @@ namespace BaseLib.Graphic{
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="location">The location of the upper-left corner of the drawn text.</param>
-		public void DrawString(string s, Font font, Brush brush, Point location){
+		public void DrawString(string s, Font font, Brush2 brush, Point location){
 			DrawString(s, font, brush, new RectangleF(location, SizeF.Empty), null);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, Point point, StringFormat format){
+		public void DrawString(string s, Font font, Brush2 brush, Point point, StringFormat format){
 			DrawString(s, font, brush, new RectangleF(point, SizeF.Empty), format);
 		}
 
-		public void DrawString(string s, Font font, Brush brush, RectangleF rectangleF){
+		public void DrawString(string s, Font font, Brush2 brush, RectangleF rectangleF){
 			DrawString(s, font, brush, rectangleF, null);
 		}
 
@@ -436,11 +433,11 @@ namespace BaseLib.Graphic{
 			return TextRenderer.MeasureText(text, font);
 		}
 
-		public void FillClosedCurve(Brush brush, Point[] points){
+		public void FillClosedCurve(Brush2 brush, Point[] points){
 			FillPolygon(brush, points);
 		}
 
-		public void DrawCurve(Pen pen, Point[] points){
+		public void DrawCurve(Pen2 pen, Point[] points){
 			DrawPolygon(pen, points);
 		}
 

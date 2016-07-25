@@ -21,8 +21,8 @@ namespace BaseLib.Forms.Colors{
 		private const int triangleBase2 = 5;
 		internal event ColorChangeHandler OnColorChange;
 		internal bool fireChange;
-		private Color[] precalcColors;
-		private Pen[] precalcPens;
+		private Color2[] precalcColors;
+		private Pen2[] precalcPens;
 		private int oldLength = -1;
 		internal bool refreshColors = true;
 		internal Color StartupColorMin { get; set; }
@@ -32,7 +32,7 @@ namespace BaseLib.Forms.Colors{
 		internal float Weight2 { get; set; }
 		internal Arrows Arrow { get; set; }
 		internal int StripWidth { get; set; }
-		public List<Color> Colors { get; }
+		public List<Color2> Colors { get; }
 		public List<double> Positions { get; }
 		internal int mouseOverIndex = -1;
 		internal int mouseDragIndex = -1;
@@ -41,17 +41,17 @@ namespace BaseLib.Forms.Colors{
 
 		public ColorStripView(){
 			Positions = new List<double>();
-			Colors = new List<Color>();
+			Colors = new List<Color2>();
 			if (Colors.Count == 0){
-				AddColor(Color.White, 0.2);
-				AddColor(Color.Yellow, 0.4);
-				AddColor(Color.Green, 0.85);
+				AddColor(Color2.White, 0.2);
+				AddColor(Color2.Yellow, 0.4);
+				AddColor(Color2.Green, 0.85);
 			}
 		}
 
-		public ColorStripView(Color c1, Color c2){
+		public ColorStripView(Color2 c1, Color2 c2){
 			Positions = new List<double>();
-			Colors = new List<Color>();
+			Colors = new List<Color2>();
 			if (Colors.Count == 0){
 				AddColor(c1, 0);
 				AddColor(c2, 1.0);
@@ -69,7 +69,7 @@ namespace BaseLib.Forms.Colors{
 			OnColorChange?.Invoke();
 		}
 
-		public Color GetColorAt(double x, int width, int height){
+		public Color2 GetColorAt(double x, int width, int height){
 			if (precalcColors == null){
 				CalcGradient(width, height);
 			}
@@ -81,11 +81,11 @@ namespace BaseLib.Forms.Colors{
 			try{
 				return precalcColors[i];
 			} catch (Exception){
-				return Color.White;
+				return Color2.White;
 			}
 		}
 
-		public Pen GetPenAt(double x, int width, int height){
+		public Pen2 GetPenAt(double x, int width, int height){
 			if (precalcPens == null){
 				CalcGradient(width, height);
 			}
@@ -97,12 +97,12 @@ namespace BaseLib.Forms.Colors{
 			return precalcPens[i];
 		}
 
-		internal void AddColor(Color color, double position){
+		internal void AddColor(Color2 color, double position){
 			Colors.Add(color);
 			Positions.Add(position);
 		}
 
-		public void InitColors(Color[] newColors, double[] newPositions){
+		public void InitColors(Color2[] newColors, double[] newPositions){
 			Colors.Clear();
 			Colors.AddRange(newColors);
 			Positions.Clear();
@@ -125,7 +125,7 @@ namespace BaseLib.Forms.Colors{
 		}
 
 		private void PaintStrip(IGraphics g, int off, int width, int height){
-			Pen fgPen = new Pen(ForeColor);
+			Pen2 fgPen = new Pen2(ForeColor);
 			if (Vertical){
 				g.DrawLine(fgPen, off - 1, 0, off - 1, height - 1);
 				g.DrawLine(fgPen, off + StripWidth + 1, 0, off + StripWidth + 1, height - 1);
@@ -145,8 +145,8 @@ namespace BaseLib.Forms.Colors{
 		}
 
 		private void CalcGradient(int width, int height){
-			precalcColors = new Color[GetLength(width, height)];
-			precalcPens = new Pen[GetLength(width, height)];
+			precalcColors = new Color2[GetLength(width, height)];
+			precalcPens = new Pen2[GetLength(width, height)];
 			int[] o = ArrayUtils.Order(Positions.ToArray());
 			CalcGradient(Colors[o[0]], Colors[o[0]], -1, ModelToView(Positions[o[0]], width, height));
 			for (int i = 0; i < o.Length - 1; i++){
@@ -157,21 +157,21 @@ namespace BaseLib.Forms.Colors{
 				GetLength(width, height) - 1);
 		}
 
-		private void CalcGradient(Color c1, Color c2, int a1, int a2){
+		private void CalcGradient(Color2 c1, Color2 c2, int a1, int a2){
 			for (int j = a1 + 1; j <= a2; j++){
 				double w1 = Math.Abs(a2 - j);
 				double w2 = Math.Abs(j - a1);
 				byte rr = (byte) Math.Round((c1.R*w1 + c2.R*w2)/(w1 + w2));
 				byte gg = (byte) Math.Round((c1.G*w1 + c2.G*w2)/(w1 + w2));
 				byte bb = (byte) Math.Round((c1.B*w1 + c2.B*w2)/(w1 + w2));
-				precalcColors[j] = Color.FromArgb(rr, gg, bb);
-				precalcPens[j] = new Pen(precalcColors[j]);
+				precalcColors[j] = Color2.FromArgb(rr, gg, bb);
+				precalcPens[j] = new Pen2(precalcColors[j]);
 			}
 		}
 
 		private void PaintGradient(IGraphics g, int off, int width, int height){
 			for (int j = 0; j < GetLength(width, height); j++){
-				Pen x = precalcPens[j];
+				Pen2 x = precalcPens[j];
 				if (Vertical){
 					g.DrawLine(x, off, j, off + StripWidth, j);
 				} else{
@@ -181,9 +181,9 @@ namespace BaseLib.Forms.Colors{
 		}
 
 		private void PaintMarkers(IGraphics g, int off, int width, int height){
-			Pen fgPen = new Pen(ForeColor);
+			Pen2 fgPen = new Pen2(ForeColor);
 			for (int i = 0; i < Colors.Count; i++){
-				Pen p = new Pen(Colors[i]);
+				Pen2 p = new Pen2(Colors[i]);
 				int a = ModelToView(Positions[i], width, height);
 				int d = (i == mouseOverIndex) && (Arrow == Arrows.First || Arrow == Arrows.Both) ? triangleHeight : 0;
 				if (Vertical){
@@ -204,7 +204,7 @@ namespace BaseLib.Forms.Colors{
 					g.DrawLine(fgPen, a + 1, off + StripWidth + 1, a + 1, e);
 				}
 				if (i == mouseOverIndex){
-					Brush b = new SolidBrush(p.Color);
+					Brush2 b = new Brush2(p.Color);
 					if (Vertical){
 						if (Arrow == Arrows.Second || Arrow == Arrows.Both){
 							Point[] points = {
@@ -271,9 +271,9 @@ namespace BaseLib.Forms.Colors{
 					ColorDialog cd = new ColorDialog();
 					if (cd.ShowDialog() == DialogResult.OK){
 						if (mouseOverIndex != -1){
-							Colors[mouseOverIndex] = cd.Color;
+							Colors[mouseOverIndex] = Color2.FromArgb(cd.Color.A, cd.Color.R, cd.Color.G, cd.Color.B);
 						} else{
-							Colors.Add(cd.Color);
+							Colors.Add(Color2.FromArgb(cd.Color.A, cd.Color.R, cd.Color.G, cd.Color.B));
 							Positions.Add(ViewToModel(Vertical ? e.Y : e.X, e.Width, e.Height));
 						}
 						refreshColors = true;

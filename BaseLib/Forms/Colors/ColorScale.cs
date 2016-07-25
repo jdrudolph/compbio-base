@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Axis;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Colors{
 	public delegate void ColorChangeHandler();
@@ -45,7 +46,7 @@ namespace BaseLib.Forms.Colors{
 			ColorStrip.GetView().Weight1 = 1F;
 			ColorStrip.GetView().Weight2 = 0F;
 			axis.GetView().Configurable = true;
-			axis.GetView().IndicatorColor = Color.Empty;
+			axis.GetView().IndicatorColor = Color2.Transparent;
 			axis.GetView().IsLogarithmic = false;
 			axis.GetView().LineWidth = 0.5F;
 			axis.GetView().MajorTickLength = 6;
@@ -87,7 +88,7 @@ namespace BaseLib.Forms.Colors{
 			}
 		}
 
-		public void InitColors(Color[] colors, double[] positions){
+		public void InitColors(Color2[] colors, double[] positions){
 			ColorStrip.GetView().InitColors(colors, positions);
 		}
 
@@ -141,11 +142,11 @@ namespace BaseLib.Forms.Colors{
 			}
 		}
 
-		public Pen GetPen(double value){
+		public Pen2 GetPen(double value){
 			return ColorStrip.GetView().GetPenAt(GetScaledValue(value), ColorStrip.Width, ColorStrip.Height);
 		}
 
-		public Color GetColor(double value){
+		public Color2 GetColor(double value){
 			return ColorStrip.GetView().GetColorAt(GetScaledValue(value), ColorStrip.Width, ColorStrip.Height);
 		}
 
@@ -205,7 +206,7 @@ namespace BaseLib.Forms.Colors{
 			get { return base.BackColor; }
 			set{
 				base.BackColor = value;
-				axis.GetView().BackColor = value;
+				axis.GetView().BackColor = Color2.FromArgb(value.A, value.R, value.G, value.B) ;
 			}
 		}
 	}

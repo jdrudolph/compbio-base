@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public class SymbolTypeTriangle : SymbolType{
@@ -29,9 +30,9 @@ namespace BaseLib.Symbol{
 			pathY = y.ToArray();
 		}
 
-		public override void Draw(int size, int x, int y, IGraphics g, Pen pen, Brush brush){
+		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
-			Point[] points = new[]{new Point(x, y + s2), new Point(x - s2, y - s2), new Point(x + s2, y - s2)};
+			Point[] points = {new Point(x, y + s2), new Point(x - s2, y - s2), new Point(x + s2, y - s2)};
 			g.DrawPolygon(pen, points);
 		}
 	}

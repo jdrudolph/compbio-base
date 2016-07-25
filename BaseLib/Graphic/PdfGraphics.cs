@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
+using BaseLibS.Graph;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 
@@ -71,18 +72,18 @@ namespace BaseLib.Graphic{
 			template.FillStroke();
 		}
 
-		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2){
+		public void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2){
 			SetPen(pen);
 			template.MoveTo(x1, currentHeight - y1);
 			template.LineTo(x2, currentHeight - y2);
 			template.Stroke();
 		}
 
-		public void DrawLine(Pen pen, float x1, float y1, float x2, float y2, string title, string description){
+		public void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2, string title, string description){
 			DrawLine(pen, x1, y1, x2, y2);
 		}
 
-		public void DrawPath(Pen pen, GraphicsPath path){
+		public void DrawPath(Pen2 pen, GraphicsPath path){
 			SetPen(pen);
 			for (int index = 0; index < path.PathData.Points.Length; index++){
 				PointF point = path.PathData.Points[index];
@@ -97,7 +98,7 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawLines(Pen pen, PointF[] points){
+		public void DrawLines(Pen2 pen, PointF[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
@@ -112,7 +113,7 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawLines(Pen pen, Point[] points){
+		public void DrawLines(Pen2 pen, Point[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
@@ -127,36 +128,34 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawEllipse(Pen pen, float x, float y, float width, float height){
+		public void DrawEllipse(Pen2 pen, float x, float y, float width, float height){
 			SetPen(pen);
 			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Stroke();
 		}
 
-		public void FillEllipse(Brush brush, float x, float y, float width, float height){
+		public void FillEllipse(Brush2 brush, float x, float y, float width, float height){
 			SetBrush(brush);
 			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
 			template.Fill();
 		}
 
-		public void DrawRectangle(Pen pen, float x, float y, float width, float height){
+		public void DrawRectangle(Pen2 pen, float x, float y, float width, float height){
 			SetPen(pen);
 			template.Rectangle(x, currentHeight - y, width, -height);
 			template.Stroke();
 		}
 
-		public void FillRectangle(Brush brush, float x, float y, float width, float height){
-			if (brush is SolidBrush){
-				if (((SolidBrush) brush).Color.IsEmpty){
+		public void FillRectangle(Brush2 brush, float x, float y, float width, float height){
+				if ((brush).Color.IsEmpty){
 					return;
 				}
-			}
 			SetBrush(brush);
 			template.Rectangle(x, currentHeight - y, width, -height);
 			template.Fill();
 		}
 
-		public void DrawPolygon(Pen pen, Point[] points){
+		public void DrawPolygon(Pen2 pen, Point[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
@@ -171,7 +170,7 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void FillPolygon(Brush brush, Point[] points){
+		public void FillPolygon(Brush2 brush, Point[] points){
 			SetBrush(brush);
 			for (int index = 0; index < points.Length; index++){
 				PointF point = points[index];
@@ -196,11 +195,11 @@ namespace BaseLib.Graphic{
 			return MeasureString(text, font);
 		}
 
-		public void FillClosedCurve(Brush brush, Point[] points){
+		public void FillClosedCurve(Brush2 brush, Point[] points){
 			FillPolygon(brush, points);
 		}
 
-		public void DrawCurve(Pen pen, Point[] points){
+		public void DrawCurve(Pen2 pen, Point[] points){
 			DrawPolygon(pen, points);
 		}
 
@@ -230,16 +229,16 @@ namespace BaseLib.Graphic{
 			writer.Close();
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, float x, float y){
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, float x, float y){
 			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
 			DrawString(s, font, brush, new RectangleF(new PointF(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, Point point, StringFormat format){
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point point, StringFormat format){
 			DrawString(s, font, brush, new RectangleF(point, MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, RectangleF rectangleF, StringFormat format){
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF rectangleF, StringFormat format){
 			template.BeginText();
 			SetFont(font);
 			SetBrush(brush);
@@ -275,11 +274,11 @@ namespace BaseLib.Graphic{
 			template.EndText();
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, Point location){
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point location){
 			DrawString(s, font, brush, new RectangleF(location, new SizeF(0, 0)), new StringFormat());
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush brush, RectangleF rectangleF){
+		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF rectangleF){
 			DrawString(s, font, brush, rectangleF, new StringFormat());
 		}
 
@@ -342,32 +341,29 @@ namespace BaseLib.Graphic{
 			return f;
 		}
 
-		private void SetPen(Pen pen){
+		private void SetPen(Pen2 pen){
 			template.SetRGBColorStroke(pen.Color.R, pen.Color.G, pen.Color.B);
 			template.SetLineWidth(pen.Width);
 			switch (pen.DashCap){
-				case DashCap.Round:
+				case DashCap2.Round:
 					template.SetLineCap(PdfContentByte.LINE_CAP_ROUND);
 					break;
 			}
 			switch (pen.DashStyle){
-				case DashStyle.Solid:
+				case DashStyle2.Solid:
 					template.SetLineDash(0f);
 					break;
-				case DashStyle.Dash:
+				case DashStyle2.Dash:
 					template.SetLineDash(pen.DashPattern, pen.DashOffset);
 					break;
-				case DashStyle.Custom:
+				case DashStyle2.Custom:
 					template.SetLineDash(pen.DashPattern, pen.DashOffset);
 					break;
 			}
 		}
 
-		private void SetBrush(Brush brush){
-			if (brush is SolidBrush){
-				SolidBrush b = (SolidBrush) brush;
+		private void SetBrush(Brush2 b){
 				template.SetRGBColorFill(b.Color.R, b.Color.G, b.Color.B);
-			}
 		}
 	}
 }

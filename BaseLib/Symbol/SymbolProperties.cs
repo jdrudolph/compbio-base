@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Drawing;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public class SymbolProperties : IComparable<SymbolProperties>{
-		public Color Color { get; set; }
+		public Color2 Color { get; set; }
 		public int Size { get; set; }
 		public int Type { get; set; }
 		public bool ShowLabel { get; set; }
 
-		public SymbolProperties(Color color, int size, int type, bool showLabel){
+		public SymbolProperties(Color2 color, int size, int type, bool showLabel){
 			Color = color;
 			Size = size;
 			Type = type;

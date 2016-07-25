@@ -1,36 +1,36 @@
 ﻿using System;
-using System.Drawing.Drawing2D;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public static class DashStyles{
-		public static DashStyle DashStyleFromIndex(int index){
+		public static DashStyle2 DashStyleFromIndex(int index){
 			switch (index){
 				case 0:
-					return DashStyle.Solid;
+					return DashStyle2.Solid;
 				case 1:
-					return DashStyle.Dash;
+					return DashStyle2.Dash;
 				case 2:
-					return DashStyle.Dot;
+					return DashStyle2.Dot;
 				case 3:
-					return DashStyle.DashDot;
+					return DashStyle2.DashDot;
 				case 4:
-					return DashStyle.DashDotDot;
+					return DashStyle2.DashDotDot;
 				default:
 					throw new ArgumentException();
 			}
 		}
 
-		public static int DashStyleToIndex(DashStyle dashStyle){
+		public static int DashStyleToIndex(DashStyle2 dashStyle){
 			switch (dashStyle){
-				case DashStyle.Solid:
+				case DashStyle2.Solid:
 					return 0;
-				case DashStyle.Dash:
+				case DashStyle2.Dash:
 					return 1;
-				case DashStyle.Dot:
+				case DashStyle2.Dot:
 					return 2;
-				case DashStyle.DashDot:
+				case DashStyle2.DashDot:
 					return 3;
-				case DashStyle.DashDotDot:
+				case DashStyle2.DashDotDot:
 					return 4;
 				default:
 					throw new ArgumentException();

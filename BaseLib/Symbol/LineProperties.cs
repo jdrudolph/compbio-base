@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Drawing2D;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public class LineProperties : IComparable<LineProperties>{
-		public Color Color { get; set; }
+		public Color2 Color { get; set; }
 		public int Width { get; set; }
-		public DashStyle DashStyle { get; set; }
+		public DashStyle2 DashStyle { get; set; }
 
-		public LineProperties(Color color, int size, DashStyle dashStyle) {
+		public LineProperties(Color2 color, int size, DashStyle2 dashStyle) {
 			Color = color;
 			Width = size;
 			DashStyle = dashStyle;

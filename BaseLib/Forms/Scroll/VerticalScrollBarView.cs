@@ -32,14 +32,14 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		protected internal override void OnPaintBackground(IGraphics g, int width, int height){
-			Pen p = new Pen(Color.FromArgb(172, 168, 153));
+			Pen2 p = new Pen2(Color2.FromArgb(172, 168, 153));
 			g.DrawLine(p, width - 1, 0, width - 1, height);
 			int[][] rgbs = GraphUtil.InterpolateRgb(243, 241, 236, 254, 254, 251, CompoundScrollableControl.scrollBarWidth - 2);
 			for (int i = 0; i < CompoundScrollableControl.scrollBarWidth - 2; i++){
-				p = new Pen(Color.FromArgb(rgbs[0][i], rgbs[1][i], rgbs[2][i]));
+				p = new Pen2(Color2.FromArgb(rgbs[0][i], rgbs[1][i], rgbs[2][i]));
 				g.DrawLine(p, i + 1, 0, i + 1, height);
 			}
-			p = new Pen(Color.FromArgb(238, 237, 229));
+			p = new Pen2(Color2.FromArgb(238, 237, 229));
 			g.DrawLine(p, 0, 0, 0, height);
 			g.DrawLine(p, width - 2, 0, width - 2, height);
 		}

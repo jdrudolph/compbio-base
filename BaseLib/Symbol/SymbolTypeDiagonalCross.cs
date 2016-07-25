@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using System.Drawing;
 using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public class SymbolTypeDiagonalCross : SymbolType{
@@ -26,7 +26,7 @@ namespace BaseLib.Symbol{
 			pathY = y.ToArray();
 		}
 
-		public override void Draw(int size, int x, int y, IGraphics g, Pen pen, Brush brush){
+		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
 			g.DrawLine(pen, x - s2, y - s2, x + s2, y + s2);
 			g.DrawLine(pen, x + s2, y - s2, x - s2, y + s2);

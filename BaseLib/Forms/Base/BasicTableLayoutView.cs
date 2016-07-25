@@ -8,8 +8,8 @@ using BaseLibS.Num;
 
 namespace BaseLib.Forms.Base{
 	public class BasicTableLayoutView : BasicView{
-		private static readonly Color borderColor = Color.FromArgb(240, 240, 240);
-		private static readonly Brush borderBrush = new SolidBrush(borderColor);
+		private static readonly Color2 borderColor = Color2.FromArgb(240, 240, 240);
+		private static readonly Brush2 borderBrush = new Brush2(borderColor);
 		private readonly object lockThis = new object();
 		public int BorderSize { get; set; }
 		public BasicColumnStyles ColumnStyles { get; }

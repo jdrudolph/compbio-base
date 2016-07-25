@@ -1,5 +1,6 @@
 using System.Drawing;
 using BaseLib.Forms.Base;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Colors{
 	public sealed class ColorStrip : BasicControl{
@@ -8,7 +9,7 @@ namespace BaseLib.Forms.Colors{
 			view.Activate(this);
 		}
 
-		public ColorStrip(Color c1, Color c2){
+		public ColorStrip(Color2 c1, Color2 c2){
 			view = new ColorStripView(c1, c2);
 			view.Activate(this);
 		}

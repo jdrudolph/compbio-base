@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Drawing;
+using BaseLibS.Graph;
 
 namespace BaseLib.Symbol{
 	public class Symbol3DProperties : IComparable<Symbol3DProperties>{
-		public Color Color { get; set; }
+		public Color2 Color { get; set; }
 		public int Size { get; set; }
 		public int Type { get; set; }
 
-		public Symbol3DProperties(Color color, int size, int type){
+		public Symbol3DProperties(Color2 color, int size, int type){
 			Color = color;
 			Size = size;
 			Type = type;

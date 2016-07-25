@@ -5,9 +5,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
-using BaseLib.Graphic;
+using BaseLibS.Graph;
 
-namespace UtilsC.Util{
+namespace BaseLib.Graphic{
 	public static class ExportGraphics{
 		public static void ExportGraphic(Control control, string filename){
 			ExportGraphic(control, filename, true);
@@ -176,9 +176,9 @@ namespace UtilsC.Util{
 		}
 
 		internal static void DoPaint(IGraphics g, Panel control, int addx, int addy){
-			g.FillRectangle(new SolidBrush(control.BackColor), 0, 0, control.Width, control.Height);
+			g.FillRectangle(new Brush2(GraphUtils.ToColor2(control.BackColor) ), 0, 0, control.Width, control.Height);
 			if (control.BorderStyle == BorderStyle.FixedSingle){
-				g.DrawRectangle(new Pen(control.ForeColor), 0, 0, control.Width, control.Height);
+				g.DrawRectangle(new Pen2(GraphUtils.ToColor2(control.ForeColor)), 0, 0, control.Width, control.Height);
 			}
 			if (control is TableLayoutPanel){
 				DoPaint(g, (Control) control, addx, addy);
@@ -197,20 +197,20 @@ namespace UtilsC.Util{
 		}
 
 		internal static void DoPaint(IGraphics g, DataGridView grid){
-			Pen p = new Pen(grid.GridColor);
+			Pen2 p = new Pen2(GraphUtils.ToColor2(grid.GridColor));
 			float x = grid.Location.X;
 			float y = grid.Location.Y;
-			SolidBrush text = new SolidBrush(grid.ColumnHeadersDefaultCellStyle.ForeColor);
+			Brush2 text = new Brush2(GraphUtils.ToColor2(grid.ColumnHeadersDefaultCellStyle.ForeColor));
 			Font headerFont = grid.ColumnHeadersDefaultCellStyle.Font;
 			StringFormat headerformat = new StringFormat{
 				Alignment = StringAlignment.Near,
 				LineAlignment = StringAlignment.Center
 			};
 			for (int c = 0; c < grid.Columns.Count; c++){
-				SolidBrush header = new SolidBrush(grid.Columns[c].HeaderCell.Style.BackColor);
-				if (header.Color.IsEmpty || header.Color == Color.Transparent || header.Color == Color.Black ||
+				Brush2 header = new Brush2(GraphUtils.ToColor2(grid.Columns[c].HeaderCell.Style.BackColor));
+				if (header.Color.IsEmpty || header.Color == Color2.Transparent || header.Color == Color2.Black ||
 					header.Color.Name == "0"){
-					header.Color = grid.ColumnHeadersDefaultCellStyle.BackColor;
+					header.Color = GraphUtils.ToColor2(grid.ColumnHeadersDefaultCellStyle.BackColor);
 				}
 				g.FillRectangle(header, x, y, grid.Columns[c].Width, grid.ColumnHeadersHeight);
 				g.DrawRectangle(p, x, y, grid.Columns[c].Width, grid.ColumnHeadersHeight);
@@ -222,10 +222,10 @@ namespace UtilsC.Util{
 			for (int r = 0; r < grid.Rows.Count; r++){
 				x = grid.Location.X;
 				for (int c = 0; c < grid.Columns.Count; c++){
-					Color backcolor = GetBackColor(grid, r, c);
-					Color forecolor = GetForeColor(grid, r, c);
+					Color2 backcolor = GetBackColor(grid, r, c);
+					Color2 forecolor = GetForeColor(grid, r, c);
 					if (!backcolor.IsEmpty){
-						g.FillRectangle(new SolidBrush(backcolor), x, y, grid.Columns[c].Width, grid.Rows[r].Height);
+						g.FillRectangle(new Brush2(backcolor), x, y, grid.Columns[c].Width, grid.Rows[r].Height);
 					}
 					g.DrawRectangle(p, x, y, grid.Columns[c].Width, grid.Rows[r].Height);
 					object value = grid.Rows[r].Cells[c].Value;
@@ -237,7 +237,7 @@ namespace UtilsC.Util{
 							string format = "{0:" + grid.Columns[c].DefaultCellStyle.Format.ToLower() + "}";
 							t = string.Format(format, value);
 						}
-						g.DrawString(t, font, new SolidBrush(forecolor), new RectangleF(x, y, grid.Columns[c].Width, grid.Rows[r].Height),
+						g.DrawString(t, font, new Brush2(forecolor), new RectangleF(x, y, grid.Columns[c].Width, grid.Rows[r].Height),
 							cellformat);
 					}
 					x += grid.Columns[c].Width;
@@ -247,32 +247,32 @@ namespace UtilsC.Util{
 		}
 
 		private static void DoPaint(IGraphics g, TextBox textBox){
-			g.FillRectangle(new SolidBrush(textBox.BackColor), textBox.Location.X, textBox.Location.Y,
+			g.FillRectangle(new Brush2(GraphUtils.ToColor2(textBox.BackColor)), textBox.Location.X, textBox.Location.Y,
 				textBox.Width - textBox.Margin.Left - textBox.Margin.Right,
 				textBox.Height - textBox.Margin.Top - textBox.Margin.Bottom);
 			RectangleF rect = new RectangleF(textBox.Location, textBox.Size);
 			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
-			g.DrawString(textBox.Text, textBox.Font, new SolidBrush(textBox.ForeColor), rect, format);
+			g.DrawString(textBox.Text, textBox.Font, new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), rect, format);
 		}
 
 		private static void DoPaint(IGraphics g, RichTextBox textBox){
-			g.FillRectangle(new SolidBrush(textBox.BackColor), textBox.Location.X, textBox.Location.Y,
+			g.FillRectangle(new Brush2(GraphUtils.ToColor2(textBox.BackColor)), textBox.Location.X, textBox.Location.Y,
 				textBox.Width - textBox.Margin.Left - textBox.Margin.Right,
 				textBox.Height - textBox.Margin.Top - textBox.Margin.Bottom);
 			string[] lines = textBox.Text.Split('\n');
 			float h = 0;
 			foreach (string t in lines){
-				g.DrawString(t, textBox.Font, new SolidBrush(textBox.ForeColor), textBox.Location.X, textBox.Location.Y + h);
+				g.DrawString(t, textBox.Font, new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), textBox.Location.X, textBox.Location.Y + h);
 				h += textBox.Font.Height*0.8f;
 			}
 		}
 
 		private static void DoPaint(IGraphics g, Label label){
 			RectangleF rect = new RectangleF(label.Location, label.Size);
-			g.FillRectangle(new SolidBrush(label.BackColor), rect.X, rect.Y, label.Width - label.Margin.Left - label.Margin.Right,
+			g.FillRectangle(new Brush2(GraphUtils.ToColor2(label.BackColor)), rect.X, rect.Y, label.Width - label.Margin.Left - label.Margin.Right,
 				label.Height - label.Margin.Top - label.Margin.Bottom);
 			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
-			g.DrawString(label.Text, label.Font, new SolidBrush(label.ForeColor), rect, format);
+			g.DrawString(label.Text, label.Font, new Brush2(GraphUtils.ToColor2(label.ForeColor)), rect, format);
 		}
 
 		private static StringFormat GetStringFormat(DataGridViewContentAlignment alignment){
@@ -322,42 +322,42 @@ namespace UtilsC.Util{
 			return format;
 		}
 
-		private static Color GetBackColor(DataGridView grid, int r, int c){
+		private static Color2 GetBackColor(DataGridView grid, int r, int c){
 			if (grid.Rows[r].Cells[c].Selected){
-				return grid.Rows[r].Cells[c].InheritedStyle.SelectionBackColor;
+				return GraphUtils.ToColor2(grid.Rows[r].Cells[c].InheritedStyle.SelectionBackColor);
 			}
-			Color backcolor = Color.Empty;
+			Color2 backcolor = Color2.Transparent;
 			if (!grid.Rows[r].Cells[c].Style.BackColor.IsEmpty){
-				backcolor = grid.Rows[r].Cells[c].Style.BackColor;
+				backcolor = GraphUtils.ToColor2(grid.Rows[r].Cells[c].Style.BackColor);
 			}
 			if (!grid.Columns[c].DefaultCellStyle.BackColor.IsEmpty){
-				backcolor = grid.Columns[c].DefaultCellStyle.BackColor;
+				backcolor = GraphUtils.ToColor2(grid.Columns[c].DefaultCellStyle.BackColor);
 			}
 			return backcolor;
 		}
 
-		private static Color GetForeColor(DataGridView grid, int r, int c){
+		private static Color2 GetForeColor(DataGridView grid, int r, int c){
 			if (grid.Rows[r].Cells[c].Selected){
-				return grid.Rows[r].Cells[c].InheritedStyle.SelectionForeColor;
+				return GraphUtils.ToColor2(grid.Rows[r].Cells[c].InheritedStyle.SelectionForeColor);
 			}
-			Color forecolor = Color.Empty;
+			Color2 forecolor = Color2.Transparent;
 			if (!grid.Rows[r].Cells[c].Style.ForeColor.IsEmpty){
-				forecolor = grid.Rows[r].Cells[c].Style.ForeColor;
+				forecolor = GraphUtils.ToColor2(grid.Rows[r].Cells[c].Style.ForeColor);
 			}
 			if (!grid.Columns[c].DefaultCellStyle.ForeColor.IsEmpty){
-				forecolor = grid.Columns[c].DefaultCellStyle.ForeColor;
+				forecolor = GraphUtils.ToColor2(grid.Columns[c].DefaultCellStyle.ForeColor);
 			}
 			return forecolor;
 		}
 
 		public static void DoPaintBackground(IGraphics g, Control control){
 			if (g is CGraphics && (!control.BackColor.IsEmpty && control.BackColor != Color.Transparent)){
-				g.FillRectangle(new SolidBrush(control.BackColor), control.Location.X, control.Location.Y, control.Width,
+				g.FillRectangle(new Brush2(GraphUtils.ToColor2(control.BackColor)), control.Location.X, control.Location.Y, control.Width,
 					control.Height);
 			}
 			(control as BasicControl)?.view.Print(g, control.Width, control.Height);
 			if (control is Panel && ((Panel) control).BorderStyle == BorderStyle.FixedSingle){
-				g.DrawRectangle(new Pen(control.ForeColor), control.Location.X, control.Location.Y, control.Width, control.Height);
+				g.DrawRectangle(new Pen2(GraphUtils.ToColor2(control.ForeColor)), control.Location.X, control.Location.Y, control.Width, control.Height);
 			}
 		}
 	}

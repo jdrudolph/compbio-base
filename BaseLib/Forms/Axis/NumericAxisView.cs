@@ -24,7 +24,7 @@ namespace BaseLib.Forms.Axis{
 		public AxisMouseMode MouseMode { get; set; }
 
 		public bool Zoomable => true;
-		public Color IndicatorColor { get; set; }
+		public Color2 IndicatorColor { get; set; }
 		public double TotalMin { get; set; }
 		public double TotalMax { get; set; }
 		public double ZoomMin { get; set; }
@@ -41,8 +41,8 @@ namespace BaseLib.Forms.Axis{
 		public string Text { get; set; }
 
 		public NumericAxisView(){
-			ForeColor = Color.Black;
-			IndicatorColor = Color.FromArgb(251, 173, 73);
+			ForeColor = Color2.Black;
+			IndicatorColor = Color2.FromArgb(251, 173, 73);
 			IsLogarithmic = false;
 			Reverse = false;
 			TotalMax = double.NaN;
@@ -132,8 +132,8 @@ namespace BaseLib.Forms.Axis{
 		}
 
 		private void PaintIndicator(IGraphics g, int width, int height){
-			Brush indicatorBrush = new SolidBrush(IndicatorColor);
-			Pen indicatorPen = new Pen(ForeColor);
+			Brush2 indicatorBrush = new Brush2(IndicatorColor);
+			Pen2 indicatorPen = new Pen2(ForeColor);
 			float len = GetDeltaIndicator(GetLength(width, height));
 			if (IsHorizontal()){
 				if (len >= 1){
@@ -230,10 +230,10 @@ namespace BaseLib.Forms.Axis{
 					PaintIndicator(g, width, height);
 				}
 			}
-			Pen forePen = new Pen(ForeColor, LineWidth);
-			Pen majorTicPen = new Pen(ForeColor, MajorTickLineWidth);
-			Pen minorTicPen = new Pen(ForeColor, MinorTickLineWidth);
-			Brush brush = new SolidBrush(ForeColor);
+			Pen2 forePen = new Pen2(ForeColor, LineWidth);
+			Pen2 majorTicPen = new Pen2(ForeColor, MajorTickLineWidth);
+			Pen2 minorTicPen = new Pen2(ForeColor, MinorTickLineWidth);
+			Brush2 brush = new Brush2(ForeColor);
 			g.SmoothingMode = SmoothingMode.AntiAlias;
 			string label = Text ?? "";
 			float x0;
@@ -264,7 +264,7 @@ namespace BaseLib.Forms.Axis{
 					y0 = height - 1;
 					g.DrawLine(forePen, xm, ym + y0, xm + width, ym + y0);
 					if (IsValid() && tics != null){
-						int previousstringEnd = -Sign*Int32.MaxValue;
+						int previousstringEnd = -Sign*int.MaxValue;
 						for (int i = 0; i < tics[0].Length; i++){
 							x0 = ModelToView(tics[0][i], width, height);
 							g.DrawLine(majorTicPen, xm + x0, ym + y0, xm + x0, ym + y0 - MajorTickLength);
