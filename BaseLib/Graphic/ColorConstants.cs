@@ -10,7 +10,8 @@ namespace BaseLib.Graphic{
 			Color.DeepPink, Color.LightSkyBlue
 		};
 
-		public static Color GetPredefinedColor(int index){
+		private static Color GetPredefinedColor(int index){
+			FontFamily
 			return predefinedColors[Math.Abs(index%predefinedColors.Length)];
 		}
 	}
