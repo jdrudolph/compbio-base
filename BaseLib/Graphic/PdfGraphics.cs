@@ -185,13 +185,13 @@ namespace BaseLib.Graphic{
 			template.Fill();
 		}
 
-		public SizeF2 MeasureString(string text, System.Drawing.Font font){
+		public SizeF2 MeasureString(string text, Font2 font){
 			SetFont(font);
 			Chunk chunk = new Chunk(text, GetFont(font));
 			return new SizeF2(chunk.GetWidthPoint()*1.5f, font.Height*0.5f*1.5f);
 		}
 
-		public SizeF2 MeasureString(string text, System.Drawing.Font font, int width){
+		public SizeF2 MeasureString(string text, Font2 font, int width){
 			return MeasureString(text, font);
 		}
 
@@ -229,16 +229,16 @@ namespace BaseLib.Graphic{
 			writer.Close();
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, float x, float y){
+		public void DrawString(string s, Font2 font, Brush2 brush, float x, float y){
 			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
 			DrawString(s, font, brush, new RectangleF2(new PointF2(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point2 point, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format){
 			DrawString(s, font, brush, new RectangleF2(point, MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
 			template.BeginText();
 			SetFont(font);
 			SetBrush(brush);
@@ -274,11 +274,11 @@ namespace BaseLib.Graphic{
 			template.EndText();
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, Point2 location){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
 			DrawString(s, font, brush, new RectangleF2(location, new SizeF2(0, 0)), new StringFormat());
 		}
 
-		public void DrawString(string s, System.Drawing.Font font, Brush2 brush, RectangleF2 rectangleF){
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF){
 			DrawString(s, font, brush, rectangleF, new StringFormat());
 		}
 
@@ -309,12 +309,12 @@ namespace BaseLib.Graphic{
 			} catch{}
 		}
 
-		private void SetFont(System.Drawing.Font font){
+		private void SetFont(Font2 font){
 			iTextSharp.text.Font f = GetFont(font);
-			template.SetFontAndSize(f.BaseFont, font.SizeInPoints);
+			template.SetFontAndSize(f.BaseFont, font.Size);
 		}
 
-		private static iTextSharp.text.Font GetFont(System.Drawing.Font font){
+		private static iTextSharp.text.Font GetFont(Font2 font){
 			iTextSharp.text.Font f = FontFactory.GetFont("c:/windows/fonts/arial.ttf", BaseFont.CP1252, BaseFont.EMBEDDED,
 				font.Size*0.667f, font.Bold ? 1 : 0);
 			try{

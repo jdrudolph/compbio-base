@@ -306,8 +306,8 @@ namespace BaseLib.Graphic{
 		/// <param name="text">String to measure.</param>
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <returns></returns>
-		public SizeF2 MeasureString(string text, Font font){
-			return GraphUtils.ToSizeF2(TextRenderer.MeasureText(text, font));
+		public SizeF2 MeasureString(string text, Font2 font){
+			return GraphUtils.ToSizeF2(TextRenderer.MeasureText(text, GraphUtils.ToFont(font)));
 		}
 
 		/// <summary>
@@ -318,7 +318,7 @@ namespace BaseLib.Graphic{
 		/// <param name="width"></param>
 		/// <param name="format"></param>
 		/// <returns></returns>
-		public SizeF MeasureString(string text, Font font, int width, StringFormat format){
+		public SizeF MeasureString(string text, Font2 font, int width, StringFormat format){
 			TextFormatFlags flags = new TextFormatFlags();
 			if (format != null){
 				switch (format.Alignment){
@@ -333,7 +333,7 @@ namespace BaseLib.Graphic{
 						break;
 				}
 			}
-			return TextRenderer.MeasureText(text, font, new Size(width, font.Height), flags);
+			return TextRenderer.MeasureText(text, GraphUtils.ToFont(font), new Size(width, font.Height), flags);
 		}
 
 		/// <summary>
@@ -344,7 +344,7 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn text.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn text.</param>
-		public void DrawString(string s, Font font, Brush2 brush, float x, float y){
+		public void DrawString(string s, Font2 font, Brush2 brush, float x, float y){
 			DrawString(s, font, brush, new RectangleF2(x, y, 0, 0), null);
 		}
 
@@ -356,7 +356,7 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line spacing and alignment, that are applied to the drawn text.</param>
-		public void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
 			if (format != null && rectangleF.Width > 0){
 				switch (format.Alignment){
 					case StringAlignment.Center:
@@ -386,15 +386,15 @@ namespace BaseLib.Graphic{
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="location">The location of the upper-left corner of the drawn text.</param>
-		public void DrawString(string s, Font font, Brush2 brush, Point2 location){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
 			DrawString(s, font, brush, new RectangleF2(location, SizeF2.Empty), null);
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, Point2 point, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format){
 			DrawString(s, font, brush, new RectangleF2(point, SizeF2.Empty), format);
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF){
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF){
 			DrawString(s, font, brush, rectangleF, null);
 		}
 
@@ -429,8 +429,8 @@ namespace BaseLib.Graphic{
 			imageList.Add(new SvgImage{X = x, Y = y, Transform = Transform});
 		}
 
-		public SizeF2 MeasureString(string text, Font font, int width){
-			return GraphUtils.ToSizeF2(TextRenderer.MeasureText(text, font)) ;
+		public SizeF2 MeasureString(string text, Font2 font, int width){
+			return GraphUtils.ToSizeF2(TextRenderer.MeasureText(text, GraphUtils.ToFont(font)));
 		}
 
 		public void FillClosedCurve(Brush2 brush, Point2[] points){

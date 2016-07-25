@@ -201,7 +201,7 @@ namespace BaseLib.Graphic{
 			float x = grid.Location.X;
 			float y = grid.Location.Y;
 			Brush2 text = new Brush2(GraphUtils.ToColor2(grid.ColumnHeadersDefaultCellStyle.ForeColor));
-			Font headerFont = grid.ColumnHeadersDefaultCellStyle.Font;
+			Font2 headerFont = GraphUtils.ToFont2(grid.ColumnHeadersDefaultCellStyle.Font) ; 
 			StringFormat headerformat = new StringFormat{
 				Alignment = StringAlignment.Near,
 				LineAlignment = StringAlignment.Center
@@ -230,7 +230,7 @@ namespace BaseLib.Graphic{
 					g.DrawRectangle(p, x, y, grid.Columns[c].Width, grid.Rows[r].Height);
 					object value = grid.Rows[r].Cells[c].Value;
 					if (value != null){
-						Font font = grid.DefaultCellStyle.Font;
+						Font2 font = GraphUtils.ToFont2(grid.DefaultCellStyle.Font) ;
 						StringFormat cellformat = GetStringFormat(grid.Columns[c].DefaultCellStyle.Alignment);
 						string t = value.ToString();
 						if (!string.IsNullOrEmpty(grid.Columns[c].DefaultCellStyle.Format)){
@@ -252,7 +252,7 @@ namespace BaseLib.Graphic{
 				textBox.Height - textBox.Margin.Top - textBox.Margin.Bottom);
 			RectangleF2 rect = new RectangleF2(GraphUtils.ToPoint2(textBox.Location) , GraphUtils.ToSize2(textBox.Size));
 			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
-			g.DrawString(textBox.Text, textBox.Font, new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), rect, format);
+			g.DrawString(textBox.Text, GraphUtils.ToFont2(textBox.Font) , new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), rect, format);
 		}
 
 		private static void DoPaint(IGraphics g, RichTextBox textBox){
@@ -262,7 +262,7 @@ namespace BaseLib.Graphic{
 			string[] lines = textBox.Text.Split('\n');
 			float h = 0;
 			foreach (string t in lines){
-				g.DrawString(t, textBox.Font, new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), textBox.Location.X, textBox.Location.Y + h);
+				g.DrawString(t, GraphUtils.ToFont2(textBox.Font), new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), textBox.Location.X, textBox.Location.Y + h);
 				h += textBox.Font.Height*0.8f;
 			}
 		}
@@ -272,7 +272,7 @@ namespace BaseLib.Graphic{
 			g.FillRectangle(new Brush2(GraphUtils.ToColor2(label.BackColor)), rect.X, rect.Y, label.Width - label.Margin.Left - label.Margin.Right,
 				label.Height - label.Margin.Top - label.Margin.Bottom);
 			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
-			g.DrawString(label.Text, label.Font, new Brush2(GraphUtils.ToColor2(label.ForeColor)), rect, format);
+			g.DrawString(label.Text, GraphUtils.ToFont2(label.Font), new Brush2(GraphUtils.ToColor2(label.ForeColor)), rect, format);
 		}
 
 		private static StringFormat GetStringFormat(DataGridViewContentAlignment alignment){

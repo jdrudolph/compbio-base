@@ -41,8 +41,8 @@
     <Compile Include="Graph\DashCap2.cs" />
     <Compile Include="Graph\DashStyle2.cs" />
     <Compile Include="Graph\Font2.cs" />
-    <Compile Include="Graph\FontFamily2.cs" />
     <Compile Include="Graph\FontStyle2.cs" />
+    <Compile Include="Graph\GenericFontFamilies2.cs" />
     <Compile Include="Graph\GraphicsPath2.cs" />
     <Compile Include="Graph\GraphUtil.cs" />
     <Compile Include="Graph\KnownColor.cs" />

@@ -68,28 +68,28 @@ namespace BaseLib.Graphic{
 			gc.FillPolygon(GetBrush(brush), ToPoints(points));
 		}
 
-		public SizeF2 MeasureString(string text, Font font){
-			return GraphUtils.ToSizeF2(gc.MeasureString(text, font));
+		public SizeF2 MeasureString(string text, Font2 font){
+			return GraphUtils.ToSizeF2(gc.MeasureString(text, GraphUtils.ToFont(font)));
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, float x, float y){
-			gc.DrawString(s, font, GetBrush(brush), x, y);
+		public void DrawString(string s, Font2 font, Brush2 brush, float x, float y){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), x, y);
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
-			gc.DrawString(s, font, GetBrush(brush), ToRectangleF(rectangleF), format);
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), ToRectangleF(rectangleF), format);
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, Point2 location){
-			gc.DrawString(s, font, GetBrush(brush), GraphUtils.ToPoint(location));
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), GraphUtils.ToPoint(location));
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF){
-			gc.DrawString(s, font, GetBrush(brush), ToRectangleF(rectangleF));
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), ToRectangleF(rectangleF));
 		}
 
-		public void DrawString(string s, Font font, Brush2 brush, Point2 point, StringFormat format){
-			gc.DrawString(s, font, GetBrush(brush), GraphUtils.ToPoint(point), format);
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format){
+			gc.DrawString(s,GraphUtils.ToFont(font) , GetBrush(brush), GraphUtils.ToPoint(point), format);
 		}
 
 		public void DrawImage(Image image, int x, int y, int width, int height){
@@ -104,8 +104,8 @@ namespace BaseLib.Graphic{
 			gc.DrawImageUnscaled(image, x, y);
 		}
 
-		public SizeF2 MeasureString(string text, Font font, int width){
-			return GraphUtils.ToSizeF2(gc.MeasureString(text, font, width));
+		public SizeF2 MeasureString(string text, Font2 font, int width){
+			return GraphUtils.ToSizeF2(gc.MeasureString(text, GraphUtils.ToFont(font), width));
 		}
 
 		public void FillClosedCurve(Brush2 brush, Point2[] points){

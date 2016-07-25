@@ -111,7 +111,7 @@ namespace BaseLib.Graphic{
 		/// <param name="text">String to measure.</param>
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <returns></returns>
-		SizeF2 MeasureString(string text, Font font);
+		SizeF2 MeasureString(string text, Font2 font);
 
 		/// <summary>
 		/// Draws the specified text string at the specified location with the specified Brush and Font objects.
@@ -121,7 +121,7 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn text.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn text.</param>
-		void DrawString(string s, Font font, Brush2 brush, float x, float y);
+		void DrawString(string s, Font2 font, Brush2 brush, float x, float y);
 
 		/// <summary>
 		/// Draws the specified text string at the specified location with the specified Brush and Font objects.
@@ -132,12 +132,12 @@ namespace BaseLib.Graphic{
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line 
 		/// spacing and alignment, that are applied to the drawn text.</param>
-		void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF, StringFormat format);
+		void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format);
 
-		void DrawString(string s, Font font, Brush2 brush, Point2 point, StringFormat format);
+		void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format);
 
-		void DrawString(string s, Font font, Brush2 brush, Point2 location);
-		void DrawString(string s, Font font, Brush2 brush, RectangleF2 rectangleF);
+		void DrawString(string s, Font2 font, Brush2 brush, Point2 location);
+		void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF);
 
 		/// <summary>
 		/// Draws the specified Image at the specified location and with the specified size.
@@ -159,7 +159,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
 		void DrawImageUnscaled(Image image, int x, int y);
 
-		SizeF2 MeasureString(string text, Font font, int width);
+		SizeF2 MeasureString(string text, Font2 font, int width);
 		void FillClosedCurve(Brush2 brush, Point2[] points);
 		void DrawCurve(Pen2 pen, Point2[] points);
 		void TranslateTransform(float dx, float dy);

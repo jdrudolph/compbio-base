@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using BaseLibS.Graph;
@@ -6,7 +7,7 @@ using BaseLibS.Util;
 
 namespace BaseLib.Graphic{
 	public static class GraphUtils{
-		public static string[] WrapString(IGraphics g, string s, int width, Font font){
+		public static string[] WrapString(IGraphics g, string s, int width, Font2 font){
 			if (width < 20){
 				return new[]{s};
 			}
@@ -30,7 +31,7 @@ namespace BaseLib.Graphic{
 			return result.ToArray();
 		}
 
-		public static string GetStringValue(IGraphics g, string s, int width, Font font){
+		public static string GetStringValue(IGraphics g, string s, int width, Font2 font){
 			if (width < 20){
 				return "";
 			}
@@ -104,6 +105,48 @@ namespace BaseLib.Graphic{
 
 		public static Size2 ToSize2(Size size){
 			return new Size2(size.Width, size.Height);
+		}
+
+		public static Font ToFont(Font2 f){
+			return new Font(f.Name, f.Size, ToFontStyle(f.Style));
+		}
+
+		public static Font2 ToFont2(Font f){
+			return new Font2(f.OriginalFontName, f.Size, ToFontStyle2(f.Style));
+		}
+
+		public static FontStyle ToFontStyle(FontStyle2 style){
+			switch (style){
+				case FontStyle2.Regular:
+					return FontStyle.Regular;
+				case FontStyle2.Bold:
+					return FontStyle.Bold;
+				case FontStyle2.Italic:
+					return FontStyle.Italic;
+				case FontStyle2.Strikeout:
+					return FontStyle.Strikeout;
+				case FontStyle2.Underline:
+					return FontStyle.Underline;
+				default:
+					throw new Exception("Never get here.");
+			}
+		}
+
+		public static FontStyle2 ToFontStyle2(FontStyle style){
+			switch (style){
+				case FontStyle.Regular:
+					return FontStyle2.Regular;
+				case FontStyle.Bold:
+					return FontStyle2.Bold;
+				case FontStyle.Italic:
+					return FontStyle2.Italic;
+				case FontStyle.Strikeout:
+					return FontStyle2.Strikeout;
+				case FontStyle.Underline:
+					return FontStyle2.Underline;
+				default:
+					throw new Exception("Never get here.");
+			}
 		}
 	}
 }

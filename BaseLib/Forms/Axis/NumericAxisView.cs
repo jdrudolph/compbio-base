@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
@@ -13,8 +12,8 @@ namespace BaseLib.Forms.Axis{
 	public class NumericAxisView : BasicView{
 		public event ZoomChangeHandler OnZoomChange;
 		private const int spacePerNumber = 110;
-		public Font numbersFont = new Font("Arial", 8, FontStyle.Regular);
-		public Font labelFont = new Font("Arial Unicode MS", 9, FontStyle.Regular);
+		public Font2 numbersFont = new Font2("Arial", 8, FontStyle2.Regular);
+		public Font2 labelFont = new Font2("Arial Unicode MS", 9, FontStyle2.Regular);
 		private double dragStart = double.NaN;
 		private double zeroPoint = double.NaN;
 		private float indicator1 = -1;
@@ -255,9 +254,9 @@ namespace BaseLib.Forms.Axis{
 				}
 				max = Math.Max(Math.Abs(ArrayUtils.Max(tics[0])), Math.Abs(ArrayUtils.Min(tics[0])));
 			}
-			Font font = labelFont;
+			Font2 font = labelFont;
 			while (g.MeasureString(label, font).Width > Math.Max(width, height)*0.95f && font.Size > 5f){
-				font = new Font(font.FontFamily, font.Size - 0.5f, font.Style, font.Unit);
+				font = new Font2(font.Name, font.Size - 0.5f, font.Style);
 			}
 			switch (Positioning){
 				case AxisPositioning.Top:

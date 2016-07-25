@@ -11,7 +11,6 @@ namespace BaseLib.Graphic{
 		};
 
 		private static Color GetPredefinedColor(int index){
-			FontFamily
 			return predefinedColors[Math.Abs(index%predefinedColors.Length)];
 		}
 	}

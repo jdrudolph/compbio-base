@@ -68,9 +68,9 @@ namespace BaseLib.Forms.Table{
 		private int[] columnWidthSums;
 		private int[] columnWidthSumsOld;
 		private ITableModel model;
-		private static Font defaultFont = new Font("Arial", 9);
-		private Font textFont;
-		private Font headerFont;
+		private static Font2 defaultFont = new Font2("Arial", 9);
+		private Font2 textFont;
+		private Font2 headerFont;
 		private Brush2 textBrush = Brushes2.Black;
 		private Color2 textColor = Color2.Black;
 		private bool[] modelRowSel;
@@ -108,7 +108,7 @@ namespace BaseLib.Forms.Table{
 			tagsControlToolStripMenuItem.Visible = false;
 			tagsToolStripMenuItem.Visible = false;
 			float dpiScaleX = WpfUtils.GetDpiScaleX();
-			defaultFont = new Font("Arial", 9/dpiScaleX);
+			defaultFont = new Font2("Arial", 9/dpiScaleX);
 			textFont = defaultFont;
 			headerFont = defaultFont;
 			control1.OnMouseIsDownMainView = e =>{
@@ -1049,7 +1049,7 @@ namespace BaseLib.Forms.Table{
 		}
 
 		private void MonospaceFont(){
-			textFont = new Font(FontFamily.GenericMonospace, 9);
+			textFont = new Font2("Courier", 9);
 			control.Invalidate(true);
 		}
 
@@ -1064,11 +1064,11 @@ namespace BaseLib.Forms.Table{
 			}
 			FontDialog fontDialog = new FontDialog{
 				ShowColor = true,
-				Font = textFont,
+				Font = GraphUtils.ToFont(textFont) ,
 				Color = Color.FromArgb(textColor.A, textColor.R, textColor.G, textColor.B)
 			};
 			if (fontDialog.ShowDialog() != DialogResult.Cancel){
-				textFont = fontDialog.Font;
+				textFont = GraphUtils.ToFont2(fontDialog.Font) ;
 				textColor = Color2.FromArgb(fontDialog.Color.A, fontDialog.Color.R, fontDialog.Color.G, fontDialog.Color.B);
 				textBrush = new Brush2(textColor);
 			}
@@ -1411,7 +1411,7 @@ namespace BaseLib.Forms.Table{
 			g.DrawString(GetStringValue(g, o, width, textFont), textFont, selected ? Brushes2.White : textBrush, x1 + 3, y1 + 4);
 		}
 
-		private static string GetStringValue(IGraphics g, object o, int width, Font font){
+		private static string GetStringValue(IGraphics g, object o, int width, Font2 font){
 			if (o is double){
 				double x = (double) o;
 				if (double.IsNaN(x)){
@@ -1437,7 +1437,7 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		private string[] GetStringHeader(IGraphics g, int col, int width, Font font){
+		private string[] GetStringHeader(IGraphics g, int col, int width, Font2 font){
 			string s = model.GetColumnName(col);
 			string[] q = GraphUtils.WrapString(g, s, width, font);
 			if (q.Length > maxColHeaderStringSplits){

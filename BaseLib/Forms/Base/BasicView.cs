@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Graphic;
 using BaseLibS.Graph;
@@ -9,7 +8,7 @@ namespace BaseLib.Forms.Base{
 		public Color2 BackColor { get; set; }
 		public Color2 ForeColor { get; set; }
 		public bool Visible { get; set; }
-		public Font Font { get; set; }
+		public Font2 Font { get; set; }
 		public bool Enabled { get; set; }
 		protected Action invalidate;
 		protected Action resetCursor;
@@ -19,7 +18,7 @@ namespace BaseLib.Forms.Base{
 			BackColor = Color2.White;
 			ForeColor = Color2.Black;
 			Visible = true;
-			Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Regular);
+			Font = new Font2("Microsoft Sans Serif", 8.25f, FontStyle2.Regular);
 		}
 
 		public void Activate(BasicControl control){
