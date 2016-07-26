@@ -169,7 +169,6 @@
     </Compile>
     <Compile Include="Graphic\BitmapGraphics.cs" />
     <Compile Include="Graphic\CGraphics.cs" />
-    <Compile Include="Graphic\ColorConstants.cs" />
     <Compile Include="Graphic\IGraphics.cs" />
     <Compile Include="Graphic\PdfGraphics.cs" />
     <Compile Include="Graphic\Svg.cs" />

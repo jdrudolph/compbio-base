@@ -149,8 +149,6 @@ namespace BaseLib.Graphic{
 		/// <param name="height">Height of the drawn image.</param>
 		void DrawImage(Image image, int x, int y, int width, int height);
 
-		void DrawImage(Image image, Rectangle2 rectangle);
-
 		/// <summary>
 		/// Draws the specified image using its original physical size at the location specified by a coordinate pair.
 		/// </summary>
