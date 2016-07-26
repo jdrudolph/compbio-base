@@ -12,8 +12,8 @@ namespace BaseLib.Graphic{
 		}
 
 		public SmoothingMode2 SmoothingMode{
-			get { return GraphUtils.ToSmoothingMode2(gc.SmoothingMode) ; }
-			set { gc.SmoothingMode = GraphUtils.ToSmoothingMode(value) ; }
+			get { return GraphUtils.ToSmoothingMode2(gc.SmoothingMode); }
+			set { gc.SmoothingMode = GraphUtils.ToSmoothingMode(value); }
 		}
 
 		public Graphics Graphics => gc;
@@ -76,8 +76,9 @@ namespace BaseLib.Graphic{
 			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), x, y);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
-			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), ToRectangleF(rectangleF), format);
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat2 format){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), ToRectangleF(rectangleF),
+				GraphUtils.ToStringFormat(format));
 		}
 
 		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
@@ -88,8 +89,9 @@ namespace BaseLib.Graphic{
 			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), ToRectangleF(rectangleF));
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format){
-			gc.DrawString(s,GraphUtils.ToFont(font) , GetBrush(brush), GraphUtils.ToPoint(point), format);
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), GraphUtils.ToPoint(point),
+				GraphUtils.ToStringFormat(format));
 		}
 
 		public void DrawImage(Image image, int x, int y, int width, int height){

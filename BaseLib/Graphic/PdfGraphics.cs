@@ -230,15 +230,15 @@ namespace BaseLib.Graphic{
 		}
 
 		public void DrawString(string s, Font2 font, Brush2 brush, float x, float y){
-			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
+			StringFormat2 format = new StringFormat2{Alignment = StringAlignment2.Near, LineAlignment = StringAlignment2.Near};
 			DrawString(s, font, brush, new RectangleF2(new PointF2(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
 			DrawString(s, font, brush, new RectangleF2(point, MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat2 format){
 			template.BeginText();
 			SetFont(font);
 			SetBrush(brush);
@@ -247,24 +247,24 @@ namespace BaseLib.Graphic{
 			SizeF2 size = MeasureString(s, font);
 			if (format != null){
 				switch (format.Alignment){
-					case StringAlignment.Center:
+					case StringAlignment2.Center:
 						x = x + (rectangleF.Width - size.Width)/2f;
 						break;
-					case StringAlignment.Near:
+					case StringAlignment2.Near:
 						x = x + 2;
 						break;
-					case StringAlignment.Far:
+					case StringAlignment2.Far:
 						x = x + (rectangleF.Width - size.Width) - 2;
 						break;
 				}
 				switch (format.LineAlignment){
-					case StringAlignment.Center:
+					case StringAlignment2.Center:
 						y = y + font.Height/2f;
 						break;
-					case StringAlignment.Near:
+					case StringAlignment2.Near:
 						y = y + 2;
 						break;
-					case StringAlignment.Far:
+					case StringAlignment2.Far:
 						y = y + font.Height;
 						break;
 				}
@@ -275,11 +275,11 @@ namespace BaseLib.Graphic{
 		}
 
 		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
-			DrawString(s, font, brush, new RectangleF2(location, new SizeF2(0, 0)), new StringFormat());
+			DrawString(s, font, brush, new RectangleF2(location, new SizeF2(0, 0)), new StringFormat2());
 		}
 
 		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF){
-			DrawString(s, font, brush, rectangleF, new StringFormat());
+			DrawString(s, font, brush, rectangleF, new StringFormat2());
 		}
 
 		public void DrawImage(System.Drawing.Image image, int x, int y, int width, int height){

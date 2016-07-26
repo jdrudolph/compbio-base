@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
 using BaseLibS.Graph;
@@ -318,17 +317,17 @@ namespace BaseLib.Graphic{
 		/// <param name="width"></param>
 		/// <param name="format"></param>
 		/// <returns></returns>
-		public SizeF MeasureString(string text, Font2 font, int width, StringFormat format){
+		public SizeF MeasureString(string text, Font2 font, int width, StringFormat2 format){
 			TextFormatFlags flags = new TextFormatFlags();
 			if (format != null){
 				switch (format.Alignment){
-					case StringAlignment.Center:
+					case StringAlignment2.Center:
 						flags = TextFormatFlags.HorizontalCenter;
 						break;
-					case StringAlignment.Near:
+					case StringAlignment2.Near:
 						flags = TextFormatFlags.Left | TextFormatFlags.Top;
 						break;
-					case StringAlignment.Far:
+					case StringAlignment2.Far:
 						flags = TextFormatFlags.Right | TextFormatFlags.Bottom;
 						break;
 				}
@@ -356,13 +355,13 @@ namespace BaseLib.Graphic{
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line spacing and alignment, that are applied to the drawn text.</param>
-		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat2 format){
 			if (format != null && rectangleF.Width > 0){
 				switch (format.Alignment){
-					case StringAlignment.Center:
+					case StringAlignment2.Center:
 						rectangleF.X += (rectangleF.Width - MeasureString(s, font, (int) rectangleF.Width, format).Width)*0.5f;
 						break;
-					case StringAlignment.Far:
+					case StringAlignment2.Far:
 						rectangleF.X += rectangleF.Width - MeasureString(s, font, (int) rectangleF.Width, format).Width;
 						break;
 				}
@@ -390,7 +389,7 @@ namespace BaseLib.Graphic{
 			DrawString(s, font, brush, new RectangleF2(location, SizeF2.Empty), null);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
 			DrawString(s, font, brush, new RectangleF2(point, SizeF2.Empty), format);
 		}
 

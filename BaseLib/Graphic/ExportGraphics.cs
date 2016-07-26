@@ -202,9 +202,9 @@ namespace BaseLib.Graphic{
 			float y = grid.Location.Y;
 			Brush2 text = new Brush2(GraphUtils.ToColor2(grid.ColumnHeadersDefaultCellStyle.ForeColor));
 			Font2 headerFont = GraphUtils.ToFont2(grid.ColumnHeadersDefaultCellStyle.Font) ; 
-			StringFormat headerformat = new StringFormat{
-				Alignment = StringAlignment.Near,
-				LineAlignment = StringAlignment.Center
+			StringFormat2 headerformat = new StringFormat2{
+				Alignment = StringAlignment2.Near,
+				LineAlignment = StringAlignment2.Center
 			};
 			for (int c = 0; c < grid.Columns.Count; c++){
 				Brush2 header = new Brush2(GraphUtils.ToColor2(grid.Columns[c].HeaderCell.Style.BackColor));
@@ -231,7 +231,7 @@ namespace BaseLib.Graphic{
 					object value = grid.Rows[r].Cells[c].Value;
 					if (value != null){
 						Font2 font = GraphUtils.ToFont2(grid.DefaultCellStyle.Font) ;
-						StringFormat cellformat = GetStringFormat(grid.Columns[c].DefaultCellStyle.Alignment);
+						StringFormat2 cellformat = GetStringFormat(grid.Columns[c].DefaultCellStyle.Alignment);
 						string t = value.ToString();
 						if (!string.IsNullOrEmpty(grid.Columns[c].DefaultCellStyle.Format)){
 							string format = "{0:" + grid.Columns[c].DefaultCellStyle.Format.ToLower() + "}";
@@ -251,7 +251,7 @@ namespace BaseLib.Graphic{
 				textBox.Width - textBox.Margin.Left - textBox.Margin.Right,
 				textBox.Height - textBox.Margin.Top - textBox.Margin.Bottom);
 			RectangleF2 rect = new RectangleF2(GraphUtils.ToPoint2(textBox.Location) , GraphUtils.ToSize2(textBox.Size));
-			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
+			StringFormat2 format = new StringFormat2{Alignment = StringAlignment2.Near, LineAlignment = StringAlignment2.Near};
 			g.DrawString(textBox.Text, GraphUtils.ToFont2(textBox.Font) , new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), rect, format);
 		}
 
@@ -271,52 +271,52 @@ namespace BaseLib.Graphic{
 			RectangleF2 rect = new RectangleF2(GraphUtils.ToPoint2(label.Location) , GraphUtils.ToSizeF2(label.Size) );
 			g.FillRectangle(new Brush2(GraphUtils.ToColor2(label.BackColor)), rect.X, rect.Y, label.Width - label.Margin.Left - label.Margin.Right,
 				label.Height - label.Margin.Top - label.Margin.Bottom);
-			StringFormat format = new StringFormat{Alignment = StringAlignment.Near, LineAlignment = StringAlignment.Near};
+			StringFormat2 format = new StringFormat2{Alignment = StringAlignment2.Near, LineAlignment = StringAlignment2.Near};
 			g.DrawString(label.Text, GraphUtils.ToFont2(label.Font), new Brush2(GraphUtils.ToColor2(label.ForeColor)), rect, format);
 		}
 
-		private static StringFormat GetStringFormat(DataGridViewContentAlignment alignment){
-			StringFormat format = new StringFormat();
+		private static StringFormat2 GetStringFormat(DataGridViewContentAlignment alignment){
+			StringFormat2 format = new StringFormat2();
 			switch (alignment){
 				case DataGridViewContentAlignment.BottomCenter:
-					format.Alignment = StringAlignment.Center;
-					format.LineAlignment = StringAlignment.Far;
+					format.Alignment = StringAlignment2.Center;
+					format.LineAlignment = StringAlignment2.Far;
 					break;
 				case DataGridViewContentAlignment.BottomLeft:
-					format.Alignment = StringAlignment.Near;
-					format.LineAlignment = StringAlignment.Far;
+					format.Alignment = StringAlignment2.Near;
+					format.LineAlignment = StringAlignment2.Far;
 					break;
 				case DataGridViewContentAlignment.BottomRight:
-					format.Alignment = StringAlignment.Far;
-					format.LineAlignment = StringAlignment.Far;
+					format.Alignment = StringAlignment2.Far;
+					format.LineAlignment = StringAlignment2.Far;
 					break;
 				case DataGridViewContentAlignment.MiddleCenter:
-					format.Alignment = StringAlignment.Center;
-					format.LineAlignment = StringAlignment.Center;
+					format.Alignment = StringAlignment2.Center;
+					format.LineAlignment = StringAlignment2.Center;
 					break;
 				case DataGridViewContentAlignment.MiddleLeft:
-					format.Alignment = StringAlignment.Near;
-					format.LineAlignment = StringAlignment.Center;
+					format.Alignment = StringAlignment2.Near;
+					format.LineAlignment = StringAlignment2.Center;
 					break;
 				case DataGridViewContentAlignment.MiddleRight:
-					format.Alignment = StringAlignment.Far;
-					format.LineAlignment = StringAlignment.Center;
+					format.Alignment = StringAlignment2.Far;
+					format.LineAlignment = StringAlignment2.Center;
 					break;
 				case DataGridViewContentAlignment.TopCenter:
-					format.Alignment = StringAlignment.Center;
-					format.LineAlignment = StringAlignment.Near;
+					format.Alignment = StringAlignment2.Center;
+					format.LineAlignment = StringAlignment2.Near;
 					break;
 				case DataGridViewContentAlignment.TopLeft:
-					format.Alignment = StringAlignment.Near;
-					format.LineAlignment = StringAlignment.Near;
+					format.Alignment = StringAlignment2.Near;
+					format.LineAlignment = StringAlignment2.Near;
 					break;
 				case DataGridViewContentAlignment.TopRight:
-					format.Alignment = StringAlignment.Far;
-					format.LineAlignment = StringAlignment.Near;
+					format.Alignment = StringAlignment2.Far;
+					format.LineAlignment = StringAlignment2.Near;
 					break;
 				case DataGridViewContentAlignment.NotSet:
-					format.Alignment = StringAlignment.Near;
-					format.LineAlignment = StringAlignment.Center;
+					format.Alignment = StringAlignment2.Near;
+					format.LineAlignment = StringAlignment2.Center;
 					break;
 			}
 			return format;

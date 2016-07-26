@@ -187,5 +187,31 @@ namespace BaseLib.Graphic{
 					throw new Exception("Never get here.");
 			}
 		}
+
+		public static StringFormat ToStringFormat(StringFormat2 format){
+			if (format.Vertical){
+				return new StringFormat(StringFormatFlags.DirectionVertical){
+					Alignment = ToStringAlignment(format.Alignment),
+					LineAlignment = ToStringAlignment(format.LineAlignment)
+				};
+			}
+			return new StringFormat{
+				Alignment = ToStringAlignment(format.Alignment),
+				LineAlignment = ToStringAlignment(format.LineAlignment)
+			};
+		}
+
+		private static StringAlignment ToStringAlignment(StringAlignment2 alignment){
+			switch (alignment){
+				case StringAlignment2.Center:
+					return StringAlignment.Center;
+				case StringAlignment2.Near:
+					return StringAlignment.Near;
+				case StringAlignment2.Far:
+					return StringAlignment.Far;
+				default:
+					throw new Exception("Never get here.");
+			}
+		}
 	}
 }

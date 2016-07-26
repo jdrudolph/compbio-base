@@ -131,9 +131,9 @@ namespace BaseLib.Graphic{
 		/// <param name="rectangleF">System.Drawing.RectangleF structure that specifies the location of the drawn text.</param>
 		/// <param name="format">System.Drawing.StringFormat that specifies formatting attributes, such as line 
 		/// spacing and alignment, that are applied to the drawn text.</param>
-		void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat format);
+		void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat2 format);
 
-		void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat format);
+		void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format);
 
 		void DrawString(string s, Font2 font, Brush2 brush, Point2 location);
 		void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF);
