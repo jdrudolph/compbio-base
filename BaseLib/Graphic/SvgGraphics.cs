@@ -82,7 +82,7 @@ namespace BaseLib.Graphic{
 		/// <summary>
 		/// 
 		/// </summary>
-		public SmoothingMode SmoothingMode { get; set; }
+		public SmoothingMode2 SmoothingMode { get; set; }
 
 		/// <summary>
 		/// Applies the specified rotation to the transformation matrix.

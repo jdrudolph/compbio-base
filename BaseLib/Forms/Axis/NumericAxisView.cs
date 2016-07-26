@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing.Drawing2D;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 using BaseLibS.Graph;
@@ -233,7 +232,7 @@ namespace BaseLib.Forms.Axis{
 			Pen2 majorTicPen = new Pen2(ForeColor, MajorTickLineWidth);
 			Pen2 minorTicPen = new Pen2(ForeColor, MinorTickLineWidth);
 			Brush2 brush = new Brush2(ForeColor);
-			g.SmoothingMode = SmoothingMode.AntiAlias;
+			g.SmoothingMode = SmoothingMode2.AntiAlias;
 			string label = Text ?? "";
 			float x0;
 			float y0;

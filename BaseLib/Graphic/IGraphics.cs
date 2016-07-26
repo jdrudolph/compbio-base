@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using BaseLibS.Graph;
 
 namespace BaseLib.Graphic{
@@ -16,7 +15,7 @@ namespace BaseLib.Graphic{
 		/// <summary>
 		/// 
 		/// </summary>
-		SmoothingMode SmoothingMode { get; set; }
+		SmoothingMode2 SmoothingMode { get; set; }
 
 		void Dispose();
 

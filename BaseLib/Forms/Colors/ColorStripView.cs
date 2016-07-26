@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
@@ -114,7 +113,7 @@ namespace BaseLib.Forms.Colors{
 			if (oldLength != GetLength(width, height)){
 				refreshColors = true;
 			}
-			g.SmoothingMode = SmoothingMode.AntiAlias;
+			g.SmoothingMode = SmoothingMode2.AntiAlias;
 			int remainder = GetBreadth(width, height) - StripWidth;
 			int w1 = (int) Math.Round(remainder*Weight1/(Weight1 + Weight2));
 			w1 = Math.Max(1, w1);

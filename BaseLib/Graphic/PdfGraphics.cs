@@ -43,7 +43,7 @@ namespace BaseLib.Graphic{
 			writer?.Dispose();
 		}
 
-		public SmoothingMode SmoothingMode { get; set; }
+		public SmoothingMode2 SmoothingMode { get; set; }
 
 		public void SetClippingMask(int width, int height, int x, int y){
 			template = topTemplate.CreateTemplate(width, height);

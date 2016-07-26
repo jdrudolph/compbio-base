@@ -57,6 +57,7 @@
     <Compile Include="Graph\RectangleF2.cs" />
     <Compile Include="Graph\Size2.cs" />
     <Compile Include="Graph\SizeF2.cs" />
+    <Compile Include="Graph\SmoothingMode2.cs" />
     <Compile Include="Mol\AminoAcidLabel.cs" />
     <Compile Include="Mol\LabelModification.cs" />
     <Compile Include="Mol\Modification2.cs" />

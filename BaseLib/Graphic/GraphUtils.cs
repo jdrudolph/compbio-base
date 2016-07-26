@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 using BaseLibS.Graph;
 using BaseLibS.Util;
@@ -113,6 +114,44 @@ namespace BaseLib.Graphic{
 
 		public static Font2 ToFont2(Font f){
 			return new Font2(f.OriginalFontName, f.Size, ToFontStyle2(f.Style));
+		}
+
+		public static SmoothingMode ToSmoothingMode(SmoothingMode2 mode){
+			switch (mode){
+				case SmoothingMode2.Default:
+					return SmoothingMode.Default;
+				case SmoothingMode2.AntiAlias:
+					return SmoothingMode.AntiAlias;
+				case SmoothingMode2.HighQuality:
+					return SmoothingMode.HighQuality;
+				case SmoothingMode2.HighSpeed:
+					return SmoothingMode.HighSpeed;
+				case SmoothingMode2.Invalid:
+					return SmoothingMode.Invalid;
+				case SmoothingMode2.None:
+					return SmoothingMode.None;
+				default:
+					throw new Exception("Never get here.");
+			}
+		}
+
+		public static SmoothingMode2 ToSmoothingMode2(SmoothingMode mode){
+			switch (mode){
+				case SmoothingMode.Default:
+					return SmoothingMode2.Default;
+				case SmoothingMode.AntiAlias:
+					return SmoothingMode2.AntiAlias;
+				case SmoothingMode.HighQuality:
+					return SmoothingMode2.HighQuality;
+				case SmoothingMode.HighSpeed:
+					return SmoothingMode2.HighSpeed;
+				case SmoothingMode.Invalid:
+					return SmoothingMode2.Invalid;
+				case SmoothingMode.None:
+					return SmoothingMode2.None;
+				default:
+					throw new Exception("Never get here.");
+			}
 		}
 
 		public static FontStyle ToFontStyle(FontStyle2 style){

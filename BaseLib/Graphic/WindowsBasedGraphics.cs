@@ -11,9 +11,9 @@ namespace BaseLib.Graphic{
 			this.gc = gc;
 		}
 
-		public SmoothingMode SmoothingMode{
-			get { return gc.SmoothingMode; }
-			set { gc.SmoothingMode = value; }
+		public SmoothingMode2 SmoothingMode{
+			get { return GraphUtils.ToSmoothingMode2(gc.SmoothingMode) ; }
+			set { gc.SmoothingMode = GraphUtils.ToSmoothingMode(value) ; }
 		}
 
 		public Graphics Graphics => gc;
