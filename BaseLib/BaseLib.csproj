@@ -80,7 +80,6 @@
     </Compile>
     <Compile Include="Forms\Base\BasicView.cs" />
     <Compile Include="Forms\Base\FormUtil.cs" />
-    <Compile Include="Forms\Base\IPrintable.cs" />
     <Compile Include="Forms\Base\Printing.cs" />
     <Compile Include="Forms\Chars.cs" />
     <Compile Include="Forms\Colors\ColorScale.cs">
@@ -100,9 +99,7 @@
     </Compile>
     <Compile Include="Forms\Colors\ColorStripView.cs" />
     <Compile Include="Forms\GridType.cs" />
-    <Compile Include="Forms\Scroll\ICompoundScrollableControl.cs" />
     <Compile Include="Forms\Scroll\ICompoundScrollableControlClient.cs" />
-    <Compile Include="Forms\Scroll\ISimpleScrollableControl.cs" />
     <Compile Include="Forms\Scroll\ISimpleScrollableControlClient.cs" />
     <Compile Include="Forms\Table\HelpLabel.cs">
       <SubType>Component</SubType>
@@ -120,7 +117,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Scroll\HorizontalScrollBarView.cs" />
-    <Compile Include="Forms\Scroll\IScrollableControl.cs" />
     <Compile Include="Forms\Scroll\ScrollableControlColumnFooterView.cs" />
     <Compile Include="Forms\Scroll\ScrollableControlColumnHeaderView.cs" />
     <Compile Include="Forms\Scroll\ScrollableControlColumnSpacerView.cs" />
@@ -169,7 +165,6 @@
     </Compile>
     <Compile Include="Graphic\BitmapGraphics.cs" />
     <Compile Include="Graphic\CGraphics.cs" />
-    <Compile Include="Graphic\IGraphics.cs" />
     <Compile Include="Graphic\PdfGraphics.cs" />
     <Compile Include="Graphic\Svg.cs" />
     <Compile Include="Graphic\SvgGraphics.cs" />
@@ -227,24 +222,6 @@
     <Compile Include="Query\SingleChoiceQueryWindow.xaml.cs">
       <DependentUpon>SingleChoiceQueryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Symbol\DashStyles.cs" />
-    <Compile Include="Symbol\LineProperties.cs" />
-    <Compile Include="Symbol\Symbol3DProperties.cs" />
-    <Compile Include="Symbol\SymbolLineProperties.cs" />
-    <Compile Include="Symbol\SymbolProperties.cs" />
-    <Compile Include="Symbol\SymbolType.cs" />
-    <Compile Include="Symbol\SymbolTypeCircle.cs" />
-    <Compile Include="Symbol\SymbolTypeCross.cs" />
-    <Compile Include="Symbol\SymbolTypeDiagonalCross.cs" />
-    <Compile Include="Symbol\SymbolTypeDiamond.cs" />
-    <Compile Include="Symbol\SymbolTypeFilledCircle.cs" />
-    <Compile Include="Symbol\SymbolTypeFilledDiamond.cs" />
-    <Compile Include="Symbol\SymbolTypeFilledSquare.cs" />
-    <Compile Include="Symbol\SymbolTypeFilledTriangle.cs" />
-    <Compile Include="Symbol\SymbolTypeHorizontalDash.cs" />
-    <Compile Include="Symbol\SymbolTypeSquare.cs" />
-    <Compile Include="Symbol\SymbolTypeStar.cs" />
-    <Compile Include="Symbol\SymbolTypeTriangle.cs" />
     <Compile Include="Graphic\GraphUtils.cs" />
     <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
       <DependentUpon>CheckedListBoxControl.xaml</DependentUpon>

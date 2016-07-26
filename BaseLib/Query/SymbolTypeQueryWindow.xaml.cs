@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using BaseLib.Symbol;
+using BaseLibS.Symbol;
 
 namespace BaseLib.Query {
 	/// <summary>

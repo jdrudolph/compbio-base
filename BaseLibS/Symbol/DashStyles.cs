@@ -1,7 +1,7 @@
 ﻿using System;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
+namespace BaseLibS.Symbol{
 	public static class DashStyles{
 		public static DashStyle2 DashStyleFromIndex(int index){
 			switch (index){

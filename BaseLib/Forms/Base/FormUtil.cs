@@ -1,6 +1,6 @@
 using System;
 using System.Drawing;
-using BaseLib.Symbol;
+using BaseLibS.Symbol;
 
 namespace BaseLib.Forms.Base{
 	public static class FormUtil{

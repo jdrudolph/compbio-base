@@ -1,7 +1,6 @@
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
+namespace BaseLibS.Symbol{
 	public abstract class SymbolType{
 		public static SymbolType cross = new SymbolTypeCross(0);
 		public static SymbolType square = new SymbolTypeSquare(1);

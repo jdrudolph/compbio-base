@@ -1,4 +1,5 @@
 ﻿using System.Windows.Forms;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
 	public interface ICompoundScrollableControlClient{

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
-	public class SymbolTypeCross : SymbolType{
-		public SymbolTypeCross(int index) : base(index) {}
-		public override string Name => "Cross";
+namespace BaseLibS.Symbol{
+	public class SymbolTypeStar : SymbolType{
+		public SymbolTypeStar(int index) : base(index) {}
+		public override string Name => "Star";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;
@@ -14,12 +13,11 @@ namespace BaseLib.Symbol{
 			for (int i = -s2; i <= s2; i++){
 				x.Add(i);
 				y.Add(0);
-			}
-			for (int i = -s2; i <= s2; i++){
-				if (i == 0){
-					continue;
-				}
 				x.Add(0);
+				y.Add(i);
+				x.Add(i);
+				y.Add(i);
+				x.Add(-i);
 				y.Add(i);
 			}
 			pathX = x.ToArray();
@@ -30,6 +28,8 @@ namespace BaseLib.Symbol{
 			int s2 = size/2;
 			g.DrawLine(pen, x - s2, y, x + s2, y);
 			g.DrawLine(pen, x, y - s2, x, y + s2);
+			g.DrawLine(pen, x - s2, y - s2, x + s2, y + s2);
+			g.DrawLine(pen, x + s2, y - s2, x - s2, y + s2);
 		}
 	}
 }

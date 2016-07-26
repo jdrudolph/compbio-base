@@ -94,16 +94,12 @@ namespace BaseLib.Graphic{
 				GraphUtils.ToStringFormat(format));
 		}
 
-		public void DrawImage(Image image, int x, int y, int width, int height){
-			gc.DrawImage(image, x, y, width, height);
+		public void DrawImage(Bitmap2 image, int x, int y, int width, int height){
+			gc.DrawImage(GraphUtils.ToBitmap(image) , x, y, width, height);
 		}
 
-		public void DrawImage(Image image, Rectangle2 rectangle){
-			gc.DrawImage(image, ToRectangle(rectangle));
-		}
-
-		public void DrawImageUnscaled(Image image, int x, int y){
-			gc.DrawImageUnscaled(image, x, y);
+		public void DrawImageUnscaled(Bitmap2 image, int x, int y){
+			gc.DrawImageUnscaled(GraphUtils.ToBitmap(image), x, y);
 		}
 
 		public SizeF2 MeasureString(string text, Font2 font, int width){

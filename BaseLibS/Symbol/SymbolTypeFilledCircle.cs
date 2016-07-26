@@ -1,27 +1,24 @@
 using System;
 using System.Collections.Generic;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
-	public class SymbolTypeCircle : SymbolType{
-		public SymbolTypeCircle(int index) : base(index) {}
-		public override string Name => "Circle";
+namespace BaseLibS.Symbol{
+	public class SymbolTypeFilledCircle : SymbolType{
+		public SymbolTypeFilledCircle(int index) : base(index) {}
+		public override string Name => "Filled circle";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;
 			List<int> x = new List<int>();
 			List<int> y = new List<int>();
-			for (int i = -s2 + 1; i < s2; i++){
-				x.Add(i);
+			for (int i = -s2; i <= s2; i++){
 				int j = (int) Math.Round(Math.Sqrt(s2*s2 - i*i));
-				y.Add(j);
-				x.Add(i);
-				y.Add(-j);
-				x.Add(j);
-				y.Add(i);
-				x.Add(-j);
-				y.Add(i);
+				for (int k = -j; k <= j; k++){
+					x.Add(i);
+					y.Add(k);
+					x.Add(k);
+					y.Add(i);
+				}
 			}
 			pathX = x.ToArray();
 			pathY = y.ToArray();
@@ -29,7 +26,10 @@ namespace BaseLib.Symbol{
 
 		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
-			g.DrawEllipse(pen, x - s2, y - s2, size, size);
+			g.FillEllipse(brush, x - s2, y - s2, size, size);
+			if (pen != null){
+				g.DrawEllipse(pen, x - s2, y - s2, size, size);
+			}
 		}
 	}
 }

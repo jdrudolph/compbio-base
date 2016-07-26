@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Drawing;
-using BaseLibS.Graph;
 
-namespace BaseLib.Graphic{
+namespace BaseLibS.Graph{
 	/// <summary>
 	/// This interface provides the abstract basis for graphics routines for different devices (window, pdf,
 	/// etc). As such, graphics routines can be fully generalized and can be reused when exporting graphics
@@ -146,7 +144,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
 		/// <param name="width">Width of the drawn image.</param>
 		/// <param name="height">Height of the drawn image.</param>
-		void DrawImage(Image image, int x, int y, int width, int height);
+		void DrawImage(Bitmap2 image, int x, int y, int width, int height);
 
 		/// <summary>
 		/// Draws the specified image using its original physical size at the location specified by a coordinate pair.
@@ -154,7 +152,7 @@ namespace BaseLib.Graphic{
 		/// <param name="image">Image to draw.</param>
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn image.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
-		void DrawImageUnscaled(Image image, int x, int y);
+		void DrawImageUnscaled(Bitmap2 image, int x, int y);
 
 		SizeF2 MeasureString(string text, Font2 font, int width);
 		void FillClosedCurve(Brush2 brush, Point2[] points);

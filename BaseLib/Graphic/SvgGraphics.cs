@@ -405,7 +405,7 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
 		/// <param name="width">Width of the drawn image.</param>
 		/// <param name="height">Height of the drawn image.</param>
-		public void DrawImage(Image image, int x, int y, int width, int height){
+		public void DrawImage(Bitmap2 image, int x, int y, int width, int height){
 			imageList.Add(new SvgImage{X = x, Y = y, Transform = Transform});
 		}
 
@@ -414,7 +414,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="image">Image to draw.</param>
 		/// <param name="rectangle">Dimensions of the drawn image.</param>
-		public void DrawImage(Image image, Rectangle2 rectangle){
+		public void DrawImage(Bitmap2 image, Rectangle2 rectangle){
 			imageList.Add(new SvgImage{X = rectangle.X, Y = rectangle.Y, Transform = Transform});
 		}
 
@@ -424,7 +424,7 @@ namespace BaseLib.Graphic{
 		/// <param name="image">Image to draw.</param>
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn image.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
-		public void DrawImageUnscaled(Image image, int x, int y){
+		public void DrawImageUnscaled(Bitmap2 image, int x, int y){
 			imageList.Add(new SvgImage{X = x, Y = y, Transform = Transform});
 		}
 

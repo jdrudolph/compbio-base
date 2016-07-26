@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
 using BaseLibS.Graph;
@@ -147,9 +146,9 @@ namespace BaseLib.Graphic{
 		}
 
 		public void FillRectangle(Brush2 brush, float x, float y, float width, float height){
-				if ((brush).Color.IsEmpty){
-					return;
-				}
+			if ((brush).Color.IsEmpty){
+				return;
+			}
 			SetBrush(brush);
 			template.Rectangle(x, currentHeight - y, width, -height);
 			template.Fill();
@@ -282,10 +281,10 @@ namespace BaseLib.Graphic{
 			DrawString(s, font, brush, rectangleF, new StringFormat2());
 		}
 
-		public void DrawImage(System.Drawing.Image image, int x, int y, int width, int height){
-			iTextSharp.text.Image img = null;
+		public void DrawImage(Bitmap2 image, int x, int y, int width, int height){
+			Image img = null;
 			try{
-				img = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Tiff);
+				img = Image.GetInstance(GraphUtils.ToBitmap(image), System.Drawing.Imaging.ImageFormat.Tiff);
 			} catch (Exception ex){
 				Console.Error.WriteLine(ex.Message);
 			}
@@ -296,14 +295,15 @@ namespace BaseLib.Graphic{
 			}
 		}
 
-		public void DrawImage(System.Drawing.Image image, Rectangle2 rectangle){
+		public void DrawImage(Bitmap2 image, Rectangle2 rectangle){
 			DrawImage(image, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 		}
 
-		public void DrawImageUnscaled(System.Drawing.Image image, int x, int y){
+		public void DrawImageUnscaled(Bitmap2 image, int x, int y){
 			// TODO reduce the resolution to fit (?)
 			try{
-				iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(image, System.Drawing.Imaging.ImageFormat.Tiff);
+				Image img = Image.GetInstance(GraphUtils.ToBitmap(image),
+					System.Drawing.Imaging.ImageFormat.Tiff);
 				img.SetAbsolutePosition(x, (currentHeight - img.ScaledHeight) - y);
 				template.AddImage(img);
 			} catch{}
@@ -363,7 +363,7 @@ namespace BaseLib.Graphic{
 		}
 
 		private void SetBrush(Brush2 b){
-				template.SetRGBColorFill(b.Color.R, b.Color.G, b.Color.B);
+			template.SetRGBColorFill(b.Color.R, b.Color.G, b.Color.B);
 		}
 	}
 }

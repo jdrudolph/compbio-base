@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
-	public class SymbolTypeDiagonalCross : SymbolType{
-		public SymbolTypeDiagonalCross(int index) : base(index) {}
-		public override string Name => "Diagonal cross";
+namespace BaseLibS.Symbol{
+	public class SymbolTypeHorizontalDash : SymbolType{
+		public SymbolTypeHorizontalDash(int index) : base(index) {}
+		public override string Name => "Horizontal dash";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;
@@ -13,14 +12,7 @@ namespace BaseLib.Symbol{
 			List<int> y = new List<int>();
 			for (int i = -s2; i <= s2; i++){
 				x.Add(i);
-				y.Add(i);
-			}
-			for (int i = -s2; i <= s2; i++){
-				if (i == 0){
-					continue;
-				}
-				x.Add(-i);
-				y.Add(i);
+				y.Add(0);
 			}
 			pathX = x.ToArray();
 			pathY = y.ToArray();
@@ -28,8 +20,7 @@ namespace BaseLib.Symbol{
 
 		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
-			g.DrawLine(pen, x - s2, y - s2, x + s2, y + s2);
-			g.DrawLine(pen, x + s2, y - s2, x - s2, y + s2);
+			g.DrawLine(pen, x - s2, y, x + s2, y);
 		}
 	}
 }

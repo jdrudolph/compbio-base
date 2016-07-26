@@ -150,11 +150,6 @@ namespace BaseLib.Graphic{
 						((BasicControl) control).view.Print(g, control.Width, control.Height);
 					} else if (control is Panel){
 						DoPaint(g, control as Panel, container.Location.X + addx, container.Location.Y + addy);
-					} else if (control is PictureBox){
-						PictureBox box = control as PictureBox;
-						if (box.Image != null){
-							g.DrawImage(box.Image, box.Location.X, box.Location.Y, box.Size.Width, box.Size.Height);
-						}
 					} else{
 						DoPaint(g, control);
 					}

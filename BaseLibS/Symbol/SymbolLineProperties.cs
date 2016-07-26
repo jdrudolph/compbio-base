@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BaseLib.Symbol{
+namespace BaseLibS.Symbol{
 	public class SymbolLineProperties : IComparable<SymbolLineProperties>{
 		public SymbolProperties SymbolProperties { get; set; }
 		public LineProperties LineProperties { get; set; }

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
-	public class SymbolTypeFilledTriangle : SymbolType{
-		public SymbolTypeFilledTriangle(int index) : base(index) {}
-		public override string Name => "Filled triangle";
+namespace BaseLibS.Symbol{
+	public class SymbolTypeTriangle : SymbolType{
+		public SymbolTypeTriangle(int index) : base(index) {}
+		public override string Name => "Triangle";
 
 		public override void GetPath(int size, out int[] pathX, out int[] pathY){
 			int s2 = size/2;
@@ -20,10 +19,10 @@ namespace BaseLib.Symbol{
 			}
 			for (int i = min + 1; i <= max; i++){
 				int k = (int) Math.Round((max - i)/(float) (max - min)*s2);
-				for (int l = -k; l <= k; l++){
-					x.Add(l);
-					y.Add(-i);
-				}
+				x.Add(k);
+				y.Add(-i);
+				x.Add(-k);
+				y.Add(-i);
 			}
 			pathX = x.ToArray();
 			pathY = y.ToArray();
@@ -31,8 +30,7 @@ namespace BaseLib.Symbol{
 
 		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
-			Point2[] points = {new Point2(x, y - s2), new Point2(x - s2, y - s2), new Point2(x + s2, y - s2)};
-			g.FillPolygon(brush, points);
+			Point2[] points = {new Point2(x, y + s2), new Point2(x - s2, y - s2), new Point2(x + s2, y - s2)};
 			g.DrawPolygon(pen, points);
 		}
 	}

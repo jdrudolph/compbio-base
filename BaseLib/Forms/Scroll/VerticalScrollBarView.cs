@@ -9,15 +9,15 @@ namespace BaseLib.Forms.Scroll{
 	internal sealed class VerticalScrollBarView : BasicView{
 		private readonly IScrollableControl main;
 		private ScrollBarState state = ScrollBarState.Neutral;
-		private Bitmap firstMark;
-		private Bitmap firstMarkHighlight;
-		private Bitmap firstMarkPress;
-		private Bitmap secondMark;
-		private Bitmap secondMarkHighlight;
-		private Bitmap secondMarkPress;
-		private Bitmap bar;
-		private Bitmap barHighlight;
-		private Bitmap barPress;
+		private Bitmap2 firstMark;
+		private Bitmap2 firstMarkHighlight;
+		private Bitmap2 firstMarkPress;
+		private Bitmap2 secondMark;
+		private Bitmap2 secondMarkHighlight;
+		private Bitmap2 secondMarkPress;
+		private Bitmap2 bar;
+		private Bitmap2 barHighlight;
+		private Bitmap2 barPress;
 		private int dragStart = -1;
 		private int visibleDragStart = -1;
 		private Thread downThread;
@@ -116,12 +116,12 @@ namespace BaseLib.Forms.Scroll{
 			GraphUtil.FillShadedRectangle(b, w, h);
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
-			bar = GraphUtils.ToBitmap(b);
-			bar.MakeTransparent();
-			barHighlight = GraphUtils.ToBitmap(bh);
-			barHighlight.MakeTransparent();
-			barPress = GraphUtils.ToBitmap(bp);
-			barPress.MakeTransparent();
+			bar = b;
+			//bar.MakeTransparent();
+			barHighlight = bh;
+			//barHighlight.MakeTransparent();
+			barPress = bp;
+			//barPress.MakeTransparent();
 		}
 
 		private int CalcBarStart(int height){
@@ -155,12 +155,12 @@ namespace BaseLib.Forms.Scroll{
 			GraphUtil.FillShadedRectangle(b, w, h);
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
-			firstMark = GraphUtils.ToBitmap(b);
-			firstMark.MakeTransparent();
-			firstMarkHighlight = GraphUtils.ToBitmap(bh);
-			firstMarkHighlight.MakeTransparent();
-			firstMarkPress = GraphUtils.ToBitmap(bp);
-			firstMarkPress.MakeTransparent();
+			firstMark = b;
+			//firstMark.MakeTransparent();
+			firstMarkHighlight = bh;
+			//firstMarkHighlight.MakeTransparent();
+			firstMarkPress = bp;
+			//firstMarkPress.MakeTransparent();
 		}
 
 		private void CreateSecondMark(int scrollBarWid){
@@ -170,12 +170,12 @@ namespace BaseLib.Forms.Scroll{
 			GraphUtil.FillShadedRectangle(b, w, h);
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
-			secondMark = GraphUtils.ToBitmap(b);
-			secondMark.MakeTransparent();
-			secondMarkHighlight = GraphUtils.ToBitmap(bh);
-			secondMarkHighlight.MakeTransparent();
-			secondMarkPress = GraphUtils.ToBitmap(bp);
-			secondMarkPress.MakeTransparent();
+			secondMark = b;
+			//secondMark.MakeTransparent();
+			secondMarkHighlight = bh;
+			//secondMarkHighlight.MakeTransparent();
+			secondMarkPress = bp;
+			//secondMarkPress.MakeTransparent();
 		}
 
 		protected internal override void OnMouseMoved(BasicMouseEventArgs e){

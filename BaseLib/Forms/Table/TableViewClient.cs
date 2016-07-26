@@ -8,10 +8,10 @@ using System.Windows.Forms;
 using BaseLib.Forms.Scroll;
 using BaseLib.Graphic;
 using BaseLib.Properties;
-using BaseLib.Symbol;
 using BaseLib.Wpf;
 using BaseLibS.Graph;
 using BaseLibS.Num;
+using BaseLibS.Symbol;
 using BaseLibS.Table;
 using BaseLibS.Util;
 
@@ -426,13 +426,16 @@ namespace BaseLib.Forms.Table{
 						if (sortCol != -1 && sortState != SortState.Unsorted){
 							int x1 = columnWidthSums[sortCol] - x - 11;
 							if (x1 >= -15 && x1 <= width){
-								g.DrawImage(sortState == SortState.Increasing ? Resources.arrowDown1 : Resources.arrowUp1, x1, 6, 9, 13);
+								g.DrawImage(
+									sortState == SortState.Increasing
+										? GraphUtils.ToBitmap2(Resources.arrowDown1)
+										: GraphUtils.ToBitmap2(Resources.arrowUp1), x1, 6, 9, 13);
 							}
 						}
 						if (helpCol != -1){
 							int x1 = (helpCol == 0 ? 0 : columnWidthSums[helpCol - 1]) - x + 5;
 							if (x1 >= -15 && x1 <= width){
-								g.DrawImage(Resources.question12, x1, 7, 10, 10);
+								g.DrawImage(GraphUtils.ToBitmap2(Resources.question12), x1, 7, 10, 10);
 							}
 						}
 						if (model != null && model.AnnotationRowsCount > 0){
@@ -462,7 +465,7 @@ namespace BaseLib.Forms.Table{
 				g.DrawLine(Pens2.White, 1, 1, control1.RowHeaderWidth - 2, 1);
 				g.DrawLine(Pens2.White, 1, 1, 1, control1.ColumnHeaderHeight - 2);
 				if (matrixHelp){
-					g.DrawImage(Resources.question12, 7, 7, 10, 10);
+					g.DrawImage(GraphUtils.ToBitmap2(Resources.question12), 7, 7, 10, 10);
 				}
 				if (model != null && model.AnnotationRowsCount > 0){
 					for (int i = 0; i < model.AnnotationRowsCount; i++){
@@ -1064,11 +1067,11 @@ namespace BaseLib.Forms.Table{
 			}
 			FontDialog fontDialog = new FontDialog{
 				ShowColor = true,
-				Font = GraphUtils.ToFont(textFont) ,
+				Font = GraphUtils.ToFont(textFont),
 				Color = Color.FromArgb(textColor.A, textColor.R, textColor.G, textColor.B)
 			};
 			if (fontDialog.ShowDialog() != DialogResult.Cancel){
-				textFont = GraphUtils.ToFont2(fontDialog.Font) ;
+				textFont = GraphUtils.ToFont2(fontDialog.Font);
 				textColor = Color2.FromArgb(fontDialog.Color.A, fontDialog.Color.R, fontDialog.Color.G, fontDialog.Color.B);
 				textBrush = new Brush2(textColor);
 			}

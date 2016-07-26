@@ -1,9 +1,6 @@
 ﻿using System;
-using BaseLib.Forms.Base;
-using BaseLib.Graphic;
-using BaseLibS.Graph;
 
-namespace BaseLib.Forms.Scroll {
+namespace BaseLibS.Graph {
 	public interface IScrollableControl : IPrintable{
 		Func<int> TotalWidth { get; set; }
 		Func<int> TotalHeight { get; set; }

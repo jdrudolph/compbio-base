@@ -45,6 +45,11 @@
     <Compile Include="Graph\GenericFontFamilies2.cs" />
     <Compile Include="Graph\GraphicsPath2.cs" />
     <Compile Include="Graph\GraphUtil.cs" />
+    <Compile Include="Graph\ICompoundScrollableControl.cs" />
+    <Compile Include="Graph\IGraphics.cs" />
+    <Compile Include="Graph\IPrintable.cs" />
+    <Compile Include="Graph\IScrollableControl.cs" />
+    <Compile Include="Graph\ISimpleScrollableControl.cs" />
     <Compile Include="Graph\KnownColor.cs" />
     <Compile Include="Graph\KnownColorTable.cs" />
     <Compile Include="Graph\PathPointType2.cs" />
@@ -207,6 +212,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Symbol\DashStyles.cs" />
+    <Compile Include="Symbol\LineProperties.cs" />
+    <Compile Include="Symbol\Symbol3DProperties.cs" />
+    <Compile Include="Symbol\SymbolLineProperties.cs" />
+    <Compile Include="Symbol\SymbolProperties.cs" />
+    <Compile Include="Symbol\SymbolType.cs" />
+    <Compile Include="Symbol\SymbolTypeCircle.cs" />
+    <Compile Include="Symbol\SymbolTypeCross.cs" />
+    <Compile Include="Symbol\SymbolTypeDiagonalCross.cs" />
+    <Compile Include="Symbol\SymbolTypeDiamond.cs" />
+    <Compile Include="Symbol\SymbolTypeFilledCircle.cs" />
+    <Compile Include="Symbol\SymbolTypeFilledDiamond.cs" />
+    <Compile Include="Symbol\SymbolTypeFilledSquare.cs" />
+    <Compile Include="Symbol\SymbolTypeFilledTriangle.cs" />
+    <Compile Include="Symbol\SymbolTypeHorizontalDash.cs" />
+    <Compile Include="Symbol\SymbolTypeSquare.cs" />
+    <Compile Include="Symbol\SymbolTypeStar.cs" />
+    <Compile Include="Symbol\SymbolTypeTriangle.cs" />
     <Compile Include="Table\ColumnType.cs" />
     <Compile Include="Table\DataAnnotationRow.cs" />
     <Compile Include="Table\DataRow2.cs" />

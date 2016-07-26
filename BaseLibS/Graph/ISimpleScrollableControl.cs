@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Forms.Scroll{
+﻿namespace BaseLibS.Graph{
 	public interface ISimpleScrollableControl : IScrollableControl{
 		
 	}

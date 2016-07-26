@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
+namespace BaseLibS.Symbol{
 	public class SymbolTypeFilledDiamond : SymbolType{
 		public SymbolTypeFilledDiamond(int index) : base(index) {}
 		public override string Name => "Filled diamond";

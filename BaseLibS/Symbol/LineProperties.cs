@@ -1,7 +1,7 @@
 ﻿using System;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
+namespace BaseLibS.Symbol{
 	public class LineProperties : IComparable<LineProperties>{
 		public Color2 Color { get; set; }
 		public int Width { get; set; }

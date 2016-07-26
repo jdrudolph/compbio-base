@@ -1,8 +1,6 @@
 ﻿using System;
-using BaseLib.Graphic;
-using BaseLibS.Graph;
 
-namespace BaseLib.Forms.Scroll{
+namespace BaseLibS.Graph{
 	public interface ICompoundScrollableControl : IScrollableControl{
 		int Width { get; set; }
 		int Height { get; set; }

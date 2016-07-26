@@ -1,5 +1,6 @@
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
+using BaseLibS.Graph;
 
 namespace BaseLib.Graphic{
 	public abstract class BaseDrawControl : BasicUserControl{

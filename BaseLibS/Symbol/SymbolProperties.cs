@@ -1,19 +1,21 @@
 ﻿using System;
 using BaseLibS.Graph;
 
-namespace BaseLib.Symbol{
-	public class Symbol3DProperties : IComparable<Symbol3DProperties>{
+namespace BaseLibS.Symbol{
+	public class SymbolProperties : IComparable<SymbolProperties>{
 		public Color2 Color { get; set; }
 		public int Size { get; set; }
 		public int Type { get; set; }
+		public bool ShowLabel { get; set; }
 
-		public Symbol3DProperties(Color2 color, int size, int type){
+		public SymbolProperties(Color2 color, int size, int type, bool showLabel){
 			Color = color;
 			Size = size;
 			Type = type;
+			ShowLabel = showLabel;
 		}
 
-		public int CompareTo(Symbol3DProperties other){
+		public int CompareTo(SymbolProperties other){
 			if (Color.R != other.Color.R){
 				return Color.R.CompareTo(other.Color.R);
 			}
@@ -36,10 +38,10 @@ namespace BaseLib.Symbol{
 			if (ReferenceEquals(this, obj)){
 				return true;
 			}
-			return obj.GetType() == typeof (Symbol3DProperties) && Equals((Symbol3DProperties) obj);
+			return obj.GetType() == typeof (SymbolProperties) && Equals((SymbolProperties) obj);
 		}
 
-		public bool Equals(Symbol3DProperties other){
+		public bool Equals(SymbolProperties other){
 			if (ReferenceEquals(null, other)){
 				return false;
 			}
@@ -53,7 +55,7 @@ namespace BaseLib.Symbol{
 			unchecked{
 				int result = Color.GetHashCode();
 				result = (result*397) ^ Size;
-				result = (result*397) ^ Type;
+				result = (result * 397) ^ Type;
 				return result;
 			}
 		}
