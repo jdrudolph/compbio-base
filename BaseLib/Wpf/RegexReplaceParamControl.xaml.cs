@@ -21,16 +21,16 @@ using iTextSharp.text.pdf;
 namespace BaseLib.Wpf
 {
     /// <summary>
-    /// Interaction logic for RegexParamControl.xaml
+    /// Interaction logic for RegexReplaceParamControl.xaml
     /// </summary>
-    public partial class RegexParamControl : UserControl
+    public partial class RegexReplaceParamControl : UserControl
     {
-        public RegexParamControl(Tuple<Regex, string, List<string>> value) : this(value.Item1, value.Item2, value.Item3) { }
+        public RegexReplaceParamControl(Tuple<Regex, string, List<string>> value) : this(value.Item1, value.Item2, value.Item3) { }
 
-        public RegexParamControl(Regex pattern, string replacement, List<string> items)
+        public RegexReplaceParamControl(Regex pattern, string replacement, List<string> items)
         {
             InitializeComponent();
-            DataContext = new RegexParamViewModel(pattern, replacement, items);
+            DataContext = new RegexReplaceParamViewModel(pattern, replacement, items);
         }
     }
 
@@ -83,7 +83,7 @@ namespace BaseLib.Wpf
         }
     }
 
-    internal class RegexParamViewModel : INotifyPropertyChanged
+    internal class RegexReplaceParamViewModel : INotifyPropertyChanged
     {
         private Regex _pattern;
         public Regex Pattern { get { return _pattern; } set { _pattern = value; OnPropertyChanged(nameof(Pattern)); OnPropertyChanged(nameof(Items));} }
@@ -92,7 +92,7 @@ namespace BaseLib.Wpf
         private List<string> _items;
         public ObservableCollection<Item> Items => new ObservableCollection<Item>(_items.Select(itm => new Item(Pattern, Replacement, itm)).ToList()); 
 
-        public RegexParamViewModel(Regex pattern, string replacement, List<string> items)
+        public RegexReplaceParamViewModel(Regex pattern, string replacement, List<string> items)
         {
             Pattern = pattern;
             Replacement = replacement;

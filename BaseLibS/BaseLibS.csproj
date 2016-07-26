@@ -198,9 +198,10 @@
     <Compile Include="Param\Parameters.cs" />
     <Compile Include="Param\ParameterWithSubParams.cs" />
     <Compile Include="Param\ParamType.cs" />
+    <Compile Include="Param\RegexMatchParam.cs" />
     <Compile Include="Param\SingleChoiceParam.cs" />
     <Compile Include="Param\SingleChoiceWithSubParams.cs" />
-    <Compile Include="Param\RegexParam.cs" />
+    <Compile Include="Param\RegexReplaceParam.cs" />
     <Compile Include="Param\StringParam.cs" />
     <Compile Include="Parse\Misc\MiniProteinAnnotation.cs" />
     <Compile Include="Parse\TabSep.cs" />

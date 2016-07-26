@@ -7,9 +7,22 @@ namespace BaseLib.Param{
 			if (p.Type == ParamType.Wpf){
 				return p;
 			}
-			if (p is RegexParam){
-				RegexParam q = (RegexParam) p;
-				RegexParamWpf b = new RegexParamWpf(q.Name, q.Value){
+			if (p is RegexReplaceParam){
+				RegexReplaceParam q = (RegexReplaceParam) p;
+				RegexReplaceParamWpf b = new RegexReplaceParamWpf(q.Name, q.Value){
+					Help = q.Help,
+					Visible = q.Visible,
+					Default = q.Default,
+					Url = q.Url
+				};
+				foreach (ValueChangedHandler act in q.GetPropertyChangedHandlers()){
+					b.ValueChanged += act;
+				}
+				return b;
+			}
+			if (p is RegexMatchParam){
+				RegexMatchParam q = (RegexMatchParam) p;
+				RegexMatchParamWpf b = new RegexMatchParamWpf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,

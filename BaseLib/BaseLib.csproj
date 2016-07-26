@@ -137,7 +137,8 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Graphic\ExportGraphics.cs" />
-    <Compile Include="Param\RegexParamWpf.cs" />
+    <Compile Include="Param\RegexReplaceParamWpf.cs" />
+    <Compile Include="Param\RegexMatchParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Wpf\ITableSelectionAgent.cs" />
     <Compile Include="Forms\Table\ListSelector.cs">
@@ -254,8 +255,11 @@
     <Compile Include="Wpf\MultiListSelectorControl.xaml.cs">
       <DependentUpon>MultiListSelectorControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\RegexParamControl.xaml.cs">
-      <DependentUpon>RegexParamControl.xaml</DependentUpon>
+    <Compile Include="Wpf\RegexMatchParamControl.xaml.cs">
+      <DependentUpon>RegexMatchParamControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\RegexReplaceParamControl.xaml.cs">
+      <DependentUpon>RegexReplaceParamControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\SubSelectionControl.xaml.cs">
       <DependentUpon>SubSelectionControl.xaml</DependentUpon>
@@ -469,7 +473,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\RegexParamControl.xaml">
+    <Page Include="Wpf\RegexMatchParamControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Wpf\RegexReplaceParamControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
