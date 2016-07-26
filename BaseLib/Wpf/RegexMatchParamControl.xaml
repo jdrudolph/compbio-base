@@ -22,7 +22,7 @@
                 </TextBox.Text>
             </TextBox>
         </StackPanel>
-        <DataGrid AutoGenerateColumns="False"  ItemsSource="{Binding Matches}" local:DataGridColumnsBehavior.BindableColumns="{Binding MatchColumns}">
+        <DataGrid AutoGenerateColumns="False"  ItemsSource="{Binding Matches}" local:Behaviors.BindableColumns="{Binding MatchColumns}">
         </DataGrid>
     </StackPanel>
 </UserControl>

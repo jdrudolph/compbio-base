@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -46,40 +44,6 @@ namespace BaseLib.Wpf
             _regex = regex;
             _replacement = replacement;
             Current = item;
-        }
-    }
-
-    public class StringToRegexConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return ((Regex) value).ToString();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return new Regex((string) value);
-        }
-    }
-
-    public class StringToRegexValidationRule : ValidationRule
-    {
-        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
-        {
-            var str = (string) value;
-            if (str == null)
-            {
-                return new ValidationResult(false, "value was null");
-            }
-            try
-            {
-                var regex = new Regex(str);
-                return new ValidationResult(true, "");
-            }
-            catch (ArgumentException)
-            {
-                return new ValidationResult(false, $"'{str}' is not a valid Regex");
-            }
         }
     }
 

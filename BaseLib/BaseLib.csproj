@@ -140,6 +140,8 @@
     <Compile Include="Param\RegexReplaceParamWpf.cs" />
     <Compile Include="Param\RegexMatchParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Wpf\Converters.cs" />
+    <Compile Include="Wpf\Behaviors.cs" />
     <Compile Include="Wpf\ITableSelectionAgent.cs" />
     <Compile Include="Forms\Table\ListSelector.cs">
       <SubType>UserControl</SubType>
@@ -280,6 +282,7 @@
     <Compile Include="Wpf\TableViewSelectionAgentWindow.xaml.cs">
       <DependentUpon>TableViewSelectionAgentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\ValidationRules.cs" />
     <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\Axis\NumericAxisPropertiesForm.resx">
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>
