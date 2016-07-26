@@ -46,10 +46,14 @@
     <Compile Include="Graph\GraphicsPath2.cs" />
     <Compile Include="Graph\GraphUtil.cs" />
     <Compile Include="Graph\ICompoundScrollableControl.cs" />
+    <Compile Include="Graph\ICompoundScrollableControlClient.cs" />
     <Compile Include="Graph\IGraphics.cs" />
     <Compile Include="Graph\IPrintable.cs" />
     <Compile Include="Graph\IScrollableControl.cs" />
+    <Compile Include="Graph\IScrollableControlClient.cs" />
     <Compile Include="Graph\ISimpleScrollableControl.cs" />
+    <Compile Include="Graph\ISimpleScrollableControlClient.cs" />
+    <Compile Include="Graph\Keys2.cs" />
     <Compile Include="Graph\KnownColor.cs" />
     <Compile Include="Graph\KnownColorTable.cs" />
     <Compile Include="Graph\PathPointType2.cs" />

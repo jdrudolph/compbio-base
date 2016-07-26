@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using BaseLib.Forms.Scroll;
 using BaseLib.Graphic;
 using BaseLib.Properties;
 using BaseLib.Wpf;
@@ -1422,7 +1421,7 @@ namespace BaseLib.Forms.Table{
 				}
 			}
 			string s = "" + o;
-			return GraphUtils.GetStringValue(g, s, width, font);
+			return GraphUtil.GetStringValue(g, s, width, font);
 		}
 
 		private void CheckSizes(){
@@ -1442,7 +1441,7 @@ namespace BaseLib.Forms.Table{
 
 		private string[] GetStringHeader(IGraphics g, int col, int width, Font2 font){
 			string s = model.GetColumnName(col);
-			string[] q = GraphUtils.WrapString(g, s, width, font);
+			string[] q = GraphUtil.WrapString(g, s, width, font);
 			if (q.Length > maxColHeaderStringSplits){
 				Array.Resize(ref q, maxColHeaderStringSplits);
 			}
@@ -1670,25 +1669,25 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		public void ProcessCmdKey(Keys keyData){
+		public void ProcessCmdKey(Keys2 keyData){
 			switch (keyData){
-				case Keys.Shift | Keys.Home:
-				case Keys.Home:{
+				case Keys2.Shift | Keys2.Home:
+				case Keys2.Home:{
 					control.VisibleX = 0;
 					control.Invalidate(true);
 				}
 					break;
-				case Keys.Shift | Keys.End:
-				case Keys.End:{
+				case Keys2.Shift | Keys2.End:
+				case Keys2.End:{
 					ScrollToEnd();
 					control.Invalidate(true);
 				}
 					break;
-				case Keys.Shift | Keys.Down:
-				case Keys.Down:{
+				case Keys2.Shift | Keys2.Down:
+				case Keys2.Down:{
 					int[] selection = GetSelectedRowsView();
 					if (selection != null && selection.Length != 0 && selection[selection.Length - 1] < RowCount - 1){
-						if (keyData == Keys.Down){
+						if (keyData == Keys2.Down){
 							modelRowSel[order[selection[selection.Length - 1]]] = false;
 						}
 						SetSelectedViewIndex(selection[selection.Length - 1] + 1);
@@ -1697,11 +1696,11 @@ namespace BaseLib.Forms.Table{
 					}
 				}
 					break;
-				case Keys.Shift | Keys.Up:
-				case Keys.Up:{
+				case Keys2.Shift | Keys2.Up:
+				case Keys2.Up:{
 					int[] selection = GetSelectedRowsView();
 					if (selection != null && selection.Length != 0 && selection[0] > 0){
-						if (keyData == Keys.Up){
+						if (keyData == Keys2.Up){
 							modelRowSel[order[selection[0]]] = false;
 						}
 						SetSelectedViewIndex(selection[0] - 1);
@@ -1710,17 +1709,17 @@ namespace BaseLib.Forms.Table{
 					}
 				}
 					break;
-				case Keys.Control | Keys.A:
+				case Keys2.Control | Keys2.A:
 					SelectAll();
 					control.Invalidate(true);
 					break;
-				case Keys.Control | Keys.C:
+				case Keys2.Control | Keys2.C:
 					Copy();
 					break;
-				case Keys.Control | Keys.F:
+				case Keys2.Control | Keys2.F:
 					Find();
 					break;
-				case Keys.Control | Keys.G:
+				case Keys2.Control | Keys2.G:
 					Goto();
 					break;
 			}

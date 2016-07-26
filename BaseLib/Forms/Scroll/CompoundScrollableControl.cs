@@ -7,7 +7,6 @@ using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
 	public sealed class CompoundScrollableControl : UserControl, ICompoundScrollableControl{
-		public const int scrollBarWidth = 18;
 		private int rowHeaderWidth = 40;
 		private int rowFooterWidth;
 		private int columnHeaderHeight = 40;
@@ -250,10 +249,10 @@ namespace BaseLib.Forms.Scroll{
 		public Func<int> DeltaY { get; set; }
 		public Func<int> DeltaUpToSelection { get; set; }
 		public Func<int> DeltaDownToSelection { get; set; }
-		public int ClientWidth => Width - scrollBarWidth;
-		public int ClientHeight => Height - scrollBarWidth;
-		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - scrollBarWidth;
-		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - scrollBarWidth;
+		public int ClientWidth => Width - GraphUtil.scrollBarWidth;
+		public int ClientHeight => Height - GraphUtil.scrollBarWidth;
+		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - GraphUtil.scrollBarWidth;
+		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - GraphUtil.scrollBarWidth;
 		public int TotalClientWidth => TotalWidth() + RowHeaderWidth + RowFooterWidth;
 		public int TotalClientHeight => TotalHeight() + ColumnHeaderHeight + ColumnFooterHeight;
 		private ICompoundScrollableControlClient client;
@@ -311,13 +310,13 @@ namespace BaseLib.Forms.Scroll{
 			smallCornerView = new ScrollableControlSmallCornerView();
 			SuspendLayout();
 			tableLayoutPanel1.ColumnStyles.Add(new BasicColumnStyle(BasicSizeType.Percent, 100F));
-			tableLayoutPanel1.ColumnStyles.Add(new BasicColumnStyle(BasicSizeType.Absolute, scrollBarWidth));
+			tableLayoutPanel1.ColumnStyles.Add(new BasicColumnStyle(BasicSizeType.Absolute, GraphUtil.scrollBarWidth));
 			tableLayoutPanel1.Add(tableLayoutPanel2, 0, 0);
 			tableLayoutPanel1.Add(horizontalScrollBarView, 0, 1);
 			tableLayoutPanel1.Add(verticalScrollBarView, 1, 0);
 			tableLayoutPanel1.Add(smallCornerView, 1, 1);
 			tableLayoutPanel1.RowStyles.Add(new BasicRowStyle(BasicSizeType.Percent, 100F));
-			tableLayoutPanel1.RowStyles.Add(new BasicRowStyle(BasicSizeType.Absolute, scrollBarWidth));
+			tableLayoutPanel1.RowStyles.Add(new BasicRowStyle(BasicSizeType.Absolute, GraphUtil.scrollBarWidth));
 			tableLayoutPanel2.ColumnStyles.Add(new BasicColumnStyle(BasicSizeType.AbsoluteResizeable, rowHeaderWidth));
 			tableLayoutPanel2.ColumnStyles.Add(new BasicColumnStyle(BasicSizeType.Percent, 100F));
 			tableLayoutPanel2.ColumnStyles.Add(new BasicColumnStyle(BasicSizeType.AbsoluteResizeable, rowFooterWidth));
@@ -359,7 +358,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
-			client?.ProcessCmdKey(keyData);
+			client?.ProcessCmdKey((Keys2)keyData);
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 

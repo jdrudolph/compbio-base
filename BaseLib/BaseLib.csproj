@@ -99,8 +99,6 @@
     </Compile>
     <Compile Include="Forms\Colors\ColorStripView.cs" />
     <Compile Include="Forms\GridType.cs" />
-    <Compile Include="Forms\Scroll\ICompoundScrollableControlClient.cs" />
-    <Compile Include="Forms\Scroll\ISimpleScrollableControlClient.cs" />
     <Compile Include="Forms\Table\HelpLabel.cs">
       <SubType>Component</SubType>
     </Compile>

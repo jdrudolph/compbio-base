@@ -1,7 +1,6 @@
 using System;
 using System.Threading;
 using BaseLib.Forms.Base;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
@@ -34,8 +33,8 @@ namespace BaseLib.Forms.Scroll{
 			Pen2 p = new Pen2(Color2.FromArgb(172, 168, 153));
 			g.DrawLine(p, 0, height - 1, width, height - 1);
 			int[][] rgbs = GraphUtil.InterpolateRgb(243, 241, 236, 254, 254, 251,
-				CompoundScrollableControl.scrollBarWidth - 2);
-			for (int i = 0; i < CompoundScrollableControl.scrollBarWidth - 2; i++){
+				GraphUtil.scrollBarWidth - 2);
+			for (int i = 0; i < GraphUtil.scrollBarWidth - 2; i++){
 				p = new Pen2(Color2.FromArgb(rgbs[0][i], rgbs[1][i], rgbs[2][i]));
 				g.DrawLine(p, 0, i + 1, width, i + 1);
 			}
@@ -45,9 +44,9 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		protected internal override void OnPaint(IGraphics g, int width, int height){
-			PaintFirstMark(g, CompoundScrollableControl.scrollBarWidth);
-			PaintSecondMark(g, CompoundScrollableControl.scrollBarWidth, width);
-			PaintBar(g, CompoundScrollableControl.scrollBarWidth, width);
+			PaintFirstMark(g, GraphUtil.scrollBarWidth);
+			PaintSecondMark(g, GraphUtil.scrollBarWidth, width);
+			PaintBar(g, GraphUtil.scrollBarWidth, width);
 		}
 
 		private void PaintBar(IGraphics g, int scrollBarWid, int width){
@@ -125,26 +124,26 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		private int CalcBarStart(int width){
-			int hx = width - 2*CompoundScrollableControl.scrollBarWidth + 2;
+			int hx = width - 2* GraphUtil.scrollBarWidth + 2;
 			if (hx <= 0){
-				return CompoundScrollableControl.scrollBarWidth - 1;
+				return GraphUtil.scrollBarWidth - 1;
 			}
 			int w = (int) Math.Round(hx*(main.VisibleX/(double) (main.TotalWidth() - 1)));
 			w = Math.Min(w, hx - 5);
-			return Math.Max(0, w) + CompoundScrollableControl.scrollBarWidth - 1;
+			return Math.Max(0, w) + GraphUtil.scrollBarWidth - 1;
 		}
 
 		private int CalcBarEnd(int width){
-			int hx = width - 2*CompoundScrollableControl.scrollBarWidth + 2;
+			int hx = width - 2* GraphUtil.scrollBarWidth + 2;
 			if (hx <= 0){
-				return CompoundScrollableControl.scrollBarWidth - 1;
+				return GraphUtil.scrollBarWidth - 1;
 			}
 			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleX + main.VisibleWidth)/(double) (main.TotalWidth() - 1)))) +
-					CompoundScrollableControl.scrollBarWidth - 1;
+					GraphUtil.scrollBarWidth - 1;
 		}
 
 		private int CalcBarSize(int width){
-			int hx = width - 2*CompoundScrollableControl.scrollBarWidth + 2;
+			int hx = width - 2* GraphUtil.scrollBarWidth + 2;
 			if (hx <= 0){
 				return 5;
 			}
@@ -179,9 +178,9 @@ namespace BaseLib.Forms.Scroll{
 
 		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
 			ScrollBarState newState = ScrollBarState.Neutral;
-			if (e.X < CompoundScrollableControl.scrollBarWidth - 1){
+			if (e.X < GraphUtil.scrollBarWidth - 1){
 				newState = ScrollBarState.HighlightFirstBox;
-			} else if (e.X > e.Width - CompoundScrollableControl.scrollBarWidth){
+			} else if (e.X > e.Width - GraphUtil.scrollBarWidth){
 				newState = ScrollBarState.HighlightSecondBox;
 			} else if (HasBar){
 				int s = CalcBarStart(e.Width);
@@ -198,12 +197,12 @@ namespace BaseLib.Forms.Scroll{
 
 		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
 			ScrollBarState newState = ScrollBarState.Neutral;
-			if (e.X < CompoundScrollableControl.scrollBarWidth - 1){
+			if (e.X < GraphUtil.scrollBarWidth - 1){
 				newState = ScrollBarState.PressFirstBox;
 				MoveLeft(main.DeltaX());
 				leftThread = new Thread(() => WalkLeft(main.DeltaX()));
 				leftThread.Start();
-			} else if (e.X > e.Width - CompoundScrollableControl.scrollBarWidth){
+			} else if (e.X > e.Width - GraphUtil.scrollBarWidth){
 				newState = ScrollBarState.PressSecondBox;
 				MoveRight(main.DeltaX());
 				rightThread = new Thread(() => WalkRight(main.DeltaX()));
@@ -265,7 +264,7 @@ namespace BaseLib.Forms.Scroll{
 			if (state != ScrollBarState.PressBar){
 				return;
 			}
-			int hx = e.Width - 2*CompoundScrollableControl.scrollBarWidth + 2;
+			int hx = e.Width - 2* GraphUtil.scrollBarWidth + 2;
 			int x = visibleDragStart + (int) Math.Round((e.X - dragStart)/(double) hx*main.TotalWidth());
 			x = Math.Max(0, x);
 			x = Math.Min(main.TotalWidth() - main.VisibleWidth, x);

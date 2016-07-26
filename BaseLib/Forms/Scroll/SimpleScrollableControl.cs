@@ -133,7 +133,7 @@ namespace BaseLib.Forms.Scroll{
 			SuspendLayout();
 			tableLayoutPanel1.ColumnCount = 2;
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, CompoundScrollableControl.scrollBarWidth));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, GraphUtil.scrollBarWidth));
 			mainControl = mainView.CreateControl();
 			tableLayoutPanel1.Controls.Add(mainControl, 0, 0);
 			tableLayoutPanel1.Controls.Add(horizontalScrollBar.CreateControl(), 0, 1);
@@ -145,7 +145,7 @@ namespace BaseLib.Forms.Scroll{
 			tableLayoutPanel1.Name = "tableLayoutPanel1";
 			tableLayoutPanel1.RowCount = 2;
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, CompoundScrollableControl.scrollBarWidth));
+			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, GraphUtil.scrollBarWidth));
 			tableLayoutPanel1.Size = new Size(409, 390);
 			tableLayoutPanel1.TabIndex = 0;
 			AutoScaleDimensions = new SizeF(6F, 13F);
@@ -181,7 +181,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
-			client?.ProcessCmdKey(keyData);
+			client?.ProcessCmdKey((Keys2)keyData);
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 
