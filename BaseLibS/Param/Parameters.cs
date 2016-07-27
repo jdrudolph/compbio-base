@@ -13,7 +13,8 @@ namespace BaseLibS.Param{
 
 		public Parameters(Parameter param) : this(new[]{param}){}
 
-	    public Parameters(string name = null, params Parameter[] param) : this(param, name) { }
+	    public Parameters(params Parameter[] param) : this(param, null) { }
+	    public Parameters(string name, params Parameter[] param) : this(param, name) { }
 	    public Parameters(IList<Parameter> param) : this(param, null){}
 		public Parameters(){}
 
