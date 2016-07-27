@@ -3,8 +3,9 @@ using BaseLib.Wpf;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
+    //TODO should be internal
 	[Serializable]
-	internal class FileParamWpf : FileParam{
+	public class FileParamWpf : FileParam{
 		[NonSerialized] private FileParameterControl control;
 		internal FileParamWpf(string name) : base(name){}
 		internal FileParamWpf(string name, string value) : base(name, value){}
