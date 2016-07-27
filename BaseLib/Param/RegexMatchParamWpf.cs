@@ -7,14 +7,20 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class RegexMatchParamWpf : RegexMatchParam {
+	public class RegexMatchParamWpf : RegexMatchParam {
 		[NonSerialized] private RegexMatchParamViewModel viewModel;
-		internal RegexMatchParamWpf(string name, Tuple<Regex, List<string>> value) : base(name, value){}
+		public RegexMatchParamWpf(string name, Tuple<Regex, List<string>> value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
 			Value = Tuple.Create(viewModel.Pattern, Value.Item2);
 		}
+
+	    public override void UpdateControlFromValue()
+	    {
+	        viewModel.Pattern = Value.Item1;
+	        viewModel.Items = Value.Item2;
+	    }
 
 	    public override float Height => 200;
 

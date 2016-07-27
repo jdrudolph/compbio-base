@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BaseLibS.Param{
 	[Serializable]
@@ -11,7 +12,9 @@ namespace BaseLibS.Param{
 		}
 
 		public Parameters(Parameter param) : this(new[]{param}){}
-		public Parameters(IList<Parameter> param) : this(param, null){}
+
+	    public Parameters(string name = null, params Parameter[] param) : this(param, name) { }
+	    public Parameters(IList<Parameter> param) : this(param, null){}
 		public Parameters(){}
 
 		public void Convert(Func<Parameter, Parameter> map){

@@ -61,6 +61,12 @@ namespace BaseLib.Wpf
             }
         }
 
+        private List<string> _items;
+        public List<string> Items {
+            get { return _items; }
+            set { _items = value; OnPropertyChanged(nameof(Items)); OnPropertyChanged(nameof(Matches)); OnPropertyChanged(nameof(MatchColumns)); }
+        }
+
         public ObservableCollection<MatchItem> Matches => new ObservableCollection<MatchItem>(_items.Select(s => new MatchItem(_pattern.Match(s), s)));
         public ObservableCollection<DataGridColumn> MatchColumns => new ObservableCollection<DataGridColumn>(new [] {
             new DataGridTextColumn // First column
@@ -75,11 +81,10 @@ namespace BaseLib.Wpf
                 return col;
             })));
 
-        private readonly List<string> _items;
         public RegexMatchParamViewModel(Regex pattern, List<string> items)
         {
             Pattern = pattern;
-            _items = items;
+            Items = items;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

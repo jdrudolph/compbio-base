@@ -7,8 +7,8 @@ namespace BaseLib.Param{
 	[Serializable]
 	public class FileParamWpf : FileParam{
 		[NonSerialized] private FileParameterControl control;
-		internal FileParamWpf(string name) : base(name){}
-		internal FileParamWpf(string name, string value) : base(name, value){}
+		public FileParamWpf(string name) : base(name){}
+		public FileParamWpf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
