@@ -283,6 +283,7 @@
       <DependentUpon>TableViewSelectionAgentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ValidationRules.cs" />
+    <Compile Include="Wpf\ViewModelBase.cs" />
     <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\Axis\NumericAxisPropertiesForm.resx">
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>

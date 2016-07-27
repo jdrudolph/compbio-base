@@ -11,19 +11,34 @@ namespace BaseLib.Param{
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
-			Value = control.Text;
+			var vm = (FileParamterViewModel) control.DataContext;
+		    Value = vm.FileName;
 		}
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			control.Text = Value;
+			var vm = (FileParamterViewModel) control.DataContext;
+		    vm.FileName = Value;
 		}
 
 		public override object CreateControl(){
-			return
-				control = new FileParameterControl{Filter = Filter, ProcessFileName = ProcessFileName, Text = Value, Save = Save};
+			control = new FileParameterControl(Value, Filter, ProcessFileName, Save);
+		    var vm = (FileParamterViewModel) control.DataContext;
+            vm.PropertyChanged += Vm_PropertyChanged;
+            return control;
 		}
-	}
+
+        private void Vm_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case "FileName":
+                    SetValueFromControl();
+                    ValueHasChanged();
+                    break;
+            }
+        }
+    }
 }
