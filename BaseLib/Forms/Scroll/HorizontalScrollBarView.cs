@@ -116,11 +116,8 @@ namespace BaseLib.Forms.Scroll{
 			Bitmap2 b = new Bitmap2(w, h);
 			GraphUtil.FillShadedRectangle(b, w, h);
 			bar = b;
-			//bar.MakeTransparent();
 			barHighlight = b.Lighter();
-			//barHighlight.MakeTransparent();
 			barPress = b.Darker();
-			//barPress.MakeTransparent();
 		}
 
 		private int CalcBarStart(int width){

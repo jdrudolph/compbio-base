@@ -1,6 +1,5 @@
 using System;
 using System.Drawing;
-using BaseLibS.Symbol;
 
 namespace BaseLib.Forms.Base{
 	public static class FormUtil{
@@ -15,10 +14,6 @@ namespace BaseLib.Forms.Base{
 
 		public static Color GetPredefinedColor(int index){
 			return predefinedColors[Math.Abs(index%predefinedColors.Length)];
-		}
-
-		public static SymbolType GetPredefinedSymbol(int index){
-			return SymbolType.allSymbols[Math.Abs(index%SymbolType.allSymbols.Length)];
 		}
 	}
 }

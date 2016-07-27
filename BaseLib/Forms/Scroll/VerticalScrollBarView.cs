@@ -154,11 +154,8 @@ namespace BaseLib.Forms.Scroll{
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
 			firstMark = b;
-			//firstMark.MakeTransparent();
 			firstMarkHighlight = bh;
-			//firstMarkHighlight.MakeTransparent();
 			firstMarkPress = bp;
-			//firstMarkPress.MakeTransparent();
 		}
 
 		private void CreateSecondMark(int scrollBarWid){
@@ -169,11 +166,8 @@ namespace BaseLib.Forms.Scroll{
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
 			secondMark = b;
-			//secondMark.MakeTransparent();
 			secondMarkHighlight = bh;
-			//secondMarkHighlight.MakeTransparent();
 			secondMarkPress = bp;
-			//secondMarkPress.MakeTransparent();
 		}
 
 		protected internal override void OnMouseMoved(BasicMouseEventArgs e){

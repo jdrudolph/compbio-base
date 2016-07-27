@@ -1,5 +1,4 @@
 using BaseLib.Forms.Base;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{

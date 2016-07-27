@@ -85,7 +85,7 @@ namespace BaseLib.Forms {
 			return ind1;
 		}
 
-		public static Bitmap GetImage(char c) {
+		private static Bitmap GetImage(char c) {
 			switch (c) {
 				case 'A':
 					return Resources.charA;
