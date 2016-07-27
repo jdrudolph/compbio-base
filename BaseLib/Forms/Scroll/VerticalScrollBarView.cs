@@ -115,11 +115,8 @@ namespace BaseLib.Forms.Scroll{
 			Bitmap2 bh = b.Lighter();
 			Bitmap2 bp = b.Darker();
 			bar = b;
-			//bar.MakeTransparent();
 			barHighlight = bh;
-			//barHighlight.MakeTransparent();
 			barPress = bp;
-			//barPress.MakeTransparent();
 		}
 
 		private int CalcBarStart(int height){

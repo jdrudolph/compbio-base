@@ -68,17 +68,14 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 			}
 			rk = k;
 			z = 1.0 + x*x/rk;
-			double f;
-			double tz;
 			double p;
-			int j;
 			if (k%2 != 0){
 				double xsqk = x/Math.Sqrt(rk);
 				p = Math.Atan(xsqk);
 				if (k > 1){
-					f = 1.0;
-					tz = 1.0;
-					j = 3;
+					double f = 1.0;
+					double tz = 1.0;
+					int j = 3;
 					while (j <= k - 2 & tz/f > epsilon){
 						tz = tz*((j - 1)/(z*j));
 						f = f + tz;
@@ -88,9 +85,9 @@ Copyright 1984, 1987, 1995, 2000 by Stephen L. Moshier
 				}
 				p = p*2.0/Math.PI;
 			} else{
-				f = 1.0;
-				tz = 1.0;
-				j = 2;
+				double f = 1.0;
+				double tz = 1.0;
+				int j = 2;
 				while (j <= k - 2 & tz/f > epsilon){
 					tz = tz*((j - 1)/(z*j));
 					f = f + tz;

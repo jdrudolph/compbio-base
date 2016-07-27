@@ -1,5 +1,4 @@
-﻿namespace BaseLibS.Graph
-{
+﻿namespace BaseLibS.Graph{
 	public enum DashStyle2{
 		//
 		// Summary:

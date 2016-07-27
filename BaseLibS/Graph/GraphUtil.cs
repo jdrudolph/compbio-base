@@ -6,6 +6,7 @@ using BaseLibS.Util;
 namespace BaseLibS.Graph{
 	public static class GraphUtil{
 		public const int scrollBarWidth = 18;
+		public const bool isJavaScript = false;
 
 		private static readonly Color2[] predefinedColors ={
 			Color2.Blue, Color2.FromArgb(255, 144, 144),
