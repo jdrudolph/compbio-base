@@ -4,6 +4,7 @@ namespace BaseLibS.Graph{
 	public interface ICompoundScrollableControl : IScrollableControl{
 		int Width { get; set; }
 		int Height { get; set; }
+		ICompoundScrollableControlClient Client { set; }
 		int RowHeaderWidth { get; set; }
 		int RowFooterWidth { get; set; }
 		int ColumnHeaderHeight { get; set; }
