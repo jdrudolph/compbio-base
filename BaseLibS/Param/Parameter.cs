@@ -1,22 +1,27 @@
 using System;
+using System.CodeDom;
 using System.Linq;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Param{
 	public delegate void ValueChangedHandler();
 
 	[Serializable]
-	public abstract class Parameter{
+	public abstract class Parameter : IXmlSerializable {
 		public const int paramHeight = 23;
 
 		[field: NonSerialized]
 		public event ValueChangedHandler ValueChanged;
 
-		public string Name { get; }
+		public string Name { get; protected set; }
 		public string Help { get; set; }
 		public string Url { get; set; }
 		public bool Visible { get; set; }
 		public virtual ParamType Type => ParamType.Wpf;
 
+	    protected Parameter() : this("") { } // only for xml serialization
 		internal Parameter(string name){
 			Name = name;
 			Help = "";
@@ -53,11 +58,17 @@ namespace BaseLibS.Param{
 			}
 			return ValueChanged.GetInvocationList().OfType<ValueChangedHandler>().ToArray();
 		}
+
+	    public XmlSchema GetSchema() { return null; }
+	    public abstract void ReadXml(XmlReader reader);
+	    public abstract void WriteXml(XmlWriter writer);
 	}
 
 	[Serializable]
 	public abstract class Parameter<T> : Parameter{
-		protected Parameter(string name) : base(name){}
+	    protected Parameter() { }
+
+	    protected Parameter(string name) : base(name){}
 		public T Value { get; set; }
 		public T Default { get; set; }
 
@@ -89,5 +100,34 @@ namespace BaseLibS.Param{
 				return Value;
 			}
 		}
+
+	    public void ReadXmlNoValue(XmlReader reader)
+	    {
+	        Name = reader.GetAttribute("Name");
+	    }
+
+	    public override void ReadXml(XmlReader reader)
+	    {
+            ReadXmlNoValue(reader);
+            var valueSerializer = new XmlSerializer(Value.GetType());
+	        reader.ReadToFollowing("Value");
+	        reader.Read();
+	        Value = (T) valueSerializer.Deserialize(reader);
+	    }
+
+	    protected void WriteXmlNoValue(XmlWriter writer)
+	    {
+            writer.WriteAttributeString("Type", GetType().ToString());
+	        writer.WriteAttributeString("Name", Name);
+	    }
+
+	    public override void WriteXml(XmlWriter writer)
+	    {
+            WriteXmlNoValue(writer);
+            writer.WriteStartElement("Value");
+            var valueSerializer = new XmlSerializer(Value.GetType());
+            valueSerializer.Serialize(writer, Value);
+            writer.WriteEndElement();
+	    }
 	}
 }

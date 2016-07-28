@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Xml;
 
 namespace BaseLibS.Param{
 	[Serializable]
 	public class LabelParam : Parameter<string>{
-		public LabelParam(string name) : this(name, "") { }
+
+        /// <summary>
+        /// only for xml serialization
+        /// </summary>
+	    private LabelParam() : this("") { }
+
+	    public LabelParam(string name) : this(name, "") { }
 
 		public LabelParam(string name, string value) : base(name){
 			Value = value;

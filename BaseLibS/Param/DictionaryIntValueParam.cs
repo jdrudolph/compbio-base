@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 using BaseLibS.Util;
 
 namespace BaseLibS.Param{
@@ -13,7 +17,12 @@ namespace BaseLibS.Param{
 			set { keys = value; }
 		}
 
-		public DictionaryIntValueParam(string name, Dictionary<string, int> value, string[] keys) : base(name){
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    private DictionaryIntValueParam() : this("", new Dictionary<string, int>(), new string[0] ) { }
+
+	    public DictionaryIntValueParam(string name, Dictionary<string, int> value, string[] keys) : base(name){
 			Value = value;
 			Default = new Dictionary<string, int>();
 			foreach (KeyValuePair<string, int> pair in value){
@@ -57,5 +66,26 @@ namespace BaseLibS.Param{
 			Value = new Dictionary<string, int>();
 		}
 		public override ParamType Type => ParamType.Server;
+
+	    public override void WriteXml(XmlWriter writer)
+	    {
+            WriteXmlNoValue(writer);
+            var value = new SerializableDictionary<string, int>(Value);
+            var serializer = new XmlSerializer(value.GetType());
+            writer.WriteStartElement("Value");
+            serializer.Serialize(writer, value);
+            writer.WriteEndElement();
+            writer.WriteValues(Keys, "Keys", "Key");
+	    }
+
+	    public override void ReadXml(XmlReader reader)
+	    {
+	        ReadXmlNoValue(reader);
+            var serializer = new XmlSerializer(typeof(SerializableDictionary<string, int>));
+	        reader.ReadToFollowing("Value");
+	        reader.Read();
+	        Value = ((SerializableDictionary<string, int>) serializer.Deserialize(reader)).ToDictionary();
+	        Keys = reader.ReadValues("Keys", "Key").ToArray();
+	    }
 	}
 }
