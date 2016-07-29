@@ -86,8 +86,6 @@ namespace BaseLib.Forms.Scroll{
 		public Func<int> DeltaY { get; set; }
 		public Func<int> DeltaUpToSelection { get; set; }
 		public Func<int> DeltaDownToSelection { get; set; }
-		public int ClientWidth => VisibleWidth;
-		public int ClientHeight => VisibleHeight;
 		public int TotalClientWidth => TotalWidth();
 		public int TotalClientHeight => TotalHeight();
 		public int VisibleWidth => mainControl.Width;

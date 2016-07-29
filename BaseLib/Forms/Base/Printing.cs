@@ -1,7 +1,5 @@
 ﻿using System.IO;
 using System.Windows.Forms;
-using BaseLib.Forms.Scroll;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Base{
@@ -11,7 +9,7 @@ namespace BaseLib.Forms.Base{
 			if (filename == null){
 				return;
 			}
-			string extension = System.IO.Path.GetExtension(filename).ToLower();
+			string extension = Path.GetExtension(filename).ToLower();
 			if (File.Exists(filename)){
 				File.Delete(filename);
 			}
@@ -36,7 +34,7 @@ namespace BaseLib.Forms.Base{
 		}
 
 		public static void PrintVisibleSize(IScrollableControl c, string name) {
-			Print(c, name, c.ClientWidth, c.ClientHeight);
+			Print(c, name, c.VisibleWidth, c.VisibleHeight);
 		}
 
 		private static string ShowDialog(string filename) {

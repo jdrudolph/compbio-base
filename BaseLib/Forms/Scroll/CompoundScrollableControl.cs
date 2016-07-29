@@ -251,8 +251,6 @@ namespace BaseLib.Forms.Scroll{
 		public Func<int> DeltaY { get; set; }
 		public Func<int> DeltaUpToSelection { get; set; }
 		public Func<int> DeltaDownToSelection { get; set; }
-		public int ClientWidth => Width - GraphUtil.scrollBarWidth;
-		public int ClientHeight => Height - GraphUtil.scrollBarWidth;
 		public int VisibleWidth => Width - RowHeaderWidth - RowFooterWidth - GraphUtil.scrollBarWidth;
 		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - GraphUtil.scrollBarWidth;
 		public int TotalClientWidth => TotalWidth() + RowHeaderWidth + RowFooterWidth;

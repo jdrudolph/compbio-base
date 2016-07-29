@@ -14,8 +14,6 @@ namespace BaseLibS.Graph {
 		int VisibleY { get; set; }
 		int VisibleWidth { get; }
 		int VisibleHeight { get; }
-		int ClientWidth { get; }
-		int ClientHeight { get; }
 		int TotalClientWidth { get; }
 		int TotalClientHeight { get; }
 		void Invalidate(bool p0);
