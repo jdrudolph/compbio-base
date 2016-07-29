@@ -2,7 +2,7 @@
 
 namespace BaseLibS.Graph{
 	public interface ICompoundScrollableControl : IScrollableControl{
-		ICompoundScrollableControlClient Client { set; }
+		ICompoundScrollableControlModel Client { set; }
 		int RowHeaderWidth { get; set; }
 		int RowFooterWidth { get; set; }
 		int ColumnHeaderHeight { get; set; }

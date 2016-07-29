@@ -15,7 +15,7 @@ using BaseLibS.Table;
 using BaseLibS.Util;
 
 namespace BaseLib.Forms.Table{
-	public class TableViewClient : ICompoundScrollableControlClient{
+	public class TableViewClient : ICompoundScrollableControlModel{
 		private const int rowHeight = 22;
 		private static readonly Color2 gridColor = Color2.FromArgb(172, 168, 153);
 		private static readonly Pen2 gridPen = new Pen2(gridColor);

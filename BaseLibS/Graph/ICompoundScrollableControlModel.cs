@@ -1,5 +1,5 @@
 ﻿namespace BaseLibS.Graph{
-	public interface ICompoundScrollableControlClient : IScrollableControlClient{
+	public interface ICompoundScrollableControlModel : IScrollableControlModel{
 		void Register(ICompoundScrollableControl control);
 	}
 }

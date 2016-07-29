@@ -257,9 +257,9 @@ namespace BaseLib.Forms.Scroll{
 		public int VisibleHeight => Height - ColumnHeaderHeight - ColumnFooterHeight - GraphUtil.scrollBarWidth;
 		public int TotalClientWidth => TotalWidth() + RowHeaderWidth + RowFooterWidth;
 		public int TotalClientHeight => TotalHeight() + ColumnHeaderHeight + ColumnFooterHeight;
-		private ICompoundScrollableControlClient client;
+		private ICompoundScrollableControlModel client;
 
-		public ICompoundScrollableControlClient Client{
+		public ICompoundScrollableControlModel Client{
 			set{
 				client = value;
 				value.Register(this);

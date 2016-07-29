@@ -1,5 +1,5 @@
 ﻿namespace BaseLibS.Graph{
-	public interface IScrollableControlClient{
+	public interface IScrollableControlModel{
 		void ProcessCmdKey(Keys2 keyData);
 		void InvalidateBackgroundImages();
 		void OnSizeChanged();
