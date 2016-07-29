@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Permissions;
+using System.Xml;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
@@ -12,7 +14,12 @@ namespace BaseLibS.Param{
 		public List<string[]> DefaultSelections { get; set; }
 		public MultiChoiceParam(string name) : this(name, new int[0]){}
 
-		public MultiChoiceParam(string name, int[] value) : base(name){
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    private MultiChoiceParam() : this("", new int[0]) { }
+
+	    public MultiChoiceParam(string name, int[] value) : base(name){
 			Value = value;
 			Default = new int[Value.Length];
 			for (int i = 0; i < Value.Length; i++){
@@ -86,5 +93,19 @@ namespace BaseLibS.Param{
 			Value = indices.ToArray();
 		}
 		public override ParamType Type => ParamType.Server;
+
+	    public override void ReadXml(XmlReader reader)
+	    {
+	        Repeats = Boolean.Parse(reader.GetAttribute("Repeats"));
+	        base.ReadXml(reader);
+	        Values = reader.ReadValues();
+	    }
+
+	    public override void WriteXml(XmlWriter writer)
+	    {
+            writer.WriteAttributeString("Repeats", Repeats.ToString());
+	        base.WriteXml(writer);
+            writer.WriteValues(Values);
+	    }
 	}
 }

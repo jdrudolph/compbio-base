@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Xml;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
@@ -6,7 +7,12 @@ namespace BaseLibS.Param{
 	[Serializable]
 	public class MultiFileParam : Parameter<string[]>{
 		public string Filter { get; set; }
-		public MultiFileParam(string name) : this(name, new string[0]){}
+
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    private MultiFileParam() : this("") { } 
+	    public MultiFileParam(string name) : this(name, new string[0]){}
 
 		public MultiFileParam(string name, string[] value) : base(name){
 			Value = value;
@@ -36,5 +42,17 @@ namespace BaseLibS.Param{
 
 		public override float Height => 120;
 		public override ParamType Type => ParamType.Server;
+
+	    public override void ReadXml(XmlReader reader)
+	    {
+	        Filter = reader.GetAttribute("Filter");
+	        base.ReadXml(reader);
+	    }
+
+	    public override void WriteXml(XmlWriter writer)
+	    {
+	        writer.WriteAttributeString("Filter", Filter);
+            base.WriteXml(writer);
+	    }
 	}
 }

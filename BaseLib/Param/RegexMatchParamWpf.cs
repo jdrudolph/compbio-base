@@ -9,23 +9,24 @@ namespace BaseLib.Param{
 	[Serializable]
 	public class RegexMatchParamWpf : RegexMatchParam {
 		[NonSerialized] private RegexMatchParamViewModel viewModel;
-		public RegexMatchParamWpf(string name, Tuple<Regex, List<string>> value) : base(name, value){}
+		public RegexMatchParamWpf(string name, Regex value, List<string> replacement ) : base(name, value, replacement){}
 		public override ParamType Type => ParamType.Wpf;
 
-		public override void SetValueFromControl(){
-			Value = Tuple.Create(viewModel.Pattern, Value.Item2);
+		public override void SetValueFromControl()
+		{
+		    Value = viewModel.Pattern;
 		}
 
 	    public override void UpdateControlFromValue()
 	    {
-	        viewModel.Pattern = Value.Item1;
-	        viewModel.Items = Value.Item2;
+	        viewModel.Pattern = Value;
+	        viewModel.Items = Previews;
 	    }
 
 	    public override float Height => 200;
 
 	    public override object CreateControl(){
-			var control = new RegexMatchParamControl(Value);
+			var control = new RegexMatchParamControl(Value, Previews);
 		    viewModel = control.DataContext as RegexMatchParamViewModel;
             return control;
 		}

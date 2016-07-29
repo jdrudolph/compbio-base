@@ -24,8 +24,6 @@ namespace BaseLib.Wpf
     /// </summary>
     public partial class RegexMatchParamControl : UserControl
     {
-        public RegexMatchParamControl(Tuple<Regex, List<string>> value) : this(value.Item1, value.Item2) { }
-
         public RegexMatchParamControl(Regex pattern, List<string> items)
         {
             InitializeComponent();

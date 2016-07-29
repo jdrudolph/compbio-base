@@ -67,13 +67,24 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public ITableModel TableModel{
-			get { return tableViewWf.TableModel; }
-			set{
-				tableViewWf.TableModel = value;
-				ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
-			}
-		}
+	    public static readonly DependencyProperty TableModelProperty = DependencyProperty.Register(
+	        "TableModel", typeof(ITableModel), typeof(TableView), new PropertyMetadata(default(ITableModel), (o, args) =>
+	        {
+	            var x = (TableView) o;
+	            var value = (ITableModel) args.NewValue;
+	            x.tableViewWf.TableModel = value;
+				x.ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
+	        }));
+
+        /// <summary>
+        /// Get the table model.
+        /// Use <code>Dispatcher.Invoke(() => view.TableModel ... )</code> to access this property for a non-GUI thread
+        /// </summary>
+	    public ITableModel TableModel
+	    {
+	        get { return (ITableModel) GetValue(TableModelProperty); }
+	        set { SetValue(TableModelProperty, value); }
+	    }
 
 		public void Select(){
 			tableView.Select();
@@ -119,9 +130,9 @@ namespace BaseLib.Wpf{
 			get { return tableView.ColumnHeaderHeight; }
 			set{
 				tableViewWf.origColumnHeaderHeight = value;
-				tableView.ColumnHeaderHeight = (value);
-			}
-		}
+                tableView.ColumnHeaderHeight = value;
+            }
+        }
 
 		public int VisibleX{
 			get { return tableView.VisibleX; }

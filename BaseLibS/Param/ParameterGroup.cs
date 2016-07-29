@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class ParameterGroup{
-		private readonly List<Parameter> parameters = new List<Parameter>();
+	public class ParameterGroup : IXmlSerializable
+    {
+		private List<Parameter> parameters = new List<Parameter>();
 		private string name;
 		private bool collapsedDefault;
 
@@ -55,6 +59,7 @@ namespace BaseLibS.Param{
 		}
 
 		public List<Parameter> ParameterList => parameters;
+
 		public int Count => parameters.Count;
 
 		public float Height{
@@ -105,5 +110,41 @@ namespace BaseLibS.Param{
 				parameter.ResetDefault();
 			}
 		}
-	}
+
+	    public XmlSchema GetSchema()
+	    {
+	        throw new NotImplementedException();
+	    }
+
+	    public void ReadXml(XmlReader reader)
+	    {
+	        Name = reader.GetAttribute("Name");
+            CollapsedDefault = Boolean.Parse(reader.GetAttribute("CollapsedDefault"));
+            //parameters = ((Parameters) new XmlSerializer(typeof(Parameters)).Deserialize(reader)).GetAllParameters().ToList();
+	        parameters = new List<Parameter>();
+	        while (reader.Read())
+	        {
+	            switch (reader.NodeType)
+	            {
+                    case XmlNodeType.EndElement: // </Parameters>
+	                    break;
+                    case XmlNodeType.Element: // <SomeParam .../>
+                        var type = Type.GetType(reader.GetAttribute("Type"));
+                        var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
+                        parameters.Add(param);
+	                    break;
+	            }
+	        }
+	    }
+
+	    public void WriteXml(XmlWriter writer)
+	    {
+            writer.WriteAttributeString("Name", Name);
+            writer.WriteAttributeString("CollapsedDefault", CollapsedDefault.ToString());
+	        foreach (var parameter in parameters)
+	        {
+                new XmlSerializer(parameter.GetType()).Serialize(writer, parameter);
+	        }
+	    }
+    }
 }
