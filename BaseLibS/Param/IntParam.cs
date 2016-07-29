@@ -1,10 +1,16 @@
 using System;
 using System.Globalization;
+using System.Xml;
 
 namespace BaseLibS.Param{
 	[Serializable]
 	public class IntParam : Parameter<int>{
-		public IntParam(string name, int value) : base(name){
+        /// <summary>
+        /// only for xml serialization
+        /// </summary>
+	    private IntParam() : this("", 0) { }
+
+	    public IntParam(string name, int value) : base(name){
 			Value = value;
 			Default = value;
 		}
@@ -18,5 +24,6 @@ namespace BaseLibS.Param{
 			Value = 0;
 		}
 		public override ParamType Type => ParamType.Server;
+
 	}
 }

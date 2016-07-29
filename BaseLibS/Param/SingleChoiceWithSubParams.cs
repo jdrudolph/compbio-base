@@ -1,13 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Param{
 	[Serializable]
 	public class SingleChoiceWithSubParams : ParameterWithSubParams<int>{
 		public IList<string> Values { get; set; }
 		public IList<Parameters> SubParams { get; set; }
-		public SingleChoiceWithSubParams(string name) : this(name, 0){}
+
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    private SingleChoiceWithSubParams() : this("") { }
+
+	    public SingleChoiceWithSubParams(string name) : this(name, 0){}
 
 		public SingleChoiceWithSubParams(string name, int value) : base(name){
 			TotalWidth = 1000F;
@@ -85,5 +94,42 @@ namespace BaseLibS.Param{
 			}
 		}
 		public override ParamType Type => ParamType.Server;
+
+	    public override void ReadXml(XmlReader reader)
+	    {
+	        base.ReadXml(reader);
+	        Values = reader.ReadValues();
+            var serializer = new XmlSerializer(SubParams.First().GetType());
+	        reader.ReadToFollowing("SubParams");
+	        var subParamTree = reader.ReadSubtree();
+	        subParamTree.ReadToDescendant("Parameters");
+            var subParams = new List<Parameters>();
+	        while (true)
+	        {
+	            if (reader.NodeType == XmlNodeType.EndElement)
+	            {
+	                break;
+	            }
+	            var singleParamTree = subParamTree.ReadSubtree();
+	            subParams.Add((Parameters) serializer.Deserialize(singleParamTree));
+                singleParamTree.Close();
+                subParamTree.ReadEndElement();
+	        }
+	        subParamTree.Close();
+	        SubParams = subParams;
+	    }
+
+	    public override void WriteXml(XmlWriter writer)
+	    {
+	        base.WriteXml(writer);
+            writer.WriteValues(Values);
+            var serializer = new XmlSerializer(SubParams.First().GetType());
+            writer.WriteStartElement("SubParams");
+	        foreach (var parameters in SubParams)
+	        {
+                serializer.Serialize(writer, parameters);
+	        }
+            writer.WriteEndElement();
+	    }
 	}
 }

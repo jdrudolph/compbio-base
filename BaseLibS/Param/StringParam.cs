@@ -1,9 +1,15 @@
 using System;
+using System.Xml;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class StringParam : Parameter<string>{
-		public StringParam(string name) : this(name, ""){}
+	public class StringParam : Parameter<string> {
+        /// <summary>
+        /// only for xml serialization
+        /// </summary>
+	    private StringParam() : this("") { }
+
+	    public StringParam(string name) : this(name, ""){}
 
 		public StringParam(string name, string value) : base(name){
 			Value = value;

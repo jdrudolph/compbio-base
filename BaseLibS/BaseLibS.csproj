@@ -199,6 +199,8 @@
     <Compile Include="Param\ParameterWithSubParams.cs" />
     <Compile Include="Param\ParamType.cs" />
     <Compile Include="Param\RegexMatchParam.cs" />
+    <Compile Include="Param\SerializableDictionary.cs" />
+    <Compile Include="Param\SerializationHelper.cs" />
     <Compile Include="Param\SingleChoiceParam.cs" />
     <Compile Include="Param\SingleChoiceWithSubParams.cs" />
     <Compile Include="Param\RegexReplaceParam.cs" />

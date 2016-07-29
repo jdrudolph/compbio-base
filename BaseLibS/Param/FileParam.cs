@@ -1,4 +1,5 @@
 using System;
+using System.Xml;
 
 namespace BaseLibS.Param{
 	[Serializable]
@@ -6,7 +7,13 @@ namespace BaseLibS.Param{
 		public string Filter { get; set; }
 		public Func<string, string> ProcessFileName { get; set; }
 		public bool Save { get; set; }
-		public FileParam(string name) : this(name, ""){}
+        
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    private FileParam() : this("") { }
+
+	    public FileParam(string name) : this(name, ""){}
 
 		public FileParam(string name, string value) : base(name){
 			Value = value;
@@ -24,5 +31,6 @@ namespace BaseLibS.Param{
 			Value = "";
 		}
 		public override ParamType Type => ParamType.Server;
+
 	}
 }

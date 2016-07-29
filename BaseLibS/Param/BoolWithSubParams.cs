@@ -1,12 +1,19 @@
 using System;
 using System.Globalization;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Param{
 	[Serializable]
 	public class BoolWithSubParams : ParameterWithSubParams<bool>{
 		public Parameters SubParamsFalse { get; set; }
 		public Parameters SubParamsTrue { get; set; }
-		public BoolWithSubParams(string name) : this(name, false){}
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    private BoolWithSubParams() : this("", false) { }
+
+	    public BoolWithSubParams(string name) : this(name, false){}
 
 		public BoolWithSubParams(string name, bool value) : base(name){
 			TotalWidth = 1000F;
@@ -53,5 +60,33 @@ namespace BaseLibS.Param{
 
 		public override float Height => 50 + Math.Max(SubParamsFalse.Height, SubParamsTrue.Height);
 		public override ParamType Type => ParamType.Server;
+
+	    public override void ReadXml(XmlReader reader)
+	    {
+	        base.ReadXml(reader);
+            var serializer = new XmlSerializer(SubParamsFalse.GetType());
+	        reader.ReadToFollowing("SubParamsFalse");
+	        var subtreeFalse = reader.ReadSubtree();
+	        subtreeFalse.ReadToDescendant("Parameters");
+	        SubParamsFalse = (Parameters) serializer.Deserialize(subtreeFalse.ReadSubtree());
+            subtreeFalse.Close();
+            reader.ReadEndElement();
+	        var subtreeTrue = reader.ReadSubtree();
+	        subtreeTrue.ReadToDescendant("Parameters");
+	        SubParamsTrue = (Parameters) serializer.Deserialize(subtreeTrue);
+            reader.ReadEndElement();
+	    }
+
+	    public override void WriteXml(XmlWriter writer)
+	    {
+	        base.WriteXml(writer);
+            var serializer = new XmlSerializer(SubParamsTrue.GetType());
+            writer.WriteStartElement("SubParamsFalse");
+            serializer.Serialize(writer, SubParamsFalse);
+            writer.WriteEndElement();
+            writer.WriteStartElement("SubParamsTrue");
+            serializer.Serialize(writer, SubParamsTrue);
+            writer.WriteEndElement();
+	    }
 	}
 }

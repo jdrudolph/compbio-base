@@ -1,10 +1,16 @@
 using System;
 using System.Globalization;
+using System.Xml;
 
 namespace BaseLibS.Param{
 	[Serializable]
 	public class DoubleParam : Parameter<double>{
-		public DoubleParam(string name, double value) : base(name){
+        /// <summary>
+        /// only for xml serialization
+        /// </summary>
+	    private DoubleParam() : this("", 0.0) { }
+
+	    public DoubleParam(string name, double value) : base(name){
 			Value = value;
 			Default = value;
 		}

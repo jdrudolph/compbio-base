@@ -1,11 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class Parameters{
-		private readonly List<ParameterGroup> paramGroups = new List<ParameterGroup>();
+	public class Parameters : IXmlSerializable {
+		private readonly List<ParameterGroup> _paramGroups = new List<ParameterGroup>();
 
 		public Parameters(IList<Parameter> param, string name){
 			AddParameterGroup(param, name, false);
@@ -19,18 +22,18 @@ namespace BaseLibS.Param{
 		public Parameters(){}
 
 		public void Convert(Func<Parameter, Parameter> map){
-			foreach (ParameterGroup t in paramGroups){
+			foreach (ParameterGroup t in _paramGroups){
 				t.Convert(map);
 			}
 		}
 
 		public Parameters GetSubGroupAt(int index){
-			return new Parameters(paramGroups[index].ParameterList);
+			return new Parameters(_paramGroups[index].ParameterList);
 		}
 
 		public Parameter[] GetAllParameters(){
 			List<Parameter> result = new List<Parameter>();
-			foreach (ParameterGroup pg in paramGroups){
+			foreach (ParameterGroup pg in _paramGroups){
 				result.AddRange(pg.ParameterList);
 			}
 			return result.ToArray();
@@ -38,7 +41,7 @@ namespace BaseLibS.Param{
 
 		public string[] GetAllGroupHeadings(){
 			List<string> result = new List<string>();
-			foreach (ParameterGroup pg in paramGroups){
+			foreach (ParameterGroup pg in _paramGroups){
 				result.Add(pg.Name);
 			}
 			return result.ToArray();
@@ -47,7 +50,7 @@ namespace BaseLibS.Param{
 		public string[] Markup{
 			get{
 				List<string> result = new List<string>();
-				foreach (ParameterGroup paramGroup in paramGroups){
+				foreach (ParameterGroup paramGroup in _paramGroups){
 					result.AddRange(paramGroup.Markup);
 				}
 				return result.ToArray();
@@ -56,7 +59,7 @@ namespace BaseLibS.Param{
 
 		public bool IsModified{
 			get{
-				foreach (ParameterGroup parameterGroup in paramGroups){
+				foreach (ParameterGroup parameterGroup in _paramGroups){
 					if (parameterGroup.IsModified){
 						return true;
 					}
@@ -66,13 +69,13 @@ namespace BaseLibS.Param{
 		}
 
 		public void AddParameterGroup(IList<Parameter> param, string name, bool collapsed){
-			paramGroups.Add(new ParameterGroup(param, name, collapsed));
+			_paramGroups.Add(new ParameterGroup(param, name, collapsed));
 		}
 
 		public int Count{
 			get{
 				int c = 0;
-				foreach (ParameterGroup parameterGroup in paramGroups){
+				foreach (ParameterGroup parameterGroup in _paramGroups){
 					c += parameterGroup.Count;
 				}
 				return c;
@@ -82,7 +85,7 @@ namespace BaseLibS.Param{
 		public float Height{
 			get{
 				float h = 0;
-				foreach (ParameterGroup parameter in paramGroups){
+				foreach (ParameterGroup parameter in _paramGroups){
 					h += parameter.Height;
 				}
 				return h;
@@ -97,10 +100,10 @@ namespace BaseLibS.Param{
 			return (ParameterWithSubParams<T>) GetParam(name);
 		}
 
-		public int GroupCount => paramGroups.Count;
+		public int GroupCount => _paramGroups.Count;
 
 		public Parameter GetParam(string name){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				Parameter p = parameterGroup.GetParam(name);
 				if (p != null){
 					return p;
@@ -111,7 +114,7 @@ namespace BaseLibS.Param{
 
 		public Parameter[] GetDropTargets(){
 			List<Parameter> result = new List<Parameter>();
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				foreach (Parameter p in parameterGroup.ParameterList){
 					if (p.IsDropTarget){
 						result.Add(p);
@@ -122,7 +125,7 @@ namespace BaseLibS.Param{
 		}
 
 		public void SetSizes(int paramNameWidth, int totalWidth){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				foreach (Parameter p in parameterGroup.ParameterList){
 					if (p is IParameterWithSubParams){
 						IParameterWithSubParams q = (IParameterWithSubParams) p;
@@ -134,7 +137,7 @@ namespace BaseLibS.Param{
 		}
 
 		public Parameter GetParamNoException(string name){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				Parameter p = parameterGroup.GetParam(name);
 				if (p != null){
 					return p;
@@ -144,35 +147,35 @@ namespace BaseLibS.Param{
 		}
 
 		public void UpdateControlsFromValue(){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				parameterGroup.UpdateControlsFromValue();
 			}
 		}
 
 		public ParameterGroup GetGroup(int i){
-			return paramGroups[i];
+			return _paramGroups[i];
 		}
 
 		public void SetValuesFromControl(){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				parameterGroup.SetParametersFromConrtol();
 			}
 		}
 
 		public void Clear(){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				parameterGroup.Clear();
 			}
 		}
 
 		public void ResetValues(){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				parameterGroup.ResetValues();
 			}
 		}
 
 		public void ResetDefaults(){
-			foreach (ParameterGroup parameterGroup in paramGroups){
+			foreach (ParameterGroup parameterGroup in _paramGroups){
 				parameterGroup.ResetDefaults();
 			}
 		}
@@ -197,5 +200,35 @@ namespace BaseLibS.Param{
 			}
 			return null;
 		}
+
+	    public XmlSchema GetSchema() { return null; }
+
+	    public void ReadXml(XmlReader reader)
+	    {
+	        var parameters = new List<Parameter>();
+	        while (reader.Read())
+	        {
+	            switch (reader.NodeType)
+	            {
+                    case XmlNodeType.EndElement: // </Parameters>
+	                    break;
+                    case XmlNodeType.Element: // <SomeParam .../>
+                        var type = Type.GetType(reader.GetAttribute("Type"));
+                        var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
+                        parameters.Add(param);
+	                    break;
+	            }
+	        }
+            AddParameterGroup(parameters, "", false);
+	    }
+
+	    public void WriteXml(XmlWriter writer)
+	    {
+	        foreach (var parameter in GetAllParameters())
+	        {
+                var paramSerializer = new XmlSerializer(parameter.GetType());
+	            paramSerializer.Serialize(writer, parameter);
+	        }
+	    }
 	}
 }
