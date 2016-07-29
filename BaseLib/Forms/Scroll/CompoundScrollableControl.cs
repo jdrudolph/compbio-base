@@ -105,6 +105,8 @@ namespace BaseLib.Forms.Scroll{
 			ExportGraphics.ExportGraphic(this, name, showDialog);
 		}
 
+		public int Width1 => Width;
+		public int Height1 => Height;
 		public Action<IGraphics, int, int> OnPaintRowHeaderView { get; set; }
 		public Action<IGraphics, int, int> OnPaintRowFooterView { get; set; }
 		public Action<IGraphics, int, int> OnPaintColumnHeaderView { get; set; }

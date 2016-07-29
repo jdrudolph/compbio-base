@@ -2,6 +2,8 @@
 
 namespace BaseLibS.Graph {
 	public interface IScrollableControl : IPrintable{
+		int Width1 { get;  }
+		int Height1 { get;  }
 		Func<int> TotalWidth { get; set; }
 		Func<int> TotalHeight { get; set; }
 		Func<int> DeltaX { get; set; }

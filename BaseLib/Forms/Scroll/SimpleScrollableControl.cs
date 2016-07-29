@@ -78,6 +78,8 @@ namespace BaseLib.Forms.Scroll{
 			mainView.Invalidate();
 		}
 
+		public int Width1 => Width;
+		public int Height1 => Height;
 		public Func<int> TotalWidth { get; set; }
 		public Func<int> TotalHeight { get; set; }
 		public Func<int> DeltaX { get; set; }
