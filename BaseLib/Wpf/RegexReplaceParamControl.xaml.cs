@@ -23,8 +23,6 @@ namespace BaseLib.Wpf
     /// </summary>
     public partial class RegexReplaceParamControl : UserControl
     {
-        public RegexReplaceParamControl(Tuple<Regex, string, List<string>> value) : this(value.Item1, value.Item2, value.Item3) { }
-
         public RegexReplaceParamControl(Regex pattern, string replacement, List<string> items)
         {
             InitializeComponent();

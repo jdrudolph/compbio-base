@@ -9,7 +9,7 @@ namespace BaseLib.Param{
 			}
 			if (p is RegexReplaceParam){
 				RegexReplaceParam q = (RegexReplaceParam) p;
-				RegexReplaceParamWpf b = new RegexReplaceParamWpf(q.Name, q.Value){
+				RegexReplaceParamWpf b = new RegexReplaceParamWpf(q.Name, q.Value.Item1, q.Value.Item2, q.Previews){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 			}
 			if (p is RegexMatchParam){
 				RegexMatchParam q = (RegexMatchParam) p;
-				RegexMatchParamWpf b = new RegexMatchParamWpf(q.Name, q.Value){
+				RegexMatchParamWpf b = new RegexMatchParamWpf(q.Name, q.Value, q.Previews){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
