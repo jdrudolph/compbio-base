@@ -205,29 +205,19 @@ namespace BaseLibS.Param{
 
 	    public void ReadXml(XmlReader reader)
 	    {
-	        var parameters = new List<Parameter>();
-	        while (reader.Read())
+	        var serializer = new XmlSerializer(typeof(ParameterGroup));
+	        while (reader.ReadToFollowing("ParameterGroup"))
 	        {
-	            switch (reader.NodeType)
-	            {
-                    case XmlNodeType.EndElement: // </Parameters>
-	                    break;
-                    case XmlNodeType.Element: // <SomeParam .../>
-                        var type = Type.GetType(reader.GetAttribute("Type"));
-                        var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
-                        parameters.Add(param);
-	                    break;
-	            }
+                _paramGroups.Add((ParameterGroup)serializer.Deserialize(reader));
 	        }
-            AddParameterGroup(parameters, "", false);
 	    }
 
 	    public void WriteXml(XmlWriter writer)
 	    {
-	        foreach (var parameter in GetAllParameters())
+	        foreach (var paramGrp in _paramGroups)
 	        {
-                var paramSerializer = new XmlSerializer(parameter.GetType());
-	            paramSerializer.Serialize(writer, parameter);
+                var paramSerializer = new XmlSerializer(paramGrp.GetType());
+	            paramSerializer.Serialize(writer, paramGrp);
 	        }
 	    }
 	}

@@ -3,7 +3,13 @@
 namespace BaseLibS.Param{
 	[Serializable]
 	public class FolderParam : Parameter<string>{
-		public FolderParam(string name) : this(name, ""){}
+
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    private FolderParam() : this("") { }
+
+	    public FolderParam(string name) : this(name, ""){}
 
 		public FolderParam(string name, string value) : base(name){
 			Value = value;

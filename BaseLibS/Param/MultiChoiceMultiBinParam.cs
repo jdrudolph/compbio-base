@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml;
+using System.Xml.Serialization;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
@@ -8,7 +11,13 @@ namespace BaseLibS.Param{
 	public class MultiChoiceMultiBinParam : Parameter<int[][]>{
 		public IList<string> Values { get; set; }
 		public IList<string> Bins { get; set; }
-		public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]){}
+
+        /// <summary>
+        /// for xml serialization only
+        /// </summary>
+	    public MultiChoiceMultiBinParam() : this("") { }
+
+	    public MultiChoiceMultiBinParam(string name) : this(name, new int[0][]){}
 
 		public MultiChoiceMultiBinParam(string name, int[][] value) : base(name){
 			Value = value;
@@ -75,5 +84,19 @@ namespace BaseLibS.Param{
 			Default = Value;
 		}
 		public override ParamType Type => ParamType.Server;
+
+	    public override void ReadXml(XmlReader reader)
+	    {
+	        base.ReadXml(reader);
+            Values = reader.ReadValues();
+	        Bins = reader.ReadValues("Bins", "Bin");
+	    }
+
+	    public override void WriteXml(XmlWriter writer)
+	    {
+	        base.WriteXml(writer);
+            writer.WriteValues(Values);
+            writer.WriteValues(Bins, "Bins", "Bin");
+	    }
 	}
 }
