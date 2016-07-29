@@ -67,20 +67,13 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-	    public static readonly DependencyProperty TableModelProperty = DependencyProperty.Register(
-	        "TableModel", typeof(ITableModel), typeof(TableView), new PropertyMetadata(default(ITableModel), (o, args) =>
-	        {
-	            var x = (TableView) o;
-	            var value = (ITableModel) args.NewValue;
-	            x.tableViewWf.TableModel = value;
-				x.ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
-	        }));
-
-	    public ITableModel TableModel
-	    {
-	        get { return (ITableModel) GetValue(TableModelProperty); }
-	        set { SetValue(TableModelProperty, value); }
-	    }
+		public ITableModel TableModel{
+			get { return tableViewWf.TableModel; }
+			set{
+				tableViewWf.TableModel = value;
+				ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
+			}
+		}
 
 		public void Select(){
 			tableView.Select();
@@ -126,7 +119,7 @@ namespace BaseLib.Wpf{
 			get { return tableView.ColumnHeaderHeight; }
 			set{
 				tableViewWf.origColumnHeaderHeight = value;
-				tableView.ColumnHeaderHeight=(value);
+				tableView.ColumnHeaderHeight = (value);
 			}
 		}
 
