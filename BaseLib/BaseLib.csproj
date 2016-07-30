@@ -132,7 +132,7 @@
     </Compile>
     <Compile Include="Forms\Scroll\SimpleScrollableControlMainView.cs" />
     <Compile Include="Forms\Scroll\VerticalScrollBarView.cs" />
-    <Compile Include="Forms\Table\TableViewClient.cs" />
+    <Compile Include="Forms\Table\TableViewControlModel.cs" />
     <Compile Include="Graphic\BaseDrawControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

@@ -53,6 +53,7 @@
     <Compile Include="Graph\IScrollableControlModel.cs" />
     <Compile Include="Graph\ISimpleScrollableControl.cs" />
     <Compile Include="Graph\ISimpleScrollableControlModel.cs" />
+    <Compile Include="Graph\IUserQueryWindow.cs" />
     <Compile Include="Graph\Keys2.cs" />
     <Compile Include="Graph\KnownColor.cs" />
     <Compile Include="Graph\KnownColorTable.cs" />

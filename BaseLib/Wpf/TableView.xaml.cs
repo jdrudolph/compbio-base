@@ -17,7 +17,7 @@ namespace BaseLib.Wpf{
 		internal static readonly List<ITableSelectionAgent> selectionAgents = new List<ITableSelectionAgent>();
 		public event EventHandler SelectionChanged;
 		private readonly CompoundScrollableControl tableView;
-		private readonly TableViewClient tableViewWf;
+		private readonly TableViewControlModel tableViewWf;
 		private bool textBoxVisible;
 		private bool hasSelectionAgent;
 		private ITableSelectionAgent selectionAgent;
@@ -27,7 +27,7 @@ namespace BaseLib.Wpf{
 		public TableView(){
 			InitializeComponent();
 			tableView = new CompoundScrollableControl();
-			tableViewWf = new TableViewClient();
+			tableViewWf = new TableViewControlModel();
 			tableView.Client = tableViewWf;
 			tableViewWf.SelectionChanged += (sender, args) =>{
 				SelectionChanged?.Invoke(sender, args);
@@ -67,24 +67,22 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-	    public static readonly DependencyProperty TableModelProperty = DependencyProperty.Register(
-	        "TableModel", typeof(ITableModel), typeof(TableView), new PropertyMetadata(default(ITableModel), (o, args) =>
-	        {
-	            var x = (TableView) o;
-	            var value = (ITableModel) args.NewValue;
-	            x.tableViewWf.TableModel = value;
+		public static readonly DependencyProperty TableModelProperty = DependencyProperty.Register("TableModel",
+			typeof (ITableModel), typeof (TableView), new PropertyMetadata(default(ITableModel), (o, args) =>{
+				var x = (TableView) o;
+				var value = (ITableModel) args.NewValue;
+				x.tableViewWf.TableModel = value;
 				x.ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
-	        }));
+			}));
 
-        /// <summary>
-        /// Get the table model.
-        /// Use <code>Dispatcher.Invoke(() => view.TableModel ... )</code> to access this property for a non-GUI thread
-        /// </summary>
-	    public ITableModel TableModel
-	    {
-	        get { return (ITableModel) GetValue(TableModelProperty); }
-	        set { SetValue(TableModelProperty, value); }
-	    }
+		/// <summary>
+		/// Get the table model.
+		/// Use <code>Dispatcher.Invoke(() => view.TableModel ... )</code> to access this property for a non-GUI thread
+		/// </summary>
+		public ITableModel TableModel{
+			get { return (ITableModel) GetValue(TableModelProperty); }
+			set { SetValue(TableModelProperty, value); }
+		}
 
 		public void Select(){
 			tableView.Select();
@@ -130,9 +128,9 @@ namespace BaseLib.Wpf{
 			get { return tableView.ColumnHeaderHeight; }
 			set{
 				tableViewWf.origColumnHeaderHeight = value;
-                tableView.ColumnHeaderHeight = value;
-            }
-        }
+				tableView.ColumnHeaderHeight = value;
+			}
+		}
 
 		public int VisibleX{
 			get { return tableView.VisibleX; }

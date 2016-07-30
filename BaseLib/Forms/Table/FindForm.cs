@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using BaseLib.Forms.Scroll;
 using BaseLibS.Graph;
 using BaseLibS.Num;
 using BaseLibS.Table;
@@ -12,15 +11,15 @@ using BaseLibS.Util;
 namespace BaseLib.Forms.Table{
 	internal partial class FindForm : Form{
 		private const int expandedHeight = 700;
-		private readonly TableViewClient tableViewWf;
+		private readonly TableViewControlModel tableViewWf;
 		private readonly ICompoundScrollableControl tableView;
 		private readonly ITableModel tableModel;
 		private int searchRowIndView = -1;
 		private int[] multipleColumns = new int[0];
-		private readonly TableViewClient tableView1Wf;
-		public FindForm(TableViewClient tableViewWf, ICompoundScrollableControl tableView){
+		private readonly TableViewControlModel tableView1Wf;
+		public FindForm(TableViewControlModel tableViewWf, ICompoundScrollableControl tableView){
 			InitializeComponent();
-			tableView1Wf = new TableViewClient();
+			tableView1Wf = new TableViewControlModel();
 			tableView1.Client = tableView1Wf;
 			tableView1Wf.origColumnHeaderHeight = 26;
 			tableView1Wf.HasHelp = true;
