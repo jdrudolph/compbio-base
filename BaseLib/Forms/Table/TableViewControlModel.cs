@@ -723,7 +723,7 @@ namespace BaseLib.Forms.Table{
 			perseusPropertiesMenuItem.Text = "Perseus properties";
 			perseusToolStripSeparator.Size = new Size(206, 6);
 			//TODO
-			//control.ContextMenuStrip = contextMenuStrip;
+			((Control)control).ContextMenuStrip = contextMenuStrip;
 		}
 
 		private void PerseusPropertiesToolStripMenuItemClick(object sender, EventArgs e){
