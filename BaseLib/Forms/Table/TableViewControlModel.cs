@@ -44,26 +44,6 @@ namespace BaseLib.Forms.Table{
 		private bool multiSelect = true;
 		public event EventHandler SelectionChanged;
 		private ContextMenuStrip contextMenuStrip;
-		private ToolStripMenuItem findToolStripMenuItem;
-		private ToolStripMenuItem clearSelectionToolStripMenuItem;
-		private ToolStripMenuItem selectAllToolStripMenuItem;
-		private ToolStripMenuItem fontsToolStripMenuItem;
-		private ToolStripMenuItem monospaceToolStripMenuItem;
-		private ToolStripMenuItem defaultToolStripMenuItem;
-		private ToolStripMenuItem invertSelectionToolStripMenuItem;
-		private ToolStripMenuItem selectionTopToolStripMenuItem;
-		private ToolStripMenuItem copySelectedRowsToolStripMenuItem;
-		private ToolStripMenuItem copyCellToolStripMenuItem;
-		private ToolStripMenuItem copyColumnFullToolStripMenuItem;
-		private ToolStripMenuItem copyColumnSelectionToolStripMenuItem;
-		private ToolStripMenuItem pasteSelectionToolStripMenuItem;
-		private ToolStripMenuItem exportToolStripMenuItem;
-		private ToolStripMenuItem tagsToolStripMenuItem;
-		private ToolStripMenuItem tagsControlToolStripMenuItem;
-		private ToolStripSeparator perseusToolStripSeparator;
-		private ToolStripMenuItem showAllInPerseusMenuItem;
-		private ToolStripMenuItem showSelectedInPerseusMenuItem;
-		private ToolStripMenuItem perseusPropertiesMenuItem;
 		private int[] columnWidthSums;
 		private int[] columnWidthSumsOld;
 		private ITableModel model;
@@ -99,13 +79,11 @@ namespace BaseLib.Forms.Table{
 
 		public void Register(ICompoundScrollableControl control1){
 			control = control1;
-			Sortable = true;
+			sortable = true;
 			control1.RowHeaderWidth = 70;
 			control1.ColumnHeaderHeight = 26;
 			origColumnHeaderHeight = 26;
 			InitContextMenu();
-			tagsControlToolStripMenuItem.Visible = false;
-			tagsToolStripMenuItem.Visible = false;
 			float dpiScaleX = WpfUtils.GetDpiScaleX();
 			defaultFont = new Font2("Arial", 9/dpiScaleX);
 			textFont = defaultFont;
@@ -609,13 +587,8 @@ namespace BaseLib.Forms.Table{
 		public bool Sortable{
 			get { return sortable; }
 			set{
-				if (selectionTopToolStripMenuItem != null){
-					selectionTopToolStripMenuItem.Visible = value;
-					clearSelectionToolStripMenuItem.Visible = value;
-					selectAllToolStripMenuItem.Visible = value;
-					invertSelectionToolStripMenuItem.Visible = value;
-				}
 				sortable = value;
+				InitContextMenu();
 			}
 		}
 
@@ -623,107 +596,49 @@ namespace BaseLib.Forms.Table{
 			get { return hasShowInPerseus; }
 			set{
 				hasShowInPerseus = value;
-				showAllInPerseusMenuItem.Visible = hasShowInPerseus;
-				showSelectedInPerseusMenuItem.Visible = hasShowInPerseus;
-				perseusPropertiesMenuItem.Visible = hasShowInPerseus;
-				perseusToolStripSeparator.Visible = hasShowInPerseus;
+				InitContextMenu();
 			}
 		}
 
 		public void InitContextMenu(){
 			contextMenuStrip = new ContextMenuStrip();
-			findToolStripMenuItem = new ToolStripMenuItem();
-			selectAllToolStripMenuItem = new ToolStripMenuItem();
-			clearSelectionToolStripMenuItem = new ToolStripMenuItem();
-			fontsToolStripMenuItem = new ToolStripMenuItem();
-			monospaceToolStripMenuItem = new ToolStripMenuItem();
-			defaultToolStripMenuItem = new ToolStripMenuItem();
-			invertSelectionToolStripMenuItem = new ToolStripMenuItem();
-			selectionTopToolStripMenuItem = new ToolStripMenuItem();
-			copySelectedRowsToolStripMenuItem = new ToolStripMenuItem();
-			copyCellToolStripMenuItem = new ToolStripMenuItem();
-			copyColumnFullToolStripMenuItem = new ToolStripMenuItem();
-			copyColumnSelectionToolStripMenuItem = new ToolStripMenuItem();
-			pasteSelectionToolStripMenuItem = new ToolStripMenuItem();
-			exportToolStripMenuItem = new ToolStripMenuItem();
-			tagsToolStripMenuItem = new ToolStripMenuItem();
-			tagsControlToolStripMenuItem = new ToolStripMenuItem();
-			showAllInPerseusMenuItem = new ToolStripMenuItem();
-			showSelectedInPerseusMenuItem = new ToolStripMenuItem();
-			perseusPropertiesMenuItem = new ToolStripMenuItem();
-			perseusToolStripSeparator = new ToolStripSeparator{Visible = false};
-			showAllInPerseusMenuItem.Visible = false;
-			showSelectedInPerseusMenuItem.Visible = false;
-			perseusPropertiesMenuItem.Visible = false;
-			contextMenuStrip.Items.AddRange(new ToolStripItem[]{
-				findToolStripMenuItem, selectAllToolStripMenuItem, clearSelectionToolStripMenuItem, invertSelectionToolStripMenuItem,
-				selectionTopToolStripMenuItem, pasteSelectionToolStripMenuItem, new ToolStripSeparator(), fontsToolStripMenuItem,
-				monospaceToolStripMenuItem, defaultToolStripMenuItem, new ToolStripSeparator(), exportToolStripMenuItem,
-				copySelectedRowsToolStripMenuItem, copyCellToolStripMenuItem, copyColumnFullToolStripMenuItem,
-				copyColumnSelectionToolStripMenuItem, new ToolStripSeparator(), tagsToolStripMenuItem, tagsControlToolStripMenuItem,
-				perseusToolStripSeparator, showAllInPerseusMenuItem, showSelectedInPerseusMenuItem, perseusPropertiesMenuItem
-			});
-			contextMenuStrip.Size = new Size(210, 142);
-			findToolStripMenuItem.Size = new Size(209, 22);
-			findToolStripMenuItem.Text = "Find...";
-			findToolStripMenuItem.Click += FindToolStripMenuItemClick;
-			selectAllToolStripMenuItem.Size = new Size(209, 22);
-			selectAllToolStripMenuItem.Text = "Select all";
-			selectAllToolStripMenuItem.Click += SelectAllToolStripMenuItemClick;
-			clearSelectionToolStripMenuItem.Size = new Size(209, 22);
-			clearSelectionToolStripMenuItem.Text = "Clear selection";
-			clearSelectionToolStripMenuItem.Click += ClearSelectionToolStripMenuItemClick;
-			fontsToolStripMenuItem.Size = new Size(209, 22);
-			fontsToolStripMenuItem.Text = "Font...";
-			fontsToolStripMenuItem.Click += FontsToolStripMenuItemClick;
-			monospaceToolStripMenuItem.Size = new Size(209, 22);
-			monospaceToolStripMenuItem.Text = "Monospace font";
-			monospaceToolStripMenuItem.Click += MonospaceToolStripMenuItemClick;
-			defaultToolStripMenuItem.Size = new Size(209, 22);
-			defaultToolStripMenuItem.Text = "Default font";
-			defaultToolStripMenuItem.Click += DefaultToolStripMenuItemClick;
-			invertSelectionToolStripMenuItem.Size = new Size(209, 22);
-			invertSelectionToolStripMenuItem.Text = "Invert selection";
-			invertSelectionToolStripMenuItem.Click += InvertSelectionToolStripMenuItemClick;
-			selectionTopToolStripMenuItem.Size = new Size(209, 22);
-			selectionTopToolStripMenuItem.Text = "Bring selection to top";
-			selectionTopToolStripMenuItem.Click += SelectionTopToolStripMenuItemClick;
-			copySelectedRowsToolStripMenuItem.Size = new Size(209, 22);
-			copySelectedRowsToolStripMenuItem.Text = "Copy selected rows";
-			copySelectedRowsToolStripMenuItem.Click += CopySelectedRowsToolStripMenuItemClick;
-			copyColumnFullToolStripMenuItem.Size = new Size(209, 22);
-			copyColumnFullToolStripMenuItem.Text = "Copy column (full)";
-			copyColumnFullToolStripMenuItem.Click += CopyColumnFullToolStripMenuItemClick;
-			copyColumnSelectionToolStripMenuItem.Size = new Size(209, 22);
-			copyColumnSelectionToolStripMenuItem.Text = "Copy column (selected rows)";
-			copyColumnSelectionToolStripMenuItem.Click += CopyColumnSelectionToolStripMenuItemClick;
-			pasteSelectionToolStripMenuItem.Size = new Size(209, 22);
-			pasteSelectionToolStripMenuItem.Text = "Paste selection...";
-			pasteSelectionToolStripMenuItem.Click += PasteSelectionToolStripMenuItemClick;
-			copyCellToolStripMenuItem.Size = new Size(209, 22);
-			copyCellToolStripMenuItem.Text = "Copy cell";
-			copyCellToolStripMenuItem.Click += CopyCellToolStripMenuItemClick;
-			exportToolStripMenuItem.Size = new Size(209, 22);
-			exportToolStripMenuItem.Text = "Plain matrix export...";
-			exportToolStripMenuItem.Click += ExportToolStripMenuItemClick;
-			tagsToolStripMenuItem.Size = new Size(209, 22);
-			tagsToolStripMenuItem.Text = "Tags...";
-			tagsToolStripMenuItem.Click += TagsToolStripMenuItemClick;
-			tagsControlToolStripMenuItem.Size = new Size(209, 22);
-			tagsControlToolStripMenuItem.Text = "";
-			//tagsControlToolStripMenuItem.Click += ExportToolStripMenuItemClick;
-			showAllInPerseusMenuItem.Click += ShowAllPerseusToolStripMenuItemClick;
-			showAllInPerseusMenuItem.Size = new Size(209, 22);
-			showAllInPerseusMenuItem.Text = "Show in Perseus (all)";
-			showSelectedInPerseusMenuItem.Click += ShowSelectedPerseusToolStripMenuItemClick;
-			showSelectedInPerseusMenuItem.Size = new Size(209, 22);
-			showSelectedInPerseusMenuItem.Text = "Show in Perseus (selected rows)";
-			perseusPropertiesMenuItem.Click += PerseusPropertiesToolStripMenuItemClick;
-			perseusPropertiesMenuItem.Size = new Size(209, 22);
-			perseusPropertiesMenuItem.Text = "Perseus properties";
-			perseusToolStripSeparator.Size = new Size(206, 6);
+			contextMenuStrip.Items.Add(InitMenuItem("Find...", FindToolStripMenuItemClick));
+			if (sortable){
+				contextMenuStrip.Items.Add(InitMenuItem("Select all", SelectAllToolStripMenuItemClick));
+				contextMenuStrip.Items.Add(InitMenuItem("Clear selection", ClearSelectionToolStripMenuItemClick));
+				if (multiSelect){
+					contextMenuStrip.Items.Add(InitMenuItem("Invert selection", InvertSelectionToolStripMenuItemClick));
+				}
+				contextMenuStrip.Items.Add(InitMenuItem("Bring selection to top", SelectionTopToolStripMenuItemClick));
+			}
+			contextMenuStrip.Items.Add(InitMenuItem("Paste selection...", PasteSelectionToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(new ToolStripSeparator());
+			contextMenuStrip.Items.Add(InitMenuItem("Font...", FontsToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(InitMenuItem("Monospace font", MonospaceToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(InitMenuItem("Default font", DefaultToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(new ToolStripSeparator());
+			contextMenuStrip.Items.Add(InitMenuItem("Plain matrix export...", ExportToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(InitMenuItem("Copy selected rows", CopySelectedRowsToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(InitMenuItem("Copy cell", CopyCellToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(InitMenuItem("Copy column (full)", CopyColumnFullToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(InitMenuItem("Copy column (selected rows)", CopyColumnSelectionToolStripMenuItemClick));
+			contextMenuStrip.Items.Add(new ToolStripSeparator());
+			if (hasShowInPerseus){
+				contextMenuStrip.Items.Add(new ToolStripSeparator());
+				contextMenuStrip.Items.Add(InitMenuItem("Show in Perseus (all)", ShowAllPerseusToolStripMenuItemClick));
+				contextMenuStrip.Items.Add(InitMenuItem("Show in Perseus (selected rows)", ShowSelectedPerseusToolStripMenuItemClick));
+				contextMenuStrip.Items.Add(InitMenuItem("Perseus properties", PerseusPropertiesToolStripMenuItemClick));
+			}
+			//contextMenuStrip.Size = new Size(210, 142);
+			//perseusToolStripSeparator.Size = new Size(206, 6);
 			//TODO
-			((Control)control).ContextMenuStrip = contextMenuStrip;
+			((Control) control).ContextMenuStrip = contextMenuStrip;
+		}
+
+		private static ToolStripMenuItem InitMenuItem(string text, EventHandler action){
+			ToolStripMenuItem menuItem = new ToolStripMenuItem{Size = new Size(209, 22), Text = text};
+			menuItem.Click += action;
+			return menuItem;
 		}
 
 		private void PerseusPropertiesToolStripMenuItemClick(object sender, EventArgs e){
@@ -741,10 +656,8 @@ namespace BaseLib.Forms.Table{
 		public bool MultiSelect{
 			get { return multiSelect; }
 			set{
-				if (invertSelectionToolStripMenuItem != null){
-					invertSelectionToolStripMenuItem.Visible = value;
-				}
 				multiSelect = value;
+				InitContextMenu();
 			}
 		}
 
@@ -843,10 +756,6 @@ namespace BaseLib.Forms.Table{
 				}
 			}
 			return result.ToArray();
-		}
-
-		public void AddContextMenuItem(ToolStripItem item){
-			contextMenuStrip.Items.Add(item);
 		}
 
 		public ITableModel TableModel{
@@ -1128,21 +1037,76 @@ namespace BaseLib.Forms.Table{
 			if (model == null){
 				return;
 			}
-			CopyCell();
+			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
+			Tuple<int, int> q = control.GetOrigin();
+			int cx = p.X - q.Item1 - control.RowHeaderWidth;
+			int cy = p.Y - q.Item2 - control.ColumnHeaderHeight;
+			int x1 = control.VisibleX + cx;
+			if (columnWidthSums == null){
+				return;
+			}
+			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+			int row = (control.VisibleY + cy)/rowHeight;
+			if (model == null || row >= model.RowCount || row < 0){
+				return;
+			}
+			int ox = order[row];
+			Clipboard.Clear();
+			Clipboard.SetDataObject("" + TableModel.GetEntry(ox, ind));
 		}
 
 		private void CopyColumnFullToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
 				return;
 			}
-			CopyColumnFull();
+			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
+			Tuple<int, int> q = control.GetOrigin();
+			int cx = p.X - q.Item1 - control.RowHeaderWidth;
+			int x1 = control.VisibleX + cx;
+			if (columnWidthSums == null){
+				return;
+			}
+			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+			if (model == null){
+				return;
+			}
+			StringBuilder str = new StringBuilder();
+			for (int i = 0; i < order.Length; i++){
+				str.Append(TableModel.GetEntry(order[i], ind));
+				if (i != order.Length - 1){
+					str.Append("\n");
+				}
+			}
+			Clipboard.Clear();
+			Clipboard.SetDataObject(str.ToString());
 		}
 
 		private void CopyColumnSelectionToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
 				return;
 			}
-			CopyColumnSelectedRows();
+			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
+			Tuple<int, int> q = control.GetOrigin();
+			int cx = p.X - q.Item1 - control.RowHeaderWidth;
+			int x1 = control.VisibleX + cx;
+			if (columnWidthSums == null){
+				return;
+			}
+			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+			if (model == null){
+				return;
+			}
+			StringBuilder str = new StringBuilder();
+			int[] selection = GetSelectedRows();
+			for (int i = 0; i < selection.Length; i++){
+				int t = selection[i];
+				str.Append(TableModel.GetEntry(t, ind));
+				if (i != selection.Length - 1){
+					str.Append("\n");
+				}
+			}
+			Clipboard.Clear();
+			Clipboard.SetDataObject(str.ToString());
 		}
 
 		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e){
@@ -1322,8 +1286,6 @@ namespace BaseLib.Forms.Table{
 			}
 			return result;
 		}
-
-		private void TagsToolStripMenuItemClick(object sender, EventArgs e){}
 
 		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
 			if (model == null){
@@ -1531,73 +1493,6 @@ namespace BaseLib.Forms.Table{
 
 		private void Goto(){
 			//TODO
-		}
-
-		private void CopyCell(){
-			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Tuple<int, int> q = control.GetOrigin();
-			int cx = p.X - q.Item1 - control.RowHeaderWidth;
-			int cy = p.Y - q.Item2 - control.ColumnHeaderHeight;
-			int x1 = control.VisibleX + cx;
-			if (columnWidthSums == null){
-				return;
-			}
-			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			int row = (control.VisibleY + cy)/rowHeight;
-			if (model == null || row >= model.RowCount || row < 0){
-				return;
-			}
-			int ox = order[row];
-			Clipboard.Clear();
-			Clipboard.SetDataObject("" + TableModel.GetEntry(ox, ind));
-		}
-
-		private void CopyColumnFull(){
-			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Tuple<int, int> q = control.GetOrigin();
-			int cx = p.X - q.Item1 - control.RowHeaderWidth;
-			int x1 = control.VisibleX + cx;
-			if (columnWidthSums == null){
-				return;
-			}
-			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			if (model == null){
-				return;
-			}
-			StringBuilder str = new StringBuilder();
-			for (int i = 0; i < order.Length; i++){
-				str.Append(TableModel.GetEntry(order[i], ind));
-				if (i != order.Length - 1){
-					str.Append("\n");
-				}
-			}
-			Clipboard.Clear();
-			Clipboard.SetDataObject(str.ToString());
-		}
-
-		private void CopyColumnSelectedRows(){
-			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Tuple<int, int> q = control.GetOrigin();
-			int cx = p.X - q.Item1 - control.RowHeaderWidth;
-			int x1 = control.VisibleX + cx;
-			if (columnWidthSums == null){
-				return;
-			}
-			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			if (model == null){
-				return;
-			}
-			StringBuilder str = new StringBuilder();
-			int[] selection = GetSelectedRows();
-			for (int i = 0; i < selection.Length; i++){
-				int t = selection[i];
-				str.Append(TableModel.GetEntry(t, ind));
-				if (i != selection.Length - 1){
-					str.Append("\n");
-				}
-			}
-			Clipboard.Clear();
-			Clipboard.SetDataObject(str.ToString());
 		}
 
 		private void Copy(){

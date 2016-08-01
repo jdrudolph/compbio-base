@@ -222,10 +222,6 @@ namespace BaseLib.Wpf{
 			tableViewWf.SetSelectedIndex(index, sender);
 		}
 
-		public void AddContextMenuItem(ToolStripItem item){
-			tableViewWf.AddContextMenuItem(item);
-		}
-
 		public object GetEntry(int row, int col){
 			return tableViewWf.GetEntry(row, col);
 		}
