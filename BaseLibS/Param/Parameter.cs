@@ -117,7 +117,7 @@ namespace BaseLibS.Param{
 
 	    protected void WriteXmlNoValue(XmlWriter writer)
 	    {
-            writer.WriteAttributeString("Type", GetType().ToString());
+            writer.WriteAttributeString("Type", GetType().AssemblyQualifiedName);
 	        writer.WriteAttributeString("Name", Name);
 	    }
 
