@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLib.Wpf;
 using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
@@ -92,11 +93,35 @@ namespace BaseLib.Forms.Scroll{
 		public int VisibleHeight => mainControl.Height;
 		private ISimpleScrollableControlModel client;
 
+		public void AddContextMenuItem(string text, EventHandler action){
+			ToolStripMenuItem menuItem = new ToolStripMenuItem{Size = new Size(209, 22), Text = text};
+			menuItem.Click += action;
+			ContextMenuStrip.Items.Add(menuItem);
+		}
+
+		public void InitContextMenu(){
+			ContextMenuStrip = new ContextMenuStrip();
+		}
+
+		public void AddContextMenuSeparator(){
+			ContextMenuStrip.Items.Add(new ToolStripSeparator());
+		}
+
+		public void SetClipboardData(object data){
+			Clipboard.Clear();
+			Clipboard.SetDataObject(data);
+		}
+
 		public ISimpleScrollableControlModel Client{
 			set{
 				client = value;
 				value.Register(this);
 			}
+		}
+
+		public Tuple<int, int> GetContextMenuPosition(){
+			Point p = ContextMenuStrip.PointToScreen(new Point(0, 0));
+			return new Tuple<int, int>(p.X, p.Y);
 		}
 
 		protected override void OnResize(EventArgs e){
@@ -180,14 +205,67 @@ namespace BaseLib.Forms.Scroll{
 			return new Tuple<int, int>(q.X, q.Y);
 		}
 
+		public void QueryFontColor(Font2 fontIn, Color2 colorIn, out Font2 font, out Color2 color){
+			font = null;
+			color = Color2.Empty;
+			FontDialog fontDialog = new FontDialog{
+				ShowColor = true,
+				Font = GraphUtils.ToFont(fontIn),
+				Color = GraphUtils.ToColor(colorIn)
+			};
+			if (fontDialog.ShowDialog() != DialogResult.Cancel){
+				font = GraphUtils.ToFont2(fontDialog.Font);
+				color = GraphUtils.ToColor2(fontDialog.Color);
+			}
+			fontDialog.Dispose();
+		}
+
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
-			client?.ProcessCmdKey((Keys2)keyData);
+			client?.ProcessCmdKey((Keys2) keyData);
 			return base.ProcessCmdKey(ref msg, keyData);
+		}
+
+		public string GetClipboardText(){
+			return Clipboard.GetText();
 		}
 
 		protected override void OnSizeChanged(EventArgs e){
 			base.OnSizeChanged(e);
 			client?.OnSizeChanged();
+		}
+
+		public void ShowMessage(string text){
+			MessageBox.Show(text);
+		}
+
+		public bool SaveFileDialog(out string fileName, string filter){
+			SaveFileDialog ofd = new SaveFileDialog{Filter = filter};
+			if (ofd.ShowDialog() == DialogResult.OK){
+				fileName = ofd.FileName;
+				return true;
+			}
+			fileName = null;
+			return false;
+		}
+
+		public bool IsControlPressed(){
+			return (ModifierKeys & Keys.Control) == Keys.Control;
+		}
+
+		public bool IsShiftPressed(){
+			return (ModifierKeys & Keys.Shift) == Keys.Shift;
+		}
+
+		public void SetCursor(Cursors2 cursor){
+			Cursor.Current = GraphUtils.ToCursor(cursor);
+		}
+
+		public float GetDpiScaleX(){
+			return WpfUtils.GetDpiScaleX();
+		}
+
+		public float GetDpiScaleY(){
+			return WpfUtils.GetDpiScaleY();
 		}
 	}
 }

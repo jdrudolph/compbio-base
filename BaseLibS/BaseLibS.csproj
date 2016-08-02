@@ -38,6 +38,7 @@
     <Compile Include="Graph\Bitmap2.cs" />
     <Compile Include="Graph\Brush2.cs" />
     <Compile Include="Graph\Color2.cs" />
+    <Compile Include="Graph\Cursors2.cs" />
     <Compile Include="Graph\DashCap2.cs" />
     <Compile Include="Graph\DashStyle2.cs" />
     <Compile Include="Graph\Font2.cs" />

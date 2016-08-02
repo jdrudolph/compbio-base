@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 using BaseLibS.Graph;
 
 namespace BaseLib.Graphic{
@@ -166,6 +167,103 @@ namespace BaseLib.Graphic{
 					return StringAlignment.Far;
 				default:
 					throw new Exception("Never get here.");
+			}
+		}
+
+		public static Cursor ToCursor(Cursors2 cursor){
+			switch (cursor){
+				case Cursors2.AppStarting:
+					return Cursors.AppStarting;
+				case Cursors2.Arrow:
+					return Cursors.Arrow;
+				case Cursors2.Cross:
+					return Cursors.Cross;
+				case Cursors2.Default:
+					return Cursors.Default;
+				case Cursors2.HSplit:
+					return Cursors.HSplit;
+				case Cursors2.Hand:
+					return Cursors.Hand;
+				case Cursors2.Help:
+					return Cursors.Help;
+				case Cursors2.IBeam:
+					return Cursors.IBeam;
+				case Cursors2.No:
+					return Cursors.No;
+				case Cursors2.NoMove2D:
+					return Cursors.NoMove2D;
+				case Cursors2.NoMoveHoriz:
+					return Cursors.NoMoveHoriz;
+				case Cursors2.NoMoveVert:
+					return Cursors.NoMoveVert;
+				case Cursors2.PanEast:
+					return Cursors.PanEast;
+				case Cursors2.PanSouth:
+					return Cursors.PanSouth;
+				case Cursors2.PanWest:
+					return Cursors.PanWest;
+				case Cursors2.PanNorth:
+					return Cursors.PanNorth;
+				case Cursors2.PanNE:
+					return Cursors.PanNE;
+				case Cursors2.PanNW:
+					return Cursors.PanNW;
+				case Cursors2.PanSE:
+					return Cursors.PanSE;
+				case Cursors2.PanSW:
+					return Cursors.PanSW;
+				case Cursors2.SizeAll:
+					return Cursors.SizeAll;
+				case Cursors2.SizeNESW:
+					return Cursors.SizeNESW;
+				case Cursors2.SizeNS:
+					return Cursors.SizeNS;
+				case Cursors2.SizeNWSE:
+					return Cursors.SizeNWSE;
+				case Cursors2.SizeWE:
+					return Cursors.SizeWE;
+				case Cursors2.WaitCursor:
+					return Cursors.WaitCursor;
+				case Cursors2.UpArrow:
+					return Cursors.UpArrow;
+				case Cursors2.VSplit:
+					return Cursors.VSplit;
+				default:
+					throw new ArgumentOutOfRangeException(nameof(cursor), cursor, null);
+			}
+		}
+
+		public static System.Windows.Input.Cursor ToCursorWpf(Cursors2 cursor){
+			switch (cursor){
+				case Cursors2.AppStarting:
+					return System.Windows.Input.Cursors.AppStarting;
+				case Cursors2.Arrow:
+					return System.Windows.Input.Cursors.Arrow;
+				case Cursors2.Cross:
+					return System.Windows.Input.Cursors.Cross;
+				case Cursors2.Default:
+					return System.Windows.Input.Cursors.Hand;
+				case Cursors2.Help:
+					return System.Windows.Input.Cursors.Help;
+				case Cursors2.IBeam:
+					return System.Windows.Input.Cursors.IBeam;
+				case Cursors2.No:
+					return System.Windows.Input.Cursors.No;
+				case Cursors2.SizeAll:
+					return System.Windows.Input.Cursors.SizeAll;
+				case Cursors2.SizeNESW:
+					return System.Windows.Input.Cursors.SizeNESW;
+				case Cursors2.SizeNS:
+					return System.Windows.Input.Cursors.SizeNS;
+				case Cursors2.SizeNWSE:
+					return System.Windows.Input.Cursors.SizeNWSE;
+				case Cursors2.SizeWE:
+					return System.Windows.Input.Cursors.SizeWE;
+				case Cursors2.UpArrow:
+					return System.Windows.Input.Cursors.UpArrow;
+				default:
+					//TODO
+					return System.Windows.Input.Cursors.Arrow;
 			}
 		}
 	}

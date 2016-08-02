@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Windows.Forms;
 using BaseLib.Graphic;
 using BaseLib.Properties;
 using BaseLib.Wpf;
@@ -17,33 +15,20 @@ using BaseLibS.Util;
 namespace BaseLib.Forms.Table{
 	public class TableViewControlModel : ICompoundScrollableControlModel{
 		private const int rowHeight = 22;
-		private static readonly Color2 gridColor = Color2.FromArgb(172, 168, 153);
-		private static readonly Pen2 gridPen = new Pen2(gridColor);
-		private static readonly Color2 headerGridColor = Color2.FromArgb(199, 197, 178);
-		private static readonly Pen2 headerGridPen = new Pen2(headerGridColor);
-		private static readonly Color2 shadow1Color = Color2.FromArgb(203, 199, 184);
-		private static readonly Pen2 shadow1Pen = new Pen2(shadow1Color);
-		private static readonly Color2 shadow2Color = Color2.FromArgb(214, 210, 194);
-		private static readonly Pen2 shadow2Pen = new Pen2(shadow2Color);
-		private static readonly Color2 shadow3Color = Color2.FromArgb(226, 222, 205);
-		private static readonly Pen2 shadow3Pen = new Pen2(shadow3Color);
-		private static readonly Color2 headerColor = Color2.FromArgb(235, 234, 219);
-		private static readonly Brush2 headerBrush = new Brush2(headerColor);
-		private static readonly Color2 oddBgColor = Color2.FromArgb(224, 224, 224);
-		private static readonly Brush2 oddBgBrush = new Brush2(oddBgColor);
-		private static readonly Color2 selectBgColor = Color2.FromArgb(49, 106, 197);
-		private static readonly Brush2 selectBgBrush = new Brush2(selectBgColor);
-		private static readonly Color2 selectHeader1Color = Color2.FromArgb(165, 165, 151);
-		private static readonly Pen2 selectHeader1Pen = new Pen2(selectHeader1Color);
-		private static readonly Color2 selectHeader2Color = Color2.FromArgb(193, 194, 184);
-		private static readonly Pen2 selectHeader2Pen = new Pen2(selectHeader2Color);
-		private static readonly Color2 selectHeader3Color = Color2.FromArgb(208, 209, 201);
-		private static readonly Pen2 selectHeader3Pen = new Pen2(selectHeader3Color);
-		private static readonly Color2 selectHeader4Color = Color2.FromArgb(222, 223, 216);
-		private static readonly Brush2 selectHeader4Brush = new Brush2(selectHeader4Color);
+		private static readonly Pen2 gridPen = new Pen2(Color2.FromArgb(172, 168, 153));
+		private static readonly Pen2 headerGridPen = new Pen2(Color2.FromArgb(199, 197, 178));
+		private static readonly Pen2 shadow1Pen = new Pen2(Color2.FromArgb(203, 199, 184));
+		private static readonly Pen2 shadow2Pen = new Pen2(Color2.FromArgb(214, 210, 194));
+		private static readonly Pen2 shadow3Pen = new Pen2(Color2.FromArgb(226, 222, 205));
+		private static readonly Brush2 headerBrush = new Brush2(Color2.FromArgb(235, 234, 219));
+		private static readonly Brush2 oddBgBrush = new Brush2(Color2.FromArgb(224, 224, 224));
+		private static readonly Brush2 selectBgBrush = new Brush2(Color2.FromArgb(49, 106, 197));
+		private static readonly Pen2 selectHeader1Pen = new Pen2(Color2.FromArgb(165, 165, 151));
+		private static readonly Pen2 selectHeader2Pen = new Pen2(Color2.FromArgb(193, 194, 184));
+		private static readonly Pen2 selectHeader3Pen = new Pen2(Color2.FromArgb(208, 209, 201));
+		private static readonly Brush2 selectHeader4Brush = new Brush2(Color2.FromArgb(222, 223, 216));
 		private bool multiSelect = true;
 		public event EventHandler SelectionChanged;
-		private ContextMenuStrip contextMenuStrip;
 		private int[] columnWidthSums;
 		private int[] columnWidthSumsOld;
 		private ITableModel model;
@@ -84,7 +69,7 @@ namespace BaseLib.Forms.Table{
 			control1.ColumnHeaderHeight = 26;
 			origColumnHeaderHeight = 26;
 			InitContextMenu();
-			float dpiScaleX = WpfUtils.GetDpiScaleX();
+			float dpiScaleX = control.GetDpiScaleX();
 			defaultFont = new Font2("Arial", 9/dpiScaleX);
 			textFont = defaultFont;
 			headerFont = defaultFont;
@@ -98,8 +83,8 @@ namespace BaseLib.Forms.Table{
 						if (model == null || row >= model.RowCount || row < 0){
 							return;
 						}
-						bool ctrl = (Control.ModifierKeys & Keys.Control) == Keys.Control;
-						bool shift = (Control.ModifierKeys & Keys.Shift) == Keys.Shift;
+						bool ctrl = control1.IsControlPressed();
+						bool shift = control1.IsShiftPressed();
 						if (!ctrl || !multiSelect){
 							ClearSelection();
 						}
@@ -212,10 +197,10 @@ namespace BaseLib.Forms.Table{
 				int ind = ArrayUtils.ClosestIndex(columnWidthSums, x1);
 				if (ind >= 0){
 					if (Math.Abs(columnWidthSums[ind] - x1) < 5){
-						Cursor.Current = Cursors.VSplit;
+						control1.SetCursor(Cursors2.VSplit);
 						resizeCol = ind;
 					} else{
-						Cursor.Current = Cursors.Default;
+						control1.SetCursor(Cursors2.Default);
 						resizeCol = -1;
 					}
 				}
@@ -601,56 +586,190 @@ namespace BaseLib.Forms.Table{
 		}
 
 		public void InitContextMenu(){
-			contextMenuStrip = new ContextMenuStrip();
-			contextMenuStrip.Items.Add(InitMenuItem("Find...", FindToolStripMenuItemClick));
+			control.InitContextMenu();
+			control.AddContextMenuItem("Find...", (sender, args) => { Find(); });
 			if (sortable){
-				contextMenuStrip.Items.Add(InitMenuItem("Select all", SelectAllToolStripMenuItemClick));
-				contextMenuStrip.Items.Add(InitMenuItem("Clear selection", ClearSelectionToolStripMenuItemClick));
+				control.AddContextMenuItem("Select all", (sender, args) =>{
+					SelectAll();
+					control.Invalidate(true);
+				});
+				control.AddContextMenuItem("Clear selection", (sender, args) =>{
+					ClearSelectionFire();
+					control.Invalidate(true);
+				});
 				if (multiSelect){
-					contextMenuStrip.Items.Add(InitMenuItem("Invert selection", InvertSelectionToolStripMenuItemClick));
+					control.AddContextMenuItem("Invert selection", (sender, args) =>{
+						if (model == null){
+							return;
+						}
+						if (modelRowSel == null){
+							return;
+						}
+						for (int i = 0; i < modelRowSel.Length; i++){
+							modelRowSel[i] = !modelRowSel[i];
+						}
+						control.Invalidate(true);
+						SelectionChanged?.Invoke(this, new EventArgs());
+					});
 				}
-				contextMenuStrip.Items.Add(InitMenuItem("Bring selection to top", SelectionTopToolStripMenuItemClick));
+				control.AddContextMenuItem("Bring selection to top", (sender, args) => { BringSelectionToTop(); });
 			}
-			contextMenuStrip.Items.Add(InitMenuItem("Paste selection...", PasteSelectionToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(new ToolStripSeparator());
-			contextMenuStrip.Items.Add(InitMenuItem("Font...", FontsToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(InitMenuItem("Monospace font", MonospaceToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(InitMenuItem("Default font", DefaultToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(new ToolStripSeparator());
-			contextMenuStrip.Items.Add(InitMenuItem("Plain matrix export...", ExportToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(InitMenuItem("Copy selected rows", CopySelectedRowsToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(InitMenuItem("Copy cell", CopyCellToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(InitMenuItem("Copy column (full)", CopyColumnFullToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(InitMenuItem("Copy column (selected rows)", CopyColumnSelectionToolStripMenuItemClick));
-			contextMenuStrip.Items.Add(new ToolStripSeparator());
+			control.AddContextMenuItem("Paste selection...", (sender, args) =>{
+				string text = control.GetClipboardText();
+				if (string.IsNullOrEmpty(text)){
+					control.ShowMessage("Clipboard is empty.");
+					return;
+				}
+				string[] lines = text.Split('\r', '\n');
+				for (int i = 0; i < lines.Length; i++){
+					lines[i] = lines[i].Trim();
+				}
+				int ncols = StringUtils.AllIndicesOf(lines[0], "\t").Length + 1;
+				if (ncols > 2){
+					control.ShowMessage("At most two selection columns are allowed.");
+					return;
+				}
+				string[][] colData;
+				if (ncols == 1){
+					colData = new[]{lines};
+				} else{
+					colData = new string[ncols][];
+					for (int i = 0; i < colData.Length; i++){
+						colData[i] = new string[lines.Length];
+					}
+					for (int i = 0; i < lines.Length; i++){
+						string[] w = lines[i].Split('\t');
+						for (int j = 0; j < ncols; j++){
+							colData[j][i] = j < w.Length ? w[j] : "";
+						}
+					}
+				}
+				PasteSelectionWindow psw = new PasteSelectionWindow(ncols, GetColumnNames());
+				psw.ShowDialog();
+				if (!psw.Ok){
+					return;
+				}
+				int[] colInds = psw.GetSelectedIndices();
+				int[] sel = GetSelection(ncols, colData, colInds);
+				SetSelectedRows(sel);
+				control.Invalidate(true);
+			});
+			control.AddContextMenuSeparator();
+			control.AddContextMenuItem("Font...", (sender, args) =>{
+				if (model == null){
+					return;
+				}
+				control.QueryFontColor(textFont, textColor, out textFont, out textColor);
+				textBrush = new Brush2(textColor);
+				control.Invalidate(true);
+			});
+			control.AddContextMenuItem("Monospace font", (sender, args) =>{
+				textFont = new Font2("Courier", 9);
+				control.Invalidate(true);
+			});
+			control.AddContextMenuItem("Default font", (sender, args) =>{
+				textFont = defaultFont;
+				control.Invalidate(true);
+			});
+			control.AddContextMenuSeparator();
+			control.AddContextMenuItem("Plain matrix export...", (sender, args) =>{
+				if (model == null){
+					return;
+				}
+				string fileName;
+				if (control.SaveFileDialog(out fileName, "Text File (*.txt)|*.txt")){
+					ExportMatrix(fileName);
+				}
+			});
+			control.AddContextMenuItem("Copy selected rows", (sender, args) =>{
+				if (model == null){
+					return;
+				}
+				Copy();
+			});
+			control.AddContextMenuItem("Copy cell", (sender, args) =>{
+				if (model == null){
+					return;
+				}
+				Tuple<int, int> p = control.GetContextMenuPosition();
+				Tuple<int, int> q = control.GetOrigin();
+				int cx = p.Item1 - q.Item1 - control.RowHeaderWidth;
+				int cy = p.Item2 - q.Item2 - control.ColumnHeaderHeight;
+				int x1 = control.VisibleX + cx;
+				if (columnWidthSums == null){
+					return;
+				}
+				int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+				int row = (control.VisibleY + cy)/rowHeight;
+				if (model == null || row >= model.RowCount || row < 0){
+					return;
+				}
+				int ox = order[row];
+				control.SetClipboardData("" + TableModel.GetEntry(ox, ind));
+			});
+			control.AddContextMenuItem("Copy column (full)", (sender, args) =>{
+				if (model == null){
+					return;
+				}
+				Tuple<int, int> p = control.GetContextMenuPosition();
+				Tuple<int, int> q = control.GetOrigin();
+				int cx = p.Item1 - q.Item1 - control.RowHeaderWidth;
+				int x1 = control.VisibleX + cx;
+				if (columnWidthSums == null){
+					return;
+				}
+				int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+				if (model == null){
+					return;
+				}
+				StringBuilder str = new StringBuilder();
+				for (int i = 0; i < order.Length; i++){
+					str.Append(TableModel.GetEntry(order[i], ind));
+					if (i != order.Length - 1){
+						str.Append("\n");
+					}
+				}
+				control.SetClipboardData(str.ToString());
+			});
+			control.AddContextMenuItem("Copy column (selected rows)", (sender, args) =>{
+				if (model == null){
+					return;
+				}
+				Tuple<int, int> p = control.GetContextMenuPosition();
+				Tuple<int, int> q = control.GetOrigin();
+				int cx = p.Item1 - q.Item1 - control.RowHeaderWidth;
+				int x1 = control.VisibleX + cx;
+				if (columnWidthSums == null){
+					return;
+				}
+				int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
+				if (model == null){
+					return;
+				}
+				StringBuilder str = new StringBuilder();
+				int[] selection = GetSelectedRows();
+				for (int i = 0; i < selection.Length; i++){
+					int t = selection[i];
+					str.Append(TableModel.GetEntry(t, ind));
+					if (i != selection.Length - 1){
+						str.Append("\n");
+					}
+				}
+				control.SetClipboardData(str.ToString());
+			});
+			control.AddContextMenuSeparator();
 			if (hasShowInPerseus){
-				contextMenuStrip.Items.Add(new ToolStripSeparator());
-				contextMenuStrip.Items.Add(InitMenuItem("Show in Perseus (all)", ShowAllPerseusToolStripMenuItemClick));
-				contextMenuStrip.Items.Add(InitMenuItem("Show in Perseus (selected rows)", ShowSelectedPerseusToolStripMenuItemClick));
-				contextMenuStrip.Items.Add(InitMenuItem("Perseus properties", PerseusPropertiesToolStripMenuItemClick));
+				control.AddContextMenuSeparator();
+				control.AddContextMenuItem("Show in Perseus (all)", (sender, args) =>{
+					//TODO
+				});
+				control.AddContextMenuItem("Show in Perseus (selected rows)", (sender, args) =>{
+					//TODO
+				});
+				control.AddContextMenuItem("Perseus properties", (sender, args) =>{
+					//TODO
+				});
 			}
-			//contextMenuStrip.Size = new Size(210, 142);
-			//perseusToolStripSeparator.Size = new Size(206, 6);
-			//TODO
-			((Control) control).ContextMenuStrip = contextMenuStrip;
-		}
-
-		private static ToolStripMenuItem InitMenuItem(string text, EventHandler action){
-			ToolStripMenuItem menuItem = new ToolStripMenuItem{Size = new Size(209, 22), Text = text};
-			menuItem.Click += action;
-			return menuItem;
-		}
-
-		private void PerseusPropertiesToolStripMenuItemClick(object sender, EventArgs e){
-			//TODO
-		}
-
-		private void ShowSelectedPerseusToolStripMenuItemClick(object sender, EventArgs e){
-			//TODO
-		}
-
-		private void ShowAllPerseusToolStripMenuItemClick(object sender, EventArgs e){
-			//TODO
 		}
 
 		public bool MultiSelect{
@@ -919,32 +1038,6 @@ namespace BaseLib.Forms.Table{
 			return model?.GetEntry(order[row], col);
 		}
 
-		private void FindToolStripMenuItemClick(object sender, EventArgs e){
-			Find();
-		}
-
-		private void SelectAllToolStripMenuItemClick(object sender, EventArgs e){
-			SelectAll();
-			control.Invalidate(true);
-		}
-
-		private void ClearSelectionToolStripMenuItemClick(object sender, EventArgs e){
-			ClearSelectionFire();
-			control.Invalidate(true);
-		}
-
-		private void FontsToolStripMenuItemClick(object sender, EventArgs e){
-			ChangeFonts();
-		}
-
-		private void MonospaceToolStripMenuItemClick(object sender, EventArgs e){
-			MonospaceFont();
-		}
-
-		private void DefaultToolStripMenuItemClick(object sender, EventArgs e){
-			DefaultFont1();
-		}
-
 		private void Find(){
 			if (model == null){
 				return;
@@ -957,34 +1050,6 @@ namespace BaseLib.Forms.Table{
 			findForm.Show();
 			findForm.FocusInputField();
 			findForm.Activate();
-		}
-
-		private void MonospaceFont(){
-			textFont = new Font2("Courier", 9);
-			control.Invalidate(true);
-		}
-
-		private void DefaultFont1(){
-			textFont = defaultFont;
-			control.Invalidate(true);
-		}
-
-		private void ChangeFonts(){
-			if (model == null){
-				return;
-			}
-			FontDialog fontDialog = new FontDialog{
-				ShowColor = true,
-				Font = GraphUtils.ToFont(textFont),
-				Color = Color.FromArgb(textColor.A, textColor.R, textColor.G, textColor.B)
-			};
-			if (fontDialog.ShowDialog() != DialogResult.Cancel){
-				textFont = GraphUtils.ToFont2(fontDialog.Font);
-				textColor = Color2.FromArgb(fontDialog.Color.A, fontDialog.Color.R, fontDialog.Color.G, fontDialog.Color.B);
-				textBrush = new Brush2(textColor);
-			}
-			fontDialog.Dispose();
-			control.Invalidate(true);
 		}
 
 		public void BringSelectionToTop(){
@@ -1005,148 +1070,6 @@ namespace BaseLib.Forms.Table{
 			}
 			order = ArrayUtils.Concat(l1, l2);
 			control.VisibleY = 0;
-			control.Invalidate(true);
-		}
-
-		private void InvertSelectionToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
-				return;
-			}
-			if (modelRowSel == null){
-				return;
-			}
-			for (int i = 0; i < modelRowSel.Length; i++){
-				modelRowSel[i] = !modelRowSel[i];
-			}
-			control.Invalidate(true);
-			SelectionChanged?.Invoke(this, new EventArgs());
-		}
-
-		private void SelectionTopToolStripMenuItemClick(object sender, EventArgs e){
-			BringSelectionToTop();
-		}
-
-		private void CopySelectedRowsToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
-				return;
-			}
-			Copy();
-		}
-
-		private void CopyCellToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
-				return;
-			}
-			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Tuple<int, int> q = control.GetOrigin();
-			int cx = p.X - q.Item1 - control.RowHeaderWidth;
-			int cy = p.Y - q.Item2 - control.ColumnHeaderHeight;
-			int x1 = control.VisibleX + cx;
-			if (columnWidthSums == null){
-				return;
-			}
-			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			int row = (control.VisibleY + cy)/rowHeight;
-			if (model == null || row >= model.RowCount || row < 0){
-				return;
-			}
-			int ox = order[row];
-			Clipboard.Clear();
-			Clipboard.SetDataObject("" + TableModel.GetEntry(ox, ind));
-		}
-
-		private void CopyColumnFullToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
-				return;
-			}
-			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Tuple<int, int> q = control.GetOrigin();
-			int cx = p.X - q.Item1 - control.RowHeaderWidth;
-			int x1 = control.VisibleX + cx;
-			if (columnWidthSums == null){
-				return;
-			}
-			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			if (model == null){
-				return;
-			}
-			StringBuilder str = new StringBuilder();
-			for (int i = 0; i < order.Length; i++){
-				str.Append(TableModel.GetEntry(order[i], ind));
-				if (i != order.Length - 1){
-					str.Append("\n");
-				}
-			}
-			Clipboard.Clear();
-			Clipboard.SetDataObject(str.ToString());
-		}
-
-		private void CopyColumnSelectionToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
-				return;
-			}
-			Point p = contextMenuStrip.PointToScreen(new Point(0, 0));
-			Tuple<int, int> q = control.GetOrigin();
-			int cx = p.X - q.Item1 - control.RowHeaderWidth;
-			int x1 = control.VisibleX + cx;
-			if (columnWidthSums == null){
-				return;
-			}
-			int ind = ArrayUtils.CeilIndex(columnWidthSums, x1);
-			if (model == null){
-				return;
-			}
-			StringBuilder str = new StringBuilder();
-			int[] selection = GetSelectedRows();
-			for (int i = 0; i < selection.Length; i++){
-				int t = selection[i];
-				str.Append(TableModel.GetEntry(t, ind));
-				if (i != selection.Length - 1){
-					str.Append("\n");
-				}
-			}
-			Clipboard.Clear();
-			Clipboard.SetDataObject(str.ToString());
-		}
-
-		private void PasteSelectionToolStripMenuItemClick(object sender, EventArgs e){
-			string text = Clipboard.GetText();
-			if (string.IsNullOrEmpty(text)){
-				MessageBox.Show("Clipboard is empty.");
-				return;
-			}
-			string[] lines = text.Split('\r', '\n');
-			for (int i = 0; i < lines.Length; i++){
-				lines[i] = lines[i].Trim();
-			}
-			int ncols = StringUtils.AllIndicesOf(lines[0], "\t").Length + 1;
-			if (ncols > 2){
-				MessageBox.Show("At most two selection columns are allowed.");
-				return;
-			}
-			string[][] colData;
-			if (ncols == 1){
-				colData = new[]{lines};
-			} else{
-				colData = new string[ncols][];
-				for (int i = 0; i < colData.Length; i++){
-					colData[i] = new string[lines.Length];
-				}
-				for (int i = 0; i < lines.Length; i++){
-					string[] w = lines[i].Split('\t');
-					for (int j = 0; j < ncols; j++){
-						colData[j][i] = j < w.Length ? w[j] : "";
-					}
-				}
-			}
-			PasteSelectionWindow psw = new PasteSelectionWindow(ncols, GetColumnNames());
-			psw.ShowDialog();
-			if (!psw.Ok){
-				return;
-			}
-			int[] colInds = psw.GetSelectedIndices();
-			int[] sel = GetSelection(ncols, colData, colInds);
-			SetSelectedRows(sel);
 			control.Invalidate(true);
 		}
 
@@ -1285,16 +1208,6 @@ namespace BaseLib.Forms.Table{
 				result[i] = TableModel.GetColumnName(i);
 			}
 			return result;
-		}
-
-		private void ExportToolStripMenuItemClick(object sender, EventArgs e){
-			if (model == null){
-				return;
-			}
-			SaveFileDialog ofd = new SaveFileDialog{Filter = "Text File (*.txt)|*.txt"};
-			if (ofd.ShowDialog() == DialogResult.OK){
-				ExportMatrix(ofd.FileName);
-			}
 		}
 
 		private void ExportMatrix(string fileName){
@@ -1517,8 +1430,7 @@ namespace BaseLib.Forms.Table{
 					str.Append("\n");
 				}
 			}
-			Clipboard.Clear();
-			Clipboard.SetDataObject(str.ToString());
+			control.SetClipboardData(str.ToString());
 		}
 
 		private void HandleToolTip(bool hover){

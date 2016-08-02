@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
+using BaseLib.Wpf;
 using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
@@ -101,8 +102,56 @@ namespace BaseLib.Forms.Scroll{
 		public Action<EventArgs> OnMouseLeaveMiddleCornerView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMiddleCornerView { get; set; }
 		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+
 		public void ExportGraphic(string name, bool showDialog){
 			ExportGraphics.ExportGraphic(this, name, showDialog);
+		}
+
+		public void AddContextMenuItem(string text, EventHandler action){
+			ToolStripMenuItem menuItem = new ToolStripMenuItem{Size = new Size(209, 22), Text = text};
+			menuItem.Click += action;
+			ContextMenuStrip.Items.Add(menuItem);
+		}
+
+		public void AddContextMenuSeparator(){
+			ContextMenuStrip.Items.Add(new ToolStripSeparator());
+		}
+
+		public void InitContextMenu(){
+			ContextMenuStrip = new ContextMenuStrip();
+		}
+
+		public Tuple<int, int> GetContextMenuPosition(){
+			Point p = ContextMenuStrip.PointToScreen(new Point(0, 0));
+			return new Tuple<int, int>(p.X, p.Y);
+		}
+
+		public void SetClipboardData(object data){
+			Clipboard.Clear();
+			Clipboard.SetDataObject(data);
+		}
+
+		public void ShowMessage(string text){
+			MessageBox.Show(text);
+		}
+
+		public string GetClipboardText(){
+			return Clipboard.GetText();
+		}
+
+		public void QueryFontColor(Font2 fontIn, Color2 colorIn, out Font2 font, out Color2 color){
+			font = null;
+			color = Color2.Empty;
+			FontDialog fontDialog = new FontDialog{
+				ShowColor = true,
+				Font = GraphUtils.ToFont(fontIn),
+				Color = GraphUtils.ToColor(colorIn)
+			};
+			if (fontDialog.ShowDialog() != DialogResult.Cancel){
+				font = GraphUtils.ToFont2(fontDialog.Font);
+				color = GraphUtils.ToColor2(fontDialog.Color);
+			}
+			fontDialog.Dispose();
 		}
 
 		public int Width1 => Width;
@@ -358,7 +407,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		protected override bool ProcessCmdKey(ref Message msg, Keys keyData){
-			client?.ProcessCmdKey((Keys2)keyData);
+			client?.ProcessCmdKey((Keys2) keyData);
 			return base.ProcessCmdKey(ref msg, keyData);
 		}
 
@@ -377,6 +426,36 @@ namespace BaseLib.Forms.Scroll{
 
 		public void SetColumnViewToolTipTitle(string title){
 			columnViewToolTip.ToolTipTitle = title;
+		}
+
+		public bool SaveFileDialog(out string fileName, string filter){
+			SaveFileDialog ofd = new SaveFileDialog{Filter = filter};
+			if (ofd.ShowDialog() == DialogResult.OK){
+				fileName = ofd.FileName;
+				return true;
+			}
+			fileName = null;
+			return false;
+		}
+
+		public bool IsControlPressed(){
+			return (ModifierKeys & Keys.Control) == Keys.Control;
+		}
+
+		public bool IsShiftPressed(){
+			return (ModifierKeys & Keys.Shift) == Keys.Shift;
+		}
+
+		public void SetCursor(Cursors2 cursor){
+			Cursor.Current = GraphUtils.ToCursor(cursor);
+		}
+
+		public float GetDpiScaleX(){
+			return WpfUtils.GetDpiScaleX();
+		}
+
+		public float GetDpiScaleY(){
+			return WpfUtils.GetDpiScaleY();
 		}
 	}
 }
