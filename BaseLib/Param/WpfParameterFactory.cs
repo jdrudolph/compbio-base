@@ -277,7 +277,7 @@ namespace BaseLib.Param{
 				}
 				return b;
 			}
-			throw new Exception("Could not convert parameter");
+            return p; // and hope for the best
 	    }
         /// <summary>
         /// Convert <see cref="BaseLibS.Param"/> to <see cref="BaseLib.Param"/>
