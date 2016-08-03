@@ -23,7 +23,7 @@ namespace BaseLibS.Test
             var data = new FloatMatrixIndexer(vals);
             var distance = new EuclideanDistance();
             hclust.TreeClusterKmeans(data, MatrixAccess.Columns, distance, HierarchicalClusterLinkage.Average, false,
-                false, 1, 300, 1, 100,
+                false, 1, 300, 1, 10,
                 (i) => { });
         }
     }
