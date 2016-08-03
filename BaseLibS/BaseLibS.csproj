@@ -243,6 +243,7 @@
     <Compile Include="Table\DataAnnotationRow.cs" />
     <Compile Include="Table\DataRow2.cs" />
     <Compile Include="Table\DataTable2.cs" />
+    <Compile Include="Table\DataTable2Ser.cs" />
     <Compile Include="Table\IDataTable.cs" />
     <Compile Include="Table\ITable.cs" />
     <Compile Include="Table\ITableModel.cs" />

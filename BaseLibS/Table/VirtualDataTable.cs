@@ -5,9 +5,7 @@ namespace BaseLibS.Table{
 		private int rowInUse = -1;
 		private object[] rowDataInUse;
 
-		protected VirtualDataTable(string name, string description, int rowCount){
-			Name = name;
-			Description = description;
+		protected VirtualDataTable(string name, string description, int rowCount) : base(name, description){
 			RowCount = rowCount;
 		}
 

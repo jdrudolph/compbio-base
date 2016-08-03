@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
+using System.Security.Permissions;
 
 namespace BaseLibS.Table{
 	[Serializable]
-	public class VirtualDataTable2 : TableModelImpl, ITable{
+	public sealed class VirtualDataTable2 : TableModelImpl, ITable{
 		public Func<int, object[]> GetRowData { private get; set; }
 		private int rowInUse = -1;
 		private object[] rowDataInUse;
@@ -11,22 +13,35 @@ namespace BaseLibS.Table{
 		private List<int> persistentColInds;
 		private DataTable2 persistentTable;
 
-		public VirtualDataTable2(string name, string description, int rowCount){
-			Name = name;
-			Description = description;
+		public VirtualDataTable2(string name, string description, int rowCount) : base(name, description){
 			this.rowCount = rowCount;
 		}
 
-		public void AddColumn(string colName, int width, ColumnType columnType, string description,
-			bool persistent){
+		private VirtualDataTable2(SerializationInfo info, StreamingContext context) : base(info, context){
+			GetRowData = (Func<int, object[]>) info.GetValue("GetRowData", typeof (Func<int, object[]>));
+			rowCount = info.GetInt32("rowCount");
+			persistentColInds = (List<int>) info.GetValue("persistentColInds", typeof (List<int>));
+			persistentTable = (DataTable2) info.GetValue("persistentTable", typeof (DataTable2));
+		}
+
+		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
+		public override void GetObjectData(SerializationInfo info, StreamingContext context){
+			base.GetObjectData(info, context);
+			info.AddValue("GetRowData", GetRowData, typeof (Func<int, object[]>));
+			info.AddValue("rowCount", rowCount);
+			info.AddValue("persistentColInds", persistentColInds, typeof (List<int>));
+			info.AddValue("persistentTable", persistentTable, typeof (DataTable2));
+		}
+
+		public void AddColumn(string colName, int width, ColumnType columnType, string description, bool persistent){
 			AddColumn(colName, width, columnType, description);
 			if (persistent){
 				AddPersistentColumn(colName, width, columnType, description, null);
 			}
 		}
 
-		public void AddColumn(string colName, int width, ColumnType columnType, string description,
-			RenderTableCell renderer, bool persistent){
+		public void AddColumn(string colName, int width, ColumnType columnType, string description, RenderTableCell renderer,
+			bool persistent){
 			AddColumn(colName, width, columnType, description, renderer);
 			if (persistent){
 				AddPersistentColumn(colName, width, columnType, description, renderer);
@@ -44,7 +59,9 @@ namespace BaseLibS.Table{
 			persistentColInds.Sort();
 		}
 
-		public DataRow2 NewRow() { return new DataRow2(columnNames.Count, nameMapping); }
+		public DataRow2 NewRow(){
+			return new DataRow2(columnNames.Count, nameMapping);
+		}
 
 		public void FillPersistentData(){
 			for (int i = 0; i < rowCount; i++){
