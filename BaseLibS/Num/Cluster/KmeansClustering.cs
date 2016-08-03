@@ -172,7 +172,7 @@ namespace BaseLibS.Num.Cluster{
 			return clusterIndices;
 		}
 		private static double[][] SelectInitialCenters(double[][] xy, int npoints, int nvars, int k){
-			double[][] centers = Enumerable.Repeat(new double[nvars], k).ToArray();
+			double[][] centers = Enumerable.Range(0, k).Select(i => new double[nvars]).ToArray();
 			bool[] busycenters = Enumerable.Repeat(false, k).ToArray();
 			return SelectCenter(xy, npoints, nvars, centers, busycenters, k);
 		}
