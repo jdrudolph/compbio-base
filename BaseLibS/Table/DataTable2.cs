@@ -22,7 +22,7 @@ namespace BaseLibS.Table{
 		[SecurityPermission(SecurityAction.LinkDemand, Flags = SecurityPermissionFlag.SerializationFormatter)]
 		public override void GetObjectData(SerializationInfo info, StreamingContext context){
 			base.GetObjectData(info, context);
-			DataTable2Ser s = new DataTable2Ser(Rows);
+			DataTable2Ser s = new DataTable2Ser(Rows, columnNames.Count);
 			info.AddValue("Rows", s, typeof(DataTable2Ser));
 		}
 
