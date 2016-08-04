@@ -51,7 +51,8 @@ namespace NumPluginBase.ClassificationRank{
 			}
 			double statistic;
 			double pvalS0;
-			OneWayAnovaTest.TestImpl(data, out statistic, s0, out pvalS0);
+			double[] gmeans;
+			OneWayAnovaTest.TestImpl(data, out statistic, s0, out pvalS0, out gmeans);
 			return pvalS0;
 		}
 

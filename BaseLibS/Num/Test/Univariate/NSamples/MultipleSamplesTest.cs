@@ -1,8 +1,7 @@
 namespace BaseLibS.Num.Test.Univariate.NSamples{
 	public abstract class MultipleSamplesTest : UnivariateTest{
-		public static MultipleSamplesTest[] allTests = new MultipleSamplesTest[]{new OneWayAnovaTest()};
-											//, new KruskalWallisTest()
-
+		public static MultipleSamplesTest[] allTests = {new OneWayAnovaTest()};
+		//, new KruskalWallisTest()
 		public static string[] allNames;
 
 		static MultipleSamplesTest(){
@@ -12,7 +11,12 @@ namespace BaseLibS.Num.Test.Univariate.NSamples{
 			}
 		}
 
-		public abstract double Test(double[][] data, out double statistic, double s0, out double pvalS0);
+		public abstract double Test(double[][] data, out double statistic, double s0, out double pvalS0, out double[] gmeans);
+
+		public double Test(double[][] data, out double statistic, double s0, out double pvalS0){
+			double[] gmeans;
+			return Test(data, out statistic, s0, out pvalS0, out gmeans);
+		}
 
 		public double Test(double[][] data, out double statistic){
 			double dummy;

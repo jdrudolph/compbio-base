@@ -4,14 +4,14 @@ using BaseLibS.Num.Func;
 
 namespace BaseLibS.Num.Test.Univariate.NSamples{
 	public class OneWayAnovaTest : MultipleSamplesTest{
-		public override double Test(double[][] data, out double statistic, double s0, out double pvalS0){
-			return TestImpl(data, out statistic, s0, out pvalS0);
+		public override double Test(double[][] data, out double statistic, double s0, out double pvalS0, out double[] gmeans){
+			return TestImpl(data, out statistic, s0, out pvalS0, out gmeans);
 		}
 
 		public override bool HasSides => false;
 		public override bool HasS0 => true;
 
-		public static double TestImpl(double[][] data, out double statistic, double s0, out double pvalS0){
+		public static double TestImpl(double[][] data, out double statistic, double s0, out double pvalS0, out double[] gmeans){
 			List<int> v = new List<int>();
 			for (int i = 0; i < data.Length; i++){
 				if (data[i].Length > 1){
@@ -23,9 +23,10 @@ namespace BaseLibS.Num.Test.Univariate.NSamples{
 			if (g < 2){
 				statistic = 0;
 				pvalS0 = 1;
+				gmeans = null;
 				return 1;
 			}
-			double[] gmeans = new double[g];
+			gmeans = new double[g];
 			double totMean = 0;
 			int n = 0;
 			for (int i = 0; i < g; i++){

@@ -4,8 +4,9 @@ using System.Linq;
 
 namespace BaseLibS.Num.Test.Univariate.NSamples{
 	public class KruskalWallisTest : MultipleSamplesTest{
-		public override double Test(double[][] data, out double statistic, double s0, out double pvalS0){
+		public override double Test(double[][] data, out double statistic, double s0, out double pvalS0, out double[] gmeans){
 			pvalS0 = 1;
+			gmeans = null;
 			return TestImpl(data, out statistic);
 		}
 
@@ -36,7 +37,7 @@ namespace BaseLibS.Num.Test.Univariate.NSamples{
 			double[] dataRankSorted = dataRank.OrderBy(a => a).ToArray();
 			for (i = 0; i < n; i++){
 				counter++;
-				if (((i == n - 1)) || (dataRankSorted[i] != dataRankSorted[i + 1])){
+				if ((i == n - 1) || (dataRankSorted[i] != dataRankSorted[i + 1])){
 					if (counter > 1){
 						numDuplicates.Add(counter);
 					}
