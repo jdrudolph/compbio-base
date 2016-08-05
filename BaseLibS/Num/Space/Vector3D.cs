@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace BaseLibS.Num.Space{
-	public class Vec3Double{
+	public class Vector3D{
 		public double x;
 		public double y;
 		public double z;
@@ -18,31 +18,31 @@ namespace BaseLibS.Num.Space{
 			z = t[2];
 		}
 
-		public void Set(Vec3Double t1){
+		public void Set(Vector3D t1){
 			x = t1.x;
 			y = t1.y;
 			z = t1.z;
 		}
 
-		public void Add(Vec3Double t1, Vec3Double t2){
+		public void Add(Vector3D t1, Vector3D t2){
 			x = t1.x + t2.x;
 			y = t1.y + t2.y;
 			z = t1.z + t2.z;
 		}
 
-		public void Add(Vec3Double t1){
+		public void Add(Vector3D t1){
 			x += t1.x;
 			y += t1.y;
 			z += t1.z;
 		}
 
-		public void Subtract(Vec3Double t1, Vec3Double t2){
+		public void Subtract(Vector3D t1, Vector3D t2){
 			x = t1.x - t2.x;
 			y = t1.y - t2.y;
 			z = t1.z - t2.z;
 		}
 
-		public void Subtract(Vec3Double t1){
+		public void Subtract(Vector3D t1){
 			x -= t1.x;
 			y -= t1.y;
 			z -= t1.z;
@@ -54,13 +54,13 @@ namespace BaseLibS.Num.Space{
 			z *= s;
 		}
 
-		public void ScaleAdd(double s, Vec3Double t1, Vec3Double t2){
+		public void ScaleAdd(double s, Vector3D t1, Vector3D t2){
 			x = s*t1.x + t2.x;
 			y = s*t1.y + t2.y;
 			z = s*t1.z + t2.z;
 		}
 
-		public void Cross(Vec3Double v1, Vec3Double v2){
+		public void Cross(Vector3D v1, Vector3D v2){
 			Set(v1.y*v2.z - v1.z*v2.y, v1.z*v2.x - v1.x*v2.z, v1.x*v2.y - v1.y*v2.x);
 		}
 
@@ -71,7 +71,7 @@ namespace BaseLibS.Num.Space{
 			z /= d;
 		}
 
-		public double Dot(Vec3Double v){
+		public double Dot(Vector3D v){
 			return x*v.x + y*v.y + z*v.z;
 		}
 
@@ -84,14 +84,14 @@ namespace BaseLibS.Num.Space{
 		}
 
 		public override bool Equals(object t1){
-			if (!(t1 is Vec3Double)){
+			if (!(t1 is Vector3D)){
 				return false;
 			}
-			Vec3Double t2 = (Vec3Double) t1;
+			Vector3D t2 = (Vector3D) t1;
 			return (x == t2.x && y == t2.y && z == t2.z);
 		}
 
-		protected bool Equals(Vec3Double other){
+		protected bool Equals(Vector3D other){
 			return x.Equals(other.x) && y.Equals(other.y) && z.Equals(other.z);
 		}
 

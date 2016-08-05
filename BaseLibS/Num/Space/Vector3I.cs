@@ -1,11 +1,11 @@
 ﻿namespace BaseLibS.Num.Space{
-	public class Vec3Int{
+	public class Vector3I{
 		public int x;
 		public int y;
 		public int z;
-		public Vec3Int(){}
+		public Vector3I(){}
 
-		public Vec3Int(int x, int y, int z){
+		public Vector3I(int x, int y, int z){
 			this.x = x;
 			this.y = y;
 			this.z = z;
@@ -17,27 +17,27 @@
 			z = z1;
 		}
 
-		public void Set(Vec3Int t1){
+		public void Set(Vector3I t1){
 			x = t1.x;
 			y = t1.y;
 			z = t1.z;
 		}
 
-		public void Add(Vec3Int t){
+		public void Add(Vector3I t){
 			x += t.x;
 			y += t.y;
 			z += t.z;
 		}
 
 		public override bool Equals(object o){
-			if (!(o is Vec3Int)){
+			if (!(o is Vector3I)){
 				return false;
 			}
-			Vec3Int t = (Vec3Int) o;
+			Vector3I t = (Vector3I) o;
 			return x == t.x && y == t.y && z == t.z;
 		}
 
-		protected bool Equals(Vec3Int other){
+		protected bool Equals(Vector3I other){
 			return x == other.x && y == other.y && z == other.z;
 		}
 
