@@ -1,35 +1,141 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Param
 {
     public static class SerializationHelper
     {
-        public static void WriteValues(this XmlWriter writer, IList<string> values, string rootTag = "Values", string childTag = "Value")
+        /// <summary>
+        /// Read a list of strings &lt;List&gt; &lt;Item&gt; Value &lt;/Item&gt; &lt;/List&gt;.
+        /// Element names are ignored
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+	    public static List<string> ReadInto(this XmlReader reader, List<string> list)
+	    {
+	        bool isEmpty = reader.IsEmptyElement;
+	        reader.ReadStartElement();
+	        if (!isEmpty)
+	        {
+	            while (reader.NodeType == XmlNodeType.Element)
+	            {
+	                list.Add(reader.ReadElementContentAsString());
+	            }
+	            reader.ReadEndElement();
+	        }
+	        return list;
+;	    }
+        /// <summary>
+        /// Read a list of integers &lt;List&gt; &lt;Item&gt; Value &lt;/Item&gt; &lt;/List&gt;.
+        /// Element names are ignored
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+	    public static List<int> ReadInto(this XmlReader reader, List<int> list)
+	    {
+	        bool isEmpty = reader.IsEmptyElement;
+	        reader.ReadStartElement();
+	        if (!isEmpty)
+	        {
+	            while (reader.NodeType == XmlNodeType.Element)
+	            {
+	                list.Add(reader.ReadElementContentAsInt());
+	            }
+	            reader.ReadEndElement();
+	        }
+	        return list;
+;	    }
+
+        /// <summary>
+        /// Read a list of objects &lt;List&gt; &lt;Item&gt; Value &lt;/Item&gt; &lt;/List&gt;.
+        /// Element names are ignored
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+	    public static List<T> ReadInto<T>(this XmlReader reader, List<T> list)
+	    {
+	        bool isEmpty = reader.IsEmptyElement;
+	        reader.ReadStartElement();
+	        if (!isEmpty)
+	        {
+	            while (reader.NodeType == XmlNodeType.Element)
+	            {
+	                list.Add((T) reader.ReadElementContentAs(typeof(T), null));
+	            }
+	            reader.ReadEndElement();
+	        }
+	        return list;
+	    }
+
+        /// <summary>
+        /// Read a neseted list of objects &lt;List&gt; &lt;Item&gt; Value with sub-elements &lt;/Item&gt; &lt;/List&gt;.
+        /// Element names are ignored
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
+	    public static List<T> ReadIntoNested<T>(this XmlReader reader, List<T> list)
+	    {
+	        bool isEmpty = reader.IsEmptyElement;
+	        reader.ReadStartElement();
+	        if (!isEmpty)
+	        {
+                var serializer = new XmlSerializer(typeof(T));
+	            while (reader.NodeType == XmlNodeType.Element)
+	            {
+	                list.Add((T) serializer.Deserialize(reader));
+	            }
+	            reader.ReadEndElement();
+	        }
+	        return list;
+	    }
+
+        public static List<List<int>> ReadJagged2DArrayInto(this XmlReader reader, List<List<int>> list)
+        {
+	        bool isEmpty = reader.IsEmptyElement;
+	        reader.ReadStartElement();
+	        if (!isEmpty)
+	        {
+	            while (reader.NodeType == XmlNodeType.Element)
+	            {
+	                list.Add(ReadInto(reader, new List<int>()));
+	            }
+	            reader.ReadEndElement();
+	        }
+	        return list;
+        }
+
+        public static void WriteJaggedValues(this XmlWriter writer, IList<IList<object>> valuesList, string rootTag = "Items", string childTag = "Item")
+        {
+            foreach (var values in valuesList)
+            {
+                writer.WriteStartElement(rootTag);    
+                WriteValues(writer, values, childTag);
+                writer.WriteEndElement();
+            }
+        }
+
+        public static void WriteValues<T>(this XmlWriter writer, string rootTag, IList<T> values, string childTag = "Item")
         {
             writer.WriteStartElement(rootTag);
-	        foreach (var value in values)
-	        {
-	            writer.WriteElementString(childTag, value);
-	        }
+            writer.WriteValues(values, childTag);
             writer.WriteEndElement();
         }
 
-	    public static List<string> ReadValues(this XmlReader reader, string rootTag = "Values", string childTag = "Value")
-	    {
-	        var values = new List<string>();
-	        reader.ReadToFollowing(rootTag); // <Values>
-	        reader.ReadToDescendant(childTag);
-	        while (true)
+        public static void WriteValues<T>(this XmlWriter writer, IList<T> values, string childTag = "Item")
+        {
+	        foreach (var value in values)
 	        {
-	            if (reader.NodeType == XmlNodeType.EndElement)
-	            {
-	                break;
-	            }
-	            values.Add(reader.ReadElementContentAsString());
+                writer.WriteStartElement(childTag);
+                writer.WriteValue(value);
+                writer.WriteEndElement();
 	        }
-	        return values;
-	    }
+        }
 
     }
 }

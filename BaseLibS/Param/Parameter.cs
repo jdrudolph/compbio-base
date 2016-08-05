@@ -101,21 +101,20 @@ namespace BaseLibS.Param{
 			}
 		}
 
-	    public void ReadXmlNoValue(XmlReader reader)
+	    public void ReadBasicAttributes(XmlReader reader)
 	    {
-	        Name = reader.GetAttribute("Name");
+	        Name = reader["Name"];
 	    }
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-            ReadXmlNoValue(reader);
-            var valueSerializer = new XmlSerializer(Value.GetType());
-	        reader.ReadToFollowing("Value");
-	        reader.Read();
-	        Value = (T) valueSerializer.Deserialize(reader);
+            ReadBasicAttributes(reader);
+            reader.ReadStartElement();
+	        Value = (T) reader.ReadElementContentAs(Value.GetType(), null, "Value", "");
+            reader.ReadEndElement();
 	    }
 
-	    protected void WriteXmlNoValue(XmlWriter writer)
+	    protected void WriteBasicAttributes(XmlWriter writer)
 	    {
             writer.WriteAttributeString("Type", GetType().AssemblyQualifiedName);
 	        writer.WriteAttributeString("Name", Name);
@@ -123,10 +122,9 @@ namespace BaseLibS.Param{
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-            WriteXmlNoValue(writer);
+            WriteBasicAttributes(writer);
             writer.WriteStartElement("Value");
-            var valueSerializer = new XmlSerializer(Value.GetType());
-            valueSerializer.Serialize(writer, Value);
+            writer.WriteValue(Value);
             writer.WriteEndElement();
 	    }
 	}

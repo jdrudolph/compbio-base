@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace BaseLibS.Param{
 	[Serializable]
@@ -39,23 +41,69 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-	        ReadXmlNoValue(reader);
-	        var replace = reader.GetAttribute("Replace");
-	        reader.ReadToFollowing("Value");
-	        reader.ReadToDescendant("Regex");
-	        var regex = new Regex(reader.ReadElementString("Regex"));
+	        ReadBasicAttributes(reader);
+            ReadValue(reader);
+	        SerializationHelper.ReadInto(reader, Previews);
+	        reader.ReadEndElement();
+	    }
+
+	    private void ReadValue(XmlReader reader)
+	    {
+	        reader.ReadStartElement();
+	        reader.ReadStartElement("Value");
+	        var regex = new Regex(reader.ReadElementContentAsString());
+	        var replace = reader.ReadElementContentAsString();
 	        Value = Tuple.Create(regex, replace);
-	        Previews = reader.ReadValues("Previews", "Preview");
+	        reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-            WriteXmlNoValue(writer);
-            writer.WriteAttributeString("Replace", Value.Item2);
+            WriteBasicAttributes(writer);
+            // Value
             writer.WriteStartElement("Value");
             writer.WriteElementString("Regex", Value.Item1.ToString());
+            writer.WriteElementString("Replace", Value.Item2);
             writer.WriteEndElement();
-            writer.WriteValues(Previews, "Previews", "Preview");
+            // Previews
+            writer.WriteStartElement("Previews");
+	        foreach (var preview in Previews)
+	        {
+                writer.WriteElementString("Preview", preview);
+	        }
+            writer.WriteEndElement();
 	    }
+    }
+
+    public static class RegexExtensions
+    {
+        public static SerializableRegex ToSerializableRegex(this Regex regex)
+        {
+            return new SerializableRegex(regex);
+        }
+    }
+
+    public class SerializableRegex : IXmlSerializable
+    {
+        public Regex Regex { get; private set; }
+
+        public SerializableRegex(Regex regex)
+        {
+            Regex = regex;
+        }
+
+        public XmlSchema GetSchema() => null;
+
+        public void ReadXml(XmlReader reader)
+        {
+            reader.ReadStartElement();
+            Regex = new Regex(reader.ReadElementContentAsString());
+            reader.ReadEndElement();
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteValue(Regex.ToString());
+        }
     }
 }

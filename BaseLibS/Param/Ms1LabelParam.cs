@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using BaseLibS.Num;
@@ -55,16 +56,36 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-            Multiplicity = Int32.Parse(reader.GetAttribute("Multiplicity"));
-	        base.ReadXml(reader);
-	        Values = reader.ReadValues().ToArray();
+            ReadBasicAttributes(reader);
+	        reader.MoveToAttribute("Multiplicity");
+	        Multiplicity = reader.ReadContentAsInt();
+            reader.ReadStartElement();
+	        Value = reader.ReadJagged2DArrayInto(new List<List<int>>()).Select(x => x.ToArray()).ToArray();
+	        Values = reader.ReadInto(new List<string>()).ToArray();
+            reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-            writer.WriteAttributeString("Multiplicity", Multiplicity.ToString());
-	        base.WriteXml(writer);
-            writer.WriteValues(Values);
+            WriteBasicAttributes(writer);
+            writer.WriteStartAttribute("Multiplicity");
+            writer.WriteValue(Multiplicity);
+            writer.WriteStartElement("Value");
+	        foreach (var labels in Value)
+	        {
+                writer.WriteStartElement("Items");
+	            foreach (var label in labels)
+	            {
+	                writer.WriteStartElement("Item");
+                    writer.WriteValue(label);
+                    writer.WriteEndElement();
+	            }
+                writer.WriteEndElement();
+	        }
+            writer.WriteEndElement();
+            writer.WriteValues("Values", Values);
 	    }
+
+
 	}
 }

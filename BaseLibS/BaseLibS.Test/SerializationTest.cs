@@ -170,6 +170,14 @@ namespace BaseLibS.Test
         }
 
         [TestMethod]
+        public void TestEmptyParameters()
+        {
+            var parameters = new Parameters();
+            var parameters2 = parameters.ToXmlAndBack();
+            Assert.IsNotNull(parameters2);
+        }
+
+        [TestMethod]
         public void TestGroupedParameters()
         {
             var parameters = new Parameters();
@@ -178,7 +186,7 @@ namespace BaseLibS.Test
             var parameters2 = parameters.ToXmlAndBack();
             Assert.AreEqual("myvalue", parameters2.GetSubGroupAt(0).GetParam<string>("myname").Value);
             Assert.AreEqual(42, parameters.GetSubGroupAt(1).GetParam<int>("some int").Value);
-            var test = parameters2.GetParam<string>("myname").Value;
+            Assert.AreEqual("myvalue", parameters2.GetParam<string>("myname").Value);
         }
 
         [TestMethod]
@@ -195,6 +203,17 @@ namespace BaseLibS.Test
         public void TestRegexReplaceParam()
         {
             var parameter = new RegexReplaceParam("myname", new Regex(".*"), "asdf", new List<string>() {"a", "b" });
+            var parameter2 = (RegexReplaceParam) parameter.ToXmlAndBack();
+            Assert.AreEqual(parameter.Name, parameter2.Name);
+            Assert.AreEqual(parameter.Value.Item1.ToString(), parameter2.Value.Item1.ToString());
+            Assert.AreEqual(parameter.Value.Item2, parameter2.Value.Item2);
+            Assert.IsTrue(parameter.Previews.SequenceEqual(parameter2.Previews));
+        }
+
+        [TestMethod]
+        public void TestRegexReplaceParamNoPreview()
+        {
+            var parameter = new RegexReplaceParam("myname", new Regex(".*"), "asdf", new List<string>());
             var parameter2 = (RegexReplaceParam) parameter.ToXmlAndBack();
             Assert.AreEqual(parameter.Name, parameter2.Name);
             Assert.AreEqual(parameter.Value.Item1.ToString(), parameter2.Value.Item1.ToString());
@@ -226,6 +245,22 @@ namespace BaseLibS.Test
             Assert.AreEqual(param.Value, param2.Value);
             Assert.IsTrue(param.Values.SequenceEqual(param2.Values));
             Assert.AreEqual(42, param2.SubParams[0].GetParam<int>("sub1").Value );
+            Assert.AreEqual(82, param2.SubParams[1].GetParam<int>("sub2").Value );
+        }
+
+        [TestMethod]
+        public void TestSingleChoiceWithSubParamsInParameters()
+        {
+            var param = new SingleChoiceWithSubParams("choice", 1) { Values = new List<string> {"c1", "b2"}, SubParams = new []
+            {
+                new Parameters(),
+                new Parameters(new IntParam("sub2", 82)) 
+            }};
+            var param2 = (SingleChoiceWithSubParams) param.ToXmlAndBack();
+            Assert.AreEqual(param.Name, param2.Name);
+            Assert.AreEqual(param.Value, param2.Value);
+            Assert.IsTrue(param.Values.SequenceEqual(param2.Values));
+            Assert.IsNotNull(param2.SubParams[0]);
             Assert.AreEqual(82, param2.SubParams[1].GetParam<int>("sub2").Value );
         }
 

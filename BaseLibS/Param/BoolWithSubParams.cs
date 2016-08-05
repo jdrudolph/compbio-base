@@ -63,23 +63,25 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-	        base.ReadXml(reader);
+	        ReadBasicAttributes(reader);
+            reader.ReadStartElement();
+	        Value = reader.ReadElementContentAsBoolean("Value", "");
             var serializer = new XmlSerializer(SubParamsFalse.GetType());
-	        reader.ReadToFollowing("SubParamsFalse");
-	        var subtreeFalse = reader.ReadSubtree();
-	        subtreeFalse.ReadToDescendant("Parameters");
-	        SubParamsFalse = (Parameters) serializer.Deserialize(subtreeFalse.ReadSubtree());
-            subtreeFalse.Close();
+            reader.ReadStartElement("SubParamsFalse");
+	        SubParamsFalse = (Parameters) serializer.Deserialize(reader);
             reader.ReadEndElement();
-	        var subtreeTrue = reader.ReadSubtree();
-	        subtreeTrue.ReadToDescendant("Parameters");
-	        SubParamsTrue = (Parameters) serializer.Deserialize(subtreeTrue);
+            reader.ReadStartElement("SubParamsTrue");
+	        SubParamsTrue = (Parameters) serializer.Deserialize(reader);
+            reader.ReadEndElement();
             reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-	        base.WriteXml(writer);
+	        WriteBasicAttributes(writer);
+            writer.WriteStartElement("Value");
+            writer.WriteValue(Value);
+            writer.WriteEndElement();
             var serializer = new XmlSerializer(SubParamsTrue.GetType());
             writer.WriteStartElement("SubParamsFalse");
             serializer.Serialize(writer, SubParamsFalse);

@@ -206,10 +206,15 @@ namespace BaseLibS.Param{
 	    public void ReadXml(XmlReader reader)
 	    {
 	        var serializer = new XmlSerializer(typeof(ParameterGroup));
-	        while (reader.ReadToFollowing("ParameterGroup"))
+	        bool isEmpty = reader.IsEmptyElement;
+	        reader.ReadStartElement();
+	        if (!isEmpty)
 	        {
-	            var groupReader = reader.ReadSubtree();
-                _paramGroups.Add((ParameterGroup)serializer.Deserialize(groupReader));
+	            while (reader.NodeType == XmlNodeType.Element)
+	            {
+	                _paramGroups.Add((ParameterGroup) serializer.Deserialize(reader));
+	            }
+	            reader.ReadEndElement();
 	        }
 	    }
 

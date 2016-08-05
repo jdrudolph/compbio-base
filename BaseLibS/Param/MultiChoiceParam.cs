@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Permissions;
 using System.Xml;
 using BaseLibS.Num;
@@ -96,16 +97,22 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-	        Repeats = Boolean.Parse(reader.GetAttribute("Repeats"));
-	        base.ReadXml(reader);
-	        Values = reader.ReadValues();
+            ReadBasicAttributes(reader);
+	        reader.MoveToAttribute("Repeats");
+	        Repeats = reader.ReadContentAsBoolean();
+            reader.ReadStartElement();
+	        Value = reader.ReadInto(new List<int>()).ToArray();
+	        Values = reader.ReadInto(new List<string>()).ToArray();
+            reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-            writer.WriteAttributeString("Repeats", Repeats.ToString());
-	        base.WriteXml(writer);
-            writer.WriteValues(Values);
+            WriteBasicAttributes(writer);
+            writer.WriteStartAttribute("Repeats");
+            writer.WriteValue(Repeats);
+            writer.WriteValues("Value", Value);
+            writer.WriteValues("Values", Values);
 	    }
 	}
 }

@@ -97,37 +97,26 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-	        base.ReadXml(reader);
-	        Values = reader.ReadValues();
-            var serializer = new XmlSerializer(SubParams.First().GetType());
-	        reader.ReadToFollowing("SubParams");
-	        var subParamTree = reader.ReadSubtree();
-	        subParamTree.ReadToDescendant("Parameters");
-            var subParams = new List<Parameters>();
-	        while (true)
-	        {
-	            if (reader.NodeType == XmlNodeType.EndElement)
-	            {
-	                break;
-	            }
-	            var singleParamTree = subParamTree.ReadSubtree();
-	            subParams.Add((Parameters) serializer.Deserialize(singleParamTree));
-                singleParamTree.Close();
-                subParamTree.ReadEndElement();
-	        }
-	        subParamTree.Close();
-	        SubParams = subParams;
+            ReadBasicAttributes(reader);
+            reader.ReadStartElement();
+	        Value = reader.ReadElementContentAsInt();
+	        Values = reader.ReadInto(new List<string>());
+	        SubParams = reader.ReadIntoNested(new List<Parameters>());
+            reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-	        base.WriteXml(writer);
-            writer.WriteValues(Values);
-            var serializer = new XmlSerializer(SubParams.First().GetType());
+	        WriteBasicAttributes(writer);
+            writer.WriteStartElement("Value");
+            writer.WriteValue(Value);
+            writer.WriteEndElement();
+            writer.WriteValues("Values", Values);
+            var serializer = new XmlSerializer(typeof(Parameters));
             writer.WriteStartElement("SubParams");
 	        foreach (var parameters in SubParams)
 	        {
-                serializer.Serialize(writer, parameters);
+	            serializer.Serialize(writer, parameters);
 	        }
             writer.WriteEndElement();
 	    }

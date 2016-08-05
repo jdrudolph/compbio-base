@@ -38,20 +38,25 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-	        ReadXmlNoValue(reader);
-	        reader.ReadToFollowing("Value");
-	        reader.ReadToDescendant("Regex");
-	        Value = new Regex(reader.ReadElementString("Regex"));
-	        Previews = reader.ReadValues("Previews", "Preview");
+            ReadBasicAttributes(reader);
+            reader.ReadStartElement();
+            Value = new Regex(reader.ReadElementContentAsString());
+	        reader.ReadInto(Previews);
+            reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-	        WriteXmlNoValue(writer);
+	        WriteBasicAttributes(writer);
             writer.WriteStartElement("Value");
-            writer.WriteElementString("Regex", Value.ToString());
+            writer.WriteValue(Value.ToString());
             writer.WriteEndElement();
-            writer.WriteValues(Previews, "Previews", "Preview");
+            writer.WriteStartElement("Previews");
+	        foreach (var preview in Previews)
+	        {
+	            writer.WriteElementString("Preview", preview);
+	        }
+            writer.WriteEndElement();
 	    }
     }
 }

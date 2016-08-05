@@ -118,29 +118,29 @@ namespace BaseLibS.Param{
 
 	    public void ReadXml(XmlReader reader)
 	    {
-	        Name = reader.GetAttribute("Name");
-            CollapsedDefault = Boolean.Parse(reader.GetAttribute("CollapsedDefault"));
-            //parameters = ((Parameters) new XmlSerializer(typeof(Parameters)).Deserialize(reader)).GetAllParameters().ToList();
-	        parameters = new List<Parameter>();
-	        while (reader.Read())
+	        Name = reader["Name"];
+	        reader.MoveToAttribute("CollapsedDefault");
+	        CollapsedDefault = reader.ReadContentAsBoolean();
+	        bool isEmpty = reader.IsEmptyElement;
+	        reader.ReadStartElement();
+	        if (!isEmpty)
 	        {
-	            switch (reader.NodeType)
+	            while (reader.NodeType == XmlNodeType.Element)
 	            {
-                    case XmlNodeType.EndElement: // </Parameters>
-	                    break;
-                    case XmlNodeType.Element: // <SomeParam .../>
-                        var type = Type.GetType(reader.GetAttribute("Type"));
-                        var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
-                        parameters.Add(param);
-	                    break;
+                    var type = Type.GetType(reader["Type"]);
+                    var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
+	                parameters.Add(param);
 	            }
+	            reader.ReadEndElement();
 	        }
 	    }
 
 	    public void WriteXml(XmlWriter writer)
 	    {
             writer.WriteAttributeString("Name", Name);
-            writer.WriteAttributeString("CollapsedDefault", CollapsedDefault.ToString());
+            writer.WriteStartAttribute("CollapsedDefault");
+            writer.WriteValue(CollapsedDefault);
+            writer.WriteEndAttribute();
 	        foreach (var parameter in parameters)
 	        {
                 new XmlSerializer(parameter.GetType()).Serialize(writer, parameter);

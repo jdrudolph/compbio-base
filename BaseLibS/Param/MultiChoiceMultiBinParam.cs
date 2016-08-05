@@ -87,16 +87,32 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-	        base.ReadXml(reader);
-            Values = reader.ReadValues();
-	        Bins = reader.ReadValues("Bins", "Bin");
+            ReadBasicAttributes(reader);
+            reader.ReadStartElement();
+	        Value = reader.ReadJagged2DArrayInto(new List<List<int>>()).Select(x => x.ToArray()).ToArray();
+	        Values = reader.ReadInto(new List<string>()).ToArray();
+	        Bins = reader.ReadInto(new List<string>()).ToArray();
+            reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-	        base.WriteXml(writer);
-            writer.WriteValues(Values);
-            writer.WriteValues(Bins, "Bins", "Bin");
+            WriteBasicAttributes(writer);
+            writer.WriteStartElement("Value");
+	        foreach (var labels in Value)
+	        {
+                writer.WriteStartElement("Items");
+	            foreach (var label in labels)
+	            {
+	                writer.WriteStartElement("Item");
+                    writer.WriteValue(label);
+                    writer.WriteEndElement();
+	            }
+                writer.WriteEndElement();
+	        }
+            writer.WriteEndElement();
+            writer.WriteValues("Values", Values);
+            writer.WriteValues("Bins", Bins);
 	    }
 	}
 }

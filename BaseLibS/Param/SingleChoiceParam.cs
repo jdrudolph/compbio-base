@@ -44,14 +44,20 @@ namespace BaseLibS.Param{
 
 	    public override void ReadXml(XmlReader reader)
 	    {
-	        base.ReadXml(reader);
-	        Values = reader.ReadValues();
+            ReadBasicAttributes(reader);
+            reader.ReadStartElement();
+	        Value = reader.ReadElementContentAsInt();
+	        Values = reader.ReadInto(new List<string>()).ToArray();
+            reader.ReadEndElement();
 	    }
 
 	    public override void WriteXml(XmlWriter writer)
 	    {
-            base.WriteXml(writer);
-            writer.WriteValues(Values);
+            WriteBasicAttributes(writer);
+            writer.WriteStartElement("Value");
+            writer.WriteValue(Value);
+            writer.WriteEndElement();
+            writer.WriteValues("Values", Values);
 	    }
 	}
 }
