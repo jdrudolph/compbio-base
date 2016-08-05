@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -95,6 +94,12 @@ namespace BaseLibS.Param
 	        return list;
 	    }
 
+        /// <summary>
+        /// Read jagged array <code>int[][]</code>
+        /// </summary>
+        /// <param name="reader"></param>
+        /// <param name="list"></param>
+        /// <returns></returns>
         public static List<List<int>> ReadJagged2DArrayInto(this XmlReader reader, List<List<int>> list)
         {
 	        bool isEmpty = reader.IsEmptyElement;
@@ -110,16 +115,13 @@ namespace BaseLibS.Param
 	        return list;
         }
 
-        public static void WriteJaggedValues(this XmlWriter writer, IList<IList<object>> valuesList, string rootTag = "Items", string childTag = "Item")
-        {
-            foreach (var values in valuesList)
-            {
-                writer.WriteStartElement(rootTag);    
-                WriteValues(writer, values, childTag);
-                writer.WriteEndElement();
-            }
-        }
-
+        /// <summary>
+        /// Write values with root tag <code>&lt;Root&gt; &lt;Item/&gt; &lt;Item/&gt; &lt;/Root&gt;</code>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="writer"></param>
+        /// <param name="values"></param>
+        /// <param name="childTag"></param>
         public static void WriteValues<T>(this XmlWriter writer, string rootTag, IList<T> values, string childTag = "Item")
         {
             writer.WriteStartElement(rootTag);
@@ -127,6 +129,13 @@ namespace BaseLibS.Param
             writer.WriteEndElement();
         }
 
+        /// <summary>
+        /// Write values without root tag <code>&lt;Item/&gt; &lt;Item/&gt;</code>.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="writer"></param>
+        /// <param name="values"></param>
+        /// <param name="childTag"></param>
         public static void WriteValues<T>(this XmlWriter writer, IList<T> values, string childTag = "Item")
         {
 	        foreach (var value in values)
