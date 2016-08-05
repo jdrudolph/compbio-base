@@ -170,6 +170,18 @@ namespace BaseLibS.Test
         }
 
         [TestMethod]
+        public void TestGroupedParameters()
+        {
+            var parameters = new Parameters();
+            parameters.AddParameterGroup(new Parameter[] {new StringParam("myname", "myvalue")}, "grp1", false);
+            parameters.AddParameterGroup(new Parameter[] {new IntParam("some int", 42)}, "grp2", true);
+            var parameters2 = parameters.ToXmlAndBack();
+            Assert.AreEqual("myvalue", parameters2.GetSubGroupAt(0).GetParam<string>("myname").Value);
+            Assert.AreEqual(42, parameters.GetSubGroupAt(1).GetParam<int>("some int").Value);
+            var test = parameters2.GetParam<string>("myname").Value;
+        }
+
+        [TestMethod]
         public void TestRegexMatchParam()
         {
             var parameter = new RegexMatchParam("myname", new Regex(".*"), new List<string>() {"a", "b" });

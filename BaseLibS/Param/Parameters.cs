@@ -208,7 +208,8 @@ namespace BaseLibS.Param{
 	        var serializer = new XmlSerializer(typeof(ParameterGroup));
 	        while (reader.ReadToFollowing("ParameterGroup"))
 	        {
-                _paramGroups.Add((ParameterGroup)serializer.Deserialize(reader));
+	            var groupReader = reader.ReadSubtree();
+                _paramGroups.Add((ParameterGroup)serializer.Deserialize(groupReader));
 	        }
 	    }
 
