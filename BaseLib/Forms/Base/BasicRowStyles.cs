@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BaseLibS.Graph.Base;
 
 namespace BaseLib.Forms.Base{
 	public class BasicRowStyles{
@@ -9,7 +10,7 @@ namespace BaseLib.Forms.Base{
 			this.view = view;
 		}
 
-		public int Count { get { return list.Count; } }
+		public int Count => list.Count;
 
 		public BasicRowStyle this[int i]{
 			get { return list[i]; }

@@ -5,6 +5,7 @@ using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 using BaseLib.Wpf;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Base;
 
 namespace BaseLib.Forms.Scroll{
 	public sealed class CompoundScrollableControl : UserControl, ICompoundScrollableControl{
@@ -383,7 +384,7 @@ namespace BaseLib.Forms.Scroll{
 			tableLayoutPanel2.RowStyles.Add(new BasicRowStyle(BasicSizeType.AbsoluteResizeable, columnFooterHeight));
 			AutoScaleDimensions = new SizeF(6F, 13F);
 			AutoScaleMode = AutoScaleMode.Font;
-			tableLayoutControl = tableLayoutPanel1.CreateControl();
+			tableLayoutControl = BasicControl.CreateControl(tableLayoutPanel1);
 			Controls.Add(tableLayoutControl);
 			Name = "ScrollableControl2";
 			Size = new Size(409, 390);

@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Forms.Base{
+﻿namespace BaseLibS.Graph.Base{
 	public enum BasicSizeType{
 		Absolute,
 		AbsoluteResizeable,

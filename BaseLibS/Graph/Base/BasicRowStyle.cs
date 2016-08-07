@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Forms.Base{
+﻿namespace BaseLibS.Graph.Base{
 	public class BasicRowStyle : BasicTableLayoutStyle{
 		public float Height { get; set; }
 
@@ -6,6 +6,6 @@
 			Height = height;
 		}
 
-		internal override float Size { get { return Height; } set { Height = value; } }
+		public override float Size { get { return Height; } set { Height = value; } }
 	}
 }

@@ -159,11 +159,11 @@ namespace BaseLib.Forms.Scroll{
 			tableLayoutPanel1.ColumnCount = 2;
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
 			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, GraphUtil.scrollBarWidth));
-			mainControl = mainView.CreateControl();
+			mainControl = BasicControl.CreateControl(mainView);
 			tableLayoutPanel1.Controls.Add(mainControl, 0, 0);
-			tableLayoutPanel1.Controls.Add(horizontalScrollBar.CreateControl(), 0, 1);
-			tableLayoutPanel1.Controls.Add(verticalScrollBar.CreateControl(), 1, 0);
-			tableLayoutPanel1.Controls.Add(smallCornerView.CreateControl(), 1, 1);
+			tableLayoutPanel1.Controls.Add(BasicControl.CreateControl(horizontalScrollBar), 0, 1);
+			tableLayoutPanel1.Controls.Add(BasicControl.CreateControl(verticalScrollBar), 1, 0);
+			tableLayoutPanel1.Controls.Add(BasicControl.CreateControl(smallCornerView), 1, 1);
 			tableLayoutPanel1.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Location = new Point(0, 0);
 			tableLayoutPanel1.Margin = new Padding(0);

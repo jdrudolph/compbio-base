@@ -64,16 +64,12 @@
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Axis\NumericAxisView.cs" />
-    <Compile Include="Forms\Base\BasicColumnStyle.cs" />
     <Compile Include="Forms\Base\BasicColumnStyles.cs" />
     <Compile Include="Forms\Base\BasicControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Base\BasicImageFormat.cs" />
-    <Compile Include="Forms\Base\BasicRowStyle.cs" />
     <Compile Include="Forms\Base\BasicRowStyles.cs" />
-    <Compile Include="Forms\Base\BasicSizeType.cs" />
-    <Compile Include="Forms\Base\BasicTableLayoutStyle.cs" />
     <Compile Include="Forms\Base\BasicTableLayoutView.cs" />
     <Compile Include="Forms\Base\BasicUserControl.cs">
       <SubType>UserControl</SubType>
@@ -98,7 +94,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Colors\ColorStripView.cs" />
-    <Compile Include="Forms\GridType.cs" />
     <Compile Include="Forms\Table\HelpLabel.cs">
       <SubType>Component</SubType>
     </Compile>

@@ -1,7 +1,7 @@
-﻿namespace BaseLib.Forms.Base{
+﻿namespace BaseLibS.Graph.Base{
 	public abstract class BasicTableLayoutStyle{
 		public BasicSizeType SizeType { get; private set; }
-		internal abstract float Size { get; set; }
+		public abstract float Size { get; set; }
 
 		protected BasicTableLayoutStyle(BasicSizeType sizeType){
 			SizeType = sizeType;

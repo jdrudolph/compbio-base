@@ -10,11 +10,14 @@ namespace BaseLib.Forms.Base{
 		public BasicView view;
 
 		public BasicControl(){
-			//view = new BasicView();
 			DoubleBuffered = true;
 			ResizeRedraw = true;
 			Margin = new Padding(0);
 			Dock = DockStyle.Fill;
+		}
+
+		public void SetCursor(Cursors2 c){
+			Cursor = GraphUtils.ToCursor(c);
 		}
 
 		public void Print(IGraphics g){
@@ -117,6 +120,12 @@ namespace BaseLib.Forms.Base{
 				tip = new ToolTip();
 			}
 			tip.Show(text, this, x, y, duration);
+		}
+
+		public static BasicControl CreateControl(BasicView view){
+			BasicControl c = new BasicControl();
+			view.Activate(c);
+			return c;
 		}
 	}
 }

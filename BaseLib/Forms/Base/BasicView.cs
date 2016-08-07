@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
 using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Base{
@@ -11,7 +10,7 @@ namespace BaseLib.Forms.Base{
 		public bool Enabled { get; set; }
 		protected Action invalidate;
 		protected Action resetCursor;
-		protected Action<Cursor> setCursor;
+		protected Action<Cursors2> setCursor;
 
 		public BasicView(){
 			BackColor = Color2.White;
@@ -23,7 +22,7 @@ namespace BaseLib.Forms.Base{
 		public void Activate(BasicControl control){
 			invalidate = control.Invalidate;
 			resetCursor = control.ResetCursor;
-			setCursor = c => control.Cursor = c;
+			setCursor = control.SetCursor;
 			control.view = this;
 		}
 
@@ -41,7 +40,7 @@ namespace BaseLib.Forms.Base{
 			resetCursor?.Invoke();
 		}
 
-		public Cursor Cursor{
+		public Cursors2 Cursor{
 			set { setCursor?.Invoke(value); }
 		}
 
@@ -64,12 +63,6 @@ namespace BaseLib.Forms.Base{
 		protected internal virtual void OnMouseWheel(BasicMouseEventArgs e){}
 		protected internal virtual void OnResize(EventArgs e, int width, int height){}
 		protected internal virtual void Dispose(bool disposing){}
-
-		public BasicControl CreateControl(){
-			BasicControl c = new BasicControl();
-			Activate(c);
-			return c;
-		}
 
 		public void Print(IGraphics g, int width, int height){
 			OnPaintBackground(g, width, height);

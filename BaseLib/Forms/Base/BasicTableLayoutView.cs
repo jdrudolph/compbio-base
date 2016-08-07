@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Base;
 using BaseLibS.Num;
 
 namespace BaseLib.Forms.Base{
@@ -340,7 +340,7 @@ namespace BaseLib.Forms.Base{
 				indY = -1;
 			}
 			if (indX >= 0 || indY >= 0){
-				Cursor = indX >= 0 ? Cursors.VSplit : Cursors.HSplit;
+				Cursor = indX >= 0 ? Cursors2.VSplit : Cursors2.HSplit;
 				currentComponentX = -1;
 				currentComponentY = -1;
 			} else{

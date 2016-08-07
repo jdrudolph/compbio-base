@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Forms {
+﻿namespace BaseLibS.Graph.Base {
 	public enum GridType {
 		None,
 		Major,
