@@ -1,7 +1,6 @@
 ﻿using System;
-using BaseLibS.Graph;
 
-namespace BaseLib.Forms.Base{
+namespace BaseLibS.Graph.Base{
 	public class BasicView : IPrintable{
 		public Color2 BackColor { get; set; }
 		public Color2 ForeColor { get; set; }

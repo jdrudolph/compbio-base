@@ -5,6 +5,7 @@ using BaseLib.Forms.Base;
 using BaseLib.Graphic;
 using BaseLib.Wpf;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Base;
 
 namespace BaseLib.Forms.Scroll{
 	public sealed class SimpleScrollableControl : UserControl, ISimpleScrollableControl{

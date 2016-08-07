@@ -38,6 +38,7 @@
     <Compile Include="Graph\Base\BasicRowStyle.cs" />
     <Compile Include="Graph\Base\BasicSizeType.cs" />
     <Compile Include="Graph\Base\BasicTableLayoutStyle.cs" />
+    <Compile Include="Graph\Base\BasicView.cs" />
     <Compile Include="Graph\Base\GridType.cs" />
     <Compile Include="Graph\BasicMouseEventArgs.cs" />
     <Compile Include="Graph\Bitmap2.cs" />

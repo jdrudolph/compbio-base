@@ -74,7 +74,6 @@
     <Compile Include="Forms\Base\BasicUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Base\BasicView.cs" />
     <Compile Include="Forms\Base\FormUtil.cs" />
     <Compile Include="Forms\Base\Printing.cs" />
     <Compile Include="Forms\Chars.cs" />

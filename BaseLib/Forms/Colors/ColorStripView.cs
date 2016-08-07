@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Base;
 using BaseLibS.Num;
 
 namespace BaseLib.Forms.Colors{

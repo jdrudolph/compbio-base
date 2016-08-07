@@ -2,6 +2,7 @@ using System;
 using System.Windows.Forms;
 using BaseLib.Graphic;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Base;
 
 namespace BaseLib.Forms.Base{
 	public class BasicControl : ScrollableControl{

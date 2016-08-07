@@ -1,6 +1,7 @@
 using System;
 using BaseLib.Forms.Base;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Base;
 
 namespace BaseLib.Forms.Scroll{
 	internal sealed class SimpleScrollableControlMainView : BasicView{
