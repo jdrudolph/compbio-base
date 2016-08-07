@@ -51,9 +51,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Axis\AxisMouseMode.cs" />
-    <Compile Include="Forms\Axis\AxisPositioning.cs" />
-    <Compile Include="Forms\Axis\AxisZoomType.cs" />
     <Compile Include="Forms\Axis\NumericAxis.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -64,13 +61,10 @@
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Axis\NumericAxisView.cs" />
-    <Compile Include="Forms\Base\BasicColumnStyles.cs" />
     <Compile Include="Forms\Base\BasicControl.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Forms\Base\BasicImageFormat.cs" />
-    <Compile Include="Forms\Base\BasicRowStyles.cs" />
-    <Compile Include="Forms\Base\BasicTableLayoutView.cs" />
     <Compile Include="Forms\Base\BasicUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

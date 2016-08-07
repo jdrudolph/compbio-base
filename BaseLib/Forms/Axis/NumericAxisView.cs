@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using BaseLib.Forms.Base;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Axis;
 using BaseLibS.Graph.Base;
 using BaseLibS.Num;
 
@@ -20,8 +20,6 @@ namespace BaseLib.Forms.Axis{
 		public AxisPositioning Positioning { get; set; }
 		public AxisZoomType ZoomType { get; set; }
 		public AxisMouseMode MouseMode { get; set; }
-
-		public bool Zoomable => true;
 		public Color2 IndicatorColor { get; set; }
 		public double TotalMin { get; set; }
 		public double TotalMax { get; set; }
@@ -63,8 +61,8 @@ namespace BaseLib.Forms.Axis{
 			MouseMode = AxisMouseMode.Zoom;
 		}
 
+		public bool Zoomable => true;
 		private double VisibleMin => ZoomType == AxisZoomType.Zoom ? ZoomMin : TotalMin;
-
 		private double VisibleMax => ZoomType == AxisZoomType.Zoom ? ZoomMax : TotalMax;
 
 		public double ZeroPoint{

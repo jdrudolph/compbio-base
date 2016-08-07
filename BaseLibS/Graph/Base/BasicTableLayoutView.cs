@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using BaseLibS.Graph;
-using BaseLibS.Graph.Base;
 using BaseLibS.Num;
 
-namespace BaseLib.Forms.Base{
+namespace BaseLibS.Graph.Base{
 	public class BasicTableLayoutView : BasicView{
 		private static readonly Color2 borderColor = Color2.FromArgb(240, 240, 240);
 		private static readonly Brush2 borderBrush = new Brush2(borderColor);

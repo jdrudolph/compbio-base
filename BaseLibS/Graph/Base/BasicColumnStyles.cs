@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using BaseLibS.Graph.Base;
 
-namespace BaseLib.Forms.Base{
+namespace BaseLibS.Graph.Base{
 	public class BasicColumnStyles{
 		private readonly List<BasicColumnStyle> list = new List<BasicColumnStyle>();
 		private readonly BasicTableLayoutView view;

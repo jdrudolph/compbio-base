@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Axis;
 using BaseLibS.Graph;
+using BaseLibS.Graph.Axis;
 
 namespace BaseLib.Forms.Colors{
 	public delegate void ColorChangeHandler();

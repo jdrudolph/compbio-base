@@ -34,10 +34,16 @@
     <Compile Include="Api\ClassificationModel.cs" />
     <Compile Include="Data\NeighbourListDirected.cs" />
     <Compile Include="Data\NeighbourListBipartite.cs" />
+    <Compile Include="Graph\Axis\AxisMouseMode.cs" />
+    <Compile Include="Graph\Axis\AxisPositioning.cs" />
+    <Compile Include="Graph\Axis\AxisZoomType.cs" />
     <Compile Include="Graph\Base\BasicColumnStyle.cs" />
+    <Compile Include="Graph\Base\BasicColumnStyles.cs" />
     <Compile Include="Graph\Base\BasicRowStyle.cs" />
+    <Compile Include="Graph\Base\BasicRowStyles.cs" />
     <Compile Include="Graph\Base\BasicSizeType.cs" />
     <Compile Include="Graph\Base\BasicTableLayoutStyle.cs" />
+    <Compile Include="Graph\Base\BasicTableLayoutView.cs" />
     <Compile Include="Graph\Base\BasicView.cs" />
     <Compile Include="Graph\Base\GridType.cs" />
     <Compile Include="Graph\BasicMouseEventArgs.cs" />

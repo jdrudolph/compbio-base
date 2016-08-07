@@ -1,4 +1,5 @@
 using BaseLib.Forms.Axis;
+using BaseLibS.Graph.Axis;
 
 namespace BaseLib.Forms.Colors{
 	partial class ColorsForm {
