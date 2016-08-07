@@ -15,6 +15,8 @@ namespace BaseLibS.Graph{
 			Color2.LightSkyBlue, Color2.BlueViolet, Color2.Crimson
 		};
 
+		public static Font2 defaultFont = new Font2("Lucida Sans Unicode", 8F, FontStyle2.Regular);
+
 		public static Color2 GetPredefinedColor(int index){
 			return predefinedColors[Math.Abs(index%predefinedColors.Length)];
 		}

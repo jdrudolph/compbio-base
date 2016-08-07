@@ -51,9 +51,6 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Axis\NumericAxis.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Forms\Axis\NumericAxisPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>

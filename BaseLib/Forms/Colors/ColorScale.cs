@@ -2,6 +2,7 @@ using System;
 using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Axis;
+using BaseLib.Forms.Base;
 using BaseLibS.Graph;
 using BaseLibS.Graph.Axis;
 
@@ -10,14 +11,14 @@ namespace BaseLib.Forms.Colors{
 
 	public partial class ColorScale : UserControl{
 		public event ColorChangeHandler OnColorChange;
-		private readonly NumericAxis axis;
+		private readonly NumericAxisView axis;
 		public bool Locked { get; set; }
 		public ColorStrip ColorStrip { get; }
 
 		public ColorScale(){
 			InitializeComponent();
 			ColorStrip = new ColorStrip();
-			axis = new NumericAxis();
+			axis = new NumericAxisView();
 			SuspendLayout();
 			ColorStrip.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			ColorStrip.Location = new Point(0, 59);
@@ -25,46 +26,40 @@ namespace BaseLib.Forms.Colors{
 			ColorStrip.Name = "colorStrip";
 			ColorStrip.Size = new Size(749, 31);
 			ColorStrip.TabIndex = 1;
-			axis.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			axis.ForeColor = Color.Black;
-			axis.Location = new Point(0, 0);
-			axis.Margin = new Padding(0);
-			axis.Name = "axis";
-			axis.Size = new Size(749, 59);
-			axis.TabIndex = 0;
+			axis.ForeColor = Color2.Black;
 			AutoScaleDimensions = new SizeF(6F, 13F);
 			AutoScaleMode = AutoScaleMode.Font;
 			Controls.Add(ColorStrip);
-			Controls.Add(axis);
+			Controls.Add(BasicControl.CreateControl(axis));
 			Name = "ColorScale";
 			Size = new Size(749, 90);
 			ResumeLayout(false);
 			ColorStrip.GetView().Arrow = Arrows.Second;
-			ColorStrip.GetView().StartupColorMax = Color.Red;
-			ColorStrip.GetView().StartupColorMin = Color.White;
+			ColorStrip.GetView().StartupColorMax = Color2.Red;
+			ColorStrip.GetView().StartupColorMin = Color2.White;
 			ColorStrip.GetView().StripWidth = 10;
 			ColorStrip.GetView().Vertical = false;
 			ColorStrip.GetView().Weight1 = 1F;
 			ColorStrip.GetView().Weight2 = 0F;
-			axis.GetView().Configurable = true;
-			axis.GetView().IndicatorColor = Color2.Transparent;
-			axis.GetView().IsLogarithmic = false;
-			axis.GetView().LineWidth = 0.5F;
-			axis.GetView().MajorTickLength = 6;
-			axis.GetView().MajorTickLineWidth = 0.5F;
-			axis.GetView().MinorTickLength = 3;
-			axis.GetView().MinorTickLineWidth = 0.5F;
-			axis.GetView().MouseMode = AxisMouseMode.Zoom;
-			axis.GetView().Positioning = AxisPositioning.Top;
-			axis.GetView().Reverse = false;
-			axis.GetView().TotalMax = 1;
-			axis.GetView().TotalMin = 0;
-			axis.GetView().ZeroPoint = double.NaN;
-			axis.GetView().ZoomMax = 1;
-			axis.GetView().ZoomMin = 0;
-			axis.GetView().ZoomType = AxisZoomType.Zoom;
+			axis.Configurable = true;
+			axis.IndicatorColor = Color2.Transparent;
+			axis.IsLogarithmic = false;
+			axis.LineWidth = 0.5F;
+			axis.MajorTickLength = 6;
+			axis.MajorTickLineWidth = 0.5F;
+			axis.MinorTickLength = 3;
+			axis.MinorTickLineWidth = 0.5F;
+			axis.MouseMode = AxisMouseMode.Zoom;
+			axis.Positioning = AxisPositioning.Top;
+			axis.Reverse = false;
+			axis.TotalMax = 1;
+			axis.TotalMin = 0;
+			axis.ZeroPoint = double.NaN;
+			axis.ZoomMax = 1;
+			axis.ZoomMin = 0;
+			axis.ZoomType = AxisZoomType.Zoom;
 			ColorStrip.GetView().OnColorChange += UpdateAxis;
-			axis.GetView().OnZoomChange += UpdateColor;
+			axis.OnZoomChange += UpdateColor;
 		}
 
 		private void UpdateAxis(){
@@ -82,10 +77,10 @@ namespace BaseLib.Forms.Colors{
 
 		//TODO: why is this not visible?
 		public override string Text{
-			get { return axis.GetView().Text; }
+			get { return axis.Text; }
 			set{
-				axis.GetView().Text = value;
-				axis.GetView().Invalidate();
+				axis.Text = value;
+				axis.Invalidate();
 			}
 		}
 
@@ -94,51 +89,51 @@ namespace BaseLib.Forms.Colors{
 		}
 
 		public AxisPositioning Positioning{
-			get { return axis.GetView().Positioning; }
-			set { axis.GetView().Positioning = value; }
+			get { return axis.Positioning; }
+			set { axis.Positioning = value; }
 		}
 
 		public bool Reverse{
-			get { return axis.GetView().Reverse; }
-			set { axis.GetView().Reverse = value; }
+			get { return axis.Reverse; }
+			set { axis.Reverse = value; }
 		}
 
 		public bool IsLogarithmic{
-			get { return axis.GetView().IsLogarithmic; }
+			get { return axis.IsLogarithmic; }
 			set{
-				bool oldValue = axis.GetView().IsLogarithmic;
+				bool oldValue = axis.IsLogarithmic;
 				if (oldValue != value){
 					if (value){
-						axis.GetView().TotalMin = Math.Log(axis.GetView().TotalMin);
-						axis.GetView().TotalMax = Math.Log(axis.GetView().TotalMax);
+						axis.TotalMin = Math.Log(axis.TotalMin);
+						axis.TotalMax = Math.Log(axis.TotalMax);
 					} else{
-						axis.GetView().TotalMin = Math.Exp(axis.GetView().TotalMin);
-						axis.GetView().TotalMax = Math.Exp(axis.GetView().TotalMax);
+						axis.TotalMin = Math.Exp(axis.TotalMin);
+						axis.TotalMax = Math.Exp(axis.TotalMax);
 					}
-					axis.GetView().ZoomMin = axis.GetView().TotalMin;
-					axis.GetView().ZoomMax = axis.GetView().TotalMax;
+					axis.ZoomMin = axis.TotalMin;
+					axis.ZoomMax = axis.TotalMax;
 				}
-				axis.GetView().IsLogarithmic = value;
+				axis.IsLogarithmic = value;
 				FireColorChanged();
 			}
 		}
 
 		public double Min{
-			get { return IsLogarithmic ? Math.Exp(axis.GetView().ZoomMin) : axis.GetView().ZoomMin; }
+			get { return IsLogarithmic ? Math.Exp(axis.ZoomMin) : axis.ZoomMin; }
 			set{
 				double v = IsLogarithmic ? Math.Log(value) : value;
-				axis.GetView().TotalMin = v;
-				axis.GetView().ZoomMin = v;
+				axis.TotalMin = v;
+				axis.ZoomMin = v;
 				axis.Invalidate();
 			}
 		}
 
 		public double Max{
-			get { return IsLogarithmic ? Math.Exp(axis.GetView().ZoomMax) : axis.GetView().ZoomMax; }
+			get { return IsLogarithmic ? Math.Exp(axis.ZoomMax) : axis.ZoomMax; }
 			set{
 				double v = IsLogarithmic ? Math.Log(value) : value;
-				axis.GetView().TotalMax = v;
-				axis.GetView().ZoomMax = v;
+				axis.TotalMax = v;
+				axis.ZoomMax = v;
 				axis.Invalidate();
 			}
 		}
@@ -161,11 +156,11 @@ namespace BaseLib.Forms.Colors{
 			if (IsLogarithmic){
 				unscaledValue = Math.Log(unscaledValue);
 			}
-			return (unscaledValue - axis.GetView().ZoomMin)/(axis.GetView().ZoomMax - axis.GetView().ZoomMin);
+			return (unscaledValue - axis.ZoomMin)/(axis.ZoomMax - axis.ZoomMin);
 		}
 
 		public void WidenRange(double min, double max, bool fullZoom){
-			axis.GetView().WidenRange(min, max, fullZoom);
+			axis.WidenRange(min, max, fullZoom);
 			FireColorChanged();
 		}
 
@@ -196,18 +191,18 @@ namespace BaseLib.Forms.Colors{
 					}
 				}
 			}
-			axis.GetView().SetZoomNoFire(min, max);
+			axis.SetZoomNoFire(min, max);
 		}
 
 		public void SetLogarithmic(bool isLogarithmic){
-			axis.GetView().IsLogarithmic = isLogarithmic;
+			axis.IsLogarithmic = isLogarithmic;
 		}
 
 		public override Color BackColor{
 			get { return base.BackColor; }
 			set{
 				base.BackColor = value;
-				axis.GetView().BackColor = Color2.FromArgb(value.A, value.R, value.G, value.B) ;
+				axis.BackColor = Color2.FromArgb(value.A, value.R, value.G, value.B) ;
 			}
 		}
 	}

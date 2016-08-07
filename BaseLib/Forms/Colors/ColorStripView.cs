@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using BaseLib.Forms.Base;
 using BaseLibS.Graph;
 using BaseLibS.Graph.Base;
 using BaseLibS.Num;
@@ -24,8 +23,8 @@ namespace BaseLib.Forms.Colors{
 		private Pen2[] precalcPens;
 		private int oldLength = -1;
 		internal bool refreshColors = true;
-		internal Color StartupColorMin { get; set; }
-		internal Color StartupColorMax { get; set; }
+		internal Color2 StartupColorMin { get; set; }
+		internal Color2 StartupColorMax { get; set; }
 		internal bool Vertical { get; set; }
 		internal float Weight1 { get; set; }
 		internal float Weight2 { get; set; }
