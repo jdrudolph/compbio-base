@@ -8,22 +8,15 @@ namespace BaseLib.Forms.Base{
 		public bool Visible { get; set; }
 		public Font2 Font { get; set; }
 		public bool Enabled { get; set; }
-		protected Action invalidate;
-		protected Action resetCursor;
-		protected Action<Cursors2> setCursor;
+		public Action invalidate;
+		public Action resetCursor;
+		public Action<Cursors2> setCursor;
 
 		public BasicView(){
 			BackColor = Color2.White;
 			ForeColor = Color2.Black;
 			Visible = true;
 			Font = new Font2("Microsoft Sans Serif", 8.25f, FontStyle2.Regular);
-		}
-
-		public void Activate(BasicControl control){
-			invalidate = control.Invalidate;
-			resetCursor = control.ResetCursor;
-			setCursor = control.SetCursor;
-			control.view = this;
 		}
 
 		public void Activate(BasicView view){
@@ -44,25 +37,25 @@ namespace BaseLib.Forms.Base{
 			set { setCursor?.Invoke(value); }
 		}
 
-		protected internal virtual void OnPaint(IGraphics g, int width, int height){}
+		public virtual void OnPaint(IGraphics g, int width, int height){}
 
-		protected internal virtual void OnPaintBackground(IGraphics g, int width, int height){
+		public virtual void OnPaintBackground(IGraphics g, int width, int height){
 			g.FillRectangle(new Brush2(BackColor), 0, 0, width, height);
 		}
 
-		protected internal virtual void OnMouseDragged(BasicMouseEventArgs e){}
-		protected internal virtual void OnMouseMoved(BasicMouseEventArgs e){}
-		protected internal virtual void OnMouseIsUp(BasicMouseEventArgs e){}
-		protected internal virtual void OnMouseIsDown(BasicMouseEventArgs e){}
-		protected internal virtual void OnMouseLeave(EventArgs e){}
-		protected internal virtual void OnMouseClick(BasicMouseEventArgs e){}
-		protected internal virtual void OnMouseDoubleClick(BasicMouseEventArgs e){}
-		protected internal virtual void OnMouseHover(EventArgs e){}
-		protected internal virtual void OnMouseCaptureChanged(EventArgs e){}
-		protected internal virtual void OnMouseEnter(EventArgs e){}
-		protected internal virtual void OnMouseWheel(BasicMouseEventArgs e){}
-		protected internal virtual void OnResize(EventArgs e, int width, int height){}
-		protected internal virtual void Dispose(bool disposing){}
+		public virtual void OnMouseDragged(BasicMouseEventArgs e){}
+		public virtual void OnMouseMoved(BasicMouseEventArgs e){}
+		public virtual void OnMouseIsUp(BasicMouseEventArgs e){}
+		public virtual void OnMouseIsDown(BasicMouseEventArgs e){}
+		public virtual void OnMouseLeave(EventArgs e){}
+		public virtual void OnMouseClick(BasicMouseEventArgs e){}
+		public virtual void OnMouseDoubleClick(BasicMouseEventArgs e){}
+		public virtual void OnMouseHover(EventArgs e){}
+		public virtual void OnMouseCaptureChanged(EventArgs e){}
+		public virtual void OnMouseEnter(EventArgs e){}
+		public virtual void OnMouseWheel(BasicMouseEventArgs e){}
+		public virtual void OnResize(EventArgs e, int width, int height){}
+		public virtual void Dispose(bool disposing){}
 
 		public void Print(IGraphics g, int width, int height){
 			OnPaintBackground(g, width, height);

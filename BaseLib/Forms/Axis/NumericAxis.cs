@@ -4,7 +4,7 @@ namespace BaseLib.Forms.Axis{
 	public class NumericAxis : BasicControl{
 		public NumericAxis(){
 			view = new NumericAxisView();
-			view.Activate(this);
+			Activate(view);
 		}
 
 		public NumericAxisView GetView(){

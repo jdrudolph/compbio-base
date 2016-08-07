@@ -10,7 +10,7 @@ namespace BaseLib.Forms.Scroll{
 			this.main = main;
 		}
 
-		protected internal sealed override void OnPaintBackground(IGraphics g, int width, int height){
+		public sealed override void OnPaintBackground(IGraphics g, int width, int height){
 			if (main == null){
 				return;
 			}

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
-using BaseLib.Graphic;
 using BaseLibS.Graph;
 using BaseLibS.Num;
 
@@ -109,7 +108,7 @@ namespace BaseLib.Forms.Colors{
 			precalcColors = null;
 		}
 
-		protected internal override void OnPaint(IGraphics g, int width, int height) {
+		public override void OnPaint(IGraphics g, int width, int height) {
 			if (oldLength != GetLength(width, height)){
 				refreshColors = true;
 			}
@@ -258,13 +257,13 @@ namespace BaseLib.Forms.Colors{
 			return x/(double) (GetLength(width, height) - 1);
 		}
 
-		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
+		public override void OnMouseIsDown(BasicMouseEventArgs e){
 			mouseDragIndex = mouseOverIndex;
 			mouseStartPos = Vertical ? e.Y : e.X;
 			hasMoved = false;
 		}
 
-		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
+		public override void OnMouseIsUp(BasicMouseEventArgs e){
 			if (!hasMoved){
 				if (e.IsMainButton){
 					ColorDialog cd = new ColorDialog();
@@ -294,7 +293,7 @@ namespace BaseLib.Forms.Colors{
 			mouseDragIndex = -1;
 		}
 
-		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
+		public override void OnMouseDragged(BasicMouseEventArgs e){
 			if (e.IsMainButton){
 				int w = Vertical ? e.Y : e.X;
 				if (w != mouseStartPos){
@@ -310,7 +309,7 @@ namespace BaseLib.Forms.Colors{
 			}
 		}
 
-		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
+		public override void OnMouseMoved(BasicMouseEventArgs e){
 			int x = Vertical ? e.Y : e.X;
 			for (int i = 0; i < Positions.Count; i++){
 				int p = ModelToView(Positions[i], e.Width, e.Height);

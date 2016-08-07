@@ -3,7 +3,7 @@ using BaseLibS.Graph;
 
 namespace BaseLib.Forms.Scroll{
 	internal sealed class ScrollableControlSmallCornerView : BasicView{
-		protected internal override void OnPaintBackground(IGraphics g, int width, int height){
+		public override void OnPaintBackground(IGraphics g, int width, int height){
 			Brush2 b = new Brush2(Color2.FromArgb(236, 233, 216));
 			g.FillRectangle(b, 0, 0, width, height);
 			Pen2 p = new Pen2(Color2.FromArgb(172, 168, 153));

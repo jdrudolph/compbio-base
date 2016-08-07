@@ -25,11 +25,11 @@ namespace BaseLib.Forms.Scroll{
 			this.main = main;
 		}
 
-		protected internal override void OnResize(EventArgs e, int width, int height){
+		public override void OnResize(EventArgs e, int width, int height){
 			bar = null;
 		}
 
-		protected internal override void OnPaintBackground(IGraphics g, int width, int height){
+		public override void OnPaintBackground(IGraphics g, int width, int height){
 			Pen2 p = new Pen2(Color2.FromArgb(172, 168, 153));
 			g.DrawLine(p, 0, height - 1, width, height - 1);
 			int[][] rgbs = GraphUtil.InterpolateRgb(243, 241, 236, 254, 254, 251,
@@ -43,7 +43,7 @@ namespace BaseLib.Forms.Scroll{
 			g.DrawLine(p, 0, height - 2, width, height - 2);
 		}
 
-		protected internal override void OnPaint(IGraphics g, int width, int height){
+		public override void OnPaint(IGraphics g, int width, int height){
 			PaintFirstMark(g, GraphUtil.scrollBarWidth);
 			PaintSecondMark(g, GraphUtil.scrollBarWidth, width);
 			PaintBar(g, GraphUtil.scrollBarWidth, width);
@@ -167,7 +167,7 @@ namespace BaseLib.Forms.Scroll{
 			secondMarkPress = b.Darker();
 		}
 
-		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
+		public override void OnMouseMoved(BasicMouseEventArgs e){
 			ScrollBarState newState = ScrollBarState.Neutral;
 			if (e.X < GraphUtil.scrollBarWidth - 1){
 				newState = ScrollBarState.HighlightFirstBox;
@@ -186,7 +186,7 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
+		public override void OnMouseIsDown(BasicMouseEventArgs e){
 			ScrollBarState newState = ScrollBarState.Neutral;
 			if (e.X < GraphUtil.scrollBarWidth - 1){
 				newState = ScrollBarState.PressFirstBox;
@@ -251,7 +251,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		// ReSharper restore FunctionNeverReturns
-		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
+		public override void OnMouseDragged(BasicMouseEventArgs e){
 			if (state != ScrollBarState.PressBar){
 				return;
 			}
@@ -263,7 +263,7 @@ namespace BaseLib.Forms.Scroll{
 			Invalidate();
 		}
 
-		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
+		public override void OnMouseIsUp(BasicMouseEventArgs e){
 			if (leftThread != null){
 				leftThread.Abort();
 				leftThread = null;
@@ -278,7 +278,7 @@ namespace BaseLib.Forms.Scroll{
 			Invalidate();
 		}
 
-		protected internal override void OnMouseLeave(EventArgs e){
+		public override void OnMouseLeave(EventArgs e){
 			if (state == ScrollBarState.PressBar){
 				return;
 			}

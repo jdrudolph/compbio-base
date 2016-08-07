@@ -211,7 +211,7 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		protected internal override void OnPaint(IGraphics g, int width, int height){
+		public override void OnPaint(IGraphics g, int width, int height){
 			OnPaint(g, 0, 0, width, height);
 		}
 
@@ -606,7 +606,7 @@ namespace BaseLib.Forms.Axis{
 			SetZoomFromView(min, max, length);
 		}
 
-		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
+		public override void OnMouseDragged(BasicMouseEventArgs e){
 			if (!IsValid() || ZoomType == AxisZoomType.None){
 				return;
 			}
@@ -638,7 +638,7 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
+		public override void OnMouseIsDown(BasicMouseEventArgs e){
 			if (!Visible){
 				return;
 			}
@@ -673,7 +673,7 @@ namespace BaseLib.Forms.Axis{
 			}
 		}
 
-		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
+		public override void OnMouseIsUp(BasicMouseEventArgs e){
 			if (Configurable && !e.IsMainButton){
 				NumericAxisPropertiesForm f = new NumericAxisPropertiesForm(Text, IsLogarithmic ? Math.Exp(ZoomMin) : ZoomMin,
 					IsLogarithmic ? Math.Exp(ZoomMax) : ZoomMax);
@@ -741,7 +741,7 @@ namespace BaseLib.Forms.Axis{
 			Invalidate();
 		}
 
-		protected internal override void OnMouseDoubleClick(BasicMouseEventArgs e){
+		public override void OnMouseDoubleClick(BasicMouseEventArgs e){
 			if (!Visible){
 				return;
 			}

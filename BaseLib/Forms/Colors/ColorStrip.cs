@@ -1,4 +1,3 @@
-using System.Drawing;
 using BaseLib.Forms.Base;
 using BaseLibS.Graph;
 
@@ -6,12 +5,12 @@ namespace BaseLib.Forms.Colors{
 	public sealed class ColorStrip : BasicControl{
 		public ColorStrip(){
 			view = new ColorStripView();
-			view.Activate(this);
+			Activate(view);
 		}
 
 		public ColorStrip(Color2 c1, Color2 c2){
 			view = new ColorStripView(c1, c2);
-			view.Activate(this);
+			Activate(view);
 		}
 
 		public ColorStripView GetView(){

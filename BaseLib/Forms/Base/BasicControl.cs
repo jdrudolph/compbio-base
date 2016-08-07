@@ -16,6 +16,13 @@ namespace BaseLib.Forms.Base{
 			Dock = DockStyle.Fill;
 		}
 
+		public void Activate(BasicView view1){
+			view = view1;
+			view.invalidate = Invalidate;
+			view.resetCursor = ResetCursor;
+			view.setCursor = SetCursor;
+		}
+
 		public void SetCursor(Cursors2 c){
 			Cursor = GraphUtils.ToCursor(c);
 		}
@@ -124,7 +131,7 @@ namespace BaseLib.Forms.Base{
 
 		public static BasicControl CreateControl(BasicView view){
 			BasicControl c = new BasicControl();
-			view.Activate(c);
+			c.Activate(view);
 			return c;
 		}
 	}

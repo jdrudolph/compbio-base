@@ -145,7 +145,7 @@ namespace BaseLib.Forms.Base{
 		public int RowCount => RowStyles.Count;
 		public int ColumnCount => ColumnStyles.Count;
 
-		protected internal override void OnPaint(IGraphics g, int width, int height){
+		public override void OnPaint(IGraphics g, int width, int height){
 			if (widths == null){
 				InitSizes(width, height);
 			}
@@ -177,7 +177,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnPaintBackground(IGraphics g, int width, int height){
+		public override void OnPaintBackground(IGraphics g, int width, int height){
 			if (widths == null){
 				InitSizes(width, height);
 			}
@@ -194,7 +194,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnMouseCaptureChanged(EventArgs e){
+		public override void OnMouseCaptureChanged(EventArgs e){
 			Tuple<int, int> key = new Tuple<int, int>(currentComponentY, currentComponentX);
 			if (components.ContainsKey(key)){
 				BasicView v = components[key];
@@ -202,7 +202,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnMouseEnter(EventArgs e){
+		public override void OnMouseEnter(EventArgs e){
 			Tuple<int, int> key = new Tuple<int, int>(currentComponentY, currentComponentX);
 			if (components.ContainsKey(key)){
 				BasicView v = components[key];
@@ -210,7 +210,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnMouseHover(EventArgs e){
+		public override void OnMouseHover(EventArgs e){
 			Tuple<int, int> key = new Tuple<int, int>(currentComponentY, currentComponentX);
 			if (components.ContainsKey(key)){
 				BasicView v = components[key];
@@ -218,7 +218,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnMouseLeave(EventArgs e){
+		public override void OnMouseLeave(EventArgs e){
 			Tuple<int, int> key = new Tuple<int, int>(currentComponentY, currentComponentX);
 			if (components.ContainsKey(key)){
 				BasicView v = components[key];
@@ -226,7 +226,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnResize(EventArgs e, int width, int height){
+		public override void OnResize(EventArgs e, int width, int height){
 			widths = null;
 			heights = null;
 			xpos = null;
@@ -243,21 +243,21 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnMouseClick(BasicMouseEventArgs e){
+		public override void OnMouseClick(BasicMouseEventArgs e){
 			int indX;
 			int indY;
 			BasicView v = GetComponentAt(e.X, e.Y, out indX, out indY);
 			v?.OnMouseClick(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
 		}
 
-		protected internal override void OnMouseDoubleClick(BasicMouseEventArgs e){
+		public override void OnMouseDoubleClick(BasicMouseEventArgs e){
 			int indX;
 			int indY;
 			BasicView v = GetComponentAt(e.X, e.Y, out indX, out indY);
 			v?.OnMouseDoubleClick(new BasicMouseEventArgs(e, xpos[indX], ypos[indY], widths[indX], heights[indY]));
 		}
 
-		protected internal override void OnMouseDragged(BasicMouseEventArgs e){
+		public override void OnMouseDragged(BasicMouseEventArgs e){
 			if (dragging){}
 			BasicView v = GetComponentAt(mouseDownX, mouseDownY);
 			v?.OnMouseDragged(new BasicMouseEventArgs(e, xpos[mouseDownX], ypos[mouseDownY], widths[mouseDownX],
@@ -269,7 +269,7 @@ namespace BaseLib.Forms.Base{
 		private bool dragX;
 		private int dragIndex;
 
-		protected internal override void OnMouseIsDown(BasicMouseEventArgs e){
+		public override void OnMouseIsDown(BasicMouseEventArgs e){
 			int indX1 = GetSeparatorInd(xpos, e.X);
 			int indY1 = GetSeparatorInd(ypos, e.Y);
 			if (indX1 >= 0){
@@ -294,7 +294,7 @@ namespace BaseLib.Forms.Base{
 		private int mouseDownX;
 		private int mouseDownY;
 
-		protected internal override void OnMouseIsUp(BasicMouseEventArgs e){
+		public override void OnMouseIsUp(BasicMouseEventArgs e){
 			if (dragging){
 				dragging = false;
 				return;
@@ -330,7 +330,7 @@ namespace BaseLib.Forms.Base{
 		private int currentComponentX;
 		private int currentComponentY;
 
-		protected internal override void OnMouseMoved(BasicMouseEventArgs e){
+		public override void OnMouseMoved(BasicMouseEventArgs e){
 			if (xpos == null || ypos == null){
 				return;
 			}
@@ -356,7 +356,7 @@ namespace BaseLib.Forms.Base{
 			}
 		}
 
-		protected internal override void OnMouseWheel(BasicMouseEventArgs e){
+		public override void OnMouseWheel(BasicMouseEventArgs e){
 			int indX;
 			int indY;
 			BasicView v = GetComponentAt(e.X, e.Y, out indX, out indY);
