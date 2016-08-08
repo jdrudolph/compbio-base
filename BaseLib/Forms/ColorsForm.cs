@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace BaseLib.Forms.Colors{
+namespace BaseLib.Forms{
 	public partial class ColorsForm : Form{
 		public ColorsForm(){
 			InitializeComponent();

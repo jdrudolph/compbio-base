@@ -5,7 +5,7 @@ using BaseLibS.Graph.Axis;
 using BaseLibS.Graph.Base;
 using BaseLibS.Num;
 
-namespace BaseLib.Forms.Axis{
+namespace BaseLib.Forms{
 	public delegate void ZoomChangeHandler(object sender, double min, double max);
 
 	public class NumericAxisView : BasicView{

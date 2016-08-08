@@ -51,13 +51,13 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Forms\Axis\NumericAxisPropertiesForm.cs">
+    <Compile Include="Forms\NumericAxisPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Axis\NumericAxisPropertiesForm.Designer.cs">
+    <Compile Include="Forms\NumericAxisPropertiesForm.Designer.cs">
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Axis\NumericAxisView.cs" />
+    <Compile Include="Forms\NumericAxisView.cs" />
     <Compile Include="Forms\Base\BasicControl.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -68,22 +68,19 @@
     <Compile Include="Forms\Base\FormUtil.cs" />
     <Compile Include="Forms\Base\Printing.cs" />
     <Compile Include="Forms\Chars.cs" />
-    <Compile Include="Forms\Colors\ColorScale.cs">
+    <Compile Include="Forms\ColorScale.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Forms\Colors\ColorScale.Designer.cs">
+    <Compile Include="Forms\ColorScale.Designer.cs">
       <DependentUpon>ColorScale.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Colors\ColorsForm.cs">
+    <Compile Include="Forms\ColorsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\Colors\ColorsForm.Designer.cs">
+    <Compile Include="Forms\ColorsForm.Designer.cs">
       <DependentUpon>ColorsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Colors\ColorStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Forms\Colors\ColorStripView.cs" />
+    <Compile Include="Forms\ColorStripView.cs" />
     <Compile Include="Forms\Table\HelpLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -270,15 +267,15 @@
     <Compile Include="Wpf\ValidationRules.cs" />
     <Compile Include="Wpf\ViewModelBase.cs" />
     <Compile Include="Wpf\WpfUtils.cs" />
-    <EmbeddedResource Include="Forms\Axis\NumericAxisPropertiesForm.resx">
+    <EmbeddedResource Include="Forms\NumericAxisPropertiesForm.resx">
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Colors\ColorScale.resx">
+    <EmbeddedResource Include="Forms\ColorScale.resx">
       <DependentUpon>ColorScale.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Forms\Colors\ColorsForm.resx">
+    <EmbeddedResource Include="Forms\ColorsForm.resx">
       <DependentUpon>ColorsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>

@@ -1,12 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Windows.Forms;
 using BaseLibS.Graph;
 using BaseLibS.Graph.Base;
 using BaseLibS.Num;
 
-namespace BaseLib.Forms.Colors{
+namespace BaseLib.Forms{
 	public enum Arrows{
 		None,
 		First,
@@ -55,7 +54,6 @@ namespace BaseLib.Forms.Colors{
 				AddColor(c2, 1.0);
 			}
 			Arrow = Arrows.Second;
-			//Size = new Size(1000, 30);
 			StripWidth = 10;
 			Vertical = false;
 			Weight1 = 1F;

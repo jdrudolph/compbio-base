@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Forms.Axis {
+﻿namespace BaseLib.Forms {
 	partial class NumericAxisPropertiesForm {
 		/// <summary>
 		/// Required designer variable.

@@ -1,46 +1,41 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using BaseLib.Forms.Axis;
 using BaseLib.Forms.Base;
 using BaseLibS.Graph;
 using BaseLibS.Graph.Axis;
 
-namespace BaseLib.Forms.Colors{
+namespace BaseLib.Forms{
 	public delegate void ColorChangeHandler();
 
 	public partial class ColorScale : UserControl{
 		public event ColorChangeHandler OnColorChange;
 		private readonly NumericAxisView axis;
 		public bool Locked { get; set; }
-		public ColorStrip ColorStrip { get; }
+		public ColorStripView ColorStrip { get; }
+		private readonly BasicControl colorStripBasicControl;
 
 		public ColorScale(){
 			InitializeComponent();
-			ColorStrip = new ColorStrip();
+			ColorStrip = new ColorStripView();
 			axis = new NumericAxisView();
 			SuspendLayout();
-			ColorStrip.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			ColorStrip.Location = new Point(0, 59);
-			ColorStrip.Margin = new Padding(0);
-			ColorStrip.Name = "colorStrip";
-			ColorStrip.Size = new Size(749, 31);
-			ColorStrip.TabIndex = 1;
 			axis.ForeColor = Color2.Black;
 			AutoScaleDimensions = new SizeF(6F, 13F);
 			AutoScaleMode = AutoScaleMode.Font;
-			Controls.Add(ColorStrip);
+			colorStripBasicControl = BasicControl.CreateControl(ColorStrip);
+			Controls.Add(colorStripBasicControl);
 			Controls.Add(BasicControl.CreateControl(axis));
 			Name = "ColorScale";
 			Size = new Size(749, 90);
 			ResumeLayout(false);
-			ColorStrip.GetView().Arrow = Arrows.Second;
-			ColorStrip.GetView().StartupColorMax = Color2.Red;
-			ColorStrip.GetView().StartupColorMin = Color2.White;
-			ColorStrip.GetView().StripWidth = 10;
-			ColorStrip.GetView().Vertical = false;
-			ColorStrip.GetView().Weight1 = 1F;
-			ColorStrip.GetView().Weight2 = 0F;
+			ColorStrip.Arrow = Arrows.Second;
+			ColorStrip.StartupColorMax = Color2.Red;
+			ColorStrip.StartupColorMin = Color2.White;
+			ColorStrip.StripWidth = 10;
+			ColorStrip.Vertical = false;
+			ColorStrip.Weight1 = 1F;
+			ColorStrip.Weight2 = 0F;
 			axis.Configurable = true;
 			axis.IndicatorColor = Color2.Transparent;
 			axis.IsLogarithmic = false;
@@ -58,7 +53,7 @@ namespace BaseLib.Forms.Colors{
 			axis.ZoomMax = 1;
 			axis.ZoomMin = 0;
 			axis.ZoomType = AxisZoomType.Zoom;
-			ColorStrip.GetView().OnColorChange += UpdateAxis;
+			ColorStrip.OnColorChange += UpdateAxis;
 			axis.OnZoomChange += UpdateColor;
 		}
 
@@ -85,7 +80,7 @@ namespace BaseLib.Forms.Colors{
 		}
 
 		public void InitColors(Color2[] colors, double[] positions){
-			ColorStrip.GetView().InitColors(colors, positions);
+			ColorStrip.InitColors(colors, positions);
 		}
 
 		public AxisPositioning Positioning{
@@ -139,11 +134,11 @@ namespace BaseLib.Forms.Colors{
 		}
 
 		public Pen2 GetPen(double value){
-			return ColorStrip.GetView().GetPenAt(GetScaledValue(value), ColorStrip.Width, ColorStrip.Height);
+			return ColorStrip.GetPenAt(GetScaledValue(value), colorStripBasicControl.Width, colorStripBasicControl.Height);
 		}
 
 		public Color2 GetColor(double value){
-			return ColorStrip.GetView().GetColorAt(GetScaledValue(value), ColorStrip.Width, ColorStrip.Height);
+			return ColorStrip.GetColorAt(GetScaledValue(value), colorStripBasicControl.Width, colorStripBasicControl.Height);
 		}
 
 		public double GetScaledValue(double unscaledValue){
@@ -202,7 +197,7 @@ namespace BaseLib.Forms.Colors{
 			get { return base.BackColor; }
 			set{
 				base.BackColor = value;
-				axis.BackColor = Color2.FromArgb(value.A, value.R, value.G, value.B) ;
+				axis.BackColor = Color2.FromArgb(value.A, value.R, value.G, value.B);
 			}
 		}
 	}

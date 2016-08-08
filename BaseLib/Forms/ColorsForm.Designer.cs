@@ -1,7 +1,6 @@
-using BaseLib.Forms.Axis;
 using BaseLibS.Graph.Axis;
 
-namespace BaseLib.Forms.Colors{
+namespace BaseLib.Forms{
 	partial class ColorsForm {
 		/// <summary>
 		/// Required designer variable.
