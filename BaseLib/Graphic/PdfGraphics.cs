@@ -23,7 +23,7 @@ namespace BaseLib.Graphic{
 		public PdfGraphics(Stream stream, int width, int height){
 			originalWidth = currentWidth = width;
 			originalHeight = currentHeight = height;
-			document = new Document(new iTextSharp.text.Rectangle(width, height), 50, 50, 50, 50);
+			document = new Document(new Rectangle(width, height), 50, 50, 50, 50);
 			document.AddAuthor("");
 			document.AddSubject("");
 			try{

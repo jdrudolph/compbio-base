@@ -10,8 +10,6 @@ namespace BaseLib.Forms.Base{
 			Color.BlueViolet, Color.Crimson
 		};
 
-		public static Font defaultFont = new Font("Lucida Sans Unicode", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-
 		public static Color GetPredefinedColor(int index){
 			return predefinedColors[Math.Abs(index%predefinedColors.Length)];
 		}
