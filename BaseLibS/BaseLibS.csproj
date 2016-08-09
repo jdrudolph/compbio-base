@@ -61,6 +61,7 @@
     <Compile Include="Graph\ICompoundScrollableControl.cs" />
     <Compile Include="Graph\ICompoundScrollableControlModel.cs" />
     <Compile Include="Graph\IGraphics.cs" />
+    <Compile Include="Graph\IPdfGraphics.cs" />
     <Compile Include="Graph\IPrintable.cs" />
     <Compile Include="Graph\IScrollableControl.cs" />
     <Compile Include="Graph\IScrollableControlModel.cs" />
