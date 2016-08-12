@@ -283,6 +283,9 @@ namespace BaseLibS.Parse{
 				reader.ReadLine();
 			}
 			string line = reader.ReadLine();
+			if (line == null){
+				return new string[0];
+			}
 			if (commentPrefix != null){
 				while (IsCommentLine(line, commentPrefix, commentPrefixExceptions)){
 					line = reader.ReadLine();

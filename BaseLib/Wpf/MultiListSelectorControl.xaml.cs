@@ -33,11 +33,11 @@ namespace BaseLib.Wpf{
 
 		public void Init(IList<string> items1){
 			items = items1;
+			ClearSelection();
 			AllListBox.Items.Clear();
 			foreach (string s in items1){
 				AllListBox.Items.Add(s);
 			}
-			ClearSelection();
 		}
 
 		public int[][] SelectedIndices{
