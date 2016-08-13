@@ -23,6 +23,10 @@ namespace BaseLibS.Util{
 			return Path.Combine(Path.GetDirectoryName(executableFile), "conf");
 		}
 
+		public static string GetImgPath(){
+			return Path.Combine(Path.GetDirectoryName(executableFile), "img");
+		}
+
 		public static string GetContaminantFilePath(){
 			return Path.Combine(GetConfigPath(), "contaminants.fasta");
 		}

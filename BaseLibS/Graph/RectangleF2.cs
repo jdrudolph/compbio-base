@@ -58,13 +58,9 @@ namespace BaseLibS.Graph{
 		}
 
 		public float Left => X;
-
 		public float Top => Y;
-
 		public float Right => X + Width;
-
 		public float Bottom => Y + Height;
-
 		public bool IsEmpty => (Width <= 0) || (Height <= 0);
 
 		public override bool Equals(object obj){
@@ -72,7 +68,7 @@ namespace BaseLibS.Graph{
 				return false;
 			}
 			RectangleF2 comp = (RectangleF2) obj;
-			return (comp.X == this.X) && (comp.Y == this.Y) && (comp.Width == this.Width) && (comp.Height == this.Height);
+			return (comp.X == X) && (comp.Y == Y) && (comp.Width == Width) && (comp.Height == Height);
 		}
 
 		public static bool operator ==(RectangleF2 left, RectangleF2 right){
@@ -84,7 +80,7 @@ namespace BaseLibS.Graph{
 		}
 
 		public bool Contains(float x, float y){
-			return this.X <= x && x < this.X + this.Width && this.Y <= y && y < this.Y + this.Height;
+			return X <= x && x < X + Width && Y <= y && y < Y + Height;
 		}
 
 		public bool Contains(PointF2 pt){
@@ -92,8 +88,8 @@ namespace BaseLibS.Graph{
 		}
 
 		public bool Contains(RectangleF2 rect){
-			return (X <= rect.X) && ((rect.X + rect.Width) <= (X + this.Width)) && (this.Y <= rect.Y) &&
-					((rect.Y + rect.Height) <= (this.Y + this.Height));
+			return (X <= rect.X) && ((rect.X + rect.Width) <= (X + Width)) && (Y <= rect.Y) &&
+					((rect.Y + rect.Height) <= (Y + Height));
 		}
 
 		public override int GetHashCode(){
@@ -166,7 +162,7 @@ namespace BaseLibS.Graph{
 		}
 
 		public override string ToString(){
-			return "{X=" + X.ToString(CultureInfo.CurrentCulture) + ",Y=" + Y.ToString(CultureInfo.CurrentCulture) + ",Width=" +
+			return "{x=" + X.ToString(CultureInfo.CurrentCulture) + ",y=" + Y.ToString(CultureInfo.CurrentCulture) + ",Width=" +
 					Width.ToString(CultureInfo.CurrentCulture) + ",Height=" + Height.ToString(CultureInfo.CurrentCulture) + "}";
 		}
 	}

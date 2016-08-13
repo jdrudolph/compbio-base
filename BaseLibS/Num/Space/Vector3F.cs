@@ -2,6 +2,8 @@
 
 namespace BaseLibS.Num.Space{
 	public class Vector3F{
+		public static readonly Vector3F Zero = new Vector3F(0, 0, 0);
+		public static readonly Vector3F One = new Vector3F(1, 1, 1);
 		public float x;
 		public float y;
 		public float z;
@@ -17,6 +19,33 @@ namespace BaseLibS.Num.Space{
 			x = vec.x;
 			y = vec.y;
 			z = vec.z;
+		}
+
+		public float X { get { return x; } set { x = value; } }
+		public float Y { get { return y; } set { y = value; } }
+		public float Z { get { return z; } set { z = value; } }
+
+		public Vector3F(float a) : this(a, a, a){}
+
+		public static Vector3F Clamp(Vector3F x, Vector3F min, Vector3F max){
+			return new Vector3F(NumUtils.Clamp(x.x, min.x, max.x), NumUtils.Clamp(x.y, min.y, max.y),
+				NumUtils.Clamp(x.z, min.z, max.z));
+		}
+
+		public static Vector3F Abs(Vector3F v){
+			return new Vector3F(Math.Abs(v.x), Math.Abs(v.y), Math.Abs(v.z));
+		}
+
+		public static Vector3F operator +(Vector3F left, Vector3F right){
+			return new Vector3F(left.x + right.x, left.y + right.y, left.z + right.z);
+		}
+
+		public static Vector3F operator -(Vector3F left, Vector3F right){
+			return new Vector3F(left.x - right.x, left.y - right.y, left.z - right.z);
+		}
+
+		public static Vector3F operator *(Vector3F left, float right){
+			return new Vector3F(left.x + right, left.y + right, left.z + right);
 		}
 
 		public void Set(float x1, float y1, float z1){

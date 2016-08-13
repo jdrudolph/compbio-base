@@ -53,6 +53,7 @@
     <Compile Include="Graph\Cursors2.cs" />
     <Compile Include="Graph\DashCap2.cs" />
     <Compile Include="Graph\DashStyle2.cs" />
+    <Compile Include="Graph\Ellipse2.cs" />
     <Compile Include="Graph\Font2.cs" />
     <Compile Include="Graph\FontStyle2.cs" />
     <Compile Include="Graph\GenericFontFamilies2.cs" />
@@ -176,9 +177,11 @@
     <Compile Include="Num\NumRecipes.cs" />
     <Compile Include="Num\NumUtils.cs" />
     <Compile Include="Num\Random2.cs" />
+    <Compile Include="Num\Space\Vector2F.cs" />
     <Compile Include="Num\Space\Vector3D.cs" />
     <Compile Include="Num\Space\Vector3F.cs" />
     <Compile Include="Num\Space\Vector3I.cs" />
+    <Compile Include="Num\Space\Vector4Fa.cs" />
     <Compile Include="Num\Test\FisherExactTest.cs" />
     <Compile Include="Num\Test\PearsonCorrelationTest.cs" />
     <Compile Include="Num\Test\SpearmanCorrelationTest.cs" />

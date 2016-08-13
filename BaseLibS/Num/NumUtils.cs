@@ -8,7 +8,6 @@ using BaseLibS.Num.Test;
 
 namespace BaseLibS.Num{
 	public static class NumUtils{
-
 		/// <summary>
 		/// Creates all partitions of exactly <code>nItems</code> items into <code>nClasses</code> classes. 
 		/// </summary>
@@ -1101,6 +1100,10 @@ namespace BaseLibS.Num{
 				}
 			}
 			throw new Exception("a too large, ITMAX too small in routine gser");
+		}
+
+		public static float Clamp(float x, float min, float max){
+			return Math.Min(Math.Max(x, min), max);
 		}
 
 		public static int[][] CalcCollapse(string[] names){
