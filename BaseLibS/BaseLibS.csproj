@@ -216,6 +216,7 @@
     <Compile Include="Param\Parameters.cs" />
     <Compile Include="Param\ParameterWithSubParams.cs" />
     <Compile Include="Param\ParamType.cs" />
+    <Compile Include="Param\ParamUtils.cs" />
     <Compile Include="Param\RegexMatchParam.cs" />
     <Compile Include="Param\SerializableDictionary.cs" />
     <Compile Include="Param\SerializationHelper.cs" />
