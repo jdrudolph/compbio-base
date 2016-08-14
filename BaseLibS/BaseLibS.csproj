@@ -181,7 +181,7 @@
     <Compile Include="Num\Space\Vector3D.cs" />
     <Compile Include="Num\Space\Vector3F.cs" />
     <Compile Include="Num\Space\Vector3I.cs" />
-    <Compile Include="Num\Space\Vector4Fa.cs" />
+    <Compile Include="Num\Space\Vector4F.cs" />
     <Compile Include="Num\Test\FisherExactTest.cs" />
     <Compile Include="Num\Test\PearsonCorrelationTest.cs" />
     <Compile Include="Num\Test\SpearmanCorrelationTest.cs" />
