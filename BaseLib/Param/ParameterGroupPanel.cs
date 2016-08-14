@@ -1,25 +1,23 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using BaseLib.Wpf;
 using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
-	public partial class ParameterGroupPanel : UserControl{
+	public class ParameterGroupPanel : UserControl{
 		public ParameterGroup ParameterGroup { get; private set; }
 		private Grid grid;
-		public void Init(ParameterGroup parameters1) { Init(parameters1, 200F, 1050); }
+
+		public void Init(ParameterGroup parameters1){
+			Init(parameters1, 200F, 1050);
+		}
 
 		public void Init(ParameterGroup parameters1, float paramNameWidth, int totalWidth){
 			ParameterGroup = parameters1;
 			int nrows = ParameterGroup.Count;
-			grid = new Grid{
-				HorizontalAlignment = HorizontalAlignment.Left,
-				VerticalAlignment = VerticalAlignment.Top
-			};
-			grid.ColumnDefinitions.Add(new ColumnDefinition{
-				Width = new GridLength(paramNameWidth, GridUnitType.Pixel)
-			});
+			grid = new Grid{HorizontalAlignment = HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top};
+			grid.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(paramNameWidth, GridUnitType.Pixel)});
 			grid.ColumnDefinitions.Add(new ColumnDefinition{
 				Width = new GridLength(totalWidth - paramNameWidth, GridUnitType.Pixel)
 			});
@@ -58,19 +56,25 @@ namespace BaseLib.Param{
 			}
 			Grid.SetColumn(txt1, 0);
 			Grid.SetRow(txt1, i);
-			UIElement c = (UIElement)p.CreateControl() ?? new Control();
+			UIElement c = (UIElement) p.CreateControl() ?? new Control();
 			Grid.SetColumn(c, 1);
 			Grid.SetRow(c, i);
 			grid.Children.Add(txt1);
 			grid.Children.Add(c);
 		}
+
 		public void RegisterScrollViewer(ScrollViewer scrollViewer){
 			foreach (var child in grid.Children){
 				(child as IScrollRegistrationTarget)?.RegisterScrollViewer(scrollViewer);
 			}
 		}
 
-		public void Enable() { grid.IsEnabled = true; }
-		public void Disable() { grid.IsEnabled = false; }
+		public void Enable(){
+			grid.IsEnabled = true;
+		}
+
+		public void Disable(){
+			grid.IsEnabled = false;
+		}
 	}
 }
