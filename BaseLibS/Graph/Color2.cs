@@ -325,6 +325,38 @@ namespace BaseLibS.Graph{
 			return new Color2(argb, stateArgbValueValid, 0);
 		}
 
+		public static Color2 FromHexString(string hex){
+			// assuming AARRGGBB
+			hex = hex.StartsWith("#") ? hex.Substring(1) : hex;
+			if (hex.Length != 8 && hex.Length != 6 && hex.Length != 3){
+				throw new ArgumentException("Hexadecimal string is not in the correct format.", nameof(hex));
+			}
+			int r;
+			int g;
+			int b;
+			int a;
+			if (hex.Length == 8){
+				r = Convert.ToByte(hex.Substring(2, 2), 16);
+				g = Convert.ToByte(hex.Substring(4, 2), 16);
+				b = Convert.ToByte(hex.Substring(6, 2), 16);
+				a = Convert.ToByte(hex.Substring(0, 2), 16);
+			} else if (hex.Length == 6){
+				r = Convert.ToByte(hex.Substring(0, 2), 16);
+				g = Convert.ToByte(hex.Substring(2, 2), 16);
+				b = Convert.ToByte(hex.Substring(4, 2), 16);
+				a = 255;
+			} else{
+				string rh = char.ToString(hex[0]);
+				string gh = char.ToString(hex[1]);
+				string bh = char.ToString(hex[2]);
+				r = Convert.ToByte(rh + rh, 16);
+				g = Convert.ToByte(gh + gh, 16);
+				b = Convert.ToByte(bh + bh, 16);
+				a = 255;
+			}
+			return FromArgb(a, r, g, b);
+		}
+
 		/// <summary>
 		///       Creates a Color from its 32-bit component (alpha, red, green, and blue) values.
 		/// </summary>
