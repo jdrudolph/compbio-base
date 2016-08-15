@@ -527,6 +527,23 @@ namespace BaseLibS.Graph{
 			};
 		}
 
+		public static implicit operator Color2(YCbCr2 color){
+			float y = color.Y;
+			float cb = color.Cb - 128;
+			float cr = color.Cr - 128;
+			byte r = Clamp((byte) (y + 1.402*cr), 0, 255);
+			byte g = Clamp((byte) (y - 0.34414*cb - 0.71414*cr), 0, 255);
+			byte b = Clamp((byte) (y + 1.772*cb), 0, 255);
+			return FromArgb(r, g, b);
+		}
+
+		public static byte Clamp(byte value, byte min, byte max){
+			if (value > max){
+				return max;
+			}
+			return value < min ? min : value;
+		}
+
 		public override string ToString(){
 			StringBuilder sb = new StringBuilder(32);
 			sb.Append(GetType().Name);
