@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Text;
+using BaseLibS.Num.Space;
 
 namespace BaseLibS.Graph{
 	[Serializable, DebuggerDisplay("{NameAndArgbValue}")]
@@ -325,6 +326,10 @@ namespace BaseLibS.Graph{
 			return new Color2(argb, stateArgbValueValid, 0);
 		}
 
+		public Vector4F ToVector4(){
+			return new Vector4F(R/255F, G/255F, B/255F, A/255F);
+		}
+
 		public static Color2 FromHexString(string hex){
 			// assuming AARRGGBB
 			hex = hex.StartsWith("#") ? hex.Substring(1) : hex;
@@ -500,7 +505,10 @@ namespace BaseLibS.Graph{
 			return Value;
 		}
 
-		public static Color2[] GetWebSafeColors(){
+		private static readonly Lazy<Color2[]> safeColors = new Lazy<Color2[]>(GetWebSafeColors);
+		public static Color2[] WebSafeColors => safeColors.Value;
+
+		private static Color2[] GetWebSafeColors(){
 			return new[]{
 				AliceBlue, AntiqueWhite, Aqua, Aquamarine, Azure, Beige, Bisque, Black, BlanchedAlmond, Blue, BlueViolet, Brown,
 				BurlyWood, CadetBlue, Chartreuse, Chocolate, Coral, CornflowerBlue, Cornsilk, Crimson, Cyan, DarkBlue, DarkCyan,
