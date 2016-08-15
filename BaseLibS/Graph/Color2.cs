@@ -362,6 +362,15 @@ namespace BaseLibS.Graph{
 			return FromArgb(a, r, g, b);
 		}
 
+		public static Color2 FromVector4(Vector4F vector){
+			Vector4F clamped = Vector4F.Clamp(vector, Vector4F.Zero, Vector4F.One)*255F;
+			byte r = (byte) Math.Round(clamped.X);
+			byte g = (byte) Math.Round(clamped.Y);
+			byte b = (byte) Math.Round(clamped.Z);
+			byte a = (byte) Math.Round(clamped.W);
+			return FromArgb(a, r, g, b);
+		}
+
 		/// <summary>
 		///       Creates a Color from its 32-bit component (alpha, red, green, and blue) values.
 		/// </summary>
@@ -502,6 +511,14 @@ namespace BaseLibS.Graph{
 		/// </summary>
 		/// 
 		public int ToArgb(){
+			return Value;
+		}
+
+		public byte[] ToBytes(){
+			return new[]{R, G, B, A};
+		}
+
+		public int GetPackedValue(){
 			return Value;
 		}
 
