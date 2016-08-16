@@ -7,10 +7,10 @@ namespace BaseLibS.Mol{
 		[XmlIgnore]
 		public char Aa { get; set; }
         [XmlArrayItem("neutralloss")]
-		public NeutralLoss[] neutralloss_collection { get; set; }
+		public NeutralLoss[] NeutrallossCollection { get; set; }
         [XmlArrayItem("diagnostic")]
-		public DiagnosticPeak[] diagnostic_collection { get; set; }
-		public bool HasNeutralLoss { get { return neutralloss_collection != null && neutralloss_collection.Length != 0; } }
-		public bool HasDiagnosticPeak { get { return diagnostic_collection != null && diagnostic_collection.Length != 0; } }
+		public DiagnosticPeak[] DiagnosticCollection { get; set; }
+		public bool HasNeutralLoss => NeutrallossCollection != null && NeutrallossCollection.Length != 0;
+		public bool HasDiagnosticPeak => DiagnosticCollection != null && DiagnosticCollection.Length != 0;
 	}
 }
