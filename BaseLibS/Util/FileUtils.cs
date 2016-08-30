@@ -15,6 +15,12 @@ namespace BaseLibS.Util{
 	public static class FileUtils{
 		public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
 		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa";
+
+		public static string imageFilter =
+			"All files|*.bmp;*.gif;*.jpg;*jif;*jpe;*jpeg;*.png|BMP Windows or OS/2 Bitmap (*.bmp)|*.bmp|" +
+			"GIF Graphics Interchange Format (*.gif)|*.gif|" +
+			"JPG JPEG (*.jpg,*jif,*jpe,*jpeg)|*.jpg;*jif;*jpe;*jpeg|PNG Portable Network Graphics (*.png)|*.png";
+
 		private static readonly Random random = new Random();
 		public static string executableFile = Assembly.GetEntryAssembly().Location;
 		public static string executablePath = Path.GetDirectoryName(executableFile);
