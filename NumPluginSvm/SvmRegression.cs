@@ -19,8 +19,7 @@ namespace NumPluginSvm{
 
 		public Parameters Parameters
 			=>
-				new Parameters(new Parameter[]
-				{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 100){Help = SvmClassification.cHelp}});
+				new Parameters(KernelFunctions.GetKernelParameters(), new DoubleParam("C", 100){Help = SvmClassification.cHelp});
 
 		public string Name => "Support vector machine";
 		public string Description => "";

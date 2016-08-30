@@ -52,7 +52,6 @@
     <Compile Include="Svm\SvmType.cs" />
     <Compile Include="Svm\SvrQ.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\BaseLibS\BaseLibS.csproj">
       <Project>{1744226E-9EEC-4E1C-A231-96743695240F}</Project>
@@ -62,6 +61,9 @@
       <Project>{352faf61-6075-49d4-8513-3f333c518861}</Project>
       <Name>NumPluginBase</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

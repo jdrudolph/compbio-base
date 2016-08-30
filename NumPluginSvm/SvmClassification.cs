@@ -84,7 +84,7 @@ namespace NumPluginSvm{
 		}
 
 		public override Parameters Parameters
-			=> new Parameters(new Parameter[]{KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10){Help = cHelp}});
+			=> new Parameters(KernelFunctions.GetKernelParameters(), new DoubleParam("C", 10){Help = cHelp});
 
 		public override string Name => "Support vector machine";
 		public override string Description => "";

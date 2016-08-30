@@ -11,7 +11,7 @@ namespace NumPluginBase.Regression{
 			return new KnnRegressionModel(x, y, k, distance);
 		}
 
-		public Parameters Parameters => new Parameters(new Parameter[]{Distances.GetDistanceParameters(), new IntParam("Number of neighbours", 5)});
+		public Parameters Parameters => new Parameters(Distances.GetDistanceParameters(), new IntParam("Number of neighbours", 5));
 		public string Name => "KNN";
 		public string Description => "";
 		public float DisplayRank => 2;
