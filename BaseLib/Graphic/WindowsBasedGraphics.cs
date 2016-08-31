@@ -26,6 +26,7 @@ namespace BaseLib.Graphic{
 
 		public void RotateTransform(float angle){
 			gc.RotateTransform(angle);
+			
 		}
 
 		public void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2){

@@ -13,7 +13,7 @@ namespace BaseLib.Forms{
 		private readonly NumericAxisView axis;
 		public bool Locked { get; set; }
 		public ColorStripView ColorStrip { get; }
-		private readonly BasicControl colorStripBasicControl;
+		private readonly BasicControl colorStripControl;
 
 		public ColorScale(){
 			InitializeComponent();
@@ -23,9 +23,21 @@ namespace BaseLib.Forms{
 			axis.ForeColor = Color2.Black;
 			AutoScaleDimensions = new SizeF(6F, 13F);
 			AutoScaleMode = AutoScaleMode.Font;
-			colorStripBasicControl = BasicControl.CreateControl(ColorStrip);
-			Controls.Add(colorStripBasicControl);
-			Controls.Add(BasicControl.CreateControl(axis));
+			colorStripControl = BasicControl.CreateControl(ColorStrip);
+			colorStripControl.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left) | AnchorStyles.Right;
+			colorStripControl.Location = new Point(0, 59);
+			colorStripControl.Margin = new Padding(0);
+			colorStripControl.Name = "colorStrip";
+			colorStripControl.Size = new Size(749, 31);
+			Controls.Add(colorStripControl);
+			BasicControl axisControl = BasicControl.CreateControl(axis);
+			axisControl.Anchor = ((AnchorStyles.Top | AnchorStyles.Bottom) | AnchorStyles.Left) | AnchorStyles.Right;
+			axisControl.ForeColor = Color.Black;
+			axisControl.Location = new Point(0, 0);
+			axisControl.Margin = new Padding(0);
+			axisControl.Name = "axis";
+			axisControl.Size = new Size(749, 59);
+			Controls.Add(axisControl);
 			Name = "ColorScale";
 			Size = new Size(749, 90);
 			ResumeLayout(false);
@@ -134,11 +146,11 @@ namespace BaseLib.Forms{
 		}
 
 		public Pen2 GetPen(double value){
-			return ColorStrip.GetPenAt(GetScaledValue(value), colorStripBasicControl.Width, colorStripBasicControl.Height);
+			return ColorStrip.GetPenAt(GetScaledValue(value), colorStripControl.Width, colorStripControl.Height);
 		}
 
 		public Color2 GetColor(double value){
-			return ColorStrip.GetColorAt(GetScaledValue(value), colorStripBasicControl.Width, colorStripBasicControl.Height);
+			return ColorStrip.GetColorAt(GetScaledValue(value), colorStripControl.Width, colorStripControl.Height);
 		}
 
 		public double GetScaledValue(double unscaledValue){

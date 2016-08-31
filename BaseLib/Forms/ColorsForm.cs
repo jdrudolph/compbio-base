@@ -8,7 +8,7 @@ namespace BaseLib.Forms{
 			colorScale.Text = "Intensity";
 		}
 
-		public ColorScale ColorScale { get { return colorScale; } }
+		public ColorScale ColorScale => colorScale;
 
 		protected override void OnClosing(CancelEventArgs e){
 			e.Cancel = true;
