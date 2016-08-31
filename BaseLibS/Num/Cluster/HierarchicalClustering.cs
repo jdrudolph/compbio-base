@@ -376,11 +376,7 @@ namespace BaseLibS.Num.Cluster{
 			return (m1*n1 + m2*n2)/(n1 + n2);
 		}
 
-		private int[] ips;
-		private int[] jps;
-		private double[] maxs;
-
-		private double FindClosestPair(int n, float[,] distMatrix, out int ip, out int jp, int nthreads, double defaultDist){
+		private static double FindClosestPair(int n, float[,] distMatrix, out int ip, out int jp, int nthreads, double defaultDist){
 			if (nthreads <= 1 || n <= 1000){
 				return FindClosestPair(0, n, distMatrix, out ip, out jp, defaultDist);
 			}
@@ -388,9 +384,9 @@ namespace BaseLibS.Num.Cluster{
 			for (int k = 0; k < nthreads + 1; k++){
 				nk[k] = (int) Math.Round(0.5 + Math.Sqrt(0.25 + n*(n - 1)*k/(double) nthreads));
 			}
-			ips = new int[nthreads];
-			jps = new int[nthreads];
-			maxs = new double[nthreads];
+			int[] ips = new int[nthreads];
+			int[] jps = new int[nthreads];
+			double[] maxs = new double[nthreads];
 			Thread[] t = new Thread[nthreads];
 			for (int i = 0; i < nthreads; i++){
 				int index0 = i;
@@ -510,10 +506,7 @@ namespace BaseLibS.Num.Cluster{
 		}
 
 		private static BaseVector GetVector(MatrixIndexer data, int index, MatrixAccess access){
-			if (access == MatrixAccess.Rows){
-				return data.GetRow(index);
-			}
-			return data.GetColumn(index);
+			return access == MatrixAccess.Rows ? data.GetRow(index) : data.GetColumn(index);
 		}
 
 		/// <summary>
