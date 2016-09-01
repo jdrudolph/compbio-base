@@ -34,7 +34,7 @@ namespace BaseLib.Forms.Base{
 		}
 
 		public static void PrintVisibleSize(IScrollableControl c, string name) {
-			Print(c, name, c.VisibleWidth, c.VisibleHeight);
+			Print(c, name, c.Width1, c.Height1);
 		}
 
 		private static string ShowDialog(string filename) {
