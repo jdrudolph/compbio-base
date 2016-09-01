@@ -154,7 +154,15 @@ namespace BaseLib.Graphic{
 			template.Fill();
 		}
 
-		public void DrawPolygon(Pen2 pen, Point2[] points){
+	    public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, int radius) {
+	        throw new NotImplementedException();
+	    }
+
+	    public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, int radius) {
+	        throw new NotImplementedException();
+	    }
+
+	    public void DrawPolygon(Pen2 pen, Point2[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
 				Point2 point = points[index];
