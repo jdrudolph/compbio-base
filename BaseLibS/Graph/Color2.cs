@@ -387,6 +387,22 @@ namespace BaseLibS.Graph{
 			return new Color2((int) MakeArgb(CheckByte(alpha), baseColor.R, baseColor.G, baseColor.B), stateArgbValueValid, 0);
 		}
 
+		public static Color2 Darker(Color2 baseColor, int n){
+			return
+				new Color2(
+					(int)
+						MakeArgb(CheckByte(baseColor.A), CheckByte(Math.Max(0, baseColor.R - n)), CheckByte(Math.Max(0, baseColor.G - n)),
+							CheckByte(Math.Max(0, baseColor.B - n))), stateArgbValueValid, 0);
+		}
+
+		public static Color2 Lighter(Color2 baseColor, int n){
+			return
+				new Color2(
+					(int)
+						MakeArgb(CheckByte(baseColor.A), CheckByte(Math.Min(255, baseColor.R + n)),
+							CheckByte(Math.Min(255, baseColor.G + n)), CheckByte(Math.Min(255, baseColor.B + n))), stateArgbValueValid, 0);
+		}
+
 		/// <summary>
 		///       Creates a <code>Color2</code> from the specified red, green, and
 		///       blue values.
