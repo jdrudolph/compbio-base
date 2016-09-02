@@ -1,4 +1,5 @@
 using System;
+using BaseLib.Graphic;
 using BaseLibS.Graph;
 using BaseLibS.Graph.Base;
 
@@ -58,32 +59,52 @@ namespace BaseLib.Forms.Scroll{
 		public override void OnPaint(IGraphics g, int width, int height){
 			main.OnPaintMainView?.Invoke(g, main.VisibleX, main.VisibleY, width, height);
 			PaintZoomButtons(g, width, height, GraphUtil.zoomButtonSize, state);
-			PaintOverview(g, width, height);
+			PaintOverview(g, width, height, main.TotalWidth(), main.TotalHeight(), main.VisibleX, main.VisibleY,
+				main.VisibleWidth, main.VisibleHeight, (overviewWidth, overviewHeight) =>{
+					BitmapGraphics bg = new BitmapGraphics(main.TotalWidth(), main.TotalHeight());
+					main.OnPaintMainView?.Invoke(bg, 0, 0, main.TotalWidth(), main.TotalHeight());
+					return GraphUtils.ToBitmap2(GraphUtils.ResizeImage(bg.Bitmap, overviewWidth, overviewHeight));
+				});
 		}
 
-		private void PaintOverview(IGraphics g, int width, int height){
-			int overviewWidth;
-			int overviewHeight;
+		private static void CalcOverviewSize(int width, int height, int totalWidth, int totalHeight, out int overviewWidth,
+			out int overviewHeight){
 			int maxSize = Math.Min(Math.Min(maxOverviewSize, height), width - 20);
-			if (main.TotalWidth() > main.TotalHeight()){
+			if (totalWidth > totalHeight){
 				overviewWidth = maxSize;
-				overviewHeight = (int) Math.Round(main.TotalHeight()/(float) main.TotalWidth()*maxOverviewSize);
+				overviewHeight = (int) Math.Round(totalHeight/(float) totalWidth*maxOverviewSize);
 			} else{
 				overviewHeight = maxSize;
-				overviewWidth = (int) Math.Round(main.TotalWidth()/(float) main.TotalHeight()*maxOverviewSize);
+				overviewWidth = (int) Math.Round(totalWidth/(float) totalHeight*maxOverviewSize);
 			}
-			int winX = (int) Math.Round(main.VisibleX*overviewWidth/(float) main.TotalWidth());
-			int winWidth = (int) Math.Round(main.VisibleWidth*overviewWidth/(float) main.TotalWidth());
+		}
+
+		private static void PaintOverview(IGraphics g, int width, int height, int totalWidth, int totalHeight, int visibleX,
+			int visibleY, int visibleWidth, int visibleHeight, Func<int, int, Bitmap2> getOverviewBitmap){
+			int overviewWidth;
+			int overviewHeight;
+			CalcOverviewSize(width, height, totalWidth, totalHeight, out overviewWidth, out overviewHeight);
+			int maxSize = Math.Min(Math.Min(maxOverviewSize, height), width - 20);
+			if (totalWidth > totalHeight){
+				overviewWidth = maxSize;
+				overviewHeight = (int) Math.Round(totalHeight/(float) totalWidth*maxOverviewSize);
+			} else{
+				overviewHeight = maxSize;
+				overviewWidth = (int) Math.Round(totalWidth/(float) totalHeight*maxOverviewSize);
+			}
+			int winX = (int) Math.Round(visibleX*overviewWidth/(float) totalWidth);
+			int winWidth = (int) Math.Round(visibleWidth*overviewWidth/(float) totalWidth);
 			if (winX + winWidth > overviewWidth){
 				winWidth = overviewWidth - winX;
 			}
-			int winY = (int) Math.Round(main.VisibleY*overviewHeight/(float) main.TotalHeight());
-			int winHeight = (int) Math.Round(main.VisibleHeight*overviewHeight/(float) main.TotalHeight());
+			int winY = (int) Math.Round(visibleY*overviewHeight/(float) totalHeight);
+			int winHeight = (int) Math.Round(visibleHeight*overviewHeight/(float) totalHeight);
 			if (winY + winHeight > overviewHeight){
 				winHeight = overviewHeight - winY;
 			}
 			g.FillRectangle(Brushes2.White, 0, height - overviewHeight, overviewWidth, overviewHeight);
-			Brush2 b = new Brush2(Color2.FromArgb(7, 0, 0, 255));
+			g.DrawImageUnscaled(getOverviewBitmap(overviewWidth, overviewHeight), 0, height - overviewHeight);
+			Brush2 b = new Brush2(Color2.FromArgb(30, 0, 0, 255));
 			if (winX > 0){
 				g.FillRectangle(b, 0, height - overviewHeight, winX, overviewHeight);
 			}
@@ -125,6 +146,18 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnMouseClick(BasicMouseEventArgs e){
+			int overviewWidth;
+			int overviewHeight;
+			CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight(), out overviewWidth, out overviewHeight);
+			if (e.X < overviewWidth && e.Y > e.Height - overviewHeight){
+				return;
+			}
+			if (HitsMinusButton(e.X, e.Y, e.Width, e.Height)){
+				return;
+			}
+			if (HitsPlusButton(e.X, e.Y, e.Width, e.Height)){
+				return;
+			}
 			main.OnMouseClickMainView?.Invoke(e);
 		}
 
@@ -133,19 +166,36 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnMouseIsDown(BasicMouseEventArgs e){
-			main.OnMouseIsDownMainView?.Invoke(e);
+			int overviewWidth;
+			int overviewHeight;
+			CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight(), out overviewWidth, out overviewHeight);
+			if (e.X < overviewWidth && e.Y > e.Height - overviewHeight){
+				OnMouseIsDownOverview(e);
+				return;
+			}
 			ZoomButtonState newState = ZoomButtonState.Neutral;
+			bool hitsButton = false;
 			if (HitsMinusButton(e.X, e.Y, e.Width, e.Height)){
 				newState = ZoomButtonState.PressMinus;
+				hitsButton = true;
 				ZoomOut();
-			} else if (HitsPlusButton(e.X, e.Y, e.Width, e.Height)){
+			}
+			if (HitsPlusButton(e.X, e.Y, e.Width, e.Height)){
 				newState = ZoomButtonState.PressPlus;
+				hitsButton = true;
 				ZoomIn();
 			}
 			if (newState != state){
 				state = newState;
 				Invalidate();
 			}
+			if (hitsButton){
+				return;
+			}
+			main.OnMouseIsDownMainView?.Invoke(e);
+		}
+
+		private void OnMouseIsDownOverview(BasicMouseEventArgs e){
 		}
 
 		private void ZoomOut(){}
