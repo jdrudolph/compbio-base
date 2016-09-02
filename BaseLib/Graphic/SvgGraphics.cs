@@ -137,7 +137,15 @@ namespace BaseLib.Graphic{
 			lines.Add(line);
 		}
 
-		/// <summary>
+	    public void DrawInterceptedLine(Pen2 pen, float x1, float y1, float x2, float y2, float len) {
+	        throw new NotImplementedException();
+	    }
+
+	    public void DrawArrow(Pen2 pen, float x1, float y1, float x2, float y2, float side) {
+	        throw new NotImplementedException();
+	    }
+
+	    /// <summary>
 		/// Draws a GraphicsPath.
 		/// </summary>
 		/// <param name="pen">Pen that determines the color, width, and style of the path.</param>
