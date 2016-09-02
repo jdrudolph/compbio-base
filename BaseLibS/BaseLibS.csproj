@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Api\ClassificationModel.cs" />
+    <Compile Include="Api\IDistanceMatrix.cs" />
     <Compile Include="Data\NeighbourListDirected.cs" />
     <Compile Include="Data\NeighbourListBipartite.cs" />
     <Compile Include="Graph\Axis\AxisMouseMode.cs" />
@@ -100,6 +101,7 @@
     <Compile Include="Num\Cluster\HierarchicalClusterLinkage.cs" />
     <Compile Include="Num\Cluster\HierarchicalClusterNode.cs" />
     <Compile Include="Num\Cluster\KmeansClustering.cs" />
+    <Compile Include="Num\Cluster\KmedoidClustering.cs" />
     <Compile Include="Num\Distrib\StudentsT.cs" />
     <Compile Include="Num\Func\Factorial.cs" />
     <Compile Include="Num\Func\IncompleteBeta.cs" />
