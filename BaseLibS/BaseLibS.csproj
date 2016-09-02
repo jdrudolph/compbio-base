@@ -312,7 +312,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Resources\names.dmp.gz" />
     <None Include="Resources\nodes.dmp.gz" />
   </ItemGroup>
