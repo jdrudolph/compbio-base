@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseLibS", "BaseLibS\BaseLi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseLibS.Test", "BaseLibS\BaseLibS.Test\BaseLibS.Test.csproj", "{C28ADA75-26D6-4275-BBD2-03BDCB9A6E69}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaseLib.Test", "BaseLib\BaseLib.Test\BaseLib.Test.csproj", "{61A244B1-20F6-44A7-A00B-A899A1578EEC}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumPluginBase.Test", "NumPluginBase\NumPluginBase.Test\NumPluginBase.Test.csproj", "{377B77BB-74B9-4D26-9AB2-C7CA495F6908}"
 EndProject
 Global

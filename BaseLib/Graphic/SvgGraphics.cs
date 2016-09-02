@@ -7,7 +7,7 @@ using BaseLibS.Graph;
 using BaseLibS.Util;
 
 namespace BaseLib.Graphic{
-	internal class SvgGraphics : IGraphics{
+	public class SvgGraphics : IGraphics{
 		private readonly Svg svg;
 		private readonly Stream stream;
 		private readonly float docWidth;
