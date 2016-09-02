@@ -4,54 +4,50 @@ using BaseLibS.Graph.Base;
 
 namespace BaseLib.Forms.Scroll{
 	internal sealed class SimpleScrollableControlMainView : BasicView{
-		private const int buttonSize = 14;
+		private const int maxOverviewSize = 100;
 		private ZoomButtonState state = ZoomButtonState.Neutral;
 		private readonly SimpleScrollableControl main;
-		private static readonly Color2 zoomColor = Color2.CornflowerBlue;
-		private static readonly Brush2 zoomBrush = new Brush2(zoomColor);
-		private static readonly Brush2 zoomBrushHighlight = new Brush2(Color2.Lighter(zoomColor, 30));
-		private static readonly Brush2 zoomBrushPress = new Brush2(Color2.Darker(zoomColor, 30));
 
 		internal SimpleScrollableControlMainView(SimpleScrollableControl main){
 			this.main = main;
 		}
 
-		public void PaintZoomButtons(IGraphics g, int width, int height){
+		public static void PaintZoomButtons(IGraphics g, int width, int height, int bsize, ZoomButtonState state){
 			g.SmoothingMode = SmoothingMode2.AntiAlias;
-			Brush2 b = zoomBrush;
+			Brush2 b = GraphUtil.zoomBrush;
 			switch (state){
 				case ZoomButtonState.HighlightPlus:
-					b = zoomBrushHighlight;
+					b = GraphUtil.zoomBrushHighlight;
 					break;
 				case ZoomButtonState.PressPlus:
-					b = zoomBrushPress;
+					b = GraphUtil.zoomBrushPress;
 					break;
 			}
-			PaintPlusZoomButton(g, b, width, height);
-			b = zoomBrush;
+			PaintPlusZoomButton(g, b, width - bsize - 4, height - 2*bsize - 8, bsize);
+			b = GraphUtil.zoomBrush;
 			switch (state){
 				case ZoomButtonState.HighlightMinus:
-					b = zoomBrushHighlight;
+					b = GraphUtil.zoomBrushHighlight;
 					break;
 				case ZoomButtonState.PressMinus:
-					b = zoomBrushPress;
+					b = GraphUtil.zoomBrushPress;
 					break;
 			}
-			PaintMinusZoomButton(g, b, width, height);
+			PaintMinusZoomButton(g, b, width - bsize - 4, height - bsize - 4, bsize);
 			g.SmoothingMode = SmoothingMode2.Default;
 		}
 
-		public static void PaintPlusZoomButton(IGraphics g, Brush2 b, int width, int height){
+		public static void PaintPlusZoomButton(IGraphics g, Brush2 b, int x, int y, int bsize){
 			Pen2 w = new Pen2(Color2.White, 2);
-			PaintRoundButton(g, b, w, width - buttonSize - 4, height - 2*buttonSize - 8, buttonSize);
-			g.DrawLine(w, width - buttonSize, height - 8 - 3*buttonSize/2, width - 8, height - 8 - 3*buttonSize/2);
-			g.DrawLine(w, width - 4 - buttonSize/2, height - 2*buttonSize - 4, width - 4 - buttonSize/2, height - buttonSize - 12);
+			PaintRoundButton(g, b, w, x, y, bsize);
+			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
+			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
 		}
 
-		public static void PaintMinusZoomButton(IGraphics g, Brush2 b, int width, int height){
+		public static void PaintMinusZoomButton(IGraphics g, Brush2 b, int x, int y, int bsize){
 			Pen2 w = new Pen2(Color2.White, 2);
-			PaintRoundButton(g, b, w, width - buttonSize - 4, height - buttonSize - 4, buttonSize);
-			g.DrawLine(w, width - buttonSize, height - 4 - buttonSize/2, width - 8, height - 4 - buttonSize/2);
+			PaintRoundButton(g, b, w, x, y, bsize);
+			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
 		}
 
 		public static void PaintRoundButton(IGraphics g, Brush2 b, Pen2 w, int x, int y, int size){
@@ -61,7 +57,47 @@ namespace BaseLib.Forms.Scroll{
 
 		public override void OnPaint(IGraphics g, int width, int height){
 			main.OnPaintMainView?.Invoke(g, main.VisibleX, main.VisibleY, width, height);
-			PaintZoomButtons(g, width, height);
+			PaintZoomButtons(g, width, height, GraphUtil.zoomButtonSize, state);
+			PaintOverview(g, width, height);
+		}
+
+		private void PaintOverview(IGraphics g, int width, int height){
+			int overviewWidth;
+			int overviewHeight;
+			int maxSize = Math.Min(Math.Min(maxOverviewSize, height), width - 20);
+			if (main.TotalWidth() > main.TotalHeight()){
+				overviewWidth = maxSize;
+				overviewHeight = (int) Math.Round(main.TotalHeight()/(float) main.TotalWidth()*maxOverviewSize);
+			} else{
+				overviewHeight = maxSize;
+				overviewWidth = (int) Math.Round(main.TotalWidth()/(float) main.TotalHeight()*maxOverviewSize);
+			}
+			int winX = (int) Math.Round(main.VisibleX*overviewWidth/(float) main.TotalWidth());
+			int winWidth = (int) Math.Round(main.VisibleWidth*overviewWidth/(float) main.TotalWidth());
+			if (winX + winWidth > overviewWidth){
+				winWidth = overviewWidth - winX;
+			}
+			int winY = (int) Math.Round(main.VisibleY*overviewHeight/(float) main.TotalHeight());
+			int winHeight = (int) Math.Round(main.VisibleHeight*overviewHeight/(float) main.TotalHeight());
+			if (winY + winHeight > overviewHeight){
+				winHeight = overviewHeight - winY;
+			}
+			g.FillRectangle(Brushes2.White, 0, height - overviewHeight, overviewWidth, overviewHeight);
+			Brush2 b = new Brush2(Color2.FromArgb(7, 0, 0, 255));
+			if (winX > 0){
+				g.FillRectangle(b, 0, height - overviewHeight, winX, overviewHeight);
+			}
+			if (overviewWidth - winX - winWidth > 0){
+				g.FillRectangle(b, winX + winWidth, height - overviewHeight, overviewWidth - winX - winWidth, overviewHeight);
+			}
+			if (winY > 0){
+				g.FillRectangle(b, winX, height - overviewHeight, winWidth, winY);
+			}
+			if (overviewHeight - winY - winHeight > 0){
+				g.FillRectangle(b, winX, height - overviewHeight + winY + winHeight, winWidth, overviewHeight - winY - winHeight);
+			}
+			g.DrawRectangle(Pens2.Black, 0, height - overviewHeight - 1, overviewWidth, overviewHeight);
+			g.DrawRectangle(Pens2.Blue, winX, height - overviewHeight - 1 + winY, winWidth, winHeight);
 		}
 
 		public override void OnMouseMoved(BasicMouseEventArgs e){
@@ -78,44 +114,14 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		private bool HitsPlusButton(int x, int y, int width, int height){
-			if (x < width - buttonSize - 4){
-				return false;
-			}
-			if (x > width - 4){
-				return false;
-			}
-			if (y < height - 2*buttonSize - 8){
-				return false;
-			}
-			if (y > height - buttonSize - 8){
-				return false;
-			}
-			return true;
-		}
-
-		private bool HitsMinusButton(int x, int y, int width, int height){
-			if (x < width - buttonSize - 4){
-				return false;
-			}
-			if (x > width - 4){
-				return false;
-			}
-			if (y < height - buttonSize - 4){
-				return false;
-			}
-			if (y > height - 4){
-				return false;
-			}
-			return true;
-		}
-
 		public override void OnMouseHover(EventArgs e){
 			main.OnMouseHoverMainView?.Invoke(e);
 		}
 
 		public override void OnMouseLeave(EventArgs e){
 			main.OnMouseLeaveMainView?.Invoke(e);
+			state = ZoomButtonState.Neutral;
+			Invalidate();
 		}
 
 		public override void OnMouseClick(BasicMouseEventArgs e){
@@ -128,14 +134,57 @@ namespace BaseLib.Forms.Scroll{
 
 		public override void OnMouseIsDown(BasicMouseEventArgs e){
 			main.OnMouseIsDownMainView?.Invoke(e);
+			ZoomButtonState newState = ZoomButtonState.Neutral;
+			if (HitsMinusButton(e.X, e.Y, e.Width, e.Height)){
+				newState = ZoomButtonState.PressMinus;
+				ZoomOut();
+			} else if (HitsPlusButton(e.X, e.Y, e.Width, e.Height)){
+				newState = ZoomButtonState.PressPlus;
+				ZoomIn();
+			}
+			if (newState != state){
+				state = newState;
+				Invalidate();
+			}
 		}
+
+		private void ZoomOut(){}
+		private void ZoomIn(){}
 
 		public override void OnMouseIsUp(BasicMouseEventArgs e){
 			main.OnMouseIsUpMainView?.Invoke(e);
+			state = ZoomButtonState.Neutral;
+			Invalidate();
 		}
 
 		public override void OnMouseDragged(BasicMouseEventArgs e){
 			main.OnMouseDraggedMainView?.Invoke(e);
+		}
+
+		public static bool HitsPlusButton(int x, int y, int width, int height){
+			if (x < width - GraphUtil.zoomButtonSize - 4){
+				return false;
+			}
+			if (x > width - 4){
+				return false;
+			}
+			if (y < height - 2*GraphUtil.zoomButtonSize - 8){
+				return false;
+			}
+			return y <= height - GraphUtil.zoomButtonSize - 8;
+		}
+
+		public static bool HitsMinusButton(int x, int y, int width, int height){
+			if (x < width - GraphUtil.zoomButtonSize - 4){
+				return false;
+			}
+			if (x > width - 4){
+				return false;
+			}
+			if (y < height - GraphUtil.zoomButtonSize - 4){
+				return false;
+			}
+			return y <= height - 4;
 		}
 	}
 }

@@ -7,6 +7,11 @@ namespace BaseLibS.Graph{
 	public static class GraphUtil{
 		public const bool isJavaScript = false;
 		public const int scrollBarWidth = 18;
+		public const int zoomButtonSize = 14;
+		public static readonly Color2 zoomColor = Color2.CornflowerBlue;
+		public static readonly Brush2 zoomBrush = new Brush2(zoomColor);
+		public static readonly Brush2 zoomBrushHighlight = new Brush2(Color2.Lighter(zoomColor, 30));
+		public static readonly Brush2 zoomBrushPress = new Brush2(Color2.Darker(zoomColor, 30));
 
 		private static readonly Color2[] predefinedColors ={
 			Color2.Blue, Color2.FromArgb(255, 144, 144),
