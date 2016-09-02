@@ -78,7 +78,15 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2, string title, string description){
+	    public void DrawInterceptedLine(Pen2 pen, float x1, float y1, float x2, float y2, float len) {
+	        throw new NotImplementedException();
+	    }
+
+	    public void DrawArrow(Pen2 pen, float x1, float y1, float x2, float y2, float side) {
+	        throw new NotImplementedException();
+	    }
+
+	    public void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2, string title, string description){
 			DrawLine(pen, x1, y1, x2, y2);
 		}
 

@@ -48,6 +48,11 @@ namespace BaseLibS.Graph{
 		/// <param name="y2">The y-coordinate of the second point. </param>
 		void DrawLine(Pen2 pen, float x1, float y1, float x2, float y2);
 
+       
+	    void DrawInterceptedLine(Pen2 pen, float x1, float y1, float x2, float y2, float len);
+
+	    void DrawArrow(Pen2 pen, float x1, float y1, float x2, float y2, float side);
+
 		/// <summary>
 		/// Draws a GraphicsPath.
 		/// </summary>
