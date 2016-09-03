@@ -52,8 +52,8 @@ namespace BaseLibS.Graph{
 		public SizeF2 Size{
 			get { return new SizeF2(Width, Height); }
 			set{
-				this.Width = value.Width;
-				this.Height = value.Height;
+				Width = value.Width;
+				Height = value.Height;
 			}
 		}
 
@@ -88,22 +88,22 @@ namespace BaseLibS.Graph{
 		}
 
 		public bool Contains(RectangleF2 rect){
-			return (X <= rect.X) && ((rect.X + rect.Width) <= (X + Width)) && (Y <= rect.Y) &&
-					((rect.Y + rect.Height) <= (Y + Height));
+			return (X <= rect.X) && (rect.X + rect.Width <= X + Width) && (Y <= rect.Y) &&
+					(rect.Y + rect.Height <= Y + Height);
 		}
 
 		public override int GetHashCode(){
 			return
 				(int)
-					((UInt32) X ^ (((UInt32) Y << 13) | ((UInt32) Y >> 19)) ^ (((UInt32) Width << 26) | ((UInt32) Width >> 6)) ^
-					(((UInt32) Height << 7) | ((UInt32) Height >> 25)));
+					((uint) X ^ (((uint) Y << 13) | ((uint) Y >> 19)) ^ (((uint) Width << 26) | ((uint) Width >> 6)) ^
+					(((uint) Height << 7) | ((uint) Height >> 25)));
 		}
 
 		public void Inflate(float x, float y){
-			this.X -= x;
-			this.Y -= y;
-			this.Width += 2*x;
-			this.Height += 2*y;
+			X -= x;
+			Y -= y;
+			Width += 2*x;
+			Height += 2*y;
 		}
 
 		public void Inflate(SizeF2 size){
@@ -117,11 +117,11 @@ namespace BaseLibS.Graph{
 		}
 
 		public void Intersect(RectangleF2 rect){
-			RectangleF2 result = RectangleF2.Intersect(rect, this);
-			this.X = result.X;
-			this.Y = result.Y;
-			this.Width = result.Width;
-			this.Height = result.Height;
+			RectangleF2 result = Intersect(rect, this);
+			X = result.X;
+			Y = result.Y;
+			Width = result.Width;
+			Height = result.Height;
 		}
 
 		public static RectangleF2 Intersect(RectangleF2 a, RectangleF2 b){
@@ -132,12 +132,11 @@ namespace BaseLibS.Graph{
 			if (x2 >= x1 && y2 >= y1){
 				return new RectangleF2(x1, y1, x2 - x1, y2 - y1);
 			}
-			return RectangleF2.Empty;
+			return Empty;
 		}
 
 		public bool IntersectsWith(RectangleF2 rect){
-			return (rect.X < this.X + this.Width) && (this.X < (rect.X + rect.Width)) && (rect.Y < this.Y + this.Height) &&
-					(this.Y < rect.Y + rect.Height);
+			return (rect.X < X + Width) && (X < rect.X + rect.Width) && (rect.Y < Y + Height) && (Y < rect.Y + rect.Height);
 		}
 
 		public static RectangleF2 Union(RectangleF2 a, RectangleF2 b){
@@ -153,8 +152,8 @@ namespace BaseLibS.Graph{
 		}
 
 		public void Offset(float x, float y){
-			this.X += x;
-			this.Y += y;
+			X += x;
+			Y += y;
 		}
 
 		public static implicit operator RectangleF2(Rectangle2 r){

@@ -19,7 +19,7 @@
 		public int Left => X;
 
 		public bool Contains(float x, float y){
-			return this.X <= x && x < this.X + this.Width && this.Y <= y && y < this.Y + this.Height;
+			return X <= x && x < X + Width && Y <= y && y < Y + Height;
 		}
 
 		public bool Contains(Point2 pt){
@@ -27,8 +27,8 @@
 		}
 
 		public bool Contains(Rectangle2 rect){
-			return (X <= rect.X) && ((rect.X + rect.Width) <= (X + this.Width)) && (this.Y <= rect.Y) &&
-					((rect.Y + rect.Height) <= (this.Y + this.Height));
+			return (X <= rect.X) && (rect.X + rect.Width <= X + Width) && (Y <= rect.Y) &&
+					(rect.Y + rect.Height <= Y + Height);
 		}
 	}
 }
