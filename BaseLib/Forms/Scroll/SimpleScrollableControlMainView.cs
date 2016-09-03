@@ -12,8 +12,6 @@ namespace BaseLib.Forms.Scroll{
 		private int indicatorX2 = -1;
 		private int indicatorY1 = -1;
 		private int indicatorY2 = -1;
-		private float zoomFactor = 1;
-		private const float zoomStep = 1.2f;
 
 		internal SimpleScrollableControlMainView(SimpleScrollableControl main){
 			this.main = main;
@@ -218,12 +216,12 @@ namespace BaseLib.Forms.Scroll{
 		int visibleYStart = -1;
 
 		private void ZoomOut(){
-			zoomFactor /= zoomStep;
+			main.zoomFactor /= GraphUtil.zoomStep;
 			invalidate();
 		}
 
 		private void ZoomIn(){
-			zoomFactor *= zoomStep;
+			main.zoomFactor *= GraphUtil.zoomStep;
 			invalidate();
 		}
 

@@ -8,6 +8,7 @@ namespace BaseLibS.Graph{
 		public const bool isJavaScript = false;
 		public const int scrollBarWidth = 18;
 		public const int zoomButtonSize = 14;
+		public const float zoomStep = 1.2f;
 		public static readonly Color2 zoomColor = Color2.CornflowerBlue;
 		public static readonly Brush2 zoomBrush = new Brush2(zoomColor);
 		public static readonly Brush2 zoomBrushHighlight = new Brush2(Color2.Lighter(zoomColor, 30));
