@@ -142,7 +142,7 @@ namespace BaseLibS.Graph{
 			Y += y;
 		}
 
-		public static implicit operator RectangleF2(Rectangle2 r){
+		public static implicit operator RectangleF2(RectangleI2 r){
 			return new RectangleF2(r.X, r.Y, r.Width, r.Height);
 		}
 

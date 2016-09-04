@@ -1,12 +1,12 @@
 ﻿namespace BaseLibS.Graph{
-	public struct Rectangle2{
-		public static readonly Rectangle2 Empty = new Rectangle2();
+	public struct RectangleI2{
+		public static readonly RectangleI2 Empty = new RectangleI2();
 		public int X { get; set; }
 		public int Y { get; set; }
 		public int Width { get; set; }
 		public int Height { get; set; }
 
-		public Rectangle2(int x, int y, int width, int height){
+		public RectangleI2(int x, int y, int width, int height){
 			X = x;
 			Y = y;
 			Width = width;
@@ -26,7 +26,7 @@
 			return Contains(pt.X, pt.Y);
 		}
 
-		public bool Contains(Rectangle2 rect){
+		public bool Contains(RectangleI2 rect){
 			return (X <= rect.X) && (rect.X + rect.Width <= X + Width) && (Y <= rect.Y) &&
 					(rect.Y + rect.Height <= Y + Height);
 		}
