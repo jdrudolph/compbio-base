@@ -78,15 +78,15 @@
 		}
 
 		public Size2 MeasureString(string text, Font2 font){
-			return g.MeasureString(text, font);
+			return g.MeasureString(text, font.Scale(s));
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, float x, float y){
-			g.DrawString(str, font, brush, s*x, s*y);
+			g.DrawString(str, font.Scale(s), brush, s*x, s*y);
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Rectangle2 rectangle, StringFormat2 format){
-			g.DrawString(str, font, brush, Scale(rectangle, s), format);
+			g.DrawString(str, font.Scale(s), brush, Scale(rectangle, s), format);
 		}
 
 		private static Rectangle2 Scale(Rectangle2 r, float s){
@@ -94,15 +94,15 @@
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
-			g.DrawString(str, font, brush, Scale(point, s), format);
+			g.DrawString(str, font.Scale(s), brush, Scale(point, s), format);
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Point2 location){
-			g.DrawString(str, font, brush, Scale(location, s));
+			g.DrawString(str, font.Scale(s), brush, Scale(location, s));
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Rectangle2 rectangle){
-			g.DrawString(str, font, brush, Scale(rectangle, s));
+			g.DrawString(str, font.Scale(s), brush, Scale(rectangle, s));
 		}
 
 		public void DrawImage(Bitmap2 image, float x, float y, float width, float height){
@@ -114,7 +114,7 @@
 		}
 
 		public Size2 MeasureString(string text, Font2 font, float width){
-			return g.MeasureString(text, font, s*width);
+			return g.MeasureString(text, font.Scale(s), s*width);
 		}
 
 		public void FillClosedCurve(Brush2 brush, Point2[] points){

@@ -12,6 +12,8 @@ namespace BaseLib.Forms.Scroll{
 		private int indicatorX2 = -1;
 		private int indicatorY1 = -1;
 		private int indicatorY2 = -1;
+		private int visibleXStart = -1;
+		private int visibleYStart = -1;
 
 		internal SimpleScrollableControlMainView(SimpleScrollableControl main){
 			this.main = main;
@@ -61,7 +63,8 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnPaint(IGraphics g, int width, int height){
-			main.OnPaintMainView?.Invoke(g, main.VisibleX, main.VisibleY, width, height);
+			main.OnPaintMainView?.Invoke(main.zoomFactor == 1f ? g : new ScaledGraphics(g, main.zoomFactor), main.VisibleX,
+				main.VisibleY, width, height);
 			PaintZoomButtons(g, width, height, GraphUtil.zoomButtonSize, state);
 			PaintOverview(g, width, height, main.TotalWidth(), main.TotalHeight(), main.VisibleX, main.VisibleY,
 				main.VisibleWidth, main.VisibleHeight, (overviewWidth, overviewHeight) =>{
@@ -81,13 +84,13 @@ namespace BaseLib.Forms.Scroll{
 
 		public static Rectangle2 CalcWin(Size2 overview, int totalWidth, int totalHeight, int visibleX, int visibleY,
 			int visibleWidth, int visibleHeight){
-			int winX = (int) Math.Round(visibleX*overview.Width/(float) totalWidth);
-			float winWidth = (int) Math.Round(visibleWidth*overview.Width/(float) totalWidth);
+			int winX = (int) Math.Round(visibleX*overview.Width/totalWidth);
+			float winWidth = (int) Math.Round(visibleWidth*overview.Width/totalWidth);
 			if (winX + winWidth > overview.Width){
 				winWidth = overview.Width - winX;
 			}
-			int winY = (int) Math.Round(visibleY*overview.Height/(float) totalHeight);
-			float winHeight = (int) Math.Round(visibleHeight*overview.Height/(float) totalHeight);
+			int winY = (int) Math.Round(visibleY*overview.Height/totalHeight);
+			float winHeight = (int) Math.Round(visibleHeight*overview.Height/totalHeight);
 			if (winY + winHeight > overview.Height){
 				winHeight = overview.Height - winY;
 			}
@@ -99,7 +102,7 @@ namespace BaseLib.Forms.Scroll{
 			Size2 overview = CalcOverviewSize(width, height, totalWidth, totalHeight);
 			Rectangle2 win = CalcWin(overview, totalWidth, totalHeight, visibleX, visibleY, visibleWidth, visibleHeight);
 			g.FillRectangle(Brushes2.White, 0, height - overview.Height, overview.Width, overview.Height);
-			g.DrawImageUnscaled(getOverviewBitmap((int)overview.Width, (int)overview.Height), 0, height - overview.Height);
+			g.DrawImageUnscaled(getOverviewBitmap((int) overview.Width, (int) overview.Height), 0, height - overview.Height);
 			Brush2 b = new Brush2(Color2.FromArgb(30, 0, 0, 255));
 			if (win.X > 0){
 				g.FillRectangle(b, 0, height - overview.Height, win.X, overview.Height);
@@ -163,7 +166,7 @@ namespace BaseLib.Forms.Scroll{
 		public override void OnMouseIsDown(BasicMouseEventArgs e){
 			Size2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
 			if (e.X < overview.Width && e.Y > e.Height - overview.Height){
-				OnMouseIsDownOverview(e.X, (int)(e.Y - e.Height + overview.Height), e.Width, e.Height);
+				OnMouseIsDownOverview(e.X, (int) (e.Y - e.Height + overview.Height), e.Width, e.Height);
 				return;
 			}
 			ZoomButtonState newState = ZoomButtonState.Neutral;
@@ -202,8 +205,8 @@ namespace BaseLib.Forms.Scroll{
 			} else{
 				float x1 = x - win.Width/2;
 				float y1 = y - win.Height/2;
-				int newX = (int) Math.Round(x1*main.TotalWidth()/(float) overview.Width);
-				int newY = (int) Math.Round(y1*main.TotalHeight()/(float) overview.Height);
+				int newX = (int) Math.Round(x1*main.TotalWidth()/overview.Width);
+				int newY = (int) Math.Round(y1*main.TotalHeight()/overview.Height);
 				newX = Math.Min(Math.Max(newX, 0), main.TotalWidth() - main.VisibleWidth);
 				main.VisibleX = newX;
 				newY = Math.Min(Math.Max(newY, 0), main.TotalHeight() - main.VisibleHeight);
@@ -211,9 +214,6 @@ namespace BaseLib.Forms.Scroll{
 				invalidate();
 			}
 		}
-
-		int visibleXStart = -1;
-		int visibleYStart = -1;
 
 		private void ZoomOut(){
 			main.zoomFactor /= GraphUtil.zoomStep;
@@ -241,11 +241,11 @@ namespace BaseLib.Forms.Scroll{
 			if (visibleXStart != -1){
 				Size2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
 				indicatorX2 = e.X;
-				indicatorY2 = (int)(e.Y - e.Height + overview.Height);
-				int newX = visibleXStart + (int) Math.Round((indicatorX2 - indicatorX1)*main.TotalWidth()/(float) overview.Width);
+				indicatorY2 = (int) (e.Y - e.Height + overview.Height);
+				int newX = visibleXStart + (int) Math.Round((indicatorX2 - indicatorX1)*main.TotalWidth()/overview.Width);
 				newX = Math.Min(Math.Max(newX, 0), main.TotalWidth() - main.VisibleWidth);
 				main.VisibleX = newX;
-				int newY = visibleYStart + (int) Math.Round((indicatorY2 - indicatorY1)*main.TotalHeight()/(float) overview.Height);
+				int newY = visibleYStart + (int) Math.Round((indicatorY2 - indicatorY1)*main.TotalHeight()/overview.Height);
 				newY = Math.Min(Math.Max(newY, 0), main.TotalHeight() - main.VisibleHeight);
 				main.VisibleY = newY;
 				invalidate();
