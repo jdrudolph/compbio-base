@@ -2,6 +2,11 @@
 
 namespace BaseLibS.Graph{
 	public class BasicMouseEventArgs{
+		public int X { get; }
+		public int Y { get; }
+		public int Width { get; }
+		public int Height { get; }
+		public bool IsMainButton { get; }
 		private readonly Func<bool> controlPressed;
 		private readonly Action<string, int, int, int> showTip;
 
@@ -26,12 +31,7 @@ namespace BaseLibS.Graph{
 			showTip = e.showTip;
 		}
 
-		public int X { get; }
-		public int Y { get; }
-		public int Width { get; }
-		public int Height { get; }
 		public bool ControlPressed => controlPressed();
-		public bool IsMainButton { get; }
 
 		public void ViewToolTip(string text){
 			showTip(text, X + 10, Y + 10, 5000);
