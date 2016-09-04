@@ -43,7 +43,7 @@ namespace BaseLibS.Graph.Base{
 			g.DrawPath(pen, path);
 		}
 
-		public void DrawLines(Pen2 pen, PointF2[] points){
+		public void DrawLines(Pen2 pen, Point2[] points){
 			g.DrawLines(pen, points);
 		}
 
@@ -71,15 +71,15 @@ namespace BaseLibS.Graph.Base{
 			throw new NotImplementedException();
 		}
 
-		public void DrawPolygon(Pen2 pen, PointF2[] points){
+		public void DrawPolygon(Pen2 pen, Point2[] points){
 			throw new NotImplementedException();
 		}
 
-		public void FillPolygon(Brush2 brush, PointF2[] points){
+		public void FillPolygon(Brush2 brush, Point2[] points){
 			throw new NotImplementedException();
 		}
 
-		public SizeF2 MeasureString(string text, Font2 font){
+		public Size2 MeasureString(string text, Font2 font){
 			throw new NotImplementedException();
 		}
 
@@ -87,19 +87,19 @@ namespace BaseLibS.Graph.Base{
 			throw new NotImplementedException();
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat2 format){
+		public void DrawString(string s, Font2 font, Brush2 brush, Rectangle2 rectangleF, StringFormat2 format){
 			throw new NotImplementedException();
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 point, StringFormat2 format){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
 			throw new NotImplementedException();
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 location){
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
 			throw new NotImplementedException();
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF){
+		public void DrawString(string s, Font2 font, Brush2 brush, Rectangle2 rectangleF){
 			throw new NotImplementedException();
 		}
 
@@ -111,15 +111,15 @@ namespace BaseLibS.Graph.Base{
 			throw new NotImplementedException();
 		}
 
-		public SizeF2 MeasureString(string text, Font2 font, float width){
+		public Size2 MeasureString(string text, Font2 font, float width){
 			throw new NotImplementedException();
 		}
 
-		public void FillClosedCurve(Brush2 brush, PointF2[] points){
+		public void FillClosedCurve(Brush2 brush, Point2[] points){
 			throw new NotImplementedException();
 		}
 
-		public void DrawCurve(Pen2 pen, PointF2[] points){
+		public void DrawCurve(Pen2 pen, Point2[] points){
 			throw new NotImplementedException();
 		}
 
@@ -135,7 +135,7 @@ namespace BaseLibS.Graph.Base{
 			throw new NotImplementedException();
 		}
 
-		public void SetClip(RectangleF2 rectangle){
+		public void SetClip(Rectangle2 rectangle){
 			throw new NotImplementedException();
 		}
 

@@ -25,8 +25,8 @@ namespace BaseLib.Graphic{
 			return destImage;
 		}
 
-		public static SizeF2 ToSizeF2(SizeF size){
-			return new SizeF2{Width = size.Width, Height = size.Height};
+		public static Size2 ToSizeF2(SizeF size){
+			return new Size2{Width = size.Width, Height = size.Height};
 		}
 
 		public static Color2 ToColor2(Color c){
@@ -63,16 +63,16 @@ namespace BaseLib.Graphic{
 			return result;
 		}
 
-		public static PointF ToPointF(PointF2 location){
+		public static PointF ToPointF(Point2 location){
 			return new PointF(location.X, location.Y);
 		}
 
-		public static PointF2 ToPointF2(PointF location){
-			return new PointF2(location.X, location.Y);
+		public static Point2 ToPointF2(PointF location){
+			return new Point2(location.X, location.Y);
 		}
 
-		public static SizeF2 ToSize2(Size size){
-			return new SizeF2(size.Width, size.Height);
+		public static Size2 ToSize2(Size size){
+			return new Size2(size.Width, size.Height);
 		}
 
 		public static Font ToFont(Font2 f){

@@ -93,7 +93,7 @@ namespace BaseLib.Graphic{
 		public void DrawPath(Pen2 pen, GraphicsPath2 path){
 			SetPen(pen);
 			for (int index = 0; index < path.PathPoints.Length; index++){
-				PointF2 point = path.PathPoints[index];
+				Point2 point = path.PathPoints[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -105,10 +105,10 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawLines(Pen2 pen, PointF2[] points){
+		public void DrawLines(Pen2 pen, Point2[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
-				PointF2 point = points[index];
+				Point2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -155,10 +155,10 @@ namespace BaseLib.Graphic{
 	        throw new NotImplementedException();
 	    }
 
-	    public void DrawPolygon(Pen2 pen, PointF2[] points){
+	    public void DrawPolygon(Pen2 pen, Point2[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
-				PointF2 point = points[index];
+				Point2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -170,10 +170,10 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void FillPolygon(Brush2 brush, PointF2[] points){
+		public void FillPolygon(Brush2 brush, Point2[] points){
 			SetBrush(brush);
 			for (int index = 0; index < points.Length; index++){
-				PointF2 point = points[index];
+				Point2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -185,21 +185,21 @@ namespace BaseLib.Graphic{
 			template.Fill();
 		}
 
-		public SizeF2 MeasureString(string text, Font2 font){
+		public Size2 MeasureString(string text, Font2 font){
 			SetFont(font);
 			Chunk chunk = new Chunk(text, GetFont(font));
-			return new SizeF2(chunk.GetWidthPoint()*1.5f, font.Height*0.5f*1.5f);
+			return new Size2(chunk.GetWidthPoint()*1.5f, font.Height*0.5f*1.5f);
 		}
 
-		public SizeF2 MeasureString(string text, Font2 font, float width){
+		public Size2 MeasureString(string text, Font2 font, float width){
 			return MeasureString(text, font);
 		}
 
-		public void FillClosedCurve(Brush2 brush, PointF2[] points){
+		public void FillClosedCurve(Brush2 brush, Point2[] points){
 			FillPolygon(brush, points);
 		}
 
-		public void DrawCurve(Pen2 pen, PointF2[] points){
+		public void DrawCurve(Pen2 pen, Point2[] points){
 			DrawPolygon(pen, points);
 		}
 
@@ -217,7 +217,7 @@ namespace BaseLib.Graphic{
 			//TODO
 		}
 
-		public void SetClip(RectangleF2 rectangle){
+		public void SetClip(Rectangle2 rectangle){
 			template = topTemplate.CreateTemplate(rectangle.Width, rectangle.Height);
 			topTemplate.AddTemplate(template, rectangle.X, topTemplate.Height - rectangle.Height - rectangle.Y);
 			currentWidth = rectangle.Width;
@@ -231,20 +231,20 @@ namespace BaseLib.Graphic{
 
 		public void DrawString(string s, Font2 font, Brush2 brush, float x, float y){
 			StringFormat2 format = new StringFormat2{Alignment = StringAlignment2.Near, LineAlignment = StringAlignment2.Near};
-			DrawString(s, font, brush, new RectangleF2(new PointF2(x, y), MeasureString(s, font)), format);
+			DrawString(s, font, brush, new Rectangle2(new Point2(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 point, StringFormat2 format){
-			DrawString(s, font, brush, new RectangleF2(point, MeasureString(s, font)), format);
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
+			DrawString(s, font, brush, new Rectangle2(point, MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF, StringFormat2 format){
+		public void DrawString(string s, Font2 font, Brush2 brush, Rectangle2 rectangleF, StringFormat2 format){
 			template.BeginText();
 			SetFont(font);
 			SetBrush(brush);
 			float x = rectangleF.X;
 			float y = rectangleF.Y - 1;
-			SizeF2 size = MeasureString(s, font);
+			Size2 size = MeasureString(s, font);
 			if (format != null){
 				switch (format.Alignment){
 					case StringAlignment2.Center:
@@ -274,11 +274,11 @@ namespace BaseLib.Graphic{
 			template.EndText();
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 location){
-			DrawString(s, font, brush, new RectangleF2(location, new SizeF2(0, 0)), new StringFormat2());
+		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
+			DrawString(s, font, brush, new Rectangle2(location, new Size2(0, 0)), new StringFormat2());
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF){
+		public void DrawString(string s, Font2 font, Brush2 brush, Rectangle2 rectangleF){
 			DrawString(s, font, brush, rectangleF, new StringFormat2());
 		}
 

@@ -79,11 +79,11 @@
     <Compile Include="Graph\Brushes2.cs" />
     <Compile Include="Graph\Pens2.cs" />
     <Compile Include="Graph\PointI2.cs" />
-    <Compile Include="Graph\PointF2.cs" />
+    <Compile Include="Graph\Point2.cs" />
     <Compile Include="Graph\RectangleI2.cs" />
-    <Compile Include="Graph\RectangleF2.cs" />
+    <Compile Include="Graph\Rectangle2.cs" />
     <Compile Include="Graph\SizeI2.cs" />
-    <Compile Include="Graph\SizeF2.cs" />
+    <Compile Include="Graph\Size2.cs" />
     <Compile Include="Graph\SmoothingMode2.cs" />
     <Compile Include="Graph\StringAlignment2.cs" />
     <Compile Include="Graph\StringFormat2.cs" />

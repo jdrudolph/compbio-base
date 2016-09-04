@@ -1,10 +1,10 @@
 ﻿namespace BaseLibS.Graph{
-	public struct SizeF2{
+	public struct Size2{
 		public float Width { get; set; }
 		public float Height { get; set; }
-		public static readonly SizeF2 Empty = new SizeF2();
+		public static readonly Size2 Empty = new Size2();
 
-		public SizeF2(float width, float height){
+		public Size2(float width, float height){
 			Width = width;
 			Height = height;
 		}

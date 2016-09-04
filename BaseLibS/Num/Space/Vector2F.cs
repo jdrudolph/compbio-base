@@ -16,7 +16,7 @@ namespace BaseLibS.Num.Space{
 			return (float) Math.Sqrt(d2);
 		}
 
-		public static Vector2F Center(RectangleF2 rectangle){
+		public static Vector2F Center(Rectangle2 rectangle){
 			return new Vector2F(rectangle.Left + rectangle.Width/2, rectangle.Top + rectangle.Height/2);
 		}
 	}
