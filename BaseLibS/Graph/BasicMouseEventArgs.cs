@@ -36,5 +36,10 @@ namespace BaseLibS.Graph{
 		public void ViewToolTip(string text){
 			showTip(text, X + 10, Y + 10, 5000);
 		}
+
+		public BasicMouseEventArgs Scale(float s){
+			return new BasicMouseEventArgs((int) (X/s), (int) (Y/s), IsMainButton, (int) (Width/s), (int) (Height/s),
+				controlPressed, showTip);
+		}
 	}
 }

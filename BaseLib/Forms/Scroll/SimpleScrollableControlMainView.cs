@@ -31,7 +31,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnMouseMoved(BasicMouseEventArgs e){
-			main.OnMouseMoveMainView?.Invoke(e);
+			main.OnMouseMoveMainView?.Invoke(e.Scale(main.zoomFactor));
 			ZoomButtonState newState = ZoomButtonState.Neutral;
 			if (GraphUtil.HitsMinusButton(e.X, e.Y, e.Width, e.Height)){
 				newState = ZoomButtonState.HighlightMinus;
@@ -65,11 +65,11 @@ namespace BaseLib.Forms.Scroll{
 			if (GraphUtil.HitsPlusButton(e.X, e.Y, e.Width, e.Height)){
 				return;
 			}
-			main.OnMouseClickMainView?.Invoke(e);
+			main.OnMouseClickMainView?.Invoke(e.Scale(main.zoomFactor));
 		}
 
 		public override void OnMouseDoubleClick(BasicMouseEventArgs e){
-			main.OnMouseDoubleClickMainView?.Invoke(e);
+			main.OnMouseDoubleClickMainView?.Invoke(e.Scale(main.zoomFactor));
 		}
 
 		public override void OnMouseIsDown(BasicMouseEventArgs e){
@@ -97,7 +97,7 @@ namespace BaseLib.Forms.Scroll{
 			if (hitsButton){
 				return;
 			}
-			main.OnMouseIsDownMainView?.Invoke(e);
+			main.OnMouseIsDownMainView?.Invoke(e.Scale(main.zoomFactor));
 		}
 
 		private void OnMouseIsDownOverview(int x, int y, int width, int height){
@@ -135,7 +135,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnMouseIsUp(BasicMouseEventArgs e){
-			main.OnMouseIsUpMainView?.Invoke(e);
+			main.OnMouseIsUpMainView?.Invoke(e.Scale(main.zoomFactor));
 			indicatorX1 = -1;
 			indicatorX2 = -1;
 			indicatorY1 = -1;
@@ -160,7 +160,7 @@ namespace BaseLib.Forms.Scroll{
 				invalidate();
 				return;
 			}
-			main.OnMouseDraggedMainView?.Invoke(e);
+			main.OnMouseDraggedMainView?.Invoke(e.Scale(main.zoomFactor));
 		}
 	}
 }
