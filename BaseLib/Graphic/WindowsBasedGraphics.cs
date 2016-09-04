@@ -152,16 +152,16 @@ namespace BaseLib.Graphic{
 			gc.FillRectangle(GetBrush(brush), x, y, width, height);
 		}
 
-	    public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, int radius) {
-            int diameter = radius * 2;
-            Size size = new Size(diameter, diameter);
+	    public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, float radius) {
+			float diameter = radius * 2;
+            Size size = new Size((int) diameter, (int) diameter);
             Rectangle bounds = new Rectangle(Convert.ToInt32(x), Convert.ToInt32(y),Convert.ToInt32(width), Convert.ToInt32(height));
             Rectangle arc = new Rectangle(bounds.Location, size);
             GraphicsPath path = new GraphicsPath();
             path.AddArc(arc, 180, 90);
-            arc.X = bounds.Right - diameter;
+            arc.X = (int) (bounds.Right - diameter);
             path.AddArc(arc, 270, 90);
-            arc.Y = bounds.Bottom - diameter;
+            arc.Y = (int) (bounds.Bottom - diameter);
             path.AddArc(arc, 0, 90);
             arc.X = bounds.Left;
             path.AddArc(arc, 90, 90);
@@ -169,8 +169,8 @@ namespace BaseLib.Graphic{
             gc.DrawPath(GetPen(pen), path);
         }
 
-	    public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, int radius) {
-            int diameter = radius * 2;
+	    public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, float radius) {
+            int diameter = (int) (radius * 2);
             Size size = new Size(diameter, diameter);
             Rectangle bounds = new Rectangle(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(width), Convert.ToInt32(height));
             Rectangle arc = new Rectangle(bounds.Location, size);

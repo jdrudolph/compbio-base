@@ -147,11 +147,11 @@ namespace BaseLib.Graphic{
 			template.Fill();
 		}
 
-	    public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, int radius) {
+	    public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, float radius) {
 	        throw new NotImplementedException();
 	    }
 
-	    public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, int radius) {
+	    public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, float radius) {
 	        throw new NotImplementedException();
 	    }
 

@@ -23,5 +23,14 @@ namespace BaseLibS.Graph{
 			pathPoints.Clear();
 			pathTypes.Clear();
 		}
+
+		public GraphicsPath2 Scale(float s){
+			GraphicsPath2 result = new GraphicsPath2();
+			for (int i = 0; i < pathPoints.Count; i++){
+				result.pathPoints.Add(new Point2(s*pathPoints[i].X, s*pathPoints[i].Y));
+				result.pathTypes.Add(pathTypes[i]);
+			}
+			return result;
+		}
 	}
 }

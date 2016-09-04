@@ -275,11 +275,11 @@ namespace BaseLib.Graphic{
 			rectList.Add(new Rect{X = x, Y = y, Width = width, Height = height, Fill = BrushColor(brush), Transform = Transform});
 		}
 
-	    public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, int radius) {
+	    public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, float radius) {
 	        throw new NotImplementedException();
 	    }
 
-	    public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, int radius) {
+	    public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, float radius) {
 	        throw new NotImplementedException();
 	    }
 

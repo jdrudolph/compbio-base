@@ -104,8 +104,8 @@ namespace BaseLibS.Graph{
 		void FillRectangle(Brush2 brush, float x, float y, float width, float height);
 
 
-	    void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, int radius);
-	    void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, int radius);
+	    void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, float radius);
+	    void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, float radius);
             
         void DrawPolygon(Pen2 pen, Point2[] points);
 		void FillPolygon(Brush2 brush, Point2[] points);
