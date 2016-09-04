@@ -245,7 +245,7 @@ namespace BaseLib.Graphic{
 			g.FillRectangle(new Brush2(GraphUtils.ToColor2(textBox.BackColor)), textBox.Location.X, textBox.Location.Y,
 				textBox.Width - textBox.Margin.Left - textBox.Margin.Right,
 				textBox.Height - textBox.Margin.Top - textBox.Margin.Bottom);
-			RectangleF2 rect = new RectangleF2(GraphUtils.ToPoint2(textBox.Location) , GraphUtils.ToSize2(textBox.Size));
+			RectangleF2 rect = new RectangleF2(GraphUtils.ToPointF2(textBox.Location) , GraphUtils.ToSize2(textBox.Size));
 			StringFormat2 format = new StringFormat2{Alignment = StringAlignment2.Near, LineAlignment = StringAlignment2.Near};
 			g.DrawString(textBox.Text, GraphUtils.ToFont2(textBox.Font) , new Brush2(GraphUtils.ToColor2(textBox.ForeColor)), rect, format);
 		}
@@ -263,7 +263,7 @@ namespace BaseLib.Graphic{
 		}
 
 		private static void DoPaint(IGraphics g, Label label){
-			RectangleF2 rect = new RectangleF2(GraphUtils.ToPoint2(label.Location) , GraphUtils.ToSizeF2(label.Size) );
+			RectangleF2 rect = new RectangleF2(GraphUtils.ToPointF2(label.Location) , GraphUtils.ToSizeF2(label.Size) );
 			g.FillRectangle(new Brush2(GraphUtils.ToColor2(label.BackColor)), rect.X, rect.Y, label.Width - label.Margin.Left - label.Margin.Right,
 				label.Height - label.Margin.Top - label.Margin.Bottom);
 			StringFormat2 format = new StringFormat2{Alignment = StringAlignment2.Near, LineAlignment = StringAlignment2.Near};

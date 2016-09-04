@@ -63,24 +63,16 @@ namespace BaseLib.Graphic{
 			return result;
 		}
 
-		public static Point ToPoint(Point2 location){
-			return new Point(location.X, location.Y);
-		}
-
 		public static PointF ToPointF(PointF2 location){
 			return new PointF(location.X, location.Y);
-		}
-
-		public static Point2 ToPoint2(Point location){
-			return new Point2(location.X, location.Y);
 		}
 
 		public static PointF2 ToPointF2(PointF location){
 			return new PointF2(location.X, location.Y);
 		}
 
-		public static Size2 ToSize2(Size size){
-			return new Size2(size.Width, size.Height);
+		public static SizeF2 ToSize2(Size size){
+			return new SizeF2(size.Width, size.Height);
 		}
 
 		public static Font ToFont(Font2 f){

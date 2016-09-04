@@ -28,5 +28,9 @@ namespace BaseLibS.Graph{
 		/// spaces in dashed lines. 
 		/// </summary>
 		public float[] DashPattern { get; set; }
+
+		public Pen2 Scale(float s){
+			return new Pen2(Color, s*Width);
+		}
 	}
 }

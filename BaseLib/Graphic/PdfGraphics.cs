@@ -44,7 +44,7 @@ namespace BaseLib.Graphic{
 
 		public SmoothingMode2 SmoothingMode { get; set; }
 
-		public void SetClippingMask(int width, int height, int x, int y){
+		public void SetClippingMask(float width, float height, float x, float y){
 			template = topTemplate.CreateTemplate(width, height);
 			topTemplate.AddTemplate(template, x, topTemplate.Height - height - y);
 			currentWidth = width;
@@ -120,21 +120,6 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void DrawLines(Pen2 pen, Point2[] points){
-			SetPen(pen);
-			for (int index = 0; index < points.Length; index++){
-				Point2 point = points[index];
-				if (index == 0){
-					template.MoveTo(point.X, currentHeight - point.Y);
-				} else{
-					template.LineTo(point.X, currentHeight - point.Y);
-					template.Stroke();
-					template.MoveTo(point.X, currentHeight - point.Y);
-				}
-			}
-			template.Stroke();
-		}
-
 		public void DrawEllipse(Pen2 pen, float x, float y, float width, float height){
 			SetPen(pen);
 			template.Ellipse(x, currentHeight - y, x + width, currentHeight - (y + height));
@@ -170,10 +155,10 @@ namespace BaseLib.Graphic{
 	        throw new NotImplementedException();
 	    }
 
-	    public void DrawPolygon(Pen2 pen, Point2[] points){
+	    public void DrawPolygon(Pen2 pen, PointF2[] points){
 			SetPen(pen);
 			for (int index = 0; index < points.Length; index++){
-				Point2 point = points[index];
+				PointF2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -185,10 +170,10 @@ namespace BaseLib.Graphic{
 			template.Stroke();
 		}
 
-		public void FillPolygon(Brush2 brush, Point2[] points){
+		public void FillPolygon(Brush2 brush, PointF2[] points){
 			SetBrush(brush);
 			for (int index = 0; index < points.Length; index++){
-				Point2 point = points[index];
+				PointF2 point = points[index];
 				if (index == 0){
 					template.MoveTo(point.X, currentHeight - point.Y);
 				} else{
@@ -206,15 +191,15 @@ namespace BaseLib.Graphic{
 			return new SizeF2(chunk.GetWidthPoint()*1.5f, font.Height*0.5f*1.5f);
 		}
 
-		public SizeF2 MeasureString(string text, Font2 font, int width){
+		public SizeF2 MeasureString(string text, Font2 font, float width){
 			return MeasureString(text, font);
 		}
 
-		public void FillClosedCurve(Brush2 brush, Point2[] points){
+		public void FillClosedCurve(Brush2 brush, PointF2[] points){
 			FillPolygon(brush, points);
 		}
 
-		public void DrawCurve(Pen2 pen, Point2[] points){
+		public void DrawCurve(Pen2 pen, PointF2[] points){
 			DrawPolygon(pen, points);
 		}
 
@@ -232,7 +217,7 @@ namespace BaseLib.Graphic{
 			//TODO
 		}
 
-		public void SetClip(Rectangle2 rectangle){
+		public void SetClip(RectangleF2 rectangle){
 			template = topTemplate.CreateTemplate(rectangle.Width, rectangle.Height);
 			topTemplate.AddTemplate(template, rectangle.X, topTemplate.Height - rectangle.Height - rectangle.Y);
 			currentWidth = rectangle.Width;
@@ -249,7 +234,7 @@ namespace BaseLib.Graphic{
 			DrawString(s, font, brush, new RectangleF2(new PointF2(x, y), MeasureString(s, font)), format);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
+		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 point, StringFormat2 format){
 			DrawString(s, font, brush, new RectangleF2(point, MeasureString(s, font)), format);
 		}
 
@@ -289,7 +274,7 @@ namespace BaseLib.Graphic{
 			template.EndText();
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
+		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 location){
 			DrawString(s, font, brush, new RectangleF2(location, new SizeF2(0, 0)), new StringFormat2());
 		}
 
@@ -297,7 +282,7 @@ namespace BaseLib.Graphic{
 			DrawString(s, font, brush, rectangleF, new StringFormat2());
 		}
 
-		public void DrawImage(Bitmap2 image, int x, int y, int width, int height){
+		public void DrawImage(Bitmap2 image, float x, float y, float width, float height){
 			Image img = null;
 			try{
 				img = Image.GetInstance(GraphUtils.ToBitmap(image), System.Drawing.Imaging.ImageFormat.Tiff);
@@ -311,11 +296,7 @@ namespace BaseLib.Graphic{
 			}
 		}
 
-		public void DrawImage(Bitmap2 image, Rectangle2 rectangle){
-			DrawImage(image, rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-		}
-
-		public void DrawImageUnscaled(Bitmap2 image, int x, int y){
+		public void DrawImageUnscaled(Bitmap2 image, float x, float y){
 			// TODO reduce the resolution to fit (?)
 			try{
 				Image img = Image.GetInstance(GraphUtils.ToBitmap(image),

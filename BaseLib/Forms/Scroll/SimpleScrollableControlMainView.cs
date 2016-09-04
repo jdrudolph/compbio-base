@@ -71,35 +71,35 @@ namespace BaseLib.Forms.Scroll{
 				});
 		}
 
-		public static Size2 CalcOverviewSize(int width, int height, int totalWidth, int totalHeight){
+		public static SizeF2 CalcOverviewSize(int width, int height, int totalWidth, int totalHeight){
 			int maxSize = Math.Min(Math.Min(maxOverviewSize, height), width - 20);
 			if (totalWidth > totalHeight){
-				return new Size2(maxSize, (int) Math.Round(totalHeight/(float) totalWidth*maxSize));
+				return new SizeF2(maxSize, (int) Math.Round(totalHeight/(float) totalWidth*maxSize));
 			}
-			return new Size2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
+			return new SizeF2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
 		}
 
-		public static Rectangle2 CalcWin(Size2 overview, int totalWidth, int totalHeight, int visibleX, int visibleY,
+		public static RectangleF2 CalcWin(SizeF2 overview, int totalWidth, int totalHeight, int visibleX, int visibleY,
 			int visibleWidth, int visibleHeight){
 			int winX = (int) Math.Round(visibleX*overview.Width/(float) totalWidth);
-			int winWidth = (int) Math.Round(visibleWidth*overview.Width/(float) totalWidth);
+			float winWidth = (int) Math.Round(visibleWidth*overview.Width/(float) totalWidth);
 			if (winX + winWidth > overview.Width){
 				winWidth = overview.Width - winX;
 			}
 			int winY = (int) Math.Round(visibleY*overview.Height/(float) totalHeight);
-			int winHeight = (int) Math.Round(visibleHeight*overview.Height/(float) totalHeight);
+			float winHeight = (int) Math.Round(visibleHeight*overview.Height/(float) totalHeight);
 			if (winY + winHeight > overview.Height){
 				winHeight = overview.Height - winY;
 			}
-			return new Rectangle2(winX, winY, winWidth, winHeight);
+			return new RectangleF2(winX, winY, winWidth, winHeight);
 		}
 
 		public static void PaintOverview(IGraphics g, int width, int height, int totalWidth, int totalHeight, int visibleX,
 			int visibleY, int visibleWidth, int visibleHeight, Func<int, int, Bitmap2> getOverviewBitmap){
-			Size2 overview = CalcOverviewSize(width, height, totalWidth, totalHeight);
-			Rectangle2 win = CalcWin(overview, totalWidth, totalHeight, visibleX, visibleY, visibleWidth, visibleHeight);
+			SizeF2 overview = CalcOverviewSize(width, height, totalWidth, totalHeight);
+			RectangleF2 win = CalcWin(overview, totalWidth, totalHeight, visibleX, visibleY, visibleWidth, visibleHeight);
 			g.FillRectangle(Brushes2.White, 0, height - overview.Height, overview.Width, overview.Height);
-			g.DrawImageUnscaled(getOverviewBitmap(overview.Width, overview.Height), 0, height - overview.Height);
+			g.DrawImageUnscaled(getOverviewBitmap((int)overview.Width, (int)overview.Height), 0, height - overview.Height);
 			Brush2 b = new Brush2(Color2.FromArgb(30, 0, 0, 255));
 			if (win.X > 0){
 				g.FillRectangle(b, 0, height - overview.Height, win.X, overview.Height);
@@ -143,7 +143,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnMouseClick(BasicMouseEventArgs e){
-			Size2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
+			SizeF2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
 			if (e.X < overview.Width && e.Y > e.Height - overview.Height){
 				return;
 			}
@@ -161,9 +161,9 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnMouseIsDown(BasicMouseEventArgs e){
-			Size2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
+			SizeF2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
 			if (e.X < overview.Width && e.Y > e.Height - overview.Height){
-				OnMouseIsDownOverview(e.X, e.Y - e.Height + overview.Height, e.Width, e.Height);
+				OnMouseIsDownOverview(e.X, (int)(e.Y - e.Height + overview.Height), e.Width, e.Height);
 				return;
 			}
 			ZoomButtonState newState = ZoomButtonState.Neutral;
@@ -189,8 +189,8 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		private void OnMouseIsDownOverview(int x, int y, int width, int height){
-			Size2 overview = CalcOverviewSize(width, height, main.TotalWidth(), main.TotalHeight());
-			Rectangle2 win = CalcWin(overview, main.TotalWidth(), main.TotalHeight(), main.VisibleX, main.VisibleY,
+			SizeF2 overview = CalcOverviewSize(width, height, main.TotalWidth(), main.TotalHeight());
+			RectangleF2 win = CalcWin(overview, main.TotalWidth(), main.TotalHeight(), main.VisibleX, main.VisibleY,
 				main.VisibleWidth, main.VisibleHeight);
 			if (win.Contains(x, y)){
 				indicatorX1 = x;
@@ -199,11 +199,11 @@ namespace BaseLib.Forms.Scroll{
 				indicatorY2 = indicatorY1;
 				visibleXStart = main.VisibleX;
 				visibleYStart = main.VisibleY;
-			}else{
-				int x1 = x - win.Width / 2;
-				int y1 = y - win.Height / 2;
-				int newX = (int)Math.Round(x1 * main.TotalWidth() / (float)overview.Width);
-				int newY = (int)Math.Round(y1 * main.TotalHeight() / (float)overview.Height);
+			} else{
+				float x1 = x - win.Width/2;
+				float y1 = y - win.Height/2;
+				int newX = (int) Math.Round(x1*main.TotalWidth()/(float) overview.Width);
+				int newY = (int) Math.Round(y1*main.TotalHeight()/(float) overview.Height);
 				newX = Math.Min(Math.Max(newX, 0), main.TotalWidth() - main.VisibleWidth);
 				main.VisibleX = newX;
 				newY = Math.Min(Math.Max(newY, 0), main.TotalHeight() - main.VisibleHeight);
@@ -239,11 +239,11 @@ namespace BaseLib.Forms.Scroll{
 
 		public override void OnMouseDragged(BasicMouseEventArgs e){
 			if (visibleXStart != -1){
-				Size2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
+				SizeF2 overview = CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
 				indicatorX2 = e.X;
-				indicatorY2 = e.Y - e.Height +overview.Height;
+				indicatorY2 = (int)(e.Y - e.Height + overview.Height);
 				int newX = visibleXStart + (int) Math.Round((indicatorX2 - indicatorX1)*main.TotalWidth()/(float) overview.Width);
-				newX = Math.Min(Math.Max(newX, 0), main.TotalWidth()-main.VisibleWidth);
+				newX = Math.Min(Math.Max(newX, 0), main.TotalWidth() - main.VisibleWidth);
 				main.VisibleX = newX;
 				int newY = visibleYStart + (int) Math.Round((indicatorY2 - indicatorY1)*main.TotalHeight()/(float) overview.Height);
 				newY = Math.Min(Math.Max(newY, 0), main.TotalHeight() - main.VisibleHeight);

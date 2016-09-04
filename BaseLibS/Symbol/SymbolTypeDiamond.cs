@@ -30,9 +30,9 @@ namespace BaseLibS.Symbol{
 			pathY = y.ToArray();
 		}
 
-		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
+		public override void Draw(int size, float x, float y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
-			Point2[] points = {new Point2(x - s2, y), new Point2(x, y - s2), new Point2(x + s2, y), new Point2(x, y + s2)};
+			PointF2[] points = {new PointF2(x - s2, y), new PointF2(x, y - s2), new PointF2(x + s2, y), new PointF2(x, y + s2)};
 			g.DrawPolygon(pen, points);
 		}
 	}

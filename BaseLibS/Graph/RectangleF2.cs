@@ -9,13 +9,6 @@ namespace BaseLibS.Graph{
 		public float Width { get; set; }
 		public float Height { get; set; }
 
-		public RectangleF2(Point2 point, SizeF2 sizeF){
-			X = point.X;
-			Y = point.Y;
-			Width = sizeF.Width;
-			Height = sizeF.Height;
-		}
-
 		public RectangleF2(float x, float y, float width, float height) : this(){
 			X = x;
 			Y = y;
@@ -24,13 +17,6 @@ namespace BaseLibS.Graph{
 		}
 
 		public RectangleF2(PointF2 point, SizeF2 sizeF){
-			X = point.X;
-			Y = point.Y;
-			Width = sizeF.Width;
-			Height = sizeF.Height;
-		}
-
-		public RectangleF2(Point2 point, Size2 sizeF){
 			X = point.X;
 			Y = point.Y;
 			Width = sizeF.Width;

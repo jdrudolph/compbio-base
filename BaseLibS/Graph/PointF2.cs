@@ -13,14 +13,6 @@ namespace BaseLibS.Graph{
 
 		public bool IsEmpty => X == 0f && Y == 0f;
 
-		public static PointF2 operator +(PointF2 pt, Size2 sz){
-			return Add(pt, sz);
-		}
-
-		public static PointF2 operator -(PointF2 pt, Size2 sz){
-			return Subtract(pt, sz);
-		}
-
 		public static PointF2 operator +(PointF2 pt, SizeF2 sz){
 			return Add(pt, sz);
 		}
@@ -35,14 +27,6 @@ namespace BaseLibS.Graph{
 
 		public static bool operator !=(PointF2 left, PointF2 right){
 			return !(left == right);
-		}
-
-		public static PointF2 Add(PointF2 pt, Size2 sz){
-			return new PointF2(pt.X + sz.Width, pt.Y + sz.Height);
-		}
-
-		public static PointF2 Subtract(PointF2 pt, Size2 sz){
-			return new PointF2(pt.X - sz.Width, pt.Y - sz.Height);
 		}
 
 		public static PointF2 Add(PointF2 pt, SizeF2 sz){

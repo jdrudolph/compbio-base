@@ -19,7 +19,7 @@ namespace BaseLib.Graphic{
 
 		public Graphics Graphics => gc;
 		//TODO?
-		public void SetClippingMask(int width, int height, int x, int y){}
+		public void SetClippingMask(float width, float height, float x, float y){}
 
 		public void Dispose(){
 			gc.Dispose();
@@ -63,7 +63,7 @@ namespace BaseLib.Graphic{
         }
 
 	    private Point ComputeShiftedPoint(float x1, float y1, float x2, float y2, float x, float y, float dist) {
-            float x3,y3 = 0f;
+            float x3,y3;
             if (y1.Equals(y2)){
                 x3 = x2 - dist;
                 y3 = y2 ;
@@ -87,7 +87,7 @@ namespace BaseLib.Graphic{
             
             float newX2;
             float newY2;
-            float x3, x4, y3, y4 = 0f;
+            float x3, x4, y3, y4;
             if (y1.Equals(y2)) {
                 newX2 = x2 - offset;
                 newY2 = y2;
@@ -123,7 +123,7 @@ namespace BaseLib.Graphic{
                 y4 = newY2 - n * (side/2) / sqn;
             }
             gc.DrawLine(GetPen(pen), x1, y1, newX2, newY2);
-            gc.DrawPolygon(GetPen(pen), new Point[] { new Point(Convert.ToInt32(x2), Convert.ToInt32(y2)),
+            gc.DrawPolygon(GetPen(pen), new[] { new Point(Convert.ToInt32(x2), Convert.ToInt32(y2)),
                 new Point(Convert.ToInt32(x3), Convert.ToInt32(y3)), new Point(Convert.ToInt32(x4), Convert.ToInt32(y4)) });
 
         }
@@ -134,10 +134,6 @@ namespace BaseLib.Graphic{
 
 		public void DrawLines(Pen2 pen, PointF2[] points){
 			gc.DrawLines(GetPen(pen), ToPointsF(points));
-		}
-
-		public void DrawLines(Pen2 pen, Point2[] points){
-			gc.DrawLines(GetPen(pen), ToPoints(points));
 		}
 
 		public void DrawEllipse(Pen2 pen, float x, float y, float width, float height){
@@ -190,12 +186,12 @@ namespace BaseLib.Graphic{
             gc.FillPath(GetBrush(brush), path);
         }
 
-	    public void DrawPolygon(Pen2 pen, Point2[] points){
-			gc.DrawPolygon(GetPen(pen), ToPoints(points));
+	    public void DrawPolygon(Pen2 pen, PointF2[] points){
+			gc.DrawPolygon(GetPen(pen), ToPointsF(points));
 		}
 
-		public void FillPolygon(Brush2 brush, Point2[] points){
-			gc.FillPolygon(GetBrush(brush), ToPoints(points));
+		public void FillPolygon(Brush2 brush, PointF2[] points){
+			gc.FillPolygon(GetBrush(brush), ToPointsF(points));
 		}
 
 		public SizeF2 MeasureString(string text, Font2 font){
@@ -211,37 +207,37 @@ namespace BaseLib.Graphic{
 				GraphUtils.ToStringFormat(format));
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
-			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), GraphUtils.ToPoint(location));
+		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 location){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), GraphUtils.ToPointF(location));
 		}
 
 		public void DrawString(string s, Font2 font, Brush2 brush, RectangleF2 rectangleF){
 			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), ToRectangleF(rectangleF));
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
-			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), GraphUtils.ToPoint(point),
+		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 point, StringFormat2 format){
+			gc.DrawString(s, GraphUtils.ToFont(font), GetBrush(brush), GraphUtils.ToPointF(point),
 				GraphUtils.ToStringFormat(format));
 		}
 
-		public void DrawImage(Bitmap2 image, int x, int y, int width, int height){
+		public void DrawImage(Bitmap2 image, float x, float y, float width, float height){
 			gc.DrawImage(GraphUtils.ToBitmap(image) , x, y, width, height);
 		}
 
-		public void DrawImageUnscaled(Bitmap2 image, int x, int y){
-			gc.DrawImageUnscaled(GraphUtils.ToBitmap(image), x, y);
+		public void DrawImageUnscaled(Bitmap2 image, float x, float y){
+			gc.DrawImageUnscaled(GraphUtils.ToBitmap(image), (int)x, (int)y);
 		}
 
-		public SizeF2 MeasureString(string text, Font2 font, int width){
-			return GraphUtils.ToSizeF2(gc.MeasureString(text, GraphUtils.ToFont(font), width));
+		public SizeF2 MeasureString(string text, Font2 font, float width){
+			return GraphUtils.ToSizeF2(gc.MeasureString(text, GraphUtils.ToFont(font), (int)width));
 		}
 
-		public void FillClosedCurve(Brush2 brush, Point2[] points){
-			gc.FillClosedCurve(GetBrush(brush), ToPoints(points));
+		public void FillClosedCurve(Brush2 brush, PointF2[] points){
+			gc.FillClosedCurve(GetBrush(brush), ToPointsF(points));
 		}
 
-		public void DrawCurve(Pen2 pen, Point2[] points){
-			gc.DrawCurve(GetPen(pen), ToPoints(points));
+		public void DrawCurve(Pen2 pen, PointF2[] points){
+			gc.DrawCurve(GetPen(pen), ToPointsF(points));
 		}
 
 		public void TranslateTransform(float dx, float dy){
@@ -256,8 +252,8 @@ namespace BaseLib.Graphic{
 			gc.ResetClip();
 		}
 
-		public void SetClip(Rectangle2 rectangle){
-			gc.SetClip(ToRectangle(rectangle));
+		public void SetClip(RectangleF2 rectangle){
+			gc.SetClip(ToRectangleF(rectangle));
 		}
 
 		public abstract void Close();
@@ -268,14 +264,6 @@ namespace BaseLib.Graphic{
 
 		private static Brush GetBrush(Brush2 b){
 			return new SolidBrush(Color.FromArgb(b.Color.A, b.Color.R, b.Color.G, b.Color.B));
-		}
-
-		private static Point[] ToPoints(Point2[] p){
-			Point[] result = new Point[p.Length];
-			for (int i = 0; i < result.Length; i++){
-				result[i] = GraphUtils.ToPoint(p[i]);
-			}
-			return result;
 		}
 
 		private static PointF[] ToPointsF(PointF2[] p){
@@ -295,10 +283,6 @@ namespace BaseLib.Graphic{
 		}
 
 		private static RectangleF ToRectangleF(RectangleF2 rectangle){
-			return new RectangleF(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
-		}
-
-		private static RectangleF ToRectangle(Rectangle2 rectangle){
 			return new RectangleF(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
 		}
 	}

@@ -104,7 +104,7 @@ namespace BaseLib.Graphic{
 		/// <param name="h">The height of the clipping mask.</param>
 		/// <param name="x">The x-position of the clipping mask.</param>
 		/// <param name="y">The y-position of the clipping mask.</param>
-		public void SetClippingMask(int w, int h, int x, int y){
+		public void SetClippingMask(float w, float h, float x, float y){
 			locationX = x;
 			locationY = y;
 			float wscale = docWidth/w;
@@ -160,25 +160,6 @@ namespace BaseLib.Graphic{
 		/// <param name="pen"></param>
 		/// <param name="points"></param>
 		public void DrawLines(Pen2 pen, PointF2[] points){
-			Path path = new Path{D = "", Transform = Transform};
-			for (int i = 0; i < points.Length; i++){
-				if (i == 0){
-					path.D += $"M{points[i].X} {points[i].Y} ";
-				} else{
-					path.D += $"L{points[i].X} {points[i].Y} ";
-				}
-			}
-			path.Stroke = PenColor(pen);
-			path.StrokeWidth = pen.Width;
-			path.Fill = "none";
-			if (pen.DashStyle != DashStyle2.Solid){
-				path.StrokeDashArray = "1, 1";
-			}
-			//path.D = path.D + " Z";
-			pathList.Add(path);
-		}
-
-		public void DrawLines(Pen2 pen, Point2[] points){
 			Path path = new Path{D = "", Transform = Transform};
 			for (int i = 0; i < points.Length; i++){
 				if (i == 0){
@@ -302,7 +283,7 @@ namespace BaseLib.Graphic{
 	        throw new NotImplementedException();
 	    }
 
-	    public void DrawPolygon(Pen2 pen, Point2[] points){
+	    public void DrawPolygon(Pen2 pen, PointF2[] points){
 			throw new NotImplementedException();
 		}
 
@@ -311,7 +292,7 @@ namespace BaseLib.Graphic{
 		/// </summary>
 		/// <param name="brush"></param>
 		/// <param name="points"></param>
-		public void FillPolygon(Brush2 brush, Point2[] points){
+		public void FillPolygon(Brush2 brush, PointF2[] points){
 			throw new NotImplementedException();
 		}
 
@@ -401,11 +382,11 @@ namespace BaseLib.Graphic{
 		/// <param name="font">Font that defines the text format of the string.</param>
 		/// <param name="brush">Brush that determines the color and texture of the drawn text.</param>
 		/// <param name="location">The location of the upper-left corner of the drawn text.</param>
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 location){
+		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 location){
 			DrawString(s, font, brush, new RectangleF2(location, SizeF2.Empty), null);
 		}
 
-		public void DrawString(string s, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
+		public void DrawString(string s, Font2 font, Brush2 brush, PointF2 point, StringFormat2 format){
 			DrawString(s, font, brush, new RectangleF2(point, SizeF2.Empty), format);
 		}
 
@@ -421,17 +402,8 @@ namespace BaseLib.Graphic{
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
 		/// <param name="width">Width of the drawn image.</param>
 		/// <param name="height">Height of the drawn image.</param>
-		public void DrawImage(Bitmap2 image, int x, int y, int width, int height){
+		public void DrawImage(Bitmap2 image, float x, float y, float width, float height){
 			imageList.Add(new SvgImage{X = x, Y = y, Transform = Transform});
-		}
-
-		/// <summary>
-		/// Draws the specified Image at the specified location and with the specified size.
-		/// </summary>
-		/// <param name="image">Image to draw.</param>
-		/// <param name="rectangle">Dimensions of the drawn image.</param>
-		public void DrawImage(Bitmap2 image, Rectangle2 rectangle){
-			imageList.Add(new SvgImage{X = rectangle.X, Y = rectangle.Y, Transform = Transform});
 		}
 
 		/// <summary>
@@ -440,19 +412,19 @@ namespace BaseLib.Graphic{
 		/// <param name="image">Image to draw.</param>
 		/// <param name="x">The x-coordinate of the upper-left corner of the drawn image.</param>
 		/// <param name="y">The y-coordinate of the upper-left corner of the drawn image.</param>
-		public void DrawImageUnscaled(Bitmap2 image, int x, int y){
+		public void DrawImageUnscaled(Bitmap2 image, float x, float y){
 			imageList.Add(new SvgImage{X = x, Y = y, Transform = Transform});
 		}
 
-		public SizeF2 MeasureString(string text, Font2 font, int width){
+		public SizeF2 MeasureString(string text, Font2 font, float width){
 			return GraphUtils.ToSizeF2(TextRenderer.MeasureText(text, GraphUtils.ToFont(font)));
 		}
 
-		public void FillClosedCurve(Brush2 brush, Point2[] points){
+		public void FillClosedCurve(Brush2 brush, PointF2[] points){
 			FillPolygon(brush, points);
 		}
 
-		public void DrawCurve(Pen2 pen, Point2[] points){
+		public void DrawCurve(Pen2 pen, PointF2[] points){
 			DrawPolygon(pen, points);
 		}
 
@@ -468,7 +440,7 @@ namespace BaseLib.Graphic{
 			//TODO
 		}
 
-		public void SetClip(Rectangle2 rectangle){
+		public void SetClip(RectangleF2 rectangle){
 			//TODO
 		}
 

@@ -22,7 +22,7 @@
 			return X <= x && x < X + Width && Y <= y && y < Y + Height;
 		}
 
-		public bool Contains(Point2 pt){
+		public bool Contains(PointF2 pt){
 			return Contains(pt.X, pt.Y);
 		}
 

@@ -24,7 +24,7 @@ namespace BaseLibS.Symbol{
 			pathY = y.ToArray();
 		}
 
-		public override void Draw(int size, int x, int y, IGraphics g, Pen2 pen, Brush2 brush){
+		public override void Draw(int size, float x, float y, IGraphics g, Pen2 pen, Brush2 brush){
 			int s2 = size/2;
 			g.FillEllipse(brush, x - s2, y - s2, size, size);
 			if (pen != null){
