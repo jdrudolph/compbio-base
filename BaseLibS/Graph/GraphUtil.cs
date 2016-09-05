@@ -15,7 +15,8 @@ namespace BaseLibS.Graph{
 		public static readonly Brush2 zoomBrushHighlight = new Brush2(Color2.Lighter(zoomColor, 30));
 		public static readonly Brush2 zoomBrushPress = new Brush2(Color2.Darker(zoomColor, 30));
 
-		public static void PaintZoomButtons(IGraphics g, int width, int height, int bsize, ZoomButtonState state){
+		public static void PaintZoomButtons(IGraphics g, int width, int height, ZoomButtonState state){
+			const int bsize = zoomButtonSize;
 			g.SmoothingMode = SmoothingMode2.AntiAlias;
 			Brush2 b = zoomBrush;
 			switch (state){

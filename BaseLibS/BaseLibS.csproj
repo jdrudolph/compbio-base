@@ -47,6 +47,7 @@
     <Compile Include="Graph\Base\BasicTableLayoutView.cs" />
     <Compile Include="Graph\Base\BasicView.cs" />
     <Compile Include="Graph\Base\GridType.cs" />
+    <Compile Include="Graph\NavigatorData.cs" />
     <Compile Include="Graph\ScaledGraphics.cs" />
     <Compile Include="Graph\BasicMouseEventArgs.cs" />
     <Compile Include="Graph\Bitmap2.cs" />
