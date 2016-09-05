@@ -10,51 +10,51 @@ namespace BaseLibS.Graph{
 		public const int zoomButtonSize = 14;
 		public const float zoomStep = 1.2f;
 		public const int maxOverviewSize = 100;
-		public static readonly Color2 zoomColor = Color2.CornflowerBlue;
-		public static readonly Brush2 zoomBrush = new Brush2(zoomColor);
-		public static readonly Brush2 zoomBrushHighlight = new Brush2(Color2.Lighter(zoomColor, 30));
-		public static readonly Brush2 zoomBrushPress = new Brush2(Color2.Darker(zoomColor, 30));
+		public static readonly Color2 buttonColor = Color2.CornflowerBlue;
+		public static readonly Brush2 buttonBrush = new Brush2(buttonColor);
+		public static readonly Brush2 buttonBrushHighlight = new Brush2(Color2.Lighter(buttonColor, 30));
+		public static readonly Brush2 buttonBrushPress = new Brush2(Color2.Darker(buttonColor, 30));
 
 		public static void PaintMoveButtons(IGraphics g, int width, int height, MoveButtonState state){
 			const int bsize = zoomButtonSize;
 			g.SmoothingMode = SmoothingMode2.AntiAlias;
-			Brush2 b = zoomBrush;
+			Brush2 b = buttonBrush;
 			switch (state){
 				case MoveButtonState.HighlightUp:
-					b = zoomBrushHighlight;
+					b = buttonBrushHighlight;
 					break;
 				case MoveButtonState.PressUp:
-					b = zoomBrushPress;
+					b = buttonBrushPress;
 					break;
 			}
 			PaintMoveUpButton(g, b, width - 3*bsize, height - 2*bsize - 8, bsize);
-			b = zoomBrush;
+			b = buttonBrush;
 			switch (state){
 				case MoveButtonState.HighlightLeft:
-					b = zoomBrushHighlight;
+					b = buttonBrushHighlight;
 					break;
 				case MoveButtonState.PressLeft:
-					b = zoomBrushPress;
+					b = buttonBrushPress;
 					break;
 			}
 			PaintMoveLeftButton(g, b, (int) (width - 3.5*bsize - 2), (int) (height - 1.5f*bsize - 6), bsize);
-			b = zoomBrush;
+			b = buttonBrush;
 			switch (state){
 				case MoveButtonState.HighlightRight:
-					b = zoomBrushHighlight;
+					b = buttonBrushHighlight;
 					break;
 				case MoveButtonState.PressRight:
-					b = zoomBrushPress;
+					b = buttonBrushPress;
 					break;
 			}
 			PaintMoveRightButton(g, b, (int) (width - 2.5*bsize + 2), (int) (height - 1.5f*bsize - 6), bsize);
-			b = zoomBrush;
+			b = buttonBrush;
 			switch (state){
 				case MoveButtonState.HighlightDown:
-					b = zoomBrushHighlight;
+					b = buttonBrushHighlight;
 					break;
 				case MoveButtonState.PressDown:
-					b = zoomBrushPress;
+					b = buttonBrushPress;
 					break;
 			}
 			PaintMoveDownButton(g, b, width - 3*bsize, height - bsize - 4, bsize);
@@ -64,23 +64,23 @@ namespace BaseLibS.Graph{
 		public static void PaintZoomButtons(IGraphics g, int width, int height, ZoomButtonState state){
 			const int bsize = zoomButtonSize;
 			g.SmoothingMode = SmoothingMode2.AntiAlias;
-			Brush2 b = zoomBrush;
+			Brush2 b = buttonBrush;
 			switch (state){
 				case ZoomButtonState.HighlightPlus:
-					b = zoomBrushHighlight;
+					b = buttonBrushHighlight;
 					break;
 				case ZoomButtonState.PressPlus:
-					b = zoomBrushPress;
+					b = buttonBrushPress;
 					break;
 			}
 			PaintPlusZoomButton(g, b, width - bsize - 4, height - 2*bsize - 8, bsize);
-			b = zoomBrush;
+			b = buttonBrush;
 			switch (state){
 				case ZoomButtonState.HighlightMinus:
-					b = zoomBrushHighlight;
+					b = buttonBrushHighlight;
 					break;
 				case ZoomButtonState.PressMinus:
-					b = zoomBrushPress;
+					b = buttonBrushPress;
 					break;
 			}
 			PaintMinusZoomButton(g, b, width - bsize - 4, height - bsize - 4, bsize);
@@ -129,6 +129,13 @@ namespace BaseLibS.Graph{
 		}
 
 		public static void PaintRoundButton(IGraphics g, Brush2 b, Pen2 w, int x, int y, int size){
+			PaintRoundButton(g, b, w, x, y, size, false);
+		}
+
+		public static void PaintRoundButton(IGraphics g, Brush2 b, Pen2 w, int x, int y, int size, bool selected){
+			if (selected){
+				g.FillEllipse(Brushes2.Red, x-1, y-1, size + 2, size + 2);
+			}
 			g.FillEllipse(b, x, y, size, size);
 			g.DrawEllipse(w, x + 2, y + 2, size - 4, size - 4);
 		}
