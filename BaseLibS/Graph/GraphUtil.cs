@@ -59,43 +59,45 @@ namespace BaseLibS.Graph{
 			g.DrawEllipse(w, x + 2, y + 2, size - 4, size - 4);
 		}
 
-		public static Rectangle2 CalcWin(Size2 overview, int totalWidth, int totalHeight, int visibleX, int visibleY,
-			int visibleWidth, int visibleHeight, float s){
-			float winX = visibleX*overview.Width/totalWidth;
-			float winWidth = visibleWidth*overview.Width/totalWidth/s;
+		public static Rectangle2 CalcWin(Size2 overview, SizeI2 totalSize, RectangleI2 visibleWin, float zoomFactorX,
+			float zoomFactorY){
+			float winX = visibleWin.X*overview.Width/totalSize.Width;
+			float winWidth = visibleWin.Width*overview.Width/totalSize.Width/zoomFactorX;
 			if (winWidth > overview.Width - winX){
 				winWidth = overview.Width - winX;
 			}
-			float winY = visibleY*overview.Height/totalHeight;
-			float winHeight = visibleHeight*overview.Height/totalHeight/s;
+			float winY = visibleWin.Y*overview.Height/totalSize.Height;
+			float winHeight = visibleWin.Height*overview.Height/totalSize.Height/zoomFactorY;
 			if (winHeight > overview.Height - winY){
 				winHeight = overview.Height - winY;
 			}
 			return new Rectangle2(winX, winY, winWidth, winHeight);
 		}
 
-		public static void PaintOverview(IGraphics g, int width, int height, int totalWidth, int totalHeight, int visibleX,
-			int visibleY, int visibleWidth, int visibleHeight, Func<int, int, Bitmap2> getOverviewBitmap, float s){
-			Size2 overview = CalcOverviewSize(width, height, totalWidth, totalHeight);
-			Rectangle2 win = CalcWin(overview, totalWidth, totalHeight, visibleX, visibleY, visibleWidth, visibleHeight, s);
-			g.FillRectangle(Brushes2.White, 0, height - overview.Height, overview.Width, overview.Height);
-			g.DrawImageUnscaled(getOverviewBitmap((int) overview.Width, (int) overview.Height), 0, height - overview.Height);
+		public static void PaintOverview(IGraphics g, SizeI2 totalSize, RectangleI2 visibleWin,
+			Func<int, int, Bitmap2> getOverviewBitmap, float zoomFactorX, float zoomFactorY){
+			Size2 overview = CalcOverviewSize(visibleWin.Width, visibleWin.Height, totalSize.Width, totalSize.Height);
+			Rectangle2 win = CalcWin(overview, totalSize, visibleWin, zoomFactorX, zoomFactorY);
+			g.FillRectangle(Brushes2.White, 0, visibleWin.Height - overview.Height, overview.Width, overview.Height);
+			g.DrawImageUnscaled(getOverviewBitmap((int) overview.Width, (int) overview.Height), 0,
+				visibleWin.Height - overview.Height);
 			Brush2 b = new Brush2(Color2.FromArgb(30, 0, 0, 255));
 			if (win.X > 0){
-				g.FillRectangle(b, 0, height - overview.Height, win.X, overview.Height);
+				g.FillRectangle(b, 0, visibleWin.Height - overview.Height, win.X, overview.Height);
 			}
 			if (overview.Width - win.X - win.Width > 0){
-				g.FillRectangle(b, win.X + win.Width, height - overview.Height, overview.Width - win.X - win.Width, overview.Height);
+				g.FillRectangle(b, win.X + win.Width, visibleWin.Height - overview.Height, overview.Width - win.X - win.Width,
+					overview.Height);
 			}
 			if (win.Y > 0){
-				g.FillRectangle(b, win.X, height - overview.Height, win.Width, win.Y);
+				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height, win.Width, win.Y);
 			}
 			if (overview.Height - win.Y - win.Height > 0){
-				g.FillRectangle(b, win.X, height - overview.Height + win.Y + win.Height, win.Width,
+				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height + win.Y + win.Height, win.Width,
 					overview.Height - win.Y - win.Height);
 			}
-			g.DrawRectangle(Pens2.Black, 0, height - overview.Height - 1, overview.Width, overview.Height);
-			g.DrawRectangle(Pens2.Blue, win.X, height - overview.Height - 1 + win.Y, win.Width, win.Height);
+			g.DrawRectangle(Pens2.Black, 0, visibleWin.Height - overview.Height - 1, overview.Width, overview.Height);
+			g.DrawRectangle(Pens2.Blue, win.X, visibleWin.Height - overview.Height - 1 + win.Y, win.Width, win.Height);
 		}
 
 		public static Size2 CalcOverviewSize(int width, int height, int totalWidth, int totalHeight){
@@ -130,6 +132,16 @@ namespace BaseLibS.Graph{
 				return false;
 			}
 			return y <= height - 4;
+		}
+
+		public static ZoomButtonState GetNewZoomButtonState(int x, int y, int width, int height, bool press){
+			if (HitsMinusButton(x, y, width, height)){
+				return press ? ZoomButtonState.PressMinus : ZoomButtonState.HighlightMinus;
+			}
+			if (HitsPlusButton(x, y, width, height)){
+				return press ? ZoomButtonState.PressPlus : ZoomButtonState.HighlightPlus;
+			}
+			return ZoomButtonState.Neutral;
 		}
 
 		private static readonly Color2[] predefinedColors ={

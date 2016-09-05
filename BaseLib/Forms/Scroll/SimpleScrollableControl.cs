@@ -81,6 +81,7 @@ namespace BaseLib.Forms.Scroll{
 			mainView.Invalidate();
 		}
 
+		public RectangleI2 VisibleWin => new RectangleI2(visibleX, visibleY, mainControl.Width, mainControl.Height);
 		public int Width1 => Width;
 		public int Height1 => Height;
 		public Func<int> TotalWidth { get; set; }
@@ -120,6 +121,8 @@ namespace BaseLib.Forms.Scroll{
 				value.Register(this);
 			}
 		}
+
+		public SizeI2 TotalSize => new SizeI2(TotalWidth(), TotalHeight());
 
 		public Tuple<int, int> GetContextMenuPosition(){
 			Point p = ContextMenuStrip.PointToScreen(new Point(0, 0));
