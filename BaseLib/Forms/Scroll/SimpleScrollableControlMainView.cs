@@ -58,6 +58,16 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		public override void OnMouseDoubleClick(BasicMouseEventArgs e){
+			Size2 overview = GraphUtil.CalcOverviewSize(e.Width, e.Height, main.TotalWidth(), main.TotalHeight());
+			if (e.X < overview.Width && e.Y > e.Height - overview.Height){
+				return;
+			}
+			if (GraphUtil.HitsMinusButton(e.X, e.Y, e.Width, e.Height)){
+				return;
+			}
+			if (GraphUtil.HitsPlusButton(e.X, e.Y, e.Width, e.Height)){
+				return;
+			}
 			main.OnMouseDoubleClickMainView?.Invoke(e.Scale(main.zoomFactor));
 		}
 

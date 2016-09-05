@@ -15,6 +15,52 @@ namespace BaseLibS.Graph{
 		public static readonly Brush2 zoomBrushHighlight = new Brush2(Color2.Lighter(zoomColor, 30));
 		public static readonly Brush2 zoomBrushPress = new Brush2(Color2.Darker(zoomColor, 30));
 
+		public static void PaintMoveButtons(IGraphics g, int width, int height, MoveButtonState state){
+			const int bsize = zoomButtonSize;
+			g.SmoothingMode = SmoothingMode2.AntiAlias;
+			Brush2 b = zoomBrush;
+			switch (state){
+				case MoveButtonState.HighlightUp:
+					b = zoomBrushHighlight;
+					break;
+				case MoveButtonState.PressUp:
+					b = zoomBrushPress;
+					break;
+			}
+			PaintMoveUpButton(g, b, width - 3*bsize, height - 2*bsize - 8, bsize);
+			b = zoomBrush;
+			switch (state){
+				case MoveButtonState.HighlightLeft:
+					b = zoomBrushHighlight;
+					break;
+				case MoveButtonState.PressLeft:
+					b = zoomBrushPress;
+					break;
+			}
+			PaintMoveLeftButton(g, b, (int) (width - 3.5*bsize - 2), (int) (height - 1.5f*bsize - 6), bsize);
+			b = zoomBrush;
+			switch (state){
+				case MoveButtonState.HighlightRight:
+					b = zoomBrushHighlight;
+					break;
+				case MoveButtonState.PressRight:
+					b = zoomBrushPress;
+					break;
+			}
+			PaintMoveRightButton(g, b, (int) (width - 2.5*bsize + 2), (int) (height - 1.5f*bsize - 6), bsize);
+			b = zoomBrush;
+			switch (state){
+				case MoveButtonState.HighlightDown:
+					b = zoomBrushHighlight;
+					break;
+				case MoveButtonState.PressDown:
+					b = zoomBrushPress;
+					break;
+			}
+			PaintMoveDownButton(g, b, width - 3*bsize, height - bsize - 4, bsize);
+			g.SmoothingMode = SmoothingMode2.Default;
+		}
+
 		public static void PaintZoomButtons(IGraphics g, int width, int height, ZoomButtonState state){
 			const int bsize = zoomButtonSize;
 			g.SmoothingMode = SmoothingMode2.AntiAlias;
@@ -39,6 +85,34 @@ namespace BaseLibS.Graph{
 			}
 			PaintMinusZoomButton(g, b, width - bsize - 4, height - bsize - 4, bsize);
 			g.SmoothingMode = SmoothingMode2.Default;
+		}
+
+		public static void PaintMoveUpButton(IGraphics g, Brush2 b, int x, int y, int bsize){
+			Pen2 w = new Pen2(Color2.White, 2);
+			PaintRoundButton(g, b, w, x, y, bsize);
+			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
+			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
+		}
+
+		public static void PaintMoveDownButton(IGraphics g, Brush2 b, int x, int y, int bsize){
+			Pen2 w = new Pen2(Color2.White, 2);
+			PaintRoundButton(g, b, w, x, y, bsize);
+			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
+			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
+		}
+
+		public static void PaintMoveLeftButton(IGraphics g, Brush2 b, int x, int y, int bsize){
+			Pen2 w = new Pen2(Color2.White, 2);
+			PaintRoundButton(g, b, w, x, y, bsize);
+			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
+			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
+		}
+
+		public static void PaintMoveRightButton(IGraphics g, Brush2 b, int x, int y, int bsize){
+			Pen2 w = new Pen2(Color2.White, 2);
+			PaintRoundButton(g, b, w, x, y, bsize);
+			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
+			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
 		}
 
 		public static void PaintPlusZoomButton(IGraphics g, Brush2 b, int x, int y, int bsize){
@@ -107,31 +181,33 @@ namespace BaseLibS.Graph{
 			}
 			return new Size2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
 		}
+		
+		public static bool HitsUpButton(int x, int y, int width, int height){
+			return HitsButton(x, y, width - 2.5f*zoomButtonSize , height - 8 - 1.5f * zoomButtonSize);
+		}
+
+		public static bool HitsDownButton(int x, int y, int width, int height){
+			return HitsButton(x, y, width - 2.5f * zoomButtonSize, height - 4 - 0.5f * zoomButtonSize);
+		}
+
+		public static bool HitsLeftButton(int x, int y, int width, int height){
+			return HitsButton(x, y, width + 2 - 3f * zoomButtonSize, height - 6 - zoomButtonSize);
+		}
+
+		public static bool HitsRightButton(int x, int y, int width, int height){
+			return HitsButton(x, y, width - 2 - 2f * zoomButtonSize, height - 6 - zoomButtonSize);
+		}
 
 		public static bool HitsPlusButton(int x, int y, int width, int height){
-			if (x < width - zoomButtonSize - 4){
-				return false;
-			}
-			if (x > width - 4){
-				return false;
-			}
-			if (y < height - 2*zoomButtonSize - 8){
-				return false;
-			}
-			return y <= height - zoomButtonSize - 8;
+			return HitsButton(x, y, width - 4 - zoomButtonSize / 2f, height - 8 - 1.5f * zoomButtonSize);
 		}
 
 		public static bool HitsMinusButton(int x, int y, int width, int height){
-			if (x < width - zoomButtonSize - 4){
-				return false;
-			}
-			if (x > width - 4){
-				return false;
-			}
-			if (y < height - zoomButtonSize - 4){
-				return false;
-			}
-			return y <= height - 4;
+			return HitsButton(x, y, width - 4 - zoomButtonSize/2f, height - 4 - 0.5f*zoomButtonSize);
+		}
+
+		public static bool HitsButton(int x, int y,float cx, float cy){
+			return (x - cx) * (x - cx) + (y - cy) * (y - cy) <= zoomButtonSize * zoomButtonSize * 0.5 * 0.5;
 		}
 
 		public static ZoomButtonState GetNewZoomButtonState(int x, int y, int width, int height, bool press){
@@ -142,6 +218,22 @@ namespace BaseLibS.Graph{
 				return press ? ZoomButtonState.PressPlus : ZoomButtonState.HighlightPlus;
 			}
 			return ZoomButtonState.Neutral;
+		}
+
+		public static MoveButtonState GetNewMoveButtonState(int x, int y, int width, int height, bool press){
+			if (HitsUpButton(x, y, width, height)){
+				return press ? MoveButtonState.PressUp : MoveButtonState.HighlightUp;
+			}
+			if (HitsDownButton(x, y, width, height)){
+				return press ? MoveButtonState.PressDown : MoveButtonState.HighlightDown;
+			}
+			if (HitsLeftButton(x, y, width, height)){
+				return press ? MoveButtonState.PressLeft : MoveButtonState.HighlightLeft;
+			}
+			if (HitsRightButton(x, y, width, height)){
+				return press ? MoveButtonState.PressRight : MoveButtonState.HighlightRight;
+			}
+			return MoveButtonState.Neutral;
 		}
 
 		private static readonly Color2[] predefinedColors ={
