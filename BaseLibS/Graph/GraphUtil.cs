@@ -90,29 +90,29 @@ namespace BaseLibS.Graph{
 		public static void PaintMoveUpButton(IGraphics g, Brush2 b, int x, int y, int bsize){
 			Pen2 w = new Pen2(Color2.White, 2);
 			PaintRoundButton(g, b, w, x, y, bsize);
-			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
-			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
+			g.FillClosedCurve(Brushes2.White,
+				new[]{new Point2(x + bsize/2, y + 4), new Point2(x + 5, y + bsize - 4), new Point2(x + bsize - 5, y + bsize - 4)});
 		}
 
 		public static void PaintMoveDownButton(IGraphics g, Brush2 b, int x, int y, int bsize){
 			Pen2 w = new Pen2(Color2.White, 2);
 			PaintRoundButton(g, b, w, x, y, bsize);
-			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
-			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
+			g.FillClosedCurve(Brushes2.White,
+				new[]{new Point2(x + bsize/2, y + bsize - 4), new Point2(x + 5, y + 4), new Point2(x + bsize - 5, y + 4)});
 		}
 
 		public static void PaintMoveLeftButton(IGraphics g, Brush2 b, int x, int y, int bsize){
 			Pen2 w = new Pen2(Color2.White, 2);
 			PaintRoundButton(g, b, w, x, y, bsize);
-			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
-			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
+			g.FillClosedCurve(Brushes2.White,
+				new[]{new Point2(x + 4, y + bsize/2), new Point2(x + bsize - 4, y + 5), new Point2(x + bsize - 4, y + bsize - 5)});
 		}
 
 		public static void PaintMoveRightButton(IGraphics g, Brush2 b, int x, int y, int bsize){
 			Pen2 w = new Pen2(Color2.White, 2);
 			PaintRoundButton(g, b, w, x, y, bsize);
-			g.DrawLine(w, x + 4, y + bsize/2, x + bsize - 4, y + bsize/2);
-			g.DrawLine(w, x + bsize - bsize/2, y + 4, x + bsize/2, y + bsize - 4);
+			g.FillClosedCurve(Brushes2.White,
+				new[]{new Point2(x + bsize - 4, y + bsize/2), new Point2(x + 4, y + 5), new Point2(x + 4, y + bsize - 5)});
 		}
 
 		public static void PaintPlusZoomButton(IGraphics g, Brush2 b, int x, int y, int bsize){
@@ -181,33 +181,33 @@ namespace BaseLibS.Graph{
 			}
 			return new Size2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
 		}
-		
+
 		public static bool HitsUpButton(int x, int y, int width, int height){
-			return HitsButton(x, y, width - 2.5f*zoomButtonSize , height - 8 - 1.5f * zoomButtonSize);
+			return HitsButton(x, y, width - 2.5f*zoomButtonSize, height - 8 - 1.5f*zoomButtonSize);
 		}
 
 		public static bool HitsDownButton(int x, int y, int width, int height){
-			return HitsButton(x, y, width - 2.5f * zoomButtonSize, height - 4 - 0.5f * zoomButtonSize);
+			return HitsButton(x, y, width - 2.5f*zoomButtonSize, height - 4 - 0.5f*zoomButtonSize);
 		}
 
 		public static bool HitsLeftButton(int x, int y, int width, int height){
-			return HitsButton(x, y, width + 2 - 3f * zoomButtonSize, height - 6 - zoomButtonSize);
+			return HitsButton(x, y, width + 2 - 3f*zoomButtonSize, height - 6 - zoomButtonSize);
 		}
 
 		public static bool HitsRightButton(int x, int y, int width, int height){
-			return HitsButton(x, y, width - 2 - 2f * zoomButtonSize, height - 6 - zoomButtonSize);
+			return HitsButton(x, y, width - 2 - 2f*zoomButtonSize, height - 6 - zoomButtonSize);
 		}
 
 		public static bool HitsPlusButton(int x, int y, int width, int height){
-			return HitsButton(x, y, width - 4 - zoomButtonSize / 2f, height - 8 - 1.5f * zoomButtonSize);
+			return HitsButton(x, y, width - 4 - zoomButtonSize/2f, height - 8 - 1.5f*zoomButtonSize);
 		}
 
 		public static bool HitsMinusButton(int x, int y, int width, int height){
 			return HitsButton(x, y, width - 4 - zoomButtonSize/2f, height - 4 - 0.5f*zoomButtonSize);
 		}
 
-		public static bool HitsButton(int x, int y,float cx, float cy){
-			return (x - cx) * (x - cx) + (y - cy) * (y - cy) <= zoomButtonSize * zoomButtonSize * 0.5 * 0.5;
+		public static bool HitsButton(int x, int y, float cx, float cy){
+			return (x - cx)*(x - cx) + (y - cy)*(y - cy) <= zoomButtonSize*zoomButtonSize*0.5*0.5;
 		}
 
 		public static ZoomButtonState GetNewZoomButtonState(int x, int y, int width, int height, bool press){
