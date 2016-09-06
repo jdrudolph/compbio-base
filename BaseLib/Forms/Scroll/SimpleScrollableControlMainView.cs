@@ -78,14 +78,20 @@ namespace BaseLib.Forms.Scroll{
 				return;
 			}
 			ZoomButtonState newState = GraphUtil.GetNewZoomButtonState(e.X, e.Y, e.Width, e.Height, true);
-			if (newState == ZoomButtonState.PressMinus){
-				main.zoomFactor /= GraphUtil.zoomStep;
-				invalidate();
-			} else if (newState == ZoomButtonState.PressPlus){
-				main.zoomFactor *= GraphUtil.zoomStep;
-				invalidate();
-			} else if (newState != state){
-				invalidate();
+			switch (newState){
+				case ZoomButtonState.PressMinus:
+					main.zoomFactor /= GraphUtil.zoomStep;
+					invalidate();
+					break;
+				case ZoomButtonState.PressPlus:
+					main.zoomFactor *= GraphUtil.zoomStep;
+					invalidate();
+					break;
+				default:
+					if (newState != state){
+						invalidate();
+					}
+					break;
 			}
 			state = newState;
 			if (newState == ZoomButtonState.PressMinus || newState == ZoomButtonState.PressPlus){

@@ -183,10 +183,9 @@ namespace BaseLibS.Graph{
 
 		public static Size2 CalcOverviewSize(int width, int height, int totalWidth, int totalHeight){
 			int maxSize = Math.Min(Math.Min(maxOverviewSize, height), width - 20);
-			if (totalWidth > totalHeight){
-				return new Size2(maxSize, (int) Math.Round(totalHeight/(float) totalWidth*maxSize));
-			}
-			return new Size2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
+			return totalWidth > totalHeight
+				? new Size2(maxSize, (int) Math.Round(totalHeight/(float) totalWidth*maxSize))
+				: new Size2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
 		}
 
 		public static bool HitsAMoveButton(int x, int y, int width, int height){

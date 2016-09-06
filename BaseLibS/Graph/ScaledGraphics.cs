@@ -94,11 +94,11 @@
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
-			g.DrawString(str, font.Scale(s), brush, Scale(point, s), format);
+			g.DrawString(str, font.Scale(s), brush, point.Scale(s), format);
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Point2 location){
-			g.DrawString(str, font.Scale(s), brush, Scale(location, s));
+			g.DrawString(str, font.Scale(s), brush, location.Scale(s));
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Rectangle2 rectangle){
@@ -148,13 +148,9 @@
 		private static Point2[] Scale(Point2[] points, float s){
 			Point2[] result = new Point2[points.Length];
 			for (int i = 0; i < result.Length; i++){
-				result[i] = Scale(points[i], s);
+				result[i] = points[i].Scale(s);
 			}
 			return result;
-		}
-
-		private static Point2 Scale(Point2 point, float s){
-			return new Point2(point.X*s, point.Y*s);
 		}
 	}
 }

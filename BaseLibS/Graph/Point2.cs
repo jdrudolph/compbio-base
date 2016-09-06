@@ -37,6 +37,10 @@ namespace BaseLibS.Graph{
 			return new Point2(pt.X - sz.Width, pt.Y - sz.Height);
 		}
 
+		public Point2 Scale(float s){
+			return new Point2(X*s, Y*s);
+		}
+
 		public override bool Equals(object obj){
 			if (!(obj is Point2)){
 				return false;
