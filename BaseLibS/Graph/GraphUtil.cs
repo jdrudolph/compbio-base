@@ -134,7 +134,7 @@ namespace BaseLibS.Graph{
 
 		public static void PaintRoundButton(IGraphics g, Brush2 b, Pen2 w, int x, int y, int size, bool selected){
 			if (selected){
-				g.FillEllipse(Brushes2.Red, x-1, y-1, size + 2, size + 2);
+				g.FillEllipse(Brushes2.Red, x - 1, y - 1, size + 2, size + 2);
 			}
 			g.FillEllipse(b, x, y, size, size);
 			g.DrawEllipse(w, x + 2, y + 2, size - 4, size - 4);
@@ -187,6 +187,20 @@ namespace BaseLibS.Graph{
 				return new Size2(maxSize, (int) Math.Round(totalHeight/(float) totalWidth*maxSize));
 			}
 			return new Size2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
+		}
+
+		public static bool HitsAMoveButton(int x, int y, int width, int height){
+			if (HitsUpButton(x, y, width, height)){
+				return true;
+			}
+			if (HitsDownButton(x, y, width, height)){
+				return true;
+			}
+			return HitsLeftButton(x, y, width, height) || HitsRightButton(x, y, width, height);
+		}
+
+		public static bool HitsAZoomButton(int x, int y, int width, int height){
+			return HitsPlusButton(x, y, width, height) || HitsMinusButton(x, y, width, height);
 		}
 
 		public static bool HitsUpButton(int x, int y, int width, int height){

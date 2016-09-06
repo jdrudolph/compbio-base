@@ -38,7 +38,7 @@ namespace BaseLib.Forms{
 
 		public NumericAxisView(){
 			ForeColor = Color2.Black;
-			IndicatorColor = Color2.FromArgb(251, 173, 73);
+			IndicatorColor = Color2.FromArgb(30, 251, 173, 73);
 			IsLogarithmic = false;
 			Reverse = false;
 			TotalMax = double.NaN;
