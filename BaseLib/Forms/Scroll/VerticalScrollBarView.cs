@@ -120,26 +120,26 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		private int CalcBarStart(int height){
-			int hx = height - 2* GraphUtil.scrollBarWidth + 2;
+			int hx = height - 2*GraphUtil.scrollBarWidth + 2;
 			if (hx <= 0){
 				return GraphUtil.scrollBarWidth - 1;
 			}
-			int w = (int) Math.Round(hx*(main.VisibleY/(double) (main.TotalHeight() - 1)));
+			int w = (int) Math.Round(hx*(main.VisibleY / (double) (main.TotalHeight() - 1)));
 			w = Math.Min(w, hx - 5);
 			return Math.Max(0, w) + GraphUtil.scrollBarWidth - 1;
 		}
 
 		private int CalcBarEnd(int height){
-			int hx = height - 2* GraphUtil.scrollBarWidth + 2;
+			int hx = height - 2*GraphUtil.scrollBarWidth + 2;
 			if (hx <= 0){
 				return GraphUtil.scrollBarWidth - 1;
 			}
-			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleY + main.VisibleHeight)/(double) (main.TotalHeight() - 1)))) +
+			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleY + main.VisibleHeight/main.ZoomFactor)/(double) (main.TotalHeight() - 1)))) +
 					GraphUtil.scrollBarWidth - 1;
 		}
 
 		private int CalcBarSize(int height){
-			int hx = height - 2* GraphUtil.scrollBarWidth + 2;
+			int hx = height - 2*GraphUtil.scrollBarWidth + 2;
 			return hx <= 0 ? 5 : Math.Max(5, CalcBarEnd(height) - CalcBarStart(height));
 		}
 
@@ -217,12 +217,12 @@ namespace BaseLib.Forms.Scroll{
 					dragStart = e.Y;
 					visibleDragStart = main.VisibleY;
 				} else if (e.Y < s){
-					MoveUp(main.VisibleHeight);
-					upThread = new Thread(() => WalkUp(main.VisibleHeight));
+					MoveUp((int) (main.VisibleHeight / main.ZoomFactor));
+					upThread = new Thread(() => WalkUp((int) (main.VisibleHeight / main.ZoomFactor)));
 					upThread.Start();
 				} else{
-					MoveDown(main.VisibleHeight);
-					downThread = new Thread(() => WalkDown(main.VisibleHeight));
+					MoveDown((int) (main.VisibleHeight / main.ZoomFactor));
+					downThread = new Thread(() => WalkDown((int) (main.VisibleHeight / main.ZoomFactor)));
 					downThread.Start();
 				}
 			}
@@ -237,7 +237,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		private void MoveDown(int delta){
-			main.VisibleY = Math.Min(main.TotalHeight() - main.VisibleHeight, main.VisibleY + delta);
+			main.VisibleY = (int) Math.Min(main.TotalHeight() - main.VisibleHeight / main.ZoomFactor, main.VisibleY + delta);
 		}
 
 		private void WalkDown(int delta){
@@ -266,10 +266,10 @@ namespace BaseLib.Forms.Scroll{
 			if (state != ScrollBarState.PressBar){
 				return;
 			}
-			int hx = e.Height - 2* GraphUtil.scrollBarWidth + 2;
+			int hx = e.Height - 2*GraphUtil.scrollBarWidth + 2;
 			int y = visibleDragStart + (int) Math.Round((e.Y - dragStart)/(double) hx*main.TotalHeight());
 			y = Math.Max(0, y);
-			y = Math.Min(main.TotalHeight() - main.VisibleHeight, y);
+			y = (int)Math.Min(main.TotalHeight() - main.VisibleHeight / main.ZoomFactor, y);
 			main.VisibleY = y;
 			Invalidate();
 		}
@@ -297,6 +297,6 @@ namespace BaseLib.Forms.Scroll{
 			Invalidate();
 		}
 
-		private bool HasBar => main.VisibleHeight < main.TotalHeight();
+		private bool HasBar => main.VisibleHeight/main.ZoomFactor < main.TotalHeight();
 	}
 }

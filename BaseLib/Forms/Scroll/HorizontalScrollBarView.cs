@@ -73,7 +73,7 @@ namespace BaseLib.Forms.Scroll{
 			}
 		}
 
-		private bool HasBar => main.VisibleWidth < main.TotalWidth();
+		private bool HasBar => main.VisibleWidth/main.ZoomFactor < main.TotalWidth();
 
 		private void PaintFirstMark(IGraphics g, int scrollBarWid){
 			if (firstMark == null){
@@ -135,7 +135,7 @@ namespace BaseLib.Forms.Scroll{
 			if (hx <= 0){
 				return GraphUtil.scrollBarWidth - 1;
 			}
-			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleX + main.VisibleWidth)/(double) (main.TotalWidth() - 1)))) +
+			return Math.Min(hx, (int) Math.Round(hx*((main.VisibleX + main.VisibleWidth / main.ZoomFactor) /(double) (main.TotalWidth() - 1)))) +
 					GraphUtil.scrollBarWidth - 1;
 		}
 
@@ -206,12 +206,12 @@ namespace BaseLib.Forms.Scroll{
 					dragStart = e.X;
 					visibleDragStart = main.VisibleX;
 				} else if (e.X < s){
-					MoveLeft(main.VisibleWidth);
-					leftThread = new Thread(() => WalkLeft(main.VisibleWidth));
+					MoveLeft((int) (main.VisibleWidth / main.ZoomFactor));
+					leftThread = new Thread(() => WalkLeft((int) (main.VisibleWidth / main.ZoomFactor)));
 					leftThread.Start();
 				} else{
-					MoveRight(main.VisibleWidth);
-					rightThread = new Thread(() => WalkRight(main.VisibleWidth));
+					MoveRight((int) (main.VisibleWidth / main.ZoomFactor));
+					rightThread = new Thread(() => WalkRight((int) (main.VisibleWidth / main.ZoomFactor)));
 					rightThread.Start();
 				}
 			}
@@ -226,7 +226,7 @@ namespace BaseLib.Forms.Scroll{
 		}
 
 		private void MoveRight(int delta){
-			main.VisibleX = Math.Min(main.TotalWidth() - main.VisibleWidth, main.VisibleX + delta);
+			main.VisibleX = (int) Math.Min(main.TotalWidth() - main.VisibleWidth / main.ZoomFactor, main.VisibleX + delta);
 		}
 
 		private void WalkLeft(int delta){
@@ -258,7 +258,7 @@ namespace BaseLib.Forms.Scroll{
 			int hx = e.Width - 2* GraphUtil.scrollBarWidth + 2;
 			int x = visibleDragStart + (int) Math.Round((e.X - dragStart)/(double) hx*main.TotalWidth());
 			x = Math.Max(0, x);
-			x = Math.Min(main.TotalWidth() - main.VisibleWidth, x);
+			x = (int)Math.Min(main.TotalWidth() - main.VisibleWidth / main.ZoomFactor, x);
 			main.VisibleX = x;
 			Invalidate();
 		}

@@ -16,6 +16,7 @@ namespace BaseLibS.Graph{
 		int VisibleHeight { get; }
 		int TotalClientWidth { get; }
 		int TotalClientHeight { get; }
+		float ZoomFactor { get; }
 		void Invalidate(bool p0);
 		void InvalidateMainView();
 		void InvalidateScrollbars();

@@ -25,7 +25,7 @@ namespace BaseLib.Forms.Scroll{
 		public Action<BasicMouseEventArgs> OnMouseIsUpMainView { get; set; }
 		public Action<EventArgs> OnMouseLeaveMainView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
-		public float zoomFactor = 1;
+		public float ZoomFactor { get; set; } = 1;
 
 		public SimpleScrollableControl(){
 			InitializeComponent2();
