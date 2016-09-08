@@ -174,7 +174,7 @@ namespace BaseLibS.Graph{
 				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height, win.Width, win.Y);
 			}
 			if (overview.Height - win.Y - win.Height > 0){
-				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height + win.Y + win.Height-1, win.Width,
+				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height + win.Y + win.Height - 1, win.Width,
 					overview.Height - win.Y - win.Height);
 			}
 			g.DrawRectangle(Pens2.Black, 0, visibleWin.Height - overview.Height - 1, overview.Width, overview.Height);
@@ -183,9 +183,10 @@ namespace BaseLibS.Graph{
 
 		public static Size2 CalcOverviewSize(int width, int height, int totalWidth, int totalHeight){
 			int maxSize = Math.Min(Math.Min(maxOverviewSize, height), width - 20);
-			return totalWidth > totalHeight
-				? new Size2(maxSize, (int) Math.Round(totalHeight/(float) totalWidth*maxSize))
-				: new Size2((int) Math.Round(totalWidth/(float) totalHeight*maxSize), maxSize);
+			Size2 x= totalWidth > totalHeight
+				? new Size2(maxSize, Math.Max(1, (int) Math.Round(totalHeight/(float) totalWidth*maxSize)))
+				: new Size2(Math.Max(1, (int) Math.Round(totalWidth/(float) totalHeight*maxSize)), maxSize);
+			return x;
 		}
 
 		public static bool HitsAMoveButton(int x, int y, int width, int height){
