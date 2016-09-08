@@ -8,20 +8,26 @@ namespace BaseLib.Forms.Scroll{
 		private ZoomButtonState state = ZoomButtonState.Neutral;
 		private readonly SimpleScrollableControl main;
 		private readonly NavigatorData navigatorData = new NavigatorData();
+		private Bitmap2 overviewBitmap;
 
 		internal SimpleScrollableControlMainView(SimpleScrollableControl main){
 			this.main = main;
 		}
 
+		private Bitmap2 CreateOverviewBitmap(int overviewWidth, int overviewHeight){
+			BitmapGraphics bg = new BitmapGraphics(main.TotalWidth(), main.TotalHeight());
+			main.OnPaintMainView?.Invoke(bg, 0, 0, main.TotalWidth(), main.TotalHeight(), true);
+			return GraphUtils.ToBitmap2(GraphUtils.ResizeImage(bg.Bitmap, overviewWidth, overviewHeight));
+		}
+
 		public override void OnPaint(IGraphics g, int width, int height){
 			main.OnPaintMainView?.Invoke(main.ZoomFactor == 1f ? g : new ScaledGraphics(g, main.ZoomFactor), main.VisibleX,
-				main.VisibleY, width, height);
+				main.VisibleY, width, height, false);
 			GraphUtil.PaintZoomButtons(g, width, height, state);
-			GraphUtil.PaintOverview(g, main.TotalSize, main.VisibleWin, (overviewWidth, overviewHeight) =>{
-				BitmapGraphics bg = new BitmapGraphics(main.TotalWidth(), main.TotalHeight());
-				main.OnPaintMainView?.Invoke(bg, 0, 0, main.TotalWidth(), main.TotalHeight());
-				return GraphUtils.ToBitmap2(GraphUtils.ResizeImage(bg.Bitmap, overviewWidth, overviewHeight));
-			}, main.ZoomFactor, main.ZoomFactor);
+			GraphUtil.PaintOverview(g, main.TotalSize, main.VisibleWin,
+				(overviewWidth, overviewHeight) =>
+					overviewBitmap ?? (overviewBitmap = CreateOverviewBitmap(overviewWidth, overviewHeight)), main.ZoomFactor,
+				main.ZoomFactor);
 		}
 
 		public override void OnMouseMoved(BasicMouseEventArgs e){

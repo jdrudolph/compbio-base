@@ -442,7 +442,7 @@ namespace BaseLib.Forms.Table{
 					}
 				}
 			};
-			control1.OnPaintMainView = (g, x, y, width, height) =>{
+			control1.OnPaintMainView = (g, x, y, width, height, isOverview) =>{
 				if (model == null){
 					return;
 				}

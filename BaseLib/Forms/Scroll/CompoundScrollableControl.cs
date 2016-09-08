@@ -102,7 +102,7 @@ namespace BaseLib.Forms.Scroll{
 		public Action<BasicMouseEventArgs> OnMouseIsUpMiddleCornerView { get; set; }
 		public Action<EventArgs> OnMouseLeaveMiddleCornerView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMiddleCornerView { get; set; }
-		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		public Action<IGraphics, int, int, int, int, bool> OnPaintMainView { get; set; }
 
 		public void ExportGraphic(string name, bool showDialog){
 			ExportGraphics.ExportGraphic(this, name, showDialog);
@@ -171,7 +171,7 @@ namespace BaseLib.Forms.Scroll{
 			InitializeComponent2();
 			ResizeRedraw = true;
 			DoubleBuffered = true;
-			OnPaintMainView = (g, x, y, width, height) => { };
+			OnPaintMainView = (g, x, y, width, height, isOverview) => { };
 			OnPaintRowHeaderView = (g, y, height) => { };
 			OnPaintRowFooterView = (g, y, height) => { };
 			OnPaintColumnHeaderView = (g, x, width) => { };

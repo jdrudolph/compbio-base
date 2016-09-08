@@ -26,7 +26,7 @@ namespace BaseLibS.Graph{
 		Action<BasicMouseEventArgs> OnMouseClickMainView { get; set; }
 		Action<BasicMouseEventArgs> OnMouseDraggedMainView { get; set; }
 		Action<EventArgs> OnMouseHoverMainView { get; set; }
-		Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		Action<IGraphics, int, int, int, int, bool> OnPaintMainView { get; set; }
 		void ExportGraphic(string name, bool showDialog);
 	}
 }

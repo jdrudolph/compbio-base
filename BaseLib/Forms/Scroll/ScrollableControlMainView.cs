@@ -6,7 +6,7 @@ namespace BaseLib.Forms.Scroll{
 		internal ScrollableControlMainView(CompoundScrollableControl main) : base(main) {}
 
 		public override void OnPaint(IGraphics g, int width, int height){
-			main.OnPaintMainView?.Invoke(g, main.VisibleX, main.VisibleY, width, height);
+			main.OnPaintMainView?.Invoke(g, main.VisibleX, main.VisibleY, width, height, false);
 		}
 
 		public override void OnMouseMoved(BasicMouseEventArgs e){

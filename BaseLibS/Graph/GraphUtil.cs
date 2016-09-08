@@ -174,7 +174,7 @@ namespace BaseLibS.Graph{
 				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height, win.Width, win.Y);
 			}
 			if (overview.Height - win.Y - win.Height > 0){
-				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height + win.Y + win.Height, win.Width,
+				g.FillRectangle(b, win.X, visibleWin.Height - overview.Height + win.Y + win.Height-1, win.Width,
 					overview.Height - win.Y - win.Height);
 			}
 			g.DrawRectangle(Pens2.Black, 0, visibleWin.Height - overview.Height - 1, overview.Width, overview.Height);

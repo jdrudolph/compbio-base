@@ -16,7 +16,7 @@ namespace BaseLib.Forms.Scroll{
 		private BasicControl mainControl;
 		private BasicView mainView;
 		private BasicView smallCornerView;
-		public Action<IGraphics, int, int, int, int> OnPaintMainView { get; set; }
+		public Action<IGraphics, int, int, int, int, bool> OnPaintMainView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseClickMainView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseDoubleClickMainView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseDraggedMainView { get; set; }
@@ -31,7 +31,7 @@ namespace BaseLib.Forms.Scroll{
 			InitializeComponent2();
 			ResizeRedraw = true;
 			DoubleBuffered = true;
-			OnPaintMainView = (g, x, y, width, height) => { };
+			OnPaintMainView = (g, x, y, width, height, isOverview) => { };
 			TotalWidth = () => 200;
 			TotalHeight = () => 200;
 			DeltaX = () => Width/20;
