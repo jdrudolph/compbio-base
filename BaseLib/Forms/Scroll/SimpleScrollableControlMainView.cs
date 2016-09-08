@@ -8,7 +8,6 @@ namespace BaseLib.Forms.Scroll{
 		private ZoomButtonState state = ZoomButtonState.Neutral;
 		private readonly SimpleScrollableControl main;
 		private readonly NavigatorData navigatorData = new NavigatorData();
-		private Bitmap2 overviewBitmap;
 
 		internal SimpleScrollableControlMainView(SimpleScrollableControl main){
 			this.main = main;
@@ -26,7 +25,7 @@ namespace BaseLib.Forms.Scroll{
 			GraphUtil.PaintZoomButtons(g, width, height, state);
 			GraphUtil.PaintOverview(g, main.TotalSize, main.VisibleWin,
 				(overviewWidth, overviewHeight) =>
-					overviewBitmap ?? (overviewBitmap = CreateOverviewBitmap(overviewWidth, overviewHeight)), main.ZoomFactor,
+					main.overviewBitmap ?? (main.overviewBitmap = CreateOverviewBitmap(overviewWidth, overviewHeight)), main.ZoomFactor,
 				main.ZoomFactor);
 		}
 

@@ -26,6 +26,7 @@ namespace BaseLib.Forms.Scroll{
 		public Action<EventArgs> OnMouseLeaveMainView { get; set; }
 		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
 		public float ZoomFactor { get; set; } = 1;
+		internal Bitmap2 overviewBitmap;
 
 		public SimpleScrollableControl(){
 			InitializeComponent2();
@@ -47,6 +48,10 @@ namespace BaseLib.Forms.Scroll{
 		public void InvalidateScrollbars(){
 			horizontalScrollBar.Invalidate();
 			verticalScrollBar.Invalidate();
+		}
+
+		public void InvalidateOverview(){
+			overviewBitmap = null;
 		}
 
 		public void EnableContent(){

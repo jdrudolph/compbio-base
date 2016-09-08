@@ -20,6 +20,7 @@ namespace BaseLibS.Graph{
 		void Invalidate(bool p0);
 		void InvalidateMainView();
 		void InvalidateScrollbars();
+		void InvalidateOverview();
 		Tuple<int, int> GetOrigin();
 		Action<BasicMouseEventArgs> OnMouseIsDownMainView { get; set; }
 		Action<BasicMouseEventArgs> OnMouseIsUpMainView { get; set; }

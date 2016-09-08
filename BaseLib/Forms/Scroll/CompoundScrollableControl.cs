@@ -197,6 +197,8 @@ namespace BaseLib.Forms.Scroll{
 			verticalScrollBarView.Invalidate();
 		}
 
+		public void InvalidateOverview(){}
+
 		public void EnableContent(){
 			mainView.Enabled = true;
 			rowHeaderView.Enabled = true;
