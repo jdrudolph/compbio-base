@@ -281,6 +281,8 @@ namespace BaseLibS.Graph{
 			b.SetPixel(0, h - 2, Color2.FromArgb(195, 212, 231));
 			b.SetPixel(0, h - 1, Color2.FromArgb(237, 241, 243));
 			b.SetPixel(w - 2, h - 1, Color2.FromArgb(236, 242, 247));
+			b.SetPixel(w - 1, h - 1, Color2.FromArgb(255, 255, 255));
+			b.SetPixel(w - 1, h - 2, Color2.FromArgb(255, 255, 255));
 			int wi = w - 5;
 			int he = h - 5;
 			int[][] upper = InterpolateRgb(225, 234, 254, 188, 206, 250, wi);

@@ -35,7 +35,7 @@ namespace BaseLib.Graphic{
 
 		public void DrawInterceptedLine(Pen2 pen, float x1, float y1, float x2, float y2, float len){
 			gc.DrawLine(GetPen(pen), x1, y1, x2, y2);
-			float x3, x4, y3, y4 = 0f;
+			float x3, x4, y3, y4;
 			if (y1.Equals(y2)){
 				x3 = x2;
 				x4 = x2;
@@ -82,48 +82,48 @@ namespace BaseLib.Graphic{
 			float newY2;
 			float x3, x4, y3, y4;
 			if (y1.Equals(y2)){
-			    if (x1 < x2) 
-			        newX2 = x2 - offset;
-                else
-                    newX2 = x2 + offset;
-                newY2 = y2;
-			    x3 = newX2;
-			    x4 = newX2;
-			    y3 = newY2 - side/2;
-			    y4 = newY2 + side/2;
-                gc.DrawLine(GetPen(pen), x1, y1, newX2, newY2);
+				if (x1 < x2){
+					newX2 = x2 - offset;
+				} else{
+					newX2 = x2 + offset;
+				}
+				newY2 = y2;
+				x3 = newX2;
+				x4 = newX2;
+				y3 = newY2 - side/2;
+				y4 = newY2 + side/2;
+				gc.DrawLine(GetPen(pen), x1, y1, newX2, newY2);
 			} else if (x1.Equals(x2)){
-			    if (y1 < y2) 
-			        newY2 = y2 - offset;
-                else
-                    newY2 = y2 + offset;
-                newX2 = x2;
-                y3 = newY2;
-			    y4 = newY2;
-			    x3 = newX2 - side/2;
-			    x4 = newX2 + side/2;
-                gc.DrawLine(GetPen(pen), x1, y1, newX2, newY2);
-			}
-            else {  
-			    float m = (y2 - y1)/(x2 - x1);
+				if (y1 < y2){
+					newY2 = y2 - offset;
+				} else{
+					newY2 = y2 + offset;
+				}
+				newX2 = x2;
+				y3 = newY2;
+				y4 = newY2;
+				x3 = newX2 - side/2;
+				x4 = newX2 + side/2;
+				gc.DrawLine(GetPen(pen), x1, y1, newX2, newY2);
+			} else{
+				float m = (y2 - y1)/(x2 - x1);
 				float m2 = m*m;
 				float sq = (float) Math.Sqrt(1 + m2);
-                float n = -1 / ((y2 - y1) / (x2 - x1));
-                float n2 = n * n;
-                float sqn = (float)Math.Sqrt(1 + n2);
-			    if (x2 > x1) {
-			        newX2 = x2 - offset/sq;
-			        newY2 = y2 - m*offset/sq;
-			    }
-			    else {
-                    newX2 = x2 + offset / sq;
-                    newY2 = y2 + m * offset / sq;
-                }
-			    x3 = newX2 + (side/2)/sqn;
-			    y3 = newY2 + n*(side/2)/sqn;
-			    x4 = newX2 - (side/2)/sqn;
-			    y4 = newY2 - n*(side/2)/sqn;
-			    gc.DrawLine(GetPen(pen), x1, y1, newX2, newY2);
+				float n = -1/((y2 - y1)/(x2 - x1));
+				float n2 = n*n;
+				float sqn = (float) Math.Sqrt(1 + n2);
+				if (x2 > x1){
+					newX2 = x2 - offset/sq;
+					newY2 = y2 - m*offset/sq;
+				} else{
+					newX2 = x2 + offset/sq;
+					newY2 = y2 + m*offset/sq;
+				}
+				x3 = newX2 + (side/2)/sqn;
+				y3 = newY2 + n*(side/2)/sqn;
+				x4 = newX2 - (side/2)/sqn;
+				y4 = newY2 - n*(side/2)/sqn;
+				gc.DrawLine(GetPen(pen), x1, y1, newX2, newY2);
 			}
 			gc.DrawPolygon(GetPen(pen),
 				new[]{
@@ -159,9 +159,8 @@ namespace BaseLib.Graphic{
 		public void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, float radius){
 			float diameter = radius*2;
 			Size size = new Size((int) diameter, (int) diameter);
-			Rectangle bounds = new Rectangle(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(width),
-				Convert.ToInt32(height));
-			Rectangle arc = new Rectangle(bounds.Location, size);
+			RectangleF bounds = new RectangleF(x, y, width, height);
+			RectangleF arc = new RectangleF(bounds.Location, size);
 			GraphicsPath path = new GraphicsPath();
 			try{
 				path.AddArc(arc, 180, 90);
@@ -179,9 +178,8 @@ namespace BaseLib.Graphic{
 		public void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, float radius){
 			int diameter = (int) (radius*2);
 			Size size = new Size(diameter, diameter);
-			Rectangle bounds = new Rectangle(Convert.ToInt32(x), Convert.ToInt32(y), Convert.ToInt32(width),
-				Convert.ToInt32(height));
-			Rectangle arc = new Rectangle(bounds.Location, size);
+			RectangleF bounds = new RectangleF(x, y, width, height);
+			RectangleF arc = new RectangleF(bounds.Location, size);
 			GraphicsPath path = new GraphicsPath();
 			try{
 				path.AddArc(arc, 180, 90);
