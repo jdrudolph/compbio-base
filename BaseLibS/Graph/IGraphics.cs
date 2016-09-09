@@ -106,8 +106,9 @@ namespace BaseLibS.Graph{
 
 	    void DrawRoundedRectangle(Pen2 pen, float x, float y, float width, float height, float radius);
 	    void FillRoundedRactangle(Brush2 brush, float x, float y, float width, float height, float radius);
-            
-        void DrawPolygon(Pen2 pen, Point2[] points);
+		void DrawArc(Pen2 pen, Rectangle2 rec, float startAngle, float sweepAngle);
+
+		void DrawPolygon(Pen2 pen, Point2[] points);
 		void FillPolygon(Brush2 brush, Point2[] points);
 
 		/// <summary>

@@ -69,6 +69,10 @@
 			g.FillRoundedRactangle(brush, s*x, s*y, s*width, s*height, s*radius);
 		}
 
+		public void DrawArc(Pen2 pen, Rectangle2 rectangle, float startAngle, float sweepAngle){
+			g.DrawArc(pen.Scale(s), rectangle.Scale(s), startAngle, sweepAngle);
+		}
+
 		public void DrawPolygon(Pen2 pen, Point2[] points){
 			g.DrawPolygon(pen.Scale(s), Scale(points, s));
 		}
@@ -86,11 +90,7 @@
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Rectangle2 rectangle, StringFormat2 format){
-			g.DrawString(str, font.Scale(s), brush, Scale(rectangle, s), format);
-		}
-
-		private static Rectangle2 Scale(Rectangle2 r, float s){
-			return new Rectangle2(s*r.X, s*r.Y, s*r.Width, s*r.Height);
+			g.DrawString(str, font.Scale(s), brush, rectangle.Scale(s), format);
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Point2 point, StringFormat2 format){
@@ -102,7 +102,7 @@
 		}
 
 		public void DrawString(string str, Font2 font, Brush2 brush, Rectangle2 rectangle){
-			g.DrawString(str, font.Scale(s), brush, Scale(rectangle, s));
+			g.DrawString(str, font.Scale(s), brush, rectangle.Scale(s));
 		}
 
 		public void DrawImage(Bitmap2 image, float x, float y, float width, float height){
@@ -138,7 +138,7 @@
 		}
 
 		public void SetClip(Rectangle2 rectangle){
-			g.SetClip(Scale(rectangle, s));
+			g.SetClip(rectangle.Scale(s));
 		}
 
 		public void Close(){

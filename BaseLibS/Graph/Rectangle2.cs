@@ -146,6 +146,12 @@ namespace BaseLibS.Graph{
 			return new Rectangle2(r.X, r.Y, r.Width, r.Height);
 		}
 
+		public Rectangle2 Scale(float s)
+		{
+			return new Rectangle2(s * X, s * Y, s * Width, s * Height);
+		}
+
+
 		public override string ToString(){
 			return "{x=" + X.ToString(CultureInfo.CurrentCulture) + ",y=" + Y.ToString(CultureInfo.CurrentCulture) + ",Width=" +
 					Width.ToString(CultureInfo.CurrentCulture) + ",Height=" + Height.ToString(CultureInfo.CurrentCulture) + "}";

@@ -152,6 +152,10 @@ namespace BaseLib.Graphic{
 			gc.DrawRectangle(GetPen(pen), x, y, width, height);
 		}
 
+		public void DrawArc(Pen2 pen, Rectangle2 rec, float startAngle, float sweepAngle){
+			gc.DrawArc(GetPen(pen), ToRectangleF(rec), startAngle, sweepAngle);
+		}
+
 		public void FillRectangle(Brush2 brush, float x, float y, float width, float height){
 			gc.FillRectangle(GetBrush(brush), x, y, width, height);
 		}

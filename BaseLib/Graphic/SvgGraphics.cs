@@ -283,7 +283,11 @@ namespace BaseLib.Graphic{
 	        throw new NotImplementedException();
 	    }
 
-	    public void DrawPolygon(Pen2 pen, Point2[] points){
+		public void DrawArc(Pen2 pen, Rectangle2 rec, float startAngle, float sweepAngle){
+			throw new NotImplementedException();	
+		}
+
+		public void DrawPolygon(Pen2 pen, Point2[] points){
 			throw new NotImplementedException();
 		}
 
