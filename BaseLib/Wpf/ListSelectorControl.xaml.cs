@@ -216,7 +216,7 @@ namespace BaseLib.Wpf{
 				DefaultButtonPanel.Height = 23;
 			}
 			for (int i = 0; i < defaultSelectionNames1.Count; i++){
-				Button b = new Button{Content = defaultSelectionNames1[i], Width = 80, Height = 23};
+				Button b = new Button{Content = defaultSelectionNames1[i], Width = 74, Height = 23};
 				DefaultButtonPanel.Children.Add(b);
 				int i1 = i;
 				b.Click += (sender, e) => SelectItems(defaultSelections1[i1]);

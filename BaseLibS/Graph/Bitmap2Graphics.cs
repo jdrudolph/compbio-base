@@ -1,5 +1,11 @@
 ﻿namespace BaseLibS.Graph{
 	public class Bitmap2Graphics : IGraphics{
+		public Bitmap2 Bitmap { get; }
+
+		public Bitmap2Graphics(int width, int height){
+			Bitmap = new Bitmap2(width, height);
+		}
+
 		public SmoothingMode2 SmoothingMode { get; set; }
 
 		public void Dispose(){
