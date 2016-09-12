@@ -233,6 +233,7 @@
     <Compile Include="Param\RegexReplaceParam.cs" />
     <Compile Include="Param\StringParam.cs" />
     <Compile Include="Parse\Misc\MiniProteinAnnotation.cs" />
+    <Compile Include="Parse\Misc\PhosphoSitePlusParser.cs" />
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Parse\Uniprot\DbReferenceType.cs" />
     <Compile Include="Parse\Uniprot\FeatureType.cs" />
