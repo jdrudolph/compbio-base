@@ -37,8 +37,63 @@ namespace BaseLibS.Parse.Misc{
 			return filename;
 		}
 
+		public static void ParseKnownMod(string[] mod, out string[] seqWins, out string[] accs, out string[] pubmedLtp,
+			out string[] pubmedMs2, out string[] cstMs2, string species){
+			string[] seqWins1;
+			string[] accs1;
+			string[] pubmedLtp1;
+			string[] pubmedMs21;
+			string[] cstMs21;
+			string[] species1;
+			ParseKnownMod(mod, out seqWins1, out accs1, out pubmedLtp1, out pubmedMs21, out cstMs21, out species1);
+			List<int> v = new List<int>();
+			for (int i = 0; i < species1.Length; i++){
+				if (species1[i].Equals(species)){
+					v.Add(i);
+				}
+			}
+			seqWins = ArrayUtils.SubArray(seqWins1, v);
+			accs = ArrayUtils.SubArray(accs1, v);
+			pubmedLtp = ArrayUtils.SubArray(pubmedLtp1, v);
+			pubmedMs2 = ArrayUtils.SubArray(pubmedMs21, v);
+			cstMs2 = ArrayUtils.SubArray(cstMs21, v);
+		}
+
+		public static void ParseKnownMod(string[] mod, out string[] seqWins, out string[] accs, out string[] pubmedLtp,
+			out string[] pubmedMs2, out string[] cstMs2, out string[] species){
+			List<string> seqWins1 = new List<string>();
+			List<string> accs1 = new List<string>();
+			List<string> pubmedLtp1 = new List<string>();
+			List<string> pubmedMs21 = new List<string>();
+			List<string> cstMs21 = new List<string>();
+			List<string> species1 = new List<string>();
+			foreach (string m in mod){
+				string[] seqWinsX;
+				string[] accsX;
+				string[] pubmedLtpX;
+				string[] pubmedMs2X;
+				string[] cstMs2X;
+				string[] speciesX;
+				ParseKnownMod(m, out seqWinsX, out accsX, out pubmedLtpX, out pubmedMs2X, out cstMs2X, out speciesX);
+				for (int i = 0; i < seqWinsX.Length; i++){
+					seqWins1.Add(seqWinsX[i]);
+					accs1.Add(accsX[i]);
+					pubmedLtp1.Add(pubmedLtpX[i]);
+					pubmedMs21.Add(pubmedMs2X[i]);
+					cstMs21.Add(cstMs2X[i]);
+					species1.Add(speciesX[i]);
+				}
+			}
+			seqWins = seqWins1.ToArray();
+			accs = accs1.ToArray();
+			pubmedLtp = pubmedLtp1.ToArray();
+			pubmedMs2 = pubmedMs21.ToArray();
+			cstMs2 = cstMs21.ToArray();
+			species = species1.ToArray();
+		}
+
 		public static void ParseKnownMod(string mod, out string[] seqWins, out string[] accs, out string[] pubmedLtp,
-			out string[] pubmedMs2, out string[] cstMs2){
+			out string[] pubmedMs2, out string[] cstMs2, out string[] species){
 			string filename = GetFilenameForMod(mod);
 			if (filename == null){
 				seqWins = null;
@@ -46,18 +101,20 @@ namespace BaseLibS.Parse.Misc{
 				pubmedLtp = null;
 				pubmedMs2 = null;
 				cstMs2 = null;
+				species = null;
 				return;
 			}
-			ParseKnownMods(filename, out seqWins, out accs, out pubmedLtp, out pubmedMs2, out cstMs2);
+			ParseKnownMods(filename, out seqWins, out accs, out pubmedLtp, out pubmedMs2, out cstMs2, out species);
 		}
 
 		public static void ParseKnownMods(string filename, out string[] seqWins, out string[] accs, out string[] pubmedLtp,
-			out string[] pubmedMs2, out string[] cstMs2){
+			out string[] pubmedMs2, out string[] cstMs2, out string[] species){
 			seqWins = TabSep.GetColumn("SITE_+/-7_AA", filename, 3, '\t');
 			accs = TabSep.GetColumn("ACC_ID", filename, 3, '\t');
 			pubmedLtp = TabSep.GetColumn("LT_LIT", filename, 3, '\t');
 			pubmedMs2 = TabSep.GetColumn("MS_LIT", filename, 3, '\t');
 			cstMs2 = TabSep.GetColumn("MS_CST", filename, 3, '\t');
+			species = TabSep.GetColumn("ORGANISM", filename, 3, '\t');
 		}
 
 		public static string[] GetAllKinaseSubstrateOrganisms(){
@@ -113,7 +170,34 @@ namespace BaseLibS.Parse.Misc{
 		}
 
 		public static void ParseRegulatorySites(out string[] seqWins, out string[] accs, out string[] function,
-			out string[] process, out string[] protInteract, out string[] otherInteract, out string[] notes){
+			out string[] process, out string[] protInteract, out string[] otherInteract, out string[] notes, string species){
+			string[] seqWins1;
+			string[] accs1;
+			string[] function1;
+			string[] process1;
+			string[] protInteract1;
+			string[] otherInteract1;
+			string[] notes1;
+			string[] species1;
+			ParseRegulatorySites(out seqWins1, out accs1, out function1, out process1, out protInteract1, out otherInteract1,
+				out notes1, out species1);
+			List<int> v = new List<int>();
+			for (int i = 0; i < seqWins1.Length; i++){
+				if (species1[i].Equals(species)){
+					v.Add(i);
+				}
+			}
+			seqWins = ArrayUtils.SubArray(seqWins1, v);
+			accs = ArrayUtils.SubArray(accs1, v);
+			function = ArrayUtils.SubArray(function1, v);
+			process = ArrayUtils.SubArray(process1, v);
+			protInteract = ArrayUtils.SubArray(protInteract1, v);
+			otherInteract = ArrayUtils.SubArray(otherInteract1, v);
+			notes = ArrayUtils.SubArray(notes1, v);
+		}
+
+		public static void ParseRegulatorySites(out string[] seqWins, out string[] accs, out string[] function,
+			out string[] process, out string[] protInteract, out string[] otherInteract, out string[] notes, out string[] species){
 			string filename = GetRegulatorySitesFile();
 			if (filename == null){
 				seqWins = null;
@@ -123,15 +207,16 @@ namespace BaseLibS.Parse.Misc{
 				protInteract = null;
 				otherInteract = null;
 				notes = null;
+				species = null;
 				return;
 			}
 			ParseRegulatorySites(filename, out seqWins, out accs, out function, out process, out protInteract, out otherInteract,
-				out notes);
+				out notes, out species);
 		}
 
 		public static void ParseRegulatorySites(string filename, out string[] seqWins, out string[] accs,
 			out string[] function, out string[] process, out string[] protInteract, out string[] otherInteract,
-			out string[] notes){
+			out string[] notes, out string[] species){
 			seqWins = TabSep.GetColumn("SITE_+/-7_AA", filename, 3, '\t');
 			accs = TabSep.GetColumn("ACC_ID", filename, 3, '\t');
 			function = TabSep.GetColumn("ON_FUNCTION", filename, 3, '\t');
@@ -139,6 +224,7 @@ namespace BaseLibS.Parse.Misc{
 			protInteract = TabSep.GetColumn("ON_PROT_INTERACT", filename, 3, '\t');
 			otherInteract = TabSep.GetColumn("ON_OTHER_INTERACT", filename, 3, '\t');
 			notes = TabSep.GetColumn("NOTES", filename, 3, '\t');
+			species = TabSep.GetColumn("ORGANISM", filename, 3, '\t');
 		}
 
 		public static string GetKinaseSubstrateFile(){
