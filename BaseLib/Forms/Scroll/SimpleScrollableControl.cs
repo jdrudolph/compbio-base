@@ -8,6 +8,7 @@ using BaseLibS.Graph;
 using BaseLibS.Graph.Base;
 
 namespace BaseLib.Forms.Scroll{
+	public delegate void ZoomChangeHandler2();
 	public sealed class SimpleScrollableControl : UserControl, ISimpleScrollableControl{
 		private int visibleX;
 		private int visibleY;
@@ -27,7 +28,7 @@ namespace BaseLib.Forms.Scroll{
 		public Action<BasicMouseEventArgs> OnMouseMoveMainView { get; set; }
 		public float ZoomFactor { get; set; } = 1;
 		internal Bitmap2 overviewBitmap;
-
+		public event ZoomChangeHandler2 OnZoomChanged;
 		public SimpleScrollableControl(){
 			InitializeComponent2();
 			ResizeRedraw = true;
@@ -276,6 +277,10 @@ namespace BaseLib.Forms.Scroll{
 
 		public float GetDpiScaleY(){
 			return WpfUtils.GetDpiScaleY();
+		}
+
+		public void UpdateZoom(){
+			OnZoomChanged?.Invoke();
 		}
 	}
 }

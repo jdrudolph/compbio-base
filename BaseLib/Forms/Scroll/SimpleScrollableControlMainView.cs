@@ -88,11 +88,13 @@ namespace BaseLib.Forms.Scroll{
 					main.ZoomFactor /= GraphUtil.zoomStep;
 					invalidate();
 					main.InvalidateScrollbars();
+					main.UpdateZoom();
 					break;
 				case ZoomButtonState.PressPlus:
 					main.ZoomFactor *= GraphUtil.zoomStep;
 					invalidate();
 					main.InvalidateScrollbars();
+					main.UpdateZoom();
 					break;
 				default:
 					if (newState != state){

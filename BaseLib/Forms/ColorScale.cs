@@ -9,7 +9,7 @@ namespace BaseLib.Forms{
 	public delegate void ColorChangeHandler();
 
 	public partial class ColorScale : UserControl{
-		public event ColorChangeHandler OnColorChange;
+		public event Action OnColorChange;
 		private readonly NumericAxisView axis;
 		public bool Locked { get; set; }
 		public ColorStripView ColorStrip { get; }
