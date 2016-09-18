@@ -252,5 +252,41 @@ namespace BaseLibS.Parse.Misc{
 			}
 			return filename;
 		}
+
+		private static readonly string[] phosphositeFilenames ={
+			"Acetylation_site_dataset", "Methylation_site_dataset",
+			"O-GlcNAc_site_dataset", "O-GalNAc_site_dataset", "Phosphorylation_site_dataset", "Sumoylation_site_dataset",
+			"Ubiquitination_site_dataset"
+		};
+
+		public static Dictionary<string, string> ParsePhosphoSite(string phosphoSiteFolder){
+			Dictionary<string, string> map = new Dictionary<string, string>();
+			foreach (string phosphositeFilename in phosphositeFilenames){
+				string path = Path.Combine(phosphoSiteFolder, phosphositeFilename);
+				if (!File.Exists(path)){
+					continue;
+				}
+				StreamReader reader = new StreamReader(path);
+				ParsePhosphoSite(reader, map);
+			}
+			return map;
+		}
+
+		private static void ParsePhosphoSite(TextReader reader, IDictionary<string, string> map){
+			while (!reader.ReadLine().StartsWith("PROTEIN")){}
+			string line;
+			while ((line = reader.ReadLine()) != null){
+				string[] w = line.Split('\t');
+				string accession = w[1];
+				string type = w[4];
+				string residue = w[5];
+				int position = int.Parse(residue.Substring(1));
+				if (map.ContainsKey(accession)){
+					map[accession] += ";" + type + "," + position;
+				} else{
+					map[accession] = type + "," + position;
+				}
+			}
+		}
 	}
 }

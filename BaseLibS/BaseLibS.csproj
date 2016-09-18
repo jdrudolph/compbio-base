@@ -95,6 +95,7 @@
     <Compile Include="Mol\AminoAcidLabel.cs" />
     <Compile Include="Mol\LabelModification.cs" />
     <Compile Include="Mol\Modification2.cs" />
+    <Compile Include="Mol\ProteinAnnotation.cs" />
     <Compile Include="Mol\SiteMotif.cs" />
     <Compile Include="Mol\TaxonomyItem.cs" />
     <Compile Include="Mol\TaxonomyItems.cs" />
