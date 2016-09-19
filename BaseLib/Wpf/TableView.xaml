@@ -16,7 +16,7 @@
             <wpf:ScrollableWindowsFormsHost x:Name="MainPanel"></wpf:ScrollableWindowsFormsHost>
         </Grid>
         <GridSplitter Grid.Row="1" Height="5" HorizontalAlignment="Stretch" />
-        <TextBox Grid.Row="2" x:Name="AuxTextBox" TextWrapping="Wrap" FontSize="12" IsReadOnly="True"></TextBox>
+        <TextBox Grid.Row="2" x:Name="AuxTextBox" TextWrapping="Wrap" FontSize="12" IsReadOnly="True" VerticalScrollBarVisibility="Auto"></TextBox>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
