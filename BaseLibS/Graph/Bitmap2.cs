@@ -66,6 +66,16 @@ namespace BaseLibS.Graph{
 			}
 		}
 
+		public void MirrorX(){
+			for (int j = 0; j < Height; j++){
+				for (int i = 0; i < Width/2; i++){
+					int p = GetPixel(i, j);
+					SetPixel(i, j, GetPixel(Width - 1 - i, j));
+					SetPixel(Width - 1 - i, j, p);
+				}
+			}
+		}
+
 		public Bitmap2 Transpose(){
 			Bitmap2 result = new Bitmap2(Height, Width);
 			for (int i = 0; i < Width; i++){

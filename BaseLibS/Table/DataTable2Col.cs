@@ -25,7 +25,7 @@ namespace BaseLibS.Table{
 				case ColumnType.Integer:{
 					int[] x = new int[data.Length];
 					for (int i = 0; i < x.Length; i++){
-						x[i] = data[i] != null ? (int) data[i]:int.MaxValue;
+						x[i] = data[i] != null ? (int) data[i] : int.MaxValue;
 					}
 					this.data = x;
 					break;
@@ -33,7 +33,7 @@ namespace BaseLibS.Table{
 				case ColumnType.Boolean:{
 					bool[] x = new bool[data.Length];
 					for (int i = 0; i < x.Length; i++){
-						x[i] = data[i] !=null && (bool) data[i];
+						x[i] = data[i] != null && (bool) data[i];
 					}
 					this.data = x;
 					break;
