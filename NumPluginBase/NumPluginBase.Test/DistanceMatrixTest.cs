@@ -18,6 +18,9 @@ namespace NumPluginBase.Test
             Assert.AreEqual(distanceMatrix[1,2], distanceMatrix[2,1]);
             Assert.AreEqual(1, distanceMatrix[1,0]);
             Assert.AreEqual(2, distanceMatrix[1,2]);
+
+            distanceMatrix[0, 1] = -1;
+            Assert.AreEqual(-1, distanceMatrix[0, 1]);
         }
     }
 }

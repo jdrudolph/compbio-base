@@ -9,6 +9,9 @@ namespace BaseLibS.Table{
 
 		public DataTable2Col(object[] data, ColumnType type){
 			this.type = type;
+			if (data == null){
+				return;
+			}
 			switch (type){
 				case ColumnType.Color:{
 					int[] x = new int[data.Length];
@@ -22,7 +25,7 @@ namespace BaseLibS.Table{
 				case ColumnType.Integer:{
 					int[] x = new int[data.Length];
 					for (int i = 0; i < x.Length; i++){
-						x[i] = (int) data[i];
+						x[i] = data[i] != null ? (int) data[i] : int.MaxValue;
 					}
 					this.data = x;
 					break;
@@ -30,7 +33,7 @@ namespace BaseLibS.Table{
 				case ColumnType.Boolean:{
 					bool[] x = new bool[data.Length];
 					for (int i = 0; i < x.Length; i++){
-						x[i] = (bool) data[i];
+						x[i] = data[i] != null && (bool) data[i];
 					}
 					this.data = x;
 					break;

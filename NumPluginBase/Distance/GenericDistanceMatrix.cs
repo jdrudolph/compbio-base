@@ -1,4 +1,5 @@
-﻿using BaseLibS.Api;
+﻿using System;
+using BaseLibS.Api;
 using BaseLibS.Num.Matrix;
 
 namespace NumPluginBase.Distance
@@ -13,7 +14,25 @@ namespace NumPluginBase.Distance
     {
 
         private readonly double[] _distances;
-        private readonly int n;
+        public int N { get; }
+
+        public double[] AsCondensed()
+        {
+            return _distances;
+        }
+
+        public double[,] AsQuadratic()
+        {
+            var distances = new double[N, N];
+            for (int i = 0; i < N; i++)
+            {
+                for (int j = 0; j < N; j++)
+                {
+                    distances[i, j] = this[i, j];
+                }
+            }
+            return distances;
+        }
 
         /// <summary>
         /// Create distance matrix from <see cref="IDistance"/>.
@@ -22,15 +41,43 @@ namespace NumPluginBase.Distance
         /// <param name="distance"></param>
         public GenericDistanceMatrix(MatrixIndexer data, IDistance distance)
         {
-            n = data.RowCount;
-            _distances = new double[n * (n - 1) / 2];
+            N = data.RowCount;
+            _distances = new double[N * (N - 1) / 2];
             int k = 0;
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < N; i++)
             {
                 var xi = data.GetRow(i);
-                for (int j = i+1; j < n; j++)
+                for (int j = i+1; j < N; j++)
                 {
                     _distances[k++] = distance.Get(xi, data.GetRow(j));
+                }
+            }
+        }
+
+        /// <summary>
+        /// Create distance matrix from a condensed distances array.
+        /// </summary>
+        /// <param name="distances"></param>
+        public GenericDistanceMatrix(double[] distances)
+        {
+            _distances = distances;
+            N = Convert.ToInt32(1.0 / 2.0 * (Math.Sqrt(8 * distances.Length + 1) + 1));
+        }
+
+        /// <summary>
+        /// Create distance matrix from a condensed distances array.
+        /// </summary>
+        /// <param name="distances"></param>
+        public GenericDistanceMatrix(double[,] distances)
+        {
+            N = distances.GetLength(0);
+            _distances = new double[N];
+            var k = 0;
+            for (int i = 1; i < N; i++)
+            {
+                for (int j = i+1; j < N; j++)
+                {
+                    _distances[k++] = distances[i, j];
                 }
             }
         }
@@ -50,12 +97,12 @@ namespace NumPluginBase.Distance
                     i = j;
                     j = tmp;
                 }
-                int k = (n*(n - 1)/2) - (n - i)*((n - i) - 1)/2 + j - i - 1;
+                int k = (N*(N - 1)/2) - (N - i)*((N - i) - 1)/2 + j - i - 1;
                 return _distances[k];
             }
             set
             {
-                int k = (n*(n - 1)/2) - (n - i)*((n - i) - 1)/2 + j - i - 1;
+                int k = (N*(N - 1)/2) - (N - i)*((N - i) - 1)/2 + j - i - 1;
                 _distances[k] = value;
             }
         }

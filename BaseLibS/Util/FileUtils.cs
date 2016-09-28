@@ -14,7 +14,7 @@ using BaseLibS.Num;
 namespace BaseLibS.Util{
 	public static class FileUtils{
 		public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
-		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa";
+		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa;*.fasta.gz;*.fas.gz;*.faa.gz;*.fa.gz";
 
 		public static string imageFilter =
 			"All files|*.bmp;*.gif;*.jpg;*jif;*jpe;*jpeg;*.png|BMP Windows or OS/2 Bitmap (*.bmp)|*.bmp|" +

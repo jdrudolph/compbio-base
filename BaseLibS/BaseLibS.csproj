@@ -95,6 +95,8 @@
     <Compile Include="Mol\AminoAcidLabel.cs" />
     <Compile Include="Mol\LabelModification.cs" />
     <Compile Include="Mol\Modification2.cs" />
+    <Compile Include="Mol\ProteinAnnotation.cs" />
+    <Compile Include="Mol\SiteMotif.cs" />
     <Compile Include="Mol\TaxonomyItem.cs" />
     <Compile Include="Mol\TaxonomyItems.cs" />
     <Compile Include="Mol\TaxonomyNameType.cs" />
@@ -233,6 +235,7 @@
     <Compile Include="Param\RegexReplaceParam.cs" />
     <Compile Include="Param\StringParam.cs" />
     <Compile Include="Parse\Misc\MiniProteinAnnotation.cs" />
+    <Compile Include="Parse\Misc\PhosphoSitePlusParser.cs" />
     <Compile Include="Parse\TabSep.cs" />
     <Compile Include="Parse\Uniprot\DbReferenceType.cs" />
     <Compile Include="Parse\Uniprot\FeatureType.cs" />
