@@ -11,9 +11,19 @@ namespace BaseLibS.Num.Vector{
 		public abstract double Dot(BaseVector vec);
 
 		/// <summary>
+		/// Multiplication with a scalar.
+		/// </summary>
+		public abstract BaseVector Mult(double d);
+
+		/// <summary>
 		/// Produces a deep copy of this vector.
 		/// </summary>
 		public abstract BaseVector Copy();
+
+		/// <summary>
+		/// Calculates this vector minus the other.
+		/// </summary>
+		public abstract BaseVector Minus(BaseVector other);
 
 		/// <summary>
 		/// Number of elements in this vector.

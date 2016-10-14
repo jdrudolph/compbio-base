@@ -10,7 +10,30 @@ namespace BaseLibS.Num.Vector{
 			this.values = values;
 		}
 
+		public override BaseVector Minus(BaseVector other){
+			if (other is DoubleArrayVector){
+				double[] result = new double[values.Length];
+				for (int i = 0; i < result.Length; i++){
+					result[i] = values[i] - other[i];
+				}
+				return new DoubleArrayVector(result);
+			}
+			float[] result1 = (float[]) values.Clone();
+			for (int i = 0; i < other.Length; i++){
+				result1[i] -= (float) other[i];
+			}
+			return new FloatArrayVector(result1);
+		}
+
 		public override int Length => values.Length;
+
+		public override BaseVector Mult(double d){
+			float[] result = (float[]) values.Clone();
+			for (int i = 0; i < result.Length; i++){
+				result[i] *= (float) d;
+			}
+			return new FloatArrayVector(result);
+		}
 
 		public override BaseVector Copy(){
 			float[] newValues = new float[Length];

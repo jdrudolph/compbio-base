@@ -5,8 +5,28 @@ namespace BaseLibS.Num.Vector{
 	[Serializable]
 	public class DoubleArrayVector : BaseVector{
 		internal double[] values;
-		public DoubleArrayVector(double[] values) { this.values = values; }
+
+		public DoubleArrayVector(double[] values){
+			this.values = values;
+		}
+
+		public override BaseVector Minus(BaseVector other){
+			double[] result = (double[]) values.Clone();
+			for (int i = 0; i < other.Length; i++){
+				result[i] -= other[i];
+			}
+			return new DoubleArrayVector(result);
+		}
+
 		public override int Length => values.Length;
+
+		public override BaseVector Mult(double d){
+			double[] result = (double[]) values.Clone();
+			for (int i = 0; i < result.Length; i++){
+				result[i] *= d;
+			}
+			return new DoubleArrayVector(result);
+		}
 
 		public override BaseVector Copy(){
 			float[] newValues = new float[Length];
@@ -20,35 +40,37 @@ namespace BaseLibS.Num.Vector{
 		}
 
 		public override double Dot(BaseVector y){
-			if ((y is SparseFloatVector)){
+			if (y is SparseFloatVector){
 				return SparseFloatVector.Dot(this, (SparseFloatVector) y);
 			}
-			if ((y is SparseBoolVector)){
+			if (y is SparseBoolVector){
 				return SparseBoolVector.Dot(this, (SparseBoolVector) y);
 			}
-			if ((y is FloatArrayVector)){
+			if (y is FloatArrayVector){
 				return FloatArrayVector.Dot((FloatArrayVector) y, this);
 			}
-			if ((y is BoolArrayVector)){
+			if (y is BoolArrayVector){
 				return BoolArrayVector.Dot((BoolArrayVector) y, this);
 			}
 			return Dot(this, (DoubleArrayVector) y);
 		}
 
 		public override double SumSquaredDiffs(BaseVector y){
-			if ((y is SparseFloatVector)){
+			if (y is SparseFloatVector){
 				return SparseFloatVector.SumSquaredDiffs(this, (SparseFloatVector) y);
 			}
-			if ((y is FloatArrayVector)){
+			if (y is FloatArrayVector){
 				return FloatArrayVector.SumSquaredDiffs((FloatArrayVector) y, this);
 			}
-			if ((y is BoolArrayVector)){
+			if (y is BoolArrayVector){
 				return BoolArrayVector.SumSquaredDiffs((BoolArrayVector) y, this);
 			}
 			return SumSquaredDiffs(this, (DoubleArrayVector) y);
 		}
 
-		public override BaseVector SubArray(IList<int> inds) { return new DoubleArrayVector(ArrayUtils.SubArray(values, inds)); }
+		public override BaseVector SubArray(IList<int> inds){
+			return new DoubleArrayVector(ArrayUtils.SubArray(values, inds));
+		}
 
 		public override IEnumerator<double> GetEnumerator(){
 			foreach (double foo in values){
@@ -82,9 +104,9 @@ namespace BaseLibS.Num.Vector{
 			return false;
 		}
 
-		public override bool IsNanOrInf() {
-			foreach (double value in values) {
-				if (!double.IsNaN(value) && !double.IsInfinity(value)) {
+		public override bool IsNanOrInf(){
+			foreach (double value in values){
+				if (!double.IsNaN(value) && !double.IsInfinity(value)){
 					return false;
 				}
 			}
