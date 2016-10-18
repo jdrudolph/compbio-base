@@ -26,6 +26,11 @@ namespace BaseLibS.Num.Vector{
 		public abstract BaseVector Minus(BaseVector other);
 
 		/// <summary>
+		/// Calculates this vector plus the other.
+		/// </summary>
+		public abstract BaseVector Plus(BaseVector other);
+
+		/// <summary>
 		/// Number of elements in this vector.
 		/// </summary>
 		public abstract int Length { get; }
@@ -56,6 +61,11 @@ namespace BaseLibS.Num.Vector{
 		public abstract bool IsNanOrInf();
 
 		/// <summary>
+		/// Unpack the vector elements sinto a double array.
+		/// </summary>
+		public abstract double[] Unpack();
+
+		/// <summary>
 		/// Performs tasks associated with freeing, releasing, or resetting resources.
 		/// </summary>
 		public abstract void Dispose();
@@ -64,7 +74,6 @@ namespace BaseLibS.Num.Vector{
 		/// Returns an enumerator that iterates through the collection.
 		/// </summary>
 		public abstract IEnumerator<double> GetEnumerator();
-
 
 		/// <summary>
 		/// Returns an enumerator that iterates through the collection.

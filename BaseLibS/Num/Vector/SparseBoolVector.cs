@@ -84,6 +84,60 @@ namespace BaseLibS.Num.Vector{
 			throw new Exception("Never get here.");
 		}
 
+		public override BaseVector Plus(BaseVector other){
+			if (other is DoubleArrayVector){
+				double[] result = new double[Length];
+				for (int i = 0; i < Length; i++){
+					if (this[i] == 1){
+						result[i] = 1;
+					}
+					result[i] += other[i];
+				}
+				return new DoubleArrayVector(result);
+			}
+			if (other is FloatArrayVector){
+				float[] result = new float[Length];
+				for (int i = 0; i < Length; i++){
+					if (this[i] == 1){
+						result[i] = 1;
+					}
+					result[i] += (float) other[i];
+				}
+				return new FloatArrayVector(result);
+			}
+			if (other is BoolArrayVector){
+				float[] result = new float[Length];
+				for (int i = 0; i < Length; i++){
+					if (this[i] == 1){
+						result[i] = 1;
+					}
+					result[i] += (float) other[i];
+				}
+				return new FloatArrayVector(result);
+			}
+			if (other is SparseFloatVector){
+				float[] result = new float[Length];
+				for (int i = 0; i < Length; i++){
+					if (this[i] == 1){
+						result[i] = 1;
+					}
+					result[i] += (float) other[i];
+				}
+				return new FloatArrayVector(result);
+			}
+			if (other is SparseBoolVector){
+				float[] result = new float[Length];
+				for (int i = 0; i < Length; i++){
+					if (this[i] == 1){
+						result[i] = 1;
+					}
+					result[i] += (float) other[i];
+				}
+				return new FloatArrayVector(result);
+			}
+			throw new Exception("Never get here.");
+		}
+
 		public override int Length => length;
 
 		public override BaseVector Mult(double d){
@@ -117,6 +171,10 @@ namespace BaseLibS.Num.Vector{
 
 		public override bool ContainsNaNOrInf(){
 			return false;
+		}
+
+		public override double[] Unpack(){
+			return ArrayUtils.ToDoubles(this);
 		}
 
 		public override void Dispose(){

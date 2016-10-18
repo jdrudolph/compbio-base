@@ -18,6 +18,14 @@ namespace BaseLibS.Num.Vector{
 			return new DoubleArrayVector(result);
 		}
 
+		public override BaseVector Plus(BaseVector other){
+			double[] result = (double[]) values.Clone();
+			for (int i = 0; i < other.Length; i++){
+				result[i] += other[i];
+			}
+			return new DoubleArrayVector(result);
+		}
+
 		public override int Length => values.Length;
 
 		public override BaseVector Mult(double d){
@@ -111,6 +119,10 @@ namespace BaseLibS.Num.Vector{
 				}
 			}
 			return true;
+		}
+
+		public override double[] Unpack(){
+			return values;
 		}
 
 		public override void Dispose(){
