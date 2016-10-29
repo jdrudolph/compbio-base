@@ -124,11 +124,47 @@
     <Compile Include="Param\RegexReplaceParamWpf.cs" />
     <Compile Include="Param\RegexMatchParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Query\DoubleQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\DoubleQueryForm.Designer.cs">
+      <DependentUpon>DoubleQueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\FolderQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\FolderQueryForm.Designer.cs">
+      <DependentUpon>FolderQueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\IntMinMaxQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\IntMinMaxQueryForm.Designer.cs">
+      <DependentUpon>IntMinMaxQueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\IntQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\IntQueryForm.Designer.cs">
+      <DependentUpon>IntQueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\SingleChoiceQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\SingleChoiceQueryForm.Designer.cs">
+      <DependentUpon>SingleChoiceQueryForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Query\StringQueryForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Query\StringQueryForm.Designer.cs">
       <DependentUpon>StringQueryForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Query\SymbolTypeQueryForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Query\SymbolTypeQueryForm.Designer.cs">
+      <DependentUpon>SymbolTypeQueryForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\Converters.cs" />
     <Compile Include="Wpf\Behaviors.cs" />

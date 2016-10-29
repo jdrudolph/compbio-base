@@ -40,16 +40,16 @@
 			// tableLayoutPanel1
 			// 
 			this.tableLayoutPanel1.ColumnCount = 1;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.42529F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 0, 1);
 			this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 0);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(289, 78);
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(289, 58);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// tableLayoutPanel2
@@ -61,11 +61,11 @@
 			this.tableLayoutPanel2.Controls.Add(this.cancelButton, 0, 0);
 			this.tableLayoutPanel2.Controls.Add(this.okButton, 2, 0);
 			this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 42);
+			this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 29);
 			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
 			this.tableLayoutPanel2.RowCount = 1;
 			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel2.Size = new System.Drawing.Size(283, 33);
+			this.tableLayoutPanel2.Size = new System.Drawing.Size(283, 26);
 			this.tableLayoutPanel2.TabIndex = 0;
 			// 
 			// cancelButton
@@ -74,7 +74,7 @@
 			this.cancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.cancelButton.Location = new System.Drawing.Point(3, 3);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(88, 27);
+			this.cancelButton.Size = new System.Drawing.Size(88, 20);
 			this.cancelButton.TabIndex = 0;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -84,7 +84,7 @@
 			this.okButton.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.okButton.Location = new System.Drawing.Point(191, 3);
 			this.okButton.Name = "okButton";
-			this.okButton.Size = new System.Drawing.Size(89, 27);
+			this.okButton.Size = new System.Drawing.Size(89, 20);
 			this.okButton.TabIndex = 1;
 			this.okButton.Text = "OK";
 			this.okButton.UseVisualStyleBackColor = true;
@@ -103,12 +103,12 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.cancelButton;
-			this.ClientSize = new System.Drawing.Size(289, 78);
+			this.ClientSize = new System.Drawing.Size(289, 58);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.MaximizeBox = false;
-			this.MaximumSize = new System.Drawing.Size(305, 117);
+			this.MaximumSize = new System.Drawing.Size(305, 97);
 			this.MinimizeBox = false;
-			this.MinimumSize = new System.Drawing.Size(305, 117);
+			this.MinimumSize = new System.Drawing.Size(305, 97);
 			this.Name = "StringQueryForm";
 			this.ShowIcon = false;
 			this.tableLayoutPanel1.ResumeLayout(false);
