@@ -230,14 +230,8 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Query\SymbolTypeQueryWindow.xaml.cs">
-      <DependentUpon>SymbolTypeQueryWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Query\FolderQueryWindow.xaml.cs">
       <DependentUpon>FolderQueryWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Query\IntMinMaxQueryWindow.xaml.cs">
-      <DependentUpon>IntMinMaxQueryWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Graphic\GraphUtils.cs" />
     <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
@@ -329,6 +323,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\IntMinMaxQueryForm.resx">
+      <DependentUpon>IntMinMaxQueryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Query\IntQueryForm.resx">
       <DependentUpon>IntQueryForm.cs</DependentUpon>
@@ -432,15 +429,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Query\SymbolTypeQueryWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Query\FolderQueryWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Query\IntMinMaxQueryWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
