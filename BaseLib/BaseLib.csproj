@@ -239,12 +239,6 @@
     <Compile Include="Query\IntMinMaxQueryWindow.xaml.cs">
       <DependentUpon>IntMinMaxQueryWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Query\DoubleQueryWindow.xaml.cs">
-      <DependentUpon>DoubleQueryWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Query\SingleChoiceQueryWindow.xaml.cs">
-      <DependentUpon>SingleChoiceQueryWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Graphic\GraphUtils.cs" />
     <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
       <DependentUpon>CheckedListBoxControl.xaml</DependentUpon>
@@ -291,9 +285,6 @@
     <Compile Include="Wpf\NumericUpDownControl.xaml.cs">
       <DependentUpon>NumericUpDownControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Query\IntQueryWindow.xaml.cs">
-      <DependentUpon>IntQueryWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
     <Compile Include="Wpf\TableView.xaml.cs">
       <DependentUpon>TableView.xaml</DependentUpon>
@@ -338,6 +329,12 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\IntQueryForm.resx">
+      <DependentUpon>IntQueryForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\SingleChoiceQueryForm.resx">
+      <DependentUpon>SingleChoiceQueryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Query\StringQueryForm.resx">
       <DependentUpon>StringQueryForm.cs</DependentUpon>
@@ -447,14 +444,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Query\DoubleQueryWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Query\SingleChoiceQueryWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Wpf\CheckedListBoxControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -508,10 +497,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\NumericUpDownControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Query\IntQueryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
