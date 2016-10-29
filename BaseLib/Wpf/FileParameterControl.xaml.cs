@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Windows;
-using BaseLib.Annotations;
 using Microsoft.Win32;
 
 namespace BaseLib.Wpf{
@@ -11,69 +9,62 @@ namespace BaseLib.Wpf{
 	public partial class FileParameterControl{
 		public FileParameterControl(string fileName, string filter, Func<string, string> processFileName, bool save){
 			InitializeComponent();
-            var vm = new FileParamterViewModel(fileName, filter, processFileName, save);
-		    DataContext = vm;
+			var vm = new FileParamterViewModel(fileName, filter, processFileName, save);
+			DataContext = vm;
 		}
 
-		private void ButtonClick(object sender, RoutedEventArgs e)
-		{
-		    var vm = (FileParamterViewModel) DataContext;
-            vm.ChooseFile();
+		private void ButtonClick(object sender, RoutedEventArgs e){
+			var vm = (FileParamterViewModel) DataContext;
+			vm.ChooseFile();
 			WpfUtils.SetOkFocus(this);
 		}
 	}
 
-    internal class FileParamterViewModel : ViewModelBase
-    {
-        internal FileParamterViewModel(string fileName, string filter, Func<string, string> processFileName, bool save)
-        {
-            FileName = fileName;
-            _filter = filter;
-            _processFileName = processFileName;
-            _save = save;
-            PropertyChanged += (sender, args) =>
-            {
-                var x = fileName;
-            };
-        }
-        private string _fileName;
-		public string FileName { get { return _fileName; } set { _fileName = value;
-                OnPropertyChanged(nameof(FileName)); } }
-        private string _filter;
-        private bool _save;
-        private Func<string, string> _processFileName;
+	internal class FileParamterViewModel : ViewModelBase{
+		internal FileParamterViewModel(string fileName, string filter, Func<string, string> processFileName, bool save){
+			FileName = fileName;
+			this.filter = filter;
+			this.processFileName = processFileName;
+			this.save = save;
+			PropertyChanged += (sender, args) => { var x = fileName; };
+		}
 
-        internal void ChooseFile()
-        {
-            if (_save)
-            {
-                SaveFileDialog ofd = new SaveFileDialog {FileName = FileName};
-                if (!string.IsNullOrEmpty(_filter))
-                {
-                    ofd.Filter = _filter;
-                }
-                if (ofd.ShowDialog() == true)
-                {
-                    FileName = ofd.FileName;
-                }
-            }
-            else
-            {
-                OpenFileDialog ofd = new OpenFileDialog();
-                if (!string.IsNullOrEmpty(_filter))
-                {
-                    ofd.Filter = _filter;
-                }
-                if (ofd.ShowDialog() == true)
-                {
-                    string s = ofd.FileName;
-                    if (_processFileName != null)
-                    {
-                        s = _processFileName(s);
-                    }
-                    FileName = s;
-                }
-            }
-        }
-    }
+		private string fileName;
+
+		public string FileName{
+			get { return fileName; }
+			set{
+				fileName = value;
+				OnPropertyChanged(nameof(FileName));
+			}
+		}
+
+		private readonly string filter;
+		private readonly bool save;
+		private readonly Func<string, string> processFileName;
+
+		internal void ChooseFile(){
+			if (save){
+				SaveFileDialog ofd = new SaveFileDialog{FileName = FileName};
+				if (!string.IsNullOrEmpty(filter)){
+					ofd.Filter = filter;
+				}
+				if (ofd.ShowDialog() == true){
+					FileName = ofd.FileName;
+				}
+			} else{
+				OpenFileDialog ofd = new OpenFileDialog();
+				if (!string.IsNullOrEmpty(filter)){
+					ofd.Filter = filter;
+				}
+				if (ofd.ShowDialog() == true){
+					string s = ofd.FileName;
+					if (processFileName != null){
+						s = processFileName(s);
+					}
+					FileName = s;
+				}
+			}
+		}
+	}
 }

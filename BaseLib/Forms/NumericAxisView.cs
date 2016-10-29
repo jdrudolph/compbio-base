@@ -270,7 +270,7 @@ namespace BaseLib.Forms{
 							pos = Math.Max(-2, pos);
 							pos = Math.Min(width - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
-								g.DrawString(s, numbersFont, brush, xm + pos + 1, ym + y0 - MajorTickLength - numbersFont.Height);
+								DrawString(g, s, numbersFont, brush, xm + pos + 1, ym + y0 - MajorTickLength - numbersFont.Height);
 								previousstringEnd = pos + Sign*w;
 							}
 						}
@@ -279,7 +279,7 @@ namespace BaseLib.Forms{
 							g.DrawLine(minorTicPen, xm + x0, ym + y0, xm + x0, ym + y0 - MinorTickLength);
 						}
 					}
-					g.DrawString(label, font, brush, xm + (width)/2 - (int) g.MeasureString(label, font).Width/2,
+					DrawString(g, label, font, brush, xm + (width)/2 - (int) g.MeasureString(label, font).Width/2,
 						ym + y0 - MajorTickLength - labelFont.Height - 12);
 					break;
 				case AxisPositioning.Left:
@@ -297,7 +297,7 @@ namespace BaseLib.Forms{
 							pos = Math.Min(height + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
 								g.RotateTransform(-90);
-								g.DrawString(s, numbersFont, brush, -pos - ym, xm + x0 - MajorTickLength - numbersFont.Height);
+								DrawString(g, s, numbersFont, brush, -pos - ym, xm + x0 - MajorTickLength - numbersFont.Height);
 								g.RotateTransform(90);
 								previousstringEnd = pos + Sign*w;
 							}
@@ -313,7 +313,7 @@ namespace BaseLib.Forms{
 					if (y < 0){
 						y = 0;
 					}
-					g.DrawString(label, font, brush, -ym + x, xm + y - 2);
+					DrawString(g, label, font, brush, -ym + x, xm + y - 2);
 					g.RotateTransform(90);
 					break;
 				case AxisPositioning.Bottom:
@@ -330,7 +330,7 @@ namespace BaseLib.Forms{
 							pos = Math.Max(-2, pos);
 							pos = Math.Min(width - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
-								g.DrawString(s, numbersFont, brush, xm + pos + 1, ym + y0 + 1 + MajorTickLength - 1);
+								DrawString(g, s, numbersFont, brush, xm + pos + 1, ym + y0 + 1 + MajorTickLength - 1);
 								previousstringEnd = pos + Sign*w;
 							}
 						}
@@ -339,7 +339,7 @@ namespace BaseLib.Forms{
 							g.DrawLine(minorTicPen, xm + x0, ym + y0, xm + x0, ym + y0 + MinorTickLength);
 						}
 					}
-					g.DrawString(label, font, brush, xm + (width)/2 - (int) g.MeasureString(label, font).Width/2,
+					DrawString(g, label, font, brush, xm + (width)/2 - (int) g.MeasureString(label, font).Width/2,
 						ym + y0 + MajorTickLength + 12);
 					break;
 				case AxisPositioning.Right:
@@ -357,7 +357,7 @@ namespace BaseLib.Forms{
 							pos = Math.Min(height - w + 2, pos);
 							if (Sign*pos > Sign*previousstringEnd){
 								g.RotateTransform(90);
-								g.DrawString(s, numbersFont, brush, ym + pos + 1, -xm - MajorTickLength - numbersFont.Height*0.99f);
+								DrawString(g, s, numbersFont, brush, ym + pos + 1, -xm - MajorTickLength - numbersFont.Height*0.99f);
 								g.RotateTransform(-90);
 								previousstringEnd = pos + Sign*w;
 							}
@@ -368,11 +368,17 @@ namespace BaseLib.Forms{
 						}
 					}
 					g.RotateTransform(90);
-					g.DrawString(label, font, brush, ym + height/2 - (int) g.MeasureString(label, font).Width/2,
+					DrawString(g, label, font, brush, ym + height/2 - (int) g.MeasureString(label, font).Width/2,
 						-xm - MajorTickLength - numbersFont.Height - labelFont.Height - 3);
 					g.RotateTransform(-90);
 					break;
 			}
+		}
+
+		private static void DrawString(IGraphics g, string s, Font2 font, Brush2 brush, float x, float y){
+			try{
+				g.DrawString(s, font, brush, x, y);
+			} catch (Exception){}
 		}
 
 		public void SetZoomFromView(int minInd, int maxInd, int length){
