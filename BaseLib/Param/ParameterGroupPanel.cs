@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms.Integration;
 using BaseLib.Wpf;
 using BaseLibS.Param;
 using BaseLibS.Util;
@@ -56,7 +57,16 @@ namespace BaseLib.Param{
 			}
 			Grid.SetColumn(txt1, 0);
 			Grid.SetRow(txt1, i);
-			UIElement c = (UIElement) p.CreateControl() ?? new Control();
+			object o = p.CreateControl();
+			UIElement c = null;
+			if (o == null){
+				c = new Control();
+			} else if (o is UIElement){
+				c = (UIElement) o;
+			} else if (o is System.Windows.Forms.Control){
+				System.Windows.Forms.Control x = (System.Windows.Forms.Control) o;
+				c = new WindowsFormsHost{Child = x};
+			}
 			Grid.SetColumn(c, 1);
 			Grid.SetRow(c, i);
 			grid.Children.Add(txt1);

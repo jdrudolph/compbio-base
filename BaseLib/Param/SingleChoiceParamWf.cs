@@ -1,14 +1,14 @@
 using System;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	//TODO: should be internal
 	[Serializable]
-	public class SingleChoiceParamWpf : SingleChoiceParam{
+	public class SingleChoiceParamWf : SingleChoiceParam{
 		[NonSerialized] private ComboBox control;
-		public SingleChoiceParamWpf(string name) : base(name){}
-		public SingleChoiceParamWpf(string name, int value) : base(name, value){}
+		public SingleChoiceParamWf(string name) : base(name){}
+		public SingleChoiceParamWf(string name, int value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
@@ -41,8 +41,8 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			ComboBox cb = new ComboBox();
-			cb.SelectionChanged += (sender, e) =>{
+			ComboBox cb = new ComboBox{DropDownStyle = ComboBoxStyle.DropDownList};
+			cb.SelectedIndexChanged += (sender, e) =>{
 				SetValueFromControl();
 				ValueHasChanged();
 			};

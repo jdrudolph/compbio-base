@@ -40,7 +40,7 @@ namespace BaseLib.Param{
 			}
 			if (p is BoolParam){
 				BoolParam q = (BoolParam) p;
-				BoolParamWpf b = new BoolParamWpf(q.Name, q.Value){
+				BoolParamWf b = new BoolParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -85,7 +85,7 @@ namespace BaseLib.Param{
 			}
 			if (p is DoubleParam){
 				DoubleParam q = (DoubleParam) p;
-				DoubleParamWpf b = new DoubleParamWpf(q.Name, q.Value){
+				DoubleParamWf b = new DoubleParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -127,7 +127,7 @@ namespace BaseLib.Param{
 			}
 			if (p is IntParam){
 				IntParam q = (IntParam) p;
-				IntParamWpf b = new IntParamWpf(q.Name, q.Value){
+				IntParamWf b = new IntParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -140,7 +140,7 @@ namespace BaseLib.Param{
 			}
 			if (p is LabelParam){
 				LabelParam q = (LabelParam) p;
-				LabelParamWpf b = new LabelParamWpf(q.Name, q.Value){
+				LabelParamWf b = new LabelParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -212,7 +212,7 @@ namespace BaseLib.Param{
 			}
 			if (p is SingleChoiceParam){
 				SingleChoiceParam q = (SingleChoiceParam) p;
-				SingleChoiceParamWpf b = new SingleChoiceParamWpf(q.Name, q.Value){
+				SingleChoiceParamWf b = new SingleChoiceParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,
@@ -249,7 +249,7 @@ namespace BaseLib.Param{
 			}
 			if (p is StringParam){
 				StringParam q = (StringParam) p;
-				StringParamWpf b = new StringParamWpf(q.Name, q.Value){
+				StringParamWf b = new StringParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,

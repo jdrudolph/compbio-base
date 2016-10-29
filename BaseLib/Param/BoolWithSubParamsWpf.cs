@@ -35,8 +35,8 @@ namespace BaseLib.Param{
 		public override object CreateControl(){
 			ParameterPanel panelFalse = new ParameterPanel();
 			ParameterPanel panelTrue = new ParameterPanel();
-			panelFalse.Init(SubParamsFalse, ParamNameWidth, (int) (TotalWidth));
-			panelTrue.Init(SubParamsTrue, ParamNameWidth, (int) (TotalWidth));
+			panelFalse.Init(SubParamsFalse, ParamNameWidth, (int) TotalWidth);
+			panelTrue.Init(SubParamsTrue, ParamNameWidth, (int) TotalWidth);
 			CheckBox cb = new CheckBox{IsChecked = Value};
 			cb.Checked += (sender, e) => ValueHasChanged();
 			cb.Unchecked += (sender, e) => ValueHasChanged();

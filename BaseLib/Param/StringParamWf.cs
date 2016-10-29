@@ -1,13 +1,13 @@
 using System;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class StringParamWpf : StringParam{
+	internal class StringParamWf : StringParam{
 		[NonSerialized] private TextBox control;
-		internal StringParamWpf(string name) : base(name){}
-		internal StringParamWpf(string name, string value) : base(name, value){}
+		internal StringParamWf(string name) : base(name){}
+		internal StringParamWf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			return control = new TextBox{Text = Value};
+			return control = new TextBox {Text = Value};
 		}
 	}
 }

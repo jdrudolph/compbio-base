@@ -1,19 +1,20 @@
 using System;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class DoubleParamWpf : DoubleParam{
+	internal class IntParamWf : IntParam{
 		[NonSerialized] private TextBox control;
-		internal DoubleParamWpf(string name, double value) : base(name, value){}
+		internal IntParamWf(string name, int value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
 
 		public override void SetValueFromControl(){
-			double val;
-			bool success = double.TryParse(control.Text, out val);
-			val = success ? val : double.NaN;
-			Value = val;
+			int val;
+			bool s = int.TryParse(control.Text, out val);
+			if (s){
+				Value = val;
+			}
 		}
 
 		public override void UpdateControlFromValue(){
