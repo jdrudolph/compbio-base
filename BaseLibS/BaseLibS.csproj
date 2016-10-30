@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BaseLibS</RootNamespace>
     <AssemblyName>BaseLibS</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -21,6 +21,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Api\ClassificationModel.cs" />
@@ -48,6 +51,76 @@
     <Compile Include="Graph\Base\BasicView.cs" />
     <Compile Include="Graph\Base\GridType.cs" />
     <Compile Include="Graph\Bitmap2Graphics.cs" />
+    <Compile Include="Graph\Image\Bootstrapper.cs" />
+    <Compile Include="Graph\Image\ColorPixelAccessor.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpBitsPerPixel.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpCompression.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpDecoder.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpDecoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpEncoder.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpEncoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpFileHeader.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpFormat.cs" />
+    <Compile Include="Graph\Image\Formats\Bmp\BmpInfoHeader.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\DisposalMethod.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\GifConstants.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\GifDecoder.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\GifDecoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\GifEncoder.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\GifEncoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\GifFormat.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\LzwDecoder.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\LzwEncoder.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\PackedField.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\Sections\GifGraphicsControlExtension.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\Sections\GifImageDescriptor.cs" />
+    <Compile Include="Graph\Image\Formats\Gif\Sections\GifLogicalScreenDescriptor.cs" />
+    <Compile Include="Graph\Image\Formats\IImageDecoder.cs" />
+    <Compile Include="Graph\Image\Formats\IImageEncoder.cs" />
+    <Compile Include="Graph\Image\Formats\IImageFormat.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\Block.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\FDCT.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\IDCT.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\JpegConstants.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\JpegDecoder.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\JpegDecoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\JpegEncoder.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\JpegEncoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\JpegFormat.cs" />
+    <Compile Include="Graph\Image\Formats\Jpg\JpegSubsample.cs" />
+    <Compile Include="Graph\Image\Formats\Png\GrayscaleReader.cs" />
+    <Compile Include="Graph\Image\Formats\Png\IColorReader.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PaletteIndexReader.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngChunk.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngChunkTypes.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngColorTypeInformation.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngDecoder.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngDecoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngEncoder.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngEncoderCore.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngFormat.cs" />
+    <Compile Include="Graph\Image\Formats\Png\PngHeader.cs" />
+    <Compile Include="Graph\Image\Formats\Png\TrueColorReader.cs" />
+    <Compile Include="Graph\Image\Formats\Png\Zlib\Adler32.cs" />
+    <Compile Include="Graph\Image\Formats\Png\Zlib\Crc32.cs" />
+    <Compile Include="Graph\Image\Formats\Png\Zlib\IChecksum.cs" />
+    <Compile Include="Graph\Image\Formats\Png\Zlib\ZlibDeflateStream.cs" />
+    <Compile Include="Graph\Image\Formats\Png\Zlib\ZlibInflateStream.cs" />
+    <Compile Include="Graph\Image\IImageBase.cs" />
+    <Compile Include="Graph\Image\Image2.cs" />
+    <Compile Include="Graph\Image\ImageBase.cs" />
+    <Compile Include="Graph\Image\ImageFrame.cs" />
+    <Compile Include="Graph\Image\ImageProperty.cs" />
+    <Compile Include="Graph\Image\IPixelAccessor.cs" />
+    <Compile Include="Graph\Image\Quantizers\Box.cs" />
+    <Compile Include="Graph\Image\Quantizers\IQuantizer.cs" />
+    <Compile Include="Graph\Image\Quantizers\OctreeQuantizer.cs" />
+    <Compile Include="Graph\Image\Quantizers\PaletteQuantizer.cs" />
+    <Compile Include="Graph\Image\Quantizers\Quantization.cs" />
+    <Compile Include="Graph\Image\Quantizers\Quantize.cs" />
+    <Compile Include="Graph\Image\Quantizers\QuantizedImage.cs" />
+    <Compile Include="Graph\Image\Quantizers\Quantizer.cs" />
+    <Compile Include="Graph\Image\Quantizers\WuQuantizer.cs" />
     <Compile Include="Graph\NavigatorData.cs" />
     <Compile Include="Graph\ScaledGraphics.cs" />
     <Compile Include="Graph\BasicMouseEventArgs.cs" />
