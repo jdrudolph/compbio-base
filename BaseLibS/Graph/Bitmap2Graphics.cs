@@ -16,7 +16,12 @@
 			throw new System.NotImplementedException();
 		}
 
-		public void SetClippingMask(float width, float height, float x, float y){
+	    public void ScaleTransform(float sx, float sy)
+	    {
+	        throw new System.NotImplementedException();
+	    }
+
+	    public void SetClippingMask(float width, float height, float x, float y){
 			throw new System.NotImplementedException();
 		}
 
