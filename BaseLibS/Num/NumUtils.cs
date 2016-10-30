@@ -1357,5 +1357,12 @@ namespace BaseLibS.Num{
 			}
 			return x;
 		}
+
+		public static int Clamp(int value, int min, int max){
+			if (value > max){
+				return max;
+			}
+			return value < min ? min : value;
+		}
 	}
 }

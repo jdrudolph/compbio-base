@@ -234,6 +234,11 @@
     <Compile Include="Param\SingleChoiceWithSubParams.cs" />
     <Compile Include="Param\RegexReplaceParam.cs" />
     <Compile Include="Param\StringParam.cs" />
+    <Compile Include="Parse\Endian\BigEndianBitConverter.cs" />
+    <Compile Include="Parse\Endian\EndianBinaryReader.cs" />
+    <Compile Include="Parse\Endian\EndianBinaryWriter.cs" />
+    <Compile Include="Parse\Endian\EndianBitConverter.cs" />
+    <Compile Include="Parse\Endian\LittleEndianBitConverter.cs" />
     <Compile Include="Parse\Misc\MiniProteinAnnotation.cs" />
     <Compile Include="Parse\Misc\PhosphoSitePlusParser.cs" />
     <Compile Include="Parse\TabSep.cs" />
