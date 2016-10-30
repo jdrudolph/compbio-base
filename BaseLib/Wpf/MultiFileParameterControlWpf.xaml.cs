@@ -9,8 +9,8 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for MultiFileParameterControl.xaml
 	/// </summary>
-	public partial class MultiFileParameterControl{
-		public MultiFileParameterControl(){
+	public partial class MultiFileParameterControlWpf{
+		public MultiFileParameterControlWpf(){
 			InitializeComponent();
 		}
 

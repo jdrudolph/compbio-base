@@ -39,9 +39,9 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			ParameterPanel[] panels = new ParameterPanel[SubParams.Count];
+			ParameterPanelWpf[] panels = new ParameterPanelWpf[SubParams.Count];
 			for (int i = 0; i < panels.Length; i++){
-				panels[i] = new ParameterPanel();
+				panels[i] = new ParameterPanelWpf();
 				panels[i].Init(SubParams[i], ParamNameWidth, (int) TotalWidth);
 			}
 			ComboBox cb = new ComboBox();

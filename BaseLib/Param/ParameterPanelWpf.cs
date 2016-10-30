@@ -3,14 +3,14 @@ using System.Windows.Controls;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
-	public class ParameterPanel : UserControl{
+	public class ParameterPanelWpf : UserControl{
 		public Parameters Parameters { get; private set; }
 		private Grid grid;
 		public bool Collapsible { get; set; }
 		public bool CollapsedDefault { get; set; }
-		private ParameterGroupPanel[] parameterGroupPanels;
+		private ParameterGroupPanelWpf[] parameterGroupPanels;
 
-		public ParameterPanel(){
+		public ParameterPanelWpf(){
 			Collapsible = true;
 		}
 
@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 			Parameters = parameters1;
 			Parameters.Convert(WpfParameterFactory.Convert);
 			int nrows = Parameters.GroupCount;
-			parameterGroupPanels = new ParameterGroupPanel[nrows];
+			parameterGroupPanels = new ParameterGroupPanelWpf[nrows];
 			grid = new Grid();
 			grid.ColumnDefinitions.Clear();
 			grid.ColumnDefinitions.Add(new ColumnDefinition());
@@ -55,7 +55,7 @@ namespace BaseLib.Param{
 		}
 
 		private void AddParameterGroup(ParameterGroup p, int i, float paramNameWidth, int totalWidth){
-			ParameterGroupPanel pgp = new ParameterGroupPanel();
+			ParameterGroupPanelWpf pgp = new ParameterGroupPanelWpf();
 			parameterGroupPanels[i] = pgp;
 			pgp.Init(p, paramNameWidth, totalWidth);
 			if (p.Name == null){
@@ -71,19 +71,19 @@ namespace BaseLib.Param{
 		}
 
 		public void RegisterScrollViewer(ScrollViewer scrollViewer){
-			foreach (ParameterGroupPanel panel in parameterGroupPanels){
+			foreach (ParameterGroupPanelWpf panel in parameterGroupPanels){
 				panel.RegisterScrollViewer(scrollViewer);
 			}
 		}
 
 		public void Disable(){
-			foreach (ParameterGroupPanel parameterGroupPanel in parameterGroupPanels){
+			foreach (ParameterGroupPanelWpf parameterGroupPanel in parameterGroupPanels){
 				parameterGroupPanel.Disable();
 			}
 		}
 
 		public void Enable(){
-			foreach (ParameterGroupPanel parameterGroupPanel in parameterGroupPanels){
+			foreach (ParameterGroupPanelWpf parameterGroupPanel in parameterGroupPanels){
 				parameterGroupPanel.Enable();
 			}
 		}

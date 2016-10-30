@@ -5,8 +5,8 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for FolderParameterControl.xaml
 	/// </summary>
-	public partial class FolderParameterControl{
-		public FolderParameterControl(){
+	public partial class FolderParameterControlWpf{
+		public FolderParameterControlWpf(){
 			InitializeComponent();
 		}
 

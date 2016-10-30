@@ -5,7 +5,7 @@ using BaseLibS.Param;
 namespace BaseLib.Param{
 	[Serializable]
 	internal class MultiFileParamWpf : MultiFileParam{
-		[NonSerialized] private MultiFileParameterControl control;
+		[NonSerialized] private MultiFileParameterControlWpf control;
 		internal MultiFileParamWpf(string name) : base(name){}
 		internal MultiFileParamWpf(string name, string[] value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			return control = new MultiFileParameterControl{Filter = Filter, Filenames = Value};
+			return control = new MultiFileParameterControlWpf{Filter = Filter, Filenames = Value};
 		}
 	}
 }

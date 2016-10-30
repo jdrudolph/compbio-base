@@ -10,9 +10,9 @@ namespace BaseLib.Wpf{
 	/// Interaction logic for FilterWindow.xaml
 	/// </summary>
 	public partial class FilterWindow{
-		private readonly SubSelectionControl subSelectionControl;
+		private readonly SubSelectionControlWpf subSelectionControl;
 
-		public FilterWindow(SubSelectionControl subSelectionControl){
+		public FilterWindow(SubSelectionControlWpf subSelectionControl){
 			InitializeComponent();
 			this.subSelectionControl = subSelectionControl;
 			I1.Source = WpfUtils.LoadBitmap(Properties.Resources.plus1);
@@ -36,7 +36,7 @@ namespace BaseLib.Wpf{
 				g.RowDefinitions.Add(new RowDefinition{Height = new GridLength(100, GridUnitType.Auto)});
 			}
 			for (int i = 0; i < subSelectionControl.parameters.Count; i++){
-				ParameterPanel tb = new ParameterPanel{Background = new SolidColorBrush(Colors.Linen)};
+				ParameterPanelWpf tb = new ParameterPanelWpf{Background = new SolidColorBrush(Colors.Linen)};
 				tb.Init(subSelectionControl.parameters[i]);
 				tb.Margin = new Thickness(2);
 				Grid.SetRow(tb, i);

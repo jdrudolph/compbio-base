@@ -8,7 +8,7 @@ namespace BaseLib.Wpf{
 	public partial class TableViewSelectionAgentWindow{
 		public TableViewSelectionAgentWindow(ITableModel tableModel){
 			InitializeComponent();
-			foreach (ITableSelectionAgent agent in TableView.selectionAgents){
+			foreach (ITableSelectionAgent agent in TableViewWpf.selectionAgents){
 				SourceBox.Items.Add(agent.Title);
 			}
 			for (int i = 0; i < tableModel.ColumnCount; i++){

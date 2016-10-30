@@ -13,13 +13,13 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for ListSelectorControl.xaml
 	/// </summary>
-	public partial class ListSelectorControl{
+	public partial class ListSelectorControlWpf{
 		public event EventHandler SelectionChanged;
 		private Thread downThread;
 		private Thread upThread;
 		private bool repeats;
 
-		public ListSelectorControl(){
+		public ListSelectorControlWpf(){
 			InitializeComponent();
 			H1.Source = WpfUtils.LoadBitmap(Properties.Resources.top);
 			H2.Source = WpfUtils.LoadBitmap(Properties.Resources.up);

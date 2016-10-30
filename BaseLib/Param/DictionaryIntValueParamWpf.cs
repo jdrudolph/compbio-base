@@ -6,7 +6,7 @@ using BaseLibS.Param;
 namespace BaseLib.Param{
 	[Serializable]
 	internal class DictionaryIntValueParamWpf : DictionaryIntValueParam{
-		[NonSerialized] private DictionaryIntValueControl control;
+		[NonSerialized] private DictionaryIntValueControlWpf control;
 		internal DictionaryIntValueParamWpf(string name, Dictionary<string, int> value, string[] keys) : base(name, value, keys){}
 		public override ParamType Type => ParamType.Wpf;
 
@@ -32,7 +32,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			return control = new DictionaryIntValueControl{Value = Value, Keys = Keys, Default = DefaultValue};
+			return control = new DictionaryIntValueControlWpf{Value = Value, Keys = Keys, Default = DefaultValue};
 		}
 	}
 }

@@ -120,7 +120,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Graphic\ExportGraphics.cs" />
-    <Compile Include="Param\ParameterGroupPanel.cs" />
+    <Compile Include="Param\ParameterGroupPanelWpf.cs" />
     <Compile Include="Param\RegexReplaceParamWpf.cs" />
     <Compile Include="Param\RegexMatchParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />
@@ -209,7 +209,7 @@
     <Compile Include="Param\MultiChoiceParamWpf.cs" />
     <Compile Include="Param\MultiFileParamWpf.cs" />
     <Compile Include="Param\MultiStringParamWpf.cs" />
-    <Compile Include="Param\ParameterPanel.cs" />
+    <Compile Include="Param\ParameterPanelWpf.cs" />
     <Compile Include="Param\ParameterWindow.xaml.cs">
       <DependentUpon>ParameterWindow.xaml</DependentUpon>
     </Compile>
@@ -231,38 +231,38 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Graphic\GraphUtils.cs" />
-    <Compile Include="Wpf\CheckedListBoxControl.xaml.cs">
-      <DependentUpon>CheckedListBoxControl.xaml</DependentUpon>
+    <Compile Include="Wpf\CheckedListBoxControlWpf.xaml.cs">
+      <DependentUpon>CheckedListBoxControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\CommonCommands.cs" />
-    <Compile Include="Wpf\DictionaryIntValueControl.xaml.cs">
-      <DependentUpon>DictionaryIntValueControl.xaml</DependentUpon>
+    <Compile Include="Wpf\DictionaryIntValueControlWpf.xaml.cs">
+      <DependentUpon>DictionaryIntValueControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\DictionaryIntValuePopup.xaml.cs">
       <DependentUpon>DictionaryIntValuePopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\FileParameterControl.xaml.cs">
-      <DependentUpon>FileParameterControl.xaml</DependentUpon>
+    <Compile Include="Wpf\FileParameterControlWpf.xaml.cs">
+      <DependentUpon>FileParameterControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\FilterWindow.xaml.cs">
       <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\FolderParameterControl.xaml.cs">
-      <DependentUpon>FolderParameterControl.xaml</DependentUpon>
+    <Compile Include="Wpf\FolderParameterControlWpf.xaml.cs">
+      <DependentUpon>FolderParameterControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\IScrollRegistrationTarget.cs" />
     <Compile Include="Wpf\ListBoxSelector.cs" />
-    <Compile Include="Wpf\ListSelectorControl.xaml.cs">
-      <DependentUpon>ListSelectorControl.xaml</DependentUpon>
+    <Compile Include="Wpf\ListSelectorControlWpf.xaml.cs">
+      <DependentUpon>ListSelectorControlWpf.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Ms1LabelPanel.xaml.cs">
-      <DependentUpon>Ms1LabelPanel.xaml</DependentUpon>
+    <Compile Include="Wpf\Ms1LabelPanelWpf.xaml.cs">
+      <DependentUpon>Ms1LabelPanelWpf.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\MultiFileParameterControl.xaml.cs">
-      <DependentUpon>MultiFileParameterControl.xaml</DependentUpon>
+    <Compile Include="Wpf\MultiFileParameterControlWpf.xaml.cs">
+      <DependentUpon>MultiFileParameterControlWpf.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\MultiListSelectorControl.xaml.cs">
-      <DependentUpon>MultiListSelectorControl.xaml</DependentUpon>
+    <Compile Include="Wpf\MultiListSelectorControlWpf.xaml.cs">
+      <DependentUpon>MultiListSelectorControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\RegexMatchParamControl.xaml.cs">
       <DependentUpon>RegexMatchParamControl.xaml</DependentUpon>
@@ -270,15 +270,15 @@
     <Compile Include="Wpf\RegexReplaceParamControl.xaml.cs">
       <DependentUpon>RegexReplaceParamControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\SubSelectionControl.xaml.cs">
-      <DependentUpon>SubSelectionControl.xaml</DependentUpon>
+    <Compile Include="Wpf\SubSelectionControlWpf.xaml.cs">
+      <DependentUpon>SubSelectionControlWpf.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\NumericUpDownControl.xaml.cs">
-      <DependentUpon>NumericUpDownControl.xaml</DependentUpon>
+    <Compile Include="Wpf\NumericUpDownControlWpf.xaml.cs">
+      <DependentUpon>NumericUpDownControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
-    <Compile Include="Wpf\TableView.xaml.cs">
-      <DependentUpon>TableView.xaml</DependentUpon>
+    <Compile Include="Wpf\TableViewWpf.xaml.cs">
+      <DependentUpon>TableViewWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\TableViewSelectionAgentWindow.xaml.cs">
       <DependentUpon>TableViewSelectionAgentWindow.xaml</DependentUpon>
@@ -429,11 +429,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\CheckedListBoxControl.xaml">
+    <Page Include="Wpf\CheckedListBoxControlWpf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\DictionaryIntValueControl.xaml">
+    <Page Include="Wpf\DictionaryIntValueControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -441,7 +441,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\FileParameterControl.xaml">
+    <Page Include="Wpf\FileParameterControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -449,23 +449,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\FolderParameterControl.xaml">
+    <Page Include="Wpf\FolderParameterControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\ListSelectorControl.xaml">
+    <Page Include="Wpf\ListSelectorControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\Ms1LabelPanel.xaml">
+    <Page Include="Wpf\Ms1LabelPanelWpf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\MultiFileParameterControl.xaml">
+    <Page Include="Wpf\MultiFileParameterControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Wpf\MultiListSelectorControl.xaml">
+    <Page Include="Wpf\MultiListSelectorControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -477,15 +477,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\SubSelectionControl.xaml">
+    <Page Include="Wpf\SubSelectionControlWpf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\NumericUpDownControl.xaml">
+    <Page Include="Wpf\NumericUpDownControlWpf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\TableView.xaml">
+    <Page Include="Wpf\TableViewWpf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

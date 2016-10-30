@@ -6,8 +6,8 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for FileParameterControl.xaml
 	/// </summary>
-	public partial class FileParameterControl{
-		public FileParameterControl(string fileName, string filter, Func<string, string> processFileName, bool save){
+	public partial class FileParameterControlWpf{
+		public FileParameterControlWpf(string fileName, string filter, Func<string, string> processFileName, bool save){
 			InitializeComponent();
 			var vm = new FileParamterViewModel(fileName, filter, processFileName, save);
 			DataContext = vm;

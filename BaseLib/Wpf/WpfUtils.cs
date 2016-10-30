@@ -181,7 +181,7 @@ namespace BaseLib.Wpf{
 			return LoadBitmap(Properties.Resources.rotate);
 		}
 
-		public static void SelectExact(ICollection<string> colNames, IList<string> colTypes, MultiListSelectorControl mls){
+		public static void SelectExact(ICollection<string> colNames, IList<string> colTypes, MultiListSelectorControlWpf mls){
 			for (int i = 0; i < colNames.Count; i++){
 				switch (colTypes[i]){
 					case "E":
@@ -203,7 +203,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public static void SelectHeuristic(IList<string> colNames, MultiListSelectorControl mls){
+		public static void SelectHeuristic(IList<string> colNames, MultiListSelectorControlWpf mls){
 			char guessedType = GuessSilacType(colNames);
 			for (int i = 0; i < colNames.Count; i++){
 				if (categoricalColDefaultNames.Contains(colNames[i].ToLower())){

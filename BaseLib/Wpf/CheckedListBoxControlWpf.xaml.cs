@@ -8,8 +8,8 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for CheckedListBoxControl.xaml
 	/// </summary>
-	public partial class CheckedListBoxControl{
-		public CheckedListBoxControl() { InitializeComponent(); }
+	public partial class CheckedListBoxControlWpf{
+		public CheckedListBoxControlWpf() { InitializeComponent(); }
 		public event EventHandler<ItemCheckEventArgs> ItemCheck;
 
 		public void Add(string text){

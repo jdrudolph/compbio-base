@@ -5,7 +5,7 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for NumericUpDownControl.xaml
 	/// </summary>
-	public partial class NumericUpDownControl {
+	public partial class NumericUpDownControlWpf {
 		public event RoutedEventHandler ValueChanged;
 		private decimal minimum;
 		private decimal maximum;
@@ -24,7 +24,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public NumericUpDownControl(){
+		public NumericUpDownControlWpf(){
 			InitializeComponent();
 		}
 

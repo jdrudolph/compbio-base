@@ -12,7 +12,7 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for Ms1LabelPanel.xaml
 	/// </summary>
-	public partial class Ms1LabelPanel{
+	public partial class Ms1LabelPanelWpf{
 		/// <summary>
 		/// Number of label states. Set by input argument to constructor.
 		/// </summary>
@@ -28,7 +28,7 @@ namespace BaseLib.Wpf{
 		/// each containing the full list of labels given as an argument to the constructor.
 		/// Set by InitializeComponent1(), called by constructor.
 		/// </summary>
-		private CheckedListBoxControl[] labelsListBoxes;
+		private CheckedListBoxControlWpf[] labelsListBoxes;
 
 		/// <summary>
 		/// Display names of the label states, e.g., "Light labels" and "Heavy labels". 
@@ -42,14 +42,14 @@ namespace BaseLib.Wpf{
 		/// </summary>
 		private readonly string[] labels;
 
-		public Ms1LabelPanel(int n, string[] labels){
+		public Ms1LabelPanelWpf(int n, string[] labels){
 			InitializeComponent();
 			this.n = n;
 			this.labels = labels;
 			InitializeComponent1();
 			LabelModification[] x = ToLabelMods(labels);
 			deselectionMap = CreateDeselectionMap(x);
-			foreach (CheckedListBoxControl box in labelsListBoxes.Where(box => box != null)){
+			foreach (CheckedListBoxControlWpf box in labelsListBoxes.Where(box => box != null)){
 				box.ItemCheck += LabelsListBoxItemCheck;
 			}
 		}
@@ -72,10 +72,10 @@ namespace BaseLib.Wpf{
 		/// Sets textLabels and labelsListBoxes.
 		/// </summary>
 		private void InitializeComponent1(){
-			labelsListBoxes = new CheckedListBoxControl[n];
+			labelsListBoxes = new CheckedListBoxControlWpf[n];
 			textLabels = new TextBlock[n];
 			for (int i = 0; i < n; i++){
-				labelsListBoxes[i] = new CheckedListBoxControl();
+				labelsListBoxes[i] = new CheckedListBoxControlWpf();
 				foreach (string label in labels){
 					labelsListBoxes[i].Add(label);
 				}
@@ -146,7 +146,7 @@ namespace BaseLib.Wpf{
 			return LabelsFromBox(labelsListBoxes[ind]);
 		}
 
-		private static string[] LabelsFromBox(CheckedListBoxControl box){
+		private static string[] LabelsFromBox(CheckedListBoxControlWpf box){
 			List<string> result = new List<string>();
 			foreach (string x in box.CheckedItems){
 				LabelModification sl = LabelModification.GetLabelByName(x);
@@ -160,7 +160,7 @@ namespace BaseLib.Wpf{
 
 		public void SetLabels(LabelModification[] sls){
 			deselectionMap = CreateDeselectionMap(sls);
-			foreach (CheckedListBoxControl box in labelsListBoxes){
+			foreach (CheckedListBoxControlWpf box in labelsListBoxes){
 				foreach (LabelModification sl in sls){
 					box.Add(sl.Name);
 				}
@@ -232,7 +232,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void LabelsListBoxItemCheck(object sender, System.Windows.Forms.ItemCheckEventArgs e){
-			CheckedListBoxControl box = (CheckedListBoxControl) sender;
+			CheckedListBoxControlWpf box = (CheckedListBoxControlWpf) sender;
 			if (e.NewValue != System.Windows.Forms.CheckState.Checked){
 				return;
 			}

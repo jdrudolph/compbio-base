@@ -7,7 +7,7 @@
             <RowDefinition Height="100*"></RowDefinition>
             <RowDefinition Height="30"></RowDefinition>
         </Grid.RowDefinitions>
-        <param:ParameterPanel x:Name="ParameterPanel"></param:ParameterPanel>
+        <param:ParameterPanelWpf x:Name="ParameterPanel"></param:ParameterPanelWpf>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="60"></ColumnDefinition>

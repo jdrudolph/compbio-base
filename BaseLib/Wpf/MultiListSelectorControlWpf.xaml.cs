@@ -9,14 +9,14 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for MultiListSelectorControl.xaml
 	/// </summary>
-	public partial class MultiListSelectorControl{
+	public partial class MultiListSelectorControlWpf{
 		public event EventHandler SelectionChanged;
 		public IList<string> items;
 		internal ListBox AllListBox { get; }
-		private SubSelectionControl[] subSelection;
+		private SubSelectionControlWpf[] subSelection;
 		private readonly Grid tableLayoutPanel1;
 
-		public MultiListSelectorControl(){
+		public MultiListSelectorControlWpf(){
 			InitializeComponent();
 			AllListBox = new ListBox{SelectionMode = SelectionMode.Extended};
 			ListBoxSelector.SetEnabled(AllListBox, true);
@@ -59,7 +59,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void ClearSelection(){
-			foreach (SubSelectionControl t in subSelection){
+			foreach (SubSelectionControlWpf t in subSelection){
 				foreach (object x in t.SelectedListBox.Items){
 					AllListBox.Items.Add(x);
 				}
@@ -78,9 +78,9 @@ namespace BaseLib.Wpf{
 			}
 			int n = selectorNames.Count;
 			Grid tableLayoutPanel2 = new Grid();
-			subSelection = new SubSelectionControl[n];
+			subSelection = new SubSelectionControlWpf[n];
 			for (int i = 0; i < n; i++){
-				subSelection[i] = new SubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
+				subSelection[i] = new SubSelectionControlWpf{MultiListSelectorControl = this, Text = selectorNames[i]};
 				if (subParams != null && i < subParams.Count && subParams[i] != null){
 					subSelection[i].ParameterFuncs = subParams[i];
 				}
@@ -100,7 +100,7 @@ namespace BaseLib.Wpf{
 			tableLayoutPanel1.Children.Add(tableLayoutPanel2);
 		}
 
-		internal void SelectionHasChanged(SubSelectionControl sender, EventArgs e){
+		internal void SelectionHasChanged(SubSelectionControlWpf sender, EventArgs e){
 			SelectionChanged?.Invoke(this, e);
 		}
 

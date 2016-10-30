@@ -5,7 +5,7 @@ using BaseLibS.Param;
 namespace BaseLib.Param{
 	[Serializable]
 	internal class MultiChoiceMultiBinParamWpf : MultiChoiceMultiBinParam{
-		[NonSerialized] private MultiListSelectorControl control;
+		[NonSerialized] private MultiListSelectorControlWpf control;
 		internal MultiChoiceMultiBinParamWpf(string name) : base(name){}
 		internal MultiChoiceMultiBinParamWpf(string name, int[][] value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			control = new MultiListSelectorControl();
+			control = new MultiListSelectorControlWpf();
 			control.Init(Values, Bins);
 			control.SelectedIndices = Value;
 			return control;

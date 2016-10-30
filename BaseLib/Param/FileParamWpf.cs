@@ -6,7 +6,7 @@ namespace BaseLib.Param{
 	//TODO should be internal
 	[Serializable]
 	public class FileParamWpf : FileParam{
-		[NonSerialized] private FileParameterControl control;
+		[NonSerialized] private FileParameterControlWpf control;
 		public FileParamWpf(string name) : base(name){}
 		public FileParamWpf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.Wpf;
@@ -25,7 +25,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			control = new FileParameterControl(Value, Filter, ProcessFileName, Save);
+			control = new FileParameterControlWpf(Value, Filter, ProcessFileName, Save);
 			var vm = (FileParamterViewModel) control.DataContext;
 			vm.PropertyChanged += Vm_PropertyChanged;
 			return control;

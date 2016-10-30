@@ -35,7 +35,7 @@
         </Grid.RowDefinitions>
                 <Grid Background="#FFE5E5E5">
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <param:ParameterPanel x:Name="ParameterPanel1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+                        <param:ParameterPanelWpf x:Name="ParameterPanel1" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
                     </ScrollViewer>
                 </Grid>
         <Grid Grid.Row="1" Background="#FFEDC864">

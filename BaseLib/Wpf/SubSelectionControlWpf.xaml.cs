@@ -11,12 +11,12 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for SubSelectionControl.xaml
 	/// </summary>
-	public partial class SubSelectionControl{
+	public partial class SubSelectionControlWpf{
 		private Thread downThread;
 		private Thread upThread;
 		private Func<string[], Parameters> parameterFuncs;
 		internal readonly List<Parameters> parameters = new List<Parameters>();
-		internal MultiListSelectorControl MultiListSelectorControl { get; set; }
+		internal MultiListSelectorControlWpf MultiListSelectorControl { get; set; }
 
 		internal Func<string[], Parameters> ParameterFuncs{
 			get { return parameterFuncs; }
@@ -26,7 +26,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public SubSelectionControl(){
+		public SubSelectionControlWpf(){
 			InitializeComponent();
 			H1.Source = WpfUtils.LoadBitmap(Properties.Resources.top);
 			H2.Source = WpfUtils.LoadBitmap(Properties.Resources.up);

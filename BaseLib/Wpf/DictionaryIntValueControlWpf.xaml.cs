@@ -6,8 +6,8 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for DictionaryIntValueControl.xaml
 	/// </summary>
-	public partial class DictionaryIntValueControl{
-		public DictionaryIntValueControl(){
+	public partial class DictionaryIntValueControlWpf{
+		public DictionaryIntValueControlWpf(){
 			InitializeComponent();
 		}
 

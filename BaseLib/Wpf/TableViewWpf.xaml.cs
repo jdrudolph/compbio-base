@@ -12,7 +12,7 @@ namespace BaseLib.Wpf{
 	/// <summary>
 	/// Interaction logic for TableView.xaml
 	/// </summary>
-	public partial class TableView{
+	public partial class TableViewWpf{
 		internal static readonly List<ITableSelectionAgent> selectionAgents = new List<ITableSelectionAgent>();
 		public event EventHandler SelectionChanged;
 		private readonly CompoundScrollableControl tableView;
@@ -23,7 +23,7 @@ namespace BaseLib.Wpf{
 		private int selectionAgentColInd = -1;
 		private double[] selectionAgentColVals;
 
-		public TableView(){
+		public TableViewWpf(){
 			InitializeComponent();
 			tableView = new CompoundScrollableControl();
 			tableViewWf = new TableViewControlModel();
@@ -67,8 +67,8 @@ namespace BaseLib.Wpf{
 		}
 
 		public static readonly DependencyProperty TableModelProperty = DependencyProperty.Register("TableModel",
-			typeof (ITableModel), typeof (TableView), new PropertyMetadata(default(ITableModel), (o, args) =>{
-				var x = (TableView) o;
+			typeof (ITableModel), typeof (TableViewWpf), new PropertyMetadata(default(ITableModel), (o, args) =>{
+				var x = (TableViewWpf) o;
 				var value = (ITableModel) args.NewValue;
 				x.tableViewWf.TableModel = value;
 				x.ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
