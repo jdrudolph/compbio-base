@@ -23,7 +23,8 @@ namespace BaseLib.Graphic{
 		private float rotationAngle;
 		private float locationX;
 		private float locationY;
-		private float scale;
+		private float scaleX;
+		private float scaleY;
 		private Group clippingMask;
 
 		public SvgGraphics(string filename, int width, int height)
@@ -33,11 +34,12 @@ namespace BaseLib.Graphic{
 			this.stream = stream;
 			docWidth = width;
 			docHeight = height;
-			scale = 1;
+			scaleX = 1;
+		    scaleY = 1;
 			svg = new Svg{
-				Width = width*scale,
-				Height = height*scale,
-				ViewBox = $"0 0 {width*scale} {height*scale}",
+				Width = width*scaleX,
+				Height = height*scaleY,
+				ViewBox = $"0 0 {width*scaleX} {height*scaleY}",
 				Title = "tandem spectrum as vector graphics"
 			};
 		}
@@ -55,9 +57,10 @@ namespace BaseLib.Graphic{
 				if (rotationAngle != 0){
 					transform += $" rotate({rotationAngle})";
 				}
-				if (scale != 1){
-					transform += $" scale({scale})";
-				}
+				if (scaleX != 1 || scaleY != 1){
+					transform += $" scale({scaleX}, {scaleY})";
+
+                }
 				return string.IsNullOrEmpty(transform) ? null : transform.Trim();
 			}
 		}
@@ -92,8 +95,16 @@ namespace BaseLib.Graphic{
 			clippingMask = new Group{Transform = Transform};
 			groupList.Add(clippingMask);
 		}
+        
+	    public void ScaleTransform(float sx, float sy)
+	    {
+	        scaleX *= sx;
+	        scaleY *= sy;
+	        clippingMask = new Group {Transform = Transform};
+            groupList.Add(clippingMask);
+	    }
 
-		/// <summary>
+	    /// <summary>
 		/// Sets the clipping-mask for the graphics device to draw in. This is required for applications which
 		/// draw on a single canvas, where the normal grapics device draws in multiple controls. The origin (i.e.
 		/// (0,0)) is moved to the given x and y position and the width and height is set to the new values. For
@@ -110,7 +121,7 @@ namespace BaseLib.Graphic{
 			float wscale = docWidth/w;
 			float hscale = docHeight/h;
 			if (wscale == hscale){
-				scale = wscale;
+				scaleX = wscale;
 			}
 			clippingMask = new Group{Transform = Transform};
 			groupList.Add(clippingMask);

@@ -1,4 +1,6 @@
-﻿namespace BaseLibS.Graph{
+﻿using System;
+
+namespace BaseLibS.Graph{
 	public class ScaledGraphics : IGraphics{
 		private readonly IGraphics g;
 		private readonly float s;
@@ -21,7 +23,12 @@
 			g.RotateTransform(angle);
 		}
 
-		public void SetClippingMask(float width, float height, float x, float y){
+	    public void ScaleTransform(float sx, float sy)
+	    {
+            g.ScaleTransform(s * sx, s * sy);
+	    }
+
+	    public void SetClippingMask(float width, float height, float x, float y){
 			g.SetClippingMask(s*width, s*height, s*x, s*y);
 		}
 

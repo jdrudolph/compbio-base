@@ -19,7 +19,12 @@ namespace BaseLib.Graphic{
 
 		public Graphics Graphics => gc;
 		//TODO?
-		public void SetClippingMask(float width, float height, float x, float y){}
+	    public void ScaleTransform(float sx, float sy)
+	    {
+	        gc.ScaleTransform(sx, sy);
+	    }
+
+	    public void SetClippingMask(float width, float height, float x, float y){}
 
 		public void Dispose(){
 			gc.Dispose();

@@ -23,6 +23,13 @@ namespace BaseLibS.Graph{
 		/// <param name="angle">Angle of rotation in degrees.</param>
 		void RotateTransform(float angle);
 
+        /// <summary>
+        /// Scales the drawing.
+        /// </summary>
+        /// <param name="sx">x-direction</param>
+        /// <param name="sy">y-direction</param>
+	    void ScaleTransform(float sx, float sy);
+
 		/// <summary>
 		/// Sets the clipping-mask for the graphics device to draw in. This is required for applications which
 		/// draw on a single canvas, where the normal grapics device draws in multiple controls. The origin (i.e.

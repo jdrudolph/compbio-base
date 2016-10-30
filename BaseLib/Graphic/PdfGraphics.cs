@@ -44,7 +44,14 @@ namespace BaseLib.Graphic{
 
 		public SmoothingMode2 SmoothingMode { get; set; }
 
-		public void SetClippingMask(float width, float height, float x, float y){
+	    public void ScaleTransform(float sx, float sy)
+	    {
+            Matrix m = new Matrix();
+            m.Scale(sx, sy);
+            template.Transform(m);
+	    }
+
+	    public void SetClippingMask(float width, float height, float x, float y){
 			template = topTemplate.CreateTemplate(width, height);
 			topTemplate.AddTemplate(template, x, topTemplate.Height - height - y);
 			currentWidth = width;
