@@ -1336,5 +1336,26 @@ namespace BaseLibS.Num{
 			}
 			return result;
 		}
+
+		public static float Gaussian(float x, float sigma){
+			return (float) Math.Exp(-x*x/(2*sigma*sigma))/(float) (Math.Sqrt(2*Math.PI)*sigma);
+		}
+
+		public static float SinC(float x){
+			const float epsilon = .00001F;
+			if (Math.Abs(x) > epsilon){
+				x *= (float) Math.PI;
+				return Clean((float) Math.Sin(x)/x);
+			}
+			return 1.0f;
+		}
+
+		private static float Clean(float x){
+			const float epsilon = .00001F;
+			if (Math.Abs(x) < epsilon){
+				return 0F;
+			}
+			return x;
+		}
 	}
 }
