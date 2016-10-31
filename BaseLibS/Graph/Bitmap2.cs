@@ -213,6 +213,9 @@ namespace BaseLibS.Graph{
 		public static Bitmap2 GetImage(string prefix, string file){
 			Assembly thisExe = Assembly.GetExecutingAssembly();
 			Stream file1 = thisExe.GetManifestResourceStream(prefix + file);
+			if (file1 == null){
+				return null;
+			}
 			Bitmap2 bm = Image2.ReadImage(file1);
 			file1.Close();
 			return bm;
