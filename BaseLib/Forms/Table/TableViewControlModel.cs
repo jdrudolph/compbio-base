@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using BaseLib.Graphic;
-using BaseLib.Properties;
 using BaseLib.Wpf;
 using BaseLibS.Graph;
 using BaseLibS.Num;
@@ -390,14 +388,14 @@ namespace BaseLib.Forms.Table{
 							if (x1 >= -15 && x1 <= width){
 								g.DrawImage(
 									sortState == SortState.Increasing
-										? GraphUtils.ToBitmap2(Resources.arrowDown1)
-										: GraphUtils.ToBitmap2(Resources.arrowUp1), x1, 6, 9, 13);
+										? Bitmap2.GetImage("arrowDown1.png")
+										: Bitmap2.GetImage("arrowUp1.png"), x1, 6, 9, 13);
 							}
 						}
 						if (helpCol != -1){
 							int x1 = (helpCol == 0 ? 0 : columnWidthSums[helpCol - 1]) - x + 5;
 							if (x1 >= -15 && x1 <= width){
-								g.DrawImage(GraphUtils.ToBitmap2(Resources.question12), x1, 7, 10, 10);
+								g.DrawImage(Bitmap2.GetImage("question12.png"), x1, 7, 10, 10);
 							}
 						}
 						if (model != null && model.AnnotationRowsCount > 0){
@@ -427,7 +425,7 @@ namespace BaseLib.Forms.Table{
 				g.DrawLine(Pens2.White, 1, 1, control1.RowHeaderWidth - 2, 1);
 				g.DrawLine(Pens2.White, 1, 1, 1, control1.ColumnHeaderHeight - 2);
 				if (matrixHelp){
-					g.DrawImage(GraphUtils.ToBitmap2(Resources.question12), 7, 7, 10, 10);
+					g.DrawImage(Bitmap2.GetImage("question12.png"), 7, 7, 10, 10);
 				}
 				if (model != null && model.AnnotationRowsCount > 0){
 					for (int i = 0; i < model.AnnotationRowsCount; i++){

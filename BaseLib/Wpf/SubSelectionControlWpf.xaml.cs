@@ -4,6 +4,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using BaseLibS.Graph;
 using BaseLibS.Num;
 using BaseLibS.Param;
 
@@ -28,13 +29,13 @@ namespace BaseLib.Wpf{
 
 		public SubSelectionControlWpf(){
 			InitializeComponent();
-			H1.Source = WpfUtils.LoadBitmap(Properties.Resources.top);
-			H2.Source = WpfUtils.LoadBitmap(Properties.Resources.up);
-			H3.Source = WpfUtils.LoadBitmap(Properties.Resources.down);
-			H4.Source = WpfUtils.LoadBitmap(Properties.Resources.bottom);
-			H5.Source = WpfUtils.LoadBitmap(Properties.Resources.filter);
-			H6.Source = WpfUtils.LoadBitmap(Properties.Resources.right);
-			H7.Source = WpfUtils.LoadBitmap(Properties.Resources.left);
+			H1.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("top1.png"));
+			H2.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("up1.png"));
+			H3.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("down1.png"));
+			H4.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("bottom1.png"));
+			H5.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("filter2.png"));
+			H6.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("right.png"));
+			H7.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("left.png"));
 			DownButton.MouseDown += DownButtonMouseDown;
 			DownButton.MouseUp += DownButtonMouseUp;
 			UpButton.MouseDown += UpButtonMouseDown;

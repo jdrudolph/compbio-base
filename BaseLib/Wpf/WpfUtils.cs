@@ -119,71 +119,71 @@ namespace BaseLib.Wpf{
 		}
 
 		public static BitmapSource GetSaveBitmap(){
-			return LoadBitmap(GraphUtil.GetSaveBitmap());
+			return LoadBitmap(Bitmap2.GetImage("save.png"));
 		}
 
 		public static BitmapSource GetSaveAsBitmap(){
-			return LoadBitmap(GraphUtil.GetSaveAsBitmap());
+			return LoadBitmap(Bitmap2.GetImage("save_as.png"));
 		}
 
 		public static BitmapSource GetNewBitmap(){
-			return LoadBitmap(GraphUtil.GetNewBitmap());
+			return LoadBitmap(Bitmap2.GetImage("new.png"));
 		}
 
 		public static BitmapSource GetHelpBitmap(){
-			return LoadBitmap(Properties.Resources.help);
+			return LoadBitmap(Bitmap2.GetImage("help.png"));
 		}
 
 		public static BitmapSource GetMinMaxRibbonBitmap(){
-			return LoadBitmap(Properties.Resources.minMaxRibbon);
+			return LoadBitmap(Bitmap2.GetImage("minMaxRibbon.png"));
 		}
 
 		public static BitmapSource GetPdfBitmap(){
-			return LoadBitmap(Properties.Resources.pdf);
+			return LoadBitmap(Bitmap2.GetImage("pdf.png"));
 		}
 
 		public static BitmapSource GetToolsBitmap(){
-			return LoadBitmap(Properties.Resources.tools);
+			return LoadBitmap(Bitmap2.GetImage("tools.png"));
 		}
 
 		public static BitmapSource GetExitBitmap(){
-			return LoadBitmap(Properties.Resources.exit);
+			return LoadBitmap(Bitmap2.GetImage("exit.png"));
 		}
 
 		public static BitmapSource GetInfoBitmap(){
-			return LoadBitmap(Properties.Resources.info);
+			return LoadBitmap(Bitmap2.GetImage("info.png"));
 		}
 
 		public static BitmapSource GetOpenBitmap(){
-			return LoadBitmap(Properties.Resources.open);
+			return LoadBitmap(Bitmap2.GetImage("open.png"));
 		}
 
 		public static BitmapSource GetMonitorsBitmap(){
-			return LoadBitmap(Properties.Resources.monitors);
+			return LoadBitmap(Bitmap2.GetImage("monitors.png"));
 		}
 
 		public static BitmapSource GetNewWindowBitmap(){
-			return LoadBitmap(Properties.Resources.open_in_new_window);
+			return LoadBitmap(Bitmap2.GetImage("open_in_new_window.png"));
 		}
 
 		public static BitmapSource GetMergeBitmap(){
-			return LoadBitmap(Properties.Resources.merge);
+			return LoadBitmap(Bitmap2.GetImage("merge.png"));
 		}
 
 		public static BitmapSource GetMinusBitmap(){
-			return LoadBitmap(Properties.Resources.minus_icon);
+			return LoadBitmap(Bitmap2.GetImage("minus-icon.png"));
 		}
 
 		public static BitmapSource GetPlusBitmap(){
-			return LoadBitmap(Properties.Resources.plus_icon);
+			return LoadBitmap(Bitmap2.GetImage("plus-icon.png"));
 		}
 
 		public static BitmapSource GetArrowCornerBitmap(){
-			return LoadBitmap(Properties.Resources.arrowCorner);
+			return LoadBitmap(Bitmap2.GetImage("arrowCorner.png"));
 		}
 
 		public static BitmapSource GetRotateBitmap(){
-			return LoadBitmap(Properties.Resources.rotate);
+			return LoadBitmap(Bitmap2.GetImage("rotate.png"));
 		}
 
 		public static void SelectExact(ICollection<string> colNames, IList<string> colTypes, MultiListSelectorControlWpf mls){

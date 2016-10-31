@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BaseLib.Param;
+using BaseLibS.Graph;
 using BaseLibS.Param;
 
 namespace BaseLib.Wpf{
@@ -15,9 +16,9 @@ namespace BaseLib.Wpf{
 		public FilterWindow(SubSelectionControlWpf subSelectionControl){
 			InitializeComponent();
 			this.subSelectionControl = subSelectionControl;
-			I1.Source = WpfUtils.LoadBitmap(Properties.Resources.plus1);
-			I2.Source = WpfUtils.LoadBitmap(Properties.Resources.minus1);
-			Icon = WpfUtils.LoadBitmap(Properties.Resources.Perseus);
+			I1.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("plus1.bmp"));
+			I2.Source = WpfUtils.LoadBitmap(Bitmap2.GetImage("minus1.bmp"));
+			Icon = WpfUtils.LoadBitmap(Bitmap2.GetImage("Perseus.jpg"));
 			RebuildGui();
 		}
 

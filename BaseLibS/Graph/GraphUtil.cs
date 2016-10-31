@@ -388,17 +388,5 @@ namespace BaseLibS.Graph{
 			}
 			return sb + "...";
 		}
-
-		public static Bitmap2 GetNewBitmap(){
-			return Bitmap2.GetImage("new.png");
-		}
-
-		public static Bitmap2 GetSaveBitmap(){
-			return Bitmap2.GetImage("save.png");
-		}
-
-		public static Bitmap2 GetSaveAsBitmap(){
-			return Bitmap2.GetImage("save_as.png");
-		}
 	}
 }
