@@ -183,7 +183,7 @@ namespace BaseLibS.Graph{
 
 		public static Size2 CalcOverviewSize(int width, int height, int totalWidth, int totalHeight){
 			int maxSize = Math.Min(Math.Min(maxOverviewSize, height), width - 20);
-			Size2 x= totalWidth > totalHeight
+			Size2 x = totalWidth > totalHeight
 				? new Size2(maxSize, Math.Max(1, (int) Math.Round(totalHeight/(float) totalWidth*maxSize)))
 				: new Size2(Math.Max(1, (int) Math.Round(totalWidth/(float) totalHeight*maxSize)), maxSize);
 			return x;
@@ -387,6 +387,18 @@ namespace BaseLibS.Graph{
 				}
 			}
 			return sb + "...";
+		}
+
+		public static Bitmap2 GetNewBitmap(){
+			return Bitmap2.GetImage("new.png");
+		}
+
+		public static Bitmap2 GetSaveBitmap(){
+			return Bitmap2.GetImage("save.png");
+		}
+
+		public static Bitmap2 GetSaveAsBitmap(){
+			return Bitmap2.GetImage("save_as.png");
 		}
 	}
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using BaseLib.Properties;
+using BaseLib.Graphic;
+using BaseLibS.Graph;
 
 namespace BaseLib.Forms {
 	public static class Chars {
@@ -9,7 +10,7 @@ namespace BaseLib.Forms {
 			if (height <= 1 || width <= 1) {
 				return null;
 			}
-			Bitmap template = GetImage(c);
+			Bitmap template = GraphUtils.ToBitmap(GetImage(c));
 			if (template == null) {
 				return null;
 			}
@@ -85,112 +86,112 @@ namespace BaseLib.Forms {
 			return ind1;
 		}
 
-		private static Bitmap GetImage(char c) {
+		private static Bitmap2 GetImage(char c) {
 			switch (c) {
 				case 'A':
-					return Resources.charA;
+					return Bitmap2.GetImage("chara.bmp");
 				case 'B':
-					return Resources.charB;
+					return Bitmap2.GetImage("charb.bmp");
 				case 'C':
-					return Resources.charC;
+					return Bitmap2.GetImage("charc.bmp");
 				case 'D':
-					return Resources.charD;
+					return Bitmap2.GetImage("chard.bmp");
 				case 'E':
-					return Resources.charE;
+					return Bitmap2.GetImage("chare.bmp");
 				case 'F':
-					return Resources.charF;
+					return Bitmap2.GetImage("charf.bmp");
 				case 'G':
-					return Resources.charG;
+					return Bitmap2.GetImage("charg.bmp");
 				case 'H':
-					return Resources.charH;
+					return Bitmap2.GetImage("charh.bmp");
 				case 'I':
-					return Resources.charI;
+					return Bitmap2.GetImage("chari.bmp");
 				case 'J':
-					return Resources.charJ;
+					return Bitmap2.GetImage("charj.bmp");
 				case 'K':
-					return Resources.charK;
+					return Bitmap2.GetImage("chark.bmp");
 				case 'L':
-					return Resources.charL;
+					return Bitmap2.GetImage("charl.bmp");
 				case 'M':
-					return Resources.charM;
+					return Bitmap2.GetImage("charm.bmp");
 				case 'N':
-					return Resources.charN;
+					return Bitmap2.GetImage("charn.bmp");
 				case 'O':
-					return Resources.charO;
+					return Bitmap2.GetImage("charo.bmp");
 				case 'P':
-					return Resources.charP;
+					return Bitmap2.GetImage("charp.bmp");
 				case 'Q':
-					return Resources.charQ;
+					return Bitmap2.GetImage("charq.bmp");
 				case 'R':
-					return Resources.charR;
+					return Bitmap2.GetImage("charr.bmp");
 				case 'S':
-					return Resources.charS;
+					return Bitmap2.GetImage("chars.bmp");
 				case 'T':
-					return Resources.charT;
+					return Bitmap2.GetImage("chart.bmp");
 				case 'U':
-					return Resources.charU;
+					return Bitmap2.GetImage("charu.bmp");
 				case 'V':
-					return Resources.charV;
+					return Bitmap2.GetImage("charv.bmp");
 				case 'W':
-					return Resources.charW;
+					return Bitmap2.GetImage("charw.bmp");
 				case 'X':
-					return Resources.charX;
+					return Bitmap2.GetImage("charx.bmp");
 				case 'Y':
-					return Resources.charY;
+					return Bitmap2.GetImage("chary.bmp");
 				case 'Z':
-					return Resources.charZ;
+					return Bitmap2.GetImage("charz.bmp");
 				case 'a':
-					return Resources.char_a;
+					return Bitmap2.GetImage("char_a.bmp");
 				case 'b':
-					return Resources.char_b;
+					return Bitmap2.GetImage("char_b.bmp");
 				case 'c':
-					return Resources.char_c;
+					return Bitmap2.GetImage("char_c.bmp");
 				case 'd':
-					return Resources.char_d;
+					return Bitmap2.GetImage("char_d.bmp");
 				case 'e':
-					return Resources.char_e;
+					return Bitmap2.GetImage("char_e.bmp");
 				case 'f':
-					return Resources.char_f;
+					return Bitmap2.GetImage("char_f.bmp");
 				case 'g':
-					return Resources.char_g;
+					return Bitmap2.GetImage("char_g.bmp");
 				case 'h':
-					return Resources.char_h;
+					return Bitmap2.GetImage("char_h.bmp");
 				case 'i':
-					return Resources.char_i;
+					return Bitmap2.GetImage("char_i.bmp");
 				case 'j':
-					return Resources.char_j;
+					return Bitmap2.GetImage("char_j.bmp");
 				case 'k':
-					return Resources.char_k;
+					return Bitmap2.GetImage("char_k.bmp");
 				case 'l':
-					return Resources.char_l;
+					return Bitmap2.GetImage("char_l.bmp");
 				case 'm':
-					return Resources.char_m;
+					return Bitmap2.GetImage("char_m.bmp");
 				case 'n':
-					return Resources.char_n;
+					return Bitmap2.GetImage("char_n.bmp");
 				case 'o':
-					return Resources.char_o;
+					return Bitmap2.GetImage("char_o.bmp");
 				case 'p':
-					return Resources.char_p;
+					return Bitmap2.GetImage("char_p.bmp");
 				case 'q':
-					return Resources.char_q;
+					return Bitmap2.GetImage("char_q.bmp");
 				case 'r':
-					return Resources.char_r;
+					return Bitmap2.GetImage("char_r.bmp");
 				case 's':
-					return Resources.char_s;
+					return Bitmap2.GetImage("char_s.bmp");
 				case 't':
-					return Resources.char_t;
+					return Bitmap2.GetImage("char_t.bmp");
 				case 'u':
-					return Resources.char_u;
+					return Bitmap2.GetImage("char_u.bmp");
 				case 'v':
-					return Resources.char_v;
+					return Bitmap2.GetImage("char_v.bmp");
 				case 'w':
-					return Resources.char_w;
+					return Bitmap2.GetImage("char_w.bmp");
 				case 'x':
-					return Resources.char_x;
+					return Bitmap2.GetImage("char_x.bmp");
 				case 'y':
-					return Resources.char_y;
+					return Bitmap2.GetImage("char_y.bmp");
 				case 'z':
-					return Resources.char_z;
+					return Bitmap2.GetImage("char_z.bmp");
 			}
 			return null;
 		}

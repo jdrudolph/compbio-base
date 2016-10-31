@@ -1,5 +1,7 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
+using BaseLibS.Graph.Image;
 
 namespace BaseLibS.Graph{
 	[Serializable]
@@ -202,6 +204,18 @@ namespace BaseLibS.Graph{
 				}
 			}
 			return result;
+		}
+
+		public static Bitmap2 GetImage(string file){
+			return GetImage("BaseLibS.img.", file);
+		}
+
+		public static Bitmap2 GetImage(string prefix, string file){
+			Assembly thisExe = Assembly.GetExecutingAssembly();
+			Stream file1 = thisExe.GetManifestResourceStream(prefix + file);
+			Bitmap2 bm = Image2.ReadImage(file1);
+			file1.Close();
+			return bm;
 		}
 	}
 }

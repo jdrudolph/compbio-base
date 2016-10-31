@@ -5,7 +5,9 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using BaseLib.Graphic;
 using BaseLib.Param;
+using BaseLibS.Graph;
 
 namespace BaseLib.Wpf{
 	public static class WpfUtils{
@@ -83,8 +85,7 @@ namespace BaseLib.Wpf{
 		public static float GetDpiScaleX(){
 			PropertyInfo dpiXProperty = typeof (SystemParameters).GetProperty("DpiX",
 				BindingFlags.NonPublic | BindingFlags.Static);
-			if (dpiXProperty == null)
-			{
+			if (dpiXProperty == null){
 				return 1;
 			}
 			int dpiX = (int) dpiXProperty.GetValue(null, null);
@@ -105,12 +106,28 @@ namespace BaseLib.Wpf{
 			return grid.Children.Cast<UIElement>().First(e => Grid.GetRow(e) == row && Grid.GetColumn(e) == column);
 		}
 
+		public static BitmapSource LoadBitmap(Bitmap2 source){
+			return LoadBitmap(GraphUtils.ToBitmap(source));
+		}
+
 		public static BitmapSource LoadBitmap(System.Drawing.Bitmap source){
 			if (source == null){
 				return null;
 			}
 			return System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(source.GetHbitmap(), IntPtr.Zero, Int32Rect.Empty,
 				BitmapSizeOptions.FromEmptyOptions());
+		}
+
+		public static BitmapSource GetSaveBitmap(){
+			return LoadBitmap(GraphUtil.GetSaveBitmap());
+		}
+
+		public static BitmapSource GetSaveAsBitmap(){
+			return LoadBitmap(GraphUtil.GetSaveAsBitmap());
+		}
+
+		public static BitmapSource GetNewBitmap(){
+			return LoadBitmap(GraphUtil.GetNewBitmap());
 		}
 
 		public static BitmapSource GetHelpBitmap(){
@@ -133,14 +150,6 @@ namespace BaseLib.Wpf{
 			return LoadBitmap(Properties.Resources.exit);
 		}
 
-		public static BitmapSource GetSaveBitmap(){
-			return LoadBitmap(Properties.Resources.save);
-		}
-
-		public static BitmapSource GetSaveAsBitmap(){
-			return LoadBitmap(Properties.Resources.save_as);
-		}
-
 		public static BitmapSource GetInfoBitmap(){
 			return LoadBitmap(Properties.Resources.info);
 		}
@@ -151,10 +160,6 @@ namespace BaseLib.Wpf{
 
 		public static BitmapSource GetMonitorsBitmap(){
 			return LoadBitmap(Properties.Resources.monitors);
-		}
-
-		public static BitmapSource GetNewBitmap(){
-			return LoadBitmap(Properties.Resources._new);
 		}
 
 		public static BitmapSource GetNewWindowBitmap(){
