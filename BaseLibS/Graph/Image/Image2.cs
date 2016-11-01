@@ -125,16 +125,7 @@ namespace BaseLibS.Graph.Image{
 			return bm;
 		}
 		public static Bitmap2 ReadImage(Stream stream){
-			if (stream == null){
-				return null;
-			}
-			Image2 im = new Image2(stream);
-			Bitmap2 bm = new Bitmap2(im.Height, im.Width);
-			for (int i = 0; i < im.Pixels.Length; i++){
-				Color2 c = im.Pixels[i];
-				bm.SetPixel(i % im.Width, i / im.Width , Color2.FromArgb(c.A, c.R, c.G, c.B));
-			}
-			return bm;
+			return stream == null ? null : new Bitmap2(stream);
 		}
 	}
 }

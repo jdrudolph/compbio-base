@@ -51,6 +51,7 @@
     <Compile Include="Graph\Base\BasicView.cs" />
     <Compile Include="Graph\Base\GridType.cs" />
     <Compile Include="Graph\Bitmap2Graphics.cs" />
+    <Compile Include="Graph\Chars.cs" />
     <Compile Include="Graph\Image\Bootstrapper.cs" />
     <Compile Include="Graph\Image\ColorPixelAccessor.cs" />
     <Compile Include="Graph\Image\Formats\Bmp\BmpBitsPerPixel.cs" />

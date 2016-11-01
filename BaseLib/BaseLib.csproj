@@ -70,7 +70,6 @@
     </Compile>
     <Compile Include="Forms\Base\FormUtil.cs" />
     <Compile Include="Forms\Base\Printing.cs" />
-    <Compile Include="Forms\Chars.cs" />
     <Compile Include="Forms\ColorScale.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -122,7 +121,13 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Graphic\ExportGraphics.cs" />
+    <Compile Include="Param\ParameterGroupPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Param\ParameterGroupPanelWpf.cs" />
+    <Compile Include="Param\ParameterPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Param\RegexReplaceParamWpf.cs" />
     <Compile Include="Param\RegexMatchParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />

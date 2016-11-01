@@ -25,16 +25,22 @@ namespace BaseLibS.Graph{
 		/// Initializes a new instance of the <code>Bitmap2</code> class from the specified file.
 		/// </summary>
 		/// <param name="filename">The bitmap file name and path.</param>
-		public Bitmap2(string filename){
-			throw new NotImplementedException();
-		}
+		public Bitmap2(string filename) : this(new FileStream(filename, FileMode.Open)){}
 
 		/// <summary>
 		/// Initializes a new instance of the <code>Bitmap2</code> class from the specified data stream.
 		/// </summary>
 		/// <param name="stream">The data stream used to load the image.</param>
 		public Bitmap2(Stream stream){
-			throw new NotImplementedException();
+			if (stream == null){
+				throw new ArgumentNullException();
+			}
+			Image2 im = new Image2(stream);
+			data = new int[im.Height, im.Width];
+			for (int i = 0; i < im.Pixels.Length; i++){
+				Color2 c = im.Pixels[i];
+				SetPixel(i%im.Width, i/im.Width, Color2.FromArgb(c.A, c.R, c.G, c.B));
+			}
 		}
 
 		public int Width => data.GetLength(0);

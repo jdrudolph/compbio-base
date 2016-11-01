@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
-using BaseLib.Graphic;
-using BaseLibS.Graph;
 
-namespace BaseLib.Forms {
+namespace BaseLibS.Graph {
 	public static class Chars {
-		public static Bitmap GetImage(char c, int width, int height, Color fgColor, Color bgColor) {
+		public static Bitmap2 GetImage(char c, int width, int height, Color2 fgColor, Color2 bgColor) {
 			if (height <= 1 || width <= 1) {
 				return null;
 			}
-			Bitmap template = GraphUtils.ToBitmap(GetImage(c));
+			Bitmap2 template = GetImage(c);
 			if (template == null) {
 				return null;
 			}
 			int twidth = template.Width;
 			int theight = template.Height;
-			Bitmap result = new Bitmap(width, height);
+			Bitmap2 result = new Bitmap2(width, height);
 			for (int i = 0; i < width; i++) {
 				float wI1;
 				float wI2;
@@ -25,36 +22,36 @@ namespace BaseLib.Forms {
 					float wJ1;
 					float wJ2;
 					int indJ = CalcInd(j, height, theight, out wJ1, out wJ2);
-					Color ij = IsSet(indI, indJ, template) ? fgColor : bgColor;
-					Color ipj = IsSet(indI + 1, indJ, template) ? fgColor : bgColor;
-					Color ijp = IsSet(indI, indJ + 1, template) ? fgColor : bgColor;
-					Color ipjp = IsSet(indI + 1, indJ + 1, template) ? fgColor : bgColor;
-					Color col = Average(new[] { ij, ipj, ijp, ipjp }, new[] { wI1 * wJ1, wI2 * wJ1, wI1 * wJ2, wI2 * wJ2 });
+					Color2 ij = IsSet(indI, indJ, template) ? fgColor : bgColor;
+					Color2 ipj = IsSet(indI + 1, indJ, template) ? fgColor : bgColor;
+					Color2 ijp = IsSet(indI, indJ + 1, template) ? fgColor : bgColor;
+					Color2 ipjp = IsSet(indI + 1, indJ + 1, template) ? fgColor : bgColor;
+					Color2 col = Average(new[] { ij, ipj, ijp, ipjp }, new[] { wI1 * wJ1, wI2 * wJ1, wI1 * wJ2, wI2 * wJ2 });
 					result.SetPixel(i, j, col);
 				}
 			}
 			return result;
 		}
 
-		private static Color Average(IList<Color> colors, IList<float> weights) {
+		private static Color2 Average(IList<Color2> colors, IList<float> weights) {
 			float r = 0;
 			float g = 0;
 			float b = 0;
 			float norm = 0;
 			for (int i = 0; i < colors.Count; i++) {
-				Color col = colors[i];
+				Color2 col = colors[i];
 				float w = weights[i];
 				r += col.R * w;
 				g += col.G * w;
 				b += col.B * w;
 				norm += w;
 			}
-			Color x = Color.FromArgb(255, (int)Math.Round(r / norm), (int)Math.Round(g / norm), (int)Math.Round(b / norm));
+			Color2 x = Color2.FromArgb(255, (int)Math.Round(r / norm), (int)Math.Round(g / norm), (int)Math.Round(b / norm));
 			return x;
 		}
 
-		private static bool IsSet(int i, int j, Bitmap b) {
-			return b.GetPixel(i, j).R == 0;
+		private static bool IsSet(int i, int j, Bitmap2 b) {
+			return Color2.GetR(b.GetPixel(i, j)) == 0;
 		}
 
 		private static int CalcInd(int i, int width, int twidth, out float wI1, out float wI2) {
