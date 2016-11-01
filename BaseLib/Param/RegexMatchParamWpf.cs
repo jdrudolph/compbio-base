@@ -9,7 +9,7 @@ namespace BaseLib.Param{
 	public class RegexMatchParamWpf : RegexMatchParam{
 		[NonSerialized] private RegexMatchParamViewModel viewModel;
 		public RegexMatchParamWpf(string name, Regex value, List<string> replacement) : base(name, value, replacement){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			Value = viewModel.Pattern;

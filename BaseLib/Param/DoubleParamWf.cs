@@ -7,7 +7,7 @@ namespace BaseLib.Param{
 	internal class DoubleParamWf : DoubleParam{
 		[NonSerialized] private TextBox control;
 		internal DoubleParamWf(string name, double value) : base(name, value){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			double val;

@@ -8,7 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private FolderParameterControlWpf control;
 		internal FolderParamWpf(string name) : base(name){}
 		internal FolderParamWpf(string name, string value) : base(name, value){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			Value = control.Text;

@@ -8,7 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private ListSelectorControlWpf control;
 		internal MultiChoiceParamWpf(string name) : base(name){}
 		internal MultiChoiceParamWpf(string name, int[] value) : base(name, value){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			Value = control.SelectedIndices;

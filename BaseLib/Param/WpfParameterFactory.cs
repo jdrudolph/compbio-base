@@ -9,7 +9,7 @@ namespace BaseLib.Param{
 		/// <param name="p"></param>
 		/// <returns></returns>
 		public static Parameter Convert(Parameter p){
-			if (p.Type == ParamType.Wpf){
+			if (p.Type == ParamType.WinForms){
 				return p;
 			}
 			if (p is RegexReplaceParam){
@@ -55,7 +55,7 @@ namespace BaseLib.Param{
 				BoolWithSubParams q = (BoolWithSubParams) p;
 				q.SubParamsFalse?.Convert(Convert);
 				q.SubParamsTrue?.Convert(Convert);
-				BoolWithSubParamsWpf b = new BoolWithSubParamsWpf(q.Name, q.Value){
+				BoolWithSubParamsWf b = new BoolWithSubParamsWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					SubParamsFalse = q.SubParamsFalse,

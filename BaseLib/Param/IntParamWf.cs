@@ -7,7 +7,7 @@ namespace BaseLib.Param{
 	internal class IntParamWf : IntParam{
 		[NonSerialized] private TextBox control;
 		internal IntParamWf(string name, int value) : base(name, value){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			int val;

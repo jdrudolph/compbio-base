@@ -19,7 +19,7 @@ namespace BaseLibS.Param{
 		public string Help { get; set; }
 		public string Url { get; set; }
 		public bool Visible { get; set; }
-		public virtual ParamType Type => ParamType.Wpf;
+		public virtual ParamType Type => ParamType.WinForms;
 
 	    protected Parameter() : this("") { } // only for xml serialization
 		internal Parameter(string name){

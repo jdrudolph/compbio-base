@@ -8,7 +8,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private CheckBox control;
 		internal BoolParamWf(string name) : base(name){}
 		internal BoolParamWf(string name, bool value) : base(name, value){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			Value = control.Checked;

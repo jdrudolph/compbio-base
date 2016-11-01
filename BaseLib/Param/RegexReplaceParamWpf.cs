@@ -12,7 +12,7 @@ namespace BaseLib.Param{
 		internal RegexReplaceParamWpf(string name, Regex pattern, string replacement, List<string> items)
 			: base(name, pattern, replacement, items){}
 
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			Value = Tuple.Create(viewModel.Pattern, viewModel.Replacement);

@@ -8,7 +8,7 @@ namespace BaseLib.Param{
 	internal class DictionaryIntValueParamWpf : DictionaryIntValueParam{
 		[NonSerialized] private DictionaryIntValueControlWpf control;
 		internal DictionaryIntValueParamWpf(string name, Dictionary<string, int> value, string[] keys) : base(name, value, keys){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override string[] Keys{
 			get { return keys; }

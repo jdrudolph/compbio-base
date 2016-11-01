@@ -1,9 +1,8 @@
-﻿using System.Windows.Controls;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
-	public class ParameterPanel : System.Windows.Forms.UserControl{
+	public class ParameterPanel : UserControl{
 		public Parameters Parameters { get; private set; }
 		private TableLayoutPanel grid;
 		public bool Collapsible { get; set; }
@@ -38,6 +37,7 @@ namespace BaseLib.Param{
 			for (int i = 0; i < nrows; i++){
 				AddParameterGroup(parameters1.GetGroup(i), i, paramNameWidth, totalWidth);
 			}
+			grid.Dock = DockStyle.Fill;
 			Controls.Add(grid);
 			Name = "ParameterPanel";
 			Width = totalWidth;
@@ -56,20 +56,18 @@ namespace BaseLib.Param{
 			ParameterGroupPanel pgp = new ParameterGroupPanel();
 			parameterGroupPanels[i] = pgp;
 			pgp.Init(p, paramNameWidth, totalWidth);
+			pgp.Dock = DockStyle.Fill;
 			if (p.Name == null){
 				grid.Controls.Add(pgp, 0, i);
 			} else{
-				System.Windows.Forms.GroupBox gb = new System.Windows.Forms.GroupBox{
-					Text = p.Name,
-					Margin = new Padding(3),
-					Padding = new Padding(3),
-				};
+				GroupBox gb = new GroupBox{Text = p.Name, Margin = new Padding(3), Padding = new Padding(3),};
+				gb.Dock = DockStyle.Fill;
 				gb.Controls.Add(pgp);
 				grid.Controls.Add(gb, 0, i);
 			}
 		}
 
-		public void RegisterScrollViewer(ScrollViewer scrollViewer){
+		public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){
 			foreach (ParameterGroupPanel panel in parameterGroupPanels){
 				panel.RegisterScrollViewer(scrollViewer);
 			}

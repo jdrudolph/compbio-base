@@ -9,7 +9,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private FileParameterControlWpf control;
 		public FileParamWpf(string name) : base(name){}
 		public FileParamWpf(string name, string value) : base(name, value){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			var vm = (FileParamterViewModel) control.DataContext;

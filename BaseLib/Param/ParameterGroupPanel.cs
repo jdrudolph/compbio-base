@@ -1,10 +1,9 @@
-﻿using System.Windows.Controls;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using BaseLib.Wpf;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
-	public class ParameterGroupPanel : System.Windows.Forms.UserControl{
+	public class ParameterGroupPanel : UserControl{
 		public ParameterGroup ParameterGroup { get; private set; }
 		private TableLayoutPanel grid;
 
@@ -30,6 +29,8 @@ namespace BaseLib.Param{
 			Controls.Add(grid);
 			Name = "ParameterPanel";
 			Margin = new Padding(0, 3, 0, 3);
+			grid.Dock = DockStyle.Fill;
+			Dock = DockStyle.Fill;
 			//VerticalAlignment = VerticalAlignment.Top;
 			//HorizontalAlignment = System.Windows.Forms.HorizontalAlignment.Left;
 		}
@@ -42,7 +43,7 @@ namespace BaseLib.Param{
 		}
 
 		private void AddParameter(Parameter p, int i){
-			System.Windows.Forms.Label txt1 = new System.Windows.Forms.Label{Text = p.Name,
+			Label txt1 = new Label{Text = p.Name,
 				//Font = 12,
 				//FontWeight = FontWeights.Regular,
 				//VerticalAlignment = VerticalAlignment.Top
@@ -52,18 +53,19 @@ namespace BaseLib.Param{
 			//txt1.ToolTip = StringUtils.ReturnAtWhitespace(p.Help);
 			//}
 			object o = p.CreateControl();
-			System.Windows.Forms.Control c = null;
+			Control c = null;
 			if (o == null){
-				c = new System.Windows.Forms.Control();
-			} else if (o is System.Windows.Forms.Control){
-				System.Windows.Forms.Control x = (System.Windows.Forms.Control) o;
-				c = x;
+				c = new Control();
+			} else if (o is Control){
+				c = (Control)o;
 			}
-			grid.Controls.Add(txt1, i, 0);
-			grid.Controls.Add(c, i, 1);
+			txt1.Dock = DockStyle.Fill;
+			c.Dock = DockStyle.Fill;
+			grid.Controls.Add(txt1, 0, i);
+			grid.Controls.Add(c, 1, i);
 		}
 
-		public void RegisterScrollViewer(ScrollViewer scrollViewer){
+		public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){
 			foreach (var child in grid.Controls){
 				(child as IScrollRegistrationTarget)?.RegisterScrollViewer(scrollViewer);
 			}

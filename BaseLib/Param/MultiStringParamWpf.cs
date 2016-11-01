@@ -10,7 +10,7 @@ namespace BaseLib.Param{
 		[NonSerialized] private TextBox control;
 		internal MultiStringParamWpf(string name) : base(name){}
 		internal MultiStringParamWpf(string name, string[] value) : base(name, value){}
-		public override ParamType Type => ParamType.Wpf;
+		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
 			string text = control.Text;

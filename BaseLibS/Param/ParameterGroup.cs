@@ -7,9 +7,8 @@ using System.Xml.Serialization;
 
 namespace BaseLibS.Param{
 	[Serializable]
-	public class ParameterGroup : IXmlSerializable
-    {
-		private List<Parameter> parameters = new List<Parameter>();
+	public class ParameterGroup : IXmlSerializable{
+		private readonly List<Parameter> parameters = new List<Parameter>();
 		private string name;
 		private bool collapsedDefault;
 
@@ -59,7 +58,6 @@ namespace BaseLibS.Param{
 		}
 
 		public List<Parameter> ParameterList => parameters;
-
 		public int Count => parameters.Count;
 
 		public float Height{
@@ -111,40 +109,34 @@ namespace BaseLibS.Param{
 			}
 		}
 
-	    public XmlSchema GetSchema()
-	    {
-	        throw new NotImplementedException();
-	    }
+		public XmlSchema GetSchema(){
+			throw new NotImplementedException();
+		}
 
-	    public void ReadXml(XmlReader reader)
-	    {
-	        Name = reader["Name"];
-	        reader.MoveToAttribute("CollapsedDefault");
-	        CollapsedDefault = reader.ReadContentAsBoolean();
-	        bool isEmpty = reader.IsEmptyElement;
-	        reader.ReadStartElement();
-	        if (!isEmpty)
-	        {
-	            while (reader.NodeType == XmlNodeType.Element)
-	            {
-                    var type = Type.GetType(reader["Type"]);
-                    var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
-	                parameters.Add(param);
-	            }
-	            reader.ReadEndElement();
-	        }
-	    }
+		public void ReadXml(XmlReader reader){
+			Name = reader["Name"];
+			reader.MoveToAttribute("CollapsedDefault");
+			CollapsedDefault = reader.ReadContentAsBoolean();
+			bool isEmpty = reader.IsEmptyElement;
+			reader.ReadStartElement();
+			if (!isEmpty){
+				while (reader.NodeType == XmlNodeType.Element){
+					var type = Type.GetType(reader["Type"]);
+					var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
+					parameters.Add(param);
+				}
+				reader.ReadEndElement();
+			}
+		}
 
-	    public void WriteXml(XmlWriter writer)
-	    {
-            writer.WriteAttributeString("Name", Name);
-            writer.WriteStartAttribute("CollapsedDefault");
-            writer.WriteValue(CollapsedDefault);
-            writer.WriteEndAttribute();
-	        foreach (var parameter in parameters)
-	        {
-                new XmlSerializer(parameter.GetType()).Serialize(writer, parameter);
-	        }
-	    }
-    }
+		public void WriteXml(XmlWriter writer){
+			writer.WriteAttributeString("Name", Name);
+			writer.WriteStartAttribute("CollapsedDefault");
+			writer.WriteValue(CollapsedDefault);
+			writer.WriteEndAttribute();
+			foreach (var parameter in parameters){
+				new XmlSerializer(parameter.GetType()).Serialize(writer, parameter);
+			}
+		}
+	}
 }
