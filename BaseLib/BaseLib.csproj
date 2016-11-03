@@ -173,14 +173,44 @@
     <Compile Include="Query\SymbolTypeQueryForm.Designer.cs">
       <DependentUpon>SymbolTypeQueryForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\CheckedListBoxControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\CheckedListBoxControl.Designer.cs">
+      <DependentUpon>CheckedListBoxControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\Converters.cs" />
     <Compile Include="Wpf\Behaviors.cs" />
+    <Compile Include="Wpf\FileParameterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\FileParameterControl.Designer.cs">
+      <DependentUpon>FileParameterControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\FolderParameterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\FolderParameterControl.Designer.cs">
+      <DependentUpon>FolderParameterControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\ITableSelectionAgent.cs" />
     <Compile Include="Forms\Table\ListSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\Table\ListSelector.Designer.cs">
       <DependentUpon>ListSelector.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\ListSelectorControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\ListSelectorControl.Designer.cs">
+      <DependentUpon>ListSelectorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\Ms1LabelPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\Ms1LabelPanel.Designer.cs">
+      <DependentUpon>Ms1LabelPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\PasteSelectionWindow.xaml.cs">
       <DependentUpon>PasteSelectionWindow.xaml</DependentUpon>
@@ -213,7 +243,7 @@
     <Compile Include="Param\LabelParamWf.cs" />
     <Compile Include="Param\Ms1LabelParamWpf.cs" />
     <Compile Include="Param\MultiChoiceMultiBinParamWpf.cs" />
-    <Compile Include="Param\MultiChoiceParamWpf.cs" />
+    <Compile Include="Param\MultiChoiceParamWf.cs" />
     <Compile Include="Param\MultiFileParamWpf.cs" />
     <Compile Include="Param\MultiStringParamWpf.cs" />
     <Compile Include="Param\ParameterPanelWpf.cs" />
@@ -221,9 +251,9 @@
       <DependentUpon>ParameterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Param\SingleChoiceParamWf.cs" />
-    <Compile Include="Param\SingleChoiceWithSubParamsWpf.cs" />
+    <Compile Include="Param\SingleChoiceWithSubParamsWf.cs" />
     <Compile Include="Param\StringParamWf.cs" />
-    <Compile Include="Param\WpfParameterFactory.cs" />
+    <Compile Include="Param\WinFormsParameterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -254,14 +284,8 @@
     <Compile Include="Wpf\FilterWindow.xaml.cs">
       <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\FolderParameterControlWpf.xaml.cs">
-      <DependentUpon>FolderParameterControlWpf.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\IScrollRegistrationTarget.cs" />
     <Compile Include="Wpf\ListBoxSelector.cs" />
-    <Compile Include="Wpf\ListSelectorControlWpf.xaml.cs">
-      <DependentUpon>ListSelectorControlWpf.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\Ms1LabelPanelWpf.xaml.cs">
       <DependentUpon>Ms1LabelPanelWpf.xaml</DependentUpon>
     </Compile>
@@ -343,6 +367,15 @@
     <EmbeddedResource Include="Query\StringQueryForm.resx">
       <DependentUpon>StringQueryForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Wpf\FileParameterControl.resx">
+      <DependentUpon>FileParameterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wpf\FolderParameterControl.resx">
+      <DependentUpon>FolderParameterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wpf\ListSelectorControl.resx">
+      <DependentUpon>ListSelectorControl.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -377,14 +410,6 @@
     <Page Include="Wpf\FilterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\FolderParameterControlWpf.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Wpf\ListSelectorControlWpf.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Wpf\Ms1LabelPanelWpf.xaml">
       <SubType>Designer</SubType>

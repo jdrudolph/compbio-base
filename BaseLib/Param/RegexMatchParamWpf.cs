@@ -23,7 +23,7 @@ namespace BaseLib.Param{
 		public override float Height => 200;
 
 		public override object CreateControl(){
-			var control = new RegexMatchParamControl(Value, Previews);
+			RegexMatchParamControl control = new RegexMatchParamControl(Value, Previews);
 			viewModel = control.DataContext as RegexMatchParamViewModel;
 			return control;
 		}

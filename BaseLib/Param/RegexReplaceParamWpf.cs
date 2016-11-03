@@ -21,7 +21,7 @@ namespace BaseLib.Param{
 		public override float Height => 200;
 
 		public override object CreateControl(){
-			var control = new RegexReplaceParamControl(Value.Item1, Value.Item2, Previews);
+			RegexReplaceParamControl control = new RegexReplaceParamControl(Value.Item1, Value.Item2, Previews);
 			viewModel = control.DataContext as RegexReplaceParamViewModel;
 			return control;
 		}

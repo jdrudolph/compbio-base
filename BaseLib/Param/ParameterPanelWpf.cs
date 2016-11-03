@@ -20,7 +20,7 @@ namespace BaseLib.Param{
 
 		public float Init(Parameters parameters1, float paramNameWidth, int totalWidth){
 			Parameters = parameters1;
-			Parameters.Convert(WpfParameterFactory.Convert);
+			Parameters.Convert(WinFormsParameterFactory.Convert);
 			int nrows = Parameters.GroupCount;
 			parameterGroupPanels = new ParameterGroupPanelWpf[nrows];
 			grid = new Grid();

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Windows;
-using Microsoft.Win32;
+using System.Windows.Forms;
 
 namespace BaseLib.Wpf{
 	/// <summary>
@@ -9,12 +9,12 @@ namespace BaseLib.Wpf{
 	public partial class FileParameterControlWpf{
 		public FileParameterControlWpf(string fileName, string filter, Func<string, string> processFileName, bool save){
 			InitializeComponent();
-			var vm = new FileParamterViewModel(fileName, filter, processFileName, save);
+			FileParamterViewModel vm = new FileParamterViewModel(fileName, filter, processFileName, save);
 			DataContext = vm;
 		}
 
 		private void ButtonClick(object sender, RoutedEventArgs e){
-			var vm = (FileParamterViewModel) DataContext;
+			FileParamterViewModel vm = (FileParamterViewModel) DataContext;
 			vm.ChooseFile();
 			WpfUtils.SetOkFocus(this);
 		}
@@ -26,7 +26,6 @@ namespace BaseLib.Wpf{
 			this.filter = filter;
 			this.processFileName = processFileName;
 			this.save = save;
-			PropertyChanged += (sender, args) => { var x = fileName; };
 		}
 
 		private string fileName;
@@ -49,7 +48,7 @@ namespace BaseLib.Wpf{
 				if (!string.IsNullOrEmpty(filter)){
 					ofd.Filter = filter;
 				}
-				if (ofd.ShowDialog() == true){
+				if (ofd.ShowDialog() == DialogResult.OK){
 					FileName = ofd.FileName;
 				}
 			} else{
@@ -57,7 +56,7 @@ namespace BaseLib.Wpf{
 				if (!string.IsNullOrEmpty(filter)){
 					ofd.Filter = filter;
 				}
-				if (ofd.ShowDialog() == true){
+				if (ofd.ShowDialog() == DialogResult.OK){
 					string s = ofd.FileName;
 					if (processFileName != null){
 						s = processFileName(s);

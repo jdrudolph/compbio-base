@@ -31,8 +31,6 @@ namespace BaseLib.Param{
 			Margin = new Padding(0, 3, 0, 3);
 			grid.Dock = DockStyle.Fill;
 			Dock = DockStyle.Fill;
-			//VerticalAlignment = VerticalAlignment.Top;
-			//HorizontalAlignment = System.Windows.Forms.HorizontalAlignment.Left;
 		}
 
 		public void SetParameters(){
@@ -43,26 +41,19 @@ namespace BaseLib.Param{
 		}
 
 		private void AddParameter(Parameter p, int i){
-			Label txt1 = new Label{Text = p.Name,
-				//Font = 12,
-				//FontWeight = FontWeights.Regular,
-				//VerticalAlignment = VerticalAlignment.Top
-			};
+			Label txt1 = new Label{Text = p.Name};
 			//ToolTipService.SetShowDuration(txt1, 400000);
 			//if (!string.IsNullOrEmpty(p.Help)){
 			//txt1.ToolTip = StringUtils.ReturnAtWhitespace(p.Help);
 			//}
 			object o = p.CreateControl();
-			Control c = null;
-			if (o == null){
-				c = new Control();
-			} else if (o is Control){
-				c = (Control)o;
+			if (o is Control){
+				Control c = (Control)o;
+				c.Dock = DockStyle.Fill;
+				grid.Controls.Add(c, 1, i);
 			}
 			txt1.Dock = DockStyle.Fill;
-			c.Dock = DockStyle.Fill;
 			grid.Controls.Add(txt1, 0, i);
-			grid.Controls.Add(c, 1, i);
 		}
 
 		public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){

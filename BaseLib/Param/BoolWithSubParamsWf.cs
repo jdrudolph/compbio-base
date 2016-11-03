@@ -34,7 +34,6 @@ namespace BaseLib.Param{
 			panelTrue.Init(SubParamsTrue, ParamNameWidth, (int) TotalWidth);
 			CheckBox cb = new CheckBox{Checked = Value};
 			cb.CheckedChanged += (sender, e) => ValueHasChanged();
-			//cb.VerticalAlignment = VerticalAlignment.Center;
 			TableLayoutPanel tlp = new TableLayoutPanel();
 			tlp.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
 			tlp.RowStyles.Add(new RowStyle(SizeType.Absolute, paramHeight));

@@ -5,7 +5,7 @@ using BaseLibS.Param;
 namespace BaseLib.Param{
 	[Serializable]
 	internal class FolderParamWpf : FolderParam{
-		[NonSerialized] private FolderParameterControlWpf control;
+		[NonSerialized] private FolderParameterControl control;
 		internal FolderParamWpf(string name) : base(name){}
 		internal FolderParamWpf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.WinForms;
@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			return control = new FolderParameterControlWpf{Text = Value};
+			return control = new FolderParameterControl{Text1 = Value};
 		}
 	}
 }

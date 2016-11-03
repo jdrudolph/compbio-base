@@ -2,7 +2,7 @@
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
-	public static class WpfParameterFactory{
+	public static class WinFormsParameterFactory{
 		/// <summary>
 		/// Convert <see cref="BaseLibS.Param"/> to <see cref="BaseLib.Param"/>
 		/// </summary>
@@ -168,7 +168,7 @@ namespace BaseLib.Param{
 			}
 			if (p is MultiChoiceParam){
 				MultiChoiceParam q = (MultiChoiceParam) p;
-				MultiChoiceParamWpf b = new MultiChoiceParamWpf(q.Name, q.Value){
+				MultiChoiceParamWf b = new MultiChoiceParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Repeats = q.Repeats,
@@ -229,7 +229,7 @@ namespace BaseLib.Param{
 				foreach (Parameters param in q.SubParams){
 					param?.Convert(Convert);
 				}
-				SingleChoiceWithSubParamsWpf b = new SingleChoiceWithSubParamsWpf(q.Name, q.Value){
+				SingleChoiceWithSubParamsWf b = new SingleChoiceWithSubParamsWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,
