@@ -83,6 +83,12 @@
       <DependentUpon>ColorsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ColorStripView.cs" />
+    <Compile Include="Forms\RegexReplaceParamControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\RegexReplaceParamControl.Designer.cs">
+      <DependentUpon>RegexReplaceParamControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\Table\HelpLabel.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -274,9 +280,6 @@
     <Compile Include="Wpf\RegexMatchParamControl.xaml.cs">
       <DependentUpon>RegexMatchParamControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\RegexReplaceParamControl.xaml.cs">
-      <DependentUpon>RegexReplaceParamControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\SubSelectionControlWpf.xaml.cs">
       <DependentUpon>SubSelectionControlWpf.xaml</DependentUpon>
     </Compile>
@@ -304,6 +307,9 @@
     <EmbeddedResource Include="Forms\ColorsForm.resx">
       <DependentUpon>ColorsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RegexReplaceParamControl.resx">
+      <DependentUpon>RegexReplaceParamControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\HelpLabel.resx">
       <DependentUpon>HelpLabel.cs</DependentUpon>
@@ -401,10 +407,6 @@
     <Page Include="Wpf\RegexMatchParamControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Wpf\RegexReplaceParamControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\SubSelectionControlWpf.xaml">
       <SubType>Designer</SubType>
