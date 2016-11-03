@@ -9,7 +9,7 @@ using BaseLibS.Graph;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
-namespace BaseLib.Wpf{
+namespace BaseLib.Forms{
 	public partial class ListSelectorControl : UserControl{
 		public event EventHandler SelectionChanged;
 		private Thread downThread;

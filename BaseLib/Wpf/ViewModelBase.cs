@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Linq;
-using BaseLib.Annotations;
+using BaseLib.Properties;
 
 namespace BaseLib.Wpf{
 	public class ViewModelBase : INotifyPropertyChanged{

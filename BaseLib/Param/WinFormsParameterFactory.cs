@@ -98,7 +98,7 @@ namespace BaseLib.Param{
 			}
 			if (p is FileParam){
 				FileParam q = (FileParam) p;
-				FileParamWpf b = new FileParamWpf(q.Name, q.Value){
+				FileParamWf b = new FileParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -114,7 +114,7 @@ namespace BaseLib.Param{
 			}
 			if (p is FolderParam){
 				FolderParam q = (FolderParam) p;
-				FolderParamWpf b = new FolderParamWpf(q.Name, q.Value){
+				FolderParamWf b = new FolderParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,

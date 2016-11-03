@@ -1,13 +1,14 @@
 ﻿using System;
+using BaseLib.Forms;
 using BaseLib.Wpf;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class FolderParamWpf : FolderParam{
+	internal class FolderParamWf : FolderParam{
 		[NonSerialized] private FolderParameterControl control;
-		internal FolderParamWpf(string name) : base(name){}
-		internal FolderParamWpf(string name, string value) : base(name, value){}
+		internal FolderParamWf(string name) : base(name){}
+		internal FolderParamWf(string name, string value) : base(name, value){}
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){

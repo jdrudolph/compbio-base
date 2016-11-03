@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Wpf
+﻿namespace BaseLib.Forms
 {
 	partial class ListSelectorControl
 	{

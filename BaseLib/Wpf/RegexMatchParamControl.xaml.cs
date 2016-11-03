@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Controls;
 using System.Windows.Data;
-using BaseLib.Annotations;
+using BaseLib.Properties;
 
 namespace BaseLib.Wpf{
 	/// <summary>

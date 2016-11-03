@@ -187,16 +187,16 @@
     </Compile>
     <Compile Include="Wpf\Converters.cs" />
     <Compile Include="Wpf\Behaviors.cs" />
-    <Compile Include="Wpf\FileParameterControl.cs">
+    <Compile Include="Forms\FileParameterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\FileParameterControl.Designer.cs">
+    <Compile Include="Forms\FileParameterControl.Designer.cs">
       <DependentUpon>FileParameterControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\FolderParameterControl.cs">
+    <Compile Include="Forms\FolderParameterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\FolderParameterControl.Designer.cs">
+    <Compile Include="Forms\FolderParameterControl.Designer.cs">
       <DependentUpon>FolderParameterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ITableSelectionAgent.cs" />
@@ -206,10 +206,10 @@
     <Compile Include="Forms\Table\ListSelector.Designer.cs">
       <DependentUpon>ListSelector.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\ListSelectorControl.cs">
+    <Compile Include="Forms\ListSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\ListSelectorControl.Designer.cs">
+    <Compile Include="Forms\ListSelectorControl.Designer.cs">
       <DependentUpon>ListSelectorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\Ms1LabelPanel.cs">
@@ -217,6 +217,12 @@
     </Compile>
     <Compile Include="Wpf\Ms1LabelPanel.Designer.cs">
       <DependentUpon>Ms1LabelPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\MultiFileParameterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\MultiFileParameterControl.Designer.cs">
+      <DependentUpon>MultiFileParameterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\PasteSelectionWindow.xaml.cs">
       <DependentUpon>PasteSelectionWindow.xaml</DependentUpon>
@@ -243,8 +249,8 @@
     <Compile Include="Param\BoolWithSubParamsWf.cs" />
     <Compile Include="Param\DictionaryIntValueParamWpf.cs" />
     <Compile Include="Param\DoubleParamWf.cs" />
-    <Compile Include="Param\FileParamWpf.cs" />
-    <Compile Include="Param\FolderParamWpf.cs" />
+    <Compile Include="Param\FileParamWf.cs" />
+    <Compile Include="Param\FolderParamWf.cs" />
     <Compile Include="Param\IntParamWf.cs" />
     <Compile Include="Param\LabelParamWf.cs" />
     <Compile Include="Param\Ms1LabelParamWpf.cs" />
@@ -284,9 +290,6 @@
     <Compile Include="Wpf\DictionaryIntValuePopup.xaml.cs">
       <DependentUpon>DictionaryIntValuePopup.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\FileParameterControlWpf.xaml.cs">
-      <DependentUpon>FileParameterControlWpf.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\FilterWindow.xaml.cs">
       <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
@@ -311,6 +314,12 @@
       <DependentUpon>NumericUpDownControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
+    <Compile Include="Wpf\TableView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\TableView.Designer.cs">
+      <DependentUpon>TableView.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\TableViewWpf.xaml.cs">
       <DependentUpon>TableViewWpf.xaml</DependentUpon>
     </Compile>
@@ -373,14 +382,20 @@
     <EmbeddedResource Include="Query\StringQueryForm.resx">
       <DependentUpon>StringQueryForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wpf\FileParameterControl.resx">
+    <EmbeddedResource Include="Forms\FileParameterControl.resx">
       <DependentUpon>FileParameterControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wpf\FolderParameterControl.resx">
+    <EmbeddedResource Include="Forms\FolderParameterControl.resx">
       <DependentUpon>FolderParameterControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wpf\ListSelectorControl.resx">
+    <EmbeddedResource Include="Forms\ListSelectorControl.resx">
       <DependentUpon>ListSelectorControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wpf\MultiFileParameterControl.resx">
+      <DependentUpon>MultiFileParameterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wpf\TableView.resx">
+      <DependentUpon>TableView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -408,10 +423,6 @@
     <Page Include="Wpf\DictionaryIntValuePopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\FileParameterControlWpf.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Wpf\FilterWindow.xaml">
       <SubType>Designer</SubType>
