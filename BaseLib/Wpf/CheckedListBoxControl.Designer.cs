@@ -28,10 +28,31 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			components = new System.ComponentModel.Container();
+			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.SuspendLayout();
+			// 
+			// listBox1
+			// 
+			this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listBox1.FormattingEnabled = true;
+			this.listBox1.Location = new System.Drawing.Point(0, 0);
+			this.listBox1.Margin = new System.Windows.Forms.Padding(0);
+			this.listBox1.Name = "listBox1";
+			this.listBox1.Size = new System.Drawing.Size(150, 150);
+			this.listBox1.TabIndex = 0;
+			// 
+			// CheckedListBoxControl
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.listBox1);
+			this.Name = "CheckedListBoxControl";
+			this.ResumeLayout(false);
+
 		}
 
 		#endregion
+
+		private System.Windows.Forms.ListBox listBox1;
 	}
 }

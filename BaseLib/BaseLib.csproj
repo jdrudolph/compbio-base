@@ -134,7 +134,7 @@
     <Compile Include="Param\ParameterPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Param\RegexReplaceParamWpf.cs" />
+    <Compile Include="Param\RegexReplaceParamWf.cs" />
     <Compile Include="Param\RegexMatchParamWpf.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Query\DoubleQueryForm.cs">
@@ -218,10 +218,10 @@
     <Compile Include="Wpf\Ms1LabelPanel.Designer.cs">
       <DependentUpon>Ms1LabelPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\MultiFileParameterControl.cs">
+    <Compile Include="Forms\MultiFileParameterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\MultiFileParameterControl.Designer.cs">
+    <Compile Include="Forms\MultiFileParameterControl.Designer.cs">
       <DependentUpon>MultiFileParameterControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\PasteSelectionWindow.xaml.cs">
@@ -253,11 +253,11 @@
     <Compile Include="Param\FolderParamWf.cs" />
     <Compile Include="Param\IntParamWf.cs" />
     <Compile Include="Param\LabelParamWf.cs" />
-    <Compile Include="Param\Ms1LabelParamWpf.cs" />
+    <Compile Include="Param\Ms1LabelParamWf.cs" />
     <Compile Include="Param\MultiChoiceMultiBinParamWpf.cs" />
     <Compile Include="Param\MultiChoiceParamWf.cs" />
-    <Compile Include="Param\MultiFileParamWpf.cs" />
-    <Compile Include="Param\MultiStringParamWpf.cs" />
+    <Compile Include="Param\MultiFileParamWf.cs" />
+    <Compile Include="Param\MultiStringParamWf.cs" />
     <Compile Include="Param\ParameterPanelWpf.cs" />
     <Compile Include="Param\ParameterWindow.xaml.cs">
       <DependentUpon>ParameterWindow.xaml</DependentUpon>
@@ -297,9 +297,6 @@
     <Compile Include="Wpf\ListBoxSelector.cs" />
     <Compile Include="Wpf\Ms1LabelPanelWpf.xaml.cs">
       <DependentUpon>Ms1LabelPanelWpf.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf\MultiFileParameterControlWpf.xaml.cs">
-      <DependentUpon>MultiFileParameterControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\MultiListSelectorControlWpf.xaml.cs">
       <DependentUpon>MultiListSelectorControlWpf.xaml</DependentUpon>
@@ -391,8 +388,11 @@
     <EmbeddedResource Include="Forms\ListSelectorControl.resx">
       <DependentUpon>ListSelectorControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wpf\MultiFileParameterControl.resx">
+    <EmbeddedResource Include="Forms\MultiFileParameterControl.resx">
       <DependentUpon>MultiFileParameterControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wpf\CheckedListBoxControl.resx">
+      <DependentUpon>CheckedListBoxControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Wpf\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
@@ -431,10 +431,6 @@
     <Page Include="Wpf\Ms1LabelPanelWpf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\MultiFileParameterControlWpf.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Wpf\MultiListSelectorControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -9,15 +9,17 @@ namespace BaseLib.Wpf{
 	/// Interaction logic for CheckedListBoxControl.xaml
 	/// </summary>
 	public partial class CheckedListBoxControlWpf{
-		public CheckedListBoxControlWpf() { InitializeComponent(); }
+		public CheckedListBoxControlWpf(){
+			InitializeComponent();
+		}
+
 		public event EventHandler<ItemCheckEventArgs> ItemCheck;
 
 		public void Add(string text){
 			System.Windows.Controls.CheckBox cb = new System.Windows.Controls.CheckBox{Content = text};
 			int index = ListBox1.Items.Count;
-			cb.Checked += (sender, e) =>{
-				ItemCheck?.Invoke(this, new ItemCheckEventArgs(index, CheckState.Checked, CheckState.Unchecked));
-			};
+			cb.Checked +=
+				(sender, e) => { ItemCheck?.Invoke(this, new ItemCheckEventArgs(index, CheckState.Checked, CheckState.Unchecked)); };
 			ListBox1.Items.Add(new ListBoxItem{Content = cb});
 		}
 

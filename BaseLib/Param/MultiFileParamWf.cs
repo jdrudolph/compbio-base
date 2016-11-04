@@ -1,13 +1,14 @@
 ﻿using System;
+using BaseLib.Forms;
 using BaseLib.Wpf;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class MultiFileParamWpf : MultiFileParam{
-		[NonSerialized] private MultiFileParameterControlWpf control;
-		internal MultiFileParamWpf(string name) : base(name){}
-		internal MultiFileParamWpf(string name, string[] value) : base(name, value){}
+	internal class MultiFileParamWf : MultiFileParam{
+		[NonSerialized] private MultiFileParameterControl control;
+		internal MultiFileParamWf(string name) : base(name){}
+		internal MultiFileParamWf(string name, string[] value) : base(name, value){}
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
@@ -22,7 +23,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			return control = new MultiFileParameterControlWpf{Filter = Filter, Filenames = Value};
+			return control = new MultiFileParameterControl{Filter = Filter, Filenames = Value};
 		}
 	}
 }

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class MultiStringParamWpf : MultiStringParam{
+	internal class MultiStringParamWf : MultiStringParam{
 		[NonSerialized] private TextBox control;
-		internal MultiStringParamWpf(string name) : base(name){}
-		internal MultiStringParamWpf(string name, string[] value) : base(name, value){}
+		internal MultiStringParamWf(string name) : base(name){}
+		internal MultiStringParamWf(string name, string[] value) : base(name, value){}
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){

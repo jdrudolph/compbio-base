@@ -14,7 +14,7 @@ namespace BaseLib.Param{
 			}
 			if (p is RegexReplaceParam){
 				RegexReplaceParam q = (RegexReplaceParam) p;
-				RegexReplaceParamWpf b = new RegexReplaceParamWpf(q.Name, q.Value.Item1, q.Value.Item2, q.Previews){
+				RegexReplaceParamWf b = new RegexReplaceParamWf(q.Name, q.Value.Item1, q.Value.Item2, q.Previews){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -185,7 +185,7 @@ namespace BaseLib.Param{
 			}
 			if (p is MultiFileParam){
 				MultiFileParam q = (MultiFileParam) p;
-				MultiFileParamWpf b = new MultiFileParamWpf(q.Name, q.Value){
+				MultiFileParamWf b = new MultiFileParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Filter = q.Filter,
@@ -199,7 +199,7 @@ namespace BaseLib.Param{
 			}
 			if (p is MultiStringParam){
 				MultiStringParam q = (MultiStringParam) p;
-				MultiStringParamWpf b = new MultiStringParamWpf(q.Name, q.Value){
+				MultiStringParamWf b = new MultiStringParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -262,7 +262,7 @@ namespace BaseLib.Param{
 			}
 			if (p is Ms1LabelParam){
 				Ms1LabelParam q = (Ms1LabelParam) p;
-				Ms1LabelParamWpf b = new Ms1LabelParamWpf(q.Name, q.Value){
+				Ms1LabelParamWf b = new Ms1LabelParamWf(q.Name, q.Value){
 					Values = q.Values,
 					Multiplicity = q.Multiplicity,
 					Help = q.Help,
