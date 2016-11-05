@@ -1,31 +1,31 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using BaseLib.Forms;
 using BaseLib.Wpf;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
 	public class RegexMatchParamWpf : RegexMatchParam{
-		[NonSerialized] private RegexMatchParamViewModel viewModel;
+		[NonSerialized] private RegexMatchParamControl _control;
 		public RegexMatchParamWpf(string name, Regex value, List<string> replacement) : base(name, value, replacement){}
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
-			Value = viewModel.Pattern;
+			Value = _control._regex;
 		}
 
 		public override void UpdateControlFromValue(){
-			viewModel.Pattern = Value;
-			viewModel.Items = Previews;
+			_control._preview = Previews;
+			_control.Regex = Value.ToString(); // setting as string will refresh the view
 		}
 
 		public override float Height => 200;
 
 		public override object CreateControl(){
-			RegexMatchParamControl control = new RegexMatchParamControl(Value, Previews);
-			viewModel = control.DataContext as RegexMatchParamViewModel;
-			return control;
+			_control = new RegexMatchParamControl(Value, Previews);
+			return _control;
 		}
 	}
 }
