@@ -199,6 +199,12 @@
     <Compile Include="Forms\FolderParameterControl.Designer.cs">
       <DependentUpon>FolderParameterControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\DictionaryIntValueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Wpf\DictionaryIntValueControl.Designer.cs">
+      <DependentUpon>DictionaryIntValueControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\FilterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -235,6 +241,12 @@
     </Compile>
     <Compile Include="Wpf\MultiListSelectorControl.Designer.cs">
       <DependentUpon>MultiListSelectorControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\PasteSelectionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wpf\PasteSelectionForm.Designer.cs">
+      <DependentUpon>PasteSelectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\PasteSelectionWindow.xaml.cs">
       <DependentUpon>PasteSelectionWindow.xaml</DependentUpon>
@@ -302,7 +314,6 @@
       <DependentUpon>FilterWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\IScrollRegistrationTarget.cs" />
-    <Compile Include="Wpf\ListBoxSelector.cs" />
     <Compile Include="Wpf\MultiListSelectorControlWpf.xaml.cs">
       <DependentUpon>MultiListSelectorControlWpf.xaml</DependentUpon>
     </Compile>

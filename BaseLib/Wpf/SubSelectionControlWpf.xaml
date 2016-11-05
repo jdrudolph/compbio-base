@@ -30,7 +30,7 @@
                     <Image x:Name="H7"></Image>
                 </Button>
             </Grid>
-            <ListBox Grid.Column="1" x:Name="SelectedListBox" SelectionMode="Extended" local:ListBoxSelector.Enabled="True"></ListBox>
+            <ListBox Grid.Column="1" x:Name="SelectedListBox" SelectionMode="Extended"></ListBox>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="23"/>
