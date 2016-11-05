@@ -179,10 +179,10 @@
     <Compile Include="Query\SymbolTypeQueryForm.Designer.cs">
       <DependentUpon>SymbolTypeQueryForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\CheckedListBoxControl.cs">
+    <Compile Include="Forms\CheckedListBoxControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\CheckedListBoxControl.Designer.cs">
+    <Compile Include="Forms\CheckedListBoxControl.Designer.cs">
       <DependentUpon>CheckedListBoxControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\Converters.cs" />
@@ -212,10 +212,10 @@
     <Compile Include="Forms\ListSelectorControl.Designer.cs">
       <DependentUpon>ListSelectorControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Ms1LabelPanel.cs">
+    <Compile Include="Forms\Ms1LabelPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\Ms1LabelPanel.Designer.cs">
+    <Compile Include="Forms\Ms1LabelPanel.Designer.cs">
       <DependentUpon>Ms1LabelPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\MultiFileParameterControl.cs">
@@ -280,9 +280,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Graphic\GraphUtils.cs" />
-    <Compile Include="Wpf\CheckedListBoxControlWpf.xaml.cs">
-      <DependentUpon>CheckedListBoxControlWpf.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\CommonCommands.cs" />
     <Compile Include="Wpf\DictionaryIntValueControlWpf.xaml.cs">
       <DependentUpon>DictionaryIntValueControlWpf.xaml</DependentUpon>
@@ -295,9 +292,6 @@
     </Compile>
     <Compile Include="Wpf\IScrollRegistrationTarget.cs" />
     <Compile Include="Wpf\ListBoxSelector.cs" />
-    <Compile Include="Wpf\Ms1LabelPanelWpf.xaml.cs">
-      <DependentUpon>Ms1LabelPanelWpf.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\MultiListSelectorControlWpf.xaml.cs">
       <DependentUpon>MultiListSelectorControlWpf.xaml</DependentUpon>
     </Compile>
@@ -391,7 +385,7 @@
     <EmbeddedResource Include="Forms\MultiFileParameterControl.resx">
       <DependentUpon>MultiFileParameterControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wpf\CheckedListBoxControl.resx">
+    <EmbeddedResource Include="Forms\CheckedListBoxControl.resx">
       <DependentUpon>CheckedListBoxControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Wpf\TableView.resx">
@@ -412,10 +406,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\CheckedListBoxControlWpf.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Wpf\DictionaryIntValueControlWpf.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -425,10 +415,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\FilterWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\Ms1LabelPanelWpf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

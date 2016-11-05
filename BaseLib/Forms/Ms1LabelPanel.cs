@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using BaseLibS.Mol;
 using BaseLibS.Num;
 
-namespace BaseLib.Wpf{
+namespace BaseLib.Forms{
 	public partial class Ms1LabelPanel : UserControl{
 		/// <summary>
 		/// Number of label states. Set by input argument to constructor.
@@ -226,7 +226,7 @@ namespace BaseLib.Wpf{
 		}
 
 		private void LabelsListBoxItemCheck(object sender, ItemCheckEventArgs e){
-			CheckedListBoxControlWpf box = (CheckedListBoxControlWpf) sender;
+			CheckedListBoxControl box = (CheckedListBoxControl) sender;
 			if (e.NewValue != CheckState.Checked){
 				return;
 			}

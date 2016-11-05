@@ -1,4 +1,4 @@
-﻿namespace BaseLib.Wpf
+﻿namespace BaseLib.Forms
 {
 	partial class CheckedListBoxControl
 	{
@@ -28,24 +28,26 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.listBox1 = new System.Windows.Forms.ListBox();
+			this.listView1 = new System.Windows.Forms.ListView();
 			this.SuspendLayout();
 			// 
-			// listBox1
+			// listView1
 			// 
-			this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listBox1.FormattingEnabled = true;
-			this.listBox1.Location = new System.Drawing.Point(0, 0);
-			this.listBox1.Margin = new System.Windows.Forms.Padding(0);
-			this.listBox1.Name = "listBox1";
-			this.listBox1.Size = new System.Drawing.Size(150, 150);
-			this.listBox1.TabIndex = 0;
+			this.listView1.CheckBoxes = true;
+			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listView1.Location = new System.Drawing.Point(0, 0);
+			this.listView1.Margin = new System.Windows.Forms.Padding(0);
+			this.listView1.Name = "listView1";
+			this.listView1.Size = new System.Drawing.Size(150, 150);
+			this.listView1.TabIndex = 0;
+			this.listView1.UseCompatibleStateImageBehavior = false;
+			this.listView1.View = System.Windows.Forms.View.List;
 			// 
 			// CheckedListBoxControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this.listBox1);
+			this.Controls.Add(this.listView1);
 			this.Name = "CheckedListBoxControl";
 			this.ResumeLayout(false);
 
@@ -53,6 +55,6 @@
 
 		#endregion
 
-		private System.Windows.Forms.ListBox listBox1;
+		private System.Windows.Forms.ListView listView1;
 	}
 }
