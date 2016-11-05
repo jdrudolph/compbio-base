@@ -142,7 +142,6 @@
     <Compile Include="Param\ParameterGroupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Param\ParameterGroupPanelWpf.cs" />
     <Compile Include="Param\ParameterPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -298,7 +297,6 @@
     <Compile Include="Param\MultiChoiceParamWf.cs" />
     <Compile Include="Param\MultiFileParamWf.cs" />
     <Compile Include="Param\MultiStringParamWf.cs" />
-    <Compile Include="Param\ParameterPanelWpf.cs" />
     <Compile Include="Param\SingleChoiceParamWf.cs" />
     <Compile Include="Param\SingleChoiceWithSubParamsWf.cs" />
     <Compile Include="Param\StringParamWf.cs" />
