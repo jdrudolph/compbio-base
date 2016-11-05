@@ -72,7 +72,7 @@ namespace BaseLib.Param{
 			}
 			if (p is DictionaryIntValueParam){
 				DictionaryIntValueParam q = (DictionaryIntValueParam) p;
-				DictionaryIntValueParamWpf b = new DictionaryIntValueParamWpf(q.Name, q.Value, q.Keys){
+				DictionaryIntValueParamWf b = new DictionaryIntValueParamWf(q.Name, q.Value, q.Keys){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
@@ -153,7 +153,7 @@ namespace BaseLib.Param{
 			}
 			if (p is MultiChoiceMultiBinParam){
 				MultiChoiceMultiBinParam q = (MultiChoiceMultiBinParam) p;
-				MultiChoiceMultiBinParamWpf b = new MultiChoiceMultiBinParamWpf(q.Name, q.Value){
+				MultiChoiceMultiBinParamWf b = new MultiChoiceMultiBinParamWf(q.Name, q.Value){
 					Help = q.Help,
 					Visible = q.Visible,
 					Values = q.Values,

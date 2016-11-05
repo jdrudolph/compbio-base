@@ -1,6 +1,6 @@
-﻿namespace BaseLib.Wpf
+﻿namespace BaseLib.Forms
 {
-	partial class DictionaryIntValueControl
+	partial class MultiListSelectorControl
 	{
 		/// <summary> 
 		/// Required designer variable.

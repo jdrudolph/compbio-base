@@ -5,21 +5,13 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using BaseLib.Forms;
 using BaseLib.Graphic;
-using BaseLib.Param;
 using BaseLibS.Graph;
 using BaseLibS.Util;
 
 namespace BaseLib.Wpf{
 	public static class WpfUtils{
-		public static void SetOkFocus(Control c){
-			Window w = Window.GetWindow(c);
-			if (w is ParameterWindow){
-				ParameterWindow pw = (ParameterWindow) w;
-				pw.FocusOkButton();
-			}
-		}
-
 		public static float GetDpiScaleX(){
 			PropertyInfo dpiXProperty = typeof (SystemParameters).GetProperty("DpiX",
 				BindingFlags.NonPublic | BindingFlags.Static);
@@ -124,7 +116,7 @@ namespace BaseLib.Wpf{
 			return LoadBitmap(Bitmap2.GetImage("rotate.png"));
 		}
 
-		public static void SelectExact(ICollection<string> colNames, IList<string> colTypes, MultiListSelectorControlWpf mls){
+		public static void SelectExact(ICollection<string> colNames, IList<string> colTypes, MultiListSelectorControl mls){
 			for (int i = 0; i < colNames.Count; i++){
 				switch (colTypes[i]){
 					case "E":
@@ -146,7 +138,7 @@ namespace BaseLib.Wpf{
 			}
 		}
 
-		public static void SelectHeuristic(IList<string> colNames, MultiListSelectorControlWpf mls){
+		public static void SelectHeuristic(IList<string> colNames, MultiListSelectorControl mls){
 			char guessedType = GuessSilacType(colNames);
 			for (int i = 0; i < colNames.Count; i++){
 				if (StringUtils.categoricalColDefaultNames.Contains(colNames[i].ToLower())){

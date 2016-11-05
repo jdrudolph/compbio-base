@@ -199,16 +199,22 @@
     <Compile Include="Forms\FolderParameterControl.Designer.cs">
       <DependentUpon>FolderParameterControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\DictionaryIntValueControl.cs">
+    <Compile Include="Forms\DictionaryIntValueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\DictionaryIntValueControl.Designer.cs">
+    <Compile Include="Forms\DictionaryIntValueControl.Designer.cs">
       <DependentUpon>DictionaryIntValueControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\FilterForm.cs">
+    <Compile Include="Forms\DictionaryIntValueForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Wpf\FilterForm.Designer.cs">
+    <Compile Include="Forms\DictionaryIntValueForm.Designer.cs">
+      <DependentUpon>DictionaryIntValueForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\FilterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\FilterForm.Designer.cs">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ITableSelectionAgent.cs" />
@@ -236,10 +242,10 @@
     <Compile Include="Forms\MultiFileParameterControl.Designer.cs">
       <DependentUpon>MultiFileParameterControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\MultiListSelectorControl.cs">
+    <Compile Include="Forms\MultiListSelectorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\MultiListSelectorControl.Designer.cs">
+    <Compile Include="Forms\MultiListSelectorControl.Designer.cs">
       <DependentUpon>MultiListSelectorControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\PasteSelectionForm.cs">
@@ -271,14 +277,14 @@
     <Compile Include="Graphic\WindowsBasedGraphics.cs" />
     <Compile Include="Param\BoolParamWf.cs" />
     <Compile Include="Param\BoolWithSubParamsWf.cs" />
-    <Compile Include="Param\DictionaryIntValueParamWpf.cs" />
+    <Compile Include="Param\DictionaryIntValueParamWf.cs" />
     <Compile Include="Param\DoubleParamWf.cs" />
     <Compile Include="Param\FileParamWf.cs" />
     <Compile Include="Param\FolderParamWf.cs" />
     <Compile Include="Param\IntParamWf.cs" />
     <Compile Include="Param\LabelParamWf.cs" />
     <Compile Include="Param\Ms1LabelParamWf.cs" />
-    <Compile Include="Param\MultiChoiceMultiBinParamWpf.cs" />
+    <Compile Include="Param\MultiChoiceMultiBinParamWf.cs" />
     <Compile Include="Param\MultiChoiceParamWf.cs" />
     <Compile Include="Param\MultiFileParamWf.cs" />
     <Compile Include="Param\MultiStringParamWf.cs" />
@@ -304,30 +310,15 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Graphic\GraphUtils.cs" />
-    <Compile Include="Wpf\DictionaryIntValueControlWpf.xaml.cs">
-      <DependentUpon>DictionaryIntValueControlWpf.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf\DictionaryIntValuePopup.xaml.cs">
-      <DependentUpon>DictionaryIntValuePopup.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf\FilterWindow.xaml.cs">
-      <DependentUpon>FilterWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\IScrollRegistrationTarget.cs" />
-    <Compile Include="Wpf\MultiListSelectorControlWpf.xaml.cs">
-      <DependentUpon>MultiListSelectorControlWpf.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Wpf\RegexMatchParamControl.xaml.cs">
       <DependentUpon>RegexMatchParamControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\SubSelectionControl.cs">
+    <Compile Include="Forms\SubSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\SubSelectionControl.Designer.cs">
+    <Compile Include="Forms\SubSelectionControl.Designer.cs">
       <DependentUpon>SubSelectionControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf\SubSelectionControlWpf.xaml.cs">
-      <DependentUpon>SubSelectionControlWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
     <Compile Include="Wpf\TableView.cs">
@@ -412,6 +403,18 @@
     <EmbeddedResource Include="Forms\CheckedListBoxControl.resx">
       <DependentUpon>CheckedListBoxControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DictionaryIntValueControl.resx">
+      <DependentUpon>DictionaryIntValueControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DictionaryIntValueForm.resx">
+      <DependentUpon>DictionaryIntValueForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\FilterForm.resx">
+      <DependentUpon>FilterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SubSelectionControl.resx">
+      <DependentUpon>SubSelectionControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wpf\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
     </EmbeddedResource>
@@ -430,29 +433,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Wpf\DictionaryIntValueControlWpf.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Wpf\DictionaryIntValuePopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\FilterWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\MultiListSelectorControlWpf.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Wpf\RegexMatchParamControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Wpf\SubSelectionControlWpf.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Wpf\TableViewWpf.xaml">
       <SubType>Designer</SubType>

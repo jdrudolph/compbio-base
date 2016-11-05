@@ -1,33 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using BaseLibS.Num;
 using BaseLibS.Param;
 
-namespace BaseLib.Wpf{
-	/// <summary>
-	/// Interaction logic for MultiListSelectorControl.xaml
-	/// </summary>
-	public partial class MultiListSelectorControlWpf{
+namespace BaseLib.Forms{
+	public partial class MultiListSelectorControl : UserControl{
 		public event EventHandler SelectionChanged;
 		public IList<string> items;
 		internal ListBox AllListBox { get; }
-		private SubSelectionControlWpf[] subSelection;
-		private readonly Grid tableLayoutPanel1;
+		private SubSelectionControl[] subSelection;
+		private readonly TableLayoutPanel tableLayoutPanel1;
 
-		public MultiListSelectorControlWpf(){
+		public MultiListSelectorControl(){
 			InitializeComponent();
-			AllListBox = new ListBox{SelectionMode = SelectionMode.Extended};
-			tableLayoutPanel1 = new Grid();
-			tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(44, GridUnitType.Star)});
-			tableLayoutPanel1.ColumnDefinitions.Add(new ColumnDefinition{Width = new GridLength(56, GridUnitType.Star)});
-			Grid.SetRow(AllListBox, 0);
-			Grid.SetColumn(AllListBox, 0);
-			tableLayoutPanel1.Children.Add(AllListBox);
-			tableLayoutPanel1.Margin = new Thickness(0);
-			tableLayoutPanel1.RowDefinitions.Add(new RowDefinition());
-			Content = tableLayoutPanel1;
+			AllListBox = new ListBox();
+			tableLayoutPanel1 = new TableLayoutPanel();
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 44));
+			tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56));
+			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
+			tableLayoutPanel1.Controls.Add(AllListBox, 0, 0);
+			tableLayoutPanel1.Margin = new Padding(0);
+			Controls.Add(tableLayoutPanel1);
 		}
 
 		public void Init(IList<string> items1){
@@ -58,11 +52,11 @@ namespace BaseLib.Wpf{
 		}
 
 		private void ClearSelection(){
-			foreach (SubSelectionControlWpf t in subSelection){
-				foreach (object x in t.SelectedListBox.Items){
+			foreach (SubSelectionControl t in subSelection){
+				foreach (object x in t.listBox1.Items){
 					AllListBox.Items.Add(x);
 				}
-				t.SelectedListBox.Items.Clear();
+				t.listBox1.Items.Clear();
 			}
 		}
 
@@ -76,30 +70,26 @@ namespace BaseLib.Wpf{
 				AllListBox.Items.Add(s);
 			}
 			int n = selectorNames.Count;
-			Grid tableLayoutPanel2 = new Grid();
-			subSelection = new SubSelectionControlWpf[n];
+			TableLayoutPanel tableLayoutPanel2 = new TableLayoutPanel();
+			subSelection = new SubSelectionControl[n];
 			for (int i = 0; i < n; i++){
-				subSelection[i] = new SubSelectionControlWpf{MultiListSelectorControl = this, Text = selectorNames[i]};
+				subSelection[i] = new SubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
 				if (subParams != null && i < subParams.Count && subParams[i] != null){
 					subSelection[i].ParameterFuncs = subParams[i];
 				}
 			}
-			tableLayoutPanel2.Margin = new Thickness(0);
-			tableLayoutPanel2.ColumnDefinitions.Add(new ColumnDefinition());
+			tableLayoutPanel2.Margin = new Padding(0);
+			tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
 			for (int i = 0; i < n; i++){
-				tableLayoutPanel2.RowDefinitions.Add(new RowDefinition{Height = new GridLength(10, GridUnitType.Star)});
+				tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10));
 			}
 			for (int i = 0; i < n; i++){
-				Grid.SetRow(subSelection[i], i);
-				Grid.SetColumn(subSelection[i], 0);
-				tableLayoutPanel2.Children.Add(subSelection[i]);
+				tableLayoutPanel2.Controls.Add(subSelection[i], 0, i);
 			}
-			Grid.SetRow(tableLayoutPanel2, 0);
-			Grid.SetColumn(tableLayoutPanel2, 1);
-			tableLayoutPanel1.Children.Add(tableLayoutPanel2);
+			tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 0);
 		}
 
-		internal void SelectionHasChanged(SubSelectionControlWpf sender, EventArgs e){
+		internal void SelectionHasChanged(SubSelectionControl sender, EventArgs e){
 			SelectionChanged?.Invoke(this, e);
 		}
 
@@ -117,15 +107,15 @@ namespace BaseLib.Wpf{
 					if (i == selectorInd){
 						continue;
 					}
-					if (subSelection[i].SelectedListBox.Items.Contains(items[itemInd])){
-						subSelection[i].SelectedListBox.Items.Remove(items[itemInd]);
+					if (subSelection[i].listBox1.Items.Contains(items[itemInd])){
+						subSelection[i].listBox1.Items.Remove(items[itemInd]);
 						AllListBox.Items.Add(items[itemInd]);
 						break;
 					}
 				}
 			}
 			AllListBox.Items.Remove(items[itemInd]);
-			subSelection[selectorInd].SelectedListBox.Items.Add(items[itemInd]);
+			subSelection[selectorInd].listBox1.Items.Add(items[itemInd]);
 		}
 
 		public int[] GetSelectedIndices(int selectorInd){

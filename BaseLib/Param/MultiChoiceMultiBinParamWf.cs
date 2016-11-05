@@ -1,13 +1,13 @@
 using System;
-using BaseLib.Wpf;
+using BaseLib.Forms;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class MultiChoiceMultiBinParamWpf : MultiChoiceMultiBinParam{
-		[NonSerialized] private MultiListSelectorControlWpf control;
-		internal MultiChoiceMultiBinParamWpf(string name) : base(name){}
-		internal MultiChoiceMultiBinParamWpf(string name, int[][] value) : base(name, value){}
+	internal class MultiChoiceMultiBinParamWf : MultiChoiceMultiBinParam{
+		[NonSerialized] private MultiListSelectorControl control;
+		internal MultiChoiceMultiBinParamWf(string name) : base(name){}
+		internal MultiChoiceMultiBinParamWf(string name, int[][] value) : base(name, value){}
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			control = new MultiListSelectorControlWpf();
+			control = new MultiListSelectorControl();
 			control.Init(Values, Bins);
 			control.SelectedIndices = Value;
 			return control;
