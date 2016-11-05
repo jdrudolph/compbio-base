@@ -133,6 +133,12 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Graphic\ExportGraphics.cs" />
+    <Compile Include="Param\ParameterForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Param\ParameterForm.Designer.cs">
+      <DependentUpon>ParameterForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Param\ParameterGroupPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -141,7 +147,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Param\RegexReplaceParamWf.cs" />
-    <Compile Include="Param\RegexMatchParamWpf.cs" />
+    <Compile Include="Param\RegexMatchParamWf.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Query\DoubleQueryForm.cs">
       <SubType>Form</SubType>
@@ -191,8 +197,6 @@
     <Compile Include="Forms\CheckedListBoxControl.Designer.cs">
       <DependentUpon>CheckedListBoxControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Converters.cs" />
-    <Compile Include="Wpf\Behaviors.cs" />
     <Compile Include="Forms\FileParameterControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -295,9 +299,6 @@
     <Compile Include="Param\MultiFileParamWf.cs" />
     <Compile Include="Param\MultiStringParamWf.cs" />
     <Compile Include="Param\ParameterPanelWpf.cs" />
-    <Compile Include="Param\ParameterWindow.xaml.cs">
-      <DependentUpon>ParameterWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Param\SingleChoiceParamWf.cs" />
     <Compile Include="Param\SingleChoiceWithSubParamsWf.cs" />
     <Compile Include="Param\StringParamWf.cs" />
@@ -336,7 +337,6 @@
     <Compile Include="Wpf\TableViewSelectionAgentWindow.xaml.cs">
       <DependentUpon>TableViewSelectionAgentWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\ValidationRules.cs" />
     <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\NumericAxisPropertiesForm.resx">
       <DependentUpon>NumericAxisPropertiesForm.cs</DependentUpon>
@@ -374,6 +374,9 @@
     <EmbeddedResource Include="Forms\Table\SelectColumnsForm.resx">
       <DependentUpon>SelectColumnsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Param\ParameterForm.resx">
+      <DependentUpon>ParameterForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -432,10 +435,6 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Wpf\PasteSelectionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Param\ParameterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

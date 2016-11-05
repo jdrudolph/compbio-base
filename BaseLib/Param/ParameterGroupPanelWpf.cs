@@ -6,7 +6,7 @@ using BaseLibS.Param;
 using BaseLibS.Util;
 
 namespace BaseLib.Param{
-	public class ParameterGroupPanelWpf22 : UserControl{
+	public class ParameterGroupPanelWpf : UserControl{
 		public ParameterGroup ParameterGroup { get; private set; }
 		private Grid grid;
 

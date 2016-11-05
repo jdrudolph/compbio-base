@@ -27,7 +27,7 @@ namespace BaseLib.Param{
 			}
 			if (p is RegexMatchParam){
 				RegexMatchParam q = (RegexMatchParam) p;
-				RegexMatchParamWpf b = new RegexMatchParamWpf(q.Name, q.Value, q.Previews){
+				RegexMatchParamWf b = new RegexMatchParamWf(q.Name, q.Value, q.Previews){
 					Help = q.Help,
 					Visible = q.Visible,
 					Default = q.Default,
