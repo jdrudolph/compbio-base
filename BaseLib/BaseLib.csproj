@@ -83,6 +83,12 @@
       <DependentUpon>ColorsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ColorStripView.cs" />
+    <Compile Include="Forms\RegexMatchParamControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\RegexMatchParamControl.Designer.cs">
+      <DependentUpon>RegexMatchParamControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RegexReplaceParamControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -311,9 +317,6 @@
     </Compile>
     <Compile Include="Graphic\GraphUtils.cs" />
     <Compile Include="Wpf\IScrollRegistrationTarget.cs" />
-    <Compile Include="Wpf\RegexMatchParamControl.xaml.cs">
-      <DependentUpon>RegexMatchParamControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Forms\SubSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -346,6 +349,9 @@
     <EmbeddedResource Include="Forms\ColorsForm.resx">
       <DependentUpon>ColorsForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RegexMatchParamControl.resx">
+      <DependentUpon>RegexMatchParamControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegexReplaceParamControl.resx">
       <DependentUpon>RegexReplaceParamControl.cs</DependentUpon>
@@ -432,10 +438,6 @@
     <Page Include="Param\ParameterWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\RegexMatchParamControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Wpf\TableViewWpf.xaml">
       <SubType>Designer</SubType>
