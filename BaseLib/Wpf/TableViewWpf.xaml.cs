@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
 using BaseLib.Forms.Scroll;
 using BaseLib.Forms.Table;
 using BaseLibS.Num;
@@ -248,10 +249,13 @@ namespace BaseLib.Wpf{
 
 		private void SelectionAgentButton_OnClick(object sender, RoutedEventArgs e){
 			Point p = SelectionAgentButton.PointToScreen(new Point(0, 0));
-			TableViewSelectionAgentWindow w = new TableViewSelectionAgentWindow(TableModel){Top = p.Y - 125, Left = p.X - 300};
-			if (w.ShowDialog() == true){
-				int ind1 = w.SourceBox.SelectedIndex;
-				int ind2 = w.ColumnBox.SelectedIndex;
+			TableViewSelectionAgentForm w = new TableViewSelectionAgentForm(TableModel){
+				Top = (int) (p.Y - 125),
+				Left = (int) (p.X - 300)
+			};
+			if (w.ShowDialog() == DialogResult.OK){
+				int ind1 = w.sourceBox.SelectedIndex;
+				int ind2 = w.columnBox.SelectedIndex;
 				if (ind1 >= 0 && ind2 >= 0){
 					selectionAgent = selectionAgents[ind1];
 					selectionAgentColInd = ind2;

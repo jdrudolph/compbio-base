@@ -257,14 +257,11 @@
     <Compile Include="Forms\MultiListSelectorControl.Designer.cs">
       <DependentUpon>MultiListSelectorControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\PasteSelectionForm.cs">
+    <Compile Include="Forms\Table\PasteSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Wpf\PasteSelectionForm.Designer.cs">
+    <Compile Include="Forms\Table\PasteSelectionForm.Designer.cs">
       <DependentUpon>PasteSelectionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf\PasteSelectionWindow.xaml.cs">
-      <DependentUpon>PasteSelectionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Forms\Table\FindForm.cs">
       <SubType>Form</SubType>
@@ -329,11 +326,14 @@
     <Compile Include="Wpf\TableView.Designer.cs">
       <DependentUpon>TableView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\Table\TableViewSelectionAgentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Table\TableViewSelectionAgentForm.Designer.cs">
+      <DependentUpon>TableViewSelectionAgentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\TableViewWpf.xaml.cs">
       <DependentUpon>TableViewWpf.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf\TableViewSelectionAgentWindow.xaml.cs">
-      <DependentUpon>TableViewSelectionAgentWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\NumericAxisPropertiesForm.resx">
@@ -422,8 +422,14 @@
     <EmbeddedResource Include="Forms\SubSelectionControl.resx">
       <DependentUpon>SubSelectionControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Table\PasteSelectionForm.resx">
+      <DependentUpon>PasteSelectionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Wpf\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Table\TableViewSelectionAgentForm.resx">
+      <DependentUpon>TableViewSelectionAgentForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -432,15 +438,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Wpf\PasteSelectionWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Wpf\TableViewWpf.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Wpf\TableViewSelectionAgentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

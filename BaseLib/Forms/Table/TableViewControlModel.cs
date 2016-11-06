@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using BaseLib.Wpf;
 using BaseLibS.Graph;
 using BaseLibS.Num;
 using BaseLibS.Symbol;
@@ -642,7 +641,7 @@ namespace BaseLib.Forms.Table{
 						}
 					}
 				}
-				PasteSelectionWindow psw = new PasteSelectionWindow(ncols, GetColumnNames());
+				PasteSelectionForm psw = new PasteSelectionForm(ncols, GetColumnNames());
 				psw.ShowDialog();
 				if (!psw.Ok){
 					return;
