@@ -90,7 +90,7 @@ namespace BaseLib.Forms{
 			}
 			grid1.AutoScroll = true;
 			grid1.VerticalScroll.Enabled = false;
-
+			grid1.Dock = DockStyle.Fill;
 			//ScrollViewer sv = new ScrollViewer{
 			//	HorizontalAlignment = HorizontalAlignment.Left,
 			//	VerticalScrollBarVisibility = ScrollBarVisibility.Disabled,
