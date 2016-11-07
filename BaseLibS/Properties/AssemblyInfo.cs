@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BaseLibS")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Utility classes for MaxQuant and Perseus, independent of graphics")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Max-Planck-Institute of Biochemistry")]
 [assembly: AssemblyProduct("BaseLibS")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

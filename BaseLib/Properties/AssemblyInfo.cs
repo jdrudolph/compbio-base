@@ -8,9 +8,9 @@ using System.Windows;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("BaseLib")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Utility classes for MaxQuant and Perseus")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Max-Planck-Institute of Biochemistry")]
 [assembly: AssemblyProduct("BaseLib")]
 [assembly: AssemblyCopyright("")]
 [assembly: AssemblyTrademark("")]
