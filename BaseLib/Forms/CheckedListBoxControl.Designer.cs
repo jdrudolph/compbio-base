@@ -33,8 +33,10 @@
 			// 
 			// listView1
 			// 
+			this.listView1.AutoArrange = false;
 			this.listView1.CheckBoxes = true;
 			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.listView1.HoverSelection = true;
 			this.listView1.Location = new System.Drawing.Point(0, 0);
 			this.listView1.Margin = new System.Windows.Forms.Padding(0);
 			this.listView1.Name = "listView1";
