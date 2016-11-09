@@ -147,17 +147,28 @@ namespace BaseLibS.Test
         }
 
         [TestMethod]
-        public void TestParameterGroup()
+        public void TestEmptyParameterGroup()
         {
-            var sparam = new ParameterGroup(new Parameter[] {new IntParam("int", 42), new StringParam("string", "42") }, "myname", false);
+            var sparam = new ParameterGroup(new Parameter[0], "myname", false);
             var writer = new StringWriter();
             var serializer = new XmlSerializer(sparam.GetType());
             serializer.Serialize(writer, sparam);
             var writer2 = new StringReader(writer.ToString());
-            var sparam2 = (ParameterGroup) serializer.Deserialize(writer2);
+            var sparam2 = (ParameterGroup)serializer.Deserialize(writer2);
             Assert.AreEqual(sparam.Name, sparam2.Name);
-            Assert.AreEqual(42, ((IntParam) sparam[0]).Value);
-            Assert.AreEqual("42", ((StringParam) sparam[1]).Value);
+        }
+        [TestMethod]
+        public void TestParameterGroup()
+        {
+            var sparam = new ParameterGroup(new Parameter[] { new IntParam("int", 42), new StringParam("string", "42") }, "myname", false);
+            var writer = new StringWriter();
+            var serializer = new XmlSerializer(sparam.GetType());
+            serializer.Serialize(writer, sparam);
+            var writer2 = new StringReader(writer.ToString());
+            var sparam2 = (ParameterGroup)serializer.Deserialize(writer2);
+            Assert.AreEqual(sparam.Name, sparam2.Name);
+            Assert.AreEqual(42, ((IntParam)sparam[0]).Value);
+            Assert.AreEqual("42", ((StringParam)sparam[1]).Value);
         }
 
         [TestMethod]
@@ -253,7 +264,7 @@ namespace BaseLibS.Test
         {
             var param = new SingleChoiceWithSubParams("choice", 1) { Values = new List<string> {"c1", "b2"}, SubParams = new []
             {
-                new Parameters(),
+                new Parameters(new Parameter[0]),
                 new Parameters(new IntParam("sub2", 82)) 
             }};
             var param2 = (SingleChoiceWithSubParams) param.ToXmlAndBack();

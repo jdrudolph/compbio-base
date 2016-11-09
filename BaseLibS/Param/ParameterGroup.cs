@@ -113,15 +113,15 @@ namespace BaseLibS.Param{
 			throw new NotImplementedException();
 		}
 
-		public void ReadXml(XmlReader reader){
-			Name = reader["Name"];
-			reader.MoveToAttribute("CollapsedDefault");
-			CollapsedDefault = reader.ReadContentAsBoolean();
+		public void ReadXml(XmlReader reader)
+		{
+		    Name = reader.GetAttribute("Name");
+		    CollapsedDefault = bool.Parse(reader.GetAttribute("CollapsedDefault"));
 			bool isEmpty = reader.IsEmptyElement;
 			reader.ReadStartElement();
 			if (!isEmpty){
 				while (reader.NodeType == XmlNodeType.Element){
-					var type = Type.GetType(reader["Type"]);
+					var type = Type.GetType(reader.GetAttribute("Type"));
 					var param = (Parameter) new XmlSerializer(type).Deserialize(reader);
 					parameters.Add(param);
 				}

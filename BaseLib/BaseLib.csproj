@@ -147,6 +147,7 @@
     </Compile>
     <Compile Include="Param\RegexReplaceParamWf.cs" />
     <Compile Include="Param\RegexMatchParamWf.cs" />
+    <Compile Include="Param\WinFormsParameterFactory.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Query\DoubleQueryForm.cs">
       <SubType>Form</SubType>
@@ -297,7 +298,7 @@
     <Compile Include="Param\SingleChoiceParamWf.cs" />
     <Compile Include="Param\SingleChoiceWithSubParamsWf.cs" />
     <Compile Include="Param\StringParamWf.cs" />
-    <Compile Include="Param\WinFormsParameterFactory.cs" />
+    <Compile Include="Param\ServerParameterFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
