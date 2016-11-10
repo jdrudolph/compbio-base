@@ -243,39 +243,5 @@ namespace BaseLib.Graphic{
 					throw new ArgumentOutOfRangeException(nameof(cursor), cursor, null);
 			}
 		}
-
-		public static System.Windows.Input.Cursor ToCursorWpf(Cursors2 cursor){
-			switch (cursor){
-				case Cursors2.AppStarting:
-					return System.Windows.Input.Cursors.AppStarting;
-				case Cursors2.Arrow:
-					return System.Windows.Input.Cursors.Arrow;
-				case Cursors2.Cross:
-					return System.Windows.Input.Cursors.Cross;
-				case Cursors2.Default:
-					return System.Windows.Input.Cursors.Hand;
-				case Cursors2.Help:
-					return System.Windows.Input.Cursors.Help;
-				case Cursors2.IBeam:
-					return System.Windows.Input.Cursors.IBeam;
-				case Cursors2.No:
-					return System.Windows.Input.Cursors.No;
-				case Cursors2.SizeAll:
-					return System.Windows.Input.Cursors.SizeAll;
-				case Cursors2.SizeNESW:
-					return System.Windows.Input.Cursors.SizeNESW;
-				case Cursors2.SizeNS:
-					return System.Windows.Input.Cursors.SizeNS;
-				case Cursors2.SizeNWSE:
-					return System.Windows.Input.Cursors.SizeNWSE;
-				case Cursors2.SizeWE:
-					return System.Windows.Input.Cursors.SizeWE;
-				case Cursors2.UpArrow:
-					return System.Windows.Input.Cursors.UpArrow;
-				default:
-					//TODO
-					return System.Windows.Input.Cursors.Arrow;
-			}
-		}
 	}
 }
