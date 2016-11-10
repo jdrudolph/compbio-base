@@ -54,6 +54,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Forms\FormUtils.cs" />
     <Compile Include="Forms\NumericAxisPropertiesForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -321,10 +322,10 @@
       <DependentUpon>SubSelectionControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
-    <Compile Include="Wpf\TableView.cs">
+    <Compile Include="Forms\Table\TableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Wpf\TableView.Designer.cs">
+    <Compile Include="Forms\Table\TableView.Designer.cs">
       <DependentUpon>TableView.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Table\TableViewSelectionAgentForm.cs">
@@ -426,7 +427,7 @@
     <EmbeddedResource Include="Forms\Table\PasteSelectionForm.resx">
       <DependentUpon>PasteSelectionForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wpf\TableView.resx">
+    <EmbeddedResource Include="Forms\Table\TableView.resx">
       <DependentUpon>TableView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\TableViewSelectionAgentForm.resx">

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Scroll;
-using BaseLib.Forms.Table;
+using BaseLib.Wpf;
 using BaseLibS.Num;
 using BaseLibS.Table;
 using BaseLibS.Util;
 
-namespace BaseLib.Wpf{
+namespace BaseLib.Forms.Table{
 	public partial class TableView : UserControl{
 		internal static readonly List<ITableSelectionAgent> selectionAgents = new List<ITableSelectionAgent>();
 		public event EventHandler SelectionChanged;
@@ -23,7 +23,7 @@ namespace BaseLib.Wpf{
 
 		public TableView(){
 			InitializeComponent();
-			tableView = new CompoundScrollableControl();
+			tableView = new CompoundScrollableControl{Dock = DockStyle.Fill, Margin = new Padding(0)};
 			tableViewWf = new TableViewControlModel();
 			tableView.Client = tableViewWf;
 			tableViewWf.SelectionChanged += (sender, args) =>{
