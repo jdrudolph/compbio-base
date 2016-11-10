@@ -8,24 +8,24 @@ using System.Windows.Forms;
 
 namespace BaseLib.Forms{
 	public partial class RegexMatchParamControl : UserControl{
-		internal Regex _regex;
-		internal List<string> _preview;
+		internal Regex regex;
+		internal List<string> preview;
 
 		public RegexMatchParamControl(Regex regex, List<string> preview){
 			InitializeComponent();
-			_regex = regex;
+			this.regex = regex;
 			RegexTextBox.Text = Regex;
-			_preview = preview;
+			this.preview = preview;
 		}
 
 		public string Regex{
-			get { return _regex.ToString(); }
+			get { return regex.ToString(); }
 			set{
 				if (value == Regex){
 					return;
 				}
 				try{
-					_regex = new Regex(value);
+					regex = new Regex(value);
 					UpdatePreviewTable();
 				} catch (ArgumentException){
 					Debug.WriteLine("Unable to parse regex");
@@ -34,17 +34,17 @@ namespace BaseLib.Forms{
 		}
 
 		private void UpdatePreviewTable(){
-			var table = new DataTable("Preview");
-			var groupNames = _regex.GetGroupNames().Skip(1).ToArray();
-			var inputColumn = "Input";
+			DataTable table = new DataTable("Preview");
+			string[] groupNames = regex.GetGroupNames().Skip(1).ToArray();
+			const string inputColumn = "Input";
 			table.Columns.Add(inputColumn);
 			foreach (var groupName in groupNames){
 				table.Columns.Add(groupName);
 			}
-			foreach (var preview in _preview){
-				var match = _regex.Match(preview);
-				var row = table.NewRow();
-				row[inputColumn] = preview;
+			foreach (string s in preview){
+				Match match = regex.Match(s);
+				DataRow row = table.NewRow();
+				row[inputColumn] = s;
 				foreach (var groupName in groupNames){
 					row[groupName] = match.Groups[groupName];
 				}

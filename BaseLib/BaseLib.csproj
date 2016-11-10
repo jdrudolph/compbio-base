@@ -39,19 +39,16 @@
     <Reference Include="itextsharp">
       <HintPath>..\DLLs\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="RibbonControlsLibrary, Version=4.0.0.11019, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Forms\FormUtils.cs" />
@@ -228,7 +225,7 @@
     <Compile Include="Forms\FilterForm.Designer.cs">
       <DependentUpon>FilterForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\ITableSelectionAgent.cs" />
+    <Compile Include="Forms\Table\ITableSelectionAgent.cs" />
     <Compile Include="Forms\Table\ListSelector.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -314,14 +311,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Graphic\GraphUtils.cs" />
-    <Compile Include="Wpf\IScrollRegistrationTarget.cs" />
     <Compile Include="Forms\SubSelectionControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Forms\SubSelectionControl.Designer.cs">
       <DependentUpon>SubSelectionControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\ScrollableWindowsFormsHost .cs" />
     <Compile Include="Forms\Table\TableView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -333,9 +328,6 @@
     </Compile>
     <Compile Include="Forms\Table\TableViewSelectionAgentForm.Designer.cs">
       <DependentUpon>TableViewSelectionAgentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Wpf\TableViewWpf.xaml.cs">
-      <DependentUpon>TableViewWpf.xaml</DependentUpon>
     </Compile>
     <Compile Include="Wpf\WpfUtils.cs" />
     <EmbeddedResource Include="Forms\NumericAxisPropertiesForm.resx">
@@ -438,12 +430,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Wpf\TableViewWpf.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BaseLibS\BaseLibS.csproj">

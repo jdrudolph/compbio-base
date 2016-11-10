@@ -60,18 +60,17 @@ namespace BaseLib.Param{
 			if (p.Name == null){
 				grid.Controls.Add(pgp, 0, i);
 			} else{
-				GroupBox gb = new GroupBox{Text = p.Name, Margin = new Padding(3), Padding = new Padding(3),};
-				gb.Dock = DockStyle.Fill;
+				GroupBox gb = new GroupBox{Text = p.Name, Margin = new Padding(3), Padding = new Padding(3), Dock = DockStyle.Fill,};
 				gb.Controls.Add(pgp);
 				grid.Controls.Add(gb, 0, i);
 			}
 		}
 
-		public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){
-			foreach (ParameterGroupPanel panel in parameterGroupPanels){
-				panel.RegisterScrollViewer(scrollViewer);
-			}
-		}
+		//public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){
+		//	foreach (ParameterGroupPanel panel in parameterGroupPanels){
+		//		panel.RegisterScrollViewer(scrollViewer);
+		//	}
+		//}
 
 		public void Disable(){
 			foreach (ParameterGroupPanel parameterGroupPanel in parameterGroupPanels){

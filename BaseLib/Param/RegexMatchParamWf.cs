@@ -12,11 +12,11 @@ namespace BaseLib.Param{
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
-			Value = control._regex;
+			Value = control.regex;
 		}
 
 		public override void UpdateControlFromValue(){
-			control._preview = Previews;
+			control.preview = Previews;
 			control.Regex = Value.ToString(); // setting as string will refresh the view
 		}
 

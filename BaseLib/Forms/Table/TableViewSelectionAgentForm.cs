@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using BaseLib.Wpf;
 using BaseLibS.Table;
 
 namespace BaseLib.Forms.Table{
@@ -9,7 +8,7 @@ namespace BaseLib.Forms.Table{
 			InitializeComponent();
 			cancelButton.Click += CancelButton_OnClick;
 			okButton.Click += OkButton_OnClick;
-			foreach (ITableSelectionAgent agent in TableViewWpf.selectionAgents){
+			foreach (ITableSelectionAgent agent in TableView.selectionAgents){
 				sourceBox.Items.Add(agent.Title);
 			}
 			for (int i = 0; i < tableModel.ColumnCount; i++){

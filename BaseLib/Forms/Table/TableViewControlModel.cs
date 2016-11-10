@@ -53,7 +53,7 @@ namespace BaseLib.Forms.Table{
 		private int deltaDragX;
 		private bool hasShowInPerseus;
 		private FindForm findForm;
-		internal int origColumnHeaderHeight;
+		public int origColumnHeaderHeight;
 		private const int maxColHeaderStringSplits = 3;
 		private bool sortable;
 		public Action<string> SetCellText { get; set; }

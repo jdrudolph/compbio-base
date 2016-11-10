@@ -1,5 +1,4 @@
 ﻿using System.Windows.Forms;
-using BaseLib.Wpf;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{
@@ -56,11 +55,11 @@ namespace BaseLib.Param{
 			grid.Controls.Add(txt1, 0, i);
 		}
 
-		public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){
-			foreach (var child in grid.Controls){
-				(child as IScrollRegistrationTarget)?.RegisterScrollViewer(scrollViewer);
-			}
-		}
+		//public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){
+		//	foreach (var child in grid.Controls){
+		//		(child as IScrollRegistrationTarget)?.RegisterScrollViewer(scrollViewer);
+		//	}
+		//}
 
 		public void Enable(){
 			grid.Enabled = true;
