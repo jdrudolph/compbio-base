@@ -218,7 +218,7 @@ namespace BaseLib.Forms{
 				//defaultButtonPanel.Height = 23;
 			}
 			for (int i = 0; i < defaultSelectionNames1.Count; i++){
-				Button b = new Button{Text = defaultSelectionNames1[i], Width = 74, Height = 23};
+				Button b = new Button{Text = defaultSelectionNames1[i], Width = 60, Height = 20, Margin = new Padding(0)};
 				defaultButtonPanel.Controls.Add(b);
 				int i1 = i;
 				b.Click += (sender, e) => SelectItems(defaultSelections1[i1]);
