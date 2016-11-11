@@ -11,9 +11,17 @@ namespace BaseLib.Query{
 			StartPosition = FormStartPosition.Manual;
 			okButton.Click += OkButtonOnClick;
 			cancelButton.Click += CancelButtonOnClick;
+			browseButton.Click += BrowseButtonOnClick;
 			textBox1.Text = value;
 			textBox1.KeyDown += TextBox1OnKeyDown;
 			ActiveControl = textBox1;
+		}
+
+		private void BrowseButtonOnClick(object sender, EventArgs eventArgs){
+			FolderBrowserDialog fbd = new FolderBrowserDialog();
+			if (fbd.ShowDialog() == DialogResult.OK){
+				textBox1.Text = fbd.SelectedPath;
+			}
 		}
 
 		public bool HasRecursiveBox{

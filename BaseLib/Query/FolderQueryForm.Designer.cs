@@ -32,10 +32,10 @@
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.cancelButton = new System.Windows.Forms.Button();
 			this.okButton = new System.Windows.Forms.Button();
-			this.textBox1 = new System.Windows.Forms.TextBox();
+			this.recursiveCheckBox = new System.Windows.Forms.CheckBox();
 			this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
 			this.browseButton = new System.Windows.Forms.Button();
-			this.recursiveCheckBox = new System.Windows.Forms.CheckBox();
+			this.textBox1 = new System.Windows.Forms.TextBox();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
 			this.tableLayoutPanel3.SuspendLayout();
@@ -95,13 +95,15 @@
 			this.okButton.Text = "OK";
 			this.okButton.UseVisualStyleBackColor = true;
 			// 
-			// textBox1
+			// recursiveCheckBox
 			// 
-			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.textBox1.Location = new System.Drawing.Point(3, 3);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(197, 20);
-			this.textBox1.TabIndex = 1;
+			this.recursiveCheckBox.AutoSize = true;
+			this.recursiveCheckBox.Location = new System.Drawing.Point(206, 3);
+			this.recursiveCheckBox.Name = "recursiveCheckBox";
+			this.recursiveCheckBox.Size = new System.Drawing.Size(74, 17);
+			this.recursiveCheckBox.TabIndex = 2;
+			this.recursiveCheckBox.Text = "Recursive";
+			this.recursiveCheckBox.UseVisualStyleBackColor = true;
 			// 
 			// tableLayoutPanel3
 			// 
@@ -128,15 +130,13 @@
 			this.browseButton.Text = "Browse";
 			this.browseButton.UseVisualStyleBackColor = true;
 			// 
-			// recursiveCheckBox
+			// textBox1
 			// 
-			this.recursiveCheckBox.AutoSize = true;
-			this.recursiveCheckBox.Location = new System.Drawing.Point(206, 3);
-			this.recursiveCheckBox.Name = "recursiveCheckBox";
-			this.recursiveCheckBox.Size = new System.Drawing.Size(74, 17);
-			this.recursiveCheckBox.TabIndex = 2;
-			this.recursiveCheckBox.Text = "Recursive";
-			this.recursiveCheckBox.UseVisualStyleBackColor = true;
+			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.textBox1.Location = new System.Drawing.Point(3, 3);
+			this.textBox1.Name = "textBox1";
+			this.textBox1.Size = new System.Drawing.Size(197, 20);
+			this.textBox1.TabIndex = 1;
 			// 
 			// FolderQueryForm
 			// 
