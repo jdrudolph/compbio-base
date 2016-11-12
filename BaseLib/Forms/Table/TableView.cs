@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Scroll;
-using BaseLib.Wpf;
 using BaseLibS.Num;
 using BaseLibS.Table;
 using BaseLibS.Util;
@@ -37,7 +36,7 @@ namespace BaseLib.Forms.Table{
 			textButton.Click += TextButton_OnClick;
 			selectionAgentButton.Click += SelectionAgentButton_OnClick;
 			KeyDown += (sender, args) => tableView.Focus();
-			auxTextBox = new TextBox{Dock = DockStyle.Fill, Padding = new Padding(0)};
+			auxTextBox = new TextBox{Dock = DockStyle.Fill, Padding = new Padding(0), Multiline = true};
 		}
 
 		public void SelectTime(double timeMs){
@@ -97,6 +96,9 @@ namespace BaseLib.Forms.Table{
 			splitContainer = new SplitContainer();
 			splitContainer.Panel1.Controls.Add(tableView);
 			splitContainer.Panel2.Controls.Add(auxTextBox);
+			splitContainer.Margin = new Padding(0);
+			splitContainer.Dock = DockStyle.Fill;
+			splitContainer.Orientation = Orientation.Horizontal;
 			mainPanel.Controls.Add(splitContainer);
 		}
 
