@@ -1,5 +1,4 @@
 using System;
-using System.CodeDom;
 using System.Linq;
 using System.Xml;
 using System.Xml.Schema;
@@ -90,7 +89,7 @@ namespace BaseLibS.Param{
 			ResetSubParamDefaults();
 		}
 
-		public override bool IsModified => !Equals(Value, Default);
+		public override bool IsModified => Value != null &&  !Value.Equals(Default);
 		public virtual void ResetSubParamValues(){}
 		public virtual void ResetSubParamDefaults(){}
 

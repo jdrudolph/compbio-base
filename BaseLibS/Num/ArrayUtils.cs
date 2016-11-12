@@ -1465,7 +1465,7 @@ namespace BaseLibS.Num{
 		public static int[] IndicesOf<T>(IList<T> p, T q){
 			List<int> result = new List<int>();
 			for (int i = 0; i < p.Count; i++){
-				if (Equals(p[i], q)){
+				if (p[i] != null && p[i].Equals(q)){
 					result.Add(i);
 				}
 			}

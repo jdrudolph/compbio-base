@@ -12,7 +12,8 @@ namespace BaseLibS.Symbol{
 
 		public int CompareTo(SymbolLineProperties other){
 			return !SymbolProperties.Equals(other.SymbolProperties)
-				? SymbolProperties.CompareTo(other.SymbolProperties) : LineProperties.CompareTo(other.LineProperties);
+				? SymbolProperties.CompareTo(other.SymbolProperties)
+				: LineProperties.CompareTo(other.LineProperties);
 		}
 
 		public override bool Equals(object obj){
@@ -32,13 +33,13 @@ namespace BaseLibS.Symbol{
 			if (ReferenceEquals(this, other)){
 				return true;
 			}
-			return Equals(other.SymbolProperties, SymbolProperties) && Equals(other.LineProperties, LineProperties);
+			return other.SymbolProperties != null && other.LineProperties != null &&
+					other.SymbolProperties.Equals(SymbolProperties) && other.LineProperties.Equals(LineProperties);
 		}
 
 		public override int GetHashCode(){
 			unchecked{
-				return ((SymbolProperties?.GetHashCode() ?? 0)*397) ^
-					(LineProperties?.GetHashCode() ?? 0);
+				return ((SymbolProperties?.GetHashCode() ?? 0)*397) ^ (LineProperties?.GetHashCode() ?? 0);
 			}
 		}
 	}
