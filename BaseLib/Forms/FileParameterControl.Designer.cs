@@ -60,9 +60,10 @@
 			// button1
 			// 
 			this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.button1.Location = new System.Drawing.Point(512, 3);
+			this.button1.Location = new System.Drawing.Point(509, 0);
+			this.button1.Margin = new System.Windows.Forms.Padding(0);
 			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(64, 36);
+			this.button1.Size = new System.Drawing.Size(70, 42);
 			this.button1.TabIndex = 1;
 			this.button1.Text = "Select";
 			this.button1.UseVisualStyleBackColor = true;
