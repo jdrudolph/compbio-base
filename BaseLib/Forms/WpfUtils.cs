@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Windows;
 
-namespace BaseLib.Wpf{
+namespace BaseLib.Forms{
 	public static class WpfUtils{
 		public static float GetDpiScaleX(){
 			PropertyInfo dpiXProperty = typeof (SystemParameters).GetProperty("DpiX",

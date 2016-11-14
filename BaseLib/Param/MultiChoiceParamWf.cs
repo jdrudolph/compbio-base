@@ -1,6 +1,5 @@
 using System;
 using BaseLib.Forms;
-using BaseLib.Wpf;
 using BaseLibS.Param;
 
 namespace BaseLib.Param{

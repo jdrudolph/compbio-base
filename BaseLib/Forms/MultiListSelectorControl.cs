@@ -21,6 +21,7 @@ namespace BaseLib.Forms{
 			tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 			tableLayoutPanel1.Controls.Add(AllListBox, 0, 0);
 			tableLayoutPanel1.Margin = new Padding(0);
+			tableLayoutPanel1.Dock = DockStyle.Fill;
 			Controls.Add(tableLayoutPanel1);
 		}
 
@@ -86,6 +87,7 @@ namespace BaseLib.Forms{
 			for (int i = 0; i < n; i++){
 				tableLayoutPanel2.Controls.Add(subSelection[i], 0, i);
 			}
+			tableLayoutPanel2.Dock = DockStyle.Fill;
 			tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 0);
 		}
 

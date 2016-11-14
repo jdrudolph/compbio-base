@@ -4,7 +4,6 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using BaseLib.Graphic;
-using BaseLib.Wpf;
 using BaseLibS.Graph;
 using BaseLibS.Num;
 using BaseLibS.Param;

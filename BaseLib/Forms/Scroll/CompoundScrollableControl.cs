@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Forms.Base;
 using BaseLib.Graphic;
-using BaseLib.Wpf;
 using BaseLibS.Graph;
 using BaseLibS.Graph.Base;
 
