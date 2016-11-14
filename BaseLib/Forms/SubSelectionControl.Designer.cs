@@ -37,10 +37,10 @@
 			this.upButton = new System.Windows.Forms.Button();
 			this.downButton = new System.Windows.Forms.Button();
 			this.bottomButton = new System.Windows.Forms.Button();
+			this.parameterButton = new System.Windows.Forms.Button();
 			this.listBox1 = new System.Windows.Forms.ListBox();
 			this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
 			this.titleLabel = new System.Windows.Forms.Label();
-			this.parameterButton = new System.Windows.Forms.Button();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.tableLayoutPanel2.SuspendLayout();
 			this.tableLayoutPanel3.SuspendLayout();
@@ -167,6 +167,17 @@
 			this.bottomButton.TabIndex = 3;
 			this.bottomButton.UseVisualStyleBackColor = true;
 			// 
+			// parameterButton
+			// 
+			this.parameterButton.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.parameterButton.Location = new System.Drawing.Point(0, 56);
+			this.parameterButton.Margin = new System.Windows.Forms.Padding(0);
+			this.parameterButton.Name = "parameterButton";
+			this.parameterButton.Size = new System.Drawing.Size(14, 14);
+			this.parameterButton.TabIndex = 4;
+			this.parameterButton.UseVisualStyleBackColor = true;
+			this.parameterButton.Visible = false;
+			// 
 			// listBox1
 			// 
 			this.listBox1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -174,6 +185,7 @@
 			this.listBox1.Location = new System.Drawing.Point(14, 0);
 			this.listBox1.Margin = new System.Windows.Forms.Padding(0);
 			this.listBox1.Name = "listBox1";
+			this.listBox1.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
 			this.listBox1.Size = new System.Drawing.Size(285, 268);
 			this.listBox1.TabIndex = 2;
 			// 
@@ -202,17 +214,6 @@
 			this.titleLabel.Size = new System.Drawing.Size(307, 20);
 			this.titleLabel.TabIndex = 1;
 			this.titleLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// parameterButton
-			// 
-			this.parameterButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.parameterButton.Location = new System.Drawing.Point(0, 56);
-			this.parameterButton.Margin = new System.Windows.Forms.Padding(0);
-			this.parameterButton.Name = "parameterButton";
-			this.parameterButton.Size = new System.Drawing.Size(14, 14);
-			this.parameterButton.TabIndex = 4;
-			this.parameterButton.UseVisualStyleBackColor = true;
-			this.parameterButton.Visible = false;
 			// 
 			// SubSelectionControl
 			// 

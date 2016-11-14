@@ -70,11 +70,19 @@ namespace BaseLib.Forms{
 			foreach (string s in items1){
 				AllListBox.Items.Add(s);
 			}
+			AllListBox.Dock = DockStyle.Fill;
+			AllListBox.Margin = new Padding(0);
+			AllListBox.SelectionMode = SelectionMode.MultiExtended;
 			int n = selectorNames.Count;
 			TableLayoutPanel tableLayoutPanel2 = new TableLayoutPanel();
 			subSelection = new SubSelectionControl[n];
 			for (int i = 0; i < n; i++){
-				subSelection[i] = new SubSelectionControl{MultiListSelectorControl = this, Text = selectorNames[i]};
+				subSelection[i] = new SubSelectionControl{
+					MultiListSelectorControl = this,
+					Text = selectorNames[i],
+					Dock = DockStyle.Fill,
+					Margin = new Padding(0)
+				};
 				if (subParams != null && i < subParams.Count && subParams[i] != null){
 					subSelection[i].ParameterFuncs = subParams[i];
 				}
