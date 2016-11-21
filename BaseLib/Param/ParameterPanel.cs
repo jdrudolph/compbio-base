@@ -22,7 +22,7 @@ namespace BaseLib.Param{
 			Parameters.Convert(WinFormsParameterFactory.Convert);
 			int nrows = Parameters.GroupCount;
 			parameterGroupPanels = new ParameterGroupPanel[nrows];
-			grid = new TableLayoutPanel();
+			grid = new TableLayoutPanel{AutoScroll = true};
 			grid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
 			grid.Name = "tableLayoutPanel";
 			int totalHeight = 0;
