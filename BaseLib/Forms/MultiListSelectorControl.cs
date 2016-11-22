@@ -79,7 +79,7 @@ namespace BaseLib.Forms{
 			for (int i = 0; i < n; i++){
 				subSelection[i] = new SubSelectionControl{
 					MultiListSelectorControl = this,
-					Text = selectorNames[i],
+					Text1 = selectorNames[i],
 					Dock = DockStyle.Fill,
 					Margin = new Padding(0)
 				};
