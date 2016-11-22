@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using BaseLib.Graphic;
-using BaseLibS.Graph;
 using BaseLibS.Num;
 using BaseLibS.Param;
 
@@ -26,13 +24,13 @@ namespace BaseLib.Forms{
 
 		public SubSelectionControl(){
 			InitializeComponent();
-			topButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("top1.png"));
-			upButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("up1.png"));
-			downButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("down1.png"));
-			bottomButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("bottom1.png"));
-			selectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("right.png"));
-			deselectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("left.png"));
-			parameterButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("filter2.png"));
+			//topButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("top1.png"));
+			//upButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("up1.png"));
+			//downButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("down1.png"));
+			//bottomButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("bottom1.png"));
+			//selectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("right.png"));
+			//deselectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("left.png"));
+			//parameterButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("filter2.png"));
 			topButton.Click += TopButtonClick;
 			upButton.Click += UpButtonClick;
 			downButton.Click += DownButtonClick;

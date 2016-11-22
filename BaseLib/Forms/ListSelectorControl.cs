@@ -4,8 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using BaseLib.Forms.Table;
-using BaseLib.Graphic;
-using BaseLibS.Graph;
 using BaseLibS.Num;
 using BaseLibS.Util;
 
@@ -17,12 +15,12 @@ namespace BaseLib.Forms{
 
 		public ListSelectorControl(){
 			InitializeComponent();
-			topButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("top1.png"));
-			upButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("up1.png"));
-			downButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("down1.png"));
-			bottomButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("bottom1.png"));
-			selectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("right.png"));
-			deselectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("left.png"));
+			//topButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("top1.png"));
+			//upButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("up1.png"));
+			//downButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("down1.png"));
+			//bottomButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("bottom1.png"));
+			//selectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("right.png"));
+			//deselectButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("left.png"));
 			topButton.Click += TopButtonClick;
 			upButton.Click += UpButtonClick;
 			downButton.Click += DownButtonClick;
