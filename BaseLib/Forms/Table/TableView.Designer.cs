@@ -85,6 +85,7 @@
 			this.selectionAgentButton.Size = new System.Drawing.Size(18, 18);
 			this.selectionAgentButton.TabIndex = 0;
 			this.selectionAgentButton.UseVisualStyleBackColor = true;
+			this.selectionAgentButton.Visible = false;
 			// 
 			// textButton
 			// 

@@ -8,6 +8,9 @@ namespace BaseLib.Forms.Table{
 			InitializeComponent();
 			cancelButton.Click += CancelButton_OnClick;
 			okButton.Click += OkButton_OnClick;
+			if (tableModel == null){
+				return;
+			}
 			foreach (ITableSelectionAgent agent in TableView.selectionAgents){
 				sourceBox.Items.Add(agent.Title);
 			}

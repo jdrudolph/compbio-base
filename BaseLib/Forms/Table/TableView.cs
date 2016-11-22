@@ -19,6 +19,7 @@ namespace BaseLib.Forms.Table{
 		private int selectionAgentColInd = -1;
 		private double[] selectionAgentColVals;
 		private readonly TextBox auxTextBox;
+		private SplitContainer splitContainer;
 
 		public TableView(){
 			InitializeComponent();
@@ -66,14 +67,6 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		//public static readonly DependencyProperty TableModelProperty = DependencyProperty.Register("TableModel",
-		//	typeof (ITableModel), typeof (TableViewWpf), new PropertyMetadata(default(ITableModel), (o, args) =>{
-		//		var x = (TableViewWpf) o;
-		//		var value = (ITableModel) args.NewValue;
-		//		x.tableViewWf.TableModel = value;
-		//		x.ItemsTextBlock.Text = value != null ? "" + StringUtils.WithDecimalSeparators(value.RowCount) + " items" : "";
-		//	}));
-
 		/// <summary>
 		/// Get the table model.
 		/// Use <code>Dispatcher.Invoke(() => view.TableModel ... )</code> to access this property for a non-GUI thread
@@ -86,16 +79,13 @@ namespace BaseLib.Forms.Table{
 			}
 		}
 
-		//public void Select(){
-		//	tableView.Select();
-		//}
-		SplitContainer splitContainer;
 		public void SwitchOnTextBox(){
 			tableViewWf.SetCellText = s => auxTextBox.Text = s;
 			mainPanel.Controls.Remove(tableView);
 			splitContainer = new SplitContainer();
 			splitContainer.Panel1.Controls.Add(tableView);
 			splitContainer.Panel2.Controls.Add(auxTextBox);
+			splitContainer.SplitterDistance = 90;
 			splitContainer.Margin = new Padding(0);
 			splitContainer.Dock = DockStyle.Fill;
 			splitContainer.Orientation = Orientation.Horizontal;
@@ -236,14 +226,6 @@ namespace BaseLib.Forms.Table{
 			textBoxVisible = !textBoxVisible;
 		}
 
-		//public void RegisterScrollViewer(ScrollViewer scrollViewer){
-		//	MainPanel.RegisterScrollViewer(scrollViewer);
-		//}
-
-		//public void UnregisterScrollViewer(ScrollViewer scrollViewer){
-		//	MainPanel.UnregisterScrollViewer(scrollViewer);
-		//}
-
 		public void ClearSelectionFire(){
 			tableViewWf.ClearSelectionFire();
 		}
@@ -261,14 +243,12 @@ namespace BaseLib.Forms.Table{
 					selectionAgent = selectionAgents[ind1];
 					selectionAgentColInd = ind2;
 					selectionAgentColVals = GetTimeVals(ind2);
-					//TODO
-					//selectionAgent.AddTable(this);
+					selectionAgent.AddTable(this);
 				} else{
 					selectionAgent = null;
 					selectionAgentColInd = -1;
 					selectionAgentColVals = null;
-					//TODO
-					//selectionAgent.RemoveTable(this);
+					selectionAgent.RemoveTable(this);
 				}
 			}
 		}

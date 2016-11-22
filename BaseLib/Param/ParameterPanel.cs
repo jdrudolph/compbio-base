@@ -18,6 +18,7 @@ namespace BaseLib.Param{
 		}
 
 		public float Init(Parameters parameters1, float paramNameWidth, int totalWidth){
+			Controls.Clear();
 			Parameters = parameters1;
 			Parameters.Convert(WinFormsParameterFactory.Convert);
 			int nrows = Parameters.GroupCount;
