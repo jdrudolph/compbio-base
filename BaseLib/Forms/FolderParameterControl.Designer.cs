@@ -43,6 +43,7 @@
 			this.tableLayoutPanel1.Controls.Add(this.button1, 1, 0);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 1;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -52,9 +53,10 @@
 			// textBox1
 			// 
 			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.textBox1.Location = new System.Drawing.Point(3, 3);
+			this.textBox1.Location = new System.Drawing.Point(0, 0);
+			this.textBox1.Margin = new System.Windows.Forms.Padding(0);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(321, 20);
+			this.textBox1.Size = new System.Drawing.Size(327, 20);
 			this.textBox1.TabIndex = 0;
 			// 
 			// button1
@@ -73,6 +75,7 @@
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.Controls.Add(this.tableLayoutPanel1);
+			this.Margin = new System.Windows.Forms.Padding(0);
 			this.Name = "FolderParameterControl";
 			this.Size = new System.Drawing.Size(397, 46);
 			this.tableLayoutPanel1.ResumeLayout(false);
