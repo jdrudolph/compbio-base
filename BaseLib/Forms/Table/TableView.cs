@@ -37,7 +37,7 @@ namespace BaseLib.Forms.Table{
 			textButton.Click += TextButton_OnClick;
 			selectionAgentButton.Click += SelectionAgentButton_OnClick;
 			KeyDown += (sender, args) => tableView.Focus();
-			auxTextBox = new TextBox{Dock = DockStyle.Fill, Padding = new Padding(0), Multiline = true};
+			auxTextBox = new TextBox{Dock = DockStyle.Fill, Padding = new Padding(0), Multiline = true, ReadOnly = true};
 		}
 
 		public void SelectTime(double timeMs){
