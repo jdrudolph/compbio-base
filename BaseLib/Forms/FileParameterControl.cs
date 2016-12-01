@@ -25,6 +25,7 @@ namespace BaseLib.Forms{
 				}
 				if (ofd.ShowDialog() == DialogResult.OK){
 					FileName = ofd.FileName;
+					textBox1.Text = ofd.FileName;
 				}
 			} else{
 				OpenFileDialog ofd = new OpenFileDialog();
@@ -37,6 +38,7 @@ namespace BaseLib.Forms{
 						s = processFileName(s);
 					}
 					FileName = s;
+					textBox1.Text = s;
 				}
 			}
 		}
