@@ -30,7 +30,7 @@ namespace BaseLib.Param{
 			for (int i = 0; i < nrows; i++){
 				int h = (int) (parameters1.GetGroup(i).Height + 26);
 				grid.RowStyles.Add(new RowStyle(SizeType.Absolute, h));
-				totalHeight += h + 6;
+				totalHeight += h;
 			}
 			grid.RowStyles.Add(new RowStyle(SizeType.AutoSize, 100));
 			grid.Width = totalWidth;
