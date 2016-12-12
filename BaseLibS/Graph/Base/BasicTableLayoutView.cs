@@ -302,7 +302,7 @@ namespace BaseLibS.Graph.Base{
 		}
 
 		private BasicView GetComponentAt(int x, int y, out int indX1, out int indY1){
-			if (xpos == null || ypos == null) {
+			if (xpos == null || ypos == null){
 				indX1 = -1;
 				indY1 = -1;
 				return null;
@@ -348,8 +348,10 @@ namespace BaseLibS.Graph.Base{
 				Tuple<int, int> key = new Tuple<int, int>(currentComponentY, currentComponentX);
 				if (components.ContainsKey(key)){
 					BasicView v = components[key];
-					v.OnMouseMoved(new BasicMouseEventArgs(e, xpos[currentComponentX], ypos[currentComponentY],
-						widths[currentComponentX], heights[currentComponentY]));
+					try{
+						v.OnMouseMoved(new BasicMouseEventArgs(e, xpos[currentComponentX], ypos[currentComponentY],
+							widths[currentComponentX], heights[currentComponentY]));
+					} catch (Exception){}
 				}
 			}
 		}
