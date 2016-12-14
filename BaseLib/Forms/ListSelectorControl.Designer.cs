@@ -74,6 +74,7 @@
 			this.allListBox.Location = new System.Drawing.Point(0, 0);
 			this.allListBox.Margin = new System.Windows.Forms.Padding(0);
 			this.allListBox.Name = "allListBox";
+			this.allListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
 			this.allListBox.Size = new System.Drawing.Size(303, 444);
 			this.allListBox.TabIndex = 0;
 			// 
@@ -84,6 +85,7 @@
 			this.selectedListBox.Location = new System.Drawing.Point(325, 0);
 			this.selectedListBox.Margin = new System.Windows.Forms.Padding(0);
 			this.selectedListBox.Name = "selectedListBox";
+			this.selectedListBox.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
 			this.selectedListBox.Size = new System.Drawing.Size(303, 444);
 			this.selectedListBox.TabIndex = 1;
 			// 
