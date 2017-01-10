@@ -75,9 +75,10 @@
 			// 
 			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.cancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.cancelButton.Location = new System.Drawing.Point(3, 3);
+			this.cancelButton.Location = new System.Drawing.Point(0, 0);
+			this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(88, 21);
+			this.cancelButton.Size = new System.Drawing.Size(94, 27);
 			this.cancelButton.TabIndex = 0;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -85,9 +86,10 @@
 			// okButton
 			// 
 			this.okButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.okButton.Location = new System.Drawing.Point(191, 3);
+			this.okButton.Location = new System.Drawing.Point(188, 0);
+			this.okButton.Margin = new System.Windows.Forms.Padding(0);
 			this.okButton.Name = "okButton";
-			this.okButton.Size = new System.Drawing.Size(89, 21);
+			this.okButton.Size = new System.Drawing.Size(95, 27);
 			this.okButton.TabIndex = 1;
 			this.okButton.Text = "OK";
 			this.okButton.UseVisualStyleBackColor = true;
@@ -110,10 +112,12 @@
 			// comboBox1
 			// 
 			this.comboBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.comboBox1.FormattingEnabled = true;
-			this.comboBox1.Location = new System.Drawing.Point(103, 3);
+			this.comboBox1.Location = new System.Drawing.Point(100, 0);
+			this.comboBox1.Margin = new System.Windows.Forms.Padding(0);
 			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(177, 21);
+			this.comboBox1.Size = new System.Drawing.Size(183, 21);
 			this.comboBox1.TabIndex = 0;
 			// 
 			// label1

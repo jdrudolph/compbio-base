@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Drawing;
 using System.Windows.Forms;
 using BaseLib.Graphic;
 using BaseLibS.Graph;
@@ -8,8 +8,6 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	public partial class ParameterForm : Form{
-		private const int gwlStyle = -16;
-		private const int wsMinimizebox = 0x20000;
 		private readonly Action helpAction;
 
 		public ParameterForm(Parameters parameters, string title, string helpDescription, string helpOutput,
@@ -25,7 +23,7 @@ namespace BaseLib.Param{
 			okButton.Click += OkButtonClick;
 			cancelButton.Click += CancelButtonClick;
 			helpButton.Click += HelpButtonClick;
-			helpButton.Image = GraphUtils.ToBitmap(Bitmap2.GetImage("help.png"));
+			helpButton.Image = new Bitmap(GraphUtils.ToBitmap(Bitmap2.GetImage("help.png")), 18, 18);
 			Height = (int) (parameterPanel1.Init(parameters) + 65);
 			helpPanel.Controls.Clear();
 			List<string> titles = new List<string>();
@@ -56,9 +54,6 @@ namespace BaseLib.Param{
 				g.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize, 50));
 			}
 			g.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50));
-
-
-
 			for (int i = 0; i < titles.Count; i++){
 				Label tb = new Label{Text = titles[i]};
 				//ToolTipService.SetShowDuration(tb, 400000);
@@ -67,7 +62,7 @@ namespace BaseLib.Param{
 				//		Content = StringUtils.Concat("\n", StringUtils.Wrap(description[i], 75))
 				//	};
 				//}
-				g.Controls.Add(tb,i+1,0);
+				g.Controls.Add(tb, i + 1, 0);
 			}
 			helpPanel.Controls.Add(g);
 			Text = title;
