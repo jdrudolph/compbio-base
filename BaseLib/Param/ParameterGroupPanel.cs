@@ -49,9 +49,12 @@ namespace BaseLib.Param{
 			if (o is Control){
 				Control c = (Control)o;
 				c.Dock = DockStyle.Fill;
+				c.Margin = new Padding(0);
+				c.Visible = p.Visible;
 				grid.Controls.Add(c, 1, i);
 			}
 			txt1.Dock = DockStyle.Fill;
+			txt1.Visible = p.Visible;
 			grid.Controls.Add(txt1, 0, i);
 		}
 
