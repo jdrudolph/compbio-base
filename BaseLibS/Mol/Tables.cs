@@ -16,7 +16,6 @@ namespace BaseLibS.Mol{
 		private static Dictionary<string, Modification> isobaricLabelModifications;
 		private static List<Modification> neucodeModificationList;
 		private static Modification[] modificationList;
-
 		public static Dictionary<string, SequenceDatabase> Databases => databases ?? (databases = ReadDatabases());
 		public static Dictionary<string, Enzyme> Enzymes => enzymes ?? (enzymes = ReadProteases());
 		public static Dictionary<string, CrossLinker> CrossLinkers => crossLinkers ?? (crossLinkers = ReadCrossLinks());
@@ -29,16 +28,16 @@ namespace BaseLibS.Mol{
 					}
 					return modifications ??
 							(modifications =
-							ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
-								out neucodeModificationList));
+								ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
+									out neucodeModificationList));
 				}
 			}
 		}
 
-		public static Dictionary<string, Modification> LabelModifications {
-			get {
-				lock (lockMods) {
-					if (labelModifications == null) {
+		public static Dictionary<string, Modification> LabelModifications{
+			get{
+				lock (lockMods){
+					if (labelModifications == null){
 						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
 							out neucodeModificationList);
 					}
@@ -47,10 +46,10 @@ namespace BaseLibS.Mol{
 			}
 		}
 
-		public static List<Modification> NeucodeModifications {
-			get {
-				lock (lockMods) {
-					if (neucodeModificationList == null) {
+		public static List<Modification> NeucodeModifications{
+			get{
+				lock (lockMods){
+					if (neucodeModificationList == null){
 						modifications = ReadModifications(out modificationList, out labelModifications, out isobaricLabelModifications,
 							out neucodeModificationList);
 					}
@@ -59,7 +58,7 @@ namespace BaseLibS.Mol{
 			}
 		}
 
-		public static Dictionary<string, Modification> IsobaricLabelModifications {
+		public static Dictionary<string, Modification> IsobaricLabelModifications{
 			get{
 				lock (lockMods){
 					if (isobaricLabelModifications == null){
@@ -97,36 +96,36 @@ namespace BaseLibS.Mol{
 			return Databases.ContainsKey(s);
 		}
 
-		public static string GetIdentifierParseRule(string path) {
+		public static string GetIdentifierParseRule(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			string pr = ReadParseRuleFromFile(path);
-			if (pr != null) {
+			if (pr != null){
 				return pr;
 			}
 			return !Databases.ContainsKey(s) ? ">([^ ]*)" : Databases[s].IdentifierParseRule;
 		}
 
-		public static string GetDescriptionParseRule(string path) {
+		public static string GetDescriptionParseRule(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			return !Databases.ContainsKey(s) ? "" : Databases[s].DescriptionParseRule;
 		}
 
-		public static string GetTaxonomyParseRule(string path) {
+		public static string GetTaxonomyParseRule(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			return !Databases.ContainsKey(s) ? "" : Databases[s].TaxonomyParseRule;
 		}
 
-		public static string GetVariationParseRule(string path) {
+		public static string GetVariationParseRule(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			return !Databases.ContainsKey(s) ? "" : Databases[s].VariationParseRule;
 		}
 
-		public static string GetModificationParseRule(string path) {
+		public static string GetModificationParseRule(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			return !Databases.ContainsKey(s) ? "" : Databases[s].ModificationParseRule;
 		}
 
-		public static string GetTaxonomyId(string path) {
+		public static string GetTaxonomyId(string path){
 			string s = path.Contains("\\") ? path.Substring(path.LastIndexOf('\\') + 1) : path;
 			return !Databases.ContainsKey(s) ? "" : Databases[s].Taxid;
 		}
@@ -172,13 +171,13 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public static string[] GetLabelModifications() {
+		public static string[] GetLabelModifications(){
 			string[] result = LabelModifications.Keys.ToArray();
 			Array.Sort(result);
 			return result;
 		}
 
-		public static string[] GetNeucodeModifications() {
+		public static string[] GetNeucodeModifications(){
 			string[] result = new string[NeucodeModifications.Count];
 			for (int i = 0; i < result.Length; i++){
 				result[i] = NeucodeModifications[i].Name;
@@ -186,12 +185,12 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public static string[] GetNonlabelModifications() {
+		public static string[] GetNonlabelModifications(){
 			List<string> result1 = new List<string>();
 			List<string> result2 = new List<string>();
 			List<string> result3 = new List<string>();
 			List<string> result4 = new List<string>();
-			foreach (string m in Modifications.Keys) {
+			foreach (string m in Modifications.Keys){
 				if (Modifications[m].ModificationType == ModificationType.Standard){
 					result1.Add(m);
 				}
@@ -214,7 +213,7 @@ namespace BaseLibS.Mol{
 
 		public static string[] GetCleavedCrosslinkModifications(){
 			List<string> result3 = new List<string>();
-			foreach (string m in Modifications.Keys) {
+			foreach (string m in Modifications.Keys){
 				if (Modifications[m].ModificationType == ModificationType.CleavedCrosslink){
 					result3.Add(m);
 				}
@@ -268,16 +267,48 @@ namespace BaseLibS.Mol{
 		}
 
 		public static Modification[] ReadModificationList(){
-			string filename = Path.Combine(FileUtils.GetConfigPath(), "modifications.xml");
+			string[] files = GetModificationFiles();
+			ushort index = 0;
+			List<Modification> result = new List<Modification>();
+			HashSet<string> takenNames = new HashSet<string>();
+			foreach (string file in files){
+				Modification[] mods = ReadModificationList(file);
+				foreach (Modification mod in mods){
+					if (!takenNames.Contains(mod.Name)){
+						mod.Index = index;
+						mod.Filename = file;
+						index++;
+						result.Add(mod);
+						takenNames.Add(mod.Name);
+					}
+				}
+			}
+			return result.ToArray();
+		}
+
+		public static string[] GetModificationFiles(){
+			string folder = FileUtils.GetConfigPath();
+			string[] allFiles = Directory.GetFiles(folder);
+			Array.Sort(allFiles);
+			List<string> result = new List<string>{Path.Combine(FileUtils.GetConfigPath(), "modifications.xml")};
+			foreach (string file in allFiles){
+				string f1 = file.ToUpper();
+				if (f1.Equals("MODIFICATIONS.XML")){
+					continue;
+				}
+				if (f1.StartsWith("MODIFICATIONS") && f1.EndsWith(".XML")){
+					result.Add(Path.Combine(FileUtils.GetConfigPath(), file));
+				}
+			}
+			return result.ToArray();
+		}
+
+		public static Modification[] ReadModificationList(string filename){
 			if (!File.Exists(filename)){
 				return new Modification[0];
 			}
 			ModificationList list = (ModificationList) XmlSerialization.DeserializeObject(filename, typeof (ModificationList));
-			Modification[] result = list != null ? list.Modifications : new Modification[0];
-			for (int i = 0; i < result.Length; i++){
-				result[i].Index = (ushort) i;
-			}
-			return result;
+			return list != null ? list.Modifications : new Modification[0];
 		}
 
 		private static Dictionary<string, CrossLinker> ReadCrossLinks(){
@@ -401,55 +432,55 @@ namespace BaseLibS.Mol{
 			return result;
 		}
 
-		public static bool[] ContainsDatabases(string[] fastaFiles) {
+		public static bool[] ContainsDatabases(string[] fastaFiles){
 			bool[] result = new bool[fastaFiles.Length];
-			for (int j = 0; j < result.Length; j++) {
+			for (int j = 0; j < result.Length; j++){
 				result[j] = ContainsDatabase(fastaFiles[j]);
 			}
 			return result;
 		}
 
-		public static string[] GetIdentifierParseRules(string[] fastaFiles) {
+		public static string[] GetIdentifierParseRules(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
-			for (int j = 0; j < parseRules.Length; j++) {
+			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetIdentifierParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}
 
-		public static string[] GetDescriptionParseRules(string[] fastaFiles) {
+		public static string[] GetDescriptionParseRules(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
-			for (int j = 0; j < parseRules.Length; j++) {
+			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetDescriptionParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}
 
-		public static string[] GetTaxonomyParseRules(string[] fastaFiles) {
+		public static string[] GetTaxonomyParseRules(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
-			for (int j = 0; j < parseRules.Length; j++) {
+			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetTaxonomyParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}
 
-		public static string[] GetVariationParseRules(string[] fastaFiles) {
+		public static string[] GetVariationParseRules(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
-			for (int j = 0; j < parseRules.Length; j++) {
+			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetVariationParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}
 
-		public static string[] GetModificationParseRules(string[] fastaFiles) {
+		public static string[] GetModificationParseRules(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
-			for (int j = 0; j < parseRules.Length; j++) {
+			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetModificationParseRule(fastaFiles[j]);
 			}
 			return parseRules;
 		}
 
-		public static string[] GetTaxonomyIds(string[] fastaFiles) {
+		public static string[] GetTaxonomyIds(string[] fastaFiles){
 			string[] parseRules = new string[fastaFiles.Length];
 			for (int j = 0; j < parseRules.Length; j++){
 				parseRules[j] = GetTaxonomyId(fastaFiles[j]);

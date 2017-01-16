@@ -43,6 +43,9 @@ namespace BaseLibS.Mol{
 		[XmlAttribute("composition")]
 		public string Composition { get; set; }
 
+		[XmlAttribute("filename"), XmlIgnore]
+		public string Filename { get; set; }
+
 		/// <summary>
 		/// Equivalent Unimod id
 		/// </summary>
