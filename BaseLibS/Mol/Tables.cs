@@ -291,7 +291,8 @@ namespace BaseLibS.Mol{
 			string[] allFiles = Directory.GetFiles(folder);
 			Array.Sort(allFiles);
 			List<string> result = new List<string>{Path.Combine(FileUtils.GetConfigPath(), "modifications.xml")};
-			foreach (string file in allFiles){
+			foreach (string file1 in allFiles){
+				string file = Path.GetFileName(file1);
 				string f1 = file.ToUpper();
 				if (f1.Equals("MODIFICATIONS.XML")){
 					continue;
