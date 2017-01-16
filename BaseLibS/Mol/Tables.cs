@@ -276,7 +276,7 @@ namespace BaseLibS.Mol{
 				foreach (Modification mod in mods){
 					if (!takenNames.Contains(mod.Name)){
 						mod.Index = index;
-						mod.Filename = file;
+						mod.Filename = Path.GetFileName(file);
 						index++;
 						result.Add(mod);
 						takenNames.Add(mod.Name);
