@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Runtime.Remoting;
 using BaseLibS.Api;
 using BaseLibS.Num.Cluster;
 using BaseLibS.Num.Matrix;
@@ -28,6 +29,23 @@ namespace BaseLibS.Test
         }
 
         [TestMethod]
+        public void TestClusterNodeFormat()
+        {
+             var hclust = new HierarchicalClustering();
+            var data = new FloatMatrixIndexer(new float[,] { {1,2,3}, {2,3,4} });
+            var distance = new EuclideanDistance();
+            var rowTree = hclust.TreeCluster(data, MatrixAccess.Rows, distance, HierarchicalClusterLinkage.Maximum, false,
+                false, 1, i => { });
+            var rowTreeR = HierarchicalClusterNode.FromRFormat(new[] {-1}, new[] {-2}, new[] {1.732051});
+            Assert.AreEqual(rowTreeR[0], rowTree[0]);
+
+            var colTree = hclust.TreeCluster(data, MatrixAccess.Columns, distance, HierarchicalClusterLinkage.Maximum, false,
+                false, 1, i => { });
+            var colTreeR = HierarchicalClusterNode.FromRFormat(new[] {-1, -3}, new[] {-2, 1}, new[] {1.414214, 2.828428});
+            CollectionAssert.AreEqual(colTree, colTreeR);
+        }
+
+    [TestMethod]
         public void TestKmedoidClustering()
         {
             var data = new FloatMatrixIndexer(new float[,]
