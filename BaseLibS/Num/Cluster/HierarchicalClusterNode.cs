@@ -40,5 +40,37 @@ namespace BaseLibS.Num.Cluster{
 			left = right;
 			right = tmp;
 		}
+
+	    public override bool Equals(object obj)
+        {
+            if (obj == null || GetType() != obj.GetType())
+                return false;
+            var other = (HierarchicalClusterNode) obj;
+            var sameOrFlipped = ((left == other.left) && (right == other.right)) || ((right == other.left) && (left == other.right));
+            return sameOrFlipped && (Math.Abs(distance - other.distance) < 0.0001);
+        }
+        
+        /// <summary>
+        /// Utility format for reading clustering results from R.
+        /// </summary>
+        /// <param name="left">first column of <code>hclust$merge</code></param>
+        /// <param name="right">second column of <code>hclust$merge</code></param>
+        /// <param name="distance"><code>hclust$height</code></param>
+        /// <returns></returns>
+	    public static HierarchicalClusterNode[] FromRFormat(int[] left, int[] right, double[] distance)
+	    {
+	        var n = distance.Length;
+	        var nodes = new HierarchicalClusterNode[n];
+	        for (int i = 0; i < n; i++)
+	        {
+	            nodes[i] = new HierarchicalClusterNode
+	            {
+	                distance = distance[i],
+	                left = left[i] < 0 ? -left[i] - 1 : -left[i],
+	                right = right[i] <0 ? -right[i] - 1 : -right[i]
+	            };
+	        }
+	        return nodes;
+	    }
 	}
 }
