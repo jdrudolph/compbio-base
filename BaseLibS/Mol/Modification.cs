@@ -8,8 +8,6 @@ namespace BaseLibS.Mol{
 		private double deltaMass = double.NaN;
 		private ModificationSite[] sites = new ModificationSite[0];
 		private Dictionary<char, ModificationSite> sitesMap;
-		private char[] sitesArray;
-		private char[] sitesArraySorted;
 
 		[XmlAttribute("reporterCorrectionM2")]
 		public double ReporterCorrectionM2 { get; set; }
@@ -105,7 +103,7 @@ namespace BaseLibS.Mol{
 			=> Position == ModificationPosition.proteinNterm || Position == ModificationPosition.proteinCterm;
 
 		public ModificationSite GetSite(char aa){
-			return sitesMap[aa];
+			return sitesMap.ContainsKey(aa) ? sitesMap[aa] : null;
 		}
 
 		public override bool Equals(object obj){
@@ -159,27 +157,6 @@ namespace BaseLibS.Mol{
 				}
 			}
 			return result;
-		}
-
-		public char[] GetSiteArray(){
-			if (sitesArray == null){
-				sitesArray = new char[sites.Length];
-				for (int i = 0; i < sitesArray.Length; i++){
-					sitesArray[i] = sites[i].Aa;
-				}
-			}
-			return sitesArray;
-		}
-
-		public char[] GetSiteArraySorted(){
-			if (sitesArraySorted == null){
-				sitesArraySorted = new char[sites.Length];
-				for (int i = 0; i < sitesArraySorted.Length; i++){
-					sitesArraySorted[i] = sites[i].Aa;
-				}
-				Array.Sort(sitesArraySorted);
-			}
-			return sitesArraySorted;
 		}
 
 		public string GetFormula(){
