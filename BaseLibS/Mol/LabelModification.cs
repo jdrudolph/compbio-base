@@ -35,8 +35,7 @@ namespace BaseLibS.Mol{
 			Modification modification = Tables.Modifications[name];
 			if (modification.ModificationType == ModificationType.Label){
 				if (modification.IsInternal){
-					char aa = modification.GetSiteArray()[0];
-					return new AminoAcidLabel(modification.Name, modification.GetFormula(), aa);
+					return new AminoAcidLabel(modification.Name, modification.GetFormula(), modification.GetAaAt(0));
 				}
 				return new TerminalLabel(modification.Name, modification.GetFormula(), modification.IsNterminal);
 			}
