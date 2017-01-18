@@ -106,6 +106,7 @@ namespace BaseLibS.Mol{
 
 		public void SetModificationAt(int index, ushort value){
 			Modifications[index] = value;
+			Hash = 0;
 		}
 
 		public static PeptideModificationState Read(BinaryReader reader){
