@@ -8,6 +8,7 @@
 		SemispecificFreeCterm,
 		Semispecific,
 		Unspecific,
-		None
+        UnspecificSpliced,
+        None
 	}
 }
