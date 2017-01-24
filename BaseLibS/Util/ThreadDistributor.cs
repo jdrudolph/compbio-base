@@ -1,10 +1,18 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading;
 
 namespace BaseLibS.Util{
-	public class ThreadDistributor{
+    public interface IThreadDistributor {
+        void Start();
+        void Abort();
+    }
+
+
+    public class ThreadDistributor : IThreadDistributor {
 		protected readonly int nThreads;
 		protected readonly int nTasks;
 		protected Thread[] allWorkThreads;
@@ -71,4 +79,84 @@ namespace BaseLibS.Util{
 			}
 		}
 	}
+
+    public class BinaryTreeThreadDistributor<T> : IThreadDistributor {
+        protected Thread[] AllWorkThreads;
+        private readonly int _nThreads;
+        private readonly Action<T, T> _action;
+        private readonly Node[] _nodes;
+        private readonly object _locker = new object();
+
+        public BinaryTreeThreadDistributor(T[] objects, Action<T, T> action, int nThreads) {
+            _action = action;
+            _nThreads = nThreads;
+            _nodes = new Node[2 * objects.Length - 1];
+            Node n1, n2;
+            Queue<Node> nodeQueue = new Queue<Node>();
+            int j = 0;
+            for (; j < objects.Length; j++) {
+                _nodes[j] = new Node(null, null, objects[j], true, true);
+                nodeQueue.Enqueue(_nodes[j]);
+            }
+            for (; j < _nodes.Length; j++) {
+                n1 = nodeQueue.Dequeue();
+                n2 = nodeQueue.Dequeue();
+                _nodes[j] = new Node(n1, n2, n1.Data);
+                nodeQueue.Enqueue(_nodes[j]);
+            }
+        }
+
+        public void Start() {
+            
+            AllWorkThreads = new Thread[_nThreads];
+            for (int i = 0; i < _nThreads; i++) {
+                AllWorkThreads[i] = new Thread(Work);
+                AllWorkThreads[i].Start(i);
+            }
+            for (int i = 0; i < _nThreads; i++) {
+                AllWorkThreads[i].Join();
+            }
+        }
+
+        private void Work() {
+            int k;
+            while (true) {
+                lock (_locker) {
+                    k = 0;
+                    while (k < _nodes.Length && !_nodes[k].Started && !_nodes[k].Finished && _nodes[k].Left.Finished && _nodes[k].Right.Finished) k++;
+                    if (k != _nodes.Length) {
+                        _nodes[k].Started = true;
+                    } else {
+                        break;
+                    }
+                }
+                _action(_nodes[k].Left.Data, _nodes[k].Right.Data);
+                lock (_locker) {
+                    _nodes[k].Finished = true;
+                }
+            }
+        }
+
+        public void Abort() {
+            if (AllWorkThreads == null) return;
+            foreach (Thread t in AllWorkThreads.Where(t => t != null)) {
+                t.Abort();
+            }
+        }
+
+        private class Node {
+            public Node Left { get; }
+            public Node Right { get; }
+            public T Data { get; }
+            public bool Started { get; set; }
+            public bool Finished { get; set; }
+            public Node(Node left, Node right, T data, bool started = false, bool finished = false) {
+                Left = left;
+                Right = right;
+                Data = data;
+                Started = started;
+                Finished = finished;
+            }
+        }
+    }
 }
