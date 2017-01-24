@@ -8,9 +8,9 @@ namespace BaseLib.Query{
 			StartPosition = FormStartPosition.Manual;
 			okButton.Click += OkButtonOnClick;
 			cancelButton.Click += CancelButtonOnClick;
-			numericUpDown1.Value = value;
 			numericUpDown1.Minimum = min;
 			numericUpDown1.Maximum = max;
+			numericUpDown1.Value = value;
 			numericUpDown1.KeyDown += TextBox1OnKeyDown;
 			ActiveControl = numericUpDown1;
 		}
