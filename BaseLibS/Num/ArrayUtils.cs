@@ -1839,6 +1839,27 @@ namespace BaseLibS.Num{
 			return 0f;
 		}
 
+		public static float Cosine(IList<float> x, IList<float> y){
+			if (x.Count < 3){
+				return 0;
+			}
+			float xx = 0;
+			float yy = 0;
+			float xy = 0;
+			for (int i = 0; i < x.Count; i++){
+				float wx = x[i];
+				float wy = y[i];
+				xx += wx*wx;
+				yy += wy*wy;
+				xy += wx*wy;
+			}
+			double denom = xx*yy;
+			if (denom > 0.0){
+				return (float) (xy/Math.Sqrt(denom));
+			}
+			return 0f;
+		}
+
 		public static T[] FillArray<T>(Func<int, T> map, int len){
 			T[] array = new T[len];
 			for (int i = 0; i < len; i++){
