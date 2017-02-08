@@ -4,10 +4,15 @@ using BaseLibS.Param;
 
 namespace BaseLib.Param{
 	[Serializable]
-	internal class LabelParamWf : LabelParam{
-		[NonSerialized] private Label control;
-		internal LabelParamWf(string name) : base(name){}
-		internal LabelParamWf(string name, string value) : base(name, value){}
+	public class LabelParamWf : LabelParam{
+		[NonSerialized] protected Label control;
+
+	    public LabelParamWf(string name) : this(name, "") { }
+
+	    public LabelParamWf(string name, string value) : base(name, value)
+	    {
+	        control = new Label() {Text = Value};
+	    }
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
@@ -15,14 +20,12 @@ namespace BaseLib.Param{
 		}
 
 		public override void UpdateControlFromValue(){
-			if (control == null){
-				return;
-			}
 			control.Text = Value;
 		}
 
-		public override object CreateControl(){
-			return control = new Label{Text = Value};
+		public override object CreateControl()
+		{
+		    return control;
 		}
 	}
 }

@@ -88,7 +88,7 @@ namespace BaseLibS.Test
         [TestMethod]
         public void TestLabelParam()
         {
-            var sparam = new LabelParam("myname", "myvalue");
+            var sparam = new LabelParam("myname", "my\nmultiline\n\n\nvalue");
             var sparam2 = (LabelParam) sparam.ToXmlAndBack();
             Assert.AreEqual(sparam.Value, sparam2.Value);
             Assert.AreEqual(sparam.Name, sparam2.Name);
