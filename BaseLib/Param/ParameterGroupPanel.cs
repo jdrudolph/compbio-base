@@ -1,8 +1,10 @@
 ﻿using System.Windows.Forms;
 using BaseLibS.Param;
+using BaseLibS.Util;
 
 namespace BaseLib.Param{
 	public class ParameterGroupPanel : UserControl{
+		private readonly ToolTip toolTip1 = new ToolTip();
 		public ParameterGroup ParameterGroup { get; private set; }
 		private TableLayoutPanel grid;
 
@@ -14,7 +16,6 @@ namespace BaseLib.Param{
 			ParameterGroup = parameters1;
 			int nrows = ParameterGroup.Count;
 			grid = new TableLayoutPanel();
-			//{ HorizontalAlignment = System.Windows.HorizontalAlignment.Left, VerticalAlignment = VerticalAlignment.Top };
 			grid.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, paramNameWidth));
 			grid.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, totalWidth - paramNameWidth));
 			grid.Margin = new Padding(0);
@@ -42,12 +43,12 @@ namespace BaseLib.Param{
 		private void AddParameter(Parameter p, int i){
 			Label txt1 = new Label{Text = p.Name};
 			//ToolTipService.SetShowDuration(txt1, 400000);
-			//if (!string.IsNullOrEmpty(p.Help)){
-			//txt1.ToolTip = StringUtils.ReturnAtWhitespace(p.Help);
-			//}
+			if (!string.IsNullOrEmpty(p.Help)){
+				toolTip1.SetToolTip(txt1, StringUtils.ReturnAtWhitespace(p.Help));
+			}
 			object o = p.CreateControl();
 			if (o is Control){
-				Control c = (Control)o;
+				Control c = (Control) o;
 				c.Dock = DockStyle.Fill;
 				c.Margin = new Padding(0);
 				c.Visible = p.Visible;
@@ -57,12 +58,6 @@ namespace BaseLib.Param{
 			txt1.Visible = p.Visible;
 			grid.Controls.Add(txt1, 0, i);
 		}
-
-		//public void RegisterScrollViewer(System.Windows.Controls.ScrollViewer scrollViewer){
-		//	foreach (var child in grid.Controls){
-		//		(child as IScrollRegistrationTarget)?.RegisterScrollViewer(scrollViewer);
-		//	}
-		//}
 
 		public void Enable(){
 			grid.Enabled = true;

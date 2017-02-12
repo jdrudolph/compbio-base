@@ -367,6 +367,9 @@
     <EmbeddedResource Include="Param\ParameterForm.resx">
       <DependentUpon>ParameterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Param\ParameterGroupPanel.resx">
+      <DependentUpon>ParameterGroupPanel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
