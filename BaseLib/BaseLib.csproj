@@ -371,6 +371,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Query\DoubleQueryForm.resx">
+      <DependentUpon>DoubleQueryForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Query\FolderQueryForm.resx">
       <DependentUpon>FolderQueryForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -421,6 +424,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\Table\TableViewSelectionAgentForm.resx">
       <DependentUpon>TableViewSelectionAgentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Query\SymbolTypeQueryForm.resx">
+      <DependentUpon>SymbolTypeQueryForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

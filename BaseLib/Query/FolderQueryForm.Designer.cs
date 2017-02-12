@@ -78,9 +78,10 @@
 			// 
 			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.cancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.cancelButton.Location = new System.Drawing.Point(3, 3);
+			this.cancelButton.Location = new System.Drawing.Point(0, 0);
+			this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(74, 24);
+			this.cancelButton.Size = new System.Drawing.Size(80, 30);
 			this.cancelButton.TabIndex = 0;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -88,9 +89,10 @@
 			// okButton
 			// 
 			this.okButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.okButton.Location = new System.Drawing.Point(126, 3);
+			this.okButton.Location = new System.Drawing.Point(123, 0);
+			this.okButton.Margin = new System.Windows.Forms.Padding(0);
 			this.okButton.Name = "okButton";
-			this.okButton.Size = new System.Drawing.Size(74, 24);
+			this.okButton.Size = new System.Drawing.Size(80, 30);
 			this.okButton.TabIndex = 1;
 			this.okButton.Text = "OK";
 			this.okButton.UseVisualStyleBackColor = true;
@@ -98,7 +100,8 @@
 			// recursiveCheckBox
 			// 
 			this.recursiveCheckBox.AutoSize = true;
-			this.recursiveCheckBox.Location = new System.Drawing.Point(206, 3);
+			this.recursiveCheckBox.Location = new System.Drawing.Point(203, 0);
+			this.recursiveCheckBox.Margin = new System.Windows.Forms.Padding(0);
 			this.recursiveCheckBox.Name = "recursiveCheckBox";
 			this.recursiveCheckBox.Size = new System.Drawing.Size(74, 17);
 			this.recursiveCheckBox.TabIndex = 2;
@@ -123,9 +126,10 @@
 			// browseButton
 			// 
 			this.browseButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.browseButton.Location = new System.Drawing.Point(206, 3);
+			this.browseButton.Location = new System.Drawing.Point(203, 0);
+			this.browseButton.Margin = new System.Windows.Forms.Padding(0);
 			this.browseButton.Name = "browseButton";
-			this.browseButton.Size = new System.Drawing.Size(74, 23);
+			this.browseButton.Size = new System.Drawing.Size(80, 29);
 			this.browseButton.TabIndex = 0;
 			this.browseButton.Text = "Browse";
 			this.browseButton.UseVisualStyleBackColor = true;
@@ -133,9 +137,10 @@
 			// textBox1
 			// 
 			this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.textBox1.Location = new System.Drawing.Point(3, 3);
+			this.textBox1.Location = new System.Drawing.Point(0, 0);
+			this.textBox1.Margin = new System.Windows.Forms.Padding(0);
 			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(197, 20);
+			this.textBox1.Size = new System.Drawing.Size(203, 20);
 			this.textBox1.TabIndex = 1;
 			// 
 			// FolderQueryForm
@@ -146,6 +151,7 @@
 			this.CancelButton = this.cancelButton;
 			this.ClientSize = new System.Drawing.Size(289, 71);
 			this.Controls.Add(this.tableLayoutPanel1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(305, 110);
 			this.MinimizeBox = false;

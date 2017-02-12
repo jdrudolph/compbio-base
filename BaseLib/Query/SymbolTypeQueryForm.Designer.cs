@@ -75,9 +75,10 @@
 			// 
 			this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.cancelButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.cancelButton.Location = new System.Drawing.Point(3, 3);
+			this.cancelButton.Location = new System.Drawing.Point(0, 0);
+			this.cancelButton.Margin = new System.Windows.Forms.Padding(0);
 			this.cancelButton.Name = "cancelButton";
-			this.cancelButton.Size = new System.Drawing.Size(88, 21);
+			this.cancelButton.Size = new System.Drawing.Size(94, 27);
 			this.cancelButton.TabIndex = 0;
 			this.cancelButton.Text = "Cancel";
 			this.cancelButton.UseVisualStyleBackColor = true;
@@ -85,9 +86,10 @@
 			// okButton
 			// 
 			this.okButton.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.okButton.Location = new System.Drawing.Point(191, 3);
+			this.okButton.Location = new System.Drawing.Point(188, 0);
+			this.okButton.Margin = new System.Windows.Forms.Padding(0);
 			this.okButton.Name = "okButton";
-			this.okButton.Size = new System.Drawing.Size(89, 21);
+			this.okButton.Size = new System.Drawing.Size(95, 27);
 			this.okButton.TabIndex = 1;
 			this.okButton.Text = "OK";
 			this.okButton.UseVisualStyleBackColor = true;
@@ -100,11 +102,12 @@
 			this.tableLayoutPanel3.Controls.Add(this.comboBox1, 1, 0);
 			this.tableLayoutPanel3.Controls.Add(this.label1, 0, 0);
 			this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 3);
+			this.tableLayoutPanel3.Location = new System.Drawing.Point(0, 0);
+			this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
 			this.tableLayoutPanel3.Name = "tableLayoutPanel3";
 			this.tableLayoutPanel3.RowCount = 1;
 			this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.tableLayoutPanel3.Size = new System.Drawing.Size(283, 19);
+			this.tableLayoutPanel3.Size = new System.Drawing.Size(289, 25);
 			this.tableLayoutPanel3.TabIndex = 1;
 			// 
 			// comboBox1
@@ -113,7 +116,7 @@
 			this.comboBox1.FormattingEnabled = true;
 			this.comboBox1.Location = new System.Drawing.Point(103, 3);
 			this.comboBox1.Name = "comboBox1";
-			this.comboBox1.Size = new System.Drawing.Size(177, 21);
+			this.comboBox1.Size = new System.Drawing.Size(183, 21);
 			this.comboBox1.TabIndex = 0;
 			// 
 			// label1
@@ -124,7 +127,7 @@
 			this.label1.Size = new System.Drawing.Size(0, 13);
 			this.label1.TabIndex = 1;
 			// 
-			// SingleChoiceQueryForm
+			// SymbolTypeQueryForm
 			// 
 			this.AcceptButton = this.okButton;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -132,11 +135,12 @@
 			this.CancelButton = this.cancelButton;
 			this.ClientSize = new System.Drawing.Size(289, 58);
 			this.Controls.Add(this.tableLayoutPanel1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(305, 97);
 			this.MinimizeBox = false;
 			this.MinimumSize = new System.Drawing.Size(305, 97);
-			this.Name = "SingleChoiceQueryForm";
+			this.Name = "SymbolTypeQueryForm";
 			this.ShowIcon = false;
 			this.tableLayoutPanel1.ResumeLayout(false);
 			this.tableLayoutPanel2.ResumeLayout(false);

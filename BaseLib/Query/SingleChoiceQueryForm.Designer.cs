@@ -136,6 +136,7 @@
 			this.CancelButton = this.cancelButton;
 			this.ClientSize = new System.Drawing.Size(289, 58);
 			this.Controls.Add(this.tableLayoutPanel1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
 			this.MaximizeBox = false;
 			this.MaximumSize = new System.Drawing.Size(305, 97);
 			this.MinimizeBox = false;
