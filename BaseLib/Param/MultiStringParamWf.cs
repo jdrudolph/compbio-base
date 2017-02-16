@@ -33,7 +33,7 @@ namespace BaseLib.Param{
 		}
 
 		public override object CreateControl(){
-			return control = new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true};
+			return control = new TextBox{Text = StringUtils.Concat("\n", Value), AcceptsReturn = true, Multiline = true};
 		}
 	}
 }
