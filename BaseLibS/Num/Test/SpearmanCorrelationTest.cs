@@ -3,6 +3,13 @@ using BaseLibS.Num.Distrib;
 
 namespace BaseLibS.Num.Test{
 	public class SpearmanCorrelationTest{
+		public static double Test(double r, int n){
+			double bothtails;
+			double lefttail;
+			double righttail;
+			Test(r, n, out bothtails, out lefttail, out righttail);
+			return bothtails;
+		}
 
 		public static void Test(double r, int n, out double bothtails, out double lefttail, out double righttail){
 			if (n < 5){
@@ -435,6 +442,5 @@ namespace BaseLibS.Num.Test{
 			}
 			return StudentsT.Cumulative(n - 2, t);
 		}
-
 	}
 }
