@@ -11,149 +11,194 @@ using System.Threading;
 using BaseLibS.Api;
 using BaseLibS.Num;
 
-namespace BaseLibS.Util{
-	public static class FileUtils{
-		public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
-		//public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa;*.fasta.gz;*.fas.gz;*.faa.gz;*.fa.gz";
-		public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa";
+namespace BaseLibS.Util
+{
+    public static class FileUtils
+    {
+        public static string dateFormat = "dd/MM/yyyy HH:mm:ss";
+        //public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa;*.fasta.gz;*.fas.gz;*.faa.gz;*.fa.gz";
+        public static string fastaFilter = "Fasta file (*.fasta)|*.fasta;*.fas;*.faa;*.fa";
 
-		public static string imageFilter =
-			"All files|*.bmp;*.gif;*.jpg;*jif;*jpe;*jpeg;*.png|BMP Windows or OS/2 Bitmap (*.bmp)|*.bmp|" +
-			"GIF Graphics Interchange Format (*.gif)|*.gif|" +
-			"JPG JPEG (*.jpg,*jif,*jpe,*jpeg)|*.jpg;*jif;*jpe;*jpeg|PNG Portable Network Graphics (*.png)|*.png";
+        public static string imageFilter =
+            "All files|*.bmp;*.gif;*.jpg;*jif;*jpe;*jpeg;*.png|BMP Windows or OS/2 Bitmap (*.bmp)|*.bmp|" +
+            "GIF Graphics Interchange Format (*.gif)|*.gif|" +
+            "JPG JPEG (*.jpg,*jif,*jpe,*jpeg)|*.jpg;*jif;*jpe;*jpeg|PNG Portable Network Graphics (*.png)|*.png";
 
-		private static readonly Random random = new Random();
-		public static string executableFile = Assembly.GetEntryAssembly().Location;
-		public static string executablePath = Path.GetDirectoryName(executableFile);
+        private static readonly Random random = new Random();
+        public static string executableFile = Assembly.GetEntryAssembly().Location;
+        public static string executablePath = Path.GetDirectoryName(executableFile);
 
-		public static string GetConfigPath(){
-			return Path.Combine(Path.GetDirectoryName(executableFile), "conf");
-		}
+        public static string GetConfigPath()
+        {
+            return Path.Combine(Path.GetDirectoryName(executableFile), "conf");
+        }
 
-		public static string GetImgPath(){
-			return Path.Combine(Path.GetDirectoryName(executableFile), "img");
-		}
+        public static string GetImgPath()
+        {
+            return Path.Combine(Path.GetDirectoryName(executableFile), "img");
+        }
 
-		public static string GetContaminantFilePath(){
-			return Path.Combine(GetConfigPath(), "contaminants.fasta");
-		}
+        public static string GetContaminantFilePath()
+        {
+            return Path.Combine(GetConfigPath(), "contaminants.fasta");
+        }
 
-		public static string GetContaminantParseRule(){
-			return ">([^ ]*)";
-		}
+        public static string GetContaminantParseRule()
+        {
+            return ">([^ ]*)";
+        }
 
-		public static string[] GetAllFilesWithSuffix(string folder, string[] suffixes, bool recursive){
-			if (string.IsNullOrEmpty(folder)){
-				return new string[0];
-			}
-			if (!Directory.Exists(folder)){
-				return new string[0];
-			}
-			if (recursive){
-				HashSet<string> result = new HashSet<string>();
-				AddFilesWithSuffix(folder, suffixes, result);
-				return ArrayUtils.ToArray(result);
-			} else{
-				HashSet<string> result = new HashSet<string>();
-				foreach (string path in Directory.GetFiles(folder)){
-					if (ValidPath(path, suffixes)){
-						result.Add(path);
-					}
-				}
-				return ArrayUtils.ToArray(result);
-			}
-		}
+        public static string[] GetAllFilesWithSuffix(string folder, string[] suffixes, bool recursive)
+        {
+            if (string.IsNullOrEmpty(folder))
+            {
+                return new string[0];
+            }
+            if (!Directory.Exists(folder))
+            {
+                return new string[0];
+            }
+            if (recursive)
+            {
+                HashSet<string> result = new HashSet<string>();
+                AddFilesWithSuffix(folder, suffixes, result);
+                return ArrayUtils.ToArray(result);
+            }
+            else
+            {
+                HashSet<string> result = new HashSet<string>();
+                foreach (string path in Directory.GetFiles(folder))
+                {
+                    if (ValidPath(path, suffixes))
+                    {
+                        result.Add(path);
+                    }
+                }
+                return ArrayUtils.ToArray(result);
+            }
+        }
 
-		private static void AddFilesWithSuffix(string folder, string[] suffixes, HashSet<string> result){
-			foreach (string path in Directory.GetFiles(folder)){
-				if (ValidPath(path, suffixes)){
-					result.Add(path);
-				}
-			}
-			foreach (string dir in Directory.GetDirectories(folder)){
-				AddFilesWithSuffix(dir, suffixes, result);
-			}
-		}
+        private static void AddFilesWithSuffix(string folder, string[] suffixes, HashSet<string> result)
+        {
+            foreach (string path in Directory.GetFiles(folder))
+            {
+                if (ValidPath(path, suffixes))
+                {
+                    result.Add(path);
+                }
+            }
+            foreach (string dir in Directory.GetDirectories(folder))
+            {
+                AddFilesWithSuffix(dir, suffixes, result);
+            }
+        }
 
-		private static bool ValidPath(string path, IEnumerable<string> suffixes){
-			foreach (string suffix in suffixes){
-				if (path.EndsWith(suffix.ToUpper())){
-					return true;
-				}
-				if (path.EndsWith(suffix.ToLower())){
-					return true;
-				}
-			}
-			return false;
-		}
+        private static bool ValidPath(string path, IEnumerable<string> suffixes)
+        {
+            foreach (string suffix in suffixes)
+            {
+                if (path.EndsWith(suffix.ToUpper()))
+                {
+                    return true;
+                }
+                if (path.EndsWith(suffix.ToLower()))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
 
-		public static string[] GetAllSuffixesInFolder(string folder, bool recursive){
-			if (string.IsNullOrEmpty(folder)){
-				return new string[0];
-			}
-			if (!Directory.Exists(folder)){
-				return new string[0];
-			}
-			if (recursive){
-				HashSet<string> result = new HashSet<string>();
-				AddSuffixes(folder, result);
-				return ArrayUtils.ToArray(result);
-			} else{
-				HashSet<string> result = new HashSet<string>();
-				foreach (string path in Directory.GetFiles(folder)){
-					if (!path.Contains('.')){
-						continue;
-					}
-					int ind = path.LastIndexOf('.');
-					string suffix = path.Substring(ind);
-					result.Add(suffix);
-				}
-				return ArrayUtils.ToArray(result);
-			}
-		}
+        public static string[] GetAllSuffixesInFolder(string folder, bool recursive)
+        {
+            if (string.IsNullOrEmpty(folder))
+            {
+                return new string[0];
+            }
+            if (!Directory.Exists(folder))
+            {
+                return new string[0];
+            }
+            if (recursive)
+            {
+                HashSet<string> result = new HashSet<string>();
+                AddSuffixes(folder, result);
+                return ArrayUtils.ToArray(result);
+            }
+            else
+            {
+                HashSet<string> result = new HashSet<string>();
+                foreach (string path in Directory.GetFiles(folder))
+                {
+                    if (!path.Contains('.'))
+                    {
+                        continue;
+                    }
+                    int ind = path.LastIndexOf('.');
+                    string suffix = path.Substring(ind);
+                    result.Add(suffix);
+                }
+                return ArrayUtils.ToArray(result);
+            }
+        }
 
-		private static void AddSuffixes(string folder, HashSet<string> result){
-			foreach (string file in Directory.GetFiles(folder)){
-				if (!file.Contains('.')){
-					continue;
-				}
-				int ind = file.LastIndexOf('.');
-				string suffix = file.Substring(ind);
-				result.Add(suffix);
-			}
-			foreach (string dir in Directory.GetDirectories(folder)){
-				AddSuffixes(dir, result);
-			}
-		}
+        private static void AddSuffixes(string folder, HashSet<string> result)
+        {
+            foreach (string file in Directory.GetFiles(folder))
+            {
+                if (!file.Contains('.'))
+                {
+                    continue;
+                }
+                int ind = file.LastIndexOf('.');
+                string suffix = file.Substring(ind);
+                result.Add(suffix);
+            }
+            foreach (string dir in Directory.GetDirectories(folder))
+            {
+                AddSuffixes(dir, result);
+            }
+        }
 
-		public static T[] GetPlugins<T>(string[] filenames, bool onlyActive) where T : INamedListItem{
-			IEnumerable<string> pluginFiles = GetPluginFiles(filenames);
-			List<T> result = new List<T>();
-			foreach (string pluginFile in pluginFiles){
-				string n = pluginFile.Substring(pluginFile.LastIndexOf("\\", StringComparison.InvariantCulture) + 1,
-					pluginFile.IndexOf(".dll", StringComparison.InvariantCulture) -
-					pluginFile.LastIndexOf("\\", StringComparison.InvariantCulture) - 1);
-				Assembly ass = Assembly.Load(n);
-				Type[] types;
-				try{
-					types = ass.GetTypes();
-				} catch (Exception){
-					continue;
-				}
-				foreach (Type t in types){
-					try{
-						object o = Activator.CreateInstance(t);
-						if (o is T){
-							T x = (T) o;
-							if (!onlyActive || x.IsActive){
-								result.Add(x);
-							}
-						}
-					} catch (Exception){}
-				}
-			}
-			return Sort(result.ToArray());
-		}
+        /// <summary>
+        /// Search for assemblies under the specified wild-card file names.
+        /// Instantiates and returns types from these assemlies which implement <code>T</code> and have a parameterless constructor
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="filenames">File names with wild-cards</param>
+        /// <param name="onlyActive">Check if <code>INamedListItem.IsActive</code> is set</param>
+        /// <returns></returns>
+        public static T[] GetPlugins<T>(string[] filenames, bool onlyActive) where T : INamedListItem
+        {
+            IEnumerable<string> pluginFiles = GetPluginFiles(filenames);
+            List<T> result = new List<T>();
+            foreach (string pluginFile in pluginFiles)
+            {
+                var name = Path.GetFileNameWithoutExtension(pluginFile);
+                Assembly ass = Assembly.Load(name);
+                var types = GetLoadableTypes(ass)
+                        .Where(type => typeof(T).IsAssignableFrom(type) && (type.GetConstructor(Type.EmptyTypes) != null))
+                        .Select(type => (T)Activator.CreateInstance(type));
+                if (onlyActive)
+                {
+                    types = types.Where(obj => obj.IsActive);
+                }
+                result.AddRange(types);
+            }
+            return Sort(result.ToArray());
+        }
+
+        private static IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+        {
+            try
+            {
+                return assembly.GetTypes();
+            }
+            catch (ReflectionTypeLoadException e)
+            {
+                return e.Types.Where(t => t != null);
+            }
+	    }
 
 		public static T[] GetPluginsOfType<T>(IList<INamedListItem> plugins){
 			List<T> result = new List<T>();
