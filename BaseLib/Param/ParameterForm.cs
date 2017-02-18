@@ -24,6 +24,7 @@ namespace BaseLib.Param{
 			cancelButton.Click += CancelButtonClick;
 			helpButton.Click += HelpButtonClick;
 			helpButton.Image = new Bitmap(GraphUtils.ToBitmap(Bitmap2.GetImage("help.png")), 18, 18);
+			KeyDown += OnKeyDownHandler;
 			Height = (int) (parameterPanel1.Init(parameters) + 65);
 			helpPanel.Controls.Clear();
 			List<string> titles = new List<string>();
@@ -68,8 +69,14 @@ namespace BaseLib.Param{
 			Text = title;
 		}
 
+		public sealed override string Text{
+			get { return base.Text; }
+			set { base.Text = value; }
+		}
+
 		public void FocusOkButton(){
-			Invoke(new Action(delegate { okButton.Focus(); }));
+			//Invoke(new Action(delegate { okButton.Focus(); }));
+			okButton.Focus();
 		}
 
 		private void OkButtonClick(object sender, EventArgs e){

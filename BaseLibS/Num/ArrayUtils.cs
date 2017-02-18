@@ -116,6 +116,17 @@ namespace BaseLibS.Num{
 			return ind;
 		}
 
+		public static int[] MinInds(IList<int> x){
+			int min = Min(x);
+			List<int> result = new List<int>();
+			for (int i = 0; i < x.Count; i++){
+				if (x[i] == min){
+					result.Add(i);
+				}
+			}
+			return result.ToArray();
+		}
+
 		public static double Range(IList<double> x){
 			return Max(x) - Min(x);
 		}
