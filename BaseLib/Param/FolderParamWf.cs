@@ -11,14 +11,14 @@ namespace BaseLib.Param{
 		public override ParamType Type => ParamType.WinForms;
 
 		public override void SetValueFromControl(){
-			Value = control.Text;
+			Value = control.Text1;
 		}
 
 		public override void UpdateControlFromValue(){
 			if (control == null){
 				return;
 			}
-			control.Text = Value;
+			control.Text1 = Value;
 		}
 
 		public override object CreateControl(){
