@@ -603,6 +603,9 @@ namespace BaseLibS.Util{
 		}
 
 		public static string[] SplitLinesAtWhitespace(string s, int len){
+			if (s == null){
+				return new string[0];
+			}
 			List<string> result = new List<string>();
 			StringBuilder line = new StringBuilder();
 			foreach (char c in s){
