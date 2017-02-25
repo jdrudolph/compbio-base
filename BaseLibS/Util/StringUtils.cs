@@ -864,7 +864,7 @@ namespace BaseLibS.Util{
 				"max frame number", "ion mobility index", "ion mobility index length", "ion mobility index length (fwhm)",
 				"isotope correlation", "peptides", "razor + unique peptides", "unique peptides", "sequence coverage [%]",
 				"unique sequence coverage [%]", "unique + razor sequence coverage [%]", "mol. weight [kda]", "dm [mda]", "dm [ppm]",
-				"time [sec]", "du"
+				"time [sec]", "du", "isotope index"
 			});
 
 		public static readonly HashSet<string> multiNumericColDefaultNames =
