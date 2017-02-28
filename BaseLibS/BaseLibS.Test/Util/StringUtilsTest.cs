@@ -14,7 +14,7 @@ namespace BaseLibS.Test.Util
             var concatList = StringUtils.Concat(",", strings);
             Assert.AreEqual(",b,c", concatList);
             var concatEnumerable = StringUtils.Concat(",", strings.AsEnumerable());
-            Assert.AreEqual("b,c", concatEnumerable);
+            Assert.AreEqual(",b,c", concatEnumerable);
         }
     }
 }
