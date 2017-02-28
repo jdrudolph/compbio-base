@@ -6,7 +6,7 @@ using BaseLibS.Num.Cluster;
 
 namespace BaseLibS.Test
 {
-    public static class Util
+    public static class TestUtils
     {
         public static float[,] ReadMatrix(string path)
         {

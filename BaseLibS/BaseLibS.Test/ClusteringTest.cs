@@ -20,7 +20,7 @@ namespace BaseLibS.Test
         public void TestClustering()
         {
             var hclust = new HierarchicalClustering();
-            var vals = Util.ReadMatrix("Examples/clustering_array_copy_error.txt.gz");
+            var vals = TestUtils.ReadMatrix("Examples/clustering_array_copy_error.txt.gz");
             var data = new FloatMatrixIndexer(vals);
             var distance = new EuclideanDistance();
             hclust.TreeClusterKmeans(data, MatrixAccess.Columns, distance, HierarchicalClusterLinkage.Average, false,
