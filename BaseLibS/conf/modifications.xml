@@ -191,7 +191,7 @@
       <type>Standard</type>
       <terminus_type>none</terminus_type>
    </modification>
-   <modification title="Hydroxyproline" description="4-hydroxyproline" create_date="2014-05-06T14:24:08.7808168+02:00" last_modified_date="2014-05-06T14:44:05.2693498+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="C(5) H(9) N">
+   <modification title="Hydroxyproline" description="4-hydroxyproline" create_date="2014-05-06T14:24:08.7808168+02:00" last_modified_date="2014-05-06T14:44:05.2693498+02:00" user="cox" reporterCorrectionM2="0" reporterCorrectionM1="0" reporterCorrectionP1="0" reporterCorrectionP2="0" reporterCorrectionType="false" composition="O">
       <position>anywhere</position>
       <modification_site site="P">
          <neutralloss_collection />
